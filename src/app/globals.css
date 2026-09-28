@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  /* Fonds et texte — charte CAXE (CLAUDE.md section 11) */
+  --bg: #07111b;
+  --panel: #0b1622;
+  --text: #f4ecd8;
+  --text-muted: rgba(244, 236, 216, 0.58);
+  --text-faint: rgba(244, 236, 216, 0.34);
+  --line: rgba(244, 236, 216, 0.14);
+
+  /* Accent tricolore */
+  --blue-1: #5b9fec;
+  --blue-2: #1e4e96;
+  --white-1: #ffffff;
+  --white-2: #cdd3da;
+  --red-1: #f2686b;
+  --red-2: #b71c2b;
+
+  /* Secondaires */
+  --amber-1: #ffd166;
+  --amber-2: #c77d22;
+  --neutral-1: rgba(244, 236, 216, 0.5);
+  --neutral-2: rgba(244, 236, 216, 0.18);
+
+  --titre: var(--font-titre), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, Arial, sans-serif;
+  --corps: var(--font-corps), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, Arial, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --font-sans: var(--corps);
+  --font-titre: var(--titre);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--corps);
+}
+
+h1,
+h2,
+h3,
+.font-titre {
+  font-family: var(--titre);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Accent de texte en dégradé — réservé aux titres de marque, pas aux écrans de saisie */
+.accent-degrade {
+  background: linear-gradient(100deg, var(--blue-1), var(--white-1) 60%, var(--red-1));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.barre-degrade {
+  background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
