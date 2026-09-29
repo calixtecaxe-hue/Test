@@ -37,12 +37,15 @@ export default function Accueil() {
         <section className="relative overflow-hidden px-6 pb-24 pt-16 sm:pt-24">
           <FondAnime />
           <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
-            <Image
-              src={logoComplet}
-              alt="CAXE — Un acte, un destin"
-              priority
-              className="h-28 w-auto sm:h-36"
-            />
+            <div className="relative">
+              <div className="halo-logo" />
+              <Image
+                src={logoComplet}
+                alt="CAXE — Un acte, un destin"
+                priority
+                className="relative h-28 w-auto sm:h-36"
+              />
+            </div>
             <p className="mt-8 max-w-xl text-balance text-lg text-[var(--text-muted)]">
               L&apos;auto-audit d&apos;entreprise, enfin accessible à tous les
               dirigeants.
@@ -54,7 +57,7 @@ export default function Accueil() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/inscription"
-                className="rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
+                className="bouton-eclat rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
               >
                 Créer un compte
               </Link>
@@ -109,7 +112,7 @@ export default function Accueil() {
         <section className="mx-auto max-w-5xl px-6 py-20">
           <Reveal>
             <div className="flex items-end justify-between gap-4">
-              <h2 className="text-2xl sm:text-3xl">Les agents</h2>
+              <h2 className="accent-degrade text-2xl sm:text-3xl">Les agents</h2>
               <Link
                 href="/agents"
                 className="whitespace-nowrap text-sm text-[var(--blue-1)] hover:underline"
@@ -147,14 +150,14 @@ export default function Accueil() {
         <section className="px-6 py-20">
           <Reveal>
             <div className="mx-auto flex max-w-3xl flex-col items-center rounded-xl border border-[var(--line)] bg-[var(--panel)] px-6 py-12 text-center">
-              <h2 className="text-2xl sm:text-3xl">Commencer votre audit</h2>
+              <h2 className="accent-degrade text-2xl sm:text-3xl">Commencer votre audit</h2>
               <p className="mt-4 max-w-md text-[var(--text-muted)]">
                 La création d&apos;un compte prend quelques minutes. Vous
                 répondez au questionnaire à votre rythme.
               </p>
               <Link
                 href="/inscription"
-                className="mt-8 rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
+                className="bouton-eclat mt-8 rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
               >
                 Créer un compte
               </Link>

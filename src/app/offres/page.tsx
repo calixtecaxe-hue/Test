@@ -19,7 +19,7 @@ export default function OffresPage() {
         <section className="relative overflow-hidden px-6 pb-8 pt-12 sm:pt-16">
           <FondAnime />
           <div className="relative z-10 mx-auto max-w-3xl text-center">
-            <h1 className="text-3xl sm:text-4xl">Nos offres</h1>
+            <h1 className="accent-degrade text-3xl sm:text-4xl">Nos offres</h1>
             <p className="mt-5 text-[var(--text-muted)]">
               Un abonnement mensuel par paliers, selon le nombre
               d&apos;agents souscrits. Vous choisissez les agents qui vous
@@ -71,7 +71,7 @@ export default function OffresPage() {
               </p>
               <Link
                 href="/inscription"
-                className="mt-8 rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
+                className="bouton-eclat mt-8 rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
               >
                 Créer un compte
               </Link>

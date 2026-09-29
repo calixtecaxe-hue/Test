@@ -19,7 +19,7 @@ export default function AgentsPage() {
         <section className="relative overflow-hidden px-6 pb-8 pt-12 sm:pt-16">
           <FondAnime />
           <div className="relative z-10 mx-auto max-w-3xl text-center">
-            <h1 className="text-3xl sm:text-4xl">Les agents</h1>
+            <h1 className="accent-degrade text-3xl sm:text-4xl">Les agents</h1>
             <p className="mt-5 text-[var(--text-muted)]">
               Chaque agent couvre un périmètre précis et ne dépasse jamais son
               rôle : le juridique, le fiscal et le médical restent hors
@@ -67,7 +67,7 @@ export default function AgentsPage() {
                   {agent.disponible ? (
                     <Link
                       href="/inscription"
-                      className="mt-6 inline-flex w-fit rounded-[4px] bg-[var(--blue-1)] px-4 py-2 text-sm font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
+                      className="bouton-eclat mt-6 inline-flex w-fit rounded-[4px] bg-[var(--blue-1)] px-4 py-2 text-sm font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
                     >
                       Créer un compte
                     </Link>

@@ -21,7 +21,7 @@ export function SiteHeader() {
             <Link
               key={lien.href}
               href={lien.href}
-              className="transition hover:text-[var(--text)]"
+              className="lien-nav transition hover:text-[var(--text)]"
             >
               {lien.label}
             </Link>
