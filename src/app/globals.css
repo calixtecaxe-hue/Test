@@ -165,11 +165,8 @@ h3,
   animation: flux-chemin 1.6s linear infinite;
 }
 
-@media (min-width: 768px) {
-  .chemin::before {
-    left: 50%;
-    margin-left: -1px;
-  }
+.chemin-virage {
+  display: none;
 }
 
 .etape-chemin {
@@ -179,9 +176,13 @@ h3,
   gap: 20px;
 }
 
+.etape-noeud-wrap {
+  flex-shrink: 0;
+  width: 56px;
+}
+
 .etape-noeud {
   position: relative;
-  flex-shrink: 0;
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -218,8 +219,11 @@ h3,
   transition: border-color 0.3s ease, color 0.3s ease;
 }
 
-.etape-carte {
+.etape-carte-wrap {
   flex: 1;
+}
+
+.etape-carte {
   border-radius: 12px;
   border: 1px solid var(--line);
   background: var(--panel);
@@ -243,21 +247,74 @@ h3,
   }
 }
 
-@media (min-width: 768px) {
+/* À partir de 900px, le chemin prend ses aises : les étapes se décalent
+   à gauche et à droite sur une courbe (virages), plutôt que de rester
+   collées à une ligne centrale. */
+@media (min-width: 900px) {
+  .chemin {
+    position: relative;
+    display: block;
+    /* `height` explicite : un `top` en % sur un enfant absolu ne se
+       résout pas contre un conteneur dont la hauteur vient seulement
+       de `min-height`. */
+    height: 760px;
+  }
+
+  .chemin::before {
+    display: none;
+  }
+
+  .chemin-virage {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .chemin-virage path {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 2;
+    stroke-dasharray: 1 3;
+    vector-effect: non-scaling-stroke;
+    animation: flux-virage 40s linear infinite;
+  }
+
   .etape-chemin {
-    display: grid;
-    grid-template-columns: 1fr 56px 1fr;
-    align-items: center;
-    gap: 28px;
+    position: absolute;
+    left: var(--vx);
+    top: var(--vy);
+    display: block;
+    width: 0;
+    gap: 0;
   }
-  .etape-chemin .etape-carte {
-    grid-column: 1;
-  }
+
   .etape-chemin .etape-noeud {
-    grid-column: 2;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
   }
-  .etape-chemin.inverse .etape-carte {
-    grid-column: 3;
+
+  .etape-chemin .etape-carte {
+    position: absolute;
+    top: -64px;
+    width: 300px;
+  }
+
+  .etape-chemin.carte-droite .etape-carte {
+    left: 46px;
+  }
+
+  .etape-chemin.carte-gauche .etape-carte {
+    right: 46px;
+  }
+}
+
+@keyframes flux-virage {
+  to {
+    stroke-dashoffset: -400;
   }
 }
 

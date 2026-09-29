@@ -5,10 +5,15 @@ import { EtoilesLogo } from "@/components/marketing/etoiles-logo-lazy";
 import { Reveal } from "@/components/marketing/reveal";
 import { AGENTS, couleurAgent } from "@/lib/agents";
 
+const chemin = "M 18 8 C 65 8, 82 25, 82 50 C 82 75, 65 92, 18 92";
+
 const etapes = [
   {
     numero: "01",
     couleur: "bleu",
+    vx: 18,
+    vy: 8,
+    cote: "droite",
     titre: "Un questionnaire pour votre métier",
     texte:
       "Vous répondez à des questions rédigées à l'avance pour votre secteur. Aucune question n'est obligatoire, et une estimation est toujours acceptée.",
@@ -26,6 +31,9 @@ const etapes = [
   {
     numero: "02",
     couleur: "blanc",
+    vx: 82,
+    vy: 50,
+    cote: "gauche",
     titre: "Un score calculé, pas deviné",
     texte:
       "Vos réponses sont comparées à des seuils fixes. Le calcul est le même pour tout le monde : deux dirigeants qui répondent pareil obtiennent le même score.",
@@ -40,6 +48,9 @@ const etapes = [
   {
     numero: "03",
     couleur: "rouge",
+    vx: 18,
+    vy: 92,
+    cote: "droite",
     titre: "Un plan d'action concret",
     texte:
       "Le compte rendu met en forme les résultats déjà calculés et propose des actions, avec une échéance propre à chacune.",
@@ -87,20 +98,33 @@ export default function Accueil() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-3xl px-6 py-20">
+        <section className="mx-auto max-w-4xl px-6 py-20">
           <Reveal>
             <h2 className="text-center text-2xl sm:text-3xl">
               Comment ça marche
             </h2>
           </Reveal>
           <div className="chemin mt-16">
+            <svg
+              className="chemin-virage"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path d={chemin} />
+            </svg>
             {etapes.map((etape, index) => (
-              <Reveal key={etape.numero} delai={index * 150}>
-                <div
-                  className={`etape-chemin etape-${etape.couleur} ${
-                    index % 2 === 1 ? "inverse" : ""
-                  }`}
-                >
+              <div
+                key={etape.numero}
+                className={`etape-chemin etape-${etape.couleur} carte-${etape.cote}`}
+                style={
+                  {
+                    "--vx": `${etape.vx}%`,
+                    "--vy": `${etape.vy}%`,
+                  } as React.CSSProperties
+                }
+              >
+                <Reveal delai={index * 150} className="etape-noeud-wrap">
                   <div className="etape-noeud">
                     <svg
                       className="etape-icone"
@@ -115,12 +139,14 @@ export default function Accueil() {
                     </svg>
                     <span className="etape-numero">{etape.numero}</span>
                   </div>
+                </Reveal>
+                <Reveal delai={index * 150 + 80} className="etape-carte-wrap">
                   <div className="etape-carte">
                     <h3>{etape.titre}</h3>
                     <p>{etape.texte}</p>
                   </div>
-                </div>
-              </Reveal>
+                </Reveal>
+              </div>
             ))}
           </div>
         </section>
