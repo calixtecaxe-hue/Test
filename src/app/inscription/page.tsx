@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 import { METIERS } from "@/lib/metiers";
 import { Champ, classeChamp } from "@/components/champ";
+import logo from "../../../public/logo-caxe.png";
 
 const metiersActifs = METIERS.filter((m) => m.actif);
 
@@ -82,7 +84,10 @@ export default function Inscription() {
 
   return (
     <main className="mx-auto flex w-full max-w-xl flex-1 flex-col px-6 py-16">
-      <h1 className="text-2xl">Créer un compte</h1>
+      <Link href="/" className="w-fit">
+        <Image src={logo} alt="CAXE" className="h-5 w-auto" />
+      </Link>
+      <h1 className="mt-8 text-2xl">Créer un compte</h1>
       <p className="mt-2 text-[var(--text-muted)]">
         Ces informations servent à choisir le questionnaire et les seuils de
         comparaison adaptés à votre entreprise.

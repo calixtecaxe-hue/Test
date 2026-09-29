@@ -63,6 +63,87 @@ h3,
   background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
 }
 
+/* Fond animé — réservé aux pages de présentation (CLAUDE.md section 11 :
+   les dégradés servent à attirer l'œil sur les supports de communication ;
+   les écrans de saisie du produit restent sobres, sans ce fond). */
+.fond-anime {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.fond-anime::before,
+.fond-anime::after {
+  content: "";
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  max-width: 900px;
+  max-height: 900px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.28;
+  will-change: transform;
+}
+
+.fond-anime::before {
+  top: -20%;
+  left: -10%;
+  background: radial-gradient(circle, var(--blue-1) 0%, transparent 70%);
+  animation: derive-un 26s ease-in-out infinite;
+}
+
+.fond-anime::after {
+  bottom: -25%;
+  right: -10%;
+  background: radial-gradient(circle, var(--red-1) 0%, transparent 70%);
+  animation: derive-deux 32s ease-in-out infinite;
+}
+
+@keyframes derive-un {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(8%, 10%) scale(1.15);
+  }
+}
+
+@keyframes derive-deux {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-6%, -8%) scale(1.1);
+  }
+}
+
+/* Apparition au défilement */
+.apparition {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.apparition.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Halo au survol d'une carte (page Agents IA) */
+.carte-agent {
+  position: relative;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.carte-agent:hover {
+  transform: translateY(-4px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
