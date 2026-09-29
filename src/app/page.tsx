@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
-import { FondAnime } from "@/components/marketing/fond-anime";
+import { EtoilesLogo } from "@/components/marketing/etoiles-logo-lazy";
 import { Reveal } from "@/components/marketing/reveal";
 import { AGENTS, couleurAgent } from "@/lib/agents";
 import logoComplet from "../../public/logo-caxe-complet.png";
@@ -35,10 +35,9 @@ export default function Accueil() {
 
       <main className="flex-1">
         <section className="relative overflow-hidden px-6 pb-24 pt-16 sm:pt-24">
-          <FondAnime />
           <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
             <div className="relative">
-              <div className="halo-logo" />
+              <EtoilesLogo />
               <Image
                 src={logoComplet}
                 alt="CAXE — Un acte, un destin"
