@@ -87,7 +87,7 @@ h3,
    voir etoiles-logo.tsx) passe à proximité. */
 .constellation-logo {
   position: absolute;
-  inset: -50% -15%;
+  inset: -22% -8%;
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
@@ -132,6 +132,184 @@ h3,
   opacity: 1;
   transform: translateY(0) scale(1);
   filter: blur(0);
+}
+
+/* « Comment ça marche » en chemin — les étapes se suivent de haut en
+   bas, reliées par un connecteur en pointillés qui défile doucement.
+   Chaque étape a sa propre couleur (bleu / blanc / rouge, jamais les
+   trois à la fois) qui s'allume au survol, en écho aux agents. */
+.chemin {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* Un seul connecteur continu sur toute la hauteur, plutôt qu'un segment
+   par nœud : la hauteur des cartes varie, un segment fixe par nœud ne
+   rejoindrait pas toujours le suivant. Les nœuds (opaques, rendus après
+   dans le DOM) s'affichent naturellement par-dessus. */
+.chemin::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 27px;
+  width: 2px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--line) 0 6px,
+    transparent 6px 16px
+  );
+  background-size: 2px 32px;
+  animation: flux-chemin 1.6s linear infinite;
+}
+
+@media (min-width: 768px) {
+  .chemin::before {
+    left: 50%;
+    margin-left: -1px;
+  }
+}
+
+.etape-chemin {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.etape-noeud {
+  position: relative;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.etape-icone {
+  width: 22px;
+  height: 22px;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.etape-numero {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  font-family: var(--titre);
+  font-size: 10px;
+  color: var(--text-faint);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.etape-carte {
+  flex: 1;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 18px 22px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.etape-carte h3 {
+  font-size: 17px;
+}
+
+.etape-carte p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+@keyframes flux-chemin {
+  to {
+    background-position: 0 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  .etape-chemin {
+    display: grid;
+    grid-template-columns: 1fr 56px 1fr;
+    align-items: center;
+    gap: 28px;
+  }
+  .etape-chemin .etape-carte {
+    grid-column: 1;
+  }
+  .etape-chemin .etape-noeud {
+    grid-column: 2;
+  }
+  .etape-chemin.inverse .etape-carte {
+    grid-column: 3;
+  }
+}
+
+.etape-bleu:hover .etape-noeud {
+  border-color: var(--blue-1);
+  box-shadow: 0 0 0 4px rgba(91, 159, 236, 0.16), 0 0 22px -4px var(--blue-1);
+  transform: scale(1.06);
+}
+.etape-bleu:hover .etape-icone,
+.etape-bleu:hover .etape-numero {
+  color: var(--blue-1);
+}
+.etape-bleu:hover .etape-numero {
+  border-color: var(--blue-1);
+}
+.etape-bleu:hover .etape-carte {
+  border-color: var(--blue-1);
+  box-shadow: 0 12px 28px -20px var(--blue-1);
+}
+
+.etape-blanc:hover .etape-noeud {
+  border-color: var(--white-1);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.14), 0 0 22px -4px var(--white-1);
+  transform: scale(1.06);
+}
+.etape-blanc:hover .etape-icone,
+.etape-blanc:hover .etape-numero {
+  color: var(--white-1);
+}
+.etape-blanc:hover .etape-numero {
+  border-color: var(--white-1);
+}
+.etape-blanc:hover .etape-carte {
+  border-color: var(--white-2);
+  box-shadow: 0 12px 28px -20px var(--white-1);
+}
+
+.etape-rouge:hover .etape-noeud {
+  border-color: var(--red-1);
+  box-shadow: 0 0 0 4px rgba(242, 104, 107, 0.16), 0 0 22px -4px var(--red-1);
+  transform: scale(1.06);
+}
+.etape-rouge:hover .etape-icone,
+.etape-rouge:hover .etape-numero {
+  color: var(--red-1);
+}
+.etape-rouge:hover .etape-numero {
+  border-color: var(--red-1);
+}
+.etape-rouge:hover .etape-carte {
+  border-color: var(--red-1);
+  box-shadow: 0 12px 28px -20px var(--red-1);
 }
 
 /* Carte agent : lever au survol + bordure dégradée animée
