@@ -151,6 +151,32 @@ h3,
   66% { transform: translate(10%, -6%) scale(0.9); }
 }
 
+/* Lumière baladeuse — se déplace en continu et illumine le fond à son
+   passage (mix-blend-mode: screen éclaircit ce qu'elle survole). Position
+   pilotée en JS (--lum-x / --lum-y, voir fond-anime.tsx) pour un
+   déplacement organique, jamais tout à fait le même. */
+.fond-anime .lumiere {
+  position: absolute;
+  left: calc(var(--lum-x, 50) * 1%);
+  top: calc(var(--lum-y, 50) * 1%);
+  width: 42vw;
+  max-width: 620px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    var(--text) 0%,
+    var(--amber-1) 28%,
+    var(--blue-1) 60%,
+    transparent 75%
+  );
+  opacity: 0.4;
+  filter: blur(60px);
+  mix-blend-mode: screen;
+  transition: left 7s cubic-bezier(0.45, 0, 0.55, 1), top 7s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
 /* Halo pulsant derrière le logo du hero */
 .halo-logo {
   position: absolute;
