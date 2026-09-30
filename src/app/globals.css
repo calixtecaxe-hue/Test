@@ -129,10 +129,18 @@ h3,
   pointer-events: none;
   background-image: radial-gradient(circle, var(--blue-1) 1.4px, transparent 1.4px);
   background-size: 24px 24px;
-  -webkit-mask-image: radial-gradient(ellipse 65% 85% at 20% 38%, black 0%, black 25%, transparent 72%);
-  mask-image: radial-gradient(ellipse 65% 85% at 20% 38%, black 0%, black 25%, transparent 72%);
   opacity: 0.5;
   animation: grille-points-respire 9s ease-in-out infinite;
+}
+
+.grille-points-gauche {
+  -webkit-mask-image: radial-gradient(ellipse 65% 85% at 20% 38%, black 0%, black 25%, transparent 72%);
+  mask-image: radial-gradient(ellipse 65% 85% at 20% 38%, black 0%, black 25%, transparent 72%);
+}
+
+.grille-points-centre {
+  -webkit-mask-image: radial-gradient(ellipse 55% 100% at 50% 28%, black 0%, black 20%, transparent 72%);
+  mask-image: radial-gradient(ellipse 55% 100% at 50% 28%, black 0%, black 20%, transparent 72%);
 }
 
 @keyframes grille-points-respire {

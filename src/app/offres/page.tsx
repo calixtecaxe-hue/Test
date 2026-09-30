@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
+import { GrillePoints } from "@/components/marketing/grille-points";
 import { Reveal } from "@/components/marketing/reveal";
 import { AGENTS, couleurAgent } from "@/lib/agents";
 
@@ -15,8 +16,9 @@ export default function OffresPage() {
       <SiteHeader />
 
       <main className="flex-1">
-        <section className="px-6 pb-8 pt-12 sm:pt-16 lg:px-10">
-          <div className="mx-auto max-w-3xl text-center">
+        <section className="relative overflow-hidden px-6 pb-8 pt-12 sm:pt-16 lg:px-10">
+          <GrillePoints position="centre" />
+          <div className="relative z-10 mx-auto max-w-3xl text-center">
             <h1 className="accent-degrade text-4xl sm:text-5xl">Nos offres</h1>
             <p className="mt-5 text-[var(--text-muted)]">
               Un abonnement mensuel par paliers, selon le nombre
