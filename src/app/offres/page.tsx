@@ -17,7 +17,7 @@ export default function OffresPage() {
       <main className="flex-1">
         <section className="px-6 pb-8 pt-12 sm:pt-16">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="accent-degrade text-3xl sm:text-4xl">Nos offres</h1>
+            <h1 className="accent-degrade text-4xl sm:text-5xl">Nos offres</h1>
             <p className="mt-5 text-[var(--text-muted)]">
               Un abonnement mensuel par paliers, selon le nombre
               d&apos;agents souscrits. Vous choisissez les agents qui vous

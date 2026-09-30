@@ -36,7 +36,7 @@ const etapes = [
     cote: "droite",
     titre: "Mettez en place votre stratégie personnalisée",
     texte:
-      "Enfin, vous déployez la stratégie conçue pour votre entreprise. Nous suivons vos avancées et vous réorientons si nécessaire.",
+      "Vous déployez la stratégie conçue pour votre entreprise, et nous suivons vos avancées pour vous réorienter si nécessaire.",
   },
 ] as const;
 
@@ -50,9 +50,11 @@ export default function Accueil() {
           <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
             <div className="relative">
               <EtoilesLogo />
-              <h1 className="text-2xl sm:text-3xl">
+              <h1 className="text-3xl sm:text-4xl">
                 Chaque agent couvre un périmètre précis et s&apos;appuie sur
-                un diagnostic chiffré, pas sur des impressions.
+                un{" "}
+                <span className="accent-degrade">diagnostic chiffré</span>,
+                pas sur des impressions.
               </h1>
             </div>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">

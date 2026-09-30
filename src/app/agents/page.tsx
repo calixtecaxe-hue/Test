@@ -17,7 +17,7 @@ export default function AgentsPage() {
       <main className="flex-1">
         <section className="px-6 pb-8 pt-12 sm:pt-16">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="accent-degrade text-3xl sm:text-4xl">Les agents</h1>
+            <h1 className="accent-degrade text-4xl sm:text-5xl">Les agents</h1>
             <p className="mt-5 text-[var(--text-muted)]">
               Chaque agent couvre un périmètre précis et ne dépasse jamais son
               rôle : le juridique, le fiscal et le médical restent hors
