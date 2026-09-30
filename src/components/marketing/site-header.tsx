@@ -11,7 +11,7 @@ const liensNavMobile = [
 
 export function SiteHeader() {
   return (
-    <header className="relative z-20 mx-auto w-full max-w-6xl px-6 py-6">
+    <header className="relative z-20 mx-auto w-full max-w-[1320px] px-6 py-6 lg:px-10">
       <div className="flex items-center justify-between">
         <Link href="/" className="flex items-center">
           <Image src={logo} alt="CAXE" priority className="h-6 w-auto sm:h-7" />

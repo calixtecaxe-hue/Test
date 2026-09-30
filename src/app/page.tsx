@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/marketing/site-footer";
 import { EtoilesLogo } from "@/components/marketing/etoiles-logo-lazy";
 import { Reveal } from "@/components/marketing/reveal";
 import { AgentsApercu } from "@/components/marketing/agents-apercu";
-import { AGENTS, couleurAgent } from "@/lib/agents";
+import { AgentsSelecteur } from "@/components/marketing/agents-selecteur-lazy";
 
 const chemin = "M 18 8 C 65 8, 82 25, 82 50 C 82 75, 65 92, 18 92";
 
@@ -47,8 +47,8 @@ export default function Accueil() {
       <SiteHeader />
 
       <main className="flex-1">
-        <section className="relative overflow-hidden px-6 pb-24 pt-16 sm:pt-24">
-          <div className="relative z-10 mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.05fr_1fr] lg:items-center">
+        <section className="relative overflow-hidden px-6 pb-24 pt-16 sm:pt-24 lg:px-10">
+          <div className="relative z-10 mx-auto grid max-w-[1320px] gap-16 lg:grid-cols-[1.05fr_1fr] lg:items-center">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
               <div className="relative">
                 <EtoilesLogo />
@@ -84,7 +84,7 @@ export default function Accueil() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-4xl px-6 py-20">
+        <section className="mx-auto max-w-6xl px-6 py-20 lg:px-10">
           <Reveal>
             <h2 className="text-center text-2xl sm:text-3xl">
               Comment ça marche
@@ -126,41 +126,23 @@ export default function Accueil() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-5xl px-6 py-20">
+        <section className="mx-auto max-w-[1320px] px-6 py-20 lg:px-10">
           <Reveal>
-            <div className="flex items-end justify-between gap-4">
-              <h2 className="accent-degrade text-2xl sm:text-3xl">Les agents</h2>
+            <div className="flex flex-col items-center text-center">
+              <span className="badge-dispo">Disponible 24h/24, 7j/7</span>
+              <h2 className="accent-degrade mt-5 text-2xl sm:text-3xl">
+                Les agents
+              </h2>
               <Link
                 href="/agents"
-                className="whitespace-nowrap text-sm text-[var(--blue-1)] hover:underline"
+                className="mt-3 text-sm text-[var(--blue-1)] hover:underline"
               >
                 Tout voir
               </Link>
             </div>
           </Reveal>
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {AGENTS.map((agent, index) => (
-              <Reveal key={agent.code} delai={index * 100}>
-                <div className="carte-agent h-full rounded-xl border border-[var(--line)] bg-[var(--panel)] p-6">
-                  <div className="flex items-center justify-between">
-                    <h3
-                      className="text-base"
-                      style={{ color: couleurAgent[agent.couleur].texte }}
-                    >
-                      {agent.nom}
-                    </h3>
-                    {!agent.disponible ? (
-                      <span className="rounded-[4px] border border-[var(--line)] px-2 py-0.5 text-xs text-[var(--text-faint)]">
-                        Bientôt disponible
-                      </span>
-                    ) : null}
-                  </div>
-                  <p className="mt-3 text-sm text-[var(--text-muted)]">
-                    {agent.couvre}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+          <div className="mt-10">
+            <AgentsSelecteur />
           </div>
         </section>
 

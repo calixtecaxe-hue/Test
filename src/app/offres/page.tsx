@@ -15,7 +15,7 @@ export default function OffresPage() {
       <SiteHeader />
 
       <main className="flex-1">
-        <section className="px-6 pb-8 pt-12 sm:pt-16">
+        <section className="px-6 pb-8 pt-12 sm:pt-16 lg:px-10">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="accent-degrade text-4xl sm:text-5xl">Nos offres</h1>
             <p className="mt-5 text-[var(--text-muted)]">
@@ -30,7 +30,7 @@ export default function OffresPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-5xl px-6 py-16">
+        <section className="mx-auto max-w-6xl px-6 py-16 lg:px-10">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {AGENTS.map((agent, index) => (
               <Reveal key={agent.code} delai={index * 100}>
