@@ -14,19 +14,9 @@ const etapes = [
     vx: 18,
     vy: 8,
     cote: "droite",
-    titre: "Un questionnaire sur mesure",
+    titre: "Un questionnaire conçu sur mesure",
     texte:
-      "Vous répondez à un questionnaire conçu sur mesure pour votre entreprise : secteur d'activité, chiffre d'affaires, nombre de collaborateurs, emplacement, et les autres critères propres à votre activité.",
-    icone: (
-      <>
-        <rect x="3" y="5" width="4" height="4" rx="1" />
-        <line x1="10" y1="7" x2="21" y2="7" />
-        <rect x="3" y="11" width="4" height="4" rx="1" />
-        <line x1="10" y1="13" x2="21" y2="13" />
-        <rect x="3" y="17" width="4" height="4" rx="1" />
-        <line x1="10" y1="19" x2="21" y2="19" />
-      </>
-    ),
+      "Répondez à un questionnaire adapté à votre secteur d'activité et à votre situation (chiffre d'affaires, nombre de collaborateurs, localisation, etc.).",
   },
   {
     numero: "02",
@@ -37,13 +27,6 @@ const etapes = [
     titre: "Un score sur 100",
     texte:
       "Un score sur 100 vous est donné. Il vous situe sur cette échelle, et une stratégie est dressée en fonction de votre résultat.",
-    icone: (
-      <>
-        <path d="M4 18a8 8 0 0 1 16 0" />
-        <line x1="12" y1="18" x2="16" y2="12" />
-        <circle cx="12" cy="18" r="1.3" fill="currentColor" stroke="none" />
-      </>
-    ),
   },
   {
     numero: "03",
@@ -51,15 +34,9 @@ const etapes = [
     vx: 18,
     vy: 92,
     cote: "droite",
-    titre: "Une stratégie à mettre en place",
+    titre: "Mettez en place votre stratégie personnalisée",
     texte:
-      "Vous mettez en place cette stratégie. Nous suivons vos avancées et vous réorientons si besoin.",
-    icone: (
-      <>
-        <path d="M6 21V4" />
-        <path d="M6 4h11l-3 4 3 4H6" />
-      </>
-    ),
+      "Enfin, vous déployez la stratégie conçue pour votre entreprise. Nous suivons vos avancées et vous réorientons si nécessaire.",
   },
 ] as const;
 
@@ -123,17 +100,6 @@ export default function Accueil() {
               >
                 <Reveal delai={index * 150} className="etape-noeud-wrap">
                   <div className="etape-noeud">
-                    <svg
-                      className="etape-icone"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      {etape.icone}
-                    </svg>
                     <span className="etape-numero">{etape.numero}</span>
                   </div>
                 </Reveal>

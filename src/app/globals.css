@@ -156,13 +156,7 @@ h3,
   bottom: 0;
   left: 27px;
   width: 2px;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    var(--line) 0 6px,
-    transparent 6px 16px
-  );
-  background-size: 2px 32px;
-  animation: flux-chemin 1.6s linear infinite;
+  background: var(--line);
 }
 
 .chemin-virage {
@@ -194,29 +188,12 @@ h3,
   transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.etape-icone {
-  width: 22px;
-  height: 22px;
+.etape-numero {
+  font-family: var(--titre);
+  font-size: 18px;
+  font-weight: 700;
   color: var(--text-muted);
   transition: color 0.3s ease;
-}
-
-.etape-numero {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  font-family: var(--titre);
-  font-size: 10px;
-  color: var(--text-faint);
-  transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .etape-carte-wrap {
@@ -239,12 +216,6 @@ h3,
   margin-top: 8px;
   font-size: 14px;
   color: var(--text-muted);
-}
-
-@keyframes flux-chemin {
-  to {
-    background-position: 0 32px;
-  }
 }
 
 /* À partir de 900px, le chemin prend ses aises : les étapes se décalent
@@ -274,11 +245,9 @@ h3,
 
   .chemin-virage path {
     fill: none;
-    stroke: var(--line);
+    stroke: rgba(244, 236, 216, 0.22);
     stroke-width: 2;
-    stroke-dasharray: 1 3;
     vector-effect: non-scaling-stroke;
-    animation: flux-virage 40s linear infinite;
   }
 
   .etape-chemin {
@@ -312,23 +281,13 @@ h3,
   }
 }
 
-@keyframes flux-virage {
-  to {
-    stroke-dashoffset: -400;
-  }
-}
-
 .etape-bleu:hover .etape-noeud {
   border-color: var(--blue-1);
   box-shadow: 0 0 0 4px rgba(91, 159, 236, 0.16), 0 0 22px -4px var(--blue-1);
   transform: scale(1.06);
 }
-.etape-bleu:hover .etape-icone,
 .etape-bleu:hover .etape-numero {
   color: var(--blue-1);
-}
-.etape-bleu:hover .etape-numero {
-  border-color: var(--blue-1);
 }
 .etape-bleu:hover .etape-carte {
   border-color: var(--blue-1);
@@ -340,12 +299,8 @@ h3,
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.14), 0 0 22px -4px var(--white-1);
   transform: scale(1.06);
 }
-.etape-blanc:hover .etape-icone,
 .etape-blanc:hover .etape-numero {
   color: var(--white-1);
-}
-.etape-blanc:hover .etape-numero {
-  border-color: var(--white-1);
 }
 .etape-blanc:hover .etape-carte {
   border-color: var(--white-2);
@@ -357,12 +312,8 @@ h3,
   box-shadow: 0 0 0 4px rgba(242, 104, 107, 0.16), 0 0 22px -4px var(--red-1);
   transform: scale(1.06);
 }
-.etape-rouge:hover .etape-icone,
 .etape-rouge:hover .etape-numero {
   color: var(--red-1);
-}
-.etape-rouge:hover .etape-numero {
-  border-color: var(--red-1);
 }
 .etape-rouge:hover .etape-carte {
   border-color: var(--red-1);
