@@ -14,9 +14,9 @@ const etapes = [
     vx: 18,
     vy: 8,
     cote: "droite",
-    titre: "Un questionnaire pour votre métier",
+    titre: "Un questionnaire sur mesure",
     texte:
-      "Vous répondez à des questions rédigées à l'avance pour votre secteur. Aucune question n'est obligatoire, et une estimation est toujours acceptée.",
+      "Vous répondez à un questionnaire conçu sur mesure pour votre entreprise : secteur d'activité, chiffre d'affaires, nombre de collaborateurs, emplacement, et les autres critères propres à votre activité.",
     icone: (
       <>
         <rect x="3" y="5" width="4" height="4" rx="1" />
@@ -34,9 +34,9 @@ const etapes = [
     vx: 82,
     vy: 50,
     cote: "gauche",
-    titre: "Un score calculé, pas deviné",
+    titre: "Un score sur 100",
     texte:
-      "Vos réponses sont comparées à des seuils fixes. Le calcul est le même pour tout le monde : deux dirigeants qui répondent pareil obtiennent le même score.",
+      "Un score sur 100 vous est donné. Il vous situe sur cette échelle, et une stratégie est dressée en fonction de votre résultat.",
     icone: (
       <>
         <path d="M4 18a8 8 0 0 1 16 0" />
@@ -51,9 +51,9 @@ const etapes = [
     vx: 18,
     vy: 92,
     cote: "droite",
-    titre: "Un plan d'action concret",
+    titre: "Une stratégie à mettre en place",
     texte:
-      "Le compte rendu met en forme les résultats déjà calculés et propose des actions, avec une échéance propre à chacune.",
+      "Vous mettez en place cette stratégie. Nous suivons vos avancées et vous réorientons si besoin.",
     icone: (
       <>
         <path d="M6 21V4" />
@@ -73,14 +73,11 @@ export default function Accueil() {
           <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
             <div className="relative">
               <EtoilesLogo />
-              <h1 className="text-3xl sm:text-5xl">
-                Des agents IA à votre disposition pour vous conseiller
+              <h1 className="text-2xl sm:text-3xl">
+                Chaque agent couvre un périmètre précis et s&apos;appuie sur
+                un diagnostic chiffré, pas sur des impressions.
               </h1>
             </div>
-            <p className="mt-6 max-w-xl text-balance text-[var(--text-muted)]">
-              Chaque agent couvre un périmètre précis et s&apos;appuie sur un
-              diagnostic chiffré, pas sur des impressions.
-            </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/agents"
@@ -148,23 +145,6 @@ export default function Accueil() {
                 </Reveal>
               </div>
             ))}
-          </div>
-        </section>
-
-        <section className="relative overflow-hidden px-6 py-20">
-          <div className="mx-auto max-w-3xl text-center">
-            <Reveal>
-              <h2 className="text-2xl sm:text-3xl">
-                Le conseil stratégique, sans son prix habituel
-              </h2>
-              <p className="mt-5 text-[var(--text-muted)]">
-                Le concurrent réel n&apos;est pas l&apos;absence d&apos;outil,
-                c&apos;est le consultant ou le coach externe, souvent cher et
-                de qualité inégale. CAXE donne accès à un diagnostic
-                sérieux, construit sur des seuils réels, pas sur des
-                impressions.
-              </p>
-            </Reveal>
           </div>
         </section>
 

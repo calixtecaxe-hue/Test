@@ -31,7 +31,10 @@ export default function AgentsPage() {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {AGENTS.map((agent, index) => (
               <Reveal key={agent.code} delai={index * 100}>
-                <div className="carte-agent flex h-full flex-col rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
+                <div
+                  id={agent.code}
+                  className="carte-agent flex h-full scroll-mt-24 flex-col rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7"
+                >
                   <div className="flex items-start justify-between gap-3">
                     <h2
                       className="text-lg"
