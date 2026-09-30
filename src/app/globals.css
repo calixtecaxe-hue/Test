@@ -738,12 +738,52 @@ h3,
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 }
 
-.menu-agents-wrap:hover .menu-agents,
-.menu-agents-wrap:focus-within .menu-agents {
+/* Zone de raccord entre le déclencheur et la liste, pour que le survol ne
+   se perde pas en traversant l'espace qui les sépare. */
+.menu-agents::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.menu-agents-wrap.ouvert .menu-agents {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transform: translate(-50%, 4px);
+}
+
+/* Le survol ne s'applique qu'aux appareils qui en ont un : sur mobile il
+   resterait « collé » après un toucher et empêcherait de refermer la liste. */
+@media (hover: hover) {
+  .menu-agents-wrap:hover .menu-agents {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 4px);
+  }
+}
+
+/* Mobile : la liste s'aligne sur la largeur de l'en-tête, sous la ligne de
+   navigation, au lieu d'être centrée sur le lien. */
+@media (max-width: 639px) {
+  .menu-agents-wrap {
+    position: static;
+  }
+
+  .menu-agents {
+    left: 24px;
+    right: 24px;
+    min-width: 0;
+    transform: translateY(8px);
+  }
+
+  .menu-agents-wrap.ouvert .menu-agents {
+    transform: translateY(4px);
+  }
 }
 
 .menu-agents-item {

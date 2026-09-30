@@ -1,13 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../../../public/logo-caxe.png";
-import { AGENTS, couleurAgent } from "@/lib/agents";
-
-const liensNavMobile = [
-  { href: "/", label: "Accueil" },
-  { href: "/agents", label: "Agents IA" },
-  { href: "/offres", label: "Nos offres" },
-];
+import { MenuAgents } from "@/components/marketing/menu-agents";
 
 export function SiteHeader() {
   return (
@@ -22,33 +16,7 @@ export function SiteHeader() {
             Accueil
           </Link>
 
-          <div className="menu-agents-wrap">
-            <Link
-              href="/agents"
-              className="lien-nav transition hover:text-[var(--text)]"
-            >
-              Agents IA
-            </Link>
-            <div className="menu-agents">
-              {AGENTS.map((agent) => (
-                <Link
-                  key={agent.code}
-                  href={`/agents#${agent.code}`}
-                  className="menu-agents-item"
-                  style={
-                    {
-                      "--couleur-agent": couleurAgent[agent.couleur].texte,
-                    } as React.CSSProperties
-                  }
-                >
-                  <span>{agent.nom}</span>
-                  {!agent.disponible ? (
-                    <span className="menu-agents-badge">Bientôt disponible</span>
-                  ) : null}
-                </Link>
-              ))}
-            </div>
-          </div>
+          <MenuAgents />
 
           <Link
             href="/offres"
@@ -67,11 +35,13 @@ export function SiteHeader() {
       </div>
 
       <nav className="mt-4 flex justify-center gap-6 text-sm text-[var(--text-muted)] sm:hidden">
-        {liensNavMobile.map((lien) => (
-          <Link key={lien.href} href={lien.href} className="hover:text-[var(--text)]">
-            {lien.label}
-          </Link>
-        ))}
+        <Link href="/" className="hover:text-[var(--text)]">
+          Accueil
+        </Link>
+        <MenuAgents />
+        <Link href="/offres" className="hover:text-[var(--text)]">
+          Nos offres
+        </Link>
         <Link href="/connexion" className="hover:text-[var(--text)]">
           Se connecter
         </Link>

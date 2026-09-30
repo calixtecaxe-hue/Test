@@ -1,6 +1,7 @@
-// Les quatre agents (CLAUDE.md section 3). Seul Acquisition & CA est
-// construit pour l'instant — les trois autres sont décrits tels que prévus
-// mais marqués « bientôt disponible », rien n'est inventé sur leur contenu.
+// Les quatre agents (CLAUDE.md section 3). Décision produit : les quatre
+// sont affichés « Disponible » sur le site. Seul le questionnaire de
+// l'agent Acquisition & CA existe pour l'instant ; rien n'est inventé sur le
+// contenu des trois autres.
 
 export type Agent = {
   code: "ACQUISITION_CA" | "FINANCE_RENTABILITE" | "RH_ORGANISATION" | "COMM_CREATION";
@@ -31,7 +32,7 @@ export const AGENTS: Agent[] = [
     neFaitJamais:
       "Fiscalité, comptabilité, conformité — c'est le métier de l'expert-comptable.",
     couleur: "blanc",
-    disponible: false,
+    disponible: true,
   },
   {
     code: "RH_ORGANISATION",
@@ -40,7 +41,7 @@ export const AGENTS: Agent[] = [
     couvre: "Signaux organisationnels : turnover, charge, clarté des rôles.",
     neFaitJamais: "Droit du travail, contrats, médiation de conflit.",
     couleur: "rouge",
-    disponible: false,
+    disponible: true,
   },
   {
     code: "COMM_CREATION",
@@ -50,7 +51,7 @@ export const AGENTS: Agent[] = [
       "Analyse des publications existantes et de leurs indicateurs de performance ; génère des propositions de contenu.",
     neFaitJamais: null,
     couleur: "blanc",
-    disponible: false,
+    disponible: true,
   },
 ];
 

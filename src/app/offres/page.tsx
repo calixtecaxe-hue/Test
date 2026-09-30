@@ -63,11 +63,10 @@ export default function OffresPage() {
 
           <Reveal>
             <div className="mx-auto mt-16 flex max-w-3xl flex-col items-center rounded-xl border border-[var(--line)] bg-[var(--panel)] px-6 py-12 text-center">
-              <h2 className="text-2xl">Commencer avec Acquisition & CA</h2>
+              <h2 className="text-2xl">Commencer votre audit</h2>
               <p className="mt-4 max-w-md text-[var(--text-muted)]">
-                C&apos;est le seul agent disponible aujourd&apos;hui. Créez un
-                compte pour répondre au questionnaire et recevoir votre
-                score.
+                Créez un compte pour répondre au questionnaire et recevoir
+                votre score.
               </p>
               <Link
                 href="/inscription"
