@@ -119,43 +119,15 @@ h3,
   color: var(--red-1);
 }
 
-/* Grille de points en fond du hero, dense d'un côté puis qui s'estompe,
-   avec une légère respiration d'opacité. Pur CSS, aucun point en DOM.
-   La retombée se fait par un dégradé vers --bg superposé aux points
-   (deux fonds CSS), plutôt que par mask-image : ce dernier est rendu de
-   façon inégale selon les moteurs, un simple background-image ne l'est
-   pas. */
+/* Grille de points en fond du hero : canvas animé, voir grille-points.tsx.
+   Le canvas étant un élément remplacé, il faut width/height explicites. */
 .grille-points {
   position: absolute;
   inset: 0;
   z-index: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  background-repeat: no-repeat, repeat;
-  background-size: 100% 100%, 24px 24px;
-  opacity: 0.85;
-  animation: grille-points-respire 9s ease-in-out infinite;
-}
-
-.grille-points-gauche {
-  background-image:
-    radial-gradient(ellipse 65% 85% at 20% 38%, transparent 0%, transparent 25%, var(--bg) 72%),
-    radial-gradient(circle, var(--blue-1) 1.4px, transparent 1.4px);
-}
-
-.grille-points-centre {
-  background-image:
-    radial-gradient(ellipse 55% 100% at 50% 28%, transparent 0%, transparent 20%, var(--bg) 72%),
-    radial-gradient(circle, var(--blue-1) 1.4px, transparent 1.4px);
-}
-
-@keyframes grille-points-respire {
-  0%,
-  100% {
-    opacity: 0.65;
-  }
-  50% {
-    opacity: 0.9;
-  }
 }
 
 /* Apparition au défilement, plus enveloppante */
