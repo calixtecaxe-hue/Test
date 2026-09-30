@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { EtoilesLogo } from "@/components/marketing/etoiles-logo-lazy";
 import { Reveal } from "@/components/marketing/reveal";
+import { AgentsApercu } from "@/components/marketing/agents-apercu";
 import { AGENTS, couleurAgent } from "@/lib/agents";
 
 const chemin = "M 18 8 C 65 8, 82 25, 82 50 C 82 75, 65 92, 18 92";
@@ -47,33 +48,39 @@ export default function Accueil() {
 
       <main className="flex-1">
         <section className="relative overflow-hidden px-6 pb-24 pt-16 sm:pt-24">
-          <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
-            <div className="relative">
-              <EtoilesLogo />
-              <h1 className="text-3xl sm:text-5xl">
-                Votre entreprise stagne&nbsp;?{" "}
-                <span className="accent-degrade">Identifiez pourquoi.</span>
-              </h1>
+          <div className="relative z-10 mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.05fr_1fr] lg:items-center">
+            <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+              <div className="relative">
+                <EtoilesLogo />
+                <h1 className="text-3xl sm:text-5xl">
+                  Votre entreprise stagne&nbsp;?{" "}
+                  <span className="accent-degrade">Identifiez pourquoi.</span>
+                </h1>
+              </div>
+              <p className="mt-6 max-w-xl text-balance text-[var(--text-muted)]">
+                Réalisez l&apos;audit de votre entreprise grâce à{" "}
+                <span className="text-[var(--blue-1)]">quatre agents IA</span>{" "}
+                conçus sur mesure pour votre activité.
+              </p>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+                <Link
+                  href="/agents"
+                  className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
+                >
+                  Venez les essayer
+                </Link>
+                <Link
+                  href="/inscription"
+                  className="rounded-[4px] border border-[var(--line)] px-6 py-3 font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
+                >
+                  Créer un compte
+                </Link>
+              </div>
             </div>
-            <p className="mt-6 max-w-xl text-balance text-[var(--text-muted)]">
-              Réalisez l&apos;audit de votre entreprise grâce à{" "}
-              <span className="text-[var(--blue-1)]">quatre agents IA</span>{" "}
-              conçus sur mesure pour votre activité.
-            </p>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/agents"
-                className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
-              >
-                Venez les essayer
-              </Link>
-              <Link
-                href="/inscription"
-                className="rounded-[4px] border border-[var(--line)] px-6 py-3 font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
-              >
-                Créer un compte
-              </Link>
-            </div>
+
+            <Reveal delai={150}>
+              <AgentsApercu />
+            </Reveal>
           </div>
         </section>
 

@@ -54,8 +54,23 @@ export const AGENTS: Agent[] = [
   },
 ];
 
-export const couleurAgent: Record<Agent["couleur"], { texte: string; halo: string }> = {
-  bleu: { texte: "var(--blue-1)", halo: "var(--blue-1)" },
-  blanc: { texte: "var(--white-1)", halo: "var(--white-2)" },
-  rouge: { texte: "var(--red-1)", halo: "var(--red-1)" },
+export const couleurAgent: Record<
+  Agent["couleur"],
+  { texte: string; halo: string; barre: string }
+> = {
+  bleu: {
+    texte: "var(--blue-1)",
+    halo: "var(--blue-1)",
+    barre: "linear-gradient(90deg, var(--blue-1), var(--blue-2))",
+  },
+  blanc: {
+    texte: "var(--white-1)",
+    halo: "var(--white-2)",
+    barre: "linear-gradient(90deg, var(--white-2), var(--white-1))",
+  },
+  rouge: {
+    texte: "var(--red-1)",
+    halo: "var(--red-1)",
+    barre: "linear-gradient(90deg, var(--red-2), var(--red-1))",
+  },
 };
