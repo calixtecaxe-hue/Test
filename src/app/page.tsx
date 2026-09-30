@@ -50,23 +50,26 @@ export default function Accueil() {
           <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
             <div className="relative">
               <EtoilesLogo />
-              <h1 className="text-3xl sm:text-4xl">
-                Chaque agent couvre un périmètre précis et s&apos;appuie sur
-                un{" "}
-                <span className="accent-degrade">diagnostic chiffré</span>,
-                pas sur des impressions.
+              <h1 className="text-3xl sm:text-5xl">
+                Votre entreprise stagne&nbsp;?{" "}
+                <span className="accent-degrade">Identifiez pourquoi.</span>
               </h1>
             </div>
+            <p className="mt-6 max-w-xl text-balance text-[var(--text-muted)]">
+              Réalisez l&apos;audit de votre entreprise grâce à{" "}
+              <span className="text-[var(--blue-1)]">quatre agents IA</span>{" "}
+              conçus sur mesure pour votre activité.
+            </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/agents"
-                className="bouton-eclat rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
+                className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
               >
                 Venez les essayer
               </Link>
               <Link
                 href="/inscription"
-                className="rounded-[4px] border border-[var(--line)] px-6 py-3 font-medium text-[var(--text)] transition hover:border-[var(--blue-1)]"
+                className="rounded-[4px] border border-[var(--line)] px-6 py-3 font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
               >
                 Créer un compte
               </Link>
