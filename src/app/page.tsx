@@ -135,12 +135,6 @@ export default function Accueil() {
               <h2 className="accent-degrade mt-5 text-2xl sm:text-3xl">
                 Les agents
               </h2>
-              <Link
-                href="/agents"
-                className="mt-3 text-sm text-[var(--blue-1)] hover:underline"
-              >
-                Tout voir
-              </Link>
             </div>
           </Reveal>
           <div className="mt-10">
