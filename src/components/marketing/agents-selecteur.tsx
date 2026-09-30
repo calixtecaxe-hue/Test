@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AGENTS, couleurAgent } from "@/lib/agents";
+import { AgentIcone } from "@/components/marketing/agent-icone";
 
 const DELAI_AUTO = 10000;
 
@@ -57,7 +58,7 @@ export function AgentsSelecteur() {
               style={{ background: couleurAgent[a.couleur].texte }}
               aria-hidden="true"
             >
-              {a.nom.charAt(0)}
+              <AgentIcone code={a.code} className="h-3 w-3" />
             </span>
             {a.nom}
           </button>
@@ -66,9 +67,18 @@ export function AgentsSelecteur() {
 
       <div key={agent.code} className="selecteur-panneau" role="tabpanel">
         <div className="selecteur-panneau-tete">
-          <h2 style={{ color: couleurAgent[agent.couleur].texte }}>
-            {agent.nom}
-          </h2>
+          <div className="selecteur-panneau-titre">
+            <span
+              className="selecteur-panneau-icone"
+              style={{ background: couleurAgent[agent.couleur].barre }}
+              aria-hidden="true"
+            >
+              <AgentIcone code={agent.code} className="h-5 w-5" />
+            </span>
+            <h2 style={{ color: couleurAgent[agent.couleur].texte }}>
+              {agent.nom}
+            </h2>
+          </div>
           <span className="selecteur-badge">
             {agent.disponible ? "Disponible" : "Bientôt disponible"}
           </span>
@@ -90,14 +100,22 @@ export function AgentsSelecteur() {
           ) : null}
         </div>
 
-        {agent.disponible ? (
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          {agent.disponible ? (
+            <Link
+              href="/inscription"
+              className="bouton-eclat inline-flex w-fit rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-6 py-3 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
+            >
+              Créer un compte
+            </Link>
+          ) : null}
           <Link
-            href="/inscription"
-            className="bouton-eclat mt-8 inline-flex w-fit rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-6 py-3 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
+            href={`/agents#${agent.code}`}
+            className="inline-flex w-fit rounded-[4px] border border-[var(--line)] px-6 py-3 text-sm font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
           >
-            Créer un compte
+            Voir plus de détail
           </Link>
-        ) : null}
+        </div>
       </div>
     </div>
   );

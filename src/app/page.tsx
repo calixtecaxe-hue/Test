@@ -126,7 +126,7 @@ export default function Accueil() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1320px] px-6 py-20 lg:px-10">
+        <section className="mx-auto max-w-[1560px] px-6 py-20 lg:px-12">
           <Reveal>
             <div className="flex flex-col items-center text-center">
               <span className="badge-dispo">Disponible 24h/24, 7j/7</span>
