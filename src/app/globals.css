@@ -79,9 +79,10 @@ h3,
   }
 }
 
-/* Constellation derrière le logo de l'accueil, seul endroit du site où
-   le fond bouge — partout ailleurs le fond reste --bg uni, y compris le
-   reste de cette page, pour ne pas casser la continuité de couleur.
+/* Constellation derrière le logo de l'accueil, et grille de points en
+   fond du hero (.grille-points, juste en dessous) : les deux seuls
+   endroits du site où le fond bouge — partout ailleurs il reste --bg uni,
+   pour ne pas casser la continuité de couleur.
    De petits points bleu / blanc / rouge, presque invisibles au repos,
    s'éclairent quand un point de balayage (invisible, piloté en JS,
    voir etoiles-logo.tsx) passe à proximité. */
@@ -116,6 +117,32 @@ h3,
 .constellation-logo .point-rouge {
   background: var(--red-1);
   color: var(--red-1);
+}
+
+/* Grille de points en fond du hero, dense d'un côté puis qui s'estompe
+   (masque en dégradé), avec une légère respiration d'opacité. Pur CSS,
+   aucun point en DOM. */
+.grille-points {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, var(--blue-1) 1.4px, transparent 1.4px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 65% 85% at 20% 38%, black 0%, black 25%, transparent 72%);
+  mask-image: radial-gradient(ellipse 65% 85% at 20% 38%, black 0%, black 25%, transparent 72%);
+  opacity: 0.5;
+  animation: grille-points-respire 9s ease-in-out infinite;
+}
+
+@keyframes grille-points-respire {
+  0%,
+  100% {
+    opacity: 0.32;
+  }
+  50% {
+    opacity: 0.58;
+  }
 }
 
 /* Apparition au défilement, plus enveloppante */

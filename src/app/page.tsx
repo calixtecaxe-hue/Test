@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { EtoilesLogo } from "@/components/marketing/etoiles-logo-lazy";
+import { GrillePoints } from "@/components/marketing/grille-points";
 import { Reveal } from "@/components/marketing/reveal";
 import { AgentsApercu } from "@/components/marketing/agents-apercu";
 import { AgentsSelecteur } from "@/components/marketing/agents-selecteur-lazy";
@@ -48,6 +49,7 @@ export default function Accueil() {
 
       <main className="flex-1">
         <section className="relative overflow-hidden px-6 pb-24 pt-16 sm:pt-24 lg:px-10">
+          <GrillePoints />
           <div className="relative z-10 mx-auto grid max-w-[1320px] gap-16 lg:grid-cols-[1.05fr_1fr] lg:items-center">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
               <div className="relative">
