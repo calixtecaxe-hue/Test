@@ -119,37 +119,42 @@ h3,
   color: var(--red-1);
 }
 
-/* Grille de points en fond du hero, dense d'un côté puis qui s'estompe
-   (masque en dégradé), avec une légère respiration d'opacité. Pur CSS,
-   aucun point en DOM. */
+/* Grille de points en fond du hero, dense d'un côté puis qui s'estompe,
+   avec une légère respiration d'opacité. Pur CSS, aucun point en DOM.
+   La retombée se fait par un dégradé vers --bg superposé aux points
+   (deux fonds CSS), plutôt que par mask-image : ce dernier est rendu de
+   façon inégale selon les moteurs, un simple background-image ne l'est
+   pas. */
 .grille-points {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: radial-gradient(circle, var(--blue-1) 1.4px, transparent 1.4px);
-  background-size: 24px 24px;
-  opacity: 0.5;
+  background-repeat: no-repeat, repeat;
+  background-size: 100% 100%, 24px 24px;
+  opacity: 0.85;
   animation: grille-points-respire 9s ease-in-out infinite;
 }
 
 .grille-points-gauche {
-  -webkit-mask-image: radial-gradient(ellipse 65% 85% at 20% 38%, black 0%, black 25%, transparent 72%);
-  mask-image: radial-gradient(ellipse 65% 85% at 20% 38%, black 0%, black 25%, transparent 72%);
+  background-image:
+    radial-gradient(ellipse 65% 85% at 20% 38%, transparent 0%, transparent 25%, var(--bg) 72%),
+    radial-gradient(circle, var(--blue-1) 1.4px, transparent 1.4px);
 }
 
 .grille-points-centre {
-  -webkit-mask-image: radial-gradient(ellipse 55% 100% at 50% 28%, black 0%, black 20%, transparent 72%);
-  mask-image: radial-gradient(ellipse 55% 100% at 50% 28%, black 0%, black 20%, transparent 72%);
+  background-image:
+    radial-gradient(ellipse 55% 100% at 50% 28%, transparent 0%, transparent 20%, var(--bg) 72%),
+    radial-gradient(circle, var(--blue-1) 1.4px, transparent 1.4px);
 }
 
 @keyframes grille-points-respire {
   0%,
   100% {
-    opacity: 0.32;
+    opacity: 0.65;
   }
   50% {
-    opacity: 0.58;
+    opacity: 0.9;
   }
 }
 
