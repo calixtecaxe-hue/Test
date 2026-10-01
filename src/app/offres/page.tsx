@@ -3,8 +3,11 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { GrillePoints } from "@/components/marketing/grille-points";
+import { AgentIcone } from "@/components/marketing/agent-icone";
+import { OffresTarifs } from "@/components/marketing/offres-tarifs";
 import { Reveal } from "@/components/marketing/reveal";
 import { AGENTS, couleurAgent } from "@/lib/agents";
+import { REMISE_ANNUELLE_POURCENT } from "@/lib/offres";
 
 export const metadata: Metadata = {
   title: "Nos offres — CAXE",
@@ -18,48 +21,43 @@ export default function OffresPage() {
       <main className="flex-1">
         <section className="relative overflow-hidden px-6 pb-8 pt-12 sm:pt-16 lg:px-10">
           <GrillePoints position="centre" />
-          <div className="relative z-10 mx-auto max-w-3xl text-center">
-            <h1 className="accent-degrade text-4xl sm:text-5xl">Nos offres</h1>
+          <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
+            <span className="badge-dispo sans-point">Prix hors taxes</span>
+            <h1 className="accent-degrade mt-5 text-4xl sm:text-5xl">
+              Nos offres
+            </h1>
             <p className="mt-5 text-[var(--text-muted)]">
-              Un abonnement mensuel par paliers, selon le nombre
-              d&apos;agents souscrits. Vous choisissez les agents qui vous
-              intéressent plutôt que de payer un forfait unique.
-            </p>
-            <p className="mt-3 text-sm text-[var(--text-faint)]">
-              Les tarifs sont en cours de finalisation et seront affichés
-              ici dès qu&apos;ils seront arrêtés.
+              Un abonnement par paliers, selon le nombre d&apos;agents que vous
+              choisissez. Facturation mensuelle, ou annuelle avec{" "}
+              {REMISE_ANNUELLE_POURCENT}&nbsp;% de réduction.
             </p>
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 py-16 lg:px-10">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {AGENTS.map((agent, index) => (
-              <Reveal key={agent.code} delai={index * 100}>
-                <div className="carte-agent flex h-full flex-col justify-between rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
-                  <div>
-                    <div className="flex items-start justify-between gap-3">
-                      <h2
-                        className="text-lg"
-                        style={{ color: couleurAgent[agent.couleur].texte }}
-                      >
-                        {agent.nom}
-                      </h2>
-                      <span className="whitespace-nowrap rounded-[4px] border border-[var(--line)] px-2 py-0.5 text-xs text-[var(--text-faint)]">
-                        {agent.disponible ? "Disponible" : "Bientôt disponible"}
-                      </span>
-                    </div>
-                    <p className="mt-3 text-sm text-[var(--text-muted)]">
-                      {agent.couvre}
-                    </p>
-                  </div>
-                  <p className="mt-6 text-sm text-[var(--text-faint)]">
-                    Tarif à définir
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+        <section className="mx-auto max-w-6xl px-6 py-12 lg:px-10">
+          <OffresTarifs />
+
+          <Reveal>
+            <div className="mt-16 flex flex-col items-center text-center">
+              <p className="text-sm text-[var(--text-faint)]">
+                Les agents entre lesquels choisir
+              </p>
+              <div className="mt-4 flex flex-wrap justify-center gap-3">
+                {AGENTS.map((agent) => (
+                  <span key={agent.code} className="puce-agent">
+                    <span
+                      className="selecteur-pastille"
+                      style={{ background: couleurAgent[agent.couleur].texte }}
+                      aria-hidden="true"
+                    >
+                      <AgentIcone code={agent.code} className="h-3 w-3" />
+                    </span>
+                    {agent.nom}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Reveal>
 
           <Reveal>
             <div className="mx-auto mt-16 flex max-w-3xl flex-col items-center rounded-xl border border-[var(--line)] bg-[var(--panel)] px-6 py-12 text-center">

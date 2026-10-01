@@ -828,3 +828,114 @@ h3,
     scroll-behavior: auto !important;
   }
 }
+
+/* Page Offres : bascule mensuel / annuel et cartes de tarifs. */
+.bascule-periode {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.bascule-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.bascule-option:hover {
+  color: var(--text);
+}
+
+.bascule-option[aria-checked="true"] {
+  background: rgba(244, 236, 216, 0.1);
+  color: var(--text);
+}
+
+.bascule-remise {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--blue-1);
+}
+
+.carte-offre {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 32px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.carte-offre:hover {
+  transform: translateY(-4px);
+  border-color: var(--text-faint);
+}
+
+.carte-offre-vedette,
+.carte-offre-vedette:hover {
+  border-color: transparent;
+  background: linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(100deg, var(--blue-1), var(--white-1), var(--red-1))
+      border-box;
+}
+
+.prix-ligne {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  animation: prix-apparait 0.35s ease both;
+}
+
+.prix-valeur {
+  font-family: var(--titre);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.prix-unite {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+@keyframes prix-apparait {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.badge-dispo.sans-point::before {
+  display: none;
+}
+
+.puce-agent {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  font-size: 14px;
+  color: var(--text-muted);
+}
