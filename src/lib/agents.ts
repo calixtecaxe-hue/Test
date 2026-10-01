@@ -5,6 +5,7 @@
 
 export type Agent = {
   code: "ACQUISITION_CA" | "FINANCE_RENTABILITE" | "RH_ORGANISATION" | "COMM_CREATION";
+  slug: string;
   nom: string;
   nature: "diagnostic" | "génératif";
   couvre: string;
@@ -16,6 +17,7 @@ export type Agent = {
 export const AGENTS: Agent[] = [
   {
     code: "ACQUISITION_CA",
+    slug: "acquisition-chiffre-affaires",
     nom: "Acquisition & Chiffre d'affaires",
     nature: "diagnostic",
     couvre: "Génération de contacts, conversion, chiffre d'affaires, honoraires.",
@@ -25,6 +27,7 @@ export const AGENTS: Agent[] = [
   },
   {
     code: "FINANCE_RENTABILITE",
+    slug: "finance-rentabilite",
     nom: "Finance & Rentabilité",
     nature: "diagnostic",
     couvre:
@@ -36,6 +39,7 @@ export const AGENTS: Agent[] = [
   },
   {
     code: "RH_ORGANISATION",
+    slug: "rh-organisation",
     nom: "RH & Organisation",
     nature: "diagnostic",
     couvre: "Signaux organisationnels : turnover, charge, clarté des rôles.",
@@ -45,6 +49,7 @@ export const AGENTS: Agent[] = [
   },
   {
     code: "COMM_CREATION",
+    slug: "comm-creation-contenu",
     nom: "Comm & Création de contenu",
     nature: "génératif",
     couvre:
@@ -75,3 +80,7 @@ export const couleurAgent: Record<
     barre: "linear-gradient(90deg, var(--red-2), var(--red-1))",
   },
 };
+
+export function agentParSlug(slug: string): Agent | undefined {
+  return AGENTS.find((agent) => agent.slug === slug);
+}

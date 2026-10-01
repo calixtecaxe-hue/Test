@@ -49,7 +49,7 @@ export function MenuAgents() {
         {AGENTS.map((agent) => (
           <Link
             key={agent.code}
-            href={`/agents#${agent.code}`}
+            href={`/agents/${agent.slug}`}
             className="menu-agents-item"
             onClick={() => setOuvert(false)}
             style={

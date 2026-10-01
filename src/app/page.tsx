@@ -5,7 +5,7 @@ import { EtoilesLogo } from "@/components/marketing/etoiles-logo-lazy";
 import { GrillePoints } from "@/components/marketing/grille-points";
 import { Reveal } from "@/components/marketing/reveal";
 import { AgentsApercu } from "@/components/marketing/agents-apercu";
-import { AgentsSelecteur } from "@/components/marketing/agents-selecteur-lazy";
+import { AgentsSelecteur } from "@/components/marketing/agents-selecteur";
 
 const chemin = "M 18 8 C 65 8, 82 25, 82 50 C 82 75, 65 92, 18 92";
 
@@ -66,7 +66,7 @@ export default function Accueil() {
               </p>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
                 <Link
-                  href="/agents"
+                  href="/#agents-selecteur"
                   className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
                 >
                   Venez les essayer

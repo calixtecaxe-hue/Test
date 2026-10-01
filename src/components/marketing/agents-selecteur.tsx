@@ -7,25 +7,8 @@ import { AgentIcone } from "@/components/marketing/agent-icone";
 
 const DELAI_AUTO = 10000;
 
-// Lecture au premier rendu client (ce composant est chargé sans SSR,
-// voir agents-selecteur-lazy.tsx) : arrivée depuis /agents#CODE via le
-// menu du bandeau, sélectionne directement l'agent visé.
-function indexDepuisHash(): number {
-  const hash = window.location.hash.replace("#", "");
-  const index = AGENTS.findIndex((agent) => agent.code === hash);
-  return index === -1 ? 0 : index;
-}
-
 export function AgentsSelecteur() {
-  const [actif, setActif] = useState(indexDepuisHash);
-
-  useEffect(() => {
-    if (window.location.hash) {
-      document
-        .getElementById("agents-selecteur")
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, []);
+  const [actif, setActif] = useState(0);
 
   useEffect(() => {
     const reduitMouvement = window.matchMedia(
@@ -102,7 +85,7 @@ export function AgentsSelecteur() {
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Link
-            href={`/agents#${agent.code}`}
+            href={`/agents/${agent.slug}`}
             className="inline-flex w-fit rounded-[4px] border border-[var(--line)] px-6 py-3 text-sm font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
           >
             Voir plus de détail

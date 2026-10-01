@@ -6,7 +6,7 @@ export function SiteFooter() {
       <div className="flex flex-col items-center justify-between gap-4 border-t border-[var(--line)] pt-8 sm:flex-row">
         <span>CAXE — Un acte, un destin</span>
         <nav className="flex gap-6">
-          <Link href="/agents" className="hover:text-[var(--text-muted)]">
+          <Link href="/#agents-selecteur" className="hover:text-[var(--text-muted)]">
             Agents IA
           </Link>
           <Link href="/offres" className="hover:text-[var(--text-muted)]">
