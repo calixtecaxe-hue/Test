@@ -943,6 +943,7 @@ h3,
 /* Aperçu interactif de l'outil (premier hero) : parcours en quatre étapes
    (agent, profil, questionnaire, résultat), voir fenetre-outil.tsx. */
 .fenetre {
+  position: relative;
   overflow: hidden;
   border-radius: 20px;
   border: 1px solid var(--line);
@@ -1355,4 +1356,168 @@ h3,
   .demo-indice {
     flex-basis: 100%;
   }
+}
+
+/* Démo automatique : zone zoomable, curseur, saisie lettre par lettre. */
+.demo-zone {
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.demo-lecture {
+  margin-left: auto;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.demo-lecture:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+}
+
+@media (max-width: 639px) {
+  .demo-lecture {
+    padding: 5px 10px;
+  }
+}
+
+.demo-curseur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: 24px;
+  height: 24px;
+  margin: -3px 0 0 -5px;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.55));
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.demo-curseur.visible {
+  opacity: 1;
+}
+
+.demo-curseur svg {
+  display: block;
+  transition: transform 0.12s ease;
+}
+
+.demo-curseur.presse svg {
+  transform: scale(0.82);
+}
+
+.demo-onde {
+  position: absolute;
+  top: -6px;
+  left: -2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--blue-1);
+  animation: demo-onde 0.6s ease-out both;
+}
+
+@keyframes demo-onde {
+  from {
+    opacity: 0.9;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+
+.demo-agent.survol {
+  transform: translateY(-3px);
+  border-color: var(--text-faint);
+  background: rgba(244, 236, 216, 0.06);
+}
+
+.fenetre-action.survol {
+  background: rgba(244, 236, 216, 0.2);
+  color: var(--text);
+}
+
+.fenetre-action.principal.survol {
+  background: var(--white-1);
+  color: var(--bg);
+}
+
+.demo-saisie {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 540px;
+  margin-top: 8px;
+}
+
+.demo-champ {
+  flex: 1;
+  min-width: 0;
+  min-height: 38px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--blue-1);
+  background: rgba(244, 236, 216, 0.04);
+  box-shadow: 0 0 0 3px rgba(91, 159, 236, 0.18);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.demo-placeholder {
+  color: var(--text-faint);
+}
+
+.demo-caret {
+  display: inline-block;
+  width: 1px;
+  height: 1.15em;
+  margin-left: 1px;
+  background: var(--text);
+  vertical-align: text-bottom;
+  animation: demo-caret 1s steps(1) infinite;
+}
+
+@keyframes demo-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.demo-valider {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(244, 236, 216, 0.1);
+  font-size: 13.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.demo-valider.survol {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.demo-reponse.fige {
+  animation: none;
+}
+
+.demo-ok {
+  margin-left: 10px;
+  font-size: 13px;
+  color: #6fcf97;
+  animation: demo-entree 0.4s ease 1s both;
+}
+
+.demo-reponse.fige + .demo-ok {
+  animation-delay: 0s;
 }
