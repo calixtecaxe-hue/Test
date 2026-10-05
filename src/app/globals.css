@@ -615,8 +615,9 @@ h3,
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  overflow: hidden;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   color: var(--bg);
 }
@@ -649,9 +650,10 @@ h3,
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  overflow: hidden;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   color: var(--bg);
 }
 
@@ -1196,12 +1198,13 @@ h3,
 
 .fenetre-agent-icone {
   display: flex;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  overflow: hidden;
+  border-radius: 50%;
   color: var(--bg);
 }
 
@@ -1964,4 +1967,86 @@ h3,
 
 .demo-valider-point.primaire.survol {
   background: var(--white-1);
+}
+
+/* Portraits des agents */
+.avatar-agent {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.25);
+  transform-origin: 50% 38%;
+}
+
+.avatar-hero {
+  display: flex;
+  width: 112px;
+  height: 112px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+}
+
+.demo-apercu {
+  margin: 8px 0 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(244, 236, 216, 0.06);
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.demo-rapide {
+  flex-shrink: 0;
+  margin-left: auto;
+  white-space: nowrap;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(91, 159, 236, 0.2);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue-1);
+  animation: demo-entree 0.3s ease both;
+}
+
+/* Montage du suivi dans le temps */
+.demo-montage-progres {
+  margin-bottom: 12px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.demo-montage {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+
+.demo-montage li {
+  display: grid;
+  grid-template-columns: 82px 1fr auto;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text);
+  animation: demo-entree 0.4s ease both;
+}
+
+.demo-montage-quand {
+  font-weight: 600;
+  color: var(--blue-1);
+}
+
+@media (max-width: 639px) {
+  .demo-montage li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
 }

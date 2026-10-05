@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { GrillePoints } from "@/components/marketing/grille-points";
-import { AgentIcone } from "@/components/marketing/agent-icone";
+import { AgentAvatar } from "@/components/marketing/agent-avatar";
 import { OffresTarifs } from "@/components/marketing/offres-tarifs";
 import { Reveal } from "@/components/marketing/reveal";
 import { AGENTS, couleurAgent } from "@/lib/agents";
@@ -50,7 +50,7 @@ export default function OffresPage() {
                       style={{ background: couleurAgent[agent.couleur].texte }}
                       aria-hidden="true"
                     >
-                      <AgentIcone code={agent.code} className="h-3 w-3" />
+                      <AgentAvatar code={agent.code} />
                     </span>
                     {agent.nom}
                   </span>

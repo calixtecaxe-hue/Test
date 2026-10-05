@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { AgentIcone } from "@/components/marketing/agent-icone";
+import { AgentAvatar } from "@/components/marketing/agent-avatar";
 import { AGENTS, couleurAgent } from "@/lib/agents";
 import demo from "@/lib/demo-outil.json";
 
@@ -36,7 +36,8 @@ type Bloc =
   | { t: "actions" }
   | { t: "suivi" }
   | { t: "point" }
-  | { t: "bilan" };
+  | { t: "bilan" }
+  | { t: "montage" };
 
 type Vue = "fil" | "questionnaire";
 type Phase = "attente" | "questions" | "redaction" | "fini";
@@ -100,7 +101,7 @@ function filComplet(code: string): Bloc[] {
   fil.push({ t: "questionnaire" });
   fil.push({ t: "synthese" }, { t: "parties" });
   if (d.propositions) fil.push({ t: "propositions" });
-  fil.push({ t: "actions" }, { t: "suivi" }, { t: "point" }, { t: "bilan" });
+  fil.push({ t: "actions" }, { t: "suivi" }, { t: "point" }, { t: "bilan" }, { t: "montage" });
   return fil;
 }
 
@@ -157,6 +158,8 @@ export function FenetreOutil() {
   const [questions, setQuestions] = useState(0);
   const [termines, setTermines] = useState<number[]>([]);
   const [vue, setVue] = useState<Vue>("fil");
+  const [rapide, setRapide] = useState(false);
+  const [montage, setMontage] = useState(0);
   const [choixQ, setChoixQ] = useState<Record<number, number>>({});
   const [libreTexte, setLibreTexte] = useState("");
   const [libreActif, setLibreActif] = useState(false);
@@ -338,7 +341,13 @@ export function FenetreOutil() {
       setPointValide(true);
       await agentRepond("Merci. Votre réponse est prise en compte : voici l'axe suivant.");
       ajouter({ t: "bilan" });
-      await pause(6000);
+      await pause(4500);
+      ajouter({ t: "montage" });
+      for (let k = 1; k <= 4; k++) {
+        await pause(k === 1 ? 1500 : 2200);
+        setMontage(k);
+      }
+      await pause(3500);
     }
 
     async function agentRepond(texte: string) {
@@ -357,6 +366,8 @@ export function FenetreOutil() {
       setFil([]);
       setNotif(false);
       setVue("fil");
+      setRapide(false);
+      setMontage(0);
       setChoixQ({});
       setLibreTexte("");
       setLibreActif(false);
@@ -388,23 +399,30 @@ export function FenetreOutil() {
       if (!window.matchMedia("(max-width: 639px)").matches) setZoom(ZOOM_SAISIE);
       await pause(1000);
 
+      // Montage accéléré : le vrai questionnaire compte plus de 80 questions,
+      // les suivantes défilent donc plus vite, sans le curseur.
       for (let q = 0; q < d.questions.length; q++) {
         const j = d.questions[q].options.indexOf(d.questions[q].reponse);
-        await deplacer(`option-${q}-${j}`);
-        await cliquer(`option-${q}-${j}`);
+        if (q < 2) {
+          await deplacer(`option-${q}-${j}`);
+          await cliquer(`option-${q}-${j}`);
+        } else {
+          setRapide(true);
+          setCurseur((c) => ({ ...c, visible: false }));
+          await pause(300);
+        }
         setChoixQ((c) => ({ ...c, [q]: j }));
         setQuestions(q + 1);
-        await pause(450);
+        await pause(q < 2 ? 450 : 250);
       }
-      await deplacer("libre", 0.15);
-      await cliquer();
       setLibreActif(true);
       for (let k = 1; k <= d.libre.reponse.length; k++) {
         setLibreTexte(d.libre.reponse.slice(0, k));
-        await pause(45);
+        await pause(14);
       }
       await pause(500);
       setLibreActif(false);
+      setRapide(false);
       setQuestions(NB_QUESTIONS);
       await deplacer("terminer");
       await cliquer("terminer");
@@ -467,7 +485,7 @@ export function FenetreOutil() {
       top: vue === "questionnaire" ? 0 : zone.scrollHeight,
       behavior: reduit ? "auto" : "smooth",
     });
-  }, [affiche.length, pointFinal.choix, pointFinal.raison, vue, reduit]);
+  }, [affiche.length, pointFinal.choix, pointFinal.raison, montage, vue, reduit]);
 
   const classeSurvol = (nom: string) => (survol === nom ? "survol" : "");
 
@@ -488,6 +506,9 @@ export function FenetreOutil() {
         <p className="demo-sous-titre">
           Questions rédigées à l&apos;avance, identiques pour tous les dirigeants de votre métier.
           Aucune n&apos;est obligatoire.
+        </p>
+        <p className="demo-apercu">
+          Aperçu : 4 questions affichées. Le questionnaire complet en compte plus de 80.
         </p>
         <div className="fenetre-barre">
           <div style={{ width: `${(repondues / NB_QUESTIONS) * 100}%` }} />
@@ -727,7 +748,7 @@ export function FenetreOutil() {
                     </div>
                     {c === "non" ? (
                       <div className="demo-raisons">
-                        <span className="demo-raisons-titre">Pourquoi ?</span>
+                        <span className="demo-raisons-titre">Pourquoi cela ne fonctionne pas ? Choisissez la raison :</span>
                         {RAISONS.map((r, j) => (
                           <span
                             key={r}
@@ -751,6 +772,52 @@ export function FenetreOutil() {
             </span>
           </div>
         );
+      case "montage": {
+        const p = donnees.point;
+        const autre = donnees.actions.findIndex(
+          (_, k) => !p.atteintes.includes(k) && k !== p.nonAtteinte
+        );
+        const lignes = [
+          { quand: "Jour 5", texte: donnees.actions[p.atteintes[0]].texte, etat: "Atteint", ok: true, fait: 1 },
+          { quand: "Semaine 2", texte: donnees.actions[p.nonAtteinte].texte, etat: `Pas atteint · ${p.raison}`, ok: false, fait: 1 },
+          { quand: "Semaine 3", texte: p.nouvelAxe.texte, etat: "Atteint · nouvel axe", ok: true, fait: 2 },
+          { quand: "Mois 1", texte: donnees.actions[autre].texte, etat: "Atteint", ok: true, fait: 3 },
+        ];
+        const n = reduit ? lignes.length : montage;
+        const fait = n > 0 ? lignes[n - 1].fait : 0;
+        return (
+          <div key={i} className="msg msg-carte msg-cle">
+            <p className="msg-titre msg-titre-grand">Ensuite, on vous accompagne</p>
+            <p className="demo-sous-titre">
+              À chaque échéance, un point d&apos;étape. Une action qui ne fonctionne pas est
+              remplacée, selon la raison que vous indiquez.
+            </p>
+            <div className="demo-montage-progres">
+              <span>
+                Objectifs atteints : {fait} sur {donnees.actions.length}
+              </span>
+              <div className="fenetre-barre">
+                <div style={{ width: `${(fait / donnees.actions.length) * 100}%` }} />
+              </div>
+            </div>
+            <ol className="demo-montage">
+              {lignes.slice(0, n).map((l) => (
+                <li key={l.quand}>
+                  <span className="demo-montage-quand">{l.quand}</span>
+                  <span className="demo-montage-texte">{l.texte}</span>
+                  <span className={`demo-etat ${l.ok ? "fait" : "remplacee"}`}>{l.etat}</span>
+                </li>
+              ))}
+            </ol>
+            {n === lignes.length ? (
+              <p className="demo-prochain">
+                On vous accompagne à chaque échéance, jusqu&apos;à ce que vos objectifs soient
+                atteints.
+              </p>
+            ) : null}
+          </div>
+        );
+      }
       case "bilan":
         return (
           <div key={i} className="msg msg-carte msg-suivi">
@@ -889,7 +956,7 @@ export function FenetreOutil() {
                     style={{ background: couleurAgent[a.couleur].barre }}
                     aria-hidden="true"
                   >
-                    <AgentIcone code={a.code} className="h-5 w-5" />
+                    <AgentAvatar code={a.code} />
                   </span>
                   <span className="min-w-0">
                     <span className="demo-item-nom">{a.nom}</span>
@@ -913,6 +980,7 @@ export function FenetreOutil() {
                 <span className="demo-chat-nom" style={{ color: couleur.texte }}>
                   {agent.nom}
                 </span>
+                {rapide ? <span className="demo-rapide">▸▸ Accéléré</span> : null}
                 <Link href={`/agents/${agent.slug}`} className="demo-chat-lien">
                   Page de l&apos;agent
                 </Link>

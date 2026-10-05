@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AGENTS, couleurAgent } from "@/lib/agents";
-import { AgentIcone } from "@/components/marketing/agent-icone";
+import { AgentAvatar } from "@/components/marketing/agent-avatar";
 
 const DELAI_AUTO = 10000;
 
@@ -41,7 +41,7 @@ export function AgentsSelecteur() {
               style={{ background: couleurAgent[a.couleur].texte }}
               aria-hidden="true"
             >
-              <AgentIcone code={a.code} className="h-3 w-3" />
+              <AgentAvatar code={a.code} />
             </span>
             {a.nom}
           </button>
@@ -56,7 +56,7 @@ export function AgentsSelecteur() {
               style={{ background: couleurAgent[agent.couleur].barre }}
               aria-hidden="true"
             >
-              <AgentIcone code={agent.code} className="h-5 w-5" />
+              <AgentAvatar code={agent.code} />
             </span>
             <h2 style={{ color: couleurAgent[agent.couleur].texte }}>
               {agent.nom}

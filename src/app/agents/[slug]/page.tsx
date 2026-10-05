@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { GrillePoints } from "@/components/marketing/grille-points";
-import { AgentIcone } from "@/components/marketing/agent-icone";
+import { AgentAvatar } from "@/components/marketing/agent-avatar";
 import { Reveal } from "@/components/marketing/reveal";
 import { AGENTS, agentParSlug, couleurAgent, type Agent } from "@/lib/agents";
 
@@ -89,11 +89,11 @@ export default async function PageAgent({
           <GrillePoints position="centre" />
           <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
             <span
-              className="flex h-16 w-16 items-center justify-center rounded-2xl text-[var(--bg)]"
+              className="avatar-hero"
               style={{ background: couleur.barre }}
               aria-hidden="true"
             >
-              <AgentIcone code={agent.code} className="h-8 w-8" />
+              <AgentAvatar code={agent.code} />
             </span>
             <span className="badge-dispo mt-6">
               {agent.disponible ? "Disponible" : "Bientôt disponible"}
@@ -209,7 +209,7 @@ export default async function PageAgent({
                     style={{ background: couleurAgent[autre.couleur].barre }}
                     aria-hidden="true"
                   >
-                    <AgentIcone code={autre.code} className="h-5 w-5" />
+                    <AgentAvatar code={autre.code} />
                   </span>
                   <span>
                     <span
