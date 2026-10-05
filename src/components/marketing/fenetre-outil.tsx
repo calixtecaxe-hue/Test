@@ -6,26 +6,33 @@ import { AgentIcone } from "@/components/marketing/agent-icone";
 import { AGENTS, couleurAgent } from "@/lib/agents";
 import demo from "@/lib/demo-outil.json";
 
-type Etape = "agent" | "profil" | "questionnaire" | "resultat";
-
 type DemoAgent = {
+  accueil: string;
   questions: { libelle: string; reponse: string; statut: string }[];
-  indicateurs?: string[];
-  action?: string;
+  parties: { nom: string; nomIndicateur: string; lecture: string; valeur?: string }[];
+  synthese: string[];
   propositions?: string[];
+  actions: { texte: string; retour: string }[];
+  suivi: { etats: string[]; prochain: string };
 };
 
+type Bloc =
+  | { t: "agent"; texte: string }
+  | { t: "moi"; texte: string }
+  | { t: "profil" }
+  | { t: "redaction" }
+  | { t: "synthese" }
+  | { t: "parties" }
+  | { t: "propositions" }
+  | { t: "actions" }
+  | { t: "suivi" };
+
+type Phase = "attente" | "questions" | "redaction" | "fini";
 type Zoom = { echelle: number; origine: string };
 type Curseur = { x: number; y: number; visible: boolean };
 
 const DEMO_AGENTS = demo.agents as Record<string, DemoAgent>;
-
-const ETAPES: { id: Etape; libelle: string }[] = [
-  { id: "agent", libelle: "Agent" },
-  { id: "profil", libelle: "Profil" },
-  { id: "questionnaire", libelle: "Questionnaire" },
-  { id: "resultat", libelle: "Résultat" },
-];
+const NB_QUESTIONS = 3;
 
 // Règle d'agrégation du produit (CLAUDE.md section 7) : vert 100, orange 50,
 // rouge 0 ; le score est la moyenne des indicateurs notés, les indicateurs
@@ -39,7 +46,8 @@ const COULEUR_STATUT: Record<string, string> = {
   Informatif: "var(--text-faint)",
 };
 
-const ZOOM_NEUTRE: Zoom = { echelle: 1, origine: "50% 0%" };
+const ZOOM_NEUTRE: Zoom = { echelle: 1, origine: "50% 75%" };
+const ZOOM_SAISIE: Zoom = { echelle: 1.04, origine: "50% 75%" };
 const REQUETE_MOUVEMENT_REDUIT = "(prefers-reduced-motion: reduce)";
 
 function useMouvementReduit(): boolean {
@@ -54,8 +62,35 @@ function useMouvementReduit(): boolean {
   );
 }
 
-// Le score monte de 0 à sa valeur ; remonté à chaque affichage du résultat
-// (clé), il repart donc de zéro sans effet de synchronisation.
+function notesDe(code: string): number[] {
+  return DEMO_AGENTS[code].questions.flatMap((q) =>
+    q.statut in NOTE ? [NOTE[q.statut]] : []
+  );
+}
+
+function moyenne(notes: number[]): number {
+  return notes.length ? Math.round(notes.reduce((a, b) => a + b, 0) / notes.length) : 0;
+}
+
+// Conversation complète d'un agent : sert de rendu direct quand les
+// animations sont réduites.
+function filComplet(code: string): Bloc[] {
+  const d = DEMO_AGENTS[code];
+  const fil: Bloc[] = [
+    { t: "agent", texte: d.accueil },
+    { t: "profil" },
+  ];
+  d.questions.forEach((q) => {
+    fil.push({ t: "agent", texte: q.libelle }, { t: "moi", texte: q.reponse });
+  });
+  fil.push({ t: "synthese" }, { t: "parties" });
+  if (d.propositions) fil.push({ t: "propositions" });
+  fil.push({ t: "actions" }, { t: "suivi" });
+  return fil;
+}
+
+// Le score monte de 0 à sa valeur ; remonté à chaque affichage (clé), il
+// repart de zéro sans effet de synchronisation.
 function Score({ cible, reduit }: { cible: number; reduit: boolean }) {
   const [valeur, setValeur] = useState(reduit ? cible : 0);
 
@@ -75,10 +110,8 @@ function Score({ cible, reduit }: { cible: number; reduit: boolean }) {
 
   return (
     <>
-      <p className="mt-3 flex items-baseline gap-2" data-cible="score">
-        <span className="font-[family-name:var(--titre)] text-5xl font-bold">
-          {valeur}
-        </span>
+      <p className="flex items-baseline gap-2">
+        <span className="font-[family-name:var(--titre)] text-5xl font-bold">{valeur}</span>
         <span className="text-[var(--text-muted)]">/ 100</span>
       </p>
       <div className="fenetre-barre">
@@ -88,74 +121,55 @@ function Score({ cible, reduit }: { cible: number; reduit: boolean }) {
   );
 }
 
-// Aperçu du parcours : choix d'un agent, profil prérempli, questionnaire de
-// cinq questions, résultat. Une démo automatique le joue seule (curseur,
-// zooms, réponses écrites lettre par lettre) et s'arrête dès que la
-// personne reprend la main. Questions, profil et résultats sont des
-// exemples fictifs (légende sous la fenêtre) ; les questionnaires réels des
-// agents autres qu'Acquisition n'existent pas encore.
+function apercuLateral(phase: Phase, actif: boolean, termine: boolean, questions: number): string {
+  if (actif && phase === "fini") return "Compte rendu disponible";
+  if (actif && phase === "redaction") return "Rédaction du compte rendu…";
+  if (actif && phase === "questions") return `Question ${Math.min(questions, NB_QUESTIONS)} sur ${NB_QUESTIONS}`;
+  if (termine) return "Compte rendu disponible";
+  return "Prêt à démarrer";
+}
+
+// Aperçu du produit sous forme de messagerie : on choisit un agent dans la
+// liste, son profil est déjà renseigné, il pose trois questions simples,
+// puis rédige un compte rendu complet avec plan d'action et suivi. Une démo
+// automatique le joue en boucle (curseur, zooms, réponses écrites lettre par
+// lettre) et repart de zéro à chaque affichage de la page ; cliquer sur un
+// agent relance la lecture depuis cet agent. Tout le contenu est fictif.
 export function FenetreOutil() {
-  const [etape, setEtape] = useState<Etape>("agent");
   const [indexAgent, setIndexAgent] = useState(0);
-  const [questionsAffichees, setQuestionsAffichees] = useState(0);
-  const [auto, setAuto] = useState(true);
+  const [fil, setFil] = useState<Bloc[]>([]);
+  const [phase, setPhase] = useState<Phase>("attente");
+  const [questions, setQuestions] = useState(0);
+  const [termines, setTermines] = useState<number[]>([]);
+  const [saisie, setSaisie] = useState("");
+  const [lancement, setLancement] = useState({ depart: 0, n: 0 });
   const [curseur, setCurseur] = useState<Curseur>({ x: 0, y: 0, visible: false });
   const [clics, setClics] = useState(0);
   const [presse, setPresse] = useState(false);
   const [zoom, setZoom] = useState<Zoom>(ZOOM_NEUTRE);
-  const [saisie, setSaisie] = useState<{ i: number; texte: string } | null>(null);
-  const [valides, setValides] = useState(0);
   const [survol, setSurvol] = useState<string | null>(null);
   const reduit = useMouvementReduit();
   const fenetreRef = useRef<HTMLDivElement>(null);
-  const corpsRef = useRef<HTMLDivElement>(null);
+  const filRef = useRef<HTMLDivElement>(null);
 
-  const autoActif = auto && !reduit;
   const agent = AGENTS[indexAgent];
   const couleur = couleurAgent[agent.couleur];
   const donnees = DEMO_AGENTS[agent.code];
-  const total = donnees.questions.length;
-  const visibles = reduit ? total : questionsAffichees;
+  const affiche: Bloc[] = reduit ? filComplet(agent.code) : fil;
+  const notes = notesDe(agent.code);
+  const score = moyenne(notes);
 
-  function choisir(index: number) {
-    setIndexAgent(index);
-    setQuestionsAffichees(0);
-    setValides(0);
-    setEtape("profil");
+  function choisirAgent(index: number) {
+    if (reduit) setIndexAgent(index);
+    else setLancement((l) => ({ depart: index, n: l.n + 1 }));
   }
 
-  function versQuestionnaire() {
-    setQuestionsAffichees(0);
-    setValides(0);
-    setEtape("questionnaire");
-  }
-
-  function versResultat() {
-    setQuestionsAffichees(total);
-    setEtape("resultat");
-  }
-
-  function arreterDemo() {
-    setAuto(false);
-    setCurseur((c) => ({ ...c, visible: false }));
-    setZoom(ZOOM_NEUTRE);
-    setSaisie(null);
-    setSurvol(null);
-  }
-
-  function relancerDemo() {
-    setEtape("agent");
-    setQuestionsAffichees(0);
-    setValides(0);
-    setSaisie(null);
-    setAuto(true);
-  }
-
-  // Déroulé automatique : le curseur va vers l'élément visé, clique, la
-  // caméra zoome sur la zone utile, les réponses s'écrivent lettre par
-  // lettre. Il passe d'un agent au suivant en boucle.
+  // Déroulé automatique : le curseur choisit l'agent dans la liste, la
+  // personne « répond » (texte écrit lettre par lettre dans le champ, puis
+  // envoi), le compte rendu arrive bloc par bloc. Il passe d'un agent au
+  // suivant en boucle.
   useEffect(() => {
-    if (!autoActif) return;
+    if (reduit) return;
     const ctl = { minuteurs: [] as ReturnType<typeof setTimeout>[] };
 
     const pause = (ms: number) =>
@@ -163,15 +177,16 @@ export function FenetreOutil() {
         ctl.minuteurs.push(setTimeout(resoudre, ms));
       });
 
-    const cible = (nom: string) =>
-      fenetreRef.current?.querySelector<HTMLElement>(`[data-cible="${nom}"]`) ?? null;
+    const ajouter = (bloc: Bloc) => setFil((f) => [...f, bloc]);
+    const retirerRedaction = () => setFil((f) => f.filter((b) => b.t !== "redaction"));
 
     async function deplacer(nom: string, positionX = 0.5) {
-      const element = cible(nom);
       const fenetre = fenetreRef.current;
-      if (!element || !fenetre) return;
-      const f = fenetre.getBoundingClientRect();
+      const element = fenetre?.querySelector<HTMLElement>(`[data-cible="${nom}"]`);
+      if (!fenetre || !element) return;
       const r = element.getBoundingClientRect();
+      if (r.width === 0) return;
+      const f = fenetre.getBoundingClientRect();
       setCurseur({
         x: r.left - f.left + r.width * positionX,
         y: r.top - f.top + r.height * 0.55,
@@ -190,174 +205,272 @@ export function FenetreOutil() {
       setSurvol(null);
     }
 
-    function defilerBas() {
-      const corps = corpsRef.current;
-      if (corps) corps.scrollTop = corps.scrollHeight;
+    async function ecrire(texte: string) {
+      await deplacer("champ", 0.2);
+      await cliquer();
+      for (let k = 1; k <= texte.length; k++) {
+        setSaisie(texte.slice(0, k));
+        await pause(55);
+      }
+      await pause(350);
+      await deplacer("envoyer");
+      await cliquer("envoyer");
+      setSaisie("");
+      ajouter({ t: "moi", texte });
+      await pause(450);
+    }
+
+    async function agentRepond(texte: string) {
+      ajouter({ t: "redaction" });
+      await pause(750);
+      retirerRedaction();
+      ajouter({ t: "agent", texte });
+      await pause(500);
     }
 
     async function jouerAgent(i: number) {
-      const questions = DEMO_AGENTS[AGENTS[i].code].questions;
+      const code = AGENTS[i].code;
+      const d = DEMO_AGENTS[code];
 
       setZoom(ZOOM_NEUTRE);
-      setEtape("agent");
-      setQuestionsAffichees(0);
-      setValides(0);
-      setSaisie(null);
-      await pause(1300);
-
-      await deplacer(`agent-${i}`, 0.35);
-      await cliquer(`agent-${i}`);
+      setFil([]);
+      setPhase("attente");
+      setQuestions(0);
+      setSaisie("");
       setIndexAgent(i);
-      setEtape("profil");
-      await pause(250);
-
-      setZoom({ echelle: 1.07, origine: "50% 25%" });
-      await pause(900);
-      await deplacer("profil-0", 0.8);
-      await pause(900);
-      await deplacer("profil-4", 0.8);
       await pause(900);
 
-      setZoom(ZOOM_NEUTRE);
+      await deplacer(`agent-${i}`, 0.4);
+      await cliquer(`agent-${i}`);
+      await agentRepond(d.accueil);
+      ajouter({ t: "profil" });
+      await pause(1700);
+      await agentRepond("Souhaitez-vous commencer ?");
+
+      if (!window.matchMedia("(max-width: 639px)").matches) setZoom(ZOOM_SAISIE);
       await pause(800);
-      await deplacer("questionnaire");
-      await cliquer("questionnaire");
-      setQuestionsAffichees(0);
-      setEtape("questionnaire");
-      await pause(500);
+      await ecrire("Oui, commençons");
 
-      setZoom({ echelle: 1.12, origine: "0% 12%" });
-      await pause(800);
-
-      for (let q = 0; q < questions.length; q++) {
-        setQuestionsAffichees(q + 1);
-        setSaisie({ i: q, texte: "" });
-        await pause(160);
-        defilerBas();
-        await pause(350);
-
-        await deplacer(`champ-${q}`, 0.12);
-        await cliquer();
-        const reponse = questions[q].reponse;
-        for (let k = 1; k <= reponse.length; k++) {
-          setSaisie({ i: q, texte: reponse.slice(0, k) });
-          await pause(55);
-        }
-        await pause(350);
-
-        await deplacer(`valider-${q}`);
-        await cliquer(`valider-${q}`);
-        setValides(q + 1);
-        setSaisie(null);
-        await pause(450);
+      setPhase("questions");
+      for (let q = 0; q < d.questions.length; q++) {
+        setQuestions(q + 1);
+        await agentRepond(d.questions[q].libelle);
+        await ecrire(d.questions[q].reponse);
       }
 
       setZoom(ZOOM_NEUTRE);
-      setEtape("resultat");
-      await pause(900);
-      await deplacer("score", 0.2);
-      setZoom({ echelle: 1.12, origine: "15% 20%" });
-      await pause(2000);
-      setZoom(ZOOM_NEUTRE);
-      await pause(900);
-      await deplacer("carte", 0.4);
-      await pause(2200);
+      setPhase("redaction");
+      await agentRepond("Merci. Je rédige votre compte rendu.");
+      ajouter({ t: "redaction" });
+      await pause(1800);
+      retirerRedaction();
+      setPhase("fini");
 
-      await deplacer("agent");
-      await cliquer("agent");
+      const blocs: Bloc[] = [{ t: "synthese" }, { t: "parties" }];
+      if (d.propositions) blocs.push({ t: "propositions" });
+      blocs.push({ t: "actions" }, { t: "suivi" });
+      for (const bloc of blocs) {
+        ajouter(bloc);
+        await pause(bloc.t === "synthese" || bloc.t === "parties" ? 4500 : 3500);
+      }
+
+      setTermines((t) => (t.includes(i) ? t : [...t, i]));
+      setCurseur((c) => ({ ...c, visible: false }));
+      await pause(3000);
     }
 
     async function boucle() {
       await pause(0);
-      let i = 0;
+      let i = lancement.depart;
       for (;;) {
         await jouerAgent(i);
         i = (i + 1) % AGENTS.length;
+        if (i === 0) setTermines([]);
       }
     }
 
     void boucle();
     return () => ctl.minuteurs.forEach(clearTimeout);
-  }, [autoActif]);
+  }, [reduit, lancement]);
 
-  // Avance automatique du mode manuel (démo arrêtée) : profil puis
-  // questions qui se remplissent.
+  // La conversation défile vers le dernier message à chaque ajout.
   useEffect(() => {
-    if (reduit || autoActif) return;
-    let minuteur: ReturnType<typeof setTimeout> | undefined;
+    const zone = filRef.current;
+    if (!zone) return;
+    zone.scrollTo({ top: zone.scrollHeight, behavior: reduit ? "auto" : "smooth" });
+  }, [affiche.length, reduit]);
 
-    if (etape === "profil") {
-      minuteur = setTimeout(() => {
-        setQuestionsAffichees(0);
-        setEtape("questionnaire");
-      }, 3200);
-    } else if (etape === "questionnaire") {
-      minuteur =
-        questionsAffichees < total
-          ? setTimeout(
-              () => setQuestionsAffichees(questionsAffichees + 1),
-              questionsAffichees === 0 ? 500 : 1800
-            )
-          : setTimeout(() => setEtape("resultat"), 1500);
-    }
-    return () => clearTimeout(minuteur);
-  }, [etape, questionsAffichees, reduit, autoActif, total]);
-
-  useEffect(() => {
-    const corps = corpsRef.current;
-    if (!corps || autoActif) return;
-    corps.scrollTo({ top: corps.scrollHeight, behavior: reduit ? "auto" : "smooth" });
-  }, [etape, visibles, reduit, autoActif]);
-
-  const notes = donnees.questions.flatMap((q) =>
-    q.statut in NOTE ? [NOTE[q.statut]] : []
-  );
-  const score = notes.length
-    ? Math.round(notes.reduce((a, b) => a + b, 0) / notes.length)
-    : 0;
-  const indexEtape = ETAPES.findIndex((e) => e.id === etape);
   const classeSurvol = (nom: string) => (survol === nom ? "survol" : "");
+
+  function rendreBloc(bloc: Bloc, i: number) {
+    switch (bloc.t) {
+      case "agent":
+        return (
+          <div key={i} className="msg msg-agent">
+            {bloc.texte}
+          </div>
+        );
+      case "moi":
+        return (
+          <div key={i} className="msg msg-moi">
+            {bloc.texte}
+          </div>
+        );
+      case "redaction":
+        return (
+          <div key={i} className="msg msg-agent" aria-label="Rédaction en cours">
+            <span className="msg-points">
+              <i />
+              <i />
+              <i />
+            </span>
+          </div>
+        );
+      case "profil":
+        return (
+          <div key={i} className="msg msg-carte">
+            <p className="msg-titre">Profil renseigné à l&apos;inscription</p>
+            <div className="demo-profil">
+              {demo.profil.map((ligne) => (
+                <div key={ligne.libelle} className="demo-ligne">
+                  <span className="l">{ligne.libelle}</span>
+                  <span className="v">{ligne.valeur}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case "synthese":
+        return (
+          <div key={i} className="msg msg-carte">
+            <p className="msg-titre">Compte rendu · {agent.nom}</p>
+            {donnees.propositions ? null : (
+              <div className="demo-score">
+                <Score key={`score-${indexAgent}`} cible={score} reduit={reduit} />
+                <p className="demo-note">Score calculé à partir de seuils fixes.</p>
+              </div>
+            )}
+            {donnees.synthese.map((p) => (
+              <p key={p} className="demo-paragraphe">
+                {p}
+              </p>
+            ))}
+          </div>
+        );
+      case "parties":
+        return (
+          <div key={i} className="msg msg-carte">
+            <p className="msg-titre">
+              {donnees.propositions ? "Analyse de vos publications" : "Détail par partie"}
+            </p>
+            <ul className="demo-parties">
+              {donnees.parties.map((p, k) => {
+                const statut = donnees.questions[k].statut;
+                return (
+                  <li key={p.nom}>
+                    <div className="demo-partie-tete">
+                      <span className="demo-partie-nom">{p.nom}</span>
+                      {p.valeur ? (
+                        <span className="demo-partie-valeur">{p.valeur}</span>
+                      ) : (
+                        <span className="fenetre-statut">
+                          <span
+                            className="fenetre-point"
+                            style={{ background: COULEUR_STATUT[statut] }}
+                          />
+                          {statut} · {NOTE[statut]}
+                        </span>
+                      )}
+                    </div>
+                    {p.valeur ? null : (
+                      <div className="demo-partie-barre">
+                        <div
+                          style={{
+                            width: `${NOTE[statut]}%`,
+                            background: COULEUR_STATUT[statut],
+                            animationDelay: `${k * 150}ms`,
+                          }}
+                        />
+                      </div>
+                    )}
+                    <p className="demo-partie-lecture">
+                      <b>{p.nomIndicateur}.</b> {p.lecture}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      case "propositions":
+        return (
+          <div key={i} className="msg msg-carte">
+            <p className="msg-titre">Propositions de contenu</p>
+            <ul className="demo-propositions">
+              {donnees.propositions?.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+            <p className="demo-note">Générées à votre demande, jamais automatiquement.</p>
+          </div>
+        );
+      case "actions":
+        return (
+          <div key={i} className="msg msg-carte">
+            <p className="msg-titre">Plan d&apos;action</p>
+            <ol className="demo-actions">
+              {donnees.actions.map((a) => (
+                <li key={a.texte}>
+                  <span>{a.texte}</span>
+                  <span className="demo-retour">{a.retour}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        );
+      case "suivi":
+        return (
+          <div key={i} className="msg msg-carte">
+            <p className="msg-titre">Suivi</p>
+            <ul className="demo-suivi">
+              {donnees.actions.map((a, k) => {
+                const etat = donnees.suivi.etats[k];
+                return (
+                  <li key={a.texte}>
+                    <span>{a.texte}</span>
+                    <span
+                      className={`demo-etat ${
+                        etat === "En cours" ? "en-cours" : etat === "Fait" ? "fait" : ""
+                      }`}
+                    >
+                      {etat}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="demo-prochain">{donnees.suivi.prochain}</p>
+            <p className="demo-note">
+              Chaque action a son propre délai de retour : le suivi suit votre rythme.
+            </p>
+          </div>
+        );
+    }
+  }
 
   return (
     <figure className="m-0">
-      <div
-        className="fenetre"
-        ref={fenetreRef}
-        onPointerDown={() => {
-          if (autoActif) arreterDemo();
-        }}
-      >
+      <div className="fenetre" ref={fenetreRef}>
         <div className="fenetre-haut">
           <div className="fenetre-points" aria-hidden="true">
             <span style={{ background: "var(--red-1)" }} />
             <span style={{ background: "var(--white-1)" }} />
             <span style={{ background: "var(--blue-1)" }} />
           </div>
-          <ol className="demo-etapes" aria-label="Étapes du parcours">
-            {ETAPES.map((e, i) => (
-              <li
-                key={e.id}
-                className={`demo-etape ${i === indexEtape ? "actif" : ""} ${i < indexEtape ? "fait" : ""}`}
-                aria-current={i === indexEtape ? "step" : undefined}
-              >
-                <span className="demo-etape-num">{i < indexEtape ? "✓" : i + 1}</span>
-                <span className="demo-etape-texte">{e.libelle}</span>
-              </li>
-            ))}
-          </ol>
-          {reduit ? null : (
-            <button
-              type="button"
-              className="demo-lecture"
-              onPointerDown={(e) => e.stopPropagation()}
-              onClick={() => (autoActif ? arreterDemo() : relancerDemo())}
-            >
-              {autoActif ? "Arrêter la démo" : "Lancer la démo"}
-            </button>
-          )}
+          <span className="fenetre-titre">CAXE · Mes agents</span>
         </div>
 
-        <div className="demo-corps" ref={corpsRef} aria-live="polite">
+        <div className="demo-corps">
           <div
             className="demo-zone"
             style={{
@@ -365,240 +478,80 @@ export function FenetreOutil() {
               transformOrigin: zoom.origine,
             }}
           >
-            {etape === "agent" ? (
-              <div key="agent">
-                <h3 className="demo-titre">Choisissez un agent</h3>
-                <p className="demo-sous">
-                  Chaque agent couvre un périmètre précis. Cliquez sur celui que
-                  vous souhaitez essayer.
-                </p>
-                <div className="demo-agents">
-                  {AGENTS.map((a, index) => (
-                    <button
-                      key={a.code}
-                      type="button"
-                      data-cible={`agent-${index}`}
-                      className={`demo-agent ${classeSurvol(`agent-${index}`)}`}
-                      style={{ animationDelay: `${index * 90}ms` }}
-                      onClick={() => choisir(index)}
-                    >
-                      <span
-                        className="fenetre-agent-icone"
-                        style={{ background: couleurAgent[a.couleur].barre }}
-                        aria-hidden="true"
-                      >
-                        <AgentIcone code={a.code} className="h-5 w-5" />
-                      </span>
-                      <span className="min-w-0">
-                        <span
-                          className="demo-agent-nom block"
-                          style={{ color: couleurAgent[a.couleur].texte }}
-                        >
-                          {a.nom}
-                        </span>
-                        <span className="demo-agent-nature block">
-                          {a.nature === "diagnostic" ? "Diagnostic" : "Génératif"}
-                        </span>
-                        <span className="demo-agent-couvre block">{a.couvre}</span>
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-
-            {etape === "profil" ? (
-              <div key="profil">
-                <h3 className="demo-titre" style={{ color: couleur.texte }}>
-                  {agent.nom}
-                </h3>
-                <p className="demo-sous">
-                  Vos informations, saisies une seule fois à l&apos;inscription,
-                  sont déjà renseignées.
-                </p>
-                <div className="demo-profil">
-                  {demo.profil.map((ligne, i) => (
-                    <div
-                      key={ligne.libelle}
-                      className="demo-ligne"
-                      data-cible={`profil-${i}`}
-                      style={{ animationDelay: `${i * 260}ms` }}
-                    >
-                      <span className="l">{ligne.libelle}</span>
-                      <span className="v">{ligne.valeur}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-
-            {etape === "questionnaire" ? (
-              <div key="questionnaire">
-                <h3 className="demo-titre">Questionnaire généré pour votre métier</h3>
-                <p className="demo-sous">
-                  Question {Math.min(Math.max(visibles, 1), total)} sur {total}.
-                  Aucune n&apos;est obligatoire.
-                </p>
-                <div className="fenetre-barre">
-                  <div
-                    style={{
-                      width: `${(Math.max(autoActif ? valides : visibles, 0) / total) * 100}%`,
-                      transition: "width 0.5s ease",
-                    }}
-                  />
-                </div>
-                <div className="mt-2">
-                  {donnees.questions.slice(0, visibles).map((q, i) => {
-                    const enSaisie = autoActif && saisie?.i === i;
-                    return (
-                      <div key={q.libelle} className="demo-q">
-                        <span className="demo-q-num">{i + 1}</span>
-                        <div className="min-w-0 flex-1">
-                          <p className="demo-q-libelle">{q.libelle}</p>
-                          {enSaisie ? (
-                            <div className="demo-saisie">
-                              <span className="demo-champ" data-cible={`champ-${i}`}>
-                                {saisie.texte === "" ? (
-                                  <span className="demo-placeholder">Votre réponse</span>
-                                ) : (
-                                  saisie.texte
-                                )}
-                                <span className="demo-caret" />
-                              </span>
-                              <span
-                                className={`demo-valider ${classeSurvol(`valider-${i}`)}`}
-                                data-cible={`valider-${i}`}
-                                aria-hidden="true"
-                              >
-                                Valider
-                              </span>
-                            </div>
-                          ) : (
-                            <>
-                              <span className={`demo-reponse ${i < valides ? "fige" : ""}`}>
-                                {q.reponse}
-                              </span>
-                              <span className="demo-ok" aria-hidden="true">✓</span>
-                            </>
+            <aside className="demo-liste" aria-label="Agents">
+              {AGENTS.map((a, index) => (
+                <button
+                  key={a.code}
+                  type="button"
+                  data-cible={`agent-${index}`}
+                  aria-current={index === indexAgent ? "true" : undefined}
+                  className={`demo-item ${index === indexAgent ? "actif" : ""} ${classeSurvol(`agent-${index}`)}`}
+                  onClick={() => choisirAgent(index)}
+                >
+                  <span
+                    className="fenetre-agent-icone"
+                    style={{ background: couleurAgent[a.couleur].barre }}
+                    aria-hidden="true"
+                  >
+                    <AgentIcone code={a.code} className="h-5 w-5" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="demo-item-nom">{a.nom}</span>
+                    <span className="demo-item-apercu">
+                      {reduit
+                        ? "Compte rendu disponible"
+                        : apercuLateral(
+                            phase,
+                            index === indexAgent,
+                            termines.includes(index),
+                            questions
                           )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : null}
+                    </span>
+                  </span>
+                </button>
+              ))}
+            </aside>
 
-            {etape === "resultat" ? (
-              <div key={`resultat-${indexAgent}`}>
-                <h3 className="demo-titre" style={{ color: couleur.texte }}>
+            <section className="demo-chat" aria-label={`Conversation avec ${agent.nom}`}>
+              <header className="demo-chat-haut">
+                <span className="demo-chat-nom" style={{ color: couleur.texte }}>
                   {agent.nom}
-                </h3>
-                {donnees.propositions ? (
-                  <>
-                    <p className="demo-sous">Analyse de vos publications</p>
-                    <ul className="fenetre-indicateurs">
-                      {donnees.questions.map((q, i) => (
-                        <li key={q.libelle}>
-                          <span>{donnees.indicateurs?.[i]}</span>
-                          <span className="fenetre-statut">{q.reponse}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="demo-carte" data-cible="carte">
-                      <p className="demo-carte-titre">Propositions de contenu</p>
-                      <ul className="demo-propositions">
-                        {donnees.propositions.map((p) => (
-                          <li key={p}>{p}</li>
-                        ))}
-                      </ul>
-                      <p className="demo-note">
-                        Générées à votre demande, jamais automatiquement.
-                      </p>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <p className="demo-sous">Calculé à partir de seuils fixes</p>
-                    <Score cible={score} reduit={reduit} />
-                    <ul className="fenetre-indicateurs">
-                      {donnees.questions.map((q, i) => (
-                        <li key={q.libelle}>
-                          <span>{donnees.indicateurs?.[i]}</span>
-                          <span className="fenetre-statut">
-                            <span
-                              className="fenetre-point"
-                              style={{ background: COULEUR_STATUT[q.statut] }}
-                            />
-                            {q.statut}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="demo-carte" data-cible="carte">
-                      <p className="demo-carte-titre">Action prioritaire</p>
-                      <p className="demo-action">{donnees.action}</p>
-                      <p className="demo-note">
-                        Les indicateurs informatifs n&apos;entrent pas dans le score.
-                      </p>
-                    </div>
-                  </>
-                )}
+                </span>
+                <Link href={`/agents/${agent.slug}`} className="demo-chat-lien">
+                  Page de l&apos;agent
+                </Link>
+              </header>
+              <div className="demo-fil" ref={filRef} aria-live="polite">
+                {affiche.map(rendreBloc)}
               </div>
-            ) : null}
+              <div className="demo-saisie-barre">
+                <span
+                  className={`demo-champ ${saisie ? "plein" : ""}`}
+                  data-cible="champ"
+                >
+                  {saisie ? (
+                    <>
+                      {saisie}
+                      <span className="demo-caret" />
+                    </>
+                  ) : (
+                    <span className="demo-placeholder">Message à {agent.nom}</span>
+                  )}
+                </span>
+                <span
+                  className={`demo-envoyer ${classeSurvol("envoyer")}`}
+                  data-cible="envoyer"
+                  aria-hidden="true"
+                >
+                  Envoyer
+                </span>
+              </div>
+            </section>
           </div>
         </div>
 
-        <div className="demo-pied">
-          {etape === "agent" ? (
-            <span className="demo-indice">Choisissez l&apos;agent à essayer</span>
-          ) : null}
-          {etape === "profil" ? (
-            <>
-              <span className="demo-indice">Informations saisies à l&apos;inscription</span>
-              <button
-                type="button"
-                data-cible="questionnaire"
-                className={`fenetre-action principal ${classeSurvol("questionnaire")}`}
-                onClick={versQuestionnaire}
-              >
-                Générer le questionnaire
-              </button>
-            </>
-          ) : null}
-          {etape === "questionnaire" ? (
-            <>
-              <span className="demo-indice">Les réponses se remplissent</span>
-              <button type="button" className="fenetre-action principal" onClick={versResultat}>
-                Voir le résultat
-              </button>
-            </>
-          ) : null}
-          {etape === "resultat" ? (
-            <>
-              <span className="demo-indice">Exemple terminé</span>
-              <div className="fenetre-actions">
-                <button
-                  type="button"
-                  data-cible="agent"
-                  className={`fenetre-action ${classeSurvol("agent")}`}
-                  onClick={() => setEtape("agent")}
-                >
-                  Changer d&apos;agent
-                </button>
-                <button type="button" className="fenetre-action" onClick={() => choisir(indexAgent)}>
-                  Rejouer
-                </button>
-                <Link href={`/agents/${agent.slug}`} className="fenetre-action principal">
-                  Voir la page de l&apos;agent
-                </Link>
-              </div>
-            </>
-          ) : null}
-        </div>
-
         <div
-          className={`demo-curseur ${curseur.visible && autoActif ? "visible" : ""} ${presse ? "presse" : ""}`}
+          className={`demo-curseur ${curseur.visible && !reduit ? "visible" : ""} ${presse ? "presse" : ""}`}
           style={{ transform: `translate(${curseur.x}px, ${curseur.y}px)` }}
           aria-hidden="true"
         >
