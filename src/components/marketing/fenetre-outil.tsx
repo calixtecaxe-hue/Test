@@ -1,332 +1,344 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { AgentIcone } from "@/components/marketing/agent-icone";
 import { AGENTS, couleurAgent } from "@/lib/agents";
+import demo from "@/lib/demo-outil.json";
 
-type Choix = "reponse" | "passe";
-type Cote = "agent" | "moi" | "centre" | "large";
+type Etape = "agent" | "profil" | "questionnaire" | "resultat";
 
-// Valeurs d'exemple. Règle d'agrégation du produit (CLAUDE.md section 7) :
-// vert 100, orange 50, rouge 0 ; le score est la moyenne des indicateurs
-// notés, une question passée est exclue du calcul et jamais comptée zéro.
-const INDICATEURS = [
-  { nom: "Contacts vendeurs", statut: "Vert", note: 100, liee: true },
-  { nom: "Rendez-vous vendeurs honorés", statut: "Orange", note: 50, liee: false },
-  { nom: "Part de mandats par bouche-à-oreille", statut: "Vert", note: 100, liee: false },
+type DemoAgent = {
+  questions: { libelle: string; reponse: string; statut: string }[];
+  indicateurs?: string[];
+  action?: string;
+  propositions?: string[];
+};
+
+const DEMO_AGENTS = demo.agents as Record<string, DemoAgent>;
+
+const ETAPES: { id: Etape; libelle: string }[] = [
+  { id: "agent", libelle: "Agent" },
+  { id: "profil", libelle: "Profil" },
+  { id: "questionnaire", libelle: "Questionnaire" },
+  { id: "resultat", libelle: "Résultat" },
 ];
+
+// Règle d'agrégation du produit (CLAUDE.md section 7) : vert 100, orange 50,
+// rouge 0 ; le score est la moyenne des indicateurs notés, les indicateurs
+// informatifs n'y entrent pas.
+const NOTE: Record<string, number> = { Vert: 100, Orange: 50, Rouge: 0 };
 
 const COULEUR_STATUT: Record<string, string> = {
   Vert: "#6fcf97",
   Orange: "var(--amber-1)",
   Rouge: "var(--red-1)",
-  "Non noté": "var(--text-faint)",
+  Informatif: "var(--text-faint)",
 };
 
-function Message({
-  cote,
-  retard = 0,
-  children,
-}: {
-  cote: Cote;
-  retard?: number;
-  children: React.ReactNode;
-}) {
-  return (
-    <div
-      className={`msg msg-${cote}`}
-      style={{ animationDelay: `${retard}ms` }}
-    >
-      {children}
-    </div>
+const REQUETE_MOUVEMENT_REDUIT = "(prefers-reduced-motion: reduce)";
+
+function useMouvementReduit(): boolean {
+  return useSyncExternalStore(
+    (notifier) => {
+      const media = window.matchMedia(REQUETE_MOUVEMENT_REDUIT);
+      media.addEventListener("change", notifier);
+      return () => media.removeEventListener("change", notifier);
+    },
+    () => window.matchMedia(REQUETE_MOUVEMENT_REDUIT).matches,
+    () => false
   );
 }
 
-function CarteResultat({ choix }: { choix: Choix }) {
-  const lignes = INDICATEURS.map((i) =>
-    choix === "passe" && i.liee
-      ? { ...i, statut: "Non noté", note: null }
-      : i
-  );
-  const notes = lignes.flatMap((l) => (l.note === null ? [] : [l.note]));
-  const score = Math.round(notes.reduce((a, b) => a + b, 0) / notes.length);
-
-  return (
-    <div className="bulle bulle-agent">
-      <p className="m-0 text-xs text-[var(--text-faint)]">
-        Calculé à partir de seuils fixes
-      </p>
-      <p className="mt-2 flex items-baseline gap-2">
-        <span className="font-[family-name:var(--titre)] text-3xl font-bold">
-          {score}
-        </span>
-        <span className="text-sm text-[var(--text-muted)]">/ 100</span>
-      </p>
-      <div className="fenetre-barre">
-        <div style={{ width: `${score}%` }} />
-      </div>
-      <ul className="fenetre-indicateurs">
-        {lignes.map((l) => (
-          <li key={l.nom}>
-            <span>{l.nom}</span>
-            <span className="fenetre-statut">
-              <span
-                className="fenetre-point"
-                style={{ background: COULEUR_STATUT[l.statut] }}
-              />
-              {l.statut}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-// Aperçu interactif de l'outil. Les valeurs sont illustratives (légende
-// sous la fenêtre) ; rien n'est inventé sur le contenu des questionnaires
-// des agents autres qu'Acquisition, dont seule la présentation est montrée.
+// Aperçu interactif du parcours : choix d'un agent, profil prérempli,
+// questionnaire de cinq questions qui se remplit, résultat. Questions,
+// profil et résultats sont des exemples fictifs (légende sous la fenêtre) ;
+// les questionnaires réels des agents autres qu'Acquisition n'existent pas
+// encore.
 export function FenetreOutil() {
-  const [actif, setActif] = useState(0);
-  const [etape, setEtape] = useState(0);
-  const [choix, setChoix] = useState<Choix | null>(null);
-  const filRef = useRef<HTMLDivElement>(null);
+  const [etape, setEtape] = useState<Etape>("agent");
+  const [indexAgent, setIndexAgent] = useState(0);
+  const [questionsAffichees, setQuestionsAffichees] = useState(0);
+  const reduit = useMouvementReduit();
+  const corpsRef = useRef<HTMLDivElement>(null);
 
-  const agent = AGENTS[actif];
+  const agent = AGENTS[indexAgent];
   const couleur = couleurAgent[agent.couleur];
-  const acquisition = agent.code === "ACQUISITION_CA";
+  const donnees = DEMO_AGENTS[agent.code];
+  const total = donnees.questions.length;
+  const visibles = reduit ? total : questionsAffichees;
+
+  function choisir(index: number) {
+    setIndexAgent(index);
+    setQuestionsAffichees(0);
+    setEtape("profil");
+  }
+
+  function versQuestionnaire() {
+    setQuestionsAffichees(0);
+    setEtape("questionnaire");
+  }
+
+  function versResultat() {
+    setQuestionsAffichees(total);
+    setEtape("resultat");
+  }
 
   useEffect(() => {
-    const fil = filRef.current;
-    if (!fil) return;
-    const reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    fil.scrollTo({ top: fil.scrollHeight, behavior: reduit ? "auto" : "smooth" });
-  }, [actif, etape, choix]);
+    if (reduit) return;
+    let minuteur: ReturnType<typeof setTimeout> | undefined;
 
-  function selectionner(index: number) {
-    setActif(index);
-    setEtape(0);
-    setChoix(null);
-  }
+    if (etape === "profil") {
+      minuteur = setTimeout(() => {
+        setQuestionsAffichees(0);
+        setEtape("questionnaire");
+      }, 3200);
+    } else if (etape === "questionnaire") {
+      minuteur =
+        questionsAffichees < total
+          ? setTimeout(
+              () => setQuestionsAffichees(questionsAffichees + 1),
+              questionsAffichees === 0 ? 500 : 1800
+            )
+          : setTimeout(() => setEtape("resultat"), 1500);
+    }
+    return () => clearTimeout(minuteur);
+  }, [etape, questionsAffichees, reduit, total]);
 
-  function repondre(c: Choix) {
-    setChoix(c);
-    setEtape(1);
-  }
+  useEffect(() => {
+    const corps = corpsRef.current;
+    if (!corps) return;
+    corps.scrollTo({ top: corps.scrollHeight, behavior: reduit ? "auto" : "smooth" });
+  }, [etape, visibles, reduit]);
+
+  const notes = donnees.questions.flatMap((q) =>
+    q.statut in NOTE ? [NOTE[q.statut]] : []
+  );
+  const score = notes.length
+    ? Math.round(notes.reduce((a, b) => a + b, 0) / notes.length)
+    : null;
+  const indexEtape = ETAPES.findIndex((e) => e.id === etape);
 
   return (
     <figure className="m-0">
       <div className="fenetre">
-        <aside className="fenetre-laterale">
+        <div className="fenetre-haut">
           <div className="fenetre-points" aria-hidden="true">
             <span style={{ background: "var(--red-1)" }} />
             <span style={{ background: "var(--white-1)" }} />
             <span style={{ background: "var(--blue-1)" }} />
           </div>
-          <div className="flex flex-col gap-1" role="tablist" aria-label="Agents">
-            {AGENTS.map((a, index) => (
-              <button
-                key={a.code}
-                type="button"
-                role="tab"
-                aria-selected={index === actif}
-                className={`fenetre-agent ${index === actif ? "actif" : ""}`}
-                onClick={() => selectionner(index)}
+          <ol className="demo-etapes" aria-label="Étapes du parcours">
+            {ETAPES.map((e, i) => (
+              <li
+                key={e.id}
+                className={`demo-etape ${i === indexEtape ? "actif" : ""} ${i < indexEtape ? "fait" : ""}`}
+                aria-current={i === indexEtape ? "step" : undefined}
               >
-                <span
-                  className="fenetre-agent-icone"
-                  style={{ background: couleurAgent[a.couleur].barre }}
-                  aria-hidden="true"
-                >
-                  <AgentIcone code={a.code} className="h-5 w-5" />
-                </span>
-                <span className="min-w-0">
-                  <span className="fenetre-agent-nom block">{a.nom}</span>
-                  <span className="fenetre-agent-etat block">
-                    {a.nature === "diagnostic" ? "Diagnostic" : "Génératif"}
-                  </span>
-                </span>
-              </button>
+                <span className="demo-etape-num">{i < indexEtape ? "✓" : i + 1}</span>
+                <span className="demo-etape-texte">{e.libelle}</span>
+              </li>
             ))}
-          </div>
-        </aside>
+          </ol>
+        </div>
 
-        <div className="fenetre-principal">
-          <div className="fenetre-entete">
-            <span
-              className="fenetre-agent-icone !h-8 !w-8 !rounded-[10px]"
-              style={{ background: couleur.barre }}
-              aria-hidden="true"
-            >
-              <AgentIcone code={agent.code} className="h-4 w-4" />
-            </span>
-            <span className="min-w-0 truncate font-medium">{agent.nom}</span>
-            <span className="hidden text-xs uppercase tracking-[0.08em] text-[var(--text-faint)] sm:inline">
-              {agent.nature === "diagnostic" ? "Diagnostic" : "Génératif"}
-            </span>
-          </div>
+        <div className="demo-corps" ref={corpsRef} aria-live="polite">
+          {etape === "agent" ? (
+            <div key="agent">
+              <h3 className="demo-titre">Choisissez un agent</h3>
+              <p className="demo-sous">
+                Chaque agent couvre un périmètre précis. Cliquez sur celui que
+                vous souhaitez essayer.
+              </p>
+              <div className="demo-agents">
+                {AGENTS.map((a, index) => (
+                  <button
+                    key={a.code}
+                    type="button"
+                    className="demo-agent"
+                    style={{ animationDelay: `${index * 90}ms` }}
+                    onClick={() => choisir(index)}
+                  >
+                    <span
+                      className="fenetre-agent-icone"
+                      style={{ background: couleurAgent[a.couleur].barre }}
+                      aria-hidden="true"
+                    >
+                      <AgentIcone code={a.code} className="h-5 w-5" />
+                    </span>
+                    <span className="min-w-0">
+                      <span
+                        className="demo-agent-nom block"
+                        style={{ color: couleurAgent[a.couleur].texte }}
+                      >
+                        {a.nom}
+                      </span>
+                      <span className="demo-agent-nature block">
+                        {a.nature === "diagnostic" ? "Diagnostic" : "Génératif"}
+                      </span>
+                      <span className="demo-agent-couvre block">{a.couvre}</span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
 
-          <div className="fenetre-onglets-mobile" role="tablist" aria-label="Agents">
-            {AGENTS.map((a, index) => (
-              <button
-                key={a.code}
-                type="button"
-                role="tab"
-                aria-selected={index === actif}
-                aria-label={a.nom}
-                className={`fenetre-onglet-mobile ${index === actif ? "actif" : ""}`}
-                style={{ background: couleurAgent[a.couleur].barre }}
-                onClick={() => selectionner(index)}
-              >
-                <AgentIcone code={a.code} className="h-4 w-4" />
-              </button>
-            ))}
-          </div>
+          {etape === "profil" ? (
+            <div key="profil">
+              <h3 className="demo-titre" style={{ color: couleur.texte }}>
+                {agent.nom}
+              </h3>
+              <p className="demo-sous">
+                Vos informations, saisies une seule fois à l&apos;inscription,
+                sont déjà renseignées.
+              </p>
+              <div className="demo-profil">
+                {demo.profil.map((ligne, i) => (
+                  <div
+                    key={ligne.libelle}
+                    className="demo-ligne"
+                    style={{ animationDelay: `${i * 260}ms` }}
+                  >
+                    <span className="l">{ligne.libelle}</span>
+                    <span className="v">{ligne.valeur}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
 
-          <div className="fenetre-fil" ref={filRef} role="tabpanel" key={agent.code}>
-            {acquisition ? (
-              <>
-                <Message cote="centre">
-                  <p className="fenetre-repere">Partie 2 · Génération de contacts</p>
-                </Message>
-                <Message cote="agent" retard={120}>
-                  <div className="bulle bulle-agent">
-                    Combien de nouveaux contacts vendeurs recevez-vous par mois ?
-                    <p className="bulle-note">
-                      Une estimation suffit. Vous pouvez passer cette question.
+          {etape === "questionnaire" ? (
+            <div key="questionnaire">
+              <h3 className="demo-titre">Questionnaire généré pour votre métier</h3>
+              <p className="demo-sous">
+                Question {Math.min(Math.max(visibles, 1), total)} sur {total}.
+                Aucune n&apos;est obligatoire.
+              </p>
+              <div className="fenetre-barre">
+                <div style={{ width: `${(visibles / total) * 100}%`, transition: "width 0.5s ease" }} />
+              </div>
+              <div className="mt-2">
+                {donnees.questions.slice(0, visibles).map((q, i) => (
+                  <div key={q.libelle} className="demo-q">
+                    <span className="demo-q-num">{i + 1}</span>
+                    <div className="min-w-0">
+                      <p className="demo-q-libelle">{q.libelle}</p>
+                      <span className="demo-reponse">{q.reponse}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {etape === "resultat" ? (
+            <div key="resultat">
+              <h3 className="demo-titre" style={{ color: couleur.texte }}>
+                {agent.nom}
+              </h3>
+              {donnees.propositions ? (
+                <>
+                  <p className="demo-sous">Analyse de vos publications</p>
+                  <ul className="fenetre-indicateurs mt-4">
+                    {donnees.questions.map((q, i) => (
+                      <li key={q.libelle}>
+                        <span>{donnees.indicateurs?.[i]}</span>
+                        <span className="fenetre-statut">{q.reponse}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="demo-carte">
+                    <p className="demo-carte-titre">Propositions de contenu</p>
+                    <ul className="demo-propositions">
+                      {donnees.propositions.map((p) => (
+                        <li key={p}>{p}</li>
+                      ))}
+                    </ul>
+                    <p className="demo-note">
+                      Générées à votre demande, jamais automatiquement.
                     </p>
                   </div>
-                </Message>
-
-                {choix ? (
-                  <Message cote="moi">
-                    <div className="bulle bulle-moi">
-                      {choix === "reponse" ? "Environ 15" : "Passer"}
-                    </div>
-                  </Message>
-                ) : null}
-                {choix === "passe" ? (
-                  <Message cote="agent" retard={150}>
-                    <div className="bulle bulle-agent">
-                      Question passée : l&apos;indicateur est exclu du calcul, il
-                      n&apos;est jamais compté zéro.
-                    </div>
-                  </Message>
-                ) : null}
-
-                {etape >= 1 && choix ? (
-                  <>
-                    <Message cote="centre" retard={400}>
-                      <p className="fenetre-repere">Questionnaire terminé</p>
-                    </Message>
-                    <Message cote="large" retard={550}>
-                      <CarteResultat choix={choix} />
-                    </Message>
-                  </>
-                ) : null}
-
-                {etape >= 2 ? (
-                  <>
-                    <Message cote="moi">
-                      <div className="bulle bulle-moi">Voir mon plan d&apos;action</div>
-                    </Message>
-                    <Message cote="agent" retard={200}>
-                      <div className="bulle bulle-agent">
-                        Action prioritaire : confirmer chaque rendez-vous la veille
-                        par message.
-                      </div>
-                    </Message>
-                  </>
-                ) : null}
-              </>
-            ) : (
-              <>
-                <Message cote="agent">
-                  <div className="bulle bulle-agent">
-                    Ce que je couvre : {agent.couvre}
+                </>
+              ) : (
+                <>
+                  <p className="demo-sous">Calculé à partir de seuils fixes</p>
+                  <p className="mt-3 flex items-baseline gap-2">
+                    <span className="font-[family-name:var(--titre)] text-5xl font-bold">
+                      {score}
+                    </span>
+                    <span className="text-[var(--text-muted)]">/ 100</span>
+                  </p>
+                  <div className="fenetre-barre">
+                    <div style={{ width: `${score}%` }} />
                   </div>
-                </Message>
-                <Message cote="agent" retard={150}>
-                  <div className="bulle bulle-agent">
-                    {agent.neFaitJamais
-                      ? `Ce que je ne fais jamais : ${agent.neFaitJamais}`
-                      : "Je génère des propositions de contenu quand vous le demandez, jamais automatiquement."}
+                  <ul className="fenetre-indicateurs mt-4">
+                    {donnees.questions.map((q, i) => (
+                      <li key={q.libelle}>
+                        <span>{donnees.indicateurs?.[i]}</span>
+                        <span className="fenetre-statut">
+                          <span
+                            className="fenetre-point"
+                            style={{ background: COULEUR_STATUT[q.statut] }}
+                          />
+                          {q.statut}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="demo-carte">
+                    <p className="demo-carte-titre">Action prioritaire</p>
+                    <p className="demo-action">{donnees.action}</p>
+                    <p className="demo-note">
+                      Les indicateurs informatifs n&apos;entrent pas dans le score.
+                    </p>
                   </div>
-                </Message>
-                {agent.nature === "diagnostic" ? (
-                  <Message cote="agent" retard={300}>
-                    <div className="bulle bulle-agent">
-                      Le questionnaire est pré-écrit et aucune question n&apos;est
-                      obligatoire.
-                    </div>
-                  </Message>
-                ) : null}
-              </>
-            )}
-          </div>
+                </>
+              )}
+            </div>
+          ) : null}
+        </div>
 
-          <div className="fenetre-saisie">
-            {acquisition ? (
-              <>
-                <span className="fenetre-champ">
-                  {etape === 0 ? "Votre réponse" : etape === 1 ? "Suite" : "Terminé"}
-                </span>
-                <div className="fenetre-actions">
-                  {etape === 0 ? (
-                    <>
-                      <button
-                        type="button"
-                        className="fenetre-action"
-                        onClick={() => repondre("passe")}
-                      >
-                        Passer
-                      </button>
-                      <button
-                        type="button"
-                        className="fenetre-action principal"
-                        onClick={() => repondre("reponse")}
-                      >
-                        Environ 15
-                      </button>
-                    </>
-                  ) : etape === 1 ? (
-                    <button
-                      type="button"
-                      className="fenetre-action principal"
-                      onClick={() => setEtape(2)}
-                    >
-                      Voir mon plan d&apos;action
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      className="fenetre-action"
-                      onClick={() => selectionner(0)}
-                    >
-                      Recommencer
-                    </button>
-                  )}
-                </div>
-              </>
-            ) : (
-              <>
-                <span className="fenetre-champ">Présentation de l&apos;agent</span>
-                <div className="fenetre-actions">
-                  <Link
-                    href={`/agents/${agent.slug}`}
-                    className="fenetre-action principal"
-                  >
-                    Voir la page de l&apos;agent
-                  </Link>
-                </div>
-              </>
-            )}
-          </div>
+        <div className="demo-pied">
+          {etape === "agent" ? (
+            <span className="demo-indice">Choisissez l&apos;agent à essayer</span>
+          ) : null}
+          {etape === "profil" ? (
+            <>
+              <span className="demo-indice">Informations saisies à l&apos;inscription</span>
+              <button type="button" className="fenetre-action principal" onClick={versQuestionnaire}>
+                Générer le questionnaire
+              </button>
+            </>
+          ) : null}
+          {etape === "questionnaire" ? (
+            <>
+              <span className="demo-indice">Les réponses se remplissent</span>
+              <button type="button" className="fenetre-action principal" onClick={versResultat}>
+                Voir le résultat
+              </button>
+            </>
+          ) : null}
+          {etape === "resultat" ? (
+            <>
+              <span className="demo-indice">Exemple terminé</span>
+              <div className="fenetre-actions">
+                <button type="button" className="fenetre-action" onClick={() => setEtape("agent")}>
+                  Changer d&apos;agent
+                </button>
+                <button type="button" className="fenetre-action" onClick={() => choisir(indexAgent)}>
+                  Rejouer
+                </button>
+                <Link href={`/agents/${agent.slug}`} className="fenetre-action principal">
+                  Voir la page de l&apos;agent
+                </Link>
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
       <figcaption className="mt-4 text-center text-xs text-[var(--text-faint)]">
-        Exemple illustratif, les valeurs affichées ne sont pas un résultat réel.
+        Exemple illustratif : profil, questions et résultats sont fictifs.
       </figcaption>
     </figure>
   );

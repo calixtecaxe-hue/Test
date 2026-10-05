@@ -1,0 +1,178 @@
+{
+  "profil": [
+    {
+      "libelle": "Secteur d'activité",
+      "valeur": "Agence immobilière indépendante"
+    },
+    {
+      "libelle": "Collaborateurs",
+      "valeur": "6"
+    },
+    {
+      "libelle": "Localisation",
+      "valeur": "Lyon, zone urbaine dense"
+    },
+    {
+      "libelle": "Chiffre d'affaires mensuel",
+      "valeur": "42 000 €"
+    },
+    {
+      "libelle": "Ancienneté",
+      "valeur": "8 ans"
+    }
+  ],
+  "agents": {
+    "ACQUISITION_CA": {
+      "questions": [
+        {
+          "libelle": "Combien de nouveaux contacts vendeurs recevez-vous par mois ?",
+          "reponse": "24",
+          "statut": "Vert"
+        },
+        {
+          "libelle": "Quelle part de vos rendez-vous vendeurs est honorée ?",
+          "reponse": "82 %",
+          "statut": "Orange"
+        },
+        {
+          "libelle": "Quelle part de vos mandats vient du bouche-à-oreille ?",
+          "reponse": "65 %",
+          "statut": "Rouge"
+        },
+        {
+          "libelle": "Quel est votre taux d'honoraires moyen ?",
+          "reponse": "4,5 %",
+          "statut": "Vert"
+        },
+        {
+          "libelle": "Quel canal vous apporte le plus de contacts ?",
+          "reponse": "Portails d'annonces",
+          "statut": "Informatif"
+        }
+      ],
+      "indicateurs": [
+        "Contacts vendeurs",
+        "Rendez-vous vendeurs honorés",
+        "Mandats par bouche-à-oreille",
+        "Taux d'honoraires",
+        "Canal principal"
+      ],
+      "action": "Confirmer chaque rendez-vous la veille par message."
+    },
+    "FINANCE_RENTABILITE": {
+      "questions": [
+        {
+          "libelle": "Quelle est votre marge brute, en % du chiffre d'affaires ?",
+          "reponse": "38 %",
+          "statut": "Orange"
+        },
+        {
+          "libelle": "Combien de mois de charges fixes votre trésorerie couvre-t-elle ?",
+          "reponse": "2,5 mois",
+          "statut": "Rouge"
+        },
+        {
+          "libelle": "Quelle part du chiffre d'affaires représentent vos charges fixes ?",
+          "reponse": "54 %",
+          "statut": "Orange"
+        },
+        {
+          "libelle": "Quel est votre délai moyen d'encaissement ?",
+          "reponse": "21 jours",
+          "statut": "Vert"
+        },
+        {
+          "libelle": "Quelle part de vos charges est liée à la masse salariale ?",
+          "reponse": "48 %",
+          "statut": "Vert"
+        }
+      ],
+      "indicateurs": [
+        "Marge brute",
+        "Couverture de trésorerie",
+        "Poids des charges fixes",
+        "Délai d'encaissement",
+        "Masse salariale"
+      ],
+      "action": "Relancer les factures émises depuis plus de 30 jours."
+    },
+    "RH_ORGANISATION": {
+      "questions": [
+        {
+          "libelle": "Combien de collaborateurs sont partis ces 12 derniers mois ?",
+          "reponse": "2",
+          "statut": "Orange"
+        },
+        {
+          "libelle": "Comment décririez-vous la charge de travail de l'équipe ?",
+          "reponse": "Élevée",
+          "statut": "Rouge"
+        },
+        {
+          "libelle": "Chaque collaborateur connaît-il précisément son rôle ?",
+          "reponse": "Oui, pour la plupart",
+          "statut": "Vert"
+        },
+        {
+          "libelle": "Combien de jours d'absence imprévue par collaborateur et par an ?",
+          "reponse": "4",
+          "statut": "Vert"
+        },
+        {
+          "libelle": "Disposez-vous d'un organigramme à jour ?",
+          "reponse": "Oui",
+          "statut": "Vert"
+        }
+      ],
+      "indicateurs": [
+        "Départs sur 12 mois",
+        "Charge de travail",
+        "Clarté des rôles",
+        "Absences imprévues",
+        "Organigramme"
+      ],
+      "action": "Faire un point de charge de travail avec chaque collaborateur."
+    },
+    "COMM_CREATION": {
+      "questions": [
+        {
+          "libelle": "Combien de publications faites-vous par semaine ?",
+          "reponse": "2",
+          "statut": "Informatif"
+        },
+        {
+          "libelle": "Sur quels canaux êtes-vous actif ?",
+          "reponse": "LinkedIn, Instagram",
+          "statut": "Informatif"
+        },
+        {
+          "libelle": "Quel est votre taux d'engagement moyen ?",
+          "reponse": "1,8 %",
+          "statut": "Informatif"
+        },
+        {
+          "libelle": "Combien de contacts vendeurs viennent de vos publications par mois ?",
+          "reponse": "3",
+          "statut": "Informatif"
+        },
+        {
+          "libelle": "Quel type de publication fonctionne le mieux ?",
+          "reponse": "Biens vendus",
+          "statut": "Informatif"
+        }
+      ],
+      "propositions": [
+        "Avant / après : un bien vendu en 21 jours",
+        "Les erreurs de prix à éviter avant de vendre",
+        "Visite guidée du quartier, en vidéo courte"
+      ],
+      "indicateurs": [
+        "Publications par semaine",
+        "Canaux actifs",
+        "Engagement moyen",
+        "Contacts issus des publications",
+        "Contenu le plus performant"
+      ]
+    }
+  }
+}
