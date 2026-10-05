@@ -5,7 +5,6 @@ import { EtoilesLogo } from "@/components/marketing/etoiles-logo-lazy";
 import { GrillePoints } from "@/components/marketing/grille-points";
 import { Reveal } from "@/components/marketing/reveal";
 import { FenetreOutil } from "@/components/marketing/fenetre-outil";
-import { AgentsApercu } from "@/components/marketing/agents-apercu";
 import { AgentsSelecteur } from "@/components/marketing/agents-selecteur";
 
 const chemin = "M 18 8 C 65 8, 82 25, 82 50 C 82 75, 65 92, 18 92";
@@ -51,7 +50,7 @@ export default function Accueil() {
       <main className="flex-1">
         <section className="relative overflow-hidden px-6 pb-24 pt-16 sm:pt-24 lg:px-10">
           <GrillePoints position="gauche" />
-          <div className="relative z-10 mx-auto grid max-w-[1320px] gap-16 lg:grid-cols-[1.05fr_1fr] lg:items-center">
+          <div className="relative z-10 mx-auto grid max-w-[1320px] gap-16 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
               <div className="relative">
                 <EtoilesLogo />
@@ -82,7 +81,7 @@ export default function Accueil() {
             </div>
 
             <Reveal delai={150}>
-              <AgentsApercu />
+              <FenetreOutil />
             </Reveal>
           </div>
         </section>
@@ -126,17 +125,6 @@ export default function Accueil() {
                 </Reveal>
               </div>
             ))}
-          </div>
-
-          <Reveal>
-            <p className="mt-24 text-center text-sm text-[var(--text-faint)]">
-              Un aperçu de l&apos;outil
-            </p>
-          </Reveal>
-          <div className="mx-auto mt-6 max-w-5xl">
-            <Reveal>
-              <FenetreOutil />
-            </Reveal>
           </div>
         </section>
 

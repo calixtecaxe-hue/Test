@@ -940,11 +940,11 @@ h3,
   color: var(--text-muted);
 }
 
-/* Aperçu de l'outil (section « Comment ça marche ») : fenêtre d'application
-   avec liste des agents et conversation, voir fenetre-outil.tsx. */
+/* Aperçu interactif de l'outil (premier hero) : fenêtre d'application avec
+   liste d'agents cliquable et conversation, voir fenetre-outil.tsx. */
 .fenetre {
   display: grid;
-  grid-template-columns: 270px 1fr;
+  grid-template-columns: 240px 1fr;
   overflow: hidden;
   border-radius: 20px;
   border: 1px solid var(--line);
@@ -962,8 +962,8 @@ h3,
 .fenetre-laterale {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 18px 14px;
+  gap: 18px;
+  padding: 18px 12px;
   border-right: 1px solid var(--line);
   background: rgba(7, 17, 27, 0.55);
 }
@@ -977,7 +977,7 @@ h3,
 .fenetre-points {
   display: flex;
   gap: 8px;
-  padding: 2px 6px;
+  padding: 2px 8px;
 }
 
 .fenetre-points span {
@@ -986,25 +986,24 @@ h3,
   border-radius: 50%;
 }
 
-.fenetre-recherche {
-  padding: 9px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  background: rgba(244, 236, 216, 0.04);
-  font-size: 13px;
-  color: var(--text-faint);
-}
-
 .fenetre-agent {
   display: flex;
+  width: 100%;
   align-items: center;
   gap: 12px;
   padding: 10px;
   border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.fenetre-agent:hover {
+  background: rgba(244, 236, 216, 0.05);
 }
 
 .fenetre-agent.actif {
-  background: rgba(244, 236, 216, 0.08);
+  background: rgba(244, 236, 216, 0.09);
 }
 
 .fenetre-agent-icone {
@@ -1029,15 +1028,13 @@ h3,
 
 .fenetre-agent-etat {
   margin-top: 2px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-size: 12px;
   color: var(--text-faint);
 }
 
 .fenetre-principal {
   display: flex;
+  height: 580px;
   min-width: 0;
   flex-direction: column;
 }
@@ -1051,12 +1048,80 @@ h3,
   font-size: 14px;
 }
 
+.fenetre-onglets-mobile {
+  display: none;
+  gap: 10px;
+  padding: 12px 22px 0;
+}
+
+@media (max-width: 767px) {
+  .fenetre-onglets-mobile {
+    display: flex;
+  }
+}
+
+.fenetre-onglet-mobile {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: var(--bg);
+  opacity: 0.45;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.fenetre-onglet-mobile.actif {
+  opacity: 1;
+  box-shadow: 0 0 0 2px var(--text-faint);
+}
+
 .fenetre-fil {
   display: flex;
+  min-height: 0;
   flex: 1;
   flex-direction: column;
   gap: 14px;
+  overflow-y: auto;
   padding: 22px;
+  scrollbar-width: thin;
+}
+
+.msg {
+  animation: msg-entree 0.45s ease both;
+}
+
+@keyframes msg-entree {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.msg-agent {
+  align-self: flex-start;
+  max-width: 82%;
+}
+
+.msg-moi {
+  align-self: flex-end;
+  max-width: 82%;
+}
+
+.msg-centre {
+  align-self: center;
+}
+
+.msg-large {
+  align-self: flex-start;
+  width: 100%;
+  max-width: 90%;
 }
 
 .fenetre-repere {
@@ -1137,9 +1202,9 @@ h3,
 .fenetre-saisie {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   margin: 0 22px 20px;
-  padding: 6px 8px 6px 18px;
+  padding: 6px 6px 6px 18px;
   border-radius: 999px;
   border: 1px solid var(--line);
   font-size: 14px;
@@ -1147,12 +1212,41 @@ h3,
 
 .fenetre-champ {
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: var(--text-faint);
 }
 
-.fenetre-passer {
+.fenetre-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+.fenetre-action {
   padding: 8px 16px;
   border-radius: 999px;
   background: rgba(244, 236, 216, 0.08);
   color: var(--text-muted);
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.fenetre-action:hover {
+  background: rgba(244, 236, 216, 0.16);
+  color: var(--text);
+}
+
+.fenetre-action.principal {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.fenetre-action.principal:hover {
+  background: var(--white-1);
+  color: var(--bg);
 }

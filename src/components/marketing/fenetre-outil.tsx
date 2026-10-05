@@ -1,55 +1,153 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { AgentIcone } from "@/components/marketing/agent-icone";
-import { Reveal } from "@/components/marketing/reveal";
 import { AGENTS, couleurAgent } from "@/lib/agents";
 
-const ETAT_LATERAL: Record<string, string> = {
-  ACQUISITION_CA: "Résultat calculé, plan d'action prêt",
-  FINANCE_RENTABILITE: "Questionnaire à commencer",
-  RH_ORGANISATION: "Questionnaire à commencer",
-  COMM_CREATION: "Propositions à la demande",
-};
+type Choix = "reponse" | "passe";
+type Cote = "agent" | "moi" | "centre" | "large";
 
+// Valeurs d'exemple. Règle d'agrégation du produit (CLAUDE.md section 7) :
+// vert 100, orange 50, rouge 0 ; le score est la moyenne des indicateurs
+// notés, une question passée est exclue du calcul et jamais comptée zéro.
 const INDICATEURS = [
-  { nom: "Contacts vendeurs", statut: "Vert", couleur: "#6fcf97" },
-  { nom: "Rendez-vous vendeurs honorés", statut: "Orange", couleur: "var(--amber-1)" },
-  { nom: "Mandats issus du bouche-à-oreille", statut: "Rouge", couleur: "var(--red-1)" },
+  { nom: "Contacts vendeurs", statut: "Vert", note: 100, liee: true },
+  { nom: "Rendez-vous vendeurs honorés", statut: "Orange", note: 50, liee: false },
+  { nom: "Part de mandats par bouche-à-oreille", statut: "Vert", note: 100, liee: false },
 ];
 
-// Aperçu illustratif de l'outil : mêmes mécanismes que le produit (question
-// pré-écrite, réponse estimée acceptée, score calculé, plan d'action), avec
-// des valeurs d'exemple — d'où la légende « Exemple illustratif ».
+const COULEUR_STATUT: Record<string, string> = {
+  Vert: "#6fcf97",
+  Orange: "var(--amber-1)",
+  Rouge: "var(--red-1)",
+  "Non noté": "var(--text-faint)",
+};
+
+function Message({
+  cote,
+  retard = 0,
+  children,
+}: {
+  cote: Cote;
+  retard?: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className={`msg msg-${cote}`}
+      style={{ animationDelay: `${retard}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function CarteResultat({ choix }: { choix: Choix }) {
+  const lignes = INDICATEURS.map((i) =>
+    choix === "passe" && i.liee
+      ? { ...i, statut: "Non noté", note: null }
+      : i
+  );
+  const notes = lignes.flatMap((l) => (l.note === null ? [] : [l.note]));
+  const score = Math.round(notes.reduce((a, b) => a + b, 0) / notes.length);
+
+  return (
+    <div className="bulle bulle-agent">
+      <p className="m-0 text-xs text-[var(--text-faint)]">
+        Calculé à partir de seuils fixes
+      </p>
+      <p className="mt-2 flex items-baseline gap-2">
+        <span className="font-[family-name:var(--titre)] text-3xl font-bold">
+          {score}
+        </span>
+        <span className="text-sm text-[var(--text-muted)]">/ 100</span>
+      </p>
+      <div className="fenetre-barre">
+        <div style={{ width: `${score}%` }} />
+      </div>
+      <ul className="fenetre-indicateurs">
+        {lignes.map((l) => (
+          <li key={l.nom}>
+            <span>{l.nom}</span>
+            <span className="fenetre-statut">
+              <span
+                className="fenetre-point"
+                style={{ background: COULEUR_STATUT[l.statut] }}
+              />
+              {l.statut}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// Aperçu interactif de l'outil. Les valeurs sont illustratives (légende
+// sous la fenêtre) ; rien n'est inventé sur le contenu des questionnaires
+// des agents autres qu'Acquisition, dont seule la présentation est montrée.
 export function FenetreOutil() {
-  const acquisition = AGENTS[0];
+  const [actif, setActif] = useState(0);
+  const [etape, setEtape] = useState(0);
+  const [choix, setChoix] = useState<Choix | null>(null);
+  const filRef = useRef<HTMLDivElement>(null);
+
+  const agent = AGENTS[actif];
+  const couleur = couleurAgent[agent.couleur];
+  const acquisition = agent.code === "ACQUISITION_CA";
+
+  useEffect(() => {
+    const fil = filRef.current;
+    if (!fil) return;
+    const reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    fil.scrollTo({ top: fil.scrollHeight, behavior: reduit ? "auto" : "smooth" });
+  }, [actif, etape, choix]);
+
+  function selectionner(index: number) {
+    setActif(index);
+    setEtape(0);
+    setChoix(null);
+  }
+
+  function repondre(c: Choix) {
+    setChoix(c);
+    setEtape(1);
+  }
 
   return (
     <figure className="m-0">
       <div className="fenetre">
-        <aside className="fenetre-laterale" aria-hidden="true">
-          <div className="fenetre-points">
+        <aside className="fenetre-laterale">
+          <div className="fenetre-points" aria-hidden="true">
             <span style={{ background: "var(--red-1)" }} />
             <span style={{ background: "var(--white-1)" }} />
             <span style={{ background: "var(--blue-1)" }} />
           </div>
-          <div className="fenetre-recherche">Recherche</div>
-          <div className="flex flex-col gap-1">
-            {AGENTS.map((agent) => (
-              <div
-                key={agent.code}
-                className={`fenetre-agent ${agent.code === acquisition.code ? "actif" : ""}`}
+          <div className="flex flex-col gap-1" role="tablist" aria-label="Agents">
+            {AGENTS.map((a, index) => (
+              <button
+                key={a.code}
+                type="button"
+                role="tab"
+                aria-selected={index === actif}
+                className={`fenetre-agent ${index === actif ? "actif" : ""}`}
+                onClick={() => selectionner(index)}
               >
                 <span
                   className="fenetre-agent-icone"
-                  style={{ background: couleurAgent[agent.couleur].barre }}
+                  style={{ background: couleurAgent[a.couleur].barre }}
+                  aria-hidden="true"
                 >
-                  <AgentIcone code={agent.code} className="h-5 w-5" />
+                  <AgentIcone code={a.code} className="h-5 w-5" />
                 </span>
                 <span className="min-w-0">
-                  <span className="fenetre-agent-nom block">{agent.nom}</span>
+                  <span className="fenetre-agent-nom block">{a.nom}</span>
                   <span className="fenetre-agent-etat block">
-                    {ETAT_LATERAL[agent.code]}
+                    {a.nature === "diagnostic" ? "Diagnostic" : "Génératif"}
                   </span>
                 </span>
-              </div>
+              </button>
             ))}
           </div>
         </aside>
@@ -58,85 +156,172 @@ export function FenetreOutil() {
           <div className="fenetre-entete">
             <span
               className="fenetre-agent-icone !h-8 !w-8 !rounded-[10px]"
-              style={{ background: couleurAgent[acquisition.couleur].barre }}
+              style={{ background: couleur.barre }}
               aria-hidden="true"
             >
-              <AgentIcone code={acquisition.code} className="h-4 w-4" />
+              <AgentIcone code={agent.code} className="h-4 w-4" />
             </span>
-            <span className="font-medium">{acquisition.nom}</span>
-            <span className="text-xs uppercase tracking-[0.08em] text-[var(--text-faint)]">
-              Diagnostic
+            <span className="min-w-0 truncate font-medium">{agent.nom}</span>
+            <span className="hidden text-xs uppercase tracking-[0.08em] text-[var(--text-faint)] sm:inline">
+              {agent.nature === "diagnostic" ? "Diagnostic" : "Génératif"}
             </span>
           </div>
 
-          <div className="fenetre-fil">
-            <Reveal>
-              <p className="fenetre-repere">Partie 2 · Génération de contacts</p>
-            </Reveal>
+          <div className="fenetre-onglets-mobile" role="tablist" aria-label="Agents">
+            {AGENTS.map((a, index) => (
+              <button
+                key={a.code}
+                type="button"
+                role="tab"
+                aria-selected={index === actif}
+                aria-label={a.nom}
+                className={`fenetre-onglet-mobile ${index === actif ? "actif" : ""}`}
+                style={{ background: couleurAgent[a.couleur].barre }}
+                onClick={() => selectionner(index)}
+              >
+                <AgentIcone code={a.code} className="h-4 w-4" />
+              </button>
+            ))}
+          </div>
 
-            <Reveal delai={100} className="self-start max-w-[78%]">
-              <div className="bulle bulle-agent">
-                Combien de nouveaux contacts vendeurs recevez-vous par mois ?
-                <p className="bulle-note">
-                  Une estimation suffit. Vous pouvez passer cette question.
-                </p>
-              </div>
-            </Reveal>
+          <div className="fenetre-fil" ref={filRef} role="tabpanel" key={agent.code}>
+            {acquisition ? (
+              <>
+                <Message cote="centre">
+                  <p className="fenetre-repere">Partie 2 · Génération de contacts</p>
+                </Message>
+                <Message cote="agent" retard={120}>
+                  <div className="bulle bulle-agent">
+                    Combien de nouveaux contacts vendeurs recevez-vous par mois ?
+                    <p className="bulle-note">
+                      Une estimation suffit. Vous pouvez passer cette question.
+                    </p>
+                  </div>
+                </Message>
 
-            <Reveal delai={200} className="self-end max-w-[78%]">
-              <div className="bulle bulle-moi">Environ 15</div>
-            </Reveal>
+                {choix ? (
+                  <Message cote="moi">
+                    <div className="bulle bulle-moi">
+                      {choix === "reponse" ? "Environ 15" : "Passer"}
+                    </div>
+                  </Message>
+                ) : null}
+                {choix === "passe" ? (
+                  <Message cote="agent" retard={150}>
+                    <div className="bulle bulle-agent">
+                      Question passée : l&apos;indicateur est exclu du calcul, il
+                      n&apos;est jamais compté zéro.
+                    </div>
+                  </Message>
+                ) : null}
 
-            <Reveal delai={300}>
-              <p className="fenetre-repere">Questionnaire terminé</p>
-            </Reveal>
+                {etape >= 1 && choix ? (
+                  <>
+                    <Message cote="centre" retard={400}>
+                      <p className="fenetre-repere">Questionnaire terminé</p>
+                    </Message>
+                    <Message cote="large" retard={550}>
+                      <CarteResultat choix={choix} />
+                    </Message>
+                  </>
+                ) : null}
 
-            <Reveal delai={400} className="self-start w-full max-w-[86%]">
-              <div className="bulle bulle-agent !max-w-none">
-                <p className="m-0 text-xs text-[var(--text-faint)]">
-                  Calculé à partir de seuils fixes
-                </p>
-                <p className="mt-2 flex items-baseline gap-2">
-                  <span className="font-[family-name:var(--titre)] text-3xl font-bold">
-                    72
-                  </span>
-                  <span className="text-sm text-[var(--text-muted)]">/ 100</span>
-                </p>
-                <div className="fenetre-barre">
-                  <div style={{ width: "72%" }} />
+                {etape >= 2 ? (
+                  <>
+                    <Message cote="moi">
+                      <div className="bulle bulle-moi">Voir mon plan d&apos;action</div>
+                    </Message>
+                    <Message cote="agent" retard={200}>
+                      <div className="bulle bulle-agent">
+                        Action prioritaire : confirmer chaque rendez-vous la veille
+                        par message.
+                      </div>
+                    </Message>
+                  </>
+                ) : null}
+              </>
+            ) : (
+              <>
+                <Message cote="agent">
+                  <div className="bulle bulle-agent">
+                    Ce que je couvre : {agent.couvre}
+                  </div>
+                </Message>
+                <Message cote="agent" retard={150}>
+                  <div className="bulle bulle-agent">
+                    {agent.neFaitJamais
+                      ? `Ce que je ne fais jamais : ${agent.neFaitJamais}`
+                      : "Je génère des propositions de contenu quand vous le demandez, jamais automatiquement."}
+                  </div>
+                </Message>
+                {agent.nature === "diagnostic" ? (
+                  <Message cote="agent" retard={300}>
+                    <div className="bulle bulle-agent">
+                      Le questionnaire est pré-écrit et aucune question n&apos;est
+                      obligatoire.
+                    </div>
+                  </Message>
+                ) : null}
+              </>
+            )}
+          </div>
+
+          <div className="fenetre-saisie">
+            {acquisition ? (
+              <>
+                <span className="fenetre-champ">
+                  {etape === 0 ? "Votre réponse" : etape === 1 ? "Suite" : "Terminé"}
+                </span>
+                <div className="fenetre-actions">
+                  {etape === 0 ? (
+                    <>
+                      <button
+                        type="button"
+                        className="fenetre-action"
+                        onClick={() => repondre("passe")}
+                      >
+                        Passer
+                      </button>
+                      <button
+                        type="button"
+                        className="fenetre-action principal"
+                        onClick={() => repondre("reponse")}
+                      >
+                        Environ 15
+                      </button>
+                    </>
+                  ) : etape === 1 ? (
+                    <button
+                      type="button"
+                      className="fenetre-action principal"
+                      onClick={() => setEtape(2)}
+                    >
+                      Voir mon plan d&apos;action
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="fenetre-action"
+                      onClick={() => selectionner(0)}
+                    >
+                      Recommencer
+                    </button>
+                  )}
                 </div>
-                <ul className="fenetre-indicateurs">
-                  {INDICATEURS.map((i) => (
-                    <li key={i.nom}>
-                      <span>{i.nom}</span>
-                      <span className="fenetre-statut">
-                        <span
-                          className="fenetre-point"
-                          style={{ background: i.couleur }}
-                        />
-                        {i.statut}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-
-            <Reveal delai={500} className="self-end max-w-[78%]">
-              <div className="bulle bulle-moi">Voir mon plan d&apos;action</div>
-            </Reveal>
-
-            <Reveal delai={600} className="self-start max-w-[78%]">
-              <div className="bulle bulle-agent">
-                Action prioritaire : confirmer chaque rendez-vous la veille par
-                message.
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="fenetre-saisie" aria-hidden="true">
-            <span className="fenetre-champ">Votre réponse</span>
-            <span className="fenetre-passer">Passer</span>
+              </>
+            ) : (
+              <>
+                <span className="fenetre-champ">Présentation de l&apos;agent</span>
+                <div className="fenetre-actions">
+                  <Link
+                    href={`/agents/${agent.slug}`}
+                    className="fenetre-action principal"
+                  >
+                    Voir la page de l&apos;agent
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
