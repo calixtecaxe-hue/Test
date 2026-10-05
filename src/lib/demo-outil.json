@@ -28,17 +28,32 @@
         {
           "libelle": "Recevez-vous régulièrement de nouveaux contacts ?",
           "reponse": "Oui, chaque semaine",
-          "statut": "Vert"
+          "statut": "Vert",
+          "options": [
+            "Oui, chaque semaine",
+            "Oui, chaque mois",
+            "Rarement"
+          ]
         },
         {
           "libelle": "Vos rendez-vous sont-ils honorés ?",
           "reponse": "Le plus souvent",
-          "statut": "Orange"
+          "statut": "Orange",
+          "options": [
+            "Presque toujours",
+            "Le plus souvent",
+            "Souvent non"
+          ]
         },
         {
           "libelle": "D'où viennent vos clients ?",
           "reponse": "Surtout du bouche-à-oreille",
-          "statut": "Rouge"
+          "statut": "Rouge",
+          "options": [
+            "Plusieurs canaux",
+            "Surtout du bouche-à-oreille",
+            "Un seul canal"
+          ]
         }
       ],
       "parties": [
@@ -94,6 +109,10 @@
           "texte": "Relever uniquement le nombre de mandats par origine, en fin de mois, en dix minutes.",
           "retour": "Retour sous 2 semaines"
         }
+      },
+      "libre": {
+        "libelle": "Selon vous, pourquoi certains rendez-vous ne sont-ils pas honorés ?",
+        "reponse": "Les vendeurs oublient le rendez-vous."
       }
     },
     "FINANCE_RENTABILITE": {
@@ -102,17 +121,32 @@
         {
           "libelle": "Votre marge évolue-t-elle ?",
           "reponse": "Elle baisse légèrement",
-          "statut": "Orange"
+          "statut": "Orange",
+          "options": [
+            "Elle progresse",
+            "Elle baisse légèrement",
+            "Elle baisse nettement"
+          ]
         },
         {
           "libelle": "Votre trésorerie couvre-t-elle trois mois de charges ?",
           "reponse": "Non, environ deux mois",
-          "statut": "Rouge"
+          "statut": "Rouge",
+          "options": [
+            "Oui",
+            "Non, environ deux mois",
+            "Non, moins d'un mois"
+          ]
         },
         {
           "libelle": "Suivez-vous vos charges fixes ?",
           "reponse": "Pas régulièrement",
-          "statut": "Orange"
+          "statut": "Orange",
+          "options": [
+            "Chaque mois",
+            "Pas régulièrement",
+            "Jamais"
+          ]
         }
       ],
       "parties": [
@@ -168,6 +202,10 @@
           "texte": "Relever seulement les cinq plus grosses charges fixes, au début de chaque mois.",
           "retour": "Retour sous 2 semaines"
         }
+      },
+      "libre": {
+        "libelle": "Selon vous, qu'est-ce qui pèse le plus sur votre trésorerie ?",
+        "reponse": "Les délais de paiement des clients."
       }
     },
     "RH_ORGANISATION": {
@@ -176,17 +214,32 @@
         {
           "libelle": "Votre équipe est-elle stable ?",
           "reponse": "Oui, un seul départ en un an",
-          "statut": "Vert"
+          "statut": "Vert",
+          "options": [
+            "Oui, un seul départ en un an",
+            "Deux à trois départs",
+            "Plus de trois départs"
+          ]
         },
         {
           "libelle": "La charge est-elle répartie équitablement ?",
           "reponse": "Pas toujours",
-          "statut": "Orange"
+          "statut": "Orange",
+          "options": [
+            "Oui",
+            "Pas toujours",
+            "Non"
+          ]
         },
         {
           "libelle": "Chacun connaît-il son rôle ?",
           "reponse": "Dans l'ensemble",
-          "statut": "Orange"
+          "statut": "Orange",
+          "options": [
+            "Oui, tous",
+            "Dans l'ensemble",
+            "Non"
+          ]
         }
       ],
       "parties": [
@@ -242,6 +295,10 @@
           "texte": "Remplacer la fiche par un échange de 20 minutes avec chaque collaborateur, noté en trois lignes.",
           "retour": "Retour sous 3 semaines"
         }
+      },
+      "libre": {
+        "libelle": "Selon vous, quel poste est le plus sollicité ?",
+        "reponse": "Les postes de terrain."
       }
     },
     "COMM_CREATION": {
@@ -250,17 +307,32 @@
         {
           "libelle": "Publiez-vous régulièrement ?",
           "reponse": "Environ une fois par semaine",
-          "statut": "Informatif"
+          "statut": "Informatif",
+          "options": [
+            "Environ une fois par semaine",
+            "Une fois par mois",
+            "Rarement"
+          ]
         },
         {
           "libelle": "Sur quels canaux ?",
           "reponse": "Instagram et LinkedIn",
-          "statut": "Informatif"
+          "statut": "Informatif",
+          "options": [
+            "Instagram et LinkedIn",
+            "Un seul canal",
+            "Aucun"
+          ]
         },
         {
           "libelle": "Que souhaitez-vous mettre en avant ?",
           "reponse": "Les biens vendus",
-          "statut": "Informatif"
+          "statut": "Informatif",
+          "options": [
+            "Les biens vendus",
+            "Les biens à vendre",
+            "L'équipe"
+          ]
         }
       ],
       "parties": [
@@ -324,6 +396,10 @@
           "texte": "Remplacer la vidéo par trois photos commentées, publiées la semaine suivante.",
           "retour": "Retour sous 1 semaine"
         }
+      },
+      "libre": {
+        "libelle": "Que souhaitez-vous que vos publications fassent d'abord ?",
+        "reponse": "Rassurer les vendeurs."
       }
     }
   },

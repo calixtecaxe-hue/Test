@@ -8,7 +8,8 @@ import demo from "@/lib/demo-outil.json";
 
 type DemoAgent = {
   accueil: string;
-  questions: { libelle: string; reponse: string; statut: string }[];
+  questions: { libelle: string; reponse: string; statut: string; options: string[] }[];
+  libre: { libelle: string; reponse: string };
   parties: { nom: string; nomIndicateur: string; lecture: string; valeur?: string }[];
   synthese: string[];
   propositions?: string[];
@@ -26,6 +27,8 @@ type Bloc =
   | { t: "agent"; texte: string }
   | { t: "moi"; texte: string }
   | { t: "profil" }
+  | { t: "commencer" }
+  | { t: "questionnaire" }
   | { t: "redaction" }
   | { t: "synthese" }
   | { t: "parties" }
@@ -35,13 +38,14 @@ type Bloc =
   | { t: "point" }
   | { t: "bilan" };
 
+type Vue = "fil" | "questionnaire";
 type Phase = "attente" | "questions" | "redaction" | "fini";
 type Zoom = { echelle: number; origine: string };
 type Curseur = { x: number; y: number; visible: boolean };
 
 const DEMO_AGENTS = demo.agents as Record<string, DemoAgent>;
 const RAISONS = demo.raisons;
-const NB_QUESTIONS = 3;
+const NB_QUESTIONS = 4; // trois questions fermées et une précision facultative
 
 // Les quatre temps du parcours, affichés en haut de la fenêtre : le
 // questionnaire n'est que le point de départ du compte rendu et du suivi.
@@ -93,9 +97,7 @@ function filComplet(code: string): Bloc[] {
     { t: "agent", texte: d.accueil },
     { t: "profil" },
   ];
-  d.questions.forEach((q) => {
-    fil.push({ t: "agent", texte: q.libelle }, { t: "moi", texte: q.reponse });
-  });
+  fil.push({ t: "questionnaire" });
   fil.push({ t: "synthese" }, { t: "parties" });
   if (d.propositions) fil.push({ t: "propositions" });
   fil.push({ t: "actions" }, { t: "suivi" }, { t: "point" }, { t: "bilan" });
@@ -137,7 +139,7 @@ function Score({ cible, reduit }: { cible: number; reduit: boolean }) {
 function apercuLateral(phase: Phase, actif: boolean, termine: boolean, questions: number): string {
   if (actif && phase === "fini") return "Compte rendu disponible";
   if (actif && phase === "redaction") return "Rédaction du compte rendu…";
-  if (actif && phase === "questions") return `Question ${Math.min(questions, NB_QUESTIONS)} sur ${NB_QUESTIONS}`;
+  if (actif && phase === "questions") return `Réponse ${Math.min(Math.max(questions, 1), NB_QUESTIONS)} sur ${NB_QUESTIONS}`;
   if (termine) return "Compte rendu disponible";
   return "Prêt à démarrer";
 }
@@ -154,7 +156,10 @@ export function FenetreOutil() {
   const [phase, setPhase] = useState<Phase>("attente");
   const [questions, setQuestions] = useState(0);
   const [termines, setTermines] = useState<number[]>([]);
-  const [saisie, setSaisie] = useState("");
+  const [vue, setVue] = useState<Vue>("fil");
+  const [choixQ, setChoixQ] = useState<Record<number, number>>({});
+  const [libreTexte, setLibreTexte] = useState("");
+  const [libreActif, setLibreActif] = useState(false);
   const [lancement, setLancement] = useState({ depart: 0, n: 0 });
   const [curseur, setCurseur] = useState<Curseur>({ x: 0, y: 0, visible: false });
   const [clics, setClics] = useState(0);
@@ -198,17 +203,45 @@ export function FenetreOutil() {
     else setLancement((l) => ({ depart: index, n: l.n + 1 }));
   }
 
-  // Déroulé automatique : le curseur choisit l'agent dans la liste, la
-  // personne « répond » (texte écrit lettre par lettre dans le champ, puis
-  // envoi), le compte rendu arrive bloc par bloc. Il passe d'un agent au
-  // suivant en boucle.
+  // Déroulé automatique : le curseur choisit l'agent dans la liste, remplit
+  // le questionnaire (clics sur les réponses, précision écrite lettre par
+  // lettre), puis le compte rendu et le suivi arrivent bloc par bloc. Il
+  // passe d'un agent au suivant en boucle, et s'arrête quand la fenêtre
+  // n'est plus visible.
   useEffect(() => {
     if (reduit) return;
     const ctl = { minuteurs: [] as ReturnType<typeof setTimeout>[] };
 
+    // La lecture se met en pause quand la fenêtre n'est plus visible (hors
+    // écran ou onglet masqué) et reprend là où elle s'était arrêtée.
+    let visible = false;
+    let onglet = document.visibilityState === "visible";
+    const observateur = new IntersectionObserver(
+      ([entree]) => {
+        visible = entree.isIntersecting;
+      },
+      { threshold: 0.2 }
+    );
+    if (fenetreRef.current) observateur.observe(fenetreRef.current);
+    const surOnglet = () => {
+      onglet = document.visibilityState === "visible";
+    };
+    document.addEventListener("visibilitychange", surOnglet);
+
     const pause = (ms: number) =>
       new Promise<void>((resoudre) => {
-        ctl.minuteurs.push(setTimeout(resoudre, ms));
+        let reste = ms;
+        const avancer = () => {
+          const pas = visible && onglet ? Math.min(reste, 100) : 100;
+          ctl.minuteurs.push(
+            setTimeout(() => {
+              if (visible && onglet) reste -= pas;
+              if (reste <= 0) resoudre();
+              else avancer();
+            }, pas)
+          );
+        };
+        avancer();
       });
 
     const ajouter = (bloc: Bloc) => setFil((f) => [...f, bloc]);
@@ -218,6 +251,15 @@ export function FenetreOutil() {
       const fenetre = fenetreRef.current;
       const element = fenetre?.querySelector<HTMLElement>(`[data-cible="${nom}"]`);
       if (!fenetre || !element) return;
+      const defil = filRef.current;
+      if (defil?.contains(element)) {
+        const re = element.getBoundingClientRect();
+        const rd = defil.getBoundingClientRect();
+        if (re.bottom > rd.bottom - 12 || re.top < rd.top + 12) {
+          defil.scrollTo({ top: defil.scrollTop + (re.top - rd.top) - rd.height / 3, behavior: "auto" });
+          await pause(80);
+        }
+      }
       const r = element.getBoundingClientRect();
       if (r.width === 0) return;
       const f = fenetre.getBoundingClientRect();
@@ -237,21 +279,6 @@ export function FenetreOutil() {
       await pause(170);
       setPresse(false);
       setSurvol(null);
-    }
-
-    async function ecrire(texte: string) {
-      await deplacer("champ", 0.2);
-      await cliquer();
-      for (let k = 1; k <= texte.length; k++) {
-        setSaisie(texte.slice(0, k));
-        await pause(55);
-      }
-      await pause(350);
-      await deplacer("envoyer");
-      await cliquer("envoyer");
-      setSaisie("");
-      ajouter({ t: "moi", texte });
-      await pause(450);
     }
 
     async function remplirFormulaire() {
@@ -329,13 +356,16 @@ export function FenetreOutil() {
       setZoom(ZOOM_NEUTRE);
       setFil([]);
       setNotif(false);
+      setVue("fil");
+      setChoixQ({});
+      setLibreTexte("");
+      setLibreActif(false);
       setChoix({});
       setRaison(null);
       setPointValide(false);
       setParcours(avecInscription ? 0 : 1);
       setPhase("attente");
       setQuestions(0);
-      setSaisie("");
       setIndexAgent(i);
       if (avecInscription) await remplirFormulaire();
       setParcours(1);
@@ -346,18 +376,41 @@ export function FenetreOutil() {
       await agentRepond(d.accueil);
       ajouter({ t: "profil" });
       await pause(1700);
-      await agentRepond("Souhaitez-vous commencer ?");
-
-      if (!window.matchMedia("(max-width: 639px)").matches) setZoom(ZOOM_SAISIE);
-      await pause(800);
-      await ecrire("Oui, commençons");
-
+      await agentRepond(
+        "Le questionnaire est prêt. Ses questions sont rédigées à l'avance et identiques pour tous les dirigeants de votre métier."
+      );
+      ajouter({ t: "commencer" });
+      await pause(900);
+      await deplacer("commencer");
+      await cliquer("commencer");
+      setVue("questionnaire");
       setPhase("questions");
+      if (!window.matchMedia("(max-width: 639px)").matches) setZoom(ZOOM_SAISIE);
+      await pause(1000);
+
       for (let q = 0; q < d.questions.length; q++) {
+        const j = d.questions[q].options.indexOf(d.questions[q].reponse);
+        await deplacer(`option-${q}-${j}`);
+        await cliquer(`option-${q}-${j}`);
+        setChoixQ((c) => ({ ...c, [q]: j }));
         setQuestions(q + 1);
-        await agentRepond(d.questions[q].libelle);
-        await ecrire(d.questions[q].reponse);
+        await pause(450);
       }
+      await deplacer("libre", 0.15);
+      await cliquer();
+      setLibreActif(true);
+      for (let k = 1; k <= d.libre.reponse.length; k++) {
+        setLibreTexte(d.libre.reponse.slice(0, k));
+        await pause(45);
+      }
+      await pause(500);
+      setLibreActif(false);
+      setQuestions(NB_QUESTIONS);
+      await deplacer("terminer");
+      await cliquer("terminer");
+      setVue("fil");
+      ajouter({ t: "moi", texte: "Questionnaire envoyé : 3 réponses et 1 précision." });
+      await pause(700);
 
       setZoom(ZOOM_NEUTRE);
       setParcours(2);
@@ -399,20 +452,125 @@ export function FenetreOutil() {
     }
 
     void boucle();
-    return () => ctl.minuteurs.forEach(clearTimeout);
+    return () => {
+      ctl.minuteurs.forEach(clearTimeout);
+      observateur.disconnect();
+      document.removeEventListener("visibilitychange", surOnglet);
+    };
   }, [reduit, lancement]);
 
   // La conversation défile vers le dernier message à chaque ajout.
   useEffect(() => {
     const zone = filRef.current;
     if (!zone) return;
-    zone.scrollTo({ top: zone.scrollHeight, behavior: reduit ? "auto" : "smooth" });
-  }, [affiche.length, pointFinal.choix, pointFinal.raison, reduit]);
+    zone.scrollTo({
+      top: vue === "questionnaire" ? 0 : zone.scrollHeight,
+      behavior: reduit ? "auto" : "smooth",
+    });
+  }, [affiche.length, pointFinal.choix, pointFinal.raison, vue, reduit]);
 
   const classeSurvol = (nom: string) => (survol === nom ? "survol" : "");
 
+  // Questionnaire pré-écrit : mêmes questions pour tous, réponses fermées
+  // qui alimentent le score, une précision libre facultative qui sert
+  // seulement à rédiger le compte rendu. Chaque question peut être passée.
+  function rendreQuestionnaire(
+    reponses: Record<number, number>,
+    libre: string,
+    actif: boolean,
+    complet: boolean
+  ) {
+    const repondues =
+      Object.keys(reponses).length + (libre && (complet || !actif) ? 1 : 0);
+    return (
+      <div className="demo-quest">
+        <p className="msg-titre">Questionnaire · {agent.nom}</p>
+        <p className="demo-sous-titre">
+          Questions rédigées à l&apos;avance, identiques pour tous les dirigeants de votre métier.
+          Aucune n&apos;est obligatoire.
+        </p>
+        <div className="fenetre-barre">
+          <div style={{ width: `${(repondues / NB_QUESTIONS) * 100}%` }} />
+        </div>
+        {donnees.questions.map((q, i) => (
+          <div key={q.libelle} className="demo-qf">
+            <p className="demo-qf-libelle">
+              <span className="demo-q-num">{i + 1}</span>
+              {q.libelle}
+            </p>
+            <div className="demo-options">
+              {q.options.map((o, j) => (
+                <span
+                  key={o}
+                  data-cible={`option-${i}-${j}`}
+                  className={`demo-option ${reponses[i] === j ? "choisi" : ""} ${classeSurvol(`option-${i}-${j}`)}`}
+                >
+                  {o}
+                </span>
+              ))}
+              <span className="demo-passer">Passer</span>
+            </div>
+          </div>
+        ))}
+        <div className="demo-qf">
+          <p className="demo-qf-libelle">
+            <span className="demo-q-num">4</span>
+            {donnees.libre.libelle}
+          </p>
+          <p className="demo-note demo-note-libre">
+            Facultatif. Cette précision aide à rédiger le compte rendu ; elle n&apos;entre pas dans
+            le score.
+          </p>
+          <span className={`demo-champ demo-libre ${actif ? "plein" : ""}`} data-cible="libre">
+            {libre ? (
+              <>
+                {libre}
+                {actif ? <span className="demo-caret" /> : null}
+              </>
+            ) : (
+              <span className="demo-placeholder">Votre réponse</span>
+            )}
+          </span>
+        </div>
+        {complet ? null : (
+          <span
+            data-cible="terminer"
+            className={`demo-valider-point primaire ${classeSurvol("terminer")}`}
+          >
+            Voir mon compte rendu
+          </span>
+        )}
+      </div>
+    );
+  }
+
   function rendreBloc(bloc: Bloc, i: number) {
     switch (bloc.t) {
+      case "commencer":
+        return (
+          <div key={i} className="msg msg-agent">
+            <span
+              data-cible="commencer"
+              className={`demo-valider-point primaire ${classeSurvol("commencer")}`}
+              style={{ marginTop: 0 }}
+            >
+              Commencer le questionnaire
+            </span>
+          </div>
+        );
+      case "questionnaire":
+        return (
+          <div key={i} className="msg msg-carte">
+            {rendreQuestionnaire(
+              Object.fromEntries(
+                donnees.questions.map((q, k) => [k, q.options.indexOf(q.reponse)])
+              ),
+              donnees.libre.reponse,
+              false,
+              true
+            )}
+          </div>
+        );
       case "agent":
         return (
           <div key={i} className="msg msg-agent">
@@ -465,6 +623,9 @@ export function FenetreOutil() {
                 {p}
               </p>
             ))}
+            <p className="demo-note">
+              Rédigé à partir de vos réponses et de votre précision : «&nbsp;{donnees.libre.reponse}&nbsp;».
+            </p>
           </div>
         );
       case "parties":
@@ -757,7 +918,9 @@ export function FenetreOutil() {
                 </Link>
               </header>
               <div className="demo-fil" ref={filRef} aria-live="polite">
-                {affiche.map(rendreBloc)}
+                {vue === "questionnaire" && !reduit
+                  ? rendreQuestionnaire(choixQ, libreTexte, libreActif, false)
+                  : affiche.map(rendreBloc)}
               </div>
               {notif ? (
                 <div className={`demo-notif ${classeSurvol("notif")}`} data-cible="notif">
@@ -770,28 +933,16 @@ export function FenetreOutil() {
                   </span>
                 </div>
               ) : null}
-              <div className="demo-saisie-barre">
-                <span
-                  className={`demo-champ ${saisie ? "plein" : ""}`}
-                  data-cible="champ"
-                >
-                  {saisie ? (
-                    <>
-                      {saisie}
-                      <span className="demo-caret" />
-                    </>
-                  ) : (
+              {vue === "questionnaire" && !reduit ? null : (
+                <div className="demo-saisie-barre">
+                  <span className="demo-champ">
                     <span className="demo-placeholder">Message à {agent.nom}</span>
-                  )}
-                </span>
-                <span
-                  className={`demo-envoyer ${classeSurvol("envoyer")}`}
-                  data-cible="envoyer"
-                  aria-hidden="true"
-                >
-                  Envoyer
-                </span>
-              </div>
+                  </span>
+                  <span className="demo-envoyer" aria-hidden="true">
+                    Envoyer
+                  </span>
+                </div>
+              )}
             </section>
           </div>
         </div>
