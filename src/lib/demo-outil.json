@@ -91,24 +91,14 @@
           "retour": "Retour sous 3 semaines"
         }
       ],
-      "suivi": {
-        "etats": [
-          "En cours",
-          "À faire",
-          "À faire"
-        ],
-        "prochain": "Prochain point d'étape dans 5 jours, sur la confirmation des rendez-vous."
-      },
       "point": {
-        "atteintes": [
-          0
-        ],
         "nonAtteinte": 1,
         "raison": "Manque de temps",
         "nouvelAxe": {
           "texte": "Relever uniquement le nombre de mandats par origine, en fin de mois, en dix minutes.",
           "retour": "Retour sous 2 semaines"
-        }
+        },
+        "precision": "En fin de mois, je n'ai pas le temps de relever les chiffres."
       },
       "libre": {
         "libelle": "Selon vous, pourquoi certains rendez-vous ne sont-ils pas honorés ?",
@@ -184,24 +174,14 @@
           "retour": "Retour sous 3 semaines"
         }
       ],
-      "suivi": {
-        "etats": [
-          "En cours",
-          "À faire",
-          "À faire"
-        ],
-        "prochain": "Prochain point d'étape dans 1 semaine, sur le seuil de trésorerie."
-      },
       "point": {
-        "atteintes": [
-          0
-        ],
         "nonAtteinte": 1,
         "raison": "Ne fonctionne pas",
         "nouvelAxe": {
           "texte": "Relever seulement les cinq plus grosses charges fixes, au début de chaque mois.",
           "retour": "Retour sous 2 semaines"
-        }
+        },
+        "precision": "Le tableau est trop long à remplir chaque mois."
       },
       "libre": {
         "libelle": "Selon vous, qu'est-ce qui pèse le plus sur votre trésorerie ?",
@@ -277,24 +257,14 @@
           "retour": "Retour sous 1 mois"
         }
       ],
-      "suivi": {
-        "etats": [
-          "À faire",
-          "À faire",
-          "À faire"
-        ],
-        "prochain": "Prochain point d'étape dans 2 semaines, sur la répartition de la charge."
-      },
       "point": {
-        "atteintes": [
-          0
-        ],
         "nonAtteinte": 1,
         "raison": "Ne fonctionne pas",
         "nouvelAxe": {
           "texte": "Remplacer la fiche par un échange de 20 minutes avec chaque collaborateur, noté en trois lignes.",
           "retour": "Retour sous 3 semaines"
-        }
+        },
+        "precision": "Une fiche écrite n'apporte rien à une équipe de six personnes."
       },
       "libre": {
         "libelle": "Selon vous, quel poste est le plus sollicité ?",
@@ -378,24 +348,14 @@
           "retour": "Retour sous 3 semaines"
         }
       ],
-      "suivi": {
-        "etats": [
-          "À faire",
-          "À faire",
-          "À faire"
-        ],
-        "prochain": "Prochain point d'étape dans 2 semaines, sur les réactions aux premières publications."
-      },
       "point": {
-        "atteintes": [
-          0
-        ],
         "nonAtteinte": 1,
         "raison": "Manque de temps",
         "nouvelAxe": {
           "texte": "Remplacer la vidéo par trois photos commentées, publiées la semaine suivante.",
           "retour": "Retour sous 1 semaine"
-        }
+        },
+        "precision": "Je n'ai pas le temps de tourner une vidéo en semaine."
       },
       "libre": {
         "libelle": "Que souhaitez-vous que vos publications fassent d'abord ?",

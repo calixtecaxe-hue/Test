@@ -1774,24 +1774,6 @@ h3,
 }
 
 /* Point d'étape : actions atteintes ou non, avec la raison */
-.demo-point {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  flex-direction: column;
-  gap: 12px;
-  list-style: none;
-}
-
-.demo-point-ligne {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 13.5px;
-  line-height: 1.4;
-  color: var(--text);
-}
 
 .demo-choix {
   display: inline-flex;
@@ -1826,20 +1808,6 @@ h3,
   color: var(--red-1);
 }
 
-.demo-raisons {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  margin-top: 8px;
-  animation: demo-entree 0.35s ease both;
-}
-
-.demo-raisons-titre {
-  margin-right: 4px;
-  font-size: 12.5px;
-  color: var(--text-muted);
-}
 
 .demo-valider-point {
   display: inline-block;
@@ -1857,16 +1825,6 @@ h3,
   color: var(--bg);
 }
 
-.demo-valider-point.fait {
-  background: rgba(111, 207, 151, 0.18);
-  color: #6fcf97;
-}
-
-.demo-etat.remplacee {
-  border-color: transparent;
-  background: rgba(255, 209, 102, 0.16);
-  color: var(--amber-1);
-}
 
 .demo-axe {
   margin-top: 14px;
@@ -2011,42 +1969,176 @@ h3,
 }
 
 /* Montage du suivi dans le temps */
-.demo-montage-progres {
-  margin-bottom: 12px;
-  font-size: 12.5px;
-  color: var(--text-muted);
+
+
+
+/* Suivi : objectifs atteints oui / non, pourquoi, nouvel axe */
+.demo-suivi-vue .msg-titre {
+  margin-bottom: 4px;
 }
 
-.demo-montage {
+.demo-mini-etapes {
   display: flex;
-  margin: 0;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
   padding: 0;
-  flex-direction: column;
-  gap: 8px;
   list-style: none;
 }
 
-.demo-montage li {
-  display: grid;
-  grid-template-columns: 82px 1fr auto;
-  align-items: baseline;
-  gap: 12px;
-  padding: 8px 0;
-  border-top: 1px solid var(--line);
-  font-size: 13px;
+.demo-mini-etapes li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px 4px 5px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--text-faint);
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.demo-mini-etapes li span {
+  display: flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(244, 236, 216, 0.1);
+  font-size: 10.5px;
+}
+
+.demo-mini-etapes li.actif {
+  border-color: transparent;
+  background: rgba(91, 159, 236, 0.2);
+  color: var(--text);
+}
+
+.demo-mini-etapes li.actif span {
+  background: var(--blue-1);
+  color: var(--bg);
+}
+
+.demo-mini-etapes li.fait {
+  color: var(--text-muted);
+}
+
+.demo-mini-etapes li.fait span {
+  background: rgba(111, 207, 151, 0.2);
+  color: #6fcf97;
+}
+
+.demo-compteur {
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.demo-objectifs {
+  display: flex;
+  margin: 10px 0 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.demo-obj {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(244, 236, 216, 0.03);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.demo-obj.ok {
+  border-color: rgba(111, 207, 151, 0.45);
+  background: rgba(111, 207, 151, 0.06);
+}
+
+.demo-obj.ko {
+  border-color: rgba(242, 104, 107, 0.5);
+  background: rgba(242, 104, 107, 0.05);
+}
+
+.demo-obj-ligne {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.demo-obj-texte {
+  flex: 1;
+  font-size: 13.5px;
   line-height: 1.4;
   color: var(--text);
+}
+
+.demo-obj-texte b {
+  font-weight: 600;
+}
+
+.demo-choix {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+.demo-pourquoi {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
   animation: demo-entree 0.4s ease both;
 }
 
-.demo-montage-quand {
+.demo-pourquoi-titre {
+  margin: 0;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--blue-1);
+  color: var(--text);
 }
 
-@media (max-width: 639px) {
-  .demo-montage li {
-    grid-template-columns: 1fr;
-    gap: 4px;
+.demo-options-plein {
+  margin-left: 0;
+}
+
+.demo-libre-plein {
+  margin-left: 0;
+}
+
+.demo-pourquoi .demo-valider-point {
+  margin-top: 10px;
+}
+
+.demo-envoye {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: #6fcf97;
+  animation: demo-entree 0.3s ease both;
+}
+
+.demo-reflexion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  animation: demo-entree 0.3s ease both;
+}
+
+.demo-axe-nouveau {
+  animation: demo-entree 0.5s ease both, demo-eclat 1.8s ease 0.3s both;
+}
+
+@keyframes demo-eclat {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(91, 159, 236, 0);
+  }
+  40% {
+    box-shadow: 0 0 0 4px rgba(91, 159, 236, 0.3);
   }
 }

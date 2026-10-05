@@ -14,11 +14,10 @@ type DemoAgent = {
   synthese: string[];
   propositions?: string[];
   actions: { texte: string; retour: string }[];
-  suivi: { etats: string[]; prochain: string };
   point: {
-    atteintes: number[];
     nonAtteinte: number;
     raison: string;
+    precision: string;
     nouvelAxe: { texte: string; retour: string };
   };
 };
@@ -34,12 +33,29 @@ type Bloc =
   | { t: "parties" }
   | { t: "propositions" }
   | { t: "actions" }
-  | { t: "suivi" }
-  | { t: "point" }
-  | { t: "bilan" }
-  | { t: "montage" };
+  | { t: "suivi" };
 
-type Vue = "fil" | "questionnaire";
+type Vue = "fil" | "questionnaire" | "suivi";
+type SuiviEtat = {
+  oui: number[];
+  non: number | null;
+  raison: string | null;
+  precision: string;
+  precisionActif: boolean;
+  envoye: boolean;
+  reflexion: boolean;
+  axe: boolean;
+};
+const SUIVI_VIDE: SuiviEtat = {
+  oui: [],
+  non: null,
+  raison: null,
+  precision: "",
+  precisionActif: false,
+  envoye: false,
+  reflexion: false,
+  axe: false,
+};
 type Phase = "attente" | "questions" | "redaction" | "fini";
 type Zoom = { echelle: number; origine: string };
 type Curseur = { x: number; y: number; visible: boolean };
@@ -101,7 +117,7 @@ function filComplet(code: string): Bloc[] {
   fil.push({ t: "questionnaire" });
   fil.push({ t: "synthese" }, { t: "parties" });
   if (d.propositions) fil.push({ t: "propositions" });
-  fil.push({ t: "actions" }, { t: "suivi" }, { t: "point" }, { t: "bilan" }, { t: "montage" });
+  fil.push({ t: "actions" }, { t: "suivi" });
   return fil;
 }
 
@@ -159,7 +175,6 @@ export function FenetreOutil() {
   const [termines, setTermines] = useState<number[]>([]);
   const [vue, setVue] = useState<Vue>("fil");
   const [rapide, setRapide] = useState(false);
-  const [montage, setMontage] = useState(0);
   const [choixQ, setChoixQ] = useState<Record<number, number>>({});
   const [libreTexte, setLibreTexte] = useState("");
   const [libreActif, setLibreActif] = useState(false);
@@ -176,9 +191,7 @@ export function FenetreOutil() {
     actif: -1,
   });
   const [notif, setNotif] = useState(false);
-  const [choix, setChoix] = useState<Record<number, "atteint" | "non">>({});
-  const [raison, setRaison] = useState<string | null>(null);
-  const [pointValide, setPointValide] = useState(false);
+  const [suivi, setSuivi] = useState<SuiviEtat>(SUIVI_VIDE);
   const reduit = useMouvementReduit();
   const fenetreRef = useRef<HTMLDivElement>(null);
   const filRef = useRef<HTMLDivElement>(null);
@@ -189,16 +202,6 @@ export function FenetreOutil() {
   const affiche: Bloc[] = reduit ? filComplet(agent.code) : fil;
   const notes = notesDe(agent.code);
   const score = moyenne(notes);
-  const pointFinal = reduit
-    ? {
-        choix: Object.fromEntries([
-          ...donnees.point.atteintes.map((k) => [k, "atteint"]),
-          [donnees.point.nonAtteinte, "non"],
-        ]) as Record<number, "atteint" | "non">,
-        raison: donnees.point.raison,
-        valide: true,
-      }
-    : { choix, raison, valide: pointValide };
   const etapeParcours = reduit ? 3 : parcours;
 
   function choisirAgent(index: number) {
@@ -310,42 +313,55 @@ export function FenetreOutil() {
       await pause(900);
     }
 
+    // Suivi : pour chaque objectif, atteint ou non ; si non, la personne
+    // choisit pourquoi et précise ; l'agent en tient compte et propose un
+    // nouvel axe.
     async function pointEtape(d: DemoAgent) {
-      const { atteintes, nonAtteinte, raison: motif } = d.point;
+      const { nonAtteinte, raison: motif, precision } = d.point;
+      const maj = (partiel: Partial<SuiviEtat>) => setSuivi((e) => ({ ...e, ...partiel }));
       setParcours(3);
-      await pause(1400);
+      await pause(1200);
       setNotif(true);
       await pause(1800);
       await deplacer("notif", 0.5);
       await cliquer("notif");
       setNotif(false);
-      await agentRepond("Point d'étape : indiquez les actions atteintes. Pour les autres, dites-moi pourquoi, afin que je vous propose un autre axe.");
-      ajouter({ t: "point" });
-      await pause(1000);
-      for (const k of atteintes) {
-        await deplacer(`atteint-${k}`, 0.5);
-        await cliquer(`atteint-${k}`);
-        setChoix((c) => ({ ...c, [k]: "atteint" }));
-        await pause(350);
-      }
-      await deplacer(`non-${nonAtteinte}`, 0.5);
-      await cliquer(`non-${nonAtteinte}`);
-      setChoix((c) => ({ ...c, [nonAtteinte]: "non" }));
-      await pause(800);
-      await deplacer(`raison-${RAISONS.indexOf(motif)}`, 0.5);
-      await cliquer(`raison-${RAISONS.indexOf(motif)}`);
-      setRaison(motif);
-      await pause(700);
-      await deplacer("valider-point", 0.5);
-      await cliquer("valider-point");
-      setPointValide(true);
-      await agentRepond("Merci. Votre réponse est prise en compte : voici l'axe suivant.");
-      ajouter({ t: "bilan" });
-      await pause(4500);
-      ajouter({ t: "montage" });
-      for (let k = 1; k <= 4; k++) {
-        await pause(k === 1 ? 1500 : 2200);
-        setMontage(k);
+      setSuivi(SUIVI_VIDE);
+      setVue("suivi");
+      await pause(1300);
+
+      for (let k = 0; k < d.actions.length; k++) {
+        if (k !== nonAtteinte) {
+          await deplacer(`oui-${k}`);
+          await cliquer(`oui-${k}`);
+          setSuivi((e) => ({ ...e, oui: [...e.oui, k] }));
+          await pause(700);
+          continue;
+        }
+        await deplacer(`non-${k}`);
+        await cliquer(`non-${k}`);
+        maj({ non: k });
+        await pause(900);
+        const j = RAISONS.indexOf(motif);
+        await deplacer(`raison-${j}`);
+        await cliquer(`raison-${j}`);
+        maj({ raison: motif });
+        await pause(500);
+        await deplacer("precision", 0.2);
+        await cliquer();
+        maj({ precisionActif: true });
+        for (let c = 1; c <= precision.length; c++) {
+          maj({ precision: precision.slice(0, c) });
+          await pause(28);
+        }
+        await pause(400);
+        maj({ precisionActif: false });
+        await deplacer("envoyer-pourquoi");
+        await cliquer("envoyer-pourquoi");
+        maj({ envoye: true, reflexion: true });
+        await pause(2000);
+        maj({ reflexion: false, axe: true });
+        await pause(2800);
       }
       await pause(3500);
     }
@@ -367,13 +383,10 @@ export function FenetreOutil() {
       setNotif(false);
       setVue("fil");
       setRapide(false);
-      setMontage(0);
       setChoixQ({});
       setLibreTexte("");
       setLibreActif(false);
-      setChoix({});
-      setRaison(null);
-      setPointValide(false);
+      setSuivi(SUIVI_VIDE);
       setParcours(avecInscription ? 0 : 1);
       setPhase("attente");
       setQuestions(0);
@@ -441,7 +454,7 @@ export function FenetreOutil() {
 
       const blocs: Bloc[] = [{ t: "synthese" }, { t: "parties" }];
       if (d.propositions) blocs.push({ t: "propositions" });
-      blocs.push({ t: "actions" }, { t: "suivi" });
+      blocs.push({ t: "actions" });
       for (const bloc of blocs) {
         ajouter(bloc);
         await pause(bloc.t === "synthese" || bloc.t === "parties" ? 4200 : 3200);
@@ -485,7 +498,7 @@ export function FenetreOutil() {
       top: vue === "questionnaire" ? 0 : zone.scrollHeight,
       behavior: reduit ? "auto" : "smooth",
     });
-  }, [affiche.length, pointFinal.choix, pointFinal.raison, montage, vue, reduit]);
+  }, [affiche.length, suivi.axe, suivi.non, vue, reduit]);
 
   const classeSurvol = (nom: string) => (survol === nom ? "survol" : "");
 
@@ -561,6 +574,120 @@ export function FenetreOutil() {
             Voir mon compte rendu
           </span>
         )}
+      </div>
+    );
+  }
+
+  function rendreSuivi(e: SuiviEtat) {
+    const p = donnees.point;
+    const etape = e.axe ? 3 : e.non !== null ? 2 : 1;
+    const total = donnees.actions.length;
+    return (
+      <div className="demo-suivi-vue">
+        <p className="msg-titre">Suivi · {agent.nom}</p>
+        <p className="demo-sous-titre">
+          Point d&apos;étape, 5 jours plus tard. Pour chaque objectif, indiquez s&apos;il est atteint.
+        </p>
+        <ol className="demo-mini-etapes">
+          {["Objectif atteint ?", "Pourquoi", "Nouvel axe"].map((l, k) => (
+            <li key={l} className={`${k + 1 === etape ? "actif" : ""} ${k + 1 < etape ? "fait" : ""}`}>
+              <span>{k + 1 < etape ? "✓" : k + 1}</span>
+              {l}
+            </li>
+          ))}
+        </ol>
+        <p className="demo-compteur">
+          Objectifs atteints : {e.oui.length} sur {total}
+          {e.axe ? " · 1 réajusté" : ""}
+        </p>
+        <ul className="demo-objectifs">
+          {donnees.actions.map((a, k) => {
+            const oui = e.oui.includes(k);
+            const non = e.non === k;
+            return (
+              <li key={a.texte} className={`demo-obj ${oui ? "ok" : ""} ${non ? "ko" : ""}`}>
+                <div className="demo-obj-ligne">
+                  <span className="demo-q-num">{k + 1}</span>
+                  <span className="demo-obj-texte">
+                    <b>Objectif {k + 1}.</b> {a.texte}
+                  </span>
+                  <span className="demo-choix">
+                    <span
+                      data-cible={`oui-${k}`}
+                      className={`demo-option ${oui ? "oui" : ""} ${classeSurvol(`oui-${k}`)}`}
+                    >
+                      {oui ? "✓ " : ""}Oui
+                    </span>
+                    <span
+                      data-cible={`non-${k}`}
+                      className={`demo-option ${non ? "non" : ""} ${classeSurvol(`non-${k}`)}`}
+                    >
+                      Non
+                    </span>
+                  </span>
+                </div>
+                {non ? (
+                  <div className="demo-pourquoi">
+                    <p className="demo-pourquoi-titre">Pourquoi cet objectif n&apos;est-il pas atteint ?</p>
+                    <div className="demo-options demo-options-plein">
+                      {RAISONS.map((r, j) => (
+                        <span
+                          key={r}
+                          data-cible={`raison-${j}`}
+                          className={`demo-option ${e.raison === r ? "choisi" : ""} ${classeSurvol(`raison-${j}`)}`}
+                        >
+                          {r}
+                        </span>
+                      ))}
+                    </div>
+                    <span
+                      className={`demo-champ demo-libre demo-libre-plein ${e.precisionActif ? "plein" : ""}`}
+                      data-cible="precision"
+                    >
+                      {e.precision ? (
+                        <>
+                          {e.precision}
+                          {e.precisionActif ? <span className="demo-caret" /> : null}
+                        </>
+                      ) : (
+                        <span className="demo-placeholder">Précisez, si vous le souhaitez</span>
+                      )}
+                    </span>
+                    {e.envoye ? (
+                      <p className="demo-envoye">✓ Réponse envoyée à l&apos;agent</p>
+                    ) : (
+                      <span
+                        data-cible="envoyer-pourquoi"
+                        className={`demo-valider-point primaire ${classeSurvol("envoyer-pourquoi")}`}
+                      >
+                        Envoyer ma réponse
+                      </span>
+                    )}
+                    {e.reflexion ? (
+                      <div className="demo-reflexion">
+                        <span className="msg-points">
+                          <i />
+                          <i />
+                          <i />
+                        </span>
+                        L&apos;agent tient compte de votre réponse et réajuste votre stratégie…
+                      </div>
+                    ) : null}
+                    {e.axe ? (
+                      <div className="demo-axe demo-axe-nouveau">
+                        <p className="demo-axe-titre">Nouvel axe à mettre en place</p>
+                        <p className="demo-axe-texte">{p.nouvelAxe.texte}</p>
+                        <p className="demo-note">
+                          Tient compte de votre réponse : «&nbsp;{p.raison}&nbsp;». {p.nouvelAxe.retour}.
+                        </p>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   }
@@ -720,164 +847,21 @@ export function FenetreOutil() {
             </ol>
           </div>
         );
-      case "point":
-        return (
-          <div key={i} className="msg msg-carte msg-suivi">
-            <p className="msg-titre">Point d&apos;étape</p>
-            <ul className="demo-point">
-              {donnees.actions.map((a, k) => {
-                const c = pointFinal.choix[k];
-                return (
-                  <li key={a.texte}>
-                    <div className="demo-point-ligne">
-                      <span>{a.texte}</span>
-                      <span className="demo-choix">
-                        <span
-                          data-cible={`atteint-${k}`}
-                          className={`demo-option ${c === "atteint" ? "oui" : ""} ${classeSurvol(`atteint-${k}`)}`}
-                        >
-                          {c === "atteint" ? "✓ " : ""}Atteint
-                        </span>
-                        <span
-                          data-cible={`non-${k}`}
-                          className={`demo-option ${c === "non" ? "non" : ""} ${classeSurvol(`non-${k}`)}`}
-                        >
-                          Pas atteint
-                        </span>
-                      </span>
-                    </div>
-                    {c === "non" ? (
-                      <div className="demo-raisons">
-                        <span className="demo-raisons-titre">Pourquoi cela ne fonctionne pas ? Choisissez la raison :</span>
-                        {RAISONS.map((r, j) => (
-                          <span
-                            key={r}
-                            data-cible={`raison-${j}`}
-                            className={`demo-option ${pointFinal.raison === r ? "non" : ""} ${classeSurvol(`raison-${j}`)}`}
-                          >
-                            {r}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
-                  </li>
-                );
-              })}
-            </ul>
-            <span
-              data-cible="valider-point"
-              className={`demo-valider-point ${pointFinal.valide ? "fait" : ""} ${classeSurvol("valider-point")}`}
-            >
-              {pointFinal.valide ? "✓ Point d\u2019étape enregistré" : "Enregistrer mon point d\u2019étape"}
-            </span>
-          </div>
-        );
-      case "montage": {
-        const p = donnees.point;
-        const autre = donnees.actions.findIndex(
-          (_, k) => !p.atteintes.includes(k) && k !== p.nonAtteinte
-        );
-        const lignes = [
-          { quand: "Jour 5", texte: donnees.actions[p.atteintes[0]].texte, etat: "Atteint", ok: true, fait: 1 },
-          { quand: "Semaine 2", texte: donnees.actions[p.nonAtteinte].texte, etat: `Pas atteint · ${p.raison}`, ok: false, fait: 1 },
-          { quand: "Semaine 3", texte: p.nouvelAxe.texte, etat: "Atteint · nouvel axe", ok: true, fait: 2 },
-          { quand: "Mois 1", texte: donnees.actions[autre].texte, etat: "Atteint", ok: true, fait: 3 },
-        ];
-        const n = reduit ? lignes.length : montage;
-        const fait = n > 0 ? lignes[n - 1].fait : 0;
-        return (
-          <div key={i} className="msg msg-carte msg-cle">
-            <p className="msg-titre msg-titre-grand">Ensuite, on vous accompagne</p>
-            <p className="demo-sous-titre">
-              À chaque échéance, un point d&apos;étape. Une action qui ne fonctionne pas est
-              remplacée, selon la raison que vous indiquez.
-            </p>
-            <div className="demo-montage-progres">
-              <span>
-                Objectifs atteints : {fait} sur {donnees.actions.length}
-              </span>
-              <div className="fenetre-barre">
-                <div style={{ width: `${(fait / donnees.actions.length) * 100}%` }} />
-              </div>
-            </div>
-            <ol className="demo-montage">
-              {lignes.slice(0, n).map((l) => (
-                <li key={l.quand}>
-                  <span className="demo-montage-quand">{l.quand}</span>
-                  <span className="demo-montage-texte">{l.texte}</span>
-                  <span className={`demo-etat ${l.ok ? "fait" : "remplacee"}`}>{l.etat}</span>
-                </li>
-              ))}
-            </ol>
-            {n === lignes.length ? (
-              <p className="demo-prochain">
-                On vous accompagne à chaque échéance, jusqu&apos;à ce que vos objectifs soient
-                atteints.
-              </p>
-            ) : null}
-          </div>
-        );
-      }
-      case "bilan":
-        return (
-          <div key={i} className="msg msg-carte msg-suivi">
-            <p className="msg-titre">Suivi mis à jour</p>
-            <ul className="demo-suivi">
-              {donnees.actions.map((a, k) => {
-                const etat = donnees.point.atteintes.includes(k)
-                  ? "Fait"
-                  : k === donnees.point.nonAtteinte
-                    ? "Remplacée"
-                    : donnees.suivi.etats[k];
-                return (
-                  <li key={a.texte}>
-                    <span>{a.texte}</span>
-                    <span
-                      className={`demo-etat ${
-                        etat === "Fait" ? "fait" : etat === "Remplacée" ? "remplacee" : ""
-                      }`}
-                    >
-                      {etat}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="demo-axe">
-              <p className="demo-axe-titre">Nouvel axe à mettre en place</p>
-              <p className="demo-axe-texte">{donnees.point.nouvelAxe.texte}</p>
-              <p className="demo-note">
-                Tient compte de votre réponse : « {donnees.point.raison} ».{" "}
-                {donnees.point.nouvelAxe.retour}.
-              </p>
-            </div>
-          </div>
-        );
       case "suivi":
         return (
           <div key={i} className="msg msg-carte msg-suivi">
-            <p className="msg-titre">Suivi</p>
-            <ul className="demo-suivi">
-              {donnees.actions.map((a, k) => {
-                const etat = donnees.suivi.etats[k];
-                return (
-                  <li key={a.texte}>
-                    <span>{a.texte}</span>
-                    <span
-                      className={`demo-etat ${
-                        etat === "En cours" ? "en-cours" : etat === "Fait" ? "fait" : ""
-                      }`}
-                    >
-                      {etat}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-            <p className="demo-prochain">{donnees.suivi.prochain}</p>
-            <p className="demo-note">
-              Chaque action a son propre délai de retour : le suivi suit votre rythme.
-            </p>
+            {rendreSuivi(
+              {
+                oui: donnees.actions.map((_, k) => k).filter((k) => k !== donnees.point.nonAtteinte),
+                non: donnees.point.nonAtteinte,
+                raison: donnees.point.raison,
+                precision: donnees.point.precision,
+                precisionActif: false,
+                envoye: true,
+                reflexion: false,
+                axe: true,
+              }
+            )}
           </div>
         );
     }
@@ -988,7 +972,9 @@ export function FenetreOutil() {
               <div className="demo-fil" ref={filRef} aria-live="polite">
                 {vue === "questionnaire" && !reduit
                   ? rendreQuestionnaire(choixQ, libreTexte, libreActif, false)
-                  : affiche.map(rendreBloc)}
+                  : vue === "suivi" && !reduit
+                    ? rendreSuivi(suivi)
+                    : affiche.map(rendreBloc)}
               </div>
               {notif ? (
                 <div className={`demo-notif ${classeSurvol("notif")}`} data-cible="notif">
@@ -1001,7 +987,7 @@ export function FenetreOutil() {
                   </span>
                 </div>
               ) : null}
-              {vue === "questionnaire" && !reduit ? null : (
+              {(vue === "questionnaire" || vue === "suivi") && !reduit ? null : (
                 <div className="demo-saisie-barre">
                   <span className="demo-champ">
                     <span className="demo-placeholder">Message à {agent.nom}</span>
