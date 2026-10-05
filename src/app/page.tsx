@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/marketing/site-footer";
 import { EtoilesLogo } from "@/components/marketing/etoiles-logo-lazy";
 import { GrillePoints } from "@/components/marketing/grille-points";
 import { Reveal } from "@/components/marketing/reveal";
+import { FenetreOutil } from "@/components/marketing/fenetre-outil";
 import { AgentsApercu } from "@/components/marketing/agents-apercu";
 import { AgentsSelecteur } from "@/components/marketing/agents-selecteur";
 
@@ -125,6 +126,17 @@ export default function Accueil() {
                 </Reveal>
               </div>
             ))}
+          </div>
+
+          <Reveal>
+            <p className="mt-24 text-center text-sm text-[var(--text-faint)]">
+              Un aperçu de l&apos;outil
+            </p>
+          </Reveal>
+          <div className="mx-auto mt-6 max-w-5xl">
+            <Reveal>
+              <FenetreOutil />
+            </Reveal>
           </div>
         </section>
 
