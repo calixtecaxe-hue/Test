@@ -14,6 +14,12 @@ type DemoAgent = {
   propositions?: string[];
   actions: { texte: string; retour: string }[];
   suivi: { etats: string[]; prochain: string };
+  point: {
+    atteintes: number[];
+    nonAtteinte: number;
+    raison: string;
+    nouvelAxe: { texte: string; retour: string };
+  };
 };
 
 type Bloc =
@@ -25,14 +31,21 @@ type Bloc =
   | { t: "parties" }
   | { t: "propositions" }
   | { t: "actions" }
-  | { t: "suivi" };
+  | { t: "suivi" }
+  | { t: "point" }
+  | { t: "bilan" };
 
 type Phase = "attente" | "questions" | "redaction" | "fini";
 type Zoom = { echelle: number; origine: string };
 type Curseur = { x: number; y: number; visible: boolean };
 
 const DEMO_AGENTS = demo.agents as Record<string, DemoAgent>;
+const RAISONS = demo.raisons;
 const NB_QUESTIONS = 3;
+
+// Les quatre temps du parcours, affichés en haut de la fenêtre : le
+// questionnaire n'est que le point de départ du compte rendu et du suivi.
+const PARCOURS = ["Inscription", "Questionnaire", "Compte rendu", "Suivi"];
 
 // Règle d'agrégation du produit (CLAUDE.md section 7) : vert 100, orange 50,
 // rouge 0 ; le score est la moyenne des indicateurs notés, les indicateurs
@@ -85,7 +98,7 @@ function filComplet(code: string): Bloc[] {
   });
   fil.push({ t: "synthese" }, { t: "parties" });
   if (d.propositions) fil.push({ t: "propositions" });
-  fil.push({ t: "actions" }, { t: "suivi" });
+  fil.push({ t: "actions" }, { t: "suivi" }, { t: "point" }, { t: "bilan" });
   return fil;
 }
 
@@ -148,6 +161,16 @@ export function FenetreOutil() {
   const [presse, setPresse] = useState(false);
   const [zoom, setZoom] = useState<Zoom>(ZOOM_NEUTRE);
   const [survol, setSurvol] = useState<string | null>(null);
+  const [parcours, setParcours] = useState(0);
+  const [inscription, setInscription] = useState(false);
+  const [formulaire, setFormulaire] = useState<{ valeurs: string[]; actif: number }>({
+    valeurs: demo.profil.map(() => ""),
+    actif: -1,
+  });
+  const [notif, setNotif] = useState(false);
+  const [choix, setChoix] = useState<Record<number, "atteint" | "non">>({});
+  const [raison, setRaison] = useState<string | null>(null);
+  const [pointValide, setPointValide] = useState(false);
   const reduit = useMouvementReduit();
   const fenetreRef = useRef<HTMLDivElement>(null);
   const filRef = useRef<HTMLDivElement>(null);
@@ -158,6 +181,17 @@ export function FenetreOutil() {
   const affiche: Bloc[] = reduit ? filComplet(agent.code) : fil;
   const notes = notesDe(agent.code);
   const score = moyenne(notes);
+  const pointFinal = reduit
+    ? {
+        choix: Object.fromEntries([
+          ...donnees.point.atteintes.map((k) => [k, "atteint"]),
+          [donnees.point.nonAtteinte, "non"],
+        ]) as Record<number, "atteint" | "non">,
+        raison: donnees.point.raison,
+        valide: true,
+      }
+    : { choix, raison, valide: pointValide };
+  const etapeParcours = reduit ? 3 : parcours;
 
   function choisirAgent(index: number) {
     if (reduit) setIndexAgent(index);
@@ -220,6 +254,66 @@ export function FenetreOutil() {
       await pause(450);
     }
 
+    async function remplirFormulaire() {
+      setFormulaire({ valeurs: demo.profil.map(() => ""), actif: -1 });
+      setInscription(true);
+      setParcours(0);
+      await pause(1100);
+      for (let k = 0; k < demo.profil.length; k++) {
+        await deplacer(`form-${k}`, 0.2);
+        await cliquer();
+        const texte = demo.profil[k].valeur;
+        for (let c = 1; c <= texte.length; c++) {
+          setFormulaire((f) => ({
+            actif: k,
+            valeurs: f.valeurs.map((v, j) => (j === k ? texte.slice(0, c) : v)),
+          }));
+          await pause(32);
+        }
+        await pause(220);
+      }
+      setFormulaire((f) => ({ ...f, actif: -1 }));
+      await deplacer("creer");
+      await cliquer("creer");
+      setInscription(false);
+      setParcours(1);
+      await pause(900);
+    }
+
+    async function pointEtape(d: DemoAgent) {
+      const { atteintes, nonAtteinte, raison: motif } = d.point;
+      setParcours(3);
+      await pause(1400);
+      setNotif(true);
+      await pause(1800);
+      await deplacer("notif", 0.5);
+      await cliquer("notif");
+      setNotif(false);
+      await agentRepond("Point d'étape : indiquez les actions atteintes. Pour les autres, dites-moi pourquoi, afin que je vous propose un autre axe.");
+      ajouter({ t: "point" });
+      await pause(1000);
+      for (const k of atteintes) {
+        await deplacer(`atteint-${k}`, 0.5);
+        await cliquer(`atteint-${k}`);
+        setChoix((c) => ({ ...c, [k]: "atteint" }));
+        await pause(350);
+      }
+      await deplacer(`non-${nonAtteinte}`, 0.5);
+      await cliquer(`non-${nonAtteinte}`);
+      setChoix((c) => ({ ...c, [nonAtteinte]: "non" }));
+      await pause(800);
+      await deplacer(`raison-${RAISONS.indexOf(motif)}`, 0.5);
+      await cliquer(`raison-${RAISONS.indexOf(motif)}`);
+      setRaison(motif);
+      await pause(700);
+      await deplacer("valider-point", 0.5);
+      await cliquer("valider-point");
+      setPointValide(true);
+      await agentRepond("Merci. Votre réponse est prise en compte : voici l'axe suivant.");
+      ajouter({ t: "bilan" });
+      await pause(6000);
+    }
+
     async function agentRepond(texte: string) {
       ajouter({ t: "redaction" });
       await pause(750);
@@ -228,16 +322,23 @@ export function FenetreOutil() {
       await pause(500);
     }
 
-    async function jouerAgent(i: number) {
+    async function jouerAgent(i: number, avecInscription: boolean) {
       const code = AGENTS[i].code;
       const d = DEMO_AGENTS[code];
 
       setZoom(ZOOM_NEUTRE);
       setFil([]);
+      setNotif(false);
+      setChoix({});
+      setRaison(null);
+      setPointValide(false);
+      setParcours(avecInscription ? 0 : 1);
       setPhase("attente");
       setQuestions(0);
       setSaisie("");
       setIndexAgent(i);
+      if (avecInscription) await remplirFormulaire();
+      setParcours(1);
       await pause(900);
 
       await deplacer(`agent-${i}`, 0.4);
@@ -259,8 +360,9 @@ export function FenetreOutil() {
       }
 
       setZoom(ZOOM_NEUTRE);
+      setParcours(2);
       setPhase("redaction");
-      await agentRepond("Merci. Je rédige votre compte rendu.");
+      await agentRepond("Le questionnaire n'est que le point de départ. Je rédige votre compte rendu : il sert de base à votre suivi.");
       ajouter({ t: "redaction" });
       await pause(1800);
       retirerRedaction();
@@ -271,21 +373,28 @@ export function FenetreOutil() {
       blocs.push({ t: "actions" }, { t: "suivi" });
       for (const bloc of blocs) {
         ajouter(bloc);
-        await pause(bloc.t === "synthese" || bloc.t === "parties" ? 4500 : 3500);
+        await pause(bloc.t === "synthese" || bloc.t === "parties" ? 4200 : 3200);
       }
+
+      await pointEtape(d);
 
       setTermines((t) => (t.includes(i) ? t : [...t, i]));
       setCurseur((c) => ({ ...c, visible: false }));
-      await pause(3000);
+      await pause(1500);
     }
 
     async function boucle() {
       await pause(0);
       let i = lancement.depart;
+      let avecInscription = lancement.n === 0;
       for (;;) {
-        await jouerAgent(i);
+        await jouerAgent(i, avecInscription);
+        avecInscription = false;
         i = (i + 1) % AGENTS.length;
-        if (i === 0) setTermines([]);
+        if (i === 0) {
+          setTermines([]);
+          avecInscription = true;
+        }
       }
     }
 
@@ -298,7 +407,7 @@ export function FenetreOutil() {
     const zone = filRef.current;
     if (!zone) return;
     zone.scrollTo({ top: zone.scrollHeight, behavior: reduit ? "auto" : "smooth" });
-  }, [affiche.length, reduit]);
+  }, [affiche.length, pointFinal.choix, pointFinal.raison, reduit]);
 
   const classeSurvol = (nom: string) => (survol === nom ? "survol" : "");
 
@@ -342,8 +451,9 @@ export function FenetreOutil() {
         );
       case "synthese":
         return (
-          <div key={i} className="msg msg-carte">
-            <p className="msg-titre">Compte rendu · {agent.nom}</p>
+          <div key={i} className="msg msg-carte msg-cle">
+            <p className="msg-titre msg-titre-grand">Votre compte rendu</p>
+            <p className="demo-sous-titre">{agent.nom}</p>
             {donnees.propositions ? null : (
               <div className="demo-score">
                 <Score key={`score-${indexAgent}`} cible={score} reduit={reduit} />
@@ -428,9 +538,96 @@ export function FenetreOutil() {
             </ol>
           </div>
         );
+      case "point":
+        return (
+          <div key={i} className="msg msg-carte msg-suivi">
+            <p className="msg-titre">Point d&apos;étape</p>
+            <ul className="demo-point">
+              {donnees.actions.map((a, k) => {
+                const c = pointFinal.choix[k];
+                return (
+                  <li key={a.texte}>
+                    <div className="demo-point-ligne">
+                      <span>{a.texte}</span>
+                      <span className="demo-choix">
+                        <span
+                          data-cible={`atteint-${k}`}
+                          className={`demo-option ${c === "atteint" ? "oui" : ""} ${classeSurvol(`atteint-${k}`)}`}
+                        >
+                          {c === "atteint" ? "✓ " : ""}Atteint
+                        </span>
+                        <span
+                          data-cible={`non-${k}`}
+                          className={`demo-option ${c === "non" ? "non" : ""} ${classeSurvol(`non-${k}`)}`}
+                        >
+                          Pas atteint
+                        </span>
+                      </span>
+                    </div>
+                    {c === "non" ? (
+                      <div className="demo-raisons">
+                        <span className="demo-raisons-titre">Pourquoi ?</span>
+                        {RAISONS.map((r, j) => (
+                          <span
+                            key={r}
+                            data-cible={`raison-${j}`}
+                            className={`demo-option ${pointFinal.raison === r ? "non" : ""} ${classeSurvol(`raison-${j}`)}`}
+                          >
+                            {r}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
+                  </li>
+                );
+              })}
+            </ul>
+            <span
+              data-cible="valider-point"
+              className={`demo-valider-point ${pointFinal.valide ? "fait" : ""} ${classeSurvol("valider-point")}`}
+            >
+              {pointFinal.valide ? "✓ Point d\u2019étape enregistré" : "Enregistrer mon point d\u2019étape"}
+            </span>
+          </div>
+        );
+      case "bilan":
+        return (
+          <div key={i} className="msg msg-carte msg-suivi">
+            <p className="msg-titre">Suivi mis à jour</p>
+            <ul className="demo-suivi">
+              {donnees.actions.map((a, k) => {
+                const etat = donnees.point.atteintes.includes(k)
+                  ? "Fait"
+                  : k === donnees.point.nonAtteinte
+                    ? "Remplacée"
+                    : donnees.suivi.etats[k];
+                return (
+                  <li key={a.texte}>
+                    <span>{a.texte}</span>
+                    <span
+                      className={`demo-etat ${
+                        etat === "Fait" ? "fait" : etat === "Remplacée" ? "remplacee" : ""
+                      }`}
+                    >
+                      {etat}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="demo-axe">
+              <p className="demo-axe-titre">Nouvel axe à mettre en place</p>
+              <p className="demo-axe-texte">{donnees.point.nouvelAxe.texte}</p>
+              <p className="demo-note">
+                Tient compte de votre réponse : « {donnees.point.raison} ».{" "}
+                {donnees.point.nouvelAxe.retour}.
+              </p>
+            </div>
+          </div>
+        );
       case "suivi":
         return (
-          <div key={i} className="msg msg-carte">
+          <div key={i} className="msg msg-carte msg-suivi">
             <p className="msg-titre">Suivi</p>
             <ul className="demo-suivi">
               {donnees.actions.map((a, k) => {
@@ -467,10 +664,48 @@ export function FenetreOutil() {
             <span style={{ background: "var(--white-1)" }} />
             <span style={{ background: "var(--blue-1)" }} />
           </div>
-          <span className="fenetre-titre">CAXE · Mes agents</span>
+          <ol className="demo-etapes" aria-label="Étapes du parcours">
+            {PARCOURS.map((e, k) => (
+              <li
+                key={e}
+                className={`demo-etape ${k === etapeParcours ? "actif" : ""} ${k < etapeParcours ? "fait" : ""} ${k >= 2 ? "cle" : ""}`}
+                aria-current={k === etapeParcours ? "step" : undefined}
+              >
+                <span className="demo-etape-num">{k < etapeParcours ? "✓" : k + 1}</span>
+                <span className="demo-etape-texte">{e}</span>
+              </li>
+            ))}
+          </ol>
         </div>
 
         <div className="demo-corps">
+          {inscription && !reduit ? (
+            <div className="demo-inscription">
+              <p className="demo-inscription-etape">Inscription</p>
+              <h3 className="demo-inscription-titre">Créez votre profil</h3>
+              <p className="demo-sous">
+                Saisi une seule fois, il personnalise vos questions et les seuils auxquels vos
+                résultats sont comparés.
+              </p>
+              <div className="demo-formulaire">
+                {demo.profil.map((ligne, k) => (
+                  <div key={ligne.libelle} className="demo-form-ligne">
+                    <span className="l">{ligne.libelle}</span>
+                    <span
+                      className={`demo-champ ${formulaire.actif === k ? "plein" : ""}`}
+                      data-cible={`form-${k}`}
+                    >
+                      {formulaire.valeurs[k]}
+                      {formulaire.actif === k ? <span className="demo-caret" /> : null}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <span className={`demo-envoyer demo-creer ${classeSurvol("creer")}`} data-cible="creer">
+                Créer mon profil
+              </span>
+            </div>
+          ) : null}
           <div
             className="demo-zone"
             style={{
@@ -524,6 +759,17 @@ export function FenetreOutil() {
               <div className="demo-fil" ref={filRef} aria-live="polite">
                 {affiche.map(rendreBloc)}
               </div>
+              {notif ? (
+                <div className={`demo-notif ${classeSurvol("notif")}`} data-cible="notif">
+                  <span className="demo-notif-pastille" aria-hidden="true" />
+                  <span className="min-w-0">
+                    <span className="demo-notif-titre">Point d&apos;étape · 5 jours plus tard</span>
+                    <span className="demo-notif-texte">
+                      {donnees.actions[0].texte} Indiquez où vous en êtes.
+                    </span>
+                  </span>
+                </div>
+              ) : null}
               <div className="demo-saisie-barre">
                 <span
                   className={`demo-champ ${saisie ? "plein" : ""}`}
@@ -568,7 +814,8 @@ export function FenetreOutil() {
         </div>
       </div>
       <figcaption className="mt-4 text-center text-xs text-[var(--text-faint)]">
-        Exemple illustratif : profil, questions et résultats sont fictifs.
+        Exemple illustratif : profil, questions et résultats sont fictifs. Questionnaire abrégé pour
+        l&apos;aperçu.
       </figcaption>
     </figure>
   );

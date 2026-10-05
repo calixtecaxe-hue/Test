@@ -972,11 +972,71 @@ h3,
   border-radius: 50%;
 }
 
-.fenetre-titre {
+/* Parcours en quatre temps : le compte rendu et le suivi sont les deux
+   derniers, mis en avant. */
+.demo-etapes {
+  display: flex;
   flex: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-etape {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 5px;
+  border-radius: 999px;
   font-size: 12.5px;
   color: var(--text-faint);
-  text-align: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.demo-etape-num {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  font-size: 11px;
+}
+
+.demo-etape.cle {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.demo-etape.actif {
+  background: rgba(244, 236, 216, 0.08);
+  color: var(--text);
+}
+
+.demo-etape.actif .demo-etape-num {
+  border-color: transparent;
+  background: var(--blue-1);
+  color: var(--bg);
+}
+
+.demo-etape.fait {
+  color: var(--text-muted);
+}
+
+.demo-etape.fait .demo-etape-num {
+  border-color: transparent;
+  background: rgba(91, 159, 236, 0.22);
+  color: var(--blue-1);
+}
+
+@media (max-width: 639px) {
+  .demo-etape:not(.actif) .demo-etape-texte {
+    display: none;
+  }
 }
 
 @media (max-width: 639px) {
@@ -986,8 +1046,91 @@ h3,
 }
 
 .demo-corps {
+  position: relative;
   height: 540px;
   overflow: hidden;
+}
+
+/* Inscription : le profil se crée une seule fois, avant le choix d'un agent. */
+.demo-inscription {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 40px;
+  background: var(--panel);
+  animation: demo-entree 0.4s ease both;
+}
+
+.demo-inscription-etape {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blue-1);
+}
+
+.demo-inscription-titre {
+  margin: 6px 0 0;
+  font-family: var(--titre);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.demo-sous {
+  margin: 8px 0 0;
+  max-width: 460px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.demo-formulaire {
+  display: flex;
+  width: 100%;
+  max-width: 520px;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.demo-form-ligne {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.demo-form-ligne .demo-champ {
+  color: var(--text);
+}
+
+@media (max-width: 639px) {
+  .demo-inscription {
+    padding: 20px;
+  }
+  .demo-form-ligne {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+.demo-creer {
+  align-self: flex-start;
+  background: var(--blue-1);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.demo-creer.survol {
+  background: var(--white-1);
 }
 
 .demo-zone {
@@ -1064,6 +1207,7 @@ h3,
 
 /* Conversation */
 .demo-chat {
+  position: relative;
   display: flex;
   min-width: 0;
   flex: 1;
@@ -1447,6 +1591,11 @@ h3,
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.demo-saisie-barre .demo-champ {
+  width: 0;
+  text-overflow: ellipsis;
+}
+
 .demo-champ.plein {
   border-color: var(--blue-1);
   box-shadow: 0 0 0 3px rgba(91, 159, 236, 0.18);
@@ -1535,4 +1684,207 @@ h3,
     opacity: 0;
     transform: scale(2.4);
   }
+}
+
+/* Compte rendu : la partie centrale du parcours */
+.msg-cle {
+  border-color: rgba(91, 159, 236, 0.5);
+  background: rgba(91, 159, 236, 0.06);
+}
+
+.msg-titre-grand {
+  margin-bottom: 2px;
+  font-family: var(--titre);
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text);
+}
+
+.demo-sous-titre {
+  margin: 0 0 12px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.msg-suivi {
+  border-color: rgba(244, 236, 216, 0.22);
+}
+
+/* Notification de point d'étape, en bas de la page */
+.demo-notif {
+  position: absolute;
+  right: 14px;
+  bottom: 74px;
+  left: 14px;
+  z-index: 6;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(91, 159, 236, 0.6);
+  background: #0f2236;
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  animation: demo-notif 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.demo-notif.survol {
+  background: #15304d;
+}
+
+@keyframes demo-notif {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.demo-notif-pastille {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--blue-1);
+  box-shadow: 0 0 0 4px rgba(91, 159, 236, 0.22);
+}
+
+.demo-notif-titre {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.demo-notif-texte {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+/* Point d'étape : actions atteintes ou non, avec la raison */
+.demo-point {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+}
+
+.demo-point-ligne {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.demo-choix {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+.demo-option {
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.demo-option.survol {
+  background: rgba(244, 236, 216, 0.14);
+  color: var(--text);
+}
+
+.demo-option.oui {
+  border-color: transparent;
+  background: rgba(111, 207, 151, 0.18);
+  color: #6fcf97;
+}
+
+.demo-option.non {
+  border-color: transparent;
+  background: rgba(242, 104, 107, 0.18);
+  color: var(--red-1);
+}
+
+.demo-raisons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  animation: demo-entree 0.35s ease both;
+}
+
+.demo-raisons-titre {
+  margin-right: 4px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.demo-valider-point {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(244, 236, 216, 0.1);
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.demo-valider-point.survol {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.demo-valider-point.fait {
+  background: rgba(111, 207, 151, 0.18);
+  color: #6fcf97;
+}
+
+.demo-etat.remplacee {
+  border-color: transparent;
+  background: rgba(255, 209, 102, 0.16);
+  color: var(--amber-1);
+}
+
+.demo-axe {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(91, 159, 236, 0.5);
+  background: rgba(91, 159, 236, 0.08);
+}
+
+.demo-axe-titre {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blue-1);
+}
+
+.demo-axe-texte {
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text);
 }
