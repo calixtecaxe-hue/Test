@@ -8,6 +8,7 @@ import { AgentAvatar } from "@/components/marketing/agent-avatar";
 import { Reveal } from "@/components/marketing/reveal";
 import { FenetreOutil } from "@/components/marketing/fenetre-outil";
 import { AGENTS, agentParSlug, couleurAgent, type Agent } from "@/lib/agents";
+import { PRESENTATIONS } from "@/lib/agent-presentation";
 
 export const dynamicParams = false;
 
@@ -138,6 +139,7 @@ export default async function PageAgent({
 
   const couleur = couleurAgent[agent.couleur];
   const generatif = agent.nature === "génératif";
+  const presentation = PRESENTATIONS[agent.code];
   const acquisition = agent.code === "ACQUISITION_CA";
   const etapes = acquisition
     ? ETAPES_ACQUISITION
@@ -152,46 +154,113 @@ export default async function PageAgent({
 
       <main className="flex-1">
         <section className="relative overflow-hidden px-6 pb-12 pt-12 sm:pt-16 lg:px-10">
-          <GrillePoints position="centre" />
-          <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
-            <span
-              className="avatar-hero"
-              style={{ background: couleur.barre }}
-              aria-hidden="true"
-            >
-              <AgentAvatar code={agent.code} />
-            </span>
-            <span className="badge-dispo mt-6">
-              {agent.disponible ? "Disponible" : "Bientôt disponible"}
-            </span>
-            <h1
-              className="mt-5 text-4xl sm:text-5xl"
+          <GrillePoints position="gauche" />
+          <div className="agent-tete relative z-10 mx-auto max-w-6xl">
+            <div className="agent-portrait" aria-hidden="true">
+              <span
+                className="agent-portrait-halo"
+                style={{ background: couleur.halo }}
+              />
+              <span className="agent-portrait-cadre">
+                <AgentAvatar code={agent.code} />
+              </span>
+            </div>
+            <div className="agent-tete-texte">
+              <span className="badge-dispo">
+                {agent.disponible ? "Disponible" : "Bientôt disponible"}
+              </span>
+              <p className="mt-5 text-sm uppercase tracking-[0.08em] text-[var(--text-faint)]">
+                {generatif ? "Agent génératif" : "Agent de diagnostic"}
+              </p>
+              <h1 className="mt-2 text-4xl sm:text-5xl">
+                Découvrez l&apos;agent
+                <span className="block" style={{ color: couleur.texte }}>
+                  {agent.nom}
+                </span>
+              </h1>
+              <p className="mt-5 max-w-xl text-[var(--text-muted)]">
+                {generatif
+                  ? "Il analyse vos publications et vous propose des contenus, à votre demande."
+                  : "Il mesure votre situation à partir de vos réponses, puis la traduit en score sur 100 et en plan d'action."}
+              </p>
+              <ul className="agent-atouts">
+                {presentation.atouts.map((atout) => (
+                  <li key={atout}>
+                    <svg
+                      viewBox="0 0 16 16"
+                      width="16"
+                      height="16"
+                      aria-hidden="true"
+                      style={{ color: couleur.texte }}
+                    >
+                      <path
+                        d="M3 8.5 6.5 12 13 4.5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    {atout}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/inscription"
+                  className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
+                >
+                  Créer un compte
+                </Link>
+                <Link
+                  href="/offres"
+                  className="rounded-[4px] border border-[var(--line)] px-6 py-3 font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
+                >
+                  Voir les offres
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-6 py-12 lg:px-10">
+          <Reveal>
+            <p
+              className="text-center text-xs font-semibold uppercase tracking-[0.12em]"
               style={{ color: couleur.texte }}
             >
-              {agent.nom}
-            </h1>
-            <p className="mt-2 text-sm uppercase tracking-[0.08em] text-[var(--text-faint)]">
-              {generatif ? "Agent génératif" : "Agent de diagnostic"}
+              Cas concrets
             </p>
-            <p className="mt-5 max-w-2xl text-[var(--text-muted)]">
-              {generatif
-                ? "Il analyse vos publications et vous propose des contenus, à votre demande."
-                : "Il mesure votre situation à partir de vos réponses, puis la traduit en score sur 100 et en plan d'action."}
+            <h2 className="mt-3 text-center text-2xl sm:text-4xl">
+              Ce que cet agent peut faire pour vous
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-[var(--text-muted)]">
+              Trois échanges types. Exemples illustratifs, avec des données
+              fictives.
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/inscription"
-                className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
-              >
-                Créer un compte
-              </Link>
-              <Link
-                href="/offres"
-                className="rounded-[4px] border border-[var(--line)] px-6 py-3 font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
-              >
-                Voir les offres
-              </Link>
-            </div>
+          </Reveal>
+          <div className="agent-scenarios mt-10">
+            {presentation.scenarios.map((scenario, index) => (
+              <Reveal key={scenario.titre} delai={index * 100}>
+                <article className="agent-scenario">
+                  <p className="agent-scenario-titre">
+                    <span>Scénario {index + 1}</span> : {scenario.titre}
+                  </p>
+                  <p className="agent-bulle agent-bulle-vous">
+                    {scenario.question}
+                  </p>
+                  <div className="agent-reponse">
+                    <span className="agent-reponse-avatar" aria-hidden="true">
+                      <AgentAvatar code={agent.code} />
+                    </span>
+                    <p className="agent-bulle agent-bulle-agent">
+                      {scenario.reponse}
+                    </p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </section>
 
