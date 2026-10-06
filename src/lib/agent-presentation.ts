@@ -15,7 +15,7 @@ export const PRESENTATIONS: Record<Agent["code"], Presentation> = {
       "Il passe en revue tout votre parcours commercial, du premier contact au chiffre d'affaires encaissé, et vous dit où agir en priorité.",
     atouts: [
       "Mesure vos contacts et vos canaux",
-      "Analyse vos rendez-vous, devis et relances",
+      "Analyse votre conversion",
       "Compare vos prix et honoraires au marché",
       "Suit votre fidélisation et votre productivité",
     ],
