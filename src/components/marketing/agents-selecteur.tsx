@@ -98,7 +98,7 @@ export function AgentsSelecteur() {
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Link
             href={`/agents/${agent.slug}`}
-            className="inline-flex w-fit rounded-[4px] border border-[var(--line)] px-6 py-3 text-sm font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
+            className="bouton-eclat inline-flex w-fit rounded-[4px] border border-transparent bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-6 py-3 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
           >
             Voir plus de détail
           </Link>
