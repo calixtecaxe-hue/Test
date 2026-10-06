@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../../../public/logo-caxe.png";
+import logo from "../../../public/logo-caxe-complet.png";
 import { MenuAgents } from "@/components/marketing/menu-agents";
 
 export function SiteHeader() {
@@ -8,11 +8,19 @@ export function SiteHeader() {
     <header className="relative z-20 mx-auto w-full max-w-[1320px] px-6 py-6 lg:px-10">
       <div className="flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <Image src={logo} alt="CAXE" priority className="h-6 w-auto sm:h-7" />
+          <Image
+            src={logo}
+            alt="CAXE — Un acte, un destin"
+            priority
+            className="h-12 w-auto sm:h-16"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm text-[var(--text-muted)] sm:flex">
-          <Link href="/" className="lien-nav transition hover:text-[var(--text)]">
+          <Link
+            href="/"
+            className="lien-nav transition hover:text-[var(--text)]"
+          >
             Accueil
           </Link>
 

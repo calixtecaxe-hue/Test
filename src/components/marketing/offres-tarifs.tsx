@@ -81,7 +81,11 @@ export function OffresTarifs() {
           const tousLesAgents = offre.nombreAgents === 4;
 
           return (
-            <Reveal key={offre.nombreAgents} delai={index * 100} className="h-full">
+            <Reveal
+              key={offre.nombreAgents}
+              delai={index * 100}
+              className="h-full"
+            >
               <div
                 className={`carte-offre ${vedette ? "carte-offre-vedette" : ""}`}
               >
@@ -104,7 +108,7 @@ export function OffresTarifs() {
                       <>
                         Soit{" "}
                         {formaterEuros(
-                          prixMensuelEquivalentAnnuelCentimesHT(mensuel)
+                          prixMensuelEquivalentAnnuelCentimesHT(mensuel),
                         )}{" "}
                         HT / mois, au lieu de {formaterEuros(mensuel * 12)} HT
                         en facturation mensuelle.
@@ -117,11 +121,7 @@ export function OffresTarifs() {
 
                 <Link
                   href="/inscription"
-                  className={`mt-6 inline-flex items-center justify-center rounded-[4px] px-6 py-3 text-sm font-medium transition ${
-                    vedette
-                      ? "bouton-eclat border border-transparent bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] text-[var(--bg)] hover:brightness-110"
-                      : "border border-[var(--line)] text-[var(--text)] hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
-                  }`}
+                  className="bouton-eclat mt-6 inline-flex items-center justify-center rounded-[4px] border border-transparent bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-6 py-3 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
                 >
                   Créer un compte
                 </Link>
