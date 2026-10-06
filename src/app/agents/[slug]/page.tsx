@@ -152,8 +152,11 @@ export default async function PageAgent({
                   >
                     {colonne.etiquette}
                   </p>
-                  {colonne.lignes.map((ligne) => (
-                    <details key={ligne.titre} className="agent-acc">
+                  {colonne.lignes.map((ligne, rang) => (
+                    <details
+                      key={`${ligne.titre}-${rang}`}
+                      className={`agent-acc${ligne.provisoire ? " agent-acc-provisoire" : ""}`}
+                    >
                       <summary>{ligne.titre}</summary>
                       <p>{ligne.texte}</p>
                     </details>

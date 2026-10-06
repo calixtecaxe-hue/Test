@@ -27,6 +27,7 @@ export const PRESENTATIONS: Record<Agent["code"], Presentation> = {
       "Suit votre marge",
       "Surveille votre trésorerie",
       "Analyse votre structure de coûts",
+      "Ne traite ni fiscalité ni comptabilité",
     ],
   },
   RH_ORGANISATION: {
@@ -35,6 +36,7 @@ export const PRESENTATIONS: Record<Agent["code"], Presentation> = {
       "Repère les signaux de turnover",
       "Mesure la charge de travail",
       "Vérifie la clarté des rôles",
+      "Ne traite ni droit du travail ni contrats",
     ],
   },
   COMM_CREATION: {
@@ -44,6 +46,7 @@ export const PRESENTATIONS: Record<Agent["code"], Presentation> = {
       "Analyse vos publications existantes",
       "Lit leurs indicateurs de performance",
       "Propose des contenus, à votre demande",
+      "Ne se déclenche jamais automatiquement",
     ],
   },
 };
@@ -51,7 +54,7 @@ export const PRESENTATIONS: Record<Agent["code"], Presentation> = {
 // « Comment il travaille » : trois colonnes de lignes dépliables.
 export type Colonne = {
   etiquette: string;
-  lignes: { titre: string; texte: string }[];
+  lignes: { titre: string; texte: string; provisoire?: boolean }[];
 };
 
 function colonnesDiagnostic(exemple: string): Colonne[] {
@@ -117,6 +120,14 @@ function colonnesDiagnostic(exemple: string): Colonne[] {
   ];
 }
 
+// Ligne d'attente : le contenu de cette rubrique n'est pas encore fourni
+// (CLAUDE.md : ne pas inventer). À remplacer dès que le détail existe.
+const PROVISOIRE = {
+  titre: "Détail à venir",
+  texte: "Cette rubrique sera complétée prochainement.",
+  provisoire: true,
+};
+
 export const COLONNES: Record<Agent["code"], Colonne[]> = {
   ACQUISITION_CA: colonnesDiagnostic(
     "décrocher 5 rendez-vous de plus par mois d'ici 3 semaines.",
@@ -135,6 +146,8 @@ export const COLONNES: Record<Agent["code"], Colonne[]> = {
           titre: "Vos publications existantes",
           texte: "L'agent analyse les publications que vous avez déjà faites.",
         },
+        PROVISOIRE,
+        PROVISOIRE,
       ],
     },
     {
@@ -144,6 +157,8 @@ export const COLONNES: Record<Agent["code"], Colonne[]> = {
           titre: "Des indicateurs chiffrés",
           texte: "Il s'appuie sur des indicateurs chiffrés de performance.",
         },
+        PROVISOIRE,
+        PROVISOIRE,
       ],
     },
     {
@@ -151,8 +166,12 @@ export const COLONNES: Record<Agent["code"], Colonne[]> = {
       lignes: [
         {
           titre: "Des propositions de contenu",
+          texte: "Il génère des propositions de contenu pour vous.",
+        },
+        {
+          titre: "À votre demande",
           texte:
-            "Il génère des propositions de contenu quand vous le demandez, jamais automatiquement.",
+            "Elles ne sont lancées que quand vous le demandez, jamais automatiquement.",
         },
         {
           titre: "Lancé depuis votre rapport",
