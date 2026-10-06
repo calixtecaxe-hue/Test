@@ -59,10 +59,70 @@ const ETAPES_GENERATIF = [
   },
 ];
 
+// Contenu propre à la page de l'agent Acquisition & Chiffre d'affaires.
+const COUVRE_ACQUISITION = {
+  intro:
+    "Tout le parcours qui va du premier contact au chiffre d'affaires encaissé :",
+  lignes: [
+    {
+      libelle: "Contacts",
+      texte: "volume, canaux utilisés, canal qui rapporte le plus de clients",
+    },
+    { libelle: "Rendez-vous", texte: "délai de réponse, taux de présence" },
+    {
+      libelle: "Transformation",
+      texte: "du rendez-vous à la signature",
+    },
+    {
+      libelle: "Coût d'acquisition",
+      texte: "budget marketing rapporté au CA, coût d'un client signé",
+    },
+    {
+      libelle: "Présence en ligne",
+      texte: "canaux actifs, régularité de publication",
+    },
+    {
+      libelle: "Prix et honoraires",
+      texte:
+        "niveau pratiqué face au marché, écart entre prix affiché et prix final",
+    },
+    {
+      libelle: "Fidélisation",
+      texte: "clients récurrents, recommandation",
+    },
+    {
+      libelle: "Productivité",
+      texte: "CA et volume traité par collaborateur",
+    },
+    {
+      libelle: "Saisonnalité",
+      texte: "capacité à anticiper les creux et les pics",
+    },
+  ],
+};
+
+const ETAPES_ACQUISITION = [
+  {
+    titre: "Un questionnaire adapté à votre entreprise",
+    texte:
+      "À l'inscription, vous indiquez votre métier, votre nombre de collaborateurs, votre zone géographique et votre chiffre d'affaires. Le questionnaire s'adapte à ce profil.",
+  },
+  {
+    titre: "Une stratégie sur mesure",
+    texte:
+      "À partir de vos réponses, CAXE construit une stratégie pour votre entreprise. Elle s'appuie sur ce qui fonctionne déjà et s'attaque en priorité à ce qui vous freine. Vous savez quoi améliorer, quelles actions mettre en place, et dans quel ordre.",
+  },
+  {
+    titre: "Des objectifs et un suivi",
+    texte:
+      "Chaque action devient un objectif daté. Par exemple : décrocher 5 rendez-vous de plus par mois d'ici 3 semaines. À la date prévue, CAXE fait le point avec vous. Si l'objectif est atteint, vous passez à la suite. Sinon, on cherche ce qui a bloqué et on vous propose une autre piste.",
+  },
+];
+
 // Pont entre l'agent Acquisition et l'agent Comm (CLAUDE.md section 3).
 const LIEN_ENTRE_AGENTS: Partial<Record<Agent["code"], string>> = {
   ACQUISITION_CA:
-    "Cet agent reste factuel sur la communication (fréquence de publication, canaux actifs). Quand il détecte un signal faible, le rapport affiche un bouton « Voir des propositions de contenu » qui lance l'agent Comm & Création de contenu, à votre demande.",
+    "Cet agent aborde votre communication sous l'angle de l'acquisition : il en évalue les fondamentaux, sans entrer dans l'analyse de vos contenus. Pour aller plus loin, l'agent Comm & Création de contenu prend le relais. S'il détecte un point à approfondir, votre rapport vous oriente vers lui, accessible en un clic.",
   COMM_CREATION:
     "Depuis le rapport de l'agent Acquisition & Chiffre d'affaires, le bouton « Voir des propositions de contenu » lance cet agent, à votre demande.",
 };
@@ -78,7 +138,12 @@ export default async function PageAgent({
 
   const couleur = couleurAgent[agent.couleur];
   const generatif = agent.nature === "génératif";
-  const etapes = generatif ? ETAPES_GENERATIF : ETAPES_DIAGNOSTIC;
+  const acquisition = agent.code === "ACQUISITION_CA";
+  const etapes = acquisition
+    ? ETAPES_ACQUISITION
+    : generatif
+      ? ETAPES_GENERATIF
+      : ETAPES_DIAGNOSTIC;
   const autres = AGENTS.filter((a) => a.code !== agent.code);
 
   return (
@@ -148,31 +213,58 @@ export default async function PageAgent({
         </section>
 
         <section className="mx-auto max-w-6xl px-6 py-12 lg:px-10">
-          <div className="grid gap-6 md:grid-cols-2">
+          {acquisition ? (
             <Reveal>
               <div className="carte-agent h-full rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
                 <p className="text-sm text-[var(--text-faint)]">
                   Ce qu&apos;il couvre
                 </p>
-                <p className="mt-3 text-lg" style={{ color: couleur.texte }}>
-                  {agent.couvre}
-                </p>
+                <p className="mt-3 text-lg">{COUVRE_ACQUISITION.intro}</p>
+                <ul className="mt-5 grid gap-x-10 gap-y-4 md:grid-cols-2">
+                  {COUVRE_ACQUISITION.lignes.map((ligne) => (
+                    <li key={ligne.libelle}>
+                      <span
+                        className="font-semibold"
+                        style={{ color: couleur.texte }}
+                      >
+                        {ligne.libelle}
+                      </span>
+                      <span className="text-[var(--text-muted)]">
+                        {" "}
+                        : {ligne.texte}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </Reveal>
-            <Reveal delai={100}>
-              <div className="carte-agent h-full rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
-                <p className="text-sm text-[var(--text-faint)]">
-                  {agent.neFaitJamais
-                    ? "Ce qu'il ne fait jamais"
-                    : "Hors périmètre"}
-                </p>
-                <p className="mt-3 text-lg text-[var(--text-muted)]">
-                  {agent.neFaitJamais ??
-                    "Le juridique, le fiscal et le médical sont hors périmètre de tous les agents."}
-                </p>
-              </div>
-            </Reveal>
-          </div>
+          ) : (
+            <div className="grid gap-6 md:grid-cols-2">
+              <Reveal>
+                <div className="carte-agent h-full rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
+                  <p className="text-sm text-[var(--text-faint)]">
+                    Ce qu&apos;il couvre
+                  </p>
+                  <p className="mt-3 text-lg" style={{ color: couleur.texte }}>
+                    {agent.couvre}
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delai={100}>
+                <div className="carte-agent h-full rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
+                  <p className="text-sm text-[var(--text-faint)]">
+                    {agent.neFaitJamais
+                      ? "Ce qu'il ne fait jamais"
+                      : "Hors périmètre"}
+                  </p>
+                  <p className="mt-3 text-lg text-[var(--text-muted)]">
+                    {agent.neFaitJamais ??
+                      "Le juridique, le fiscal et le médical sont hors périmètre de tous les agents."}
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+          )}
         </section>
 
         <section className="mx-auto max-w-6xl px-6 py-12 lg:px-10">
@@ -237,7 +329,9 @@ export default async function PageAgent({
                       {autre.nom}
                     </span>
                     <span className="mt-1 block text-xs uppercase tracking-[0.08em] text-[var(--text-faint)]">
-                      {autre.nature === "diagnostic" ? "Diagnostic" : "Génératif"}
+                      {autre.nature === "diagnostic"
+                        ? "Diagnostic"
+                        : "Génératif"}
                     </span>
                   </span>
                 </Link>
@@ -251,8 +345,8 @@ export default async function PageAgent({
             <div className="mx-auto flex max-w-3xl flex-col items-center rounded-xl border border-[var(--line)] bg-[var(--panel)] px-6 py-12 text-center">
               <h2 className="text-2xl">Commencer votre audit</h2>
               <p className="mt-4 max-w-md text-[var(--text-muted)]">
-                Créez un compte pour répondre au questionnaire et recevoir
-                votre score.
+                Créez un compte pour répondre au questionnaire et recevoir votre
+                score.
               </p>
               <Link
                 href="/inscription"
