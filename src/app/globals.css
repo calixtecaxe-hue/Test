@@ -2098,74 +2098,97 @@ h3,
   }
 }
 
-.agent-axes {
+/* « Comment il travaille » : trois colonnes de lignes dépliables. */
+.agent-colonnes {
   display: grid;
-  margin-top: 24px;
-  gap: 28px 32px;
+  gap: 28px;
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 640px) {
-  .agent-axes {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (min-width: 900px) {
-  .agent-axes {
+  .agent-colonnes {
     grid-template-columns: repeat(3, 1fr);
+    align-items: start;
   }
 }
 
-.agent-axe-titre {
+.agent-colonne {
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
   gap: 10px;
-  margin: 0 0 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--line);
-  font-family: var(--titre);
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
 }
 
-.agent-axe-titre span {
-  font-size: 13px;
+.agent-colonne-tete {
+  margin: 0 0 4px;
+  padding: 11px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(244, 236, 216, 0.04);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.agent-axe ul {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  gap: 8px;
+.agent-acc {
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  transition: border-color 0.2s ease;
+}
+
+.agent-acc:hover,
+.agent-acc[open] {
+  border-color: rgba(244, 236, 216, 0.3);
+}
+
+.agent-acc summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
   list-style: none;
-  font-size: 14px;
-  line-height: 1.45;
-  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
 }
 
-.agent-axe li {
-  position: relative;
-  padding-left: 14px;
+.agent-acc summary::-webkit-details-marker {
+  display: none;
 }
 
-.agent-axe li::before {
+.agent-acc summary::after {
   content: "";
-  position: absolute;
-  top: 0.6em;
-  left: 0;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--text-faint);
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  margin-top: -3px;
+  border-right: 1.5px solid var(--text-muted);
+  border-bottom: 1.5px solid var(--text-muted);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease, margin 0.2s ease;
 }
 
-.agent-axes-total {
-  align-self: center;
+.agent-acc[open] summary::after {
+  margin-top: 3px;
+  transform: rotate(-135deg);
+}
+
+.agent-acc summary:focus-visible {
+  outline: 2px solid var(--blue-1);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+.agent-acc p {
   margin: 0;
-  font-size: 13px;
-  color: var(--text-faint);
+  padding: 0 16px 16px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-muted);
 }
 
 .demo-apercu {

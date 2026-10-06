@@ -12,33 +12,163 @@ export type Presentation = {
 export const PRESENTATIONS: Record<Agent["code"], Presentation> = {
   ACQUISITION_CA: {
     accroche:
-      "Il s'attaque à cinq points du parcours commercial de votre entreprise.",
+      "Il passe en revue tout votre parcours commercial, du premier contact au chiffre d'affaires encaissé, et vous dit où agir en priorité.",
     atouts: [
-      "Attirer",
-      "Convertir",
-      "Chiffre d'affaires",
-      "Fidéliser",
-      "Piloter",
+      "Mesure vos contacts et vos canaux",
+      "Analyse vos rendez-vous, devis et relances",
+      "Compare vos prix et honoraires au marché",
+      "Suit votre fidélisation et votre productivité",
     ],
   },
   FINANCE_RENTABILITE: {
     accroche:
       "Il lit la santé opérationnelle de votre entreprise à partir des ratios que vous déclarez.",
-    atouts: ["Marge", "Trésorerie", "Structure de coûts"],
+    atouts: [
+      "Suit votre marge",
+      "Surveille votre trésorerie",
+      "Analyse votre structure de coûts",
+    ],
   },
   RH_ORGANISATION: {
     accroche: "Il lit les signaux organisationnels de votre entreprise.",
-    atouts: ["Turnover", "Charge de travail", "Clarté des rôles"],
+    atouts: [
+      "Repère les signaux de turnover",
+      "Mesure la charge de travail",
+      "Vérifie la clarté des rôles",
+    ],
   },
   COMM_CREATION: {
-    accroche: "Il travaille à partir de vos publications existantes.",
+    accroche:
+      "Il part des publications que vous avez déjà faites et vous propose des contenus, à votre demande.",
     atouts: [
-      "Analyse de vos publications",
-      "Indicateurs chiffrés de performance",
-      "Propositions de contenu, à votre demande",
+      "Analyse vos publications existantes",
+      "Lit leurs indicateurs de performance",
+      "Propose des contenus, à votre demande",
     ],
   },
 };
+
+// « Comment il travaille » : trois colonnes de lignes dépliables.
+export type Colonne = {
+  etiquette: string;
+  lignes: { titre: string; texte: string }[];
+};
+
+function colonnesDiagnostic(exemple: string): Colonne[] {
+  return [
+    {
+      etiquette: "Questionnaire",
+      lignes: [
+        {
+          titre: "Votre profil",
+          texte:
+            "À l'inscription, vous indiquez votre métier, votre nombre de collaborateurs, votre zone géographique et votre chiffre d'affaires.",
+        },
+        {
+          titre: "Un questionnaire adapté",
+          texte:
+            "Le questionnaire s'adapte à ce profil : ses questions sont rédigées à l'avance, métier par métier.",
+        },
+        {
+          titre: "Passez ce que vous voulez",
+          texte:
+            "Aucune question n'est obligatoire : vous pouvez passer toute question, et vos réponses sont enregistrées au fur et à mesure.",
+        },
+      ],
+    },
+    {
+      etiquette: "Stratégie",
+      lignes: [
+        {
+          titre: "Ce qui fonctionne déjà",
+          texte:
+            "À partir de vos réponses, CAXE construit une stratégie pour votre entreprise. Elle s'appuie sur ce qui fonctionne déjà.",
+        },
+        {
+          titre: "Ce qui vous freine",
+          texte: "Elle s'attaque en priorité à ce qui vous freine.",
+        },
+        {
+          titre: "Quoi faire, dans quel ordre",
+          texte:
+            "Vous savez quoi améliorer, quelles actions mettre en place, et dans quel ordre.",
+        },
+      ],
+    },
+    {
+      etiquette: "Suivi",
+      lignes: [
+        {
+          titre: "Un objectif daté",
+          texte: `Chaque action devient un objectif daté. Par exemple : ${exemple}`,
+        },
+        {
+          titre: "Un point à la date prévue",
+          texte:
+            "À la date prévue, CAXE fait le point avec vous. Si l'objectif est atteint, vous passez à la suite.",
+        },
+        {
+          titre: "Une autre piste si besoin",
+          texte:
+            "Sinon, on cherche ce qui a bloqué et on vous propose une autre piste.",
+        },
+      ],
+    },
+  ];
+}
+
+export const COLONNES: Record<Agent["code"], Colonne[]> = {
+  ACQUISITION_CA: colonnesDiagnostic(
+    "décrocher 5 rendez-vous de plus par mois d'ici 3 semaines.",
+  ),
+  FINANCE_RENTABILITE: colonnesDiagnostic(
+    "relancer les factures dont le délai de paiement est dépassé, d'ici 2 semaines.",
+  ),
+  RH_ORGANISATION: colonnesDiagnostic(
+    "écrire en une page le rôle de chaque poste, d'ici 3 semaines.",
+  ),
+  COMM_CREATION: [
+    {
+      etiquette: "Publications",
+      lignes: [
+        {
+          titre: "Vos publications existantes",
+          texte: "L'agent analyse les publications que vous avez déjà faites.",
+        },
+      ],
+    },
+    {
+      etiquette: "Indicateurs",
+      lignes: [
+        {
+          titre: "Des indicateurs chiffrés",
+          texte: "Il s'appuie sur des indicateurs chiffrés de performance.",
+        },
+      ],
+    },
+    {
+      etiquette: "Propositions",
+      lignes: [
+        {
+          titre: "Des propositions de contenu",
+          texte:
+            "Il génère des propositions de contenu quand vous le demandez, jamais automatiquement.",
+        },
+        {
+          titre: "Lancé depuis votre rapport",
+          texte:
+            "Depuis le rapport de l'agent Acquisition & Chiffre d'affaires, le bouton « Voir des propositions de contenu » lance cet agent, à votre demande.",
+        },
+      ],
+    },
+  ],
+};
+
+// Mis de côté, hors page pour l'instant : la carte « Ce qu'il couvre » de
+// l'agent Acquisition (cinq axes, 23 thèmes). Le balisage figure dans le
+// commit 2e643e4 ; les données restent ici pour un usage ultérieur.
+export const INTRO_COUVRE_ACQUISITION =
+  "Tout le parcours qui va du premier contact au chiffre d'affaires encaissé :";
 
 // Les cinq axes et les 23 thèmes de l'agent Acquisition & Chiffre d'affaires.
 export const AXES_ACQUISITION: { titre: string; themes: string[] }[] = [

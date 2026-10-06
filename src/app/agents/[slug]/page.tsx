@@ -11,7 +11,7 @@ import {
 import { Reveal } from "@/components/marketing/reveal";
 import { FenetreOutil } from "@/components/marketing/fenetre-outil";
 import { AGENTS, agentParSlug, couleurAgent, type Agent } from "@/lib/agents";
-import { AXES_ACQUISITION, PRESENTATIONS } from "@/lib/agent-presentation";
+import { COLONNES, PRESENTATIONS } from "@/lib/agent-presentation";
 
 export const dynamicParams = false;
 
@@ -29,68 +29,11 @@ export async function generateMetadata({
   return { title: agent ? `${agent.nom} — CAXE` : "Agent — CAXE" };
 }
 
-const ETAPES_DIAGNOSTIC = [
-  {
-    titre: "Un questionnaire pré-écrit",
-    texte:
-      "Les questions sont rédigées à l'avance, métier par métier. Aucune n'est obligatoire : vous pouvez passer toute question, et vos réponses sont enregistrées au fur et à mesure.",
-  },
-  {
-    titre: "Un score calculé",
-    texte:
-      "Vos réponses sont comparées à des seuils fixes. Deux dirigeants qui répondent la même chose obtiennent exactement le même score.",
-  },
-  {
-    titre: "Un compte rendu rédigé",
-    texte:
-      "Le texte met en forme des scores déjà calculés : il ne calcule rien et n'invente aucun chiffre. Un plan d'action en découle.",
-  },
-];
-
-const ETAPES_GENERATIF = [
-  {
-    titre: "Vos publications existantes",
-    texte: "L'agent analyse les publications que vous avez déjà faites.",
-  },
-  {
-    titre: "Des indicateurs chiffrés",
-    texte: "Il s'appuie sur des indicateurs chiffrés de performance.",
-  },
-  {
-    titre: "Des propositions de contenu",
-    texte:
-      "Il génère des propositions de contenu quand vous le demandez, jamais automatiquement.",
-  },
-];
-
-// Contenu propre à la page de l'agent Acquisition & Chiffre d'affaires.
-const INTRO_COUVRE_ACQUISITION =
-  "Tout le parcours qui va du premier contact au chiffre d'affaires encaissé :";
-
-const ETAPES_ACQUISITION = [
-  {
-    titre: "Un questionnaire adapté à votre entreprise",
-    texte:
-      "À l'inscription, vous indiquez votre métier, votre nombre de collaborateurs, votre zone géographique et votre chiffre d'affaires. Le questionnaire s'adapte à ce profil.",
-  },
-  {
-    titre: "Une stratégie sur mesure",
-    texte:
-      "À partir de vos réponses, CAXE construit une stratégie pour votre entreprise. Elle s'appuie sur ce qui fonctionne déjà et s'attaque en priorité à ce qui vous freine. Vous savez quoi améliorer, quelles actions mettre en place, et dans quel ordre.",
-  },
-  {
-    titre: "Des objectifs et un suivi",
-    texte:
-      "Chaque action devient un objectif daté. Par exemple : décrocher 5 rendez-vous de plus par mois d'ici 3 semaines. À la date prévue, CAXE fait le point avec vous. Si l'objectif est atteint, vous passez à la suite. Sinon, on cherche ce qui a bloqué et on vous propose une autre piste.",
-  },
-];
-
-// Pont entre l'agent Acquisition et l'agent Comm (CLAUDE.md section 3).
+// Pont entre l'agent Acquisition et l'agent Comm (CLAUDE.md section 3). Côté
+// Comm, il figure dans la colonne « Propositions » de « Comment il travaille ».
 const LIEN_ENTRE_AGENTS: Partial<Record<Agent["code"], string>> = {
   ACQUISITION_CA:
     "Cet agent aborde votre communication sous l'angle de l'acquisition : il en évalue les fondamentaux, sans entrer dans l'analyse de vos contenus. Pour aller plus loin, l'agent Comm & Création de contenu prend le relais. S'il détecte un point à approfondir, votre rapport vous oriente vers lui, accessible en un clic.",
-  COMM_CREATION:
-    "Depuis le rapport de l'agent Acquisition & Chiffre d'affaires, le bouton « Voir des propositions de contenu » lance cet agent, à votre demande.",
 };
 
 export default async function PageAgent({
@@ -105,12 +48,6 @@ export default async function PageAgent({
   const couleur = couleurAgent[agent.couleur];
   const generatif = agent.nature === "génératif";
   const presentation = PRESENTATIONS[agent.code];
-  const acquisition = agent.code === "ACQUISITION_CA";
-  const etapes = acquisition
-    ? ETAPES_ACQUISITION
-    : generatif
-      ? ETAPES_GENERATIF
-      : ETAPES_DIAGNOSTIC;
   const autres = AGENTS.filter((a) => a.code !== agent.code);
 
   return (
@@ -130,12 +67,9 @@ export default async function PageAgent({
             </div>
             <div className="agent-tete-texte">
               <span className="badge-dispo">
-                {agent.disponible ? "Disponible" : "Bientôt disponible"}
-              </span>
-              <p className="mt-5 text-sm uppercase tracking-[0.08em] text-[var(--text-faint)]">
                 {generatif ? "Agent génératif" : "Agent de diagnostic"}
-              </p>
-              <h1 className="mt-2 text-4xl sm:text-5xl">
+              </span>
+              <h1 className="mt-5 text-4xl sm:text-5xl">
                 Découvrez l&apos;agent
                 <span className="block" style={{ color: couleur.texte }}>
                   {agent.nom}
@@ -185,70 +119,6 @@ export default async function PageAgent({
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 py-12 lg:px-10">
-          {acquisition ? (
-            <Reveal>
-              <div className="carte-agent h-full rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
-                <p className="text-sm text-[var(--text-faint)]">
-                  Ce qu&apos;il couvre
-                </p>
-                <p className="mt-3 text-lg">{INTRO_COUVRE_ACQUISITION}</p>
-                <div className="agent-axes">
-                  {AXES_ACQUISITION.map((axe, index) => (
-                    <section key={axe.titre} className="agent-axe">
-                      <h3 className="agent-axe-titre">
-                        <span style={{ color: couleur.texte }}>
-                          {index + 1}
-                        </span>
-                        {axe.titre}
-                      </h3>
-                      <ul>
-                        {axe.themes.map((theme) => (
-                          <li key={theme}>{theme}</li>
-                        ))}
-                      </ul>
-                    </section>
-                  ))}
-                  <p className="agent-axes-total">
-                    {AXES_ACQUISITION.reduce(
-                      (n, axe) => n + axe.themes.length,
-                      0,
-                    )}{" "}
-                    thèmes passés en revue, répartis en{" "}
-                    {AXES_ACQUISITION.length} axes.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          ) : (
-            <div className="grid gap-6 md:grid-cols-2">
-              <Reveal>
-                <div className="carte-agent h-full rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
-                  <p className="text-sm text-[var(--text-faint)]">
-                    Ce qu&apos;il couvre
-                  </p>
-                  <p className="mt-3 text-lg" style={{ color: couleur.texte }}>
-                    {agent.couvre}
-                  </p>
-                </div>
-              </Reveal>
-              <Reveal delai={100}>
-                <div className="carte-agent h-full rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
-                  <p className="text-sm text-[var(--text-faint)]">
-                    {agent.neFaitJamais
-                      ? "Ce qu'il ne fait jamais"
-                      : "Hors périmètre"}
-                  </p>
-                  <p className="mt-3 text-lg text-[var(--text-muted)]">
-                    {agent.neFaitJamais ??
-                      "Le juridique, le fiscal et le médical sont hors périmètre de tous les agents."}
-                  </p>
-                </div>
-              </Reveal>
-            </div>
-          )}
-        </section>
-
         <section className="mx-auto max-w-6xl px-6 pb-4 lg:px-10">
           <Reveal>
             <h2 className="text-center text-2xl sm:text-3xl">
@@ -272,20 +142,22 @@ export default async function PageAgent({
               Comment il travaille
             </h2>
           </Reveal>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {etapes.map((etape, index) => (
-              <Reveal key={etape.titre} delai={index * 100}>
-                <div className="carte-agent h-full rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
-                  <span
-                    className="font-[family-name:var(--titre)] text-sm font-bold"
+          <div className="agent-colonnes mt-10">
+            {COLONNES[agent.code].map((colonne, index) => (
+              <Reveal key={colonne.etiquette} delai={index * 100}>
+                <div className="agent-colonne">
+                  <p
+                    className="agent-colonne-tete"
                     style={{ color: couleur.texte }}
                   >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-3 text-lg">{etape.titre}</h3>
-                  <p className="mt-3 text-sm text-[var(--text-muted)]">
-                    {etape.texte}
+                    {colonne.etiquette}
                   </p>
+                  {colonne.lignes.map((ligne) => (
+                    <details key={ligne.titre} className="agent-acc">
+                      <summary>{ligne.titre}</summary>
+                      <p>{ligne.texte}</p>
+                    </details>
+                  ))}
                 </div>
               </Reveal>
             ))}
