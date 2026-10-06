@@ -1113,7 +1113,7 @@ h3,
 
 .demo-form-ligne {
   display: grid;
-  grid-template-columns: 170px 1fr;
+  grid-template-columns: 170px minmax(0, 1fr);
   align-items: center;
   gap: 12px;
   font-size: 13px;
@@ -1124,13 +1124,29 @@ h3,
   color: var(--text);
 }
 
+.demo-form-ligne .demo-champ {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Petit écran : libellé et champ sur une ligne, pour que tout le formulaire
+   (et son bouton) tienne dans le cadre. */
 @media (max-width: 639px) {
   .demo-inscription {
-    padding: 20px;
+    padding: 16px 18px;
+  }
+  .demo-inscription .demo-sous {
+    display: none;
+  }
+  .demo-formulaire {
+    gap: 8px;
+    margin: 14px 0;
   }
   .demo-form-ligne {
-    grid-template-columns: 1fr;
-    gap: 4px;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 8px;
+    font-size: 12px;
   }
 }
 

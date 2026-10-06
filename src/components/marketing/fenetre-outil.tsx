@@ -308,12 +308,33 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       if (r.width === 0) return;
       const c = corps.getBoundingClientRect();
       const z = zoomRef.current;
-      setCurseur({
-        x: (r.left + r.width * positionX - c.left - z.tx) / z.s,
-        y: (r.top + r.height * 0.55 - c.top - z.ty) / z.s,
-        visible: true,
-      });
-      await pause(340, true);
+      const lx = (r.left + r.width * positionX - c.left - z.tx) / z.s;
+      const ly = (r.top + r.height * 0.55 - c.top - z.ty) / z.s;
+      setCurseur({ x: lx, y: ly, visible: true });
+
+      // La caméra suit le curseur : s'il sort de la zone centrale de l'image,
+      // elle glisse juste ce qu'il faut pour le ramener dedans, sans perdre le
+      // contexte autour (le reste de la phrase, la question).
+      let attente = 340;
+      if (z.s > 1) {
+        const sx = lx * z.s + z.tx;
+        const sy = ly * z.s + z.ty;
+        const [mx, my] = [c.width * 0.28, c.height * 0.28];
+        const dedans = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
+        const cx = dedans(sx, mx, c.width - mx);
+        const cy = dedans(sy, my, c.height - my);
+        if (cx !== sx || cy !== sy) {
+          const suivant = {
+            s: z.s,
+            tx: dedans(z.tx + cx - sx, c.width - z.s * c.width, 0),
+            ty: dedans(z.ty + cy - sy, c.height - z.s * c.height, 0),
+          };
+          zoomRef.current = suivant;
+          setZoom(suivant);
+          attente = 480;
+        }
+      }
+      await pause(attente, true);
     }
 
     // Zoom de caméra : agrandit la scène en centrant l'élément visé (ou
@@ -364,7 +385,8 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       setParcours(0);
       dire("1 · Vous créez votre profil, une seule fois.");
       await pause(1100);
-      await zoomSur("formulaire", 1.2);
+      // Sur petit écran, le formulaire remplit déjà tout le cadre : pas de zoom.
+      if (!window.matchMedia("(max-width: 639px)").matches) await zoomSur("formulaire", 1.2);
       for (let k = 0; k < demo.profil.length; k++) {
         if (k < 2) {
           await deplacer(`form-${k}`, 0.2);
@@ -426,7 +448,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       await pause(900);
 
       for (let k = 0; k < d.actions.length; k++) {
-        await zoomSur(`obj-${k}`, 1.25);
+        await zoomSur(`obj-${k}`, 1.15);
         if (k !== nonAtteinte) {
           if (k > nonAtteinte) rythme(0.35, true);
           await deplacer(`oui-${k}`);
@@ -511,7 +533,9 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       setIndexAgent(i);
       if (avecInscription) await remplirFormulaire();
       setParcours(1);
-      if (solo) {
+      // Sans liste visible (page agent, petit écran), il n'y a rien à cliquer.
+      const liste = fenetreRef.current?.querySelector(".demo-liste");
+      if (solo || !liste || liste.getBoundingClientRect().width === 0) {
         dire("2 · Vous ouvrez la conversation avec l'agent.");
         await pause(700);
       } else {
