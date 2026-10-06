@@ -154,7 +154,7 @@ export default async function PageAgent({
 
       <main className="flex-1">
         <section className="relative overflow-hidden px-6 pb-12 pt-12 sm:pt-16 lg:px-10">
-          <GrillePoints position="gauche" />
+          <GrillePoints position="gauche" teinte={agent.couleur} />
           <div className="agent-tete relative z-10 mx-auto max-w-6xl">
             <div className="agent-portrait" aria-hidden="true">
               <span

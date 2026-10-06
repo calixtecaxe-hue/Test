@@ -4,6 +4,20 @@ import { useEffect, useRef } from "react";
 
 type Position = "gauche" | "centre";
 
+// Variable CSS de la couleur des points ; bleu par défaut. Sur la page d'un
+// agent, les points prennent la couleur de l'agent (voir couleurAgent).
+type Teinte = "bleu" | "blanc" | "rouge";
+const VARIABLES: Record<Teinte, string> = {
+  bleu: "--blue-1",
+  blanc: "--white-1",
+  rouge: "--red-1",
+};
+const SECOURS: Record<Teinte, string> = {
+  bleu: "#5B9FEC",
+  blanc: "#FFFFFF",
+  rouge: "#F2686B",
+};
+
 const PAS = 22;
 const TAU = Math.PI * 2;
 
@@ -32,7 +46,13 @@ function hasard(i: number) {
 // Fond en grille de points animé : une onde diagonale et un scintillement
 // propre à chaque point les font grossir, s'éclairer puis disparaître.
 // Sous prefers-reduced-motion, une seule image fixe est dessinée.
-export function GrillePoints({ position }: { position: Position }) {
+export function GrillePoints({
+  position,
+  teinte = "bleu",
+}: {
+  position: Position;
+  teinte?: Teinte;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -43,8 +63,8 @@ export function GrillePoints({ position }: { position: Position }) {
     const reglage = REGLAGES[position];
     const couleur =
       getComputedStyle(document.documentElement)
-        .getPropertyValue("--blue-1")
-        .trim() || "#5B9FEC";
+        .getPropertyValue(VARIABLES[teinte])
+        .trim() || SECOURS[teinte];
     const reduitMouvement = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -125,7 +145,7 @@ export function GrillePoints({ position }: { position: Position }) {
       observeTaille.disconnect();
       observeVue?.disconnect();
     };
-  }, [position]);
+  }, [position, teinte]);
 
   return <canvas ref={canvasRef} className="grille-points" aria-hidden="true" />;
 }
