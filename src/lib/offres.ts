@@ -11,7 +11,7 @@ export type Offre = {
 export const OFFRES: Offre[] = [
   { nombreAgents: 2, prixMensuelCentimesHT: 5999 },
   { nombreAgents: 3, prixMensuelCentimesHT: 7999 },
-  { nombreAgents: 4, prixMensuelCentimesHT: 10999 },
+  { nombreAgents: 4, prixMensuelCentimesHT: 9999 },
 ];
 
 // 12 mois, remise annuelle appliquée.
