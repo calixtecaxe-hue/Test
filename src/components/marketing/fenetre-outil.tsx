@@ -239,9 +239,18 @@ export function FenetreOutil() {
     };
     document.addEventListener("visibilitychange", surOnglet);
 
-    const pause = (ms: number) =>
+    // Rythme du montage : toutes les attentes sont multipliées par `facteur`
+    // (plus petit = plus rapide). Les attentes liées à une transition CSS
+    // (zoom, défilement, déplacement du curseur) restent à durée fixe.
+    let facteur = 0.6;
+    let base = 0.6;
+    const rythme = (f: number, badge = false) => {
+      facteur = f;
+      setRapide(badge);
+    };
+    const pause = (ms: number, fixe = false) =>
       new Promise<void>((resoudre) => {
-        let reste = ms;
+        let reste = fixe ? ms : ms * facteur;
         const avancer = () => {
           const pas = visible && onglet ? Math.min(reste, 100) : 100;
           ctl.minuteurs.push(
@@ -272,7 +281,7 @@ export function FenetreOutil() {
         // Les rectangles sont mesurés à l'écran, donc agrandis par le zoom.
         const delta = (re.top - rd.top - marge) / zoomRef.current.s;
         defil.scrollTo({ top: defil.scrollTop + delta, behavior: "smooth" });
-        await pause(550);
+        await pause(420, true);
       }
     }
 
@@ -297,7 +306,7 @@ export function FenetreOutil() {
         y: (r.top + r.height * 0.55 - c.top - z.ty) / z.s,
         visible: true,
       });
-      await pause(600);
+      await pause(340, true);
     }
 
     // Zoom de caméra : agrandit la scène en centrant l'élément visé (ou
@@ -327,17 +336,17 @@ export function FenetreOutil() {
       }
       zoomRef.current = suivant;
       setZoom(suivant);
-      await pause(900);
+      await pause(480, true);
     }
 
     const dire = (texte: string) => setLegende(texte);
 
     async function cliquer(nom?: string) {
       if (nom) setSurvol(nom);
-      await pause(320);
+      await pause(260);
       setClics((c) => c + 1);
       setPresse(true);
-      await pause(170);
+      await pause(140);
       setPresse(false);
       setSurvol(null);
     }
@@ -350,8 +359,14 @@ export function FenetreOutil() {
       await pause(1100);
       await zoomSur("formulaire", 1.2);
       for (let k = 0; k < demo.profil.length; k++) {
-        await deplacer(`form-${k}`, 0.2);
-        await cliquer();
+        if (k < 2) {
+          await deplacer(`form-${k}`, 0.2);
+          await cliquer();
+        } else if (k === 2) {
+          // Les champs suivants se remplissent en accéléré.
+          rythme(0.25, true);
+          setCurseur((c) => ({ ...c, visible: false }));
+        }
         const texte = demo.profil[k].valeur;
         for (let c = 1; c <= texte.length; c++) {
           setFormulaire((f) => ({
@@ -363,6 +378,7 @@ export function FenetreOutil() {
         await pause(220);
       }
       setFormulaire((f) => ({ ...f, actif: -1 }));
+      rythme(base);
       await deplacer("creer");
       await cliquer("creer");
       setInscription(false);
@@ -405,6 +421,7 @@ export function FenetreOutil() {
       for (let k = 0; k < d.actions.length; k++) {
         await zoomSur(`obj-${k}`, 1.25);
         if (k !== nonAtteinte) {
+          if (k > nonAtteinte) rythme(0.35, true);
           await deplacer(`oui-${k}`);
           await cliquer(`oui-${k}`);
           setSuivi((e) => ({ ...e, oui: [...e.oui, k] }));
@@ -446,34 +463,37 @@ export function FenetreOutil() {
         await zoomSur("axe", 1.3);
         await pause(2400);
       }
+      rythme(base);
       dire("Et on continue : un nouveau point d'étape à la prochaine échéance.");
       maj({ fini: true });
       await pause(400);
       await amenerCible("fin", true);
       await zoomSur("fin", 1.25);
-      await pause(3000);
+      await pause(2200);
       await zoomSur(null);
     }
 
     async function agentRepond(texte: string) {
       ajouter({ t: "redaction" });
-      await pause(750);
+      await pause(650);
       retirerRedaction();
       ajouter({ t: "agent", texte });
-      await pause(500);
+      await pause(700);
     }
 
     async function jouerAgent(i: number, avecInscription: boolean) {
       const code = AGENTS[i].code;
       const d = DEMO_AGENTS[code];
 
+      // Le premier agent est joué à bon rythme, les suivants plus vite.
+      base = avecInscription ? 0.6 : 0.45;
+      rythme(base);
       zoomRef.current = ZOOM_NEUTRE;
       setZoom(ZOOM_NEUTRE);
       setFil([]);
       setNotif(false);
       setHorloge(null);
       setVue("fil");
-      setRapide(false);
       setChoixQ({});
       setLibreTexte("");
       setLibreActif(false);
@@ -521,7 +541,7 @@ export function FenetreOutil() {
         } else {
           dire("Le questionnaire complet compte plus de 80 questions : ici, en accéléré.");
           await zoomSur(null);
-          setRapide(true);
+          rythme(0.25, true);
           setCurseur((c) => ({ ...c, visible: false }));
           await pause(300);
         }
@@ -529,7 +549,7 @@ export function FenetreOutil() {
         setQuestions(q + 1);
         await pause(q < 2 ? 450 : 700);
       }
-      setRapide(false);
+      rythme(base);
       dire("Une précision libre, facultative : elle n'entre pas dans le score.");
       await zoomSur("question-3", 1.3);
       await deplacer("libre", 0.15);
@@ -566,12 +586,14 @@ export function FenetreOutil() {
       await zoomSur(null);
       ajouter({ t: "parties" });
       dire("Le détail par partie : un statut et une note pour chaque indicateur.");
+      rythme(0.35, true);
       await pause(4000);
       if (d.propositions) {
         ajouter({ t: "propositions" });
         dire("Des propositions de contenu, générées à votre demande.");
         await pause(3200);
       }
+      rythme(base);
       ajouter({ t: "actions" });
       dire("Votre plan d'action : des objectifs, chacun avec son échéance de retour.");
       await pause(600);
@@ -1026,6 +1048,7 @@ export function FenetreOutil() {
           <span key={reduit ? "statique" : legende}>
             {reduit ? "Aperçu du parcours : profil, questionnaire, compte rendu, suivi." : legende}
           </span>
+          {rapide && !reduit ? <span className="demo-rapide">▸▸ Accéléré</span> : null}
         </div>
 
         <div className="demo-corps" ref={corpsRef}>
@@ -1127,7 +1150,6 @@ export function FenetreOutil() {
                 <span className="demo-chat-nom" style={{ color: couleur.texte }}>
                   {agent.nom}
                 </span>
-                {rapide ? <span className="demo-rapide">▸▸ Accéléré</span> : null}
                 <Link href={`/agents/${agent.slug}`} className="demo-chat-lien">
                   Page de l&apos;agent
                 </Link>
