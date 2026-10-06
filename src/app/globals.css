@@ -2142,3 +2142,35 @@ h3,
     box-shadow: 0 0 0 4px rgba(91, 159, 236, 0.3);
   }
 }
+
+/* L'en-tête du suivi (titre, parcours, compteur) reste visible pendant le
+   défilement, pour ne jamais apparaître coupé. */
+.demo-suivi-tete {
+  position: sticky;
+  top: -16px;
+  z-index: 3;
+  margin: -16px -18px 0;
+  padding: 16px 18px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.msg-suivi .demo-suivi-tete {
+  position: static;
+  margin: 0;
+  padding: 0 0 4px;
+  border-bottom: 0;
+  background: none;
+}
+
+.demo-suivi-consigne {
+  margin: 10px 0 0;
+}
+
+.demo-suivi-tete .demo-mini-etapes {
+  margin-top: 8px;
+}
+
+.demo-suivi-tete .demo-compteur {
+  margin: 8px 0 0;
+}

@@ -253,19 +253,32 @@ export function FenetreOutil() {
     const ajouter = (bloc: Bloc) => setFil((f) => [...f, bloc]);
     const retirerRedaction = () => setFil((f) => f.filter((b) => b.t !== "redaction"));
 
+    // Fait défiler la conversation pour amener un élément sous l'en-tête du
+    // suivi (ou au tiers haut), d'un seul mouvement, avant que le curseur ne
+    // bouge ; sans cela le contenu glissait sous le curseur.
+    async function amener(element: HTMLElement, forcer = false) {
+      const defil = filRef.current;
+      if (!defil?.contains(element)) return;
+      const re = element.getBoundingClientRect();
+      const rd = defil.getBoundingClientRect();
+      const tete = defil.querySelector(".demo-suivi-tete")?.getBoundingClientRect().height ?? 0;
+      if (forcer || re.bottom > rd.bottom - 12 || re.top < rd.top + tete + 12) {
+        const marge = tete ? tete + 16 : rd.height / 3;
+        defil.scrollTo({ top: defil.scrollTop + (re.top - rd.top) - marge, behavior: "smooth" });
+        await pause(550);
+      }
+    }
+
+    async function amenerCible(nom: string, forcer = false) {
+      const element = fenetreRef.current?.querySelector<HTMLElement>(`[data-cible="${nom}"]`);
+      if (element) await amener(element, forcer);
+    }
+
     async function deplacer(nom: string, positionX = 0.5) {
       const fenetre = fenetreRef.current;
       const element = fenetre?.querySelector<HTMLElement>(`[data-cible="${nom}"]`);
       if (!fenetre || !element) return;
-      const defil = filRef.current;
-      if (defil?.contains(element)) {
-        const re = element.getBoundingClientRect();
-        const rd = defil.getBoundingClientRect();
-        if (re.bottom > rd.bottom - 12 || re.top < rd.top + 12) {
-          defil.scrollTo({ top: defil.scrollTop + (re.top - rd.top) - rd.height / 3, behavior: "auto" });
-          await pause(80);
-        }
-      }
+      await amener(element);
       const r = element.getBoundingClientRect();
       if (r.width === 0) return;
       const f = fenetre.getBoundingClientRect();
@@ -341,7 +354,9 @@ export function FenetreOutil() {
         await deplacer(`non-${k}`);
         await cliquer(`non-${k}`);
         maj({ non: k });
-        await pause(900);
+        await pause(500);
+        await amenerCible(`obj-${k}`, true);
+        await pause(300);
         const j = RAISONS.indexOf(motif);
         await deplacer(`raison-${j}`);
         await cliquer(`raison-${j}`);
@@ -361,7 +376,9 @@ export function FenetreOutil() {
         maj({ envoye: true, reflexion: true });
         await pause(2000);
         maj({ reflexion: false, axe: true });
-        await pause(2800);
+        await pause(400);
+        await amenerCible("axe", true);
+        await pause(2400);
       }
       await pause(3500);
     }
@@ -494,6 +511,10 @@ export function FenetreOutil() {
   useEffect(() => {
     const zone = filRef.current;
     if (!zone) return;
+    // Pendant le suivi, c'est le curseur qui fait défiler vers sa cible, une
+    // seule fois et avant de bouger ; un défilement automatique en plus
+    // coupait l'en-tête et décalait le contenu.
+    if (vue === "suivi" && !reduit) return;
     zone.scrollTo({
       top: vue === "questionnaire" ? 0 : zone.scrollHeight,
       behavior: reduit ? "auto" : "smooth",
@@ -584,10 +605,8 @@ export function FenetreOutil() {
     const total = donnees.actions.length;
     return (
       <div className="demo-suivi-vue">
+        <div className="demo-suivi-tete">
         <p className="msg-titre">Suivi · {agent.nom}</p>
-        <p className="demo-sous-titre">
-          Point d&apos;étape, 5 jours plus tard. Pour chaque objectif, indiquez s&apos;il est atteint.
-        </p>
         <ol className="demo-mini-etapes">
           {["Objectif atteint ?", "Pourquoi", "Nouvel axe"].map((l, k) => (
             <li key={l} className={`${k + 1 === etape ? "actif" : ""} ${k + 1 < etape ? "fait" : ""}`}>
@@ -600,12 +619,16 @@ export function FenetreOutil() {
           Objectifs atteints : {e.oui.length} sur {total}
           {e.axe ? " · 1 réajusté" : ""}
         </p>
+        </div>
+        <p className="demo-sous-titre demo-suivi-consigne">
+          Point d&apos;étape, 5 jours plus tard. Pour chaque objectif, indiquez s&apos;il est atteint.
+        </p>
         <ul className="demo-objectifs">
           {donnees.actions.map((a, k) => {
             const oui = e.oui.includes(k);
             const non = e.non === k;
             return (
-              <li key={a.texte} className={`demo-obj ${oui ? "ok" : ""} ${non ? "ko" : ""}`}>
+              <li key={a.texte} data-cible={`obj-${k}`} className={`demo-obj ${oui ? "ok" : ""} ${non ? "ko" : ""}`}>
                 <div className="demo-obj-ligne">
                   <span className="demo-q-num">{k + 1}</span>
                   <span className="demo-obj-texte">
@@ -674,7 +697,7 @@ export function FenetreOutil() {
                       </div>
                     ) : null}
                     {e.axe ? (
-                      <div className="demo-axe demo-axe-nouveau">
+                      <div className="demo-axe demo-axe-nouveau" data-cible="axe">
                         <p className="demo-axe-titre">Nouvel axe à mettre en place</p>
                         <p className="demo-axe-texte">{p.nouvelAxe.texte}</p>
                         <p className="demo-note">
