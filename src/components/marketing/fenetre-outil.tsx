@@ -340,7 +340,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
     // Zoom de caméra : agrandit la scène en centrant l'élément visé (ou
     // revient à la vue d'ensemble si nom est nul), puis attend la fin du
     // mouvement avant que quoi que ce soit ne soit mesuré.
-    async function zoomSur(nom: string | null, echelle = 1.25) {
+    async function zoomSur(nom: string | null, echelle = 1.25, ax = 0.5) {
       const corps = corpsRef.current;
       if (!corps) return;
       const petit = window.matchMedia("(max-width: 639px)").matches;
@@ -350,10 +350,20 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         const element = fenetreRef.current?.querySelector<HTMLElement>(`[data-cible="${nom}"]`);
         if (!element) return;
         await amener(element);
+        // Le défilement vers un bloc qui vient d'arriver peut durer : on
+        // mesure une fois la conversation immobile, sinon on cadre le vide.
+        const defil = filRef.current;
+        for (let essai = 0; defil && essai < 12; essai++) {
+          const avant = defil.scrollTop;
+          await pause(60, true);
+          if (Math.abs(defil.scrollTop - avant) < 1) break;
+        }
         const r = element.getBoundingClientRect();
         const c = corps.getBoundingClientRect();
         const z = zoomRef.current;
-        const lx = (r.left + r.width / 2 - c.left - z.tx) / z.s;
+        // `ax` place le centre du cadre sur une fraction de la largeur du
+        // bloc (0 = bord gauche) : utile quand le contenu utile est d'un côté.
+        const lx = (r.left + r.width * ax - c.left - z.tx) / z.s;
         const ly = (r.top + r.height / 2 - c.top - z.ty) / z.s;
         const borne = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
         suivant = {
@@ -463,14 +473,14 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         maj({ non: k });
         await pause(500);
         await amenerCible(`obj-${k}`, true);
-        await zoomSur("pourquoi", 1.2);
+        await zoomSur("pourquoi", 1.2, 0.3);
         const j = RAISONS.indexOf(motif);
         await deplacer(`raison-${j}`);
         await cliquer(`raison-${j}`);
         maj({ raison: motif });
         await pause(500);
         dire("Puis vous précisez, en quelques mots.");
-        await zoomSur("precision", 1.35);
+        await zoomSur("precision", 1.35, 0.3);
         await deplacer("precision", 0.2);
         await cliquer();
         maj({ precisionActif: true });
@@ -489,7 +499,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         maj({ reflexion: false, axe: true });
         await pause(400);
         await amenerCible("axe", true);
-        await zoomSur("axe", 1.3);
+        await zoomSur("axe", 1.3, 0.3);
         await pause(2400);
       }
       rythme(base);
@@ -497,7 +507,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       maj({ fini: true });
       await pause(400);
       await amenerCible("fin", true);
-      await zoomSur("fin", 1.25);
+      await zoomSur("fin", 1.25, 0.3);
       await pause(2200);
       await zoomSur(null);
     }
@@ -551,9 +561,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       dire("Votre profil est déjà renseigné : il règle vos questions et vos seuils.");
       ajouter({ t: "profil" });
       await pause(500);
-      await zoomSur("profil-carte", 1.2);
-      await pause(1300);
-      await zoomSur(null);
+      await pause(1500);
       await agentRepond(
         "Le questionnaire est prêt. Ses questions sont rédigées à l'avance et identiques pour tous les dirigeants de votre métier."
       );
@@ -617,7 +625,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       ajouter({ t: "synthese" });
       dire("Votre score sur 100, calculé à partir de seuils fixes, et sa lecture.");
       await pause(700);
-      await zoomSur("score", 1.35);
+      await zoomSur("score", 1.35, 0.2);
       await pause(2800);
       await zoomSur(null);
       ajouter({ t: "parties" });
@@ -631,10 +639,17 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       }
       rythme(base);
       ajouter({ t: "actions" });
-      dire("Votre plan d'action : des objectifs, chacun avec son échéance de retour.");
+      dire("Votre plan d'action : des objectifs concrets à mettre en place.");
       await pause(600);
-      await zoomSur("actions-carte", 1.2);
-      await pause(2600);
+      // Le plan : d'abord les actions (à gauche), puis, d'un glissé de caméra,
+      // l'échéance de retour de chacune (à droite).
+      // Sur petit écran la carte tient déjà dans le cadre : pas de zoom.
+      const petit = window.matchMedia("(max-width: 639px)").matches;
+      if (!petit) await zoomSur("actions-carte", 1.3, 0.22);
+      await pause(1500);
+      dire("Chacune a sa propre échéance de retour.");
+      if (!petit) await zoomSur("actions-carte", 1.3, 0.85);
+      await pause(1300);
       await zoomSur(null);
 
       await pointEtape(d);
