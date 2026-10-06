@@ -65,14 +65,14 @@ function colonnesDiagnostic(exemple: string): Colonne[] {
             "À l'inscription, vous indiquez votre métier, votre nombre de collaborateurs, votre zone géographique et votre chiffre d'affaires.",
         },
         {
-          titre: "Un questionnaire adapté",
+          titre: "Votre questionnaire",
           texte:
-            "Le questionnaire s'adapte à ce profil : ses questions sont rédigées à l'avance, métier par métier.",
+            "Ensuite, un questionnaire est établi en fonction de votre profil. Vous y répondez à votre rythme : vos réponses sont enregistrées au fur et à mesure.",
         },
         {
-          titre: "Passez ce que vous voulez",
+          titre: "Une estimation vaut mieux que rien",
           texte:
-            "Aucune question n'est obligatoire : vous pouvez passer toute question, et vos réponses sont enregistrées au fur et à mesure.",
+            "Si vous ne connaissez pas la réponse exacte, donnez une estimation : une réponse approximative est plus utile qu'une absence de réponse. Si vous n'en avez vraiment aucune idée, vous pouvez passer la question, mais plus vous répondez, plus votre compte rendu est précis.",
         },
       ],
     },
