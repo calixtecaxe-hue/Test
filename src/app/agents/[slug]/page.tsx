@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { GrillePoints } from "@/components/marketing/grille-points";
-import { AgentAvatar } from "@/components/marketing/agent-avatar";
+import { AgentAvatar, AgentPortrait } from "@/components/marketing/agent-avatar";
 import { Reveal } from "@/components/marketing/reveal";
 import { FenetreOutil } from "@/components/marketing/fenetre-outil";
 import { AGENTS, agentParSlug, couleurAgent, type Agent } from "@/lib/agents";
@@ -161,9 +161,7 @@ export default async function PageAgent({
                 className="agent-portrait-halo"
                 style={{ background: couleur.halo }}
               />
-              <span className="agent-portrait-cadre">
-                <AgentAvatar code={agent.code} />
-              </span>
+              <AgentPortrait code={agent.code} />
             </div>
             <div className="agent-tete-texte">
               <span className="badge-dispo">

@@ -2045,21 +2045,18 @@ h3,
 
 .agent-portrait-halo {
   position: absolute;
-  inset: -12%;
+  inset: 8% 8% 0;
   border-radius: 50%;
-  opacity: 0.22;
-  filter: blur(40px);
+  opacity: 0.18;
+  filter: blur(48px);
 }
 
-.agent-portrait-cadre {
+.agent-portrait-img {
   position: relative;
   display: block;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: var(--panel);
+  height: auto;
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.45));
 }
 
 .agent-atouts {
