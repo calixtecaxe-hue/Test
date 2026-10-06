@@ -4,11 +4,14 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { GrillePoints } from "@/components/marketing/grille-points";
-import { AgentAvatar, AgentPortrait } from "@/components/marketing/agent-avatar";
+import {
+  AgentAvatar,
+  AgentPortrait,
+} from "@/components/marketing/agent-avatar";
 import { Reveal } from "@/components/marketing/reveal";
 import { FenetreOutil } from "@/components/marketing/fenetre-outil";
 import { AGENTS, agentParSlug, couleurAgent, type Agent } from "@/lib/agents";
-import { PRESENTATIONS } from "@/lib/agent-presentation";
+import { AXES_ACQUISITION, PRESENTATIONS } from "@/lib/agent-presentation";
 
 export const dynamicParams = false;
 
@@ -61,46 +64,8 @@ const ETAPES_GENERATIF = [
 ];
 
 // Contenu propre à la page de l'agent Acquisition & Chiffre d'affaires.
-const COUVRE_ACQUISITION = {
-  intro:
-    "Tout le parcours qui va du premier contact au chiffre d'affaires encaissé :",
-  lignes: [
-    {
-      libelle: "Contacts",
-      texte: "volume, canaux utilisés, canal qui rapporte le plus de clients",
-    },
-    { libelle: "Rendez-vous", texte: "délai de réponse, taux de présence" },
-    {
-      libelle: "Transformation",
-      texte: "du rendez-vous à la signature",
-    },
-    {
-      libelle: "Coût d'acquisition",
-      texte: "budget marketing rapporté au CA, coût d'un client signé",
-    },
-    {
-      libelle: "Présence en ligne",
-      texte: "canaux actifs, régularité de publication",
-    },
-    {
-      libelle: "Prix et honoraires",
-      texte:
-        "niveau pratiqué face au marché, écart entre prix affiché et prix final",
-    },
-    {
-      libelle: "Fidélisation",
-      texte: "clients récurrents, recommandation",
-    },
-    {
-      libelle: "Productivité",
-      texte: "CA et volume traité par collaborateur",
-    },
-    {
-      libelle: "Saisonnalité",
-      texte: "capacité à anticiper les creux et les pics",
-    },
-  ],
-};
+const INTRO_COUVRE_ACQUISITION =
+  "Tout le parcours qui va du premier contact au chiffre d'affaires encaissé :";
 
 const ETAPES_ACQUISITION = [
   {
@@ -177,9 +142,7 @@ export default async function PageAgent({
                 </span>
               </h1>
               <p className="mt-5 max-w-xl text-[var(--text-muted)]">
-                {generatif
-                  ? "Il analyse vos publications et vous propose des contenus, à votre demande."
-                  : "Il mesure votre situation à partir de vos réponses, puis la traduit en score sur 100 et en plan d'action."}
+                {presentation.accroche}
               </p>
               <ul className="agent-atouts">
                 {presentation.atouts.map((atout) => (
@@ -223,86 +186,38 @@ export default async function PageAgent({
         </section>
 
         <section className="mx-auto max-w-6xl px-6 py-12 lg:px-10">
-          <Reveal>
-            <p
-              className="text-center text-xs font-semibold uppercase tracking-[0.12em]"
-              style={{ color: couleur.texte }}
-            >
-              Cas concrets
-            </p>
-            <h2 className="mt-3 text-center text-2xl sm:text-4xl">
-              Ce que cet agent peut faire pour vous
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-[var(--text-muted)]">
-              Trois échanges types. Exemples illustratifs, avec des données
-              fictives.
-            </p>
-          </Reveal>
-          <div className="agent-scenarios mt-10">
-            {presentation.scenarios.map((scenario, index) => (
-              <Reveal key={scenario.titre} delai={index * 100}>
-                <article className="agent-scenario">
-                  <p className="agent-scenario-titre">
-                    <span>Scénario {index + 1}</span> : {scenario.titre}
-                  </p>
-                  <p className="agent-bulle agent-bulle-vous">
-                    {scenario.question}
-                  </p>
-                  <div className="agent-reponse">
-                    <span className="agent-reponse-avatar" aria-hidden="true">
-                      <AgentAvatar code={agent.code} />
-                    </span>
-                    <p className="agent-bulle agent-bulle-agent">
-                      {scenario.reponse}
-                    </p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-6 pb-4 lg:px-10">
-          <Reveal>
-            <h2 className="text-center text-2xl sm:text-3xl">
-              Un aperçu de son déroulé
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-[var(--text-muted)]">
-              Questionnaire, compte rendu puis suivi. Exemple illustratif, avec
-              des données fictives.
-            </p>
-          </Reveal>
-          <Reveal delai={100}>
-            <div className="mt-8">
-              <FenetreOutil agentCode={agent.code} />
-            </div>
-          </Reveal>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-6 py-12 lg:px-10">
           {acquisition ? (
             <Reveal>
               <div className="carte-agent h-full rounded-xl border border-[var(--line)] bg-[var(--panel)] p-7">
                 <p className="text-sm text-[var(--text-faint)]">
                   Ce qu&apos;il couvre
                 </p>
-                <p className="mt-3 text-lg">{COUVRE_ACQUISITION.intro}</p>
-                <ul className="mt-5 grid gap-x-10 gap-y-4 md:grid-cols-2">
-                  {COUVRE_ACQUISITION.lignes.map((ligne) => (
-                    <li key={ligne.libelle}>
-                      <span
-                        className="font-semibold"
-                        style={{ color: couleur.texte }}
-                      >
-                        {ligne.libelle}
-                      </span>
-                      <span className="text-[var(--text-muted)]">
-                        {" "}
-                        : {ligne.texte}
-                      </span>
-                    </li>
+                <p className="mt-3 text-lg">{INTRO_COUVRE_ACQUISITION}</p>
+                <div className="agent-axes">
+                  {AXES_ACQUISITION.map((axe, index) => (
+                    <section key={axe.titre} className="agent-axe">
+                      <h3 className="agent-axe-titre">
+                        <span style={{ color: couleur.texte }}>
+                          {index + 1}
+                        </span>
+                        {axe.titre}
+                      </h3>
+                      <ul>
+                        {axe.themes.map((theme) => (
+                          <li key={theme}>{theme}</li>
+                        ))}
+                      </ul>
+                    </section>
                   ))}
-                </ul>
+                  <p className="agent-axes-total">
+                    {AXES_ACQUISITION.reduce(
+                      (n, axe) => n + axe.themes.length,
+                      0,
+                    )}{" "}
+                    thèmes passés en revue, répartis en{" "}
+                    {AXES_ACQUISITION.length} axes.
+                  </p>
+                </div>
               </div>
             </Reveal>
           ) : (
@@ -332,6 +247,23 @@ export default async function PageAgent({
               </Reveal>
             </div>
           )}
+        </section>
+
+        <section className="mx-auto max-w-6xl px-6 pb-4 lg:px-10">
+          <Reveal>
+            <h2 className="text-center text-2xl sm:text-3xl">
+              Un aperçu de son déroulé
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-[var(--text-muted)]">
+              Questionnaire, compte rendu puis suivi. Exemple illustratif, avec
+              des données fictives.
+            </p>
+          </Reveal>
+          <Reveal delai={100}>
+            <div className="mt-8">
+              <FenetreOutil agentCode={agent.code} />
+            </div>
+          </Reveal>
         </section>
 
         <section className="mx-auto max-w-6xl px-6 py-12 lg:px-10">
