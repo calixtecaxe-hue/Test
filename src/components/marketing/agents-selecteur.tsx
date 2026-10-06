@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AGENTS, couleurAgent } from "@/lib/agents";
 import { AgentAvatar } from "@/components/marketing/agent-avatar";
+import { PRESENTATIONS } from "@/lib/agent-presentation";
 
 const DELAI_AUTO = 10000;
 
@@ -12,7 +13,7 @@ export function AgentsSelecteur() {
 
   useEffect(() => {
     const reduitMouvement = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
     if (reduitMouvement) return;
 
@@ -70,18 +71,29 @@ export function AgentsSelecteur() {
           {agent.nature === "diagnostic" ? "Diagnostic" : "Génératif"}
         </p>
 
-        <div className="selecteur-corps">
-          <div>
-            <p className="selecteur-label">Ce qu&apos;il couvre</p>
-            <p className="selecteur-valeur">{agent.couvre}</p>
-          </div>
-          {agent.neFaitJamais ? (
-            <div>
-              <p className="selecteur-label">Ce qu&apos;il ne fait jamais</p>
-              <p className="selecteur-valeur">{agent.neFaitJamais}</p>
-            </div>
-          ) : null}
-        </div>
+        <ul className="agent-atouts selecteur-atouts">
+          {PRESENTATIONS[agent.code].atouts.map((atout) => (
+            <li key={atout}>
+              <svg
+                viewBox="0 0 16 16"
+                width="16"
+                height="16"
+                aria-hidden="true"
+                style={{ color: couleurAgent[agent.couleur].texte }}
+              >
+                <path
+                  d="M3 8.5 6.5 12 13 4.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              {atout}
+            </li>
+          ))}
+        </ul>
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Link

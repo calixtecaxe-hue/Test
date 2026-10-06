@@ -670,6 +670,7 @@ h3,
 
 .selecteur-panneau-tete {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
@@ -697,22 +698,9 @@ h3,
   color: var(--text-faint);
 }
 
-.selecteur-corps {
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+.selecteur-atouts {
+  margin-top: 28px;
   font-size: 15px;
-}
-
-.selecteur-label {
-  color: var(--text-faint);
-  font-size: 13px;
-}
-
-.selecteur-valeur {
-  margin-top: 4px;
-  color: var(--text-muted);
 }
 
 /* Menu déroulant « Agents IA » : au survol du lien du bandeau, la liste
