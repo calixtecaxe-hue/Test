@@ -168,8 +168,15 @@ function apercuLateral(phase: Phase, actif: boolean, termine: boolean, questions
 // automatique le joue en boucle (curseur, zooms, réponses écrites lettre par
 // lettre) et repart de zéro à chaque affichage de la page ; cliquer sur un
 // agent relance la lecture depuis cet agent. Tout le contenu est fictif.
-export function FenetreOutil() {
-  const [indexAgent, setIndexAgent] = useState(0);
+//
+// Sur la page d'un agent, `agentCode` isole sa partie : pas d'inscription ni
+// de liste d'agents, seule sa conversation est jouée en boucle.
+export function FenetreOutil({ agentCode }: { agentCode?: string }) {
+  const indexSolo = agentCode
+    ? AGENTS.findIndex((a) => a.code === agentCode)
+    : -1;
+  const solo = indexSolo >= 0;
+  const [indexAgent, setIndexAgent] = useState(solo ? indexSolo : 0);
   const [fil, setFil] = useState<Bloc[]>([]);
   const [phase, setPhase] = useState<Phase>("attente");
   const [questions, setQuestions] = useState(0);
@@ -179,7 +186,7 @@ export function FenetreOutil() {
   const [choixQ, setChoixQ] = useState<Record<number, number>>({});
   const [libreTexte, setLibreTexte] = useState("");
   const [libreActif, setLibreActif] = useState(false);
-  const [lancement, setLancement] = useState({ depart: 0, n: 0 });
+  const [lancement, setLancement] = useState({ depart: solo ? indexSolo : 0, n: 0 });
   const [curseur, setCurseur] = useState<Curseur>({ x: 0, y: 0, visible: false });
   const [clics, setClics] = useState(0);
   const [presse, setPresse] = useState(false);
@@ -486,7 +493,7 @@ export function FenetreOutil() {
       const d = DEMO_AGENTS[code];
 
       // Le premier agent est joué à bon rythme, les suivants plus vite.
-      base = avecInscription ? 0.6 : 0.45;
+      base = avecInscription ? 0.6 : solo ? 0.55 : 0.45;
       rythme(base);
       zoomRef.current = ZOOM_NEUTRE;
       setZoom(ZOOM_NEUTRE);
@@ -504,13 +511,18 @@ export function FenetreOutil() {
       setIndexAgent(i);
       if (avecInscription) await remplirFormulaire();
       setParcours(1);
-      dire("2 · Vous choisissez un agent.");
-      await pause(700);
+      if (solo) {
+        dire("2 · Vous ouvrez la conversation avec l'agent.");
+        await pause(700);
+      } else {
+        dire("2 · Vous choisissez un agent.");
+        await pause(700);
 
-      await zoomSur(`agent-${i}`, 1.35);
-      await deplacer(`agent-${i}`, 0.4);
-      await cliquer(`agent-${i}`);
-      await zoomSur(null);
+        await zoomSur(`agent-${i}`, 1.35);
+        await deplacer(`agent-${i}`, 0.4);
+        await cliquer(`agent-${i}`);
+        await zoomSur(null);
+      }
       await agentRepond(d.accueil);
       dire("Votre profil est déjà renseigné : il règle vos questions et vos seuils.");
       ajouter({ t: "profil" });
@@ -611,10 +623,14 @@ export function FenetreOutil() {
     async function boucle() {
       await pause(0);
       let i = lancement.depart;
-      let avecInscription = lancement.n === 0;
+      let avecInscription = !solo && lancement.n === 0;
       for (;;) {
         await jouerAgent(i, avecInscription);
         avecInscription = false;
+        if (solo) {
+          setTermines([]);
+          continue;
+        }
         i = (i + 1) % AGENTS.length;
         if (i === 0) {
           setTermines([]);
@@ -629,7 +645,7 @@ export function FenetreOutil() {
       observateur.disconnect();
       document.removeEventListener("visibilitychange", surOnglet);
     };
-  }, [reduit, lancement]);
+  }, [reduit, lancement, solo]);
 
   // La conversation défile vers le dernier message à chaque ajout.
   useEffect(() => {
@@ -1111,7 +1127,7 @@ export function FenetreOutil() {
             </div>
           ) : null}
           <div className="demo-zone">
-            <aside className="demo-liste" aria-label="Agents">
+            <aside className="demo-liste" aria-label="Agents" hidden={solo}>
               {AGENTS.map((a, index) => (
                 <button
                   key={a.code}
@@ -1150,9 +1166,11 @@ export function FenetreOutil() {
                 <span className="demo-chat-nom" style={{ color: couleur.texte }}>
                   {agent.nom}
                 </span>
-                <Link href={`/agents/${agent.slug}`} className="demo-chat-lien">
-                  Page de l&apos;agent
-                </Link>
+                {solo ? null : (
+                  <Link href={`/agents/${agent.slug}`} className="demo-chat-lien">
+                    Page de l&apos;agent
+                  </Link>
+                )}
               </header>
               <div className="demo-fil" ref={filRef} aria-live="polite">
                 {vue === "questionnaire" && !reduit

@@ -1161,6 +1161,10 @@ h3,
   border-right: 1px solid var(--line);
 }
 
+.demo-liste[hidden] {
+  display: none;
+}
+
 @media (max-width: 639px) {
   .demo-liste {
     display: none;

@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/marketing/site-footer";
 import { GrillePoints } from "@/components/marketing/grille-points";
 import { AgentAvatar } from "@/components/marketing/agent-avatar";
 import { Reveal } from "@/components/marketing/reveal";
+import { FenetreOutil } from "@/components/marketing/fenetre-outil";
 import { AGENTS, agentParSlug, couleurAgent, type Agent } from "@/lib/agents";
 
 export const dynamicParams = false;
@@ -127,6 +128,23 @@ export default async function PageAgent({
               </Link>
             </div>
           </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-6 pb-4 lg:px-10">
+          <Reveal>
+            <h2 className="text-center text-2xl sm:text-3xl">
+              Un aperçu de son déroulé
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-[var(--text-muted)]">
+              Questionnaire, compte rendu puis suivi. Exemple illustratif, avec
+              des données fictives.
+            </p>
+          </Reveal>
+          <Reveal delai={100}>
+            <div className="mt-8">
+              <FenetreOutil agentCode={agent.code} />
+            </div>
+          </Reveal>
         </section>
 
         <section className="mx-auto max-w-6xl px-6 py-12 lg:px-10">
