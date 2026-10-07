@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { METIERS } from "@/lib/metiers";
 import { Champ, classeChamp } from "@/components/champ";
+import { MenuDeroulant } from "@/components/menu-deroulant";
 import logo from "../../../public/logo-caxe.png";
 
 const metiersActifs = METIERS.filter((m) => m.actif);
@@ -31,7 +32,9 @@ export default function Inscription() {
     const motDePasse = formData.get("motDePasse");
     const confirmation = formData.get("confirmation");
     if (motDePasse !== confirmation) {
-      setErreurs({ confirmation: ["Les deux mots de passe ne correspondent pas."] });
+      setErreurs({
+        confirmation: ["Les deux mots de passe ne correspondent pas."],
+      });
       return;
     }
 
@@ -94,7 +97,11 @@ export default function Inscription() {
       </p>
 
       <form onSubmit={onSubmit} className="mt-10 flex flex-col gap-6">
-        <Champ label="Adresse email" htmlFor="email" erreur={erreurs.email?.[0]}>
+        <Champ
+          label="Adresse email"
+          htmlFor="email"
+          erreur={erreurs.email?.[0]}
+        >
           <input
             id="email"
             name="email"
@@ -146,20 +153,16 @@ export default function Inscription() {
           htmlFor="metierPrecis"
           erreur={erreurs.metierPrecis?.[0]}
         >
-          <select
+          <MenuDeroulant
             id="metierPrecis"
             name="metierPrecis"
-            required
-            value={metierPrecis}
-            onChange={(e) => setMetierPrecis(e.target.value)}
-            className={classeChamp}
-          >
-            {metiersActifs.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.libelle}
-              </option>
-            ))}
-          </select>
+            valeur={metierPrecis}
+            onChange={setMetierPrecis}
+            options={metiersActifs.map((m) => ({
+              valeur: m.id,
+              libelle: m.libelle,
+            }))}
+          />
         </Champ>
 
         {sousVariantesActives.length > 0 ? (
@@ -168,13 +171,15 @@ export default function Inscription() {
             htmlFor="sousVariante"
             erreur={erreurs.sousVariante?.[0]}
           >
-            <select id="sousVariante" name="sousVariante" required className={classeChamp}>
-              {sousVariantesActives.map((v) => (
-                <option key={v.id} value={v.id}>
-                  {v.libelle}
-                </option>
-              ))}
-            </select>
+            <MenuDeroulant
+              key={metierPrecis}
+              id="sousVariante"
+              name="sousVariante"
+              options={sousVariantesActives.map((v) => ({
+                valeur: v.id,
+                libelle: v.libelle,
+              }))}
+            />
           </Champ>
         ) : null}
 
@@ -228,15 +233,29 @@ export default function Inscription() {
         </Champ>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <Champ label="Type de zone" htmlFor="typeZone" erreur={erreurs.typeZone?.[0]}>
-            <select id="typeZone" name="typeZone" required className={classeChamp}>
-              <option value="URBAINE_DENSE">Urbaine dense</option>
-              <option value="PERIURBAINE">Périurbaine</option>
-              <option value="RURALE">Rurale</option>
-            </select>
+          <Champ
+            label="Type de zone"
+            htmlFor="typeZone"
+            erreur={erreurs.typeZone?.[0]}
+          >
+            <MenuDeroulant
+              id="typeZone"
+              name="typeZone"
+              options={[
+                { valeur: "URBAINE_DENSE", libelle: "Urbaine dense" },
+                { valeur: "PERIURBAINE", libelle: "Périurbaine" },
+                { valeur: "RURALE", libelle: "Rurale" },
+              ]}
+            />
           </Champ>
           <Champ label="Ville" htmlFor="ville" erreur={erreurs.ville?.[0]}>
-            <input id="ville" name="ville" type="text" required className={classeChamp} />
+            <input
+              id="ville"
+              name="ville"
+              type="text"
+              required
+              className={classeChamp}
+            />
           </Champ>
         </div>
 
@@ -254,7 +273,10 @@ export default function Inscription() {
 
         <p className="text-sm text-[var(--text-muted)]">
           Vous avez déjà un compte ?{" "}
-          <Link href="/connexion" className="text-[var(--blue-1)] hover:underline">
+          <Link
+            href="/connexion"
+            className="text-[var(--blue-1)] hover:underline"
+          >
             Se connecter
           </Link>
         </p>

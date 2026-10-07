@@ -1,5 +1,5 @@
-export const classeChamp =
-  "w-full rounded-[4px] border border-[var(--line)] bg-[var(--panel)] px-3 py-2 text-[var(--text)] placeholder:text-[var(--text-faint)] outline-none focus:border-[var(--blue-1)] focus:ring-2 focus:ring-[var(--blue-1)]/40";
+// Le style des champs vit dans globals.css (.champ-saisie, .menu-*).
+export const classeChamp = "champ-saisie";
 
 export function Champ({
   label,
@@ -15,12 +15,12 @@ export function Champ({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <label htmlFor={htmlFor} className="text-sm font-medium text-[var(--text)]">
+    <div className="champ-groupe">
+      <label htmlFor={htmlFor} className="champ-etiquette">
         {label}
       </label>
-      {aide ? <p className="text-xs text-[var(--text-muted)]">{aide}</p> : null}
       {children}
+      {aide ? <p className="champ-aide">{aide}</p> : null}
       {erreur ? <p className="text-xs text-[var(--red-1)]">{erreur}</p> : null}
     </div>
   );

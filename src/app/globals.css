@@ -2740,3 +2740,152 @@ h3,
   opacity: 1;
   transform: scale(1);
 }
+
+/* Champs de saisie : Inter pour le texte, angles de 12 px comme les cartes.
+   Au focus, le filet prend le dégradé de la charte (bleu, blanc, rouge). */
+.champ-groupe {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.champ-etiquette {
+  font-family: var(--corps);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.champ-groupe:focus-within > .champ-etiquette {
+  color: var(--blue-1);
+}
+
+.champ-aide {
+  margin: 0;
+  font-family: var(--corps);
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.champ-saisie {
+  width: 100%;
+  min-height: 48px;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  color-scheme: dark;
+  font-family: var(--corps);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.champ-saisie::placeholder {
+  color: var(--text-faint);
+  font-weight: 400;
+}
+
+.champ-saisie:hover {
+  border-color: rgba(244, 236, 216, 0.32);
+}
+
+.champ-saisie:focus,
+.champ-saisie:focus-visible,
+.menu-declencheur[aria-expanded="true"] {
+  border-color: transparent;
+  background: linear-gradient(var(--panel), var(--panel)),
+    linear-gradient(100deg, var(--blue-1), var(--white-1), var(--red-1));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 0 0 4px rgba(91, 159, 236, 0.14);
+}
+
+/* Menu déroulant */
+.menu-champ {
+  position: relative;
+}
+
+.menu-declencheur {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-chevron {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--blue-1);
+  transition: transform 0.25s ease;
+}
+
+.menu-declencheur[aria-expanded="true"] .menu-chevron {
+  transform: rotate(180deg);
+}
+
+.menu-liste {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+  max-height: 280px;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  list-style: none;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.7);
+  animation: menu-ouvre 0.18s ease both;
+}
+
+.menu-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-family: var(--corps);
+  font-size: 15px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.menu-option[data-actif="true"] {
+  background: rgba(91, 159, 236, 0.14);
+  color: var(--text);
+}
+
+.menu-option[aria-selected="true"] {
+  color: var(--blue-1);
+  font-weight: 600;
+}
+
+.menu-coche {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+@keyframes menu-ouvre {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
