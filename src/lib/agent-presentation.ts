@@ -41,12 +41,12 @@ export const PRESENTATIONS: Record<Agent["code"], Presentation> = {
   },
   COMM_CREATION: {
     accroche:
-      "Il part des publications que vous avez déjà faites et vous propose des contenus, à votre demande.",
+      "Il passe en revue votre communication, de votre offre à vos publications, et vous dit où agir en priorité.",
     atouts: [
-      "Analyse vos publications existantes",
-      "Lit leurs indicateurs de performance",
+      "Passe en revue votre offre et votre positionnement",
+      "Évalue vos canaux et votre présence en ligne",
+      "Mesure la portée et l'engagement de vos publications",
       "Propose des contenus, à votre demande",
-      "Ne se déclenche jamais automatiquement",
     ],
   },
 };
@@ -235,4 +235,176 @@ export const AXES_ACQUISITION: { titre: string; themes: string[] }[] = [
       "Saisonnalité",
     ],
   },
+];
+
+// Les 54 thèmes de l'agent Comm & Création de contenu, en huit groupes (fournis
+// par le client), mis de côté pour un usage ultérieur. Chaque thème est
+// [titre, précision]. La numérotation suit l'ordre : groupe 1 = thèmes 1 à 9, etc.
+export type GroupeComm = {
+  titre: string;
+  note?: string;
+  themes: [string, string?][];
+};
+
+export const GROUPES_COMM: GroupeComm[] = [
+  {
+    titre: "Identité et offre",
+    themes: [
+      ["Positionnement", "ce que l'entreprise fait, pour qui"],
+      ["Cible", "à qui elle parle, et si c'est bien celle qui achète"],
+      ["Promesse", "la raison de la choisir, en une phrase"],
+      [
+        "Force de l'offre",
+        "ce que le client obtient, en combien de temps, avec quel effort",
+      ],
+      [
+        "Garantie ou réduction du risque",
+        "ce qui enlève la peur de se tromper",
+      ],
+      ["Ton et personnalité"],
+      ["Cohérence de marque", "même logo, mêmes couleurs, même voix partout"],
+      [
+        "Éléments de réassurance",
+        "avis, certifications, références, ancienneté",
+      ],
+      [
+        "Preuve et expertise",
+        "réalisations, avant-après, chiffres, cas clients",
+      ],
+    ],
+  },
+  {
+    titre: "Présence et canaux",
+    themes: [
+      ["Réseaux actifs", "lesquels, et lesquels sont réellement tenus"],
+      ["Adéquation canal-cible", "est-il là où sa clientèle se trouve"],
+      [
+        "Les quatre canaux d'acquisition",
+        "contact direct à des gens connus, contact direct à des inconnus, contenu organique, publicité payante",
+      ],
+      ["Site web", "existence, actualité"],
+      ["Fiche Google Business", "complétude, photos, horaires, publications"],
+      ["Canaux possédés", "base email, fichier contacts, groupe privé"],
+      [
+        "Référencement local",
+        "apparaît-il quand on cherche son métier dans sa ville",
+      ],
+    ],
+  },
+  {
+    titre: "De la publication au contact",
+    themes: [
+      ["Portée", "combien de personnes touchées"],
+      ["Engagement", "combien réagissent"],
+      ["Clic", "combien vont plus loin"],
+      [
+        "Appel à l'action",
+        "les publications disent-elles quoi faire, et où ça mène",
+      ],
+      [
+        "Raison de laisser ses coordonnées",
+        "guide, estimation, diagnostic gratuit",
+      ],
+      [
+        "Contacts entrants par la comm",
+        "messages privés, commentaires, demandes",
+      ],
+      ["Réactivité aux messages", "en combien de temps on répond"],
+    ],
+  },
+  {
+    titre: "Stratégie de contenu",
+    themes: [
+      ["Objectif", "notoriété, acquisition, fidélisation, recrutement"],
+      ["Lignes éditoriales", "les deux ou trois sujets récurrents"],
+      ["Équilibre des formats", "texte, photo, vidéo, carrousel"],
+      ["Répartition par intention", "vendre, montrer, expliquer, incarner"],
+      ["Planification", "calendrier ou publication au gré du temps"],
+      [
+        "Veille concurrentielle",
+        "ce que font les concurrents, et ce qui marche chez eux",
+      ],
+    ],
+  },
+  {
+    titre: "Production",
+    themes: [
+      ["Qui produit", "dirigeant, collaborateur, prestataire, personne"],
+      ["Temps consacré par semaine"],
+      ["Moyens", "budget, outils, matériel"],
+      ["Rythme réel", "fréquence et surtout régularité"],
+      ["Réemploi du contenu", "décliné sur plusieurs canaux ou refait à zéro"],
+      ["Réserve d'avance", "du contenu prêt, ou tout dans l'urgence"],
+    ],
+  },
+  {
+    titre: "Performance",
+    themes: [
+      ["Taux d'engagement"],
+      ["Évolution de l'audience", "croissance, stagnation, érosion"],
+      ["Rendement de l'audience", "contacts générés rapportés aux abonnés"],
+      ["Contenus les plus performants"],
+      ["Écart entre ce qui marche et ce qui est publié"],
+      ["Contenus les moins performants", "ce qui est produit en vain"],
+      ["Notoriété", "on parle de l'entreprise sans qu'elle le provoque"],
+      ["Suivi des chiffres", "le dirigeant regarde-t-il ses statistiques"],
+    ],
+  },
+  {
+    titre: "Vitrines et relation",
+    themes: [
+      ["Avis clients", "volume, note, fraîcheur"],
+      ["Sollicitation d'avis", "l'entreprise demande, ou attend"],
+      [
+        "Réponse aux avis",
+        "répond-on, en combien de temps, aux négatifs comme aux positifs",
+      ],
+      ["Relation avec la communauté", "réponses aux commentaires"],
+      [
+        "Partenaires et relais",
+        "prescripteurs, autres entreprises, presse locale",
+      ],
+    ],
+  },
+  {
+    titre: "Qualité et pertinence des publications",
+    note: "L'IA lit les publications réelles et les évalue contre une grille fixe. Même post, même grille, même résultat. À vérifier au regard de CLAUDE.md section 2 (l'IA ne note pas) avant toute construction.",
+    themes: [
+      ["Accroche", "la première ligne retient-elle"],
+      ["Angle", "le post parle-t-il du client ou de l'entreprise"],
+      [
+        "Bénéfice explicite",
+        "un bénéfice concret, ou seulement une caractéristique",
+      ],
+      ["Preuve", "un chiffre, un avant-après, un témoignage"],
+      ["Appel à l'action", "le post dit-il quoi faire ensuite"],
+      [
+        "Alignement avec la cible déclarée",
+        "ce qui est publié correspond-il au thème 2",
+      ],
+    ],
+  },
+];
+
+// Parcours « mise en place » : pour le dirigeant sans présence. L'agent
+// produit un plan de démarrage, pas un diagnostic.
+export const PARCOURS_MISE_EN_PLACE = {
+  // Thèmes repris du parcours amélioration (numéros ci-dessus).
+  repris: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 14, 15, 31, 32, 44],
+  // Groupes supprimés : ils mesurent un existant qui n'existe pas.
+  groupesSupprimes: [3, 6, 8],
+  propres: [
+    ["Aisance devant la caméra", "faut-il bâtir sans le dirigeant à l'image"],
+    ["Matière disponible", "photos de réalisations, avant-après existants"],
+    ["Relais interne", "quelqu'un dans l'entreprise pourrait-il s'en charger"],
+    ["Tentatives passées", "a-t-il déjà essayé et abandonné, et pourquoi"],
+  ] as [string, string][],
+};
+
+// Thèmes qui alimentent la génération de contenu et n'ont pas besoin de seuil :
+// groupe 1 (1 à 9), lignes éditoriales (25), répartition par intention (27),
+// contenus les plus performants (39), contenus les moins performants (41), et
+// les quatre thèmes propres au parcours mise en place (55 à 58).
+export const THEMES_GENERATION = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 25, 27, 39, 41, 55, 56, 57, 58,
 ];
