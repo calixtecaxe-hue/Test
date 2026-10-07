@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { METIERS } from "@/lib/metiers";
 import { Champ, classeChamp } from "@/components/champ";
+import { ChampDate } from "@/components/champ-date";
 import { ChampNombre } from "@/components/champ-nombre";
 import { MenuDeroulant } from "@/components/menu-deroulant";
 import logo from "../../../public/logo-caxe.png";
@@ -217,12 +218,10 @@ export default function Inscription() {
           htmlFor="dateCreationEntreprise"
           erreur={erreurs.dateCreationEntreprise?.[0]}
         >
-          <input
+          <ChampDate
             id="dateCreationEntreprise"
             name="dateCreationEntreprise"
-            type="date"
             required
-            className={classeChamp}
           />
         </Champ>
 

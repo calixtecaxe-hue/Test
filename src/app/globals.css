@@ -2889,3 +2889,228 @@ h3,
     transform: translateY(0);
   }
 }
+
+/* Calendrier du champ date : même carte que le menu déroulant. */
+.date-champ {
+  position: relative;
+}
+
+.date-saisie {
+  padding-right: 52px;
+}
+
+.date-bouton {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  display: flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: var(--blue-1);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.date-bouton:hover,
+.date-bouton[aria-expanded="true"] {
+  background: rgba(91, 159, 236, 0.14);
+}
+
+.cal {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(340px, 100%);
+  box-sizing: border-box;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.7);
+  font-family: var(--corps);
+  animation: menu-ouvre 0.18s ease both;
+}
+
+.cal-tete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cal-titre {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  margin-left: -10px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-family: var(--titre);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cal-titre:hover {
+  background: rgba(91, 159, 236, 0.14);
+}
+
+.cal-titre svg {
+  color: var(--blue-1);
+}
+
+.cal-fleches {
+  display: flex;
+  gap: 6px;
+}
+
+.cal-nav {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.cal-nav:hover:not(:disabled) {
+  border-color: var(--blue-1);
+  color: var(--blue-1);
+}
+
+.cal-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.cal-semaine,
+.cal-grille {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.cal-semaine {
+  margin-top: 14px;
+  margin-bottom: 4px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.cal-jour,
+.cal-case {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--text);
+  font-family: var(--corps);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.cal-jour {
+  height: 38px;
+}
+
+.cal-jour.hors {
+  color: var(--text-faint);
+}
+
+.cal-jour:hover:not(:disabled):not(.choisi),
+.cal-case:hover:not(:disabled):not(.choisi) {
+  background: rgba(91, 159, 236, 0.14);
+}
+
+.cal-jour.aujourdhui {
+  border-color: var(--blue-1);
+  color: var(--blue-1);
+}
+
+.cal-jour:focus-visible,
+.cal-case:focus-visible,
+.cal-titre:focus-visible,
+.cal-nav:focus-visible,
+.cal-pied button:focus-visible,
+.date-bouton:focus-visible {
+  outline: 2px solid var(--blue-1);
+  outline-offset: 1px;
+}
+
+.cal-jour.choisi,
+.cal-case.choisi {
+  background: linear-gradient(100deg, var(--blue-1), var(--blue-2));
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.cal-jour:disabled,
+.cal-case:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.cal-liste {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.cal-case {
+  height: 44px;
+  text-transform: capitalize;
+}
+
+.cal-pied {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.cal-pied button {
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  color: var(--blue-1);
+  font-family: var(--corps);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cal-pied button:first-child {
+  color: var(--text-muted);
+}
+
+.cal-pied button:hover {
+  color: var(--text);
+}
