@@ -40,7 +40,8 @@ export function ChoixAgents({
   const [choisis, setChoisis] = useState<Agent["code"][]>(
     tous ? AGENTS.map((a) => a.code) : [],
   );
-  const [confirme, setConfirme] = useState(false);
+  // Formule 4 agents : tout est inclus, il n'y a rien à confirmer.
+  const [confirme, setConfirme] = useState(tous);
 
   const complet = choisis.length === offre.nombreAgents;
   const prix = annuel
@@ -101,10 +102,8 @@ export function ChoixAgents({
 
         <p className="mt-5 max-w-xl text-[var(--text-muted)]">
           {confirme
-            ? "Vous pouvez maintenant compléter votre profil, puis répondre au questionnaire de chaque agent."
-            : tous
-              ? "Les quatre agents sont inclus dans votre formule."
-              : `Votre formule comprend ${EN_LETTRES[offre.nombreAgents]} agents. Cliquez sur ceux que vous voulez ouvrir.`}
+            ? `${tous ? "Les quatre agents sont inclus dans votre formule. " : ""}Vous pouvez maintenant compléter votre profil, puis répondre au questionnaire de chaque agent.`
+            : `Votre formule comprend ${EN_LETTRES[offre.nombreAgents]} agents. Cliquez sur ceux que vous voulez ouvrir.`}
         </p>
       </div>
 
@@ -175,22 +174,17 @@ export function ChoixAgents({
           </>
         ) : (
           <>
-            {!tous ? (
-              <p
-                className="text-sm text-[var(--text-muted)]"
-                aria-live="polite"
-              >
-                {choisis.length} sur {offre.nombreAgents} agents choisis
-                {complet ? ". Retirez-en un pour en changer." : "."}
-              </p>
-            ) : null}
+            <p className="text-sm text-[var(--text-muted)]" aria-live="polite">
+              {choisis.length} sur {offre.nombreAgents} agents choisis
+              {complet ? ". Retirez-en un pour en changer." : "."}
+            </p>
             <button
               type="button"
               disabled={!complet}
               onClick={() => setConfirme(true)}
               className="bouton-eclat inline-flex items-center justify-center rounded-[4px] border border-transparent bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-6 py-3 text-sm font-medium text-[var(--bg)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:brightness-100"
             >
-              {tous ? "Ouvrir mes agents" : "Confirmer mes agents"}
+              Confirmer mes agents
             </button>
           </>
         )}
