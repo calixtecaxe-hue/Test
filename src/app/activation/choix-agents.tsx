@@ -149,12 +149,30 @@ export function ChoixAgents({
 
       <div className="mt-10 flex flex-col items-center gap-4 text-center">
         {confirme ? (
-          <Link
-            href="/inscription"
-            className="bouton-eclat inline-flex items-center justify-center rounded-[4px] border border-transparent bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-6 py-3 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
-          >
-            Compléter mon profil
-          </Link>
+          <>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/inscription"
+                className="bouton-eclat inline-flex items-center justify-center rounded-[4px] border border-transparent bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-6 py-3 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
+              >
+                Compléter mon profil
+              </Link>
+              {tous ? null : (
+                <button
+                  type="button"
+                  onClick={() => setConfirme(false)}
+                  className="rounded-[4px] border border-[var(--line)] px-6 py-3 text-sm font-medium text-[var(--text)] transition hover:border-[var(--blue-1)]"
+                >
+                  Modifier mes agents
+                </button>
+              )}
+            </div>
+            {tous ? null : (
+              <p className="text-sm text-[var(--text-muted)]">
+                Une erreur dans votre choix ? Vous pouvez encore le modifier.
+              </p>
+            )}
+          </>
         ) : (
           <>
             {!tous ? (
