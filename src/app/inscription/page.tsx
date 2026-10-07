@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { METIERS } from "@/lib/metiers";
 import { Champ, classeChamp } from "@/components/champ";
+import { ChampNombre } from "@/components/champ-nombre";
 import { MenuDeroulant } from "@/components/menu-deroulant";
 import logo from "../../../public/logo-caxe.png";
 
@@ -190,14 +191,11 @@ export default function Inscription() {
             aide="En euros, estimation acceptée."
             erreur={erreurs.chiffreAffairesMensuel?.[0]}
           >
-            <input
+            <ChampNombre
               id="chiffreAffairesMensuel"
               name="chiffreAffairesMensuel"
-              type="number"
-              min={0}
-              step="0.01"
+              decimales
               required
-              className={classeChamp}
             />
           </Champ>
           <Champ
@@ -206,14 +204,10 @@ export default function Inscription() {
             aide="Vous y compris."
             erreur={erreurs.nombreCollaborateurs?.[0]}
           >
-            <input
+            <ChampNombre
               id="nombreCollaborateurs"
               name="nombreCollaborateurs"
-              type="number"
-              min={0}
-              step="1"
               required
-              className={classeChamp}
             />
           </Champ>
         </div>
