@@ -31,12 +31,13 @@ export const PRESENTATIONS: Record<Agent["code"], Presentation> = {
     ],
   },
   RH_ORGANISATION: {
-    accroche: "Il lit les signaux organisationnels de votre entreprise.",
+    accroche:
+      "Il passe en revue l'organisation de votre équipe, des rôles à la charge de travail, et vous dit où agir en priorité.",
     atouts: [
-      "Repère les signaux de turnover",
-      "Mesure la charge de travail",
-      "Vérifie la clarté des rôles",
-      "Ne traite ni droit du travail ni contrats",
+      "Vérifie la clarté des rôles et des responsabilités",
+      "Mesure la charge de travail et la capacité de l'équipe",
+      "Examine vos processus et votre coordination interne",
+      "Suit les compétences, l'intégration et la stabilité de l'équipe",
     ],
   },
   COMM_CREATION: {
@@ -613,6 +614,219 @@ export const GROUPES_FINANCE: GroupeComm[] = [
       [
         "Préparation et suivi des décisions de dépenses",
         "visibilité économique avant une dépense et mesure de son effet ensuite ; l'historique des actions déjà tentées personnalise les recommandations sans entrer dans le score",
+      ],
+    ],
+  },
+];
+
+// Les 40 thèmes de l'agent RH & Organisation, en huit groupes (fournis par le
+// client), mis de côté pour un usage ultérieur. Chaque thème est
+// [titre, précision]. La numérotation suit l'ordre : groupe 1 = thèmes 1 à 5,
+// groupe 2 = 6 à 11, groupe 3 = 12 à 17, groupe 4 = 18 à 22, groupe 5 = 23 à 27,
+// groupe 6 = 28 à 31, groupe 7 = 32 à 36, groupe 8 = 37 à 40.
+// Aucune question ni aucun seuil ne sont fournis à ce stade : à marquer comme
+// manquants le moment venu (CLAUDE.md section 14).
+// À valider avant construction : les groupes 5 à 8 (compétences, recrutement,
+// stabilité, continuité) dépassent les trois signaux de CLAUDE.md section 3
+// (turnover, charge, clarté des rôles).
+export const GROUPES_RH: GroupeComm[] = [
+  {
+    titre: "Rôles, responsabilités et délégation",
+    themes: [
+      [
+        "Clarté des missions et des attentes",
+        "ce que chaque fonction est censée réaliser et les résultats opérationnels attendus, avec des repères adaptés à la taille de l'entreprise",
+      ],
+      [
+        "Répartition des responsabilités",
+        "identification de qui prend en charge chaque activité, des tâches sans responsable et des responsabilités qui se chevauchent",
+      ],
+      [
+        "Périmètre de décision et autonomie",
+        "décisions que les collaborateurs peuvent prendre et situations qui nécessitent une validation, sans examiner les pouvoirs juridiques",
+      ],
+      [
+        "Délégation effective",
+        "tâches réellement confiées, moyens transmis et fréquence des reprises de travail ou validations qui empêchent la délégation de fonctionner",
+      ],
+      [
+        "Répartition du temps du dirigeant",
+        "place des tâches opérationnelles, administratives, de coordination et de pilotage dans son activité, et tâches qu'il conserve faute de relais",
+      ],
+    ],
+  },
+  {
+    titre: "Charge de travail, capacité et planification",
+    themes: [
+      [
+        "Volume de travail et engagements à tenir",
+        "demandes en cours, échéances, retards et tâches reportées ; la comparaison entre ce qui est demandé et ce qui peut être réalisé distingue objectifs et activité réelle",
+      ],
+      [
+        "Capacité réellement disponible",
+        "temps mobilisable pour les tâches, compte tenu des réunions, déplacements, apprentissages, absences et autres activités nécessaires ; les durées observées ne servent pas à contrôler la conformité au droit du travail",
+      ],
+      [
+        "Répartition de la charge",
+        "concentration des tâches, équipes régulièrement surchargées et disponibilités inutilisées, en tenant compte des compétences nécessaires",
+      ],
+      [
+        "Planification et traitement des urgences",
+        "visibilité du planning, changements tardifs, méthode de priorisation et effet des demandes imprévues",
+      ],
+      [
+        "Interruptions et dispersion",
+        "sollicitations fréquentes, changements de tâche, temps de coordination et travail repris après interruption",
+      ],
+      [
+        "Anticipation des pics et creux d'activité",
+        "organisation des ressources face à la saisonnalité et aux variations connues, sans décider des modalités contractuelles de renfort",
+      ],
+    ],
+  },
+  {
+    titre: "Processus, outils et coordination",
+    themes: [
+      [
+        "Méthodes de travail reproductibles",
+        "repères, consignes et documentation réellement utilisés pour les activités importantes ; une petite équipe n'a pas automatiquement besoin de procédures lourdes",
+      ],
+      [
+        "Passage de relais entre intervenants",
+        "informations nécessaires au suivant, responsabilité de transmission et tâches qui se bloquent entre deux étapes",
+      ],
+      [
+        "Disponibilité de l'information",
+        "facilité à retrouver les informations utiles, existence d'une version à jour et diffusion des changements importants",
+      ],
+      [
+        "Usage des outils de travail",
+        "accès aux outils, maîtrise de leur usage et difficultés qui ralentissent le travail ; le thème traite l'organisation de leur utilisation, pas un audit technique",
+      ],
+      [
+        "Erreurs, doublons et reprises",
+        "fréquence des tâches refaites, oublis et traitements en double, avec leurs circonstances organisationnelles ; leur coût financier est traité par Finance",
+      ],
+      [
+        "Tâches répétitives et simplification",
+        "temps absorbé par les ressaisies, validations inutiles ou étapes évitables, et possibilités de simplifier l'enchaînement du travail",
+      ],
+    ],
+  },
+  {
+    titre: "Management et communication interne",
+    themes: [
+      [
+        "Priorités et objectifs opérationnels",
+        "compréhension des priorités actuelles, arbitrage entre demandes concurrentes et évolution des objectifs lorsque le contexte change",
+      ],
+      [
+        "Échanges individuels et collectifs",
+        "existence et utilité des moments de coordination, décisions qui en sortent et temps qu'ils mobilisent",
+      ],
+      [
+        "Retours sur le travail réalisé",
+        "précision et régularité des retours, compréhension des attentes et possibilité de discuter des difficultés concrètes",
+      ],
+      [
+        "Soutien et disponibilité du responsable",
+        "possibilité d'obtenir une réponse ou un arbitrage quand une difficulté empêche d'avancer",
+      ],
+      [
+        "Participation à l'amélioration du travail",
+        "remontée des idées de terrain, traitement des suggestions et participation des personnes concernées aux changements d'organisation",
+      ],
+    ],
+  },
+  {
+    titre: "Compétences, formation et polyvalence",
+    themes: [
+      [
+        "Couverture des compétences nécessaires",
+        "savoir-faire requis pour les activités de l'entreprise et ressources capables de les réaliser, à un niveau collectif",
+      ],
+      [
+        "Besoins de développement des compétences",
+        "difficultés observées dans le travail, nouvelles tâches à maîtriser et écarts identifiés avec des éléments concrets",
+      ],
+      [
+        "Organisation de l'apprentissage",
+        "temps, accompagnement et occasions de pratique disponibles pour apprendre ; le thème ne vérifie pas les obligations légales de formation",
+      ],
+      [
+        "Application des compétences acquises",
+        "usage réel des apprentissages, progression dans les tâches et effets constatés, sans assimiler heures de formation et maîtrise effective",
+      ],
+      [
+        "Transmission et polyvalence",
+        "partage des savoir-faire, accompagnement entre collègues et capacité de plusieurs personnes à réaliser les tâches clés",
+      ],
+    ],
+  },
+  {
+    titre: "Recrutement et intégration",
+    themes: [
+      [
+        "Anticipation des besoins de ressources",
+        "tâches à couvrir, compétences manquantes et évolution de la charge ; examiner aussi la redistribution, la simplification ou la formation avant de conclure à un recrutement",
+      ],
+      [
+        "Définition du besoin et méthode de recrutement",
+        "clarté des missions recherchées, compétences liées au travail et éléments concrets utilisés pour vérifier leur adéquation ; aucun classement automatisé de candidats ni choix de contrat",
+      ],
+      [
+        "Préparation et parcours d'intégration",
+        "moyens disponibles à l'arrivée, personne d'accueil, repères de travail, accompagnement et premières étapes ; France Travail recommande notamment de préparer les moyens matériels, l'accompagnement et les tâches des premières semaines",
+      ],
+      [
+        "Progression vers l'autonomie",
+        "tâches progressivement maîtrisées, points de suivi et difficultés remontées pendant l'intégration ; la durée dépend du métier, des missions et de l'expérience, sans seuil universel à ce stade",
+      ],
+    ],
+  },
+  {
+    titre: "Stabilité, reconnaissance et retours de l'équipe",
+    themes: [
+      [
+        "Mouvements de l'équipe et turnover",
+        "arrivées et départs sur une période définie, avec un périmètre d'effectif cohérent ; le chiffre est un signal de contexte : il ne prouve pas à lui seul un problème de management",
+      ],
+      [
+        "Motifs exprimés et départs précoces",
+        "informations effectivement recueillies lors des départs et retours sur les difficultés de prise de poste ; l'agent ne devine pas les intentions ni les motifs non exprimés",
+      ],
+      [
+        "Absences et effets sur l'organisation",
+        "perturbations des plannings, tâches reportées et moyens de couvrir l'activité, à partir de données agrégées, sans collecte de motifs médicaux ni jugement sur les personnes absentes",
+      ],
+      [
+        "Retours sur les conditions de réalisation du travail",
+        "difficultés remontées concernant la charge, les moyens, la coopération ou la clarté des demandes ; le ressenti rapporté par le dirigeant reste distinct d'un retour direct de l'équipe ; l'Anact distingue la charge prescrite, réelle et subjective",
+      ],
+      [
+        "Reconnaissance et engagement exprimé",
+        "pratiques de reconnaissance du travail et attentes réellement formulées par l'équipe ; l'agent ne déduit pas une motivation collective d'une simple impression du dirigeant",
+      ],
+    ],
+  },
+  {
+    titre: "Continuité de l'activité et pilotage de l'organisation",
+    themes: [
+      [
+        "Dépendance aux personnes clés",
+        "activités, informations ou savoir-faire accessibles à une seule personne et existence d'un relais possible ; la transmission de compétences relève du groupe 5, ce thème mesure la continuité permise par cette transmission",
+      ],
+      [
+        "Fonctionnement en cas d'absence du dirigeant",
+        "décisions, tâches et activités qui restent possibles ou se bloquent, avec les relais déjà prévus ; une entreprise individuelle n'est pas automatiquement mal organisée parce que son activité dépend de son dirigeant",
+      ],
+      [
+        "Préparation des changements d'organisation",
+        "effets anticipés d'une hausse d'activité, d'un nouveau site, d'une nouvelle offre ou d'un changement d'équipe sur les rôles, la charge et la coordination",
+      ],
+      [
+        "Indicateurs et suivi des décisions d'organisation",
+        "informations utilisées pour suivre les retards, les reprises, la charge ou l'intégration ; mise à jour et mesure des effets des décisions ; l'historique des actions déjà tentées personnalise les recommandations sans entrer dans le score",
       ],
     ],
   },
