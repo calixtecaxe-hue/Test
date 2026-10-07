@@ -22,12 +22,12 @@ export const PRESENTATIONS: Record<Agent["code"], Presentation> = {
   },
   FINANCE_RENTABILITE: {
     accroche:
-      "Il lit la santé opérationnelle de votre entreprise à partir des ratios que vous déclarez.",
+      "Il passe en revue la santé financière de votre entreprise, des marges à la trésorerie, et vous dit où agir en priorité.",
     atouts: [
-      "Suit votre marge",
-      "Surveille votre trésorerie",
-      "Analyse votre structure de coûts",
-      "Ne traite ni fiscalité ni comptabilité",
+      "Mesure vos marges et votre rentabilité",
+      "Analyse vos coûts et vos dépenses récurrentes",
+      "Suit votre trésorerie et vos encaissements",
+      "Évalue vos financements et vos investissements",
     ],
   },
   RH_ORGANISATION: {
@@ -407,4 +407,213 @@ export const PARCOURS_MISE_EN_PLACE = {
 // les quatre thèmes propres au parcours mise en place (55 à 58).
 export const THEMES_GENERATION = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 25, 27, 39, 41, 55, 56, 57, 58,
+];
+
+// Les 40 thèmes de l'agent Finance & Rentabilité, en huit groupes (fournis par
+// le client), mis de côté pour un usage ultérieur. Chaque thème est
+// [titre, précision]. La numérotation suit l'ordre : groupe 1 = thèmes 1 à 7, etc.
+// Aucune question ni aucun seuil ne sont fournis à ce stade : à marquer comme
+// manquants le moment venu (CLAUDE.md section 14).
+export const GROUPES_FINANCE: GroupeComm[] = [
+  {
+    titre: "Marges et rentabilité",
+    themes: [
+      [
+        "Rentabilité opérationnelle globale",
+        "ce que l'activité conserve après les coûts retenus dans une définition explicite, sur une période commune ; à distinguer des mouvements bancaires et du résultat fiscal",
+      ],
+      [
+        "Coûts directs et coût de revient",
+        "dépenses nécessaires à la réalisation d'une vente ou d'une prestation, avec une méthode claire pour les coûts partagés",
+      ],
+      [
+        "Marge par offre ou activité",
+        "contribution des différentes familles de produits, prestations ou activités, et éventuelles activités déficitaires",
+      ],
+      [
+        "Rentabilité par type de client ou d'affaire",
+        "effet des coûts spécifiques, du temps consacré et des dépenses de service sur la marge réellement conservée",
+      ],
+      [
+        "Temps consommé et rentabilité des prestations",
+        "écart entre le temps prévu et le temps réellement consacré, traduit en coût lorsque les données le permettent",
+      ],
+      [
+        "Évolution et érosion des marges",
+        "variation de la marge dans le temps et effets des variations de coûts, des remises déjà pratiquées ou du mélange d'activités",
+      ],
+      [
+        "Niveau d'activité nécessaire à l'équilibre",
+        "chiffre d'affaires nécessaire pour couvrir les coûts selon un modèle documenté, puis écart avec l'activité observée ; le seuil de rentabilité est un indicateur de gestion, distinct du compte de résultat",
+      ],
+    ],
+  },
+  {
+    titre: "Structure et maîtrise des coûts",
+    themes: [
+      [
+        "Poids des charges fixes",
+        "dépenses qui persistent lorsque l'activité diminue, et évolution de leur poids dans l'entreprise",
+      ],
+      [
+        "Poids des charges variables",
+        "dépenses qui accompagnent les ventes ou la production, avec identification des dépenses mixtes lorsque nécessaire",
+      ],
+      [
+        "Coût financier de l'équipe",
+        "montants déclarés des salaires, commissions, prestations et rémunérations déjà versées ou prévues ; le dimensionnement des équipes et l'organisation du travail relèvent de RH",
+      ],
+      [
+        "Achats, fournisseurs et sous-traitance",
+        "poids des dépenses, évolution des coûts unitaires et suivi économique des prestations achetées",
+      ],
+      [
+        "Utilisation des dépenses récurrentes",
+        "usage réel des abonnements, logiciels, locaux et équipements payants, et dépenses redondantes ou inutilisées",
+      ],
+      [
+        "Coûts des erreurs et reprises",
+        "gaspillage, produits perdus, prestations à refaire, remboursements commerciaux et autres pertes opérationnelles mesurables",
+      ],
+    ],
+  },
+  {
+    titre: "Trésorerie et visibilité",
+    themes: [
+      [
+        "Trésorerie propre disponible",
+        "argent effectivement mobilisable par l'entreprise ; les fonds détenus pour le compte de clients et les montants bloqués sont distingués des ressources propres disponibles",
+      ],
+      [
+        "Évolution des flux de trésorerie",
+        "encaissements et décaissements observés, évolution du solde et distinction des entrées exceptionnelles de financement",
+      ],
+      [
+        "Dépenses et échéances à venir",
+        "visibilité sur les engagements et paiements déjà identifiés, avec leurs dates",
+      ],
+      [
+        "Saisonnalité financière",
+        "périodes d'activité faible ou de dépenses concentrées, et couverture prévue des creux de trésorerie",
+      ],
+      [
+        "Réserve et marge de sécurité",
+        "capacité à absorber un décalage ou une dépense imprévue selon les paiements à venir ; aucun nombre universel de mois de réserve n'est posé à ce stade",
+      ],
+    ],
+  },
+  {
+    titre: "Encaissements, décaissements et cycle d'exploitation",
+    themes: [
+      [
+        "Délai avant facturation",
+        "temps entre l'événement autorisant la facturation dans le métier et l'émission effective de la facture",
+      ],
+      [
+        "Délai d'encaissement des clients",
+        "temps entre la facturation et le paiement, lorsque cet indicateur est pertinent pour l'activité",
+      ],
+      [
+        "Retards de paiement et sommes non encaissées",
+        "montants, ancienneté et organisation des relances ; les démarches contentieuses restent hors périmètre",
+      ],
+      [
+        "Avances et acomptes adaptés au métier",
+        "place des versements déjà pratiqués dans le financement des dépenses avant livraison ou réalisation ; l'agent n'invente pas leur admissibilité juridique",
+      ],
+      [
+        "Calendrier des paiements fournisseurs",
+        "échéances convenues, respect des paiements et décalage avec les entrées d'argent ; un retard subi n'est pas présenté comme une amélioration financière",
+      ],
+      [
+        "Argent immobilisé dans l'exploitation",
+        "stocks, travaux en cours ou dépenses engagées avant l'encaissement, selon le métier ; le besoin en fonds de roulement décrit les ressources nécessaires au financement de ces décalages",
+      ],
+    ],
+  },
+  {
+    titre: "Financement et remboursements",
+    themes: [
+      [
+        "Poids des remboursements",
+        "calendrier et montants des remboursements déjà engagés, rapprochés des ressources disponibles ; distinguer remboursement du capital et dépenses d'intérêts",
+      ],
+      [
+        "Couverture des besoins identifiés",
+        "ressources confirmées, financements encore incertains et besoins qui restent à couvrir",
+      ],
+      [
+        "Dépendance aux ressources de court terme",
+        "usage récurrent d'un découvert ou d'un financement temporaire pour faire fonctionner l'activité",
+      ],
+      [
+        "Adéquation entre calendrier du besoin et des ressources",
+        "cohérence des dates de financement, de dépense et de remboursement ; la capacité de remboursement est un élément d'analyse financier, l'agent ne garantit jamais l'accord d'un prêteur",
+      ],
+    ],
+  },
+  {
+    titre: "Investissements et retour économique",
+    themes: [
+      [
+        "Objectif économique de l'investissement",
+        "gains attendus et indicateur retenu pour constater le résultat : économie de coût, temps valorisable ou capacité supplémentaire effectivement utilisée",
+      ],
+      [
+        "Coût total du projet",
+        "achat, installation, formation, temps de mise en place et coûts récurrents déjà identifiés",
+      ],
+      [
+        "Retour attendu et hypothèses",
+        "délai de récupération estimé et sensibilité aux hypothèses de gains ; les calculs sont explicites, les gains futurs ne sont jamais présentés comme garantis",
+      ],
+      [
+        "Résultats après investissement",
+        "écart entre les coûts et gains prévus et ceux constatés, avec une période de mesure définie",
+      ],
+    ],
+  },
+  {
+    titre: "Dépendances et résistance aux imprévus",
+    note: "Les scénarios et expositions apportent du contexte. Ils ne deviennent pas automatiquement des indicateurs notés : il faut d'abord établir que l'indicateur dépend principalement de l'entreprise et définir une référence pertinente.",
+    themes: [
+      [
+        "Concentration des sommes à encaisser",
+        "exposition financière à un petit nombre de payeurs ; réutiliser les informations commerciales disponibles sans refaire l'audit de la répartition du CA",
+      ],
+      [
+        "Dépendance à des dépenses ou fournisseurs majeurs",
+        "part des coûts exposée à une hausse ou à la perte d'un fournisseur clé",
+      ],
+      [
+        "Sensibilité à un scénario défavorable",
+        "effet calculé d'une baisse d'activité, d'une hausse de coûts ou d'un paiement décalé, sur des hypothèses explicites et communes",
+      ],
+      [
+        "Besoin financier lié à la croissance",
+        "dépenses supplémentaires et ressources à avancer avant de bénéficier des encaissements supplémentaires",
+      ],
+    ],
+  },
+  {
+    titre: "Pilotage et décisions financières",
+    themes: [
+      [
+        "Disponibilité et précision des données de gestion",
+        "origine, période et caractère exact ou estimé des informations utilisées, avec visibilité sur les données manquantes",
+      ],
+      [
+        "Tableau de suivi financier",
+        "indicateurs effectivement suivis, rythme de mise à jour et capacité à repérer une dérive",
+      ],
+      [
+        "Budgets, prévisions et écarts",
+        "comparaison entre dépenses, marges et flux prévus et constatés ; explication des écarts documentés",
+      ],
+      [
+        "Préparation et suivi des décisions de dépenses",
+        "visibilité économique avant une dépense et mesure de son effet ensuite ; l'historique des actions déjà tentées personnalise les recommandations sans entrer dans le score",
+      ],
+    ],
+  },
 ];
