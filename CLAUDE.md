@@ -5,12 +5,35 @@ modification. Si une demande contredit ce fichier, signale-le avant d'exécuter.
 
 ---
 
+## 0. Décision produit du 8 octobre : plus de score global sur 100
+
+- **Il n'y a plus de score global sur 100.** Il posait de trop gros problèmes.
+  Aucun chiffre sur 100 n'apparaît sur le site.
+- **Objectif chiffré saisi à l'inscription** par le dirigeant (par exemple
+  +15 % de CA sur 12 mois).
+- Le diagnostic lui montre les **leviers qui le séparent de cet objectif,
+  classés par impact**.
+- **Le chiffre principal est l'avancement vers l'objectif** (par exemple
+  « +6 % atteints sur +15 % »).
+- **Le vert / orange / rouge est conservé par thème.**
+- **Le détail du calcul arrivera plus tard. D'ici là, ne pas modifier le moteur
+  de scoring ni le modèle de données.** Pour l'instant, cette décision ne
+  touche que les textes et les visuels du site.
+
+Là où les sections 1, 7 et 9 parlent de score global ou de score sur 100, cette
+décision prime pour l'affichage. Le principe de la section 2 est inchangé :
+l'IA ne calcule rien et ne juge rien.
+
+---
+
 ## 1. Ce qu'est CAXE
 
 CAXE est une plateforme web d'auto-audit d'entreprise par abonnement.
 
-Un dirigeant de PME s'inscrit, répond à un questionnaire conçu pour son métier,
-et reçoit un score sur 100 accompagné d'un plan d'action concret. Il revient
+Un dirigeant de PME s'inscrit, fixe un objectif chiffré, répond à un
+questionnaire conçu pour son métier, et reçoit les leviers qui le séparent de
+cet objectif, classés par impact, accompagnés d'un plan d'action concret (voir
+la section 0). Il revient
 ensuite au rythme de ses actions : **la fréquence de retour n'est pas fixe, elle
 dépend de la nature de chaque action.** Une action rapide déclenche un retour
 sous quelques jours, une action longue ou qui demande d'être testée déclenche un
@@ -222,6 +245,10 @@ ville déclarée, pas une moyenne nationale.
 
 ### Agrégation
 
+> Décision du 8 octobre (section 0) : le score global sur 100 n'est plus
+> affiché. Le calcul ci-dessous reste celui du moteur actuel, à ne pas modifier
+> tant que le nouveau détail de calcul n'est pas fourni.
+
 Chaque indicateur vaut 0 si rouge, 50 si orange, 100 si vert. Le score d'une
 partie est la moyenne de ses indicateurs notés. Le score global est la moyenne
 des indicateurs notés.
@@ -312,8 +339,9 @@ un ratio rapporté au nombre de collaborateurs, ou un croisement à deux entrée
    si on s'éloigne de 100.
 3. **Moteur de scoring** — en code, testable unitairement. Il doit être possible
    de lui donner un jeu de réponses et de vérifier le résultat attendu.
-4. **Rapport** — score global, score par partie, indicateurs classés en rouge,
-   orange et vert, indicateurs calculés. Le texte de restitution sera rédigé par
+4. **Rapport** — objectif du dirigeant, avancement vers cet objectif, leviers
+   classés par impact (section 0), indicateurs classés en rouge, orange et vert
+   par thème, indicateurs calculés. Le texte de restitution sera rédigé par
    appel à un modèle, à partir des scores déjà calculés.
 5. **Plan d'action** — les actions issues des indicateurs faibles, avec un statut
    modifiable par le dirigeant (à faire, en cours, fait).

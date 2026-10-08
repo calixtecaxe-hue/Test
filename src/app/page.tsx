@@ -16,9 +16,9 @@ const etapes = [
     vx: 18,
     vy: 8,
     cote: "droite",
-    titre: "Un questionnaire conçu sur mesure",
+    titre: "Fixez votre objectif",
     texte:
-      "Répondez à un questionnaire adapté à votre secteur d'activité et à votre situation (chiffre d'affaires, nombre de collaborateurs, localisation, etc.).",
+      "Fixez votre objectif chiffré, puis répondez à un questionnaire pensé pour votre secteur.",
   },
   {
     numero: "02",
@@ -26,9 +26,9 @@ const etapes = [
     vx: 82,
     vy: 50,
     cote: "gauche",
-    titre: "Un score sur 100",
+    titre: "Vos leviers, classés par impact",
     texte:
-      "Un score sur 100 vous est donné. Il vous situe sur cette échelle, et une stratégie est dressée en fonction de votre résultat.",
+      "Vous recevez les leviers qui vous séparent de votre objectif, classés par impact.",
   },
   {
     numero: "03",
@@ -36,9 +36,9 @@ const etapes = [
     vx: 18,
     vy: 92,
     cote: "droite",
-    titre: "Mettez en place votre stratégie personnalisée",
+    titre: "Votre plan d'action et son suivi",
     texte:
-      "Vous déployez la stratégie conçue pour votre entreprise, et nous suivons vos avancées pour vous réorienter si nécessaire.",
+      "Un plan d'action vous est donné, avec un suivi régulier de votre progression.",
   },
 ] as const;
 

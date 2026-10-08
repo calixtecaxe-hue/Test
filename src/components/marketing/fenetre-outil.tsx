@@ -8,6 +8,13 @@ import demo from "@/lib/demo-outil.json";
 
 type DemoAgent = {
   accueil: string;
+  objectif: {
+    titre: string;
+    signe: string;
+    atteint: number;
+    cible: number;
+    leviers: { nom: string; statut: string; potentiel: string }[];
+  };
   questions: { libelle: string; reponse: string; statut: string; options: string[] }[];
   libre: { libelle: string; reponse: string };
   parties: { nom: string; nomIndicateur: string; lecture: string; valeur?: string }[];
@@ -70,11 +77,6 @@ const NB_QUESTIONS = 4; // trois questions fermées et une précision facultativ
 // questionnaire n'est que le point de départ du compte rendu et du suivi.
 const PARCOURS = ["Inscription", "Questionnaire", "Compte rendu", "Suivi"];
 
-// Règle d'agrégation du produit (CLAUDE.md section 7) : vert 100, orange 50,
-// rouge 0 ; le score est la moyenne des indicateurs notés, les indicateurs
-// informatifs n'y entrent pas.
-const NOTE: Record<string, number> = { Vert: 100, Orange: 50, Rouge: 0 };
-
 const COULEUR_STATUT: Record<string, string> = {
   Vert: "#6fcf97",
   Orange: "var(--amber-1)",
@@ -97,16 +99,6 @@ function useMouvementReduit(): boolean {
   );
 }
 
-function notesDe(code: string): number[] {
-  return DEMO_AGENTS[code].questions.flatMap((q) =>
-    q.statut in NOTE ? [NOTE[q.statut]] : []
-  );
-}
-
-function moyenne(notes: number[]): number {
-  return notes.length ? Math.round(notes.reduce((a, b) => a + b, 0) / notes.length) : 0;
-}
-
 // Conversation complète d'un agent : sert de rendu direct quand les
 // animations sont réduites.
 function filComplet(code: string): Bloc[] {
@@ -122,33 +114,49 @@ function filComplet(code: string): Bloc[] {
   return fil;
 }
 
-// Le score monte de 0 à sa valeur ; remonté à chaque affichage (clé), il
-// repart de zéro sans effet de synchronisation.
-function Score({ cible, reduit }: { cible: number; reduit: boolean }) {
-  const [valeur, setValeur] = useState(reduit ? cible : 0);
+// L'avancement vers l'objectif monte de 0 à sa valeur ; remonté à chaque
+// affichage (clé), il repart de zéro sans effet de synchronisation.
+function Avancement({
+  objectif,
+  reduit,
+}: {
+  objectif: DemoAgent["objectif"];
+  reduit: boolean;
+}) {
+  const [valeur, setValeur] = useState(reduit ? objectif.atteint : 0);
 
   useEffect(() => {
     if (reduit) return;
     const minuteur = setInterval(() => {
       setValeur((v) => {
-        if (v >= cible) {
+        if (v >= objectif.atteint) {
           clearInterval(minuteur);
-          return cible;
+          return objectif.atteint;
         }
-        return Math.min(cible, v + Math.max(1, Math.round(cible / 22)));
+        return v + 1;
       });
-    }, 45);
+    }, 110);
     return () => clearInterval(minuteur);
-  }, [cible, reduit]);
+  }, [objectif.atteint, reduit]);
 
   return (
     <>
-      <p className="flex items-baseline gap-2">
-        <span className="font-[family-name:var(--titre)] text-5xl font-bold">{valeur}</span>
-        <span className="text-[var(--text-muted)]">/ 100</span>
+      <p className="demo-avancement">
+        <span className="demo-avancement-valeur">
+          {objectif.signe}
+          {valeur}&nbsp;%
+        </span>
+        <span className="demo-avancement-texte">
+          atteints sur {objectif.signe}
+          {objectif.cible}&nbsp;%
+        </span>
       </p>
-      <div className="fenetre-barre">
-        <div style={{ width: `${valeur}%` }} />
+      <div
+        className="fenetre-barre"
+        role="img"
+        aria-label={`${objectif.signe}${objectif.atteint} % atteints sur ${objectif.signe}${objectif.cible} %`}
+      >
+        <div style={{ width: `${(valeur / objectif.cible) * 100}%` }} />
       </div>
     </>
   );
@@ -212,8 +220,6 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
   const couleur = couleurAgent[agent.couleur];
   const donnees = DEMO_AGENTS[agent.code];
   const affiche: Bloc[] = reduit ? filComplet(agent.code) : fil;
-  const notes = notesDe(agent.code);
-  const score = moyenne(notes);
   const etapeParcours = reduit ? 3 : parcours;
 
   function choisirAgent(index: number) {
@@ -426,7 +432,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
     }
 
     // Rappel puis suivi : cinq jours plus tard, une notification arrive ; pour
-    // chaque objectif, atteint ou non ; si non, la personne choisit pourquoi
+    // chaque action, réalisée ou non ; si non, la personne choisit pourquoi
     // et précise ; l'agent en tient compte et propose un nouvel axe.
     async function pointEtape(d: DemoAgent) {
       const { nonAtteinte, raison: motif, precision } = d.point;
@@ -454,7 +460,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       setSuivi(SUIVI_VIDE);
       setVue("suivi");
       await zoomSur(null);
-      dire("Pour chaque objectif : atteint, oui ou non ?");
+      dire("Pour chaque action : réalisée, oui ou non ?");
       await pause(900);
 
       for (let k = 0; k < d.actions.length; k++) {
@@ -594,7 +600,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         await pause(q < 2 ? 450 : 700);
       }
       rythme(base);
-      dire("Une précision libre, facultative : elle n'entre pas dans le score.");
+      dire("Une précision libre, facultative : elle n'entre pas dans le calcul.");
       await zoomSur("question-3", 1.3);
       await deplacer("libre", 0.15);
       await cliquer();
@@ -623,13 +629,16 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       setPhase("fini");
 
       ajouter({ t: "synthese" });
-      dire("Votre score sur 100, calculé à partir de seuils fixes, et sa lecture.");
+      dire("Votre objectif, votre avancement et les leviers qui vous en séparent.");
       await pause(700);
-      await zoomSur("score", 1.35, 0.2);
+      // Sur petit écran le bloc tient déjà dans le cadre : pas de zoom.
+      if (!window.matchMedia("(max-width: 639px)").matches) {
+        await zoomSur("objectif", 1.35, 0.2);
+      }
       await pause(2800);
       await zoomSur(null);
       ajouter({ t: "parties" });
-      dire("Le détail par partie : un statut et une note pour chaque indicateur.");
+      dire("Le détail par thème : un statut vert, orange ou rouge pour chacun.");
       rythme(0.35, true);
       await pause(4000);
       if (d.propositions) {
@@ -639,7 +648,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       }
       rythme(base);
       ajouter({ t: "actions" });
-      dire("Votre plan d'action : des objectifs concrets à mettre en place.");
+      dire("Votre plan d'action : des actions concrètes à mettre en place.");
       await pause(600);
       // Le plan : d'abord les actions (à gauche), puis, d'un glissé de caméra,
       // l'échéance de retour de chacune (à droite).
@@ -703,7 +712,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
   const classeSurvol = (nom: string) => (survol === nom ? "survol" : "");
 
   // Questionnaire pré-écrit : mêmes questions pour tous, réponses fermées
-  // qui alimentent le score, une précision libre facultative qui sert
+  // qui alimentent le calcul, une précision libre facultative qui sert
   // seulement à rédiger le compte rendu. Chaque question peut être passée.
   function rendreQuestionnaire(
     reponses: Record<number, number>,
@@ -753,7 +762,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
           </p>
           <p className="demo-note demo-note-libre">
             Facultatif. Cette précision aide à rédiger le compte rendu ; elle n&apos;entre pas dans
-            le score.
+            le calcul.
           </p>
           <span className={`demo-champ demo-libre ${actif ? "plein" : ""}`} data-cible="libre">
             {libre ? (
@@ -787,7 +796,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         <div className="demo-suivi-tete">
         <p className="msg-titre">Suivi · {agent.nom}</p>
         <ol className="demo-mini-etapes">
-          {["Objectif atteint ?", "Pourquoi", "Nouvel axe"].map((l, k) => (
+          {["Action réalisée ?", "Pourquoi", "Nouvel axe"].map((l, k) => (
             <li key={l} className={`${k + 1 === etape ? "actif" : ""} ${k + 1 < etape ? "fait" : ""}`}>
               <span>{k + 1 < etape ? "✓" : k + 1}</span>
               {l}
@@ -795,12 +804,12 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
           ))}
         </ol>
         <p className="demo-compteur">
-          Objectifs atteints : {e.oui.length} sur {total}
+          Actions réalisées : {e.oui.length} sur {total}
           {e.axe ? " · 1 réajusté" : ""}
         </p>
         </div>
         <p className="demo-sous-titre demo-suivi-consigne">
-          Point d&apos;étape, 5 jours plus tard. Pour chaque objectif, indiquez s&apos;il est atteint.
+          Point d&apos;étape, 5 jours plus tard. Pour chaque action, indiquez si elle est réalisée.
         </p>
         <ul className="demo-objectifs">
           {donnees.actions.map((a, k) => {
@@ -811,7 +820,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
                 <div className="demo-obj-ligne">
                   <span className="demo-q-num">{k + 1}</span>
                   <span className="demo-obj-texte">
-                    <b>Objectif {k + 1}.</b> {a.texte}
+                    <b>Action {k + 1}.</b> {a.texte}
                   </span>
                   <span className="demo-choix">
                     <span
@@ -831,7 +840,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
                 {oui ? <p className="demo-parfait">Parfait.</p> : null}
                 {non ? (
                   <div className="demo-pourquoi" data-cible="pourquoi">
-                    <p className="demo-pourquoi-titre">Pourquoi cet objectif n&apos;est-il pas atteint ?</p>
+                    <p className="demo-pourquoi-titre">Pourquoi cette action n&apos;est-elle pas réalisée ?</p>
                     <div className="demo-options demo-options-plein">
                       {RAISONS.map((r, j) => (
                         <span
@@ -960,6 +969,10 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
                   <span className="v">{ligne.valeur}</span>
                 </div>
               ))}
+              <div className="demo-ligne">
+                <span className="l">Objectif</span>
+                <span className="v">{donnees.objectif.titre}</span>
+              </div>
             </div>
           </div>
         );
@@ -968,12 +981,36 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
           <div key={i} className="msg msg-carte msg-cle">
             <p className="msg-titre msg-titre-grand">Votre compte rendu</p>
             <p className="demo-sous-titre">{agent.nom}</p>
-            {donnees.propositions ? null : (
-              <div className="demo-score" data-cible="score">
-                <Score key={`score-${indexAgent}`} cible={score} reduit={reduit} />
-                <p className="demo-note">Score calculé à partir de seuils fixes.</p>
-              </div>
-            )}
+            <div className="demo-objectif" data-cible="objectif">
+              <p className="demo-objectif-etiquette">Votre objectif</p>
+              <p className="demo-objectif-titre">{donnees.objectif.titre}</p>
+              <Avancement
+                key={`avancement-${indexAgent}`}
+                objectif={donnees.objectif}
+                reduit={reduit}
+              />
+              <p className="demo-objectif-etiquette demo-leviers-titre">
+                Leviers, classés par impact
+              </p>
+              <ol className="demo-leviers">
+                {donnees.objectif.leviers.map((l, k) => (
+                  <li key={l.nom}>
+                    <span className="demo-levier-rang">{k + 1}</span>
+                    <span className="demo-levier-nom">{l.nom}</span>
+                    <span className="fenetre-statut">
+                      <span
+                        className="fenetre-point"
+                        style={{ background: COULEUR_STATUT[l.statut] }}
+                      />
+                      {l.statut}
+                    </span>
+                    <span className="demo-levier-potentiel">
+                      Potentiel : {l.potentiel}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
             {donnees.synthese.map((p) => (
               <p key={p} className="demo-paragraphe">
                 {p}
@@ -1005,21 +1042,10 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
                             className="fenetre-point"
                             style={{ background: COULEUR_STATUT[statut] }}
                           />
-                          {statut} · {NOTE[statut]}
+                          {statut}
                         </span>
                       )}
                     </div>
-                    {p.valeur ? null : (
-                      <div className="demo-partie-barre">
-                        <div
-                          style={{
-                            width: `${NOTE[statut]}%`,
-                            background: COULEUR_STATUT[statut],
-                            animationDelay: `${k * 150}ms`,
-                          }}
-                        />
-                      </div>
-                    )}
                     <p className="demo-partie-lecture">
                       <b>{p.nomIndicateur}.</b> {p.lecture}
                     </p>
@@ -1240,7 +1266,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
                   <b>CAXE</b>
                   <i>maintenant</i>
                 </span>
-                <span className="demo-notif-titre">Rappel · Où en êtes-vous de vos objectifs ?</span>
+                <span className="demo-notif-titre">Rappel · Où en êtes-vous de vos actions ?</span>
                 <span className="demo-notif-texte">{donnees.actions[0].texte}</span>
               </span>
             </div>

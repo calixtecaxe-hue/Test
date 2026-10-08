@@ -425,89 +425,6 @@ h3,
   right: 0;
 }
 
-/* Carte d'aperçu du hero : illustre le rendu du compte rendu par agent.
-   Explicitement labellisée comme exemple — les scores affichés ne sont
-   pas des résultats réels, voir agents-apercu.tsx. */
-.carte-apercu {
-  position: relative;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  padding: 28px;
-  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.7);
-}
-
-.apercu-agents {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.apercu-ligne {
-  margin: 0 -14px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  cursor: default;
-  transition: background 0.25s ease, transform 0.25s ease;
-}
-
-.apercu-ligne:hover {
-  background: rgba(244, 236, 216, 0.05);
-  transform: translateX(4px);
-}
-
-.apercu-ligne-tete {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 14px;
-}
-
-.apercu-score {
-  font-family: var(--titre);
-  font-weight: 700;
-  color: var(--text);
-  transition: transform 0.25s ease;
-}
-
-.apercu-ligne:hover .apercu-score {
-  transform: scale(1.12);
-}
-
-.apercu-barre-fond {
-  margin-top: 8px;
-  height: 6px;
-  border-radius: 3px;
-  background: rgba(244, 236, 216, 0.08);
-  overflow: hidden;
-}
-
-.apercu-barre {
-  height: 100%;
-  border-radius: 3px;
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: apercu-croitre 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-  transition: filter 0.25s ease;
-}
-
-@keyframes apercu-croitre {
-  to {
-    transform: scaleX(1);
-  }
-}
-
-.apercu-bleu:hover .apercu-barre {
-  filter: drop-shadow(0 0 8px rgba(91, 159, 236, 0.7));
-}
-.apercu-blanc:hover .apercu-barre {
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.55));
-}
-.apercu-rouge:hover .apercu-barre {
-  filter: drop-shadow(0 0 8px rgba(242, 104, 107, 0.7));
-}
-
 /* Badge de disponibilité, au-dessus du grand titre d'une page de
    présentation. Point qui pulse doucement (gelé par la règle
    prefers-reduced-motion globale en bas de fichier). */
@@ -1403,9 +1320,6 @@ h3,
   transition: width 0.3s ease;
 }
 
-.demo-score {
-  margin-bottom: 12px;
-}
 
 .demo-paragraphe {
   margin: 8px 0 0;
@@ -1463,30 +1377,6 @@ h3,
   border-radius: 50%;
 }
 
-.demo-partie-barre {
-  height: 4px;
-  margin-top: 6px;
-  overflow: hidden;
-  border-radius: 2px;
-  background: rgba(244, 236, 216, 0.1);
-}
-
-.demo-partie-barre div {
-  height: 100%;
-  min-width: 3px;
-  border-radius: 2px;
-  transform-origin: left;
-  animation: demo-barre 0.9s ease both;
-}
-
-@keyframes demo-barre {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
 
 .demo-partie-lecture {
   margin: 6px 0 0;
@@ -3113,4 +3003,109 @@ h3,
 
 .cal-pied button:hover {
   color: var(--text);
+}
+
+/* Maquette d'objectif du compte rendu : l'objectif fixé à l'inscription, la
+   jauge d'avancement (chiffre principal) et les leviers classés par impact,
+   chacun avec son statut vert, orange ou rouge. */
+.demo-objectif {
+  max-width: 620px;
+  margin-bottom: 12px;
+}
+
+.demo-objectif-etiquette {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.demo-objectif-titre {
+  margin: 4px 0 12px;
+  font-family: var(--titre);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.demo-avancement {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0;
+}
+
+.demo-avancement-valeur {
+  font-family: var(--titre);
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.demo-avancement-texte {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.demo-leviers-titre {
+  margin-top: 18px;
+}
+
+.demo-leviers {
+  display: flex;
+  margin: 8px 0 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+
+.demo-leviers li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.demo-levier-rang {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(91, 159, 236, 0.16);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--blue-1);
+}
+
+.demo-levier-nom {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.demo-levier-potentiel {
+  font-weight: 600;
+  color: var(--blue-1);
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .demo-leviers li {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .demo-levier-potentiel {
+    grid-column: 2 / -1;
+  }
 }

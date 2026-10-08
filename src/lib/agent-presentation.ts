@@ -66,7 +66,7 @@ function colonnesDiagnostic(exemple: string): Colonne[] {
         {
           titre: "Votre profil",
           texte:
-            "À l'inscription, vous indiquez votre métier, votre nombre de collaborateurs, votre zone géographique et votre chiffre d'affaires.",
+            "À l'inscription, vous indiquez votre métier, votre nombre de collaborateurs, votre zone géographique, votre chiffre d'affaires et l'objectif chiffré que vous visez.",
         },
         {
           titre: "Votre questionnaire",
@@ -103,13 +103,13 @@ function colonnesDiagnostic(exemple: string): Colonne[] {
       etiquette: "Suivi",
       lignes: [
         {
-          titre: "Un objectif daté",
-          texte: `Chaque action devient un objectif daté. Par exemple : ${exemple}`,
+          titre: "Une action datée",
+          texte: `Chaque action reçoit une date. Par exemple : ${exemple}`,
         },
         {
           titre: "Un point à la date prévue",
           texte:
-            "À la date prévue, CAXE fait le point avec vous. Si l'objectif est atteint, vous passez à la suite.",
+            "À la date prévue, CAXE fait le point avec vous. Si l'action est menée à bien, vous passez à la suite.",
         },
         {
           titre: "Une autre piste si besoin",
@@ -613,7 +613,7 @@ export const GROUPES_FINANCE: GroupeComm[] = [
       ],
       [
         "Préparation et suivi des décisions de dépenses",
-        "visibilité économique avant une dépense et mesure de son effet ensuite ; l'historique des actions déjà tentées personnalise les recommandations sans entrer dans le score",
+        "visibilité économique avant une dépense et mesure de son effet ensuite ; l'historique des actions déjà tentées personnalise les recommandations sans entrer dans le calcul",
       ],
     ],
   },
@@ -826,7 +826,7 @@ export const GROUPES_RH: GroupeComm[] = [
       ],
       [
         "Indicateurs et suivi des décisions d'organisation",
-        "informations utilisées pour suivre les retards, les reprises, la charge ou l'intégration ; mise à jour et mesure des effets des décisions ; l'historique des actions déjà tentées personnalise les recommandations sans entrer dans le score",
+        "informations utilisées pour suivre les retards, les reprises, la charge ou l'intégration ; mise à jour et mesure des effets des décisions ; l'historique des actions déjà tentées personnalise les recommandations sans entrer dans le calcul",
       ],
     ],
   },

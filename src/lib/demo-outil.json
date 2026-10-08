@@ -103,6 +103,24 @@
       "libre": {
         "libelle": "Selon vous, pourquoi certains rendez-vous ne sont-ils pas honorés ?",
         "reponse": "Les vendeurs oublient le rendez-vous."
+      },
+      "objectif": {
+        "titre": "+15 % de CA sur 12 mois",
+        "signe": "+",
+        "atteint": 6,
+        "cible": 15,
+        "leviers": [
+          {
+            "nom": "Transformation des rendez-vous",
+            "statut": "Orange",
+            "potentiel": "+5 %"
+          },
+          {
+            "nom": "Diversification des canaux",
+            "statut": "Rouge",
+            "potentiel": "+4 %"
+          }
+        ]
       }
     },
     "FINANCE_RENTABILITE": {
@@ -186,6 +204,24 @@
       "libre": {
         "libelle": "Selon vous, qu'est-ce qui pèse le plus sur votre trésorerie ?",
         "reponse": "Les délais de paiement des clients."
+      },
+      "objectif": {
+        "titre": "+5 % de trésorerie sur 12 mois",
+        "signe": "+",
+        "atteint": 2,
+        "cible": 5,
+        "leviers": [
+          {
+            "nom": "Couverture des charges",
+            "statut": "Rouge",
+            "potentiel": "+2 %"
+          },
+          {
+            "nom": "Suivi des charges fixes",
+            "statut": "Orange",
+            "potentiel": "+1 %"
+          }
+        ]
       }
     },
     "RH_ORGANISATION": {
@@ -269,6 +305,24 @@
       "libre": {
         "libelle": "Selon vous, quel poste est le plus sollicité ?",
         "reponse": "Les postes de terrain."
+      },
+      "objectif": {
+        "titre": "−20 % de turnover sur 12 mois",
+        "signe": "−",
+        "atteint": 8,
+        "cible": 20,
+        "leviers": [
+          {
+            "nom": "Répartition de la charge",
+            "statut": "Orange",
+            "potentiel": "−7 %"
+          },
+          {
+            "nom": "Clarté des rôles",
+            "statut": "Orange",
+            "potentiel": "−5 %"
+          }
+        ]
       }
     },
     "COMM_CREATION": {
@@ -360,6 +414,24 @@
       "libre": {
         "libelle": "Que souhaitez-vous que vos publications fassent d'abord ?",
         "reponse": "Rassurer les vendeurs."
+      },
+      "objectif": {
+        "titre": "+20 % de conversion des publications Instagram en achats, sur 12 mois",
+        "signe": "+",
+        "atteint": 8,
+        "cible": 20,
+        "leviers": [
+          {
+            "nom": "Appel à l'action des publications",
+            "statut": "Orange",
+            "potentiel": "+7 %"
+          },
+          {
+            "nom": "Contenus de preuve",
+            "statut": "Rouge",
+            "potentiel": "+5 %"
+          }
+        ]
       }
     }
   },

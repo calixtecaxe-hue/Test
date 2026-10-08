@@ -47,7 +47,7 @@ export function elementsInclus(offre: Offre): string[] {
       ? "Les quatre agents"
       : `${offre.nombreAgents} agents de votre choix`,
     "Questionnaire adapté à votre métier",
-    "Score sur 100 et plan d'action",
+    "Objectif chiffré, leviers classés par impact et plan d'action",
     "Compte rendu rédigé à partir de vos résultats",
   ];
 }
