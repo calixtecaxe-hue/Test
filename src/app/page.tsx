@@ -18,7 +18,7 @@ const etapes = [
     cote: "droite",
     titre: "Fixez votre objectif",
     texte:
-      "Fixez votre objectif chiffré, puis répondez à un questionnaire pensé pour votre secteur.",
+      "Fixez votre objectif chiffré, puis répondez à un questionnaire pensé à la fois pour votre secteur et, surtout, pour vous : votre chiffre d'affaires, vos collaborateurs, les objectifs que vous souhaitez, etc.",
   },
   {
     numero: "02",
@@ -26,9 +26,9 @@ const etapes = [
     vx: 82,
     vy: 50,
     cote: "gauche",
-    titre: "Vos leviers, classés par impact",
+    titre: "Un plan d'action pour vos points faibles",
     texte:
-      "Vous recevez les leviers qui vous séparent de votre objectif, classés par impact.",
+      "Ensuite, vous recevez un plan d'action qui vous permet d'améliorer vos points faibles.",
   },
   {
     numero: "03",
@@ -36,9 +36,9 @@ const etapes = [
     vx: 18,
     vy: 92,
     cote: "droite",
-    titre: "Votre plan d'action et son suivi",
+    titre: "Mise en place et suivi",
     texte:
-      "Un plan d'action vous est donné, avec un suivi régulier de votre progression.",
+      "Enfin, vous n'avez plus qu'à le mettre en place, et nous suivons votre progression. En fonction des objectifs fixés, nous revenons vers vous pour faire le point : si tout se passe bien, on continue ; si vous rencontrez un blocage, vous nous le partagez et nous vous aidons à trouver une solution.",
   },
 ] as const;
 

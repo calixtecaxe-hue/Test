@@ -241,6 +241,8 @@ h3,
        résout pas contre un conteneur dont la hauteur vient seulement
        de `min-height`. */
     height: 760px;
+    /* La dernière carte, plus longue, dépasse du cadre vers le bas. */
+    margin-bottom: 80px;
   }
 
   .chemin::before {
