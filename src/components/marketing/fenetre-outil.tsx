@@ -262,8 +262,8 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
     // Rythme du montage : toutes les attentes sont multipliées par `facteur`
     // (plus petit = plus rapide). Les attentes liées à une transition CSS
     // (zoom, défilement, déplacement du curseur) restent à durée fixe.
-    let facteur = 0.85;
-    let base = 0.85;
+    let facteur = 0.7;
+    let base = 0.7;
     // Dernière position du curseur dans la scène : sa vitesse dépend de la
     // distance parcourue, pour que le mouvement reste lisible de près comme de loin.
     const dernier = { x: 0, y: 0, visible: false };
@@ -354,8 +354,8 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       // Plus la distance est grande, plus le trajet dure ; quand la caméra
       // glisse en même temps, le curseur prend le même temps qu'elle.
       const distance = dernier.visible ? Math.hypot(lx - dernier.x, ly - dernier.y) : 0;
-      let duree = dernier.visible ? Math.min(1600, Math.max(700, 500 + distance * 1.8)) : 0;
-      if (camera) duree = Math.max(duree, 950);
+      let duree = dernier.visible ? Math.min(1300, Math.max(600, 450 + distance * 1.5)) : 0;
+      if (camera) duree = Math.max(duree, 900);
       dernier.x = lx;
       dernier.y = ly;
       dernier.visible = true;
@@ -404,18 +404,29 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       }
       zoomRef.current = suivant;
       setZoom(suivant);
-      setCurseur((c) => ({ ...c, d: 900 }));
-      await pause(950, true);
+      setCurseur((c) => ({ ...c, d: 850 }));
+      await pause(900, true);
+    }
+
+    // Échelle de zoom la plus grande qui laisse un bloc entier dans le cadre :
+    // dans l'aperçu de l'accueil, plus étroit, un zoom fixe en rogne le côté.
+    function echelleQuiTient(nom: string, max: number) {
+      const corps = corpsRef.current;
+      const element = fenetreRef.current?.querySelector<HTMLElement>(`[data-cible="${nom}"]`);
+      if (!corps || !element) return max;
+      const largeur = element.getBoundingClientRect().width / zoomRef.current.s;
+      const place = (corps.getBoundingClientRect().width * 0.94) / largeur;
+      return Math.min(max, place);
     }
 
     const dire = (texte: string) => setLegende(texte);
 
     async function cliquer(nom?: string) {
       if (nom) setSurvol(nom);
-      await pause(420, true);
+      await pause(360, true);
       setClics((c) => c + 1);
       setPresse(true);
-      await pause(220, true);
+      await pause(200, true);
       setPresse(false);
       setSurvol(null);
     }
@@ -428,14 +439,22 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       await pause(1100);
       // Sur petit écran, le formulaire remplit déjà tout le cadre : pas de zoom.
       if (!window.matchMedia("(max-width: 639px)").matches) await zoomSur("formulaire", 1.2);
+      const dernierChamp = CHAMPS_FORMULAIRE.length - 1;
       for (let k = 0; k < CHAMPS_FORMULAIRE.length; k++) {
         if (k < 2) {
           await deplacer(`form-${k}`, 0.2);
           await cliquer();
         } else if (k === 2) {
-          // Les champs suivants se remplissent en accéléré.
+          // Les champs de profil suivants se remplissent plus vite, sans curseur.
           rythme(0.5, true);
           cacher();
+        } else if (k === dernierChamp) {
+          // L'objectif est joué à part, au rythme normal : c'est le point de départ.
+          rythme(base);
+          dire("Vous fixez votre objectif chiffré : tout le diagnostic part de là.");
+          await pause(700);
+          await deplacer(`form-${k}`, 0.2);
+          await cliquer();
         }
         const texte = CHAMPS_FORMULAIRE[k].valeur;
         for (let c = 1; c <= texte.length; c++) {
@@ -443,9 +462,9 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
             actif: k,
             valeurs: f.valeurs.map((v, j) => (j === k ? texte.slice(0, c) : v)),
           }));
-          await pause(32);
+          await pause(k === dernierChamp ? 55 : 38, k === dernierChamp);
         }
-        await pause(220);
+        await pause(k === dernierChamp ? 900 : 420, true);
       }
       setFormulaire((f) => ({ ...f, actif: -1 }));
       rythme(base);
@@ -533,9 +552,16 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         await pause(2400);
       }
       rythme(base);
-      dire("Si tout se passe bien, on continue : un nouveau point à la prochaine échéance.");
       maj({ fini: true });
-      await pause(400);
+      await pause(500);
+      dire(`Vos actions font avancer votre objectif : ${d.objectif.signe}${d.objectif.atteint} % atteints sur ${d.objectif.signe}${d.objectif.cible} %.`);
+      await amenerCible("avancement", true);
+      {
+        const e = echelleQuiTient("avancement", 1.3);
+        if (e > 1.08) await zoomSur("avancement", e, 0.5);
+      }
+      await pause(4200);
+      dire("Si tout se passe bien, on continue : un nouveau point à la prochaine échéance.");
       await amenerCible("fin", true);
       await zoomSur("fin", 1.25, 0.3);
       await pause(2200);
@@ -555,7 +581,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       const d = DEMO_AGENTS[code];
 
       // Le premier agent est joué à bon rythme, les suivants plus vite.
-      base = avecInscription ? 0.85 : solo ? 0.8 : 0.7;
+      base = avecInscription ? 0.7 : solo ? 0.66 : 0.6;
       rythme(base);
       zoomRef.current = ZOOM_NEUTRE;
       setZoom(ZOOM_NEUTRE);
@@ -651,23 +677,29 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       retirerRedaction();
       setPhase("fini");
 
+      // Le compte rendu se traverse d'un trait : l'objectif et ses leviers,
+      // le détail par thème, les propositions. Pas d'avancement ici : rien
+      // n'est encore mis en place, il apparaît au suivi.
+      rythme(0.5, true);
       ajouter({ t: "synthese" });
-      dire("Votre avancement vers l'objectif, et les leviers qui vous en séparent, classés par impact.");
-      await pause(900);
+      dire("Votre compte rendu : votre objectif, et ce qui vous en sépare, levier par levier.");
+      await pause(1200);
       // Sur petit écran le bloc tient déjà dans le cadre : pas de zoom.
       if (!window.matchMedia("(max-width: 639px)").matches) {
-        await zoomSur("objectif", 1.35, 0.2);
+        const e = echelleQuiTient("objectif", 1.3);
+        if (e > 1.08) await zoomSur("objectif", e, 0.5);
       }
-      await pause(4200);
+      await pause(3600);
       await zoomSur(null);
       ajouter({ t: "parties" });
       dire("Le détail par thème : un statut vert, orange ou rouge pour chacun.");
-      await pause(5000);
+      await pause(4600);
       if (d.propositions) {
         ajouter({ t: "propositions" });
         dire("Des propositions de contenu, générées à votre demande.");
-        await pause(3600);
+        await pause(3000);
       }
+      rythme(base);
       ajouter({ t: "actions" });
       dire("5 · Un plan d'action vous permet d'améliorer vos points faibles : chaque action vise un levier.");
       await pause(900);
@@ -922,9 +954,20 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
           })}
         </ul>
         {e.fini ? (
-          <p className="demo-fin" data-cible="fin">
-            Parfait. Je vous recontacte au prochain point d&apos;étape.
-          </p>
+          <>
+            <div className="demo-objectif demo-objectif-suivi" data-cible="avancement">
+              <p className="demo-objectif-etiquette">Votre avancement vers l&apos;objectif</p>
+              <p className="demo-objectif-titre">{donnees.objectif.titre}</p>
+              <Avancement
+                key={`avancement-${indexAgent}`}
+                objectif={donnees.objectif}
+                reduit={reduit}
+              />
+            </div>
+            <p className="demo-fin" data-cible="fin">
+              Parfait. Je vous recontacte au prochain point d&apos;étape.
+            </p>
+          </>
         ) : null}
       </div>
     );
@@ -1005,13 +1048,8 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
             <div className="demo-objectif" data-cible="objectif">
               <p className="demo-objectif-etiquette">Votre objectif</p>
               <p className="demo-objectif-titre">{donnees.objectif.titre}</p>
-              <Avancement
-                key={`avancement-${indexAgent}`}
-                objectif={donnees.objectif}
-                reduit={reduit}
-              />
               <p className="demo-objectif-etiquette demo-leviers-titre">
-                Leviers, classés par impact
+                Ce qui vous en sépare, classé par impact
               </p>
               <ol className="demo-leviers">
                 {donnees.objectif.leviers.map((l, k) => (
@@ -1031,6 +1069,10 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
                   </li>
                 ))}
               </ol>
+              <p className="demo-note">
+                Ensemble, ces leviers couvrent l&apos;objectif de {donnees.objectif.signe}
+                {donnees.objectif.cible}&nbsp;%.
+              </p>
             </div>
             {donnees.synthese.map((p) => (
               <p key={p} className="demo-paragraphe">
