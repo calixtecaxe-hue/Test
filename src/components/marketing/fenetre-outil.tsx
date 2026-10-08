@@ -308,7 +308,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         // Les rectangles sont mesurés à l'écran, donc agrandis par le zoom.
         const delta = (re.top - rd.top - marge) / zoomRef.current.s;
         defil.scrollTo({ top: defil.scrollTop + delta, behavior: "smooth" });
-        await pause(600, true);
+        await pause(480, true);
       }
     }
 
@@ -354,8 +354,8 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       // Plus la distance est grande, plus le trajet dure ; quand la caméra
       // glisse en même temps, le curseur prend le même temps qu'elle.
       const distance = dernier.visible ? Math.hypot(lx - dernier.x, ly - dernier.y) : 0;
-      let duree = dernier.visible ? Math.min(1300, Math.max(600, 450 + distance * 1.5)) : 0;
-      if (camera) duree = Math.max(duree, 900);
+      let duree = dernier.visible ? Math.min(950, Math.max(450, 340 + distance * 1.1)) : 0;
+      if (camera) duree = Math.max(duree, 650);
       dernier.x = lx;
       dernier.y = ly;
       dernier.visible = true;
@@ -404,8 +404,8 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       }
       zoomRef.current = suivant;
       setZoom(suivant);
-      setCurseur((c) => ({ ...c, d: 850 }));
-      await pause(900, true);
+      setCurseur((c) => ({ ...c, d: 620 }));
+      await pause(650, true);
     }
 
     // Échelle de zoom la plus grande qui laisse un bloc entier dans le cadre :
@@ -423,10 +423,10 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
 
     async function cliquer(nom?: string) {
       if (nom) setSurvol(nom);
-      await pause(360, true);
+      await pause(240, true);
       setClics((c) => c + 1);
       setPresse(true);
-      await pause(200, true);
+      await pause(150, true);
       setPresse(false);
       setSurvol(null);
     }
@@ -486,7 +486,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       await zoomSur(null);
       setHorloge(0);
       for (let j = 1; j <= 5; j++) {
-        await pause(380);
+        await pause(260);
         setHorloge(j);
       }
       await pause(800);
@@ -535,7 +535,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         maj({ precisionActif: true });
         for (let c = 1; c <= precision.length; c++) {
           maj({ precision: precision.slice(0, c) });
-          await pause(30);
+          await pause(22);
         }
         await pause(500);
         maj({ precisionActif: false });
@@ -560,7 +560,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         const e = echelleQuiTient("avancement", 1.3);
         if (e > 1.08) await zoomSur("avancement", e, 0.5);
       }
-      await pause(4200);
+      await pause(4800);
       dire("Si tout se passe bien, on continue : un nouveau point à la prochaine échéance.");
       await amenerCible("fin", true);
       await zoomSur("fin", 1.25, 0.3);
@@ -598,6 +598,9 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       setQuestions(0);
       setIndexAgent(i);
       if (avecInscription) await remplirFormulaire();
+      // Après l'inscription, le montage se resserre : coupes courtes, on garde l'attention.
+      base = avecInscription ? 0.45 : solo ? 0.42 : 0.4;
+      rythme(base);
       setParcours(1);
       // Sans liste visible (page agent, petit écran), il n'y a rien à cliquer.
       const liste = fenetreRef.current?.querySelector(".demo-liste");
@@ -655,7 +658,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       setLibreActif(true);
       for (let k = 1; k <= d.libre.reponse.length; k++) {
         setLibreTexte(d.libre.reponse.slice(0, k));
-        await pause(42);
+        await pause(28);
       }
       await pause(900);
       setLibreActif(false);
@@ -673,14 +676,14 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       dire("4 · Vos réponses sont comparées à votre objectif.");
       await agentRepond("Merci. Je compare vos réponses à votre objectif et j'identifie ce qui vous en sépare.");
       ajouter({ t: "redaction" });
-      await pause(2400);
+      await pause(3600);
       retirerRedaction();
       setPhase("fini");
 
       // Le compte rendu se traverse d'un trait : l'objectif et ses leviers,
       // le détail par thème, les propositions. Pas d'avancement ici : rien
       // n'est encore mis en place, il apparaît au suivi.
-      rythme(0.5, true);
+      rythme(0.4, true);
       ajouter({ t: "synthese" });
       dire("Votre compte rendu : votre objectif, et ce qui vous en sépare, levier par levier.");
       await pause(1200);
@@ -708,10 +711,10 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       // Sur petit écran la carte tient déjà dans le cadre : pas de zoom.
       const petit = window.matchMedia("(max-width: 639px)").matches;
       if (!petit) await zoomSur("actions-carte", 1.3, 0.22);
-      await pause(2600);
+      await pause(3200);
       dire("Chacune a sa propre échéance de retour : nous revenons vers vous à cette date.");
       if (!petit) await zoomSur("actions-carte", 1.3, 0.85);
-      await pause(2200);
+      await pause(2800);
       await zoomSur(null);
 
       await pointEtape(d);
