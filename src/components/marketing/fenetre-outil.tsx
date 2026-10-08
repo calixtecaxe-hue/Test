@@ -354,8 +354,8 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       // Plus la distance est grande, plus le trajet dure ; quand la caméra
       // glisse en même temps, le curseur prend le même temps qu'elle.
       const distance = dernier.visible ? Math.hypot(lx - dernier.x, ly - dernier.y) : 0;
-      let duree = dernier.visible ? Math.min(950, Math.max(450, 340 + distance * 1.1)) : 0;
-      if (camera) duree = Math.max(duree, 650);
+      let duree = dernier.visible ? Math.min(750, Math.max(380, 300 + distance * 0.9)) : 0;
+      if (camera) duree = Math.max(duree, 520);
       dernier.x = lx;
       dernier.y = ly;
       dernier.visible = true;
@@ -364,7 +364,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         setZoom(camera);
       }
       setCurseur({ x: lx, y: ly, visible: true, d: duree });
-      await pause(duree + 220, true);
+      await pause(duree + 100, true);
     }
 
     // Zoom de caméra : agrandit la scène en centrant l'élément visé (ou
@@ -404,8 +404,8 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       }
       zoomRef.current = suivant;
       setZoom(suivant);
-      setCurseur((c) => ({ ...c, d: 620 }));
-      await pause(650, true);
+      setCurseur((c) => ({ ...c, d: 500 }));
+      await pause(500, true);
     }
 
     // Échelle de zoom la plus grande qui laisse un bloc entier dans le cadre :
@@ -423,10 +423,10 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
 
     async function cliquer(nom?: string) {
       if (nom) setSurvol(nom);
-      await pause(240, true);
+      await pause(160, true);
       setClics((c) => c + 1);
       setPresse(true);
-      await pause(150, true);
+      await pause(110, true);
       setPresse(false);
       setSurvol(null);
     }
@@ -486,18 +486,18 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       await zoomSur(null);
       setHorloge(0);
       for (let j = 1; j <= 5; j++) {
-        await pause(260);
+        await pause(170);
         setHorloge(j);
       }
-      await pause(800);
+      await pause(450);
       setHorloge(null);
-      await pause(300);
+      await pause(150);
 
       dire("À l'échéance, nous revenons vers vous : où en êtes-vous ?");
       setNotif(true);
-      await pause(900);
+      await pause(500);
       await zoomSur("notif", 1.45);
-      await pause(1100);
+      await pause(450);
       await deplacer("notif", 0.5);
       await cliquer("notif");
       setNotif(false);
@@ -505,75 +505,72 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       setVue("suivi");
       await zoomSur(null);
       dire("Pour chaque action : réalisée, oui ou non ?");
-      await pause(900);
+      await pause(400);
 
       for (let k = 0; k < d.actions.length; k++) {
-        await zoomSur(`obj-${k}`, 1.15);
         if (k !== nonAtteinte) {
           await deplacer(`oui-${k}`);
           await cliquer(`oui-${k}`);
           setSuivi((e) => ({ ...e, oui: [...e.oui, k] }));
-          await pause(1100);
+          await pause(450);
           continue;
         }
         dire("Un blocage : vous nous le partagez, et nous vous aidons à trouver une solution.");
         await deplacer(`non-${k}`);
         await cliquer(`non-${k}`);
         maj({ non: k });
-        await pause(500);
+        await pause(250);
         await amenerCible(`obj-${k}`, true);
         await zoomSur("pourquoi", 1.2, 0.3);
         const j = RAISONS.indexOf(motif);
         await deplacer(`raison-${j}`);
         await cliquer(`raison-${j}`);
         maj({ raison: motif });
-        await pause(500);
+        await pause(250);
         dire("Vous précisez, en quelques mots.");
-        await zoomSur("precision", 1.35, 0.3);
         await deplacer("precision", 0.2);
         await cliquer();
         maj({ precisionActif: true });
         for (let c = 1; c <= precision.length; c++) {
           maj({ precision: precision.slice(0, c) });
-          await pause(22);
+          await pause(14);
         }
-        await pause(500);
+        await pause(250);
         maj({ precisionActif: false });
         await deplacer("envoyer-pourquoi");
         await cliquer("envoyer-pourquoi");
         dire("Nous tenons compte de votre réponse…");
         maj({ envoye: true, reflexion: true });
-        await pause(2000);
+        await pause(1000);
         dire("Nous réajustons : un nouvel axe à mettre en place.");
         maj({ reflexion: false, axe: true });
-        await pause(400);
+        await pause(200);
         await amenerCible("axe", true);
         await zoomSur("axe", 1.3, 0.3);
-        await pause(2400);
+        await pause(1400);
       }
       rythme(base);
       maj({ fini: true });
-      await pause(500);
+      await pause(300);
       dire(`Vos actions font avancer votre objectif : ${d.objectif.signe}${d.objectif.atteint} % atteints sur ${d.objectif.signe}${d.objectif.cible} %.`);
       await amenerCible("avancement", true);
       {
         const e = echelleQuiTient("avancement", 1.3);
         if (e > 1.08) await zoomSur("avancement", e, 0.5);
       }
-      await pause(4800);
+      await pause(3600);
       dire("Si tout se passe bien, on continue : un nouveau point à la prochaine échéance.");
       await amenerCible("fin", true);
-      await zoomSur("fin", 1.25, 0.3);
-      await pause(2200);
+      await pause(1400);
       await zoomSur(null);
     }
 
     async function agentRepond(texte: string) {
       ajouter({ t: "redaction" });
-      await pause(650);
+      await pause(380);
       retirerRedaction();
       ajouter({ t: "agent", texte });
-      await pause(700);
+      await pause(380);
     }
 
     async function jouerAgent(i: number, avecInscription: boolean) {
@@ -599,17 +596,17 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       setIndexAgent(i);
       if (avecInscription) await remplirFormulaire();
       // Après l'inscription, le montage se resserre : coupes courtes, on garde l'attention.
-      base = avecInscription ? 0.45 : solo ? 0.42 : 0.4;
+      base = avecInscription ? 0.38 : solo ? 0.35 : 0.33;
       rythme(base);
       setParcours(1);
       // Sans liste visible (page agent, petit écran), il n'y a rien à cliquer.
       const liste = fenetreRef.current?.querySelector(".demo-liste");
       if (solo || !liste || liste.getBoundingClientRect().width === 0) {
         dire("2 · Vous ouvrez la conversation avec l'agent.");
-        await pause(700);
+        await pause(400);
       } else {
         dire("2 · Vous choisissez un agent.");
-        await pause(700);
+        await pause(400);
 
         await zoomSur(`agent-${i}`, 1.35);
         await deplacer(`agent-${i}`, 0.4);
@@ -619,48 +616,45 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       await agentRepond(d.accueil);
       dire("Votre profil et votre objectif sont déjà enregistrés.");
       ajouter({ t: "profil" });
-      await pause(2600);
+      await pause(1800);
       await agentRepond(
         `Votre objectif : ${d.objectif.titre}. Le questionnaire va situer votre point de départ. Ses questions sont rédigées à l'avance et identiques pour tous les dirigeants de votre métier.`
       );
       ajouter({ t: "commencer" });
-      await pause(900);
+      await pause(500);
       await deplacer("commencer");
       await cliquer("commencer");
       setVue("questionnaire");
       setPhase("questions");
-      dire("3 · Vous répondez au questionnaire : chaque réponse situe votre point de départ.");
-      await pause(1800);
 
       // Le vrai questionnaire compte plus de 80 questions : l'aperçu en joue
       // trois, au même rythme, curseur visible.
       const consignes = [
-        "Question 1 sur 3 : vous choisissez la réponse qui vous correspond.",
+        "3 · Vous répondez au questionnaire : chaque réponse situe votre point de départ.",
         "Question 2 sur 3 : une estimation suffit, aucune question n'est obligatoire.",
         "Question 3 sur 3. Le questionnaire complet en compte plus de 80 : l'aperçu en montre trois.",
       ];
       for (let q = 0; q < d.questions.length; q++) {
         const j = d.questions[q].options.indexOf(d.questions[q].reponse);
         dire(consignes[q] ?? consignes[consignes.length - 1]);
-        await zoomSur(`question-${q}`, 1.2, 0.3);
-        await pause(900);
+        if (q === 0) await zoomSur("question-0", 1.15, 0.3);
+        await pause(q === 0 ? 500 : 150);
         await deplacer(`option-${q}-${j}`);
         await cliquer(`option-${q}-${j}`);
         setChoixQ((c) => ({ ...c, [q]: j }));
         setQuestions(q + 1);
-        await pause(1100);
+        await pause(600);
       }
       dire("Une précision libre, facultative : elle aide à rédiger le compte rendu, elle n'entre pas dans le calcul.");
-      await zoomSur("question-3", 1.2, 0.3);
-      await pause(900);
+      await pause(200);
       await deplacer("libre", 0.15);
       await cliquer();
       setLibreActif(true);
       for (let k = 1; k <= d.libre.reponse.length; k++) {
         setLibreTexte(d.libre.reponse.slice(0, k));
-        await pause(28);
+        await pause(16);
       }
-      await pause(900);
+      await pause(500);
       setLibreActif(false);
       setQuestions(NB_QUESTIONS);
       await zoomSur(null);
@@ -669,59 +663,59 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       await cliquer("terminer");
       setVue("fil");
       ajouter({ t: "moi", texte: "Questionnaire envoyé : 3 réponses et 1 précision." });
-      await pause(1100);
+      await pause(600);
 
       setParcours(2);
       setPhase("redaction");
       dire("4 · Vos réponses sont comparées à votre objectif.");
       await agentRepond("Merci. Je compare vos réponses à votre objectif et j'identifie ce qui vous en sépare.");
       ajouter({ t: "redaction" });
-      await pause(3600);
+      await pause(3800);
       retirerRedaction();
       setPhase("fini");
 
       // Le compte rendu se traverse d'un trait : l'objectif et ses leviers,
       // le détail par thème, les propositions. Pas d'avancement ici : rien
       // n'est encore mis en place, il apparaît au suivi.
-      rythme(0.4, true);
+      rythme(0.33, true);
       ajouter({ t: "synthese" });
       dire("Votre compte rendu : votre objectif, et ce qui vous en sépare, levier par levier.");
-      await pause(1200);
+      await pause(800);
       // Sur petit écran le bloc tient déjà dans le cadre : pas de zoom.
       if (!window.matchMedia("(max-width: 639px)").matches) {
         const e = echelleQuiTient("objectif", 1.3);
         if (e > 1.08) await zoomSur("objectif", e, 0.5);
       }
-      await pause(3600);
+      await pause(2600);
       await zoomSur(null);
       ajouter({ t: "parties" });
       dire("Le détail par thème : un statut vert, orange ou rouge pour chacun.");
-      await pause(4600);
+      await pause(3200);
       if (d.propositions) {
         ajouter({ t: "propositions" });
         dire("Des propositions de contenu, générées à votre demande.");
-        await pause(3000);
+        await pause(2200);
       }
       rythme(base);
       ajouter({ t: "actions" });
       dire("5 · Un plan d'action vous permet d'améliorer vos points faibles : chaque action vise un levier.");
-      await pause(900);
+      await pause(600);
       // Le plan : d'abord les actions (à gauche), puis, d'un glissé de caméra,
       // l'échéance de retour de chacune (à droite).
       // Sur petit écran la carte tient déjà dans le cadre : pas de zoom.
       const petit = window.matchMedia("(max-width: 639px)").matches;
       if (!petit) await zoomSur("actions-carte", 1.3, 0.22);
-      await pause(3200);
+      await pause(2400);
       dire("Chacune a sa propre échéance de retour : nous revenons vers vous à cette date.");
       if (!petit) await zoomSur("actions-carte", 1.3, 0.85);
-      await pause(2800);
+      await pause(2000);
       await zoomSur(null);
 
       await pointEtape(d);
 
       setTermines((t) => (t.includes(i) ? t : [...t, i]));
       cacher();
-      await pause(1500);
+      await pause(800);
     }
 
     async function boucle() {
