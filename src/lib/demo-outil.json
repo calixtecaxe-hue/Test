@@ -1,0 +1,444 @@
+{
+  "profil": [
+    {
+      "libelle": "Secteur d'activité",
+      "valeur": "Agence immobilière indépendante"
+    },
+    {
+      "libelle": "Collaborateurs",
+      "valeur": "6"
+    },
+    {
+      "libelle": "Localisation",
+      "valeur": "Lyon, zone urbaine dense"
+    },
+    {
+      "libelle": "Chiffre d'affaires mensuel",
+      "valeur": "42 000 €"
+    },
+    {
+      "libelle": "Ancienneté",
+      "valeur": "8 ans"
+    }
+  ],
+  "agents": {
+    "ACQUISITION_CA": {
+      "accueil": "Bonjour. Je suis l'agent Acquisition et chiffre d'affaires. Votre profil et votre objectif, fixés à l'inscription, sont déjà renseignés.",
+      "questions": [
+        {
+          "libelle": "Recevez-vous régulièrement de nouveaux contacts ?",
+          "reponse": "Oui, chaque semaine",
+          "statut": "Vert",
+          "options": [
+            "Oui, chaque semaine",
+            "Oui, chaque mois",
+            "Rarement"
+          ]
+        },
+        {
+          "libelle": "Quelle part de vos estimations débouche sur un mandat signé ?",
+          "reponse": "Environ une sur trois",
+          "statut": "Orange",
+          "options": [
+            "Plus d'une sur deux",
+            "Environ une sur trois",
+            "Moins d'une sur quatre"
+          ]
+        },
+        {
+          "libelle": "D'où viennent vos clients ?",
+          "reponse": "Surtout du bouche-à-oreille",
+          "statut": "Rouge",
+          "options": [
+            "Plusieurs canaux",
+            "Surtout du bouche-à-oreille",
+            "Un seul canal"
+          ]
+        }
+      ],
+      "parties": [
+        {
+          "nom": "Génération de contacts",
+          "nomIndicateur": "Contacts vendeurs",
+          "lecture": "Le volume reçu est au-dessus du seuil de votre zone."
+        },
+        {
+          "nom": "Conversion",
+          "nomIndicateur": "Estimations transformées en mandats",
+          "lecture": "Environ une estimation sur trois débouche sur un mandat. Les autres vendeurs confient leur bien à une autre agence ou renoncent : c'est là que vous perdez le plus de vendeurs."
+        },
+        {
+          "nom": "Origine des clients",
+          "nomIndicateur": "Mandats par bouche-à-oreille",
+          "lecture": "Une part élevée de mandats dépend du hasard plutôt que d'une acquisition maîtrisée."
+        }
+      ],
+      "synthese": [
+        "Votre agence reçoit des contacts vendeurs de façon régulière, ce qui donne une base solide. Deux points ressortent : la transformation de vos estimations en mandats et l'origine de vos mandats.",
+        "Une part importante de vos mandats vient du bouche-à-oreille. C'est un signal de dépendance : les actions ci-dessous visent à rendre l'acquisition plus maîtrisée."
+      ],
+      "actions": [
+        {
+          "texte": "Remettre à chaque vendeur trois ventes comparables lors de l'estimation.",
+          "retour": "Retour sous 5 jours"
+        },
+        {
+          "texte": "Suivre chaque mois la part de mandats par origine.",
+          "retour": "Retour sous 2 semaines"
+        },
+        {
+          "texte": "Ajouter un second canal de prise de contact vendeur.",
+          "retour": "Retour sous 3 semaines"
+        }
+      ],
+      "point": {
+        "nonAtteinte": 1,
+        "raison": "Manque de temps",
+        "nouvelAxe": {
+          "texte": "Relever uniquement le nombre de mandats par origine, en fin de mois, en dix minutes.",
+          "retour": "Retour sous 2 semaines"
+        },
+        "precision": "En fin de mois, je n'ai pas le temps de relever les chiffres."
+      },
+      "libre": {
+        "libelle": "Selon vous, pourquoi certains vendeurs ne signent-ils pas après l'estimation ?",
+        "reponse": "Certains choisissent l'agence qui annonce le prix le plus élevé."
+      },
+      "objectif": {
+        "titre": "+15 % de CA sur 12 mois",
+        "signe": "+",
+        "atteint": 6,
+        "cible": 15,
+        "leviers": [
+          {
+            "nom": "Transformation des estimations en mandats",
+            "statut": "Orange",
+            "potentiel": "+9 %"
+          },
+          {
+            "nom": "Diversification des canaux",
+            "statut": "Rouge",
+            "potentiel": "+6 %"
+          }
+        ]
+      }
+    },
+    "FINANCE_RENTABILITE": {
+      "accueil": "Bonjour. Je suis l'agent Finance et rentabilité. Je lis des ratios que vous déclarez ; comptabilité et fiscalité restent hors périmètre.",
+      "questions": [
+        {
+          "libelle": "Votre marge évolue-t-elle ?",
+          "reponse": "Elle baisse légèrement",
+          "statut": "Orange",
+          "options": [
+            "Elle progresse",
+            "Elle baisse légèrement",
+            "Elle baisse nettement"
+          ]
+        },
+        {
+          "libelle": "Votre trésorerie couvre-t-elle trois mois de charges ?",
+          "reponse": "Non, environ deux mois",
+          "statut": "Rouge",
+          "options": [
+            "Oui",
+            "Non, environ deux mois",
+            "Non, moins d'un mois"
+          ]
+        },
+        {
+          "libelle": "Suivez-vous vos charges fixes ?",
+          "reponse": "Pas régulièrement",
+          "statut": "Orange",
+          "options": [
+            "Chaque mois",
+            "Pas régulièrement",
+            "Jamais"
+          ]
+        }
+      ],
+      "parties": [
+        {
+          "nom": "Marge",
+          "nomIndicateur": "Évolution de la marge",
+          "lecture": "La marge recule légèrement ; l'écart reste modeste."
+        },
+        {
+          "nom": "Trésorerie",
+          "nomIndicateur": "Couverture des charges",
+          "lecture": "La trésorerie couvre moins de trois mois de charges."
+        },
+        {
+          "nom": "Structure de coûts",
+          "nomIndicateur": "Suivi des charges fixes",
+          "lecture": "Sans suivi régulier, une hausse de charges passe inaperçue."
+        }
+      ],
+      "synthese": [
+        "Votre marge est correcte mais en léger recul. La trésorerie est le point le plus fragile : elle couvre moins de trois mois de charges.",
+        "Sans suivi régulier des charges fixes, un recul de marge se voit tard. Les actions ci-dessous portent d'abord sur la visibilité, avant toute décision d'investissement."
+      ],
+      "actions": [
+        {
+          "texte": "Fixer un seuil de trésorerie minimal à ne pas franchir.",
+          "retour": "Retour sous 1 semaine"
+        },
+        {
+          "texte": "Établir un tableau mensuel des charges fixes.",
+          "retour": "Retour sous 2 semaines"
+        },
+        {
+          "texte": "Relancer les factures dont le délai de paiement est dépassé.",
+          "retour": "Retour sous 3 semaines"
+        }
+      ],
+      "point": {
+        "nonAtteinte": 1,
+        "raison": "Ne fonctionne pas",
+        "nouvelAxe": {
+          "texte": "Relever seulement les cinq plus grosses charges fixes, au début de chaque mois.",
+          "retour": "Retour sous 2 semaines"
+        },
+        "precision": "Le tableau est trop long à remplir chaque mois."
+      },
+      "libre": {
+        "libelle": "Selon vous, qu'est-ce qui pèse le plus sur votre trésorerie ?",
+        "reponse": "Les délais de paiement des clients."
+      },
+      "objectif": {
+        "titre": "+5 % de trésorerie sur 12 mois",
+        "signe": "+",
+        "atteint": 2,
+        "cible": 5,
+        "leviers": [
+          {
+            "nom": "Couverture des charges",
+            "statut": "Rouge",
+            "potentiel": "+3 %"
+          },
+          {
+            "nom": "Suivi des charges fixes",
+            "statut": "Orange",
+            "potentiel": "+2 %"
+          }
+        ]
+      }
+    },
+    "RH_ORGANISATION": {
+      "accueil": "Bonjour. Je suis l'agent RH et organisation. Je lis des signaux organisationnels ; droit du travail et médiation restent hors périmètre.",
+      "questions": [
+        {
+          "libelle": "Votre équipe est-elle stable ?",
+          "reponse": "Oui, un seul départ en un an",
+          "statut": "Vert",
+          "options": [
+            "Oui, un seul départ en un an",
+            "Deux à trois départs",
+            "Plus de trois départs"
+          ]
+        },
+        {
+          "libelle": "La charge est-elle répartie équitablement ?",
+          "reponse": "Pas toujours",
+          "statut": "Orange",
+          "options": [
+            "Oui",
+            "Pas toujours",
+            "Non"
+          ]
+        },
+        {
+          "libelle": "Chacun connaît-il son rôle ?",
+          "reponse": "Dans l'ensemble",
+          "statut": "Orange",
+          "options": [
+            "Oui, tous",
+            "Dans l'ensemble",
+            "Non"
+          ]
+        }
+      ],
+      "parties": [
+        {
+          "nom": "Stabilité de l'équipe",
+          "nomIndicateur": "Départs sur douze mois",
+          "lecture": "Le nombre de départs est faible pour une équipe de cette taille."
+        },
+        {
+          "nom": "Charge de travail",
+          "nomIndicateur": "Répartition de la charge",
+          "lecture": "La charge pèse davantage sur certains postes."
+        },
+        {
+          "nom": "Clarté des rôles",
+          "nomIndicateur": "Rôles connus de chacun",
+          "lecture": "Les rôles sont compris, mais pas toujours écrits."
+        }
+      ],
+      "synthese": [
+        "Votre équipe est stable, ce qui est un point d'appui. La charge de travail et la clarté des rôles se situent dans la moyenne, sans signal d'alerte.",
+        "Le risque est une répartition qui s'installe : un collaborateur très sollicité finit par partir. Les actions ci-dessous cherchent à rééquilibrer avant que cela se produise."
+      ],
+      "actions": [
+        {
+          "texte": "Passer en revue la charge de chaque poste avec l'équipe.",
+          "retour": "Retour sous 2 semaines"
+        },
+        {
+          "texte": "Écrire en une page le rôle de chaque poste.",
+          "retour": "Retour sous 3 semaines"
+        },
+        {
+          "texte": "Prévoir un point individuel chaque trimestre.",
+          "retour": "Retour sous 1 mois"
+        }
+      ],
+      "point": {
+        "nonAtteinte": 1,
+        "raison": "Ne fonctionne pas",
+        "nouvelAxe": {
+          "texte": "Remplacer la fiche par un échange de 20 minutes avec chaque collaborateur, noté en trois lignes.",
+          "retour": "Retour sous 3 semaines"
+        },
+        "precision": "Une fiche écrite n'apporte rien à une équipe de six personnes."
+      },
+      "libre": {
+        "libelle": "Selon vous, quel poste est le plus sollicité ?",
+        "reponse": "Les postes de terrain."
+      },
+      "objectif": {
+        "titre": "−20 % de turnover sur 12 mois",
+        "signe": "−",
+        "atteint": 8,
+        "cible": 20,
+        "leviers": [
+          {
+            "nom": "Répartition de la charge",
+            "statut": "Orange",
+            "potentiel": "−12 %"
+          },
+          {
+            "nom": "Clarté des rôles",
+            "statut": "Orange",
+            "potentiel": "−8 %"
+          }
+        ]
+      }
+    },
+    "COMM_CREATION": {
+      "accueil": "Bonjour. Je suis l'agent Comm et création de contenu. J'analyse vos publications existantes, puis je propose des contenus à votre demande.",
+      "questions": [
+        {
+          "libelle": "Publiez-vous régulièrement ?",
+          "reponse": "Environ une fois par semaine",
+          "statut": "Informatif",
+          "options": [
+            "Environ une fois par semaine",
+            "Une fois par mois",
+            "Rarement"
+          ]
+        },
+        {
+          "libelle": "Sur quels canaux ?",
+          "reponse": "Instagram et LinkedIn",
+          "statut": "Informatif",
+          "options": [
+            "Instagram et LinkedIn",
+            "Un seul canal",
+            "Aucun"
+          ]
+        },
+        {
+          "libelle": "Que souhaitez-vous mettre en avant ?",
+          "reponse": "Les biens vendus",
+          "statut": "Informatif",
+          "options": [
+            "Les biens vendus",
+            "Les biens à vendre",
+            "L'équipe"
+          ]
+        }
+      ],
+      "parties": [
+        {
+          "nom": "Rythme",
+          "nomIndicateur": "Fréquence de publication",
+          "valeur": "1 par semaine",
+          "lecture": "Rythme régulier, sans interruption sur les derniers mois."
+        },
+        {
+          "nom": "Canaux",
+          "nomIndicateur": "Canaux actifs",
+          "valeur": "2",
+          "lecture": "Instagram et LinkedIn sont alimentés."
+        },
+        {
+          "nom": "Performance",
+          "nomIndicateur": "Engagement moyen",
+          "valeur": "Plus faible sur LinkedIn",
+          "lecture": "Les publications LinkedIn reçoivent moins de réactions que sur Instagram."
+        }
+      ],
+      "synthese": [
+        "Vos publications sont régulières, sur deux canaux actifs. L'engagement est plus faible sur LinkedIn que sur Instagram.",
+        "Les propositions ci-dessous partent de ce que vous souhaitez mettre en avant. Elles sont générées à votre demande, jamais automatiquement."
+      ],
+      "propositions": [
+        "Publication « Vendu en 21 jours » : trois photos et le parcours du vendeur.",
+        "Courte vidéo : visite commentée d'un bien vendu.",
+        "Article LinkedIn : ce que votre équipe observe sur le marché lyonnais."
+      ],
+      "actions": [
+        {
+          "texte": "Publier la publication « Vendu en 21 jours ».",
+          "retour": "Retour sous 1 semaine"
+        },
+        {
+          "texte": "Tourner la courte vidéo de visite commentée.",
+          "retour": "Retour sous 2 semaines"
+        },
+        {
+          "texte": "Rédiger l'article LinkedIn.",
+          "retour": "Retour sous 3 semaines"
+        }
+      ],
+      "point": {
+        "nonAtteinte": 1,
+        "raison": "Manque de temps",
+        "nouvelAxe": {
+          "texte": "Remplacer la vidéo par trois photos commentées, publiées la semaine suivante.",
+          "retour": "Retour sous 1 semaine"
+        },
+        "precision": "Je n'ai pas le temps de tourner une vidéo en semaine."
+      },
+      "libre": {
+        "libelle": "Que souhaitez-vous que vos publications fassent d'abord ?",
+        "reponse": "Rassurer les vendeurs."
+      },
+      "objectif": {
+        "titre": "+20 % de conversion des publications Instagram en achats, sur 12 mois",
+        "signe": "+",
+        "atteint": 8,
+        "cible": 20,
+        "leviers": [
+          {
+            "nom": "Appel à l'action des publications",
+            "statut": "Orange",
+            "potentiel": "+12 %"
+          },
+          {
+            "nom": "Contenus de preuve",
+            "statut": "Rouge",
+            "potentiel": "+8 %"
+          }
+        ]
+      }
+    }
+  },
+  "raisons": [
+    "Manque de temps",
+    "Ne fonctionne pas",
+    "Pas adapté à mon activité",
+    "Autre raison"
+  ]
+}

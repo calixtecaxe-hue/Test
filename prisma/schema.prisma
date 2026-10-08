@@ -1,0 +1,68 @@
+// Schéma de données CAXE.
+// Voir CLAUDE.md section 8 : le questionnaire et ses seuils restent des
+// données (fichiers), pas des tables — seuls le compte et les réponses
+// brutes sont persistés ici.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Type de zone déclaré à l'inscription (CLAUDE.md section 6).
+// Segmente les seuils de volume (ex. contacts vendeurs/mois).
+enum TypeZone {
+  URBAINE_DENSE
+  PERIURBAINE
+  RURALE
+}
+
+// Les quatre agents (CLAUDE.md section 3). Un seul est construit
+// aujourd'hui (ACQUISITION_CA), mais l'accès est modélisé pour les
+// quatre dès maintenant : "rétrofitter ça plus tard serait coûteux."
+enum AgentCode {
+  ACQUISITION_CA
+  FINANCE_RENTABILITE
+  RH_ORGANISATION
+  COMM_CREATION
+}
+
+// Compte dirigeant. Les sept champs d'inscription (CLAUDE.md section 6)
+// sont collectés une seule fois, hors questionnaire.
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Les sept champs d'inscription.
+  metierPrecis           String
+  sousVariante           String?
+  chiffreAffairesMensuel Decimal  @db.Decimal(12, 2)
+  nombreCollaborateurs   Int
+  dateCreationEntreprise DateTime
+  typeZone               TypeZone
+  ville                  String
+
+  agentAccess AgentAccess[]
+
+  @@index([metierPrecis])
+}
+
+// Droit d'accès à un agent, attaché au compte (CLAUDE.md section 1).
+// Un dirigeant abonné au seul agent Acquisition ne doit voir ni ouvrir
+// les trois autres : chaque entrée est contrôlée indépendamment.
+model AgentAccess {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agent      AgentCode
+  actif      Boolean   @default(true)
+  souscritLe DateTime  @default(now())
+
+  @@unique([userId, agent])
+}
