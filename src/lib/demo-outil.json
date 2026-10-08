@@ -23,7 +23,7 @@
   ],
   "agents": {
     "ACQUISITION_CA": {
-      "accueil": "Bonjour. Je suis l'agent Acquisition et chiffre d'affaires. Votre profil, créé à l'inscription, est déjà renseigné : trois questions, puis votre compte rendu.",
+      "accueil": "Bonjour. Je suis l'agent Acquisition et chiffre d'affaires. Votre profil et votre objectif, fixés à l'inscription, sont déjà renseignés.",
       "questions": [
         {
           "libelle": "Recevez-vous régulièrement de nouveaux contacts ?",
@@ -36,13 +36,13 @@
           ]
         },
         {
-          "libelle": "Vos rendez-vous sont-ils honorés ?",
-          "reponse": "Le plus souvent",
+          "libelle": "Quelle part de vos estimations débouche sur un mandat signé ?",
+          "reponse": "Environ une sur trois",
           "statut": "Orange",
           "options": [
-            "Presque toujours",
-            "Le plus souvent",
-            "Souvent non"
+            "Plus d'une sur deux",
+            "Environ une sur trois",
+            "Moins d'une sur quatre"
           ]
         },
         {
@@ -64,8 +64,8 @@
         },
         {
           "nom": "Conversion",
-          "nomIndicateur": "Rendez-vous honorés",
-          "lecture": "Une partie des rendez-vous n'est pas honorée, ce qui coûte du temps de travail."
+          "nomIndicateur": "Estimations transformées en mandats",
+          "lecture": "Environ une estimation sur trois débouche sur un mandat. Les autres vendeurs confient leur bien à une autre agence ou renoncent : c'est là que vous perdez le plus de vendeurs."
         },
         {
           "nom": "Origine des clients",
@@ -74,12 +74,12 @@
         }
       ],
       "synthese": [
-        "Votre agence reçoit des contacts vendeurs de façon régulière, ce qui donne une base solide. Deux points ressortent : la présence aux rendez-vous et l'origine de vos mandats.",
+        "Votre agence reçoit des contacts vendeurs de façon régulière, ce qui donne une base solide. Deux points ressortent : la transformation de vos estimations en mandats et l'origine de vos mandats.",
         "Une part importante de vos mandats vient du bouche-à-oreille. C'est un signal de dépendance : les actions ci-dessous visent à rendre l'acquisition plus maîtrisée."
       ],
       "actions": [
         {
-          "texte": "Confirmer chaque rendez-vous la veille par message.",
+          "texte": "Remettre à chaque vendeur trois ventes comparables lors de l'estimation.",
           "retour": "Retour sous 5 jours"
         },
         {
@@ -101,8 +101,8 @@
         "precision": "En fin de mois, je n'ai pas le temps de relever les chiffres."
       },
       "libre": {
-        "libelle": "Selon vous, pourquoi certains rendez-vous ne sont-ils pas honorés ?",
-        "reponse": "Les vendeurs oublient le rendez-vous."
+        "libelle": "Selon vous, pourquoi certains vendeurs ne signent-ils pas après l'estimation ?",
+        "reponse": "Certains choisissent l'agence qui annonce le prix le plus élevé."
       },
       "objectif": {
         "titre": "+15 % de CA sur 12 mois",
@@ -111,7 +111,7 @@
         "cible": 15,
         "leviers": [
           {
-            "nom": "Transformation des rendez-vous",
+            "nom": "Transformation des estimations en mandats",
             "statut": "Orange",
             "potentiel": "+5 %"
           },
