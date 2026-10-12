@@ -7,9 +7,9 @@ export function AgentAvatar({ code }: { code: Agent["code"] }) {
   const agent = AGENTS.find((a) => a.code === code);
   if (!agent) return null;
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- portrait de 320 px déjà dimensionné, rendu dans un cadre de 26 à 96 px
+    // eslint-disable-next-line @next/next/no-img-element -- médaillon de 224 px déjà dimensionné, rendu dans un cadre de 26 à 112 px
     <img
-      src={`/agents/${agent.slug}.jpg`}
+      src={`/agents/${agent.slug}.webp`}
       alt=""
       width={96}
       height={96}
@@ -19,15 +19,15 @@ export function AgentAvatar({ code }: { code: Agent["code"] }) {
   );
 }
 
-// Buste détouré (fond transparent) pour l'en-tête de la page d'un agent : il
-// se pose directement sur le fond du site, le bas du buste s'estompe.
+// Médaillon de l'agent (buste de marbre dans un cercle doré) pour l'en-tête de
+// sa page.
 export function AgentPortrait({ code }: { code: Agent["code"] }) {
   const agent = AGENTS.find((a) => a.code === code);
   if (!agent) return null;
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- buste WebP détouré de 800 px, affiché à 380 px au plus
+    // eslint-disable-next-line @next/next/no-img-element -- médaillon WebP de 800 px, affiché à 380 px au plus
     <img
-      src={`/agents/${agent.slug}-detoure.webp`}
+      src={`/agents/${agent.slug}-medaillon.webp`}
       alt=""
       width={800}
       height={800}

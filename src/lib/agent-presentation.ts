@@ -66,12 +66,17 @@ function colonnesDiagnostic(exemple: string): Colonne[] {
         {
           titre: "Votre profil",
           texte:
-            "À l'inscription, vous indiquez votre métier, votre nombre de collaborateurs, votre zone géographique, votre chiffre d'affaires et l'objectif chiffré que vous visez.",
+            "À l'inscription, vous indiquez les informations permanentes de votre entreprise : métier, nombre de collaborateurs, zone géographique, chiffre d'affaires, date de création.",
+        },
+        {
+          titre: "Votre objectif",
+          texte:
+            "Au lancement de chaque audit, vous écrivez avec vos mots le résultat que vous voulez atteindre et le délai. Chaque agent a son propre objectif, conservé avec son historique.",
         },
         {
           titre: "Votre questionnaire",
           texte:
-            "Ensuite, un questionnaire est établi en fonction de votre profil. Vous y répondez à votre rythme : vos réponses sont enregistrées au fur et à mesure.",
+            "Les questions sont choisies, parmi celles rédigées pour votre métier, selon votre profil et votre objectif. Vous y répondez à votre rythme : vos réponses sont enregistrées au fur et à mesure.",
         },
         {
           titre: "Une estimation vaut mieux que rien",

@@ -9,8 +9,25 @@ modification. Si une demande contredit ce fichier, signale-le avant d'exécuter.
 
 - **Il n'y a plus de score global sur 100.** Il posait de trop gros problèmes.
   Aucun chiffre sur 100 n'apparaît sur le site.
-- **Objectif chiffré saisi à l'inscription** par le dirigeant (par exemple
-  +15 % de CA sur 12 mois).
+- **L'objectif n'est pas dans le profil de l'entreprise.** Il est défini par
+  le dirigeant au lancement de chaque audit, pour l'agent choisi, en un seul
+  champ de texte libre (« Quel résultat concret souhaitez-vous atteindre, et
+  dans quel délai ? »), sans liste d'objectifs prédéfinis. Exemple : « Je veux
+  augmenter mon chiffre d'affaires de 15 % dans les 12 prochains mois ».
+- **Interprétation de l'objectif.** Le texte est lu et converti en donnée
+  structurée (`metric`, `current_value`, `target_value`, `target_change`,
+  `unit`, `deadline`, `audit_agent`) par `src/lib/objectif/interpreter.ts`. Si
+  le résultat mesurable ou le délai manque, on ne redemande que ce qui manque
+  (« Dans quel délai souhaitez-vous atteindre cet objectif ? »). L'objectif
+  structuré personnalise tout l'audit.
+- **Un objectif par agent et par audit.** Les objectifs Acquisition, Finance,
+  RH et Comm ne se remplacent pas entre eux. Un nouvel objectif pour un même
+  agent remplace l'objectif actif, qui reste en historique (modèle `Objectif`
+  dans `prisma/schema.prisma`).
+- **Le questionnaire s'adapte à l'objectif sans être généré.** Il est choisi et
+  ordonné, parmi les questions pré-écrites du métier, selon le profil, l'agent
+  et l'objectif. Aucune question n'est écrite par une IA à la volée (section 2).
+  Cette sélection reste à construire : elle attend la banque de questions.
 - Le diagnostic lui montre les **leviers qui le séparent de cet objectif,
   classés par impact**.
 - **Le chiffre principal est l'avancement vers l'objectif** (par exemple
@@ -30,8 +47,8 @@ l'IA ne calcule rien et ne juge rien.
 
 CAXE est une plateforme web d'auto-audit d'entreprise par abonnement.
 
-Un dirigeant de PME s'inscrit, fixe un objectif chiffré, répond à un
-questionnaire conçu pour son métier, et reçoit les leviers qui le séparent de
+Un dirigeant de PME s'inscrit, choisit un agent, écrit l'objectif chiffré de
+cet audit, répond à un questionnaire conçu pour son métier, et reçoit les leviers qui le séparent de
 cet objectif, classés par impact, accompagnés d'un plan d'action concret (voir
 la section 0). Il revient
 ensuite au rythme de ses actions : **la fréquence de retour n'est pas fixe, elle
@@ -70,7 +87,8 @@ en découle.
 
 1. **Questionnaire pré-écrit et figé.** Les questions sont rédigées à l'avance,
    métier par métier, et stockées comme données. Une IA ne génère JAMAIS de
-   question au moment où l'utilisateur répond.
+   question au moment où l'utilisateur répond. L'objectif du dirigeant peut
+   orienter le choix et l'ordre des questions, jamais leur rédaction.
 
 2. **Moteur de scoring déterministe, écrit en code.** Il compare les réponses à
    des seuils fixes et produit un statut rouge, orange ou vert par indicateur,
@@ -176,6 +194,9 @@ choisir les bons seuils de comparaison.
 | Ancienneté de l'entreprise | Une agence de 2 ans n'a pas le portefeuille d'une agence de 15 ans |
 | Type de zone | Urbaine dense / périurbaine / rurale — segmente les seuils de volume |
 | Ville | Compare certains indicateurs au marché local réel |
+
+**L'objectif chiffré n'est pas un champ d'inscription** : il est propre à chaque
+audit et à chaque agent (section 0).
 
 ---
 
@@ -332,18 +353,22 @@ un ratio rapporté au nombre de collaborateurs, ou un croisement à deux entrée
 
 1. **Inscription et compte** — les sept champs de profil, authentification,
    persistance.
-2. **Questionnaire** — découpé partie par partie, pas une page unique de 86
+2. **Objectif de l'audit** — première étape de chaque audit, après le choix de
+   l'agent : un champ libre, interprétation, précision éventuelle, puis
+   enregistrement par agent avec historique (fait : page `/audit/[slug]`,
+   `src/lib/objectif/`, modèle `Objectif`).
+3. **Questionnaire** — découpé partie par partie, pas une page unique de 86
    questions. Barre de progression, réponses sauvegardées au fur et à mesure,
    possibilité de reprendre plus tard, possibilité de passer toute question.
    Pour les répartitions en pourcentage, afficher un total en direct qui alerte
    si on s'éloigne de 100.
-3. **Moteur de scoring** — en code, testable unitairement. Il doit être possible
+4. **Moteur de scoring** — en code, testable unitairement. Il doit être possible
    de lui donner un jeu de réponses et de vérifier le résultat attendu.
-4. **Rapport** — objectif du dirigeant, avancement vers cet objectif, leviers
+5. **Rapport** — objectif du dirigeant, avancement vers cet objectif, leviers
    classés par impact (section 0), indicateurs classés en rouge, orange et vert
    par thème, indicateurs calculés. Le texte de restitution sera rédigé par
    appel à un modèle, à partir des scores déjà calculés.
-5. **Plan d'action** — les actions issues des indicateurs faibles, avec un statut
+6. **Plan d'action** — les actions issues des indicateurs faibles, avec un statut
    modifiable par le dirigeant (à faire, en cours, fait).
 
 ### Plus tard, ne pas construire maintenant

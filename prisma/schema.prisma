@@ -49,6 +49,7 @@ model User {
   ville                  String
 
   agentAccess AgentAccess[]
+  objectifs   Objectif[]
 
   @@index([metierPrecis])
 }
@@ -65,4 +66,48 @@ model AgentAccess {
   souscritLe DateTime  @default(now())
 
   @@unique([userId, agent])
+}
+
+// Statut d'un objectif au fil des audits. Un seul objectif est ACTIF par
+// compte et par agent ; en relançant un audit avec un nouvel objectif, le
+// précédent passe à REMPLACE et reste consultable pour comparer l'évolution.
+enum StatutObjectif {
+  ACTIF
+  ATTEINT
+  ABANDONNE
+  REMPLACE
+}
+
+// Objectif du dirigeant, propre à un agent et à un audit (CLAUDE.md section 0).
+// Il n'appartient pas au profil de l'entreprise : le même compte peut avoir un
+// objectif Acquisition, un objectif Finance, etc., enregistrés séparément et
+// conservés avec leur historique.
+model Objectif {
+  id     String    @id @default(cuid())
+  userId String
+  user   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agent  AgentCode
+
+  // Ce que le dirigeant a écrit, tel quel (précisions éventuelles incluses).
+  texteBrut String
+
+  // Interprétation structurée : metric, current_value, target_value,
+  // target_change, target_delta, unit, deadline, audit_agent. Voir
+  // src/lib/objectif/interpreter.ts (type ObjectifStructure).
+  structure Json
+
+  // Échéance de l'objectif, extraite de structure.deadline pour pouvoir
+  // filtrer et trier sans lire le JSON.
+  echeance DateTime @db.Date
+
+  statut StatutObjectif @default(ACTIF)
+
+  // Avancement vers l'objectif, en pourcentage : renseigné plus tard, quand le
+  // détail du calcul sera arrêté (CLAUDE.md section 0). Vide pour l'instant.
+  progression Decimal? @db.Decimal(6, 2)
+
+  creeLe    DateTime  @default(now())
+  clotureLe DateTime?
+
+  @@index([userId, agent, creeLe])
 }

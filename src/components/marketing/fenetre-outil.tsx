@@ -9,6 +9,9 @@ import demo from "@/lib/demo-outil.json";
 type DemoAgent = {
   accueil: string;
   objectif: {
+    // La phrase que le dirigeant écrit au lancement de l'audit, et ce que CAXE en comprend.
+    texte: string;
+    compris: { indicateur: string; evolution: string; delai: string };
     titre: string;
     signe: string;
     atteint: number;
@@ -33,7 +36,6 @@ type Bloc =
   | { t: "agent"; texte: string }
   | { t: "moi"; texte: string }
   | { t: "profil" }
-  | { t: "commencer" }
   | { t: "questionnaire" }
   | { t: "redaction" }
   | { t: "synthese" }
@@ -42,7 +44,10 @@ type Bloc =
   | { t: "actions" }
   | { t: "suivi" };
 
-type Vue = "fil" | "questionnaire" | "suivi";
+type Vue = "fil" | "objectif" | "questionnaire" | "suivi";
+// Étape de l'objectif : le dirigeant écrit, CAXE lit, puis confirme ce qui a été compris.
+type ObjectifEtat = { texte: string; actif: boolean; etape: "saisie" | "analyse" | "compris" };
+const OBJECTIF_VIDE: ObjectifEtat = { texte: "", actif: false, etape: "saisie" };
 type SuiviEtat = {
   oui: number[];
   non: number | null;
@@ -75,14 +80,12 @@ const NB_QUESTIONS = 4; // trois questions fermées et une précision facultativ
 
 // Les quatre temps du parcours, affichés en haut de la fenêtre : le
 // questionnaire n'est que le point de départ du compte rendu et du suivi.
-const PARCOURS = ["Objectif", "Questionnaire", "Diagnostic et plan", "Suivi"];
+const PARCOURS = ["Profil", "Objectif", "Questionnaire", "Diagnostic et plan", "Suivi"];
 
-// Champs du formulaire d'inscription joué dans la démonstration : le profil,
-// puis l'objectif chiffré, fixé en même temps (celui du premier agent).
-const CHAMPS_FORMULAIRE = [
-  ...demo.profil,
-  { libelle: "Objectif chiffré", valeur: DEMO_AGENTS.ACQUISITION_CA.objectif.titre },
-];
+// Champs du formulaire d'inscription joué dans la démonstration : le profil de
+// l'entreprise, permanent et commun à tous les agents. L'objectif n'en fait
+// pas partie : il se définit au lancement de chaque audit.
+const CHAMPS_FORMULAIRE = demo.profil;
 
 const COULEUR_STATUT: Record<string, string> = {
   Vert: "#6fcf97",
@@ -114,6 +117,7 @@ function filComplet(code: string): Bloc[] {
     { t: "agent", texte: d.accueil },
     { t: "profil" },
   ];
+  fil.push({ t: "moi", texte: d.objectif.texte });
   fil.push({ t: "questionnaire" });
   fil.push({ t: "synthese" }, { t: "parties" });
   if (d.propositions) fil.push({ t: "propositions" });
@@ -216,6 +220,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
   const [legende, setLegende] = useState("");
   const [suivi, setSuivi] = useState<SuiviEtat>(SUIVI_VIDE);
   const [lancees, setLancees] = useState<number[]>([]);
+  const [objEtat, setObjEtat] = useState<ObjectifEtat>(OBJECTIF_VIDE);
   // Mise en scène : zone mise en avant (le reste s'estompe), liste des agents
   // balayée un à un, caméra ralentie pour le résultat, fondu de la boucle,
   // analyse de chaque réponse, plan d'action écrit ligne par ligne.
@@ -235,7 +240,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
   const couleur = couleurAgent[agent.couleur];
   const donnees = DEMO_AGENTS[agent.code];
   const affiche: Bloc[] = reduit ? filComplet(agent.code) : fil;
-  const etapeParcours = reduit ? 3 : parcours;
+  const etapeParcours = reduit ? 4 : parcours;
 
   function choisirAgent(index: number) {
     if (reduit) setIndexAgent(index);
@@ -435,42 +440,29 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
 
     // Le profil : les deux premiers champs se remplissent à vitesse normale,
     // pour comprendre le geste ; les suivants se remplissent d'un trait
-    // (saisie rapide, sans curseur) ; l'objectif chiffré est tapé à part, car
-    // tout le diagnostic part de lui.
+    // (saisie rapide, sans curseur).
     async function remplirFormulaire() {
       setFormulaire({ valeurs: CHAMPS_FORMULAIRE.map(() => ""), actif: -1 });
       setInscription(true);
       setParcours(0);
       dire("Comprendre.");
       await pause(350);
-      const dernierChamp = CHAMPS_FORMULAIRE.length - 1;
-      const taper = async (k: number, ms: number) => {
+      for (let k = 0; k < CHAMPS_FORMULAIRE.length; k++) {
+        if (k < 2) {
+          await deplacer(`form-${k}`, 0.2);
+          await cliquer();
+        } else if (k === 2) {
+          cacher();
+        }
         const texte = CHAMPS_FORMULAIRE[k].valeur;
         for (let c = 1; c <= texte.length; c++) {
           setFormulaire((f) => ({
             actif: k,
             valeurs: f.valeurs.map((v, j) => (j === k ? texte.slice(0, c) : v)),
           }));
-          await pause(ms);
+          await pause(k < 2 ? 24 : 6);
         }
-      };
-      for (let k = 0; k < CHAMPS_FORMULAIRE.length; k++) {
-        if (k < 2) {
-          await deplacer(`form-${k}`, 0.2);
-          await cliquer();
-          await taper(k, 24);
-          await pause(100);
-        } else if (k < dernierChamp) {
-          if (k === 2) cacher();
-          await taper(k, 6);
-          await pause(70);
-        } else {
-          await pause(150);
-          await deplacer(`form-${k}`, 0.2);
-          await cliquer();
-          await taper(k, 28);
-          await pause(450);
-        }
+        await pause(k < 2 ? 100 : 70);
       }
       setFormulaire((f) => ({ ...f, actif: -1 }));
       await deplacer("creer");
@@ -485,7 +477,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
     async function pointEtape(d: DemoAgent) {
       const { nonAtteinte, raison: motif, precision } = d.point;
       const maj = (partiel: Partial<SuiviEtat>) => setSuivi((e) => ({ ...e, ...partiel }));
-      setParcours(3);
+      setParcours(4);
       setFocus(null);
       dire("Améliorer.");
       await zoomSur(null, 1, 0.5, 600);
@@ -569,6 +561,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       setLibreActif(false);
       setSuivi(SUIVI_VIDE);
       setLancees([]);
+      setObjEtat(OBJECTIF_VIDE);
       setAnalyseQ({});
       setPlanVu(0);
       setFocus(null);
@@ -613,10 +606,30 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       await agentRepond(d.accueil);
       ajouter({ t: "profil" });
       await pause(450);
-      ajouter({ t: "commencer" });
+
+      // L'objectif : un seul champ libre, propre à cet audit. Le dirigeant
+      // l'écrit comme il le dirait ; CAXE le lit, en tire l'indicateur, la
+      // variation et l'échéance, et le confirme avant de lancer l'audit.
+      setVue("objectif");
       await pause(250);
-      await deplacer("commencer");
-      await cliquer("commencer");
+      await deplacer("objectif-champ", 0.2);
+      await cliquer();
+      setObjEtat({ texte: "", actif: true, etape: "saisie" });
+      for (let k = 3; k < d.objectif.texte.length + 3; k += 3) {
+        setObjEtat((o) => ({ ...o, texte: d.objectif.texte.slice(0, k) }));
+        await pause(14);
+      }
+      await pause(150);
+      await deplacer("objectif-continuer");
+      await cliquer("objectif-continuer");
+      setObjEtat((o) => ({ ...o, actif: false, etape: "analyse" }));
+      await pause(550);
+      setObjEtat((o) => ({ ...o, etape: "compris" }));
+      await pause(900);
+      await deplacer("objectif-lancer");
+      await cliquer("objectif-lancer");
+      ajouter({ t: "moi", texte: d.objectif.texte });
+      setParcours(2);
       setVue("questionnaire");
       setPhase("questions");
       await pause(250);
@@ -652,7 +665,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
 
       // L'analyse : les réponses sont comparées à l'objectif, puis le compte
       // rendu se traverse d'un trait (objectif et leviers, détail par thème).
-      setParcours(2);
+      setParcours(3);
       setPhase("redaction");
       await agentRepond("Merci. Je compare vos réponses à votre objectif et j'identifie ce qui vous en sépare.");
       ajouter({ t: "redaction" });
@@ -746,12 +759,75 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
     // coupait l'en-tête et décalait le contenu.
     if (vue === "suivi" && !reduit) return;
     zone.scrollTo({
-      top: vue === "questionnaire" ? 0 : zone.scrollHeight,
+      top: vue === "questionnaire" || vue === "objectif" ? 0 : zone.scrollHeight,
       behavior: reduit ? "auto" : "smooth",
     });
   }, [affiche.length, suivi.axe, suivi.non, vue, reduit]);
 
   const classeSurvol = (nom: string) => (survol === nom ? "survol" : "");
+
+  // Étape de l'objectif, comme dans l'audit : un champ libre, puis ce que
+  // CAXE en a compris (indicateur, évolution visée, échéance).
+  function rendreObjectif(o: ObjectifEtat) {
+    const c = donnees.objectif.compris;
+    return (
+      <div className="demo-quest demo-objectif-etape">
+        <p className="msg-titre">Audit · {agent.nom}</p>
+        <p className="demo-objectif-etape-titre">Votre objectif</p>
+        <p className="demo-sous-titre">Quel résultat concret souhaitez-vous atteindre, et dans quel délai ?</p>
+        {o.etape === "compris" ? (
+          <>
+            <p className="demo-objectif-dit">{donnees.objectif.texte}</p>
+            <p className="demo-objectif-compris-titre">Voici ce que nous avons compris</p>
+            <div className="demo-compris">
+              <div>
+                <span className="l">Indicateur</span>
+                <span className="v">{c.indicateur}</span>
+              </div>
+              <div>
+                <span className="l">Évolution visée</span>
+                <span className="v">{c.evolution}</span>
+              </div>
+              <div>
+                <span className="l">Échéance</span>
+                <span className="v">{c.delai}</span>
+              </div>
+            </div>
+            <span
+              data-cible="objectif-lancer"
+              className={`demo-valider-point primaire ${classeSurvol("objectif-lancer")}`}
+            >
+              Lancer l&apos;audit
+            </span>
+          </>
+        ) : (
+          <>
+            <span
+              className={`demo-champ demo-libre demo-libre-plein ${o.actif ? "plein" : ""}`}
+              data-cible="objectif-champ"
+            >
+              {o.texte ? (
+                <>
+                  {o.texte}
+                  {o.actif ? <span className="demo-caret" /> : null}
+                </>
+              ) : (
+                <span className="demo-placeholder">
+                  Ex. : augmenter mon chiffre d&apos;affaires de 15 % dans les 12 prochains mois
+                </span>
+              )}
+            </span>
+            <span
+              data-cible="objectif-continuer"
+              className={`demo-valider-point primaire ${classeSurvol("objectif-continuer")}`}
+            >
+              {o.etape === "analyse" ? "Lecture de votre objectif…" : "Continuer"}
+            </span>
+          </>
+        )}
+      </div>
+    );
+  }
 
   // Questionnaire pré-écrit : mêmes questions pour tous, réponses fermées
   // qui alimentent le calcul, une précision libre facultative qui sert
@@ -768,7 +844,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       <div className="demo-quest">
         <p className="msg-titre">Questionnaire · {agent.nom}</p>
         <p className="demo-sous-titre">
-          Questions rédigées à l&apos;avance, identiques pour tous les dirigeants de votre métier.
+          Questions rédigées à l&apos;avance pour votre métier, choisies selon votre objectif.
           Aucune n&apos;est obligatoire.
         </p>
         <p className="demo-apercu">
@@ -971,18 +1047,6 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
 
   function rendreBloc(bloc: Bloc, i: number) {
     switch (bloc.t) {
-      case "commencer":
-        return (
-          <div key={i} className="msg msg-agent">
-            <span
-              data-cible="commencer"
-              className={`demo-valider-point primaire ${classeSurvol("commencer")}`}
-              style={{ marginTop: 0 }}
-            >
-              Commencer le questionnaire
-            </span>
-          </div>
-        );
       case "questionnaire":
         return (
           <div key={i} className="msg msg-carte">
@@ -1029,10 +1093,6 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
                   <span className="v">{ligne.valeur}</span>
                 </div>
               ))}
-              <div className="demo-ligne">
-                <span className="l">Objectif</span>
-                <span className="v">{donnees.objectif.titre}</span>
-              </div>
             </div>
           </div>
         );
@@ -1203,7 +1263,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
             {PARCOURS.map((e, k) => (
               <li
                 key={e}
-                className={`demo-etape ${k === etapeParcours ? "actif" : ""} ${k < etapeParcours ? "fait" : ""} ${k >= 2 ? "cle" : ""}`}
+                className={`demo-etape ${k === etapeParcours ? "actif" : ""} ${k < etapeParcours ? "fait" : ""} ${k >= 3 ? "cle" : ""}`}
                 aria-current={k === etapeParcours ? "step" : undefined}
               >
                 <span className="demo-etape-num">{k < etapeParcours ? "✓" : k + 1}</span>
@@ -1230,7 +1290,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
               <h3 className="demo-inscription-titre">Créez votre profil</h3>
               <p className="demo-sous">
                 Saisi une seule fois : votre profil personnalise vos questions et les seuils de
-                comparaison, votre objectif chiffré fixe le cap.
+                comparaison de tous vos agents. Votre objectif se définit ensuite, à chaque audit.
               </p>
               <div className="demo-formulaire" data-cible="formulaire">
                 {CHAMPS_FORMULAIRE.map((ligne, k) => (
@@ -1330,13 +1390,15 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
                 )}
               </header>
               <div className="demo-fil" ref={filRef} aria-live="polite">
-                {vue === "questionnaire" && !reduit
+                {vue === "objectif" && !reduit
+                  ? rendreObjectif(objEtat)
+                  : vue === "questionnaire" && !reduit
                   ? rendreQuestionnaire(choixQ, libreTexte, libreActif, false)
                   : vue === "suivi" && !reduit
                     ? rendreSuivi(suivi)
                     : affiche.map(rendreBloc)}
               </div>
-              {(vue === "questionnaire" || vue === "suivi") && !reduit ? null : (
+              {(vue === "objectif" || vue === "questionnaire" || vue === "suivi") && !reduit ? null : (
                 <div className="demo-saisie-barre">
                   <span className="demo-champ">
                     <span className="demo-placeholder">Message à {agent.nom}</span>

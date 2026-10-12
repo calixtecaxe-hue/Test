@@ -1821,8 +1821,7 @@ h3,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.25);
-  transform-origin: 50% 38%;
+  transform: scale(1.1);
 }
 
 .avatar-hero {
@@ -1870,7 +1869,8 @@ h3,
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.45));
+  border-radius: 50%;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
 }
 
 .agent-atouts {
@@ -3220,4 +3220,72 @@ h3,
   .demo-action-entree {
     animation: none;
   }
+}
+
+/* Étape de l'objectif : un champ libre, puis ce que CAXE en a compris. */
+.demo-objectif-etape-titre {
+  margin: 10px 0 2px;
+  font-family: var(--titre);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.demo-objectif-etape .demo-libre {
+  margin: 12px 0;
+}
+
+.demo-objectif-dit {
+  margin: 12px 0 0;
+  padding: 8px 12px;
+  border-radius: 12px 4px 12px 12px;
+  background: rgba(91, 159, 236, 0.2);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.demo-objectif-compris-titre {
+  margin: 14px 0 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.demo-compris {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 8px 0 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(244, 236, 216, 0.03);
+  animation: demo-entree 0.4s ease both;
+}
+
+.demo-compris .l {
+  display: block;
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+.demo-compris .v {
+  display: block;
+  margin-top: 3px;
+  font-size: 13.5px;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+/* Le champ de l'objectif revient à la ligne : la phrase est écrite en entier. */
+.demo-objectif-etape .demo-champ {
+  display: block;
+  height: auto;
+  min-height: 56px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 1.5;
 }

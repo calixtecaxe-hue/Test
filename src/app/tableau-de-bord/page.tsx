@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { getMetier, getSousVariante } from "@/lib/metiers";
+import { AGENTS } from "@/lib/agents";
 import { DeconnexionBouton } from "./deconnexion-bouton";
 
 const libellesZone: Record<string, string> = {
@@ -32,6 +34,12 @@ export default async function TableauDeBord() {
   if (!utilisateur) {
     redirect("/connexion");
   }
+
+  const acces = await prisma.agentAccess.findMany({
+    where: { userId: utilisateur.id, actif: true },
+    select: { agent: true },
+  });
+  const agentsSouscrits = AGENTS.filter((a) => acces.some((x) => x.agent === a.code));
 
   const metier = getMetier(utilisateur.metierPrecis);
   const sousVariante = getSousVariante(
@@ -90,9 +98,36 @@ export default async function TableauDeBord() {
         </dl>
       </div>
 
-      <p className="mt-8 text-sm text-[var(--text-muted)]">
-        Le questionnaire n&apos;est pas encore disponible depuis cet écran.
-      </p>
+      <section className="mt-10" aria-labelledby="audits">
+        <h2 id="audits" className="text-base">
+          Lancer un audit
+        </h2>
+        {agentsSouscrits.length > 0 ? (
+          <ul className="mt-3 flex flex-col gap-2">
+            {agentsSouscrits.map((a) => (
+              <li key={a.code}>
+                <Link
+                  href={`/audit/${a.slug}`}
+                  className="flex items-center justify-between rounded-xl border border-[var(--line)] px-4 py-3 transition hover:border-[var(--blue-1)]"
+                >
+                  <span>{a.nom}</span>
+                  <span className="text-sm text-[var(--blue-1)]">Définir mon objectif</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-3 text-sm text-[var(--text-muted)]">
+            Aucun agent n&apos;est inclus dans votre formule pour le moment.{" "}
+            <Link href="/offres" className="text-[var(--blue-1)] hover:underline">
+              Voir les offres
+            </Link>
+          </p>
+        )}
+        <p className="mt-4 text-sm text-[var(--text-muted)]">
+          Chaque audit commence par votre objectif. Le questionnaire n&apos;est pas encore disponible depuis cet écran.
+        </p>
+      </section>
     </main>
   );
 }

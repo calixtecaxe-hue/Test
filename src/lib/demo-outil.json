@@ -23,7 +23,7 @@
   ],
   "agents": {
     "ACQUISITION_CA": {
-      "accueil": "Bonjour. Je suis l'agent Acquisition et chiffre d'affaires. Votre profil et votre objectif, fixés à l'inscription, sont déjà renseignés.",
+      "accueil": "Bonjour. Je suis l'agent Acquisition et chiffre d'affaires. Votre profil, saisi à l'inscription, est déjà renseigné.",
       "questions": [
         {
           "libelle": "Recevez-vous régulièrement de nouveaux contacts ?",
@@ -105,6 +105,8 @@
         "reponse": "Certains choisissent l'agence qui annonce le prix le plus élevé."
       },
       "objectif": {
+        "texte": "Je veux augmenter mon chiffre d'affaires de 15 % dans les 12 prochains mois.",
+        "compris": { "indicateur": "Chiffre d'affaires", "evolution": "+15 %", "delai": "12 mois" },
         "titre": "+15 % de CA sur 12 mois",
         "signe": "+",
         "atteint": 6,
@@ -206,6 +208,8 @@
         "reponse": "Les délais de paiement des clients."
       },
       "objectif": {
+        "texte": "Je veux améliorer ma trésorerie de 5 % dans les 12 prochains mois.",
+        "compris": { "indicateur": "Trésorerie", "evolution": "+5 %", "delai": "12 mois" },
         "titre": "+5 % de trésorerie sur 12 mois",
         "signe": "+",
         "atteint": 2,
@@ -307,6 +311,8 @@
         "reponse": "Les postes de terrain."
       },
       "objectif": {
+        "texte": "Je veux réduire mon turnover de 20 % dans les 12 prochains mois.",
+        "compris": { "indicateur": "Turnover", "evolution": "−20 %", "delai": "12 mois" },
         "titre": "−20 % de turnover sur 12 mois",
         "signe": "−",
         "atteint": 8,
@@ -416,6 +422,8 @@
         "reponse": "Rassurer les vendeurs."
       },
       "objectif": {
+        "texte": "Je veux augmenter de 20 % la conversion de mes publications Instagram en achats d'ici 12 mois.",
+        "compris": { "indicateur": "Conversion des publications", "evolution": "+20 %", "delai": "12 mois" },
         "titre": "+20 % de conversion des publications Instagram en achats, sur 12 mois",
         "signe": "+",
         "atteint": 8,
