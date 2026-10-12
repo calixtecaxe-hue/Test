@@ -856,9 +856,12 @@ h3,
   position: relative;
   overflow: hidden;
   border-radius: 20px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(244, 236, 216, 0.2);
+  background: linear-gradient(180deg, #0d1a29, var(--panel) 38%);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 236, 216, 0.06),
+    0 44px 90px -40px rgba(0, 0, 0, 0.85),
+    0 0 90px -36px rgba(91, 159, 236, 0.22);
   text-align: left;
 }
 
@@ -960,6 +963,12 @@ h3,
   overflow: hidden;
 }
 
+@media (min-width: 1024px) {
+  .demo-corps {
+    height: 540px;
+  }
+}
+
 /* Scène : tout ce qui est filmé (liste, conversation, superpositions,
    curseur). La caméra la déplace et l'agrandit, voir zoomSur. */
 .demo-scene {
@@ -967,7 +976,13 @@ h3,
   width: 100%;
   height: 100%;
   transform-origin: 0 0;
-  transition: transform 0.5s cubic-bezier(0.37, 0, 0.63, 1);
+  transition: transform 0.7s cubic-bezier(0.37, 0, 0.63, 1);
+  will-change: transform;
+}
+
+/* Résultat : la caméra ralentit pour s'approcher du chiffre. */
+.demo-scene.lente {
+  transition-duration: 1.3s;
 }
 
 /* Inscription : le profil se crée une seule fois, avant le choix d'un agent. */
@@ -1646,109 +1661,6 @@ h3,
   border-color: rgba(244, 236, 216, 0.22);
 }
 
-/* Rappel : notification en bas de l'écran, à l'échéance des objectifs */
-.demo-notif {
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-  z-index: 7;
-  display: flex;
-  width: min(370px, calc(100% - 32px));
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(244, 236, 216, 0.22);
-  background: #101d2c;
-  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.8);
-  cursor: pointer;
-  animation: demo-notif 0.6s cubic-bezier(0.16, 1, 0.3, 1) both, demo-sonne 0.8s ease 0.7s both;
-}
-
-.demo-notif.survol {
-  background: #17304b;
-}
-
-@keyframes demo-notif {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes demo-sonne {
-  0%,
-  100% {
-    rotate: 0deg;
-  }
-  20% {
-    rotate: -2deg;
-  }
-  40% {
-    rotate: 2deg;
-  }
-  60% {
-    rotate: -1.5deg;
-  }
-  80% {
-    rotate: 1deg;
-  }
-}
-
-.demo-notif-icone {
-  display: flex;
-  width: 34px;
-  height: 34px;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9px;
-  background: linear-gradient(135deg, var(--blue-1), var(--blue-2));
-  font-family: var(--titre);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--white-1);
-}
-
-.demo-notif-haut {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 11.5px;
-  color: var(--text-faint);
-}
-
-.demo-notif-haut b {
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-}
-
-.demo-notif-haut i {
-  font-style: normal;
-}
-
-.demo-notif-titre {
-  display: block;
-  margin-top: 2px;
-  font-size: 13.5px;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--text);
-}
-
-.demo-notif-texte {
-  display: block;
-  margin-top: 2px;
-  font-size: 12.5px;
-  line-height: 1.4;
-  color: var(--text-muted);
-}
-
 /* Point d'étape : actions atteintes ou non, avec la raison */
 
 .demo-choix {
@@ -2105,22 +2017,6 @@ h3,
   background: rgba(244, 236, 216, 0.06);
   font-size: 12.5px;
   color: var(--text-muted);
-}
-
-.demo-rapide {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  translate: 0 -50%;
-  flex-shrink: 0;
-  white-space: nowrap;
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: rgba(91, 159, 236, 0.2);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--blue-1);
-  animation: demo-entree 0.3s ease both;
 }
 
 /* Montage du suivi dans le temps */
@@ -3136,4 +3032,192 @@ h3,
 
 .demo-note-plan {
   margin: 4px 0 10px;
+}
+
+
+/* Mise en scène de la démonstration : la zone active reste nette, le reste
+   s'estompe très légèrement. Seuls opacity, transform et filter bougent. */
+.demo-liste,
+.demo-chat,
+.demo-chat-haut,
+.demo-objectifs {
+  transition: opacity 0.5s ease;
+}
+
+.fenetre[data-focus="chat"] .demo-liste,
+.fenetre[data-focus="reco"] .demo-liste,
+.fenetre[data-focus="resultat"] .demo-liste,
+.fenetre[data-focus="liste"] .demo-chat,
+.fenetre[data-focus="reco"] .demo-chat-haut,
+.fenetre[data-focus="resultat"] .demo-chat-haut,
+.fenetre[data-focus="resultat"] .demo-objectifs {
+  opacity: 0.4;
+}
+
+.demo-fil > .msg {
+  transition: filter 0.5s ease;
+}
+
+.fenetre[data-focus="reco"] .demo-fil > .msg:not([data-cible="actions-carte"]) {
+  filter: brightness(0.55);
+}
+
+/* Liste des agents balayée : chacun est mis en avant à son tour. */
+.demo-item {
+  transition: background 0.25s ease, border-color 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+}
+
+.demo-liste.balayage .demo-item {
+  opacity: 0.5;
+}
+
+.demo-liste.balayage .demo-item.survol {
+  opacity: 1;
+  transform: translateX(4px);
+  border-color: rgba(91, 159, 236, 0.45);
+  background: rgba(91, 159, 236, 0.14);
+}
+
+/* Fondu de la boucle : résultat, fondu, retour à l'écran initial. */
+.demo-corps,
+.demo-legende {
+  transition: opacity 0.6s ease;
+}
+
+.fenetre.fondu .demo-corps,
+.fenetre.fondu .demo-legende {
+  opacity: 0;
+}
+
+.fenetre.fondu .demo-scene {
+  transition: none;
+}
+
+/* Analyse de chaque réponse : une ligne réservée sous les options, pour que
+   rien ne bouge quand elle apparaît. */
+.demo-analyse {
+  min-height: 18px;
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-faint);
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.demo-analyse.cours,
+.demo-analyse.ok {
+  opacity: 1;
+  transform: none;
+}
+
+.demo-analyse.ok {
+  color: #6fcf97;
+}
+
+/* Plan d'action généré ligne par ligne, puis validé. */
+.demo-action-entree {
+  animation: demo-entree 0.45s ease both;
+}
+
+.demo-generation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.demo-generation-pastille {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1.5px solid var(--blue-1);
+  border-top-color: transparent;
+  font-size: 9px;
+  color: #07111b;
+  animation: demo-rotation 0.8s linear infinite;
+}
+
+.demo-generation.ok {
+  color: #6fcf97;
+}
+
+.demo-generation.ok .demo-generation-pastille {
+  border-color: transparent;
+  background: #6fcf97;
+  animation: none;
+}
+
+@keyframes demo-rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Résultat : un halo très discret derrière le chiffre, qui monte avec lui. */
+.demo-objectif-suivi {
+  position: relative;
+  isolation: isolate;
+}
+
+.demo-objectif-suivi::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -16px;
+  z-index: -1;
+  width: 300px;
+  height: 150px;
+  background: radial-gradient(circle at 35% 50%, rgba(91, 159, 236, 0.3), transparent 65%);
+  pointer-events: none;
+  animation: demo-halo 1.8s ease 0.2s both;
+}
+
+.demo-objectif-suivi .demo-avancement-valeur {
+  font-size: 56px;
+  animation: demo-chiffre 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes demo-halo {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
+
+@keyframes demo-chiffre {
+  from {
+    opacity: 0.4;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.demo-curseur {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-generation-pastille,
+  .demo-objectif-suivi::before,
+  .demo-objectif-suivi .demo-avancement-valeur,
+  .demo-action-entree {
+    animation: none;
+  }
 }

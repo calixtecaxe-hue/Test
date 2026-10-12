@@ -50,7 +50,7 @@ export default function Accueil() {
       <main className="flex-1">
         <section className="relative overflow-hidden px-6 pb-24 pt-16 sm:pt-24 lg:px-10">
           <GrillePoints position="gauche" />
-          <div className="relative z-10 mx-auto grid max-w-[1320px] gap-16 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+          <div className="relative z-10 mx-auto grid max-w-[1320px] gap-16 grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
               <div className="relative">
                 <EtoilesLogo />
