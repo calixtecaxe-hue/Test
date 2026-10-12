@@ -1442,8 +1442,16 @@ h3,
   color: var(--blue-1);
 }
 
-.demo-actions li span:first-of-type {
-  flex: 1;
+.demo-actions li > span:first-of-type {
+  flex: 1 1 calc(100% - 32px);
+}
+
+.demo-pastilles {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-left: 32px;
 }
 
 .demo-retour,
@@ -1455,6 +1463,20 @@ h3,
   font-size: 11.5px;
   color: var(--text-muted);
   white-space: nowrap;
+}
+
+.demo-demarrer {
+  flex-shrink: 0;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--blue-1);
+  font-size: 11.5px;
+  color: var(--blue-1);
+  white-space: nowrap;
+}
+
+.demo-actions li {
+  flex-wrap: wrap;
 }
 
 .demo-etat.en-cours {

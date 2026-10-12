@@ -217,6 +217,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
   const [horloge, setHorloge] = useState<number | null>(null);
   const [legende, setLegende] = useState("");
   const [suivi, setSuivi] = useState<SuiviEtat>(SUIVI_VIDE);
+  const [lancees, setLancees] = useState<number[]>([]);
   const reduit = useMouvementReduit();
   const fenetreRef = useRef<HTMLDivElement>(null);
   const filRef = useRef<HTMLDivElement>(null);
@@ -482,7 +483,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       const { nonAtteinte, raison: motif, precision } = d.point;
       const maj = (partiel: Partial<SuiviEtat>) => setSuivi((e) => ({ ...e, ...partiel }));
       setParcours(3);
-      dire("6 · Nous suivons votre progression. 5 jours plus tard…");
+      dire("7 · Nous suivons votre progression. 5 jours plus tard…");
       await zoomSur(null);
       setHorloge(0);
       for (let j = 1; j <= 5; j++) {
@@ -590,6 +591,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       setLibreTexte("");
       setLibreActif(false);
       setSuivi(SUIVI_VIDE);
+      setLancees([]);
       setParcours(avecInscription ? 0 : 1);
       setPhase("attente");
       setQuestions(0);
@@ -697,18 +699,29 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
         await pause(2200);
       }
       rythme(base);
+      dire("5 · Une stratégie est construite pour atteindre votre objectif.");
+      await agentRepond(`Voici la stratégie pour atteindre ${d.objectif.titre} : un plan d'action, levier par levier.`);
       ajouter({ t: "actions" });
-      dire("5 · Un plan d'action vous permet d'améliorer vos points faibles : chaque action vise un levier.");
       await pause(600);
       // Le plan : d'abord les actions (à gauche), puis, d'un glissé de caméra,
       // l'échéance de retour de chacune (à droite).
       // Sur petit écran la carte tient déjà dans le cadre : pas de zoom.
       const petit = window.matchMedia("(max-width: 639px)").matches;
       if (!petit) await zoomSur("actions-carte", 1.3, 0.22);
-      await pause(2400);
-      dire("Chacune a sa propre échéance de retour : nous revenons vers vous à cette date.");
+      await pause(2200);
+      dire("Chaque action vise un levier et a sa propre échéance de retour.");
       if (!petit) await zoomSur("actions-carte", 1.3, 0.85);
-      await pause(2000);
+      await pause(1600);
+
+      // La mise en place : le dirigeant démarre chacune des actions.
+      dire("6 · Vous la mettez en place : vous démarrez chaque action.");
+      for (let k = 0; k < d.actions.length; k++) {
+        await deplacer(`demarrer-${k}`, 0.5);
+        await cliquer(`demarrer-${k}`);
+        setLancees((l) => [...l, k]);
+        await pause(300);
+      }
+      await pause(700);
       await zoomSur(null);
 
       await pointEtape(d);
@@ -1132,13 +1145,24 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
           <div key={i} className="msg msg-carte" data-cible="actions-carte">
             <p className="msg-titre">Plan d&apos;action</p>
             <p className="demo-note demo-note-plan">
-              Chaque action vise un levier ou un point faible du diagnostic.
+              Pour atteindre {donnees.objectif.titre}. Chaque action vise un levier ou un point faible du diagnostic.
             </p>
             <ol className="demo-actions">
-              {donnees.actions.map((a) => (
+              {donnees.actions.map((a, k) => (
                 <li key={a.texte}>
                   <span>{a.texte}</span>
-                  <span className="demo-retour">{a.retour}</span>
+                  <span className="demo-pastilles">
+                    <span className="demo-retour">{a.retour}</span>
+                    {reduit || lancees.includes(k) ? (
+                      <span className="demo-etat en-cours" data-cible={`demarrer-${k}`}>
+                        En cours
+                      </span>
+                    ) : (
+                      <span className="demo-demarrer" data-cible={`demarrer-${k}`}>
+                        Démarrer
+                      </span>
+                    )}
+                  </span>
                 </li>
               ))}
             </ol>
