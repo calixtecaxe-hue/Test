@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/marketing/site-footer";
 import { EtoilesLogo } from "@/components/marketing/etoiles-logo-lazy";
 import { GrillePoints } from "@/components/marketing/grille-points";
 import { Reveal } from "@/components/marketing/reveal";
-import { FenetreOutil } from "@/components/marketing/fenetre-outil";
+import { HeroVideo } from "@/components/marketing/hero-video";
 import { AgentsSelecteur } from "@/components/marketing/agents-selecteur";
 
 const chemin = "M 18 8 C 65 8, 82 25, 82 50 C 82 75, 65 92, 18 92";
@@ -81,7 +81,7 @@ export default function Accueil() {
             </div>
 
             <Reveal delai={150}>
-              <FenetreOutil />
+              <HeroVideo />
             </Reveal>
           </div>
         </section>
