@@ -3311,23 +3311,118 @@ h3,
   background: var(--bg);
 }
 
-.hero-video-son {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(7, 17, 27, 0.7);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text);
-  backdrop-filter: blur(6px);
-  cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease;
+/* Barre de commandes sous l'image : les sous-titres de la vidéo restent visibles. */
+.hero-video-barre {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--line);
+  background: rgba(7, 17, 27, 0.92);
 }
 
-.hero-video-son:hover {
-  border-color: var(--blue-1);
-  background: rgba(7, 17, 27, 0.85);
+.hero-video-bouton {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.hero-video-bouton:hover {
+  background: rgba(244, 236, 216, 0.08);
+  color: var(--blue-1);
+}
+
+.hero-video-bouton:focus-visible,
+.hero-video-position:focus-visible {
+  outline: 2px solid var(--blue-1);
+  outline-offset: 2px;
+}
+
+.hero-video-temps {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+/* Curseur de position : la partie lue en dégradé bleu, comme les barres de progression. */
+.hero-video-position {
+  --p: 0%;
+  min-width: 0;
+  flex: 1;
+  height: 20px;
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  appearance: none;
+}
+
+.hero-video-position::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--blue-1), var(--blue-2)) 0 / var(--p) 100% no-repeat,
+    rgba(244, 236, 216, 0.18);
+}
+
+.hero-video-position::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(244, 236, 216, 0.18);
+}
+
+.hero-video-position::-moz-range-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--blue-1);
+}
+
+.hero-video-position::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border: none;
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: 0 0 0 3px rgba(91, 159, 236, 0.25);
+  appearance: none;
+}
+
+.hero-video-position::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: 0 0 0 3px rgba(91, 159, 236, 0.25);
+}
+
+@media (max-width: 480px) {
+  .hero-video-temps {
+    display: none;
+  }
+}
+
+/* Plein écran : la vidéo remplit l'écran, la barre reste en bas. */
+.hero-video-plein {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  border-radius: 0;
+  background: #000;
+}
+
+.hero-video-plein .hero-video-lecteur {
+  min-height: 0;
+  flex: 1;
+  aspect-ratio: auto;
+  object-fit: contain;
 }
