@@ -8,6 +8,7 @@ import { AgentAvatar } from "@/components/marketing/agent-avatar";
 import { formaterEuros, prixMensuelEquivalentAnnuelCentimesHT, OFFRES } from "@/lib/offres";
 import { modePaiement, montantCentimesHT } from "@/lib/paiement/etat";
 import { GererFacturation } from "./gerer-facturation";
+import { FacturationFormulaire } from "./facturation-formulaire";
 
 export const metadata: Metadata = { title: "Mon compte — CAXE" };
 
@@ -85,6 +86,14 @@ export default async function ComptePage() {
             <p className="max-w-[28ch] text-xs text-[var(--text-muted)]">Mode démonstration : aucun paiement réel n&apos;a été pris pour ce compte.</p>
           ) : null}
         </div>
+      </section>
+
+      <section aria-labelledby="facturation" className="rounded-xl border border-[var(--line)] bg-[var(--panel)] p-6">
+        <h2 id="facturation" className="text-xl">
+          Facturation professionnelle
+        </h2>
+        <p className="mt-2 mb-5 max-w-[60ch] text-sm text-[var(--text-muted)]">Le nom de l&apos;entreprise et son numéro de TVA figurent sur vos factures. Facultatif.</p>
+        <FacturationFormulaire initial={{ raisonSociale: utilisateur.raisonSociale ?? "", numeroTva: utilisateur.numeroTva ?? "" }} />
       </section>
 
       <section aria-labelledby="agents-inclus">

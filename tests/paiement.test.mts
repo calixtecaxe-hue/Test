@@ -88,3 +88,47 @@ test("un événement sans effet sur l'abonnement est ignoré", () => {
   assert.equal(miseAJourDepuisEvenement(evt("customer.created", {})), null);
   assert.equal(miseAJourDepuisEvenement(evt("customer.subscription.updated", {})), null);
 });
+
+// --- Facturation professionnelle : numéro de TVA intracommunautaire ---------------------------
+
+import { normaliserTva, verifierFacturation, verifierTva } from "../src/lib/paiement/tva.ts";
+
+test("un numéro de TVA se lit avec ou sans espaces, points et casse", () => {
+  assert.equal(normaliserTva(" fr 64.443-061 841 "), "FR64443061841");
+  assert.deepEqual(verifierTva("FR 64 443 061 841"), { ok: true, numero: "FR64443061841" });
+  assert.deepEqual(verifierTva("fr03552081317"), { ok: true, numero: "FR03552081317" });
+});
+
+test("la clé de contrôle d'un numéro de TVA français est vérifiée", () => {
+  const r = verifierTva("FR65443061841");
+  assert.equal(r.ok, false);
+  assert.match(r.ok ? "" : r.message, /clé de contrôle/);
+  // Une clé alphabétique n'est pas contrôlée.
+  assert.equal(verifierTva("FRAB443061841").ok, true);
+});
+
+test("les numéros mal formés ou hors de l'Union européenne sont refusés avec une explication", () => {
+  for (const mauvais of ["", "443061841", "FR6444306184", "FR 64 443 061 8412", "GB123456789", "CH123456", "US123456789", "FR-"]) {
+    assert.equal(verifierTva(mauvais).ok, false, mauvais);
+  }
+  assert.match((verifierTva("GB123456789") as { message: string }).message, /Union européenne/);
+});
+
+test("des numéros d'autres pays de l'Union européenne sont acceptés selon leur forme", () => {
+  for (const bon of ["DE123456789", "BE0123456789", "ESX1234567X", "IT12345678901", "NL123456789B01", "EL123456789", "ATU12345678", "LU12345678"]) {
+    assert.equal(verifierTva(bon).ok, true, bon);
+  }
+  for (const mauvais of ["DE12345678", "BE2123456789", "NL123456789B1", "ATX12345678"]) assert.equal(verifierTva(mauvais).ok, false, mauvais);
+});
+
+test("la facturation est facultative ; un numéro de TVA exige le nom de l'entreprise", () => {
+  assert.deepEqual(verifierFacturation({}), { ok: true, facturation: { raisonSociale: null, numeroTva: null } });
+  assert.deepEqual(verifierFacturation({ raisonSociale: "  Dupont   Électricité  " }), { ok: true, facturation: { raisonSociale: "Dupont Électricité", numeroTva: null } });
+  assert.deepEqual(verifierFacturation({ raisonSociale: "Dupont", numeroTva: "fr 64 443 061 841" }), { ok: true, facturation: { raisonSociale: "Dupont", numeroTva: "FR64443061841" } });
+  const sansNom = verifierFacturation({ numeroTva: "FR64443061841" });
+  assert.equal(sansNom.ok, false);
+  assert.equal(!sansNom.ok && sansNom.champ, "raisonSociale");
+  const mauvais = verifierFacturation({ raisonSociale: "Dupont", numeroTva: "FR00000000000" });
+  assert.equal(!mauvais.ok && mauvais.champ, "numeroTva");
+  assert.equal(verifierFacturation({ raisonSociale: "x".repeat(121) }).ok, false);
+});

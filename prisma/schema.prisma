@@ -64,6 +64,11 @@ model User {
   // pour tous les agents (CLAUDE.md section 6). Vide tant qu'il n'a pas été choisi.
   niveauAudit NiveauAudit?
 
+  // Facturation professionnelle (facultative) : nom de l'entreprise et numéro de TVA
+  // intracommunautaire, demandés au paiement et repris sur la facture.
+  raisonSociale String?
+  numeroTva     String?
+
   agentAccess AgentAccess[]
   objectifs   Objectif[]
   abonnement  Abonnement?

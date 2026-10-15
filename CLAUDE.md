@@ -240,7 +240,7 @@ pages `/paiement`, `/paiement/succes`, `/paiement/demonstration`. `Abonnement.st
 `aAccesAgent`, `agentsActifs` et les routes `/api/audit/*` le vérifient. Le prix est toujours recalculé côté serveur. Sans clé Stripe :
 mode **démonstration** (aucun paiement, dit clairement à l'écran) en développement, « indisponible » en production, jamais d'accès
 offert par défaut. À fournir par le propriétaire : compte Stripe (clés, secret du webhook, portail client), TVA / Stripe Tax, conditions
-générales de vente. Le changement de formule en cours d'abonnement n'est pas ouvert. **Espace abonné** : groupe de routes
+générales de vente. **Facturation professionnelle** : au paiement et dans `/compte`, nom de l'entreprise et numéro de TVA intracommunautaire (facultatifs ; un numéro exige le nom), contrôlés par `src/lib/paiement/tva.ts` (forme par pays de l'UE, clé de contrôle française), enregistrés sur le compte (`User.raisonSociale`, `numeroTva`) et transmis à Stripe (client, type `eu_vat`) pour la facture ; Stripe collecte aussi l'adresse de facturation. Le contrôle ne vérifie pas l'existence du numéro au registre VIES. Le changement de formule en cours d'abonnement n'est pas ouvert. **Espace abonné** : groupe de routes
 `src/app/(espace)/` (en-tête, `/tableau-de-bord` « Mes agents », `/audit/[slug]` avec parcours Objectif → Niveau et cadrage →
 Questionnaire → Résultats, `/compte`) ; l'objectif reste toujours demandé avant les questions.
 **Parcours** : la formule choisie avant l'inscription voyage dans l'adresse

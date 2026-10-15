@@ -3,6 +3,7 @@
 
 import Stripe from "stripe";
 import { intervalleFacturation, montantCentimesHT, type Periode } from "./etat.ts";
+import type { Facturation } from "./tva.ts";
 
 let client: Stripe | null = null;
 export function stripe(): Stripe {
@@ -16,7 +17,36 @@ export function adresseSite(): string {
   return (process.env.NEXT_PUBLIC_SITE_URL ?? process.env.AUTH_URL ?? "http://localhost:3000").replace(/\/$/, "");
 }
 
-export async function creerSessionPaiement(o: { userId: string; email: string; nombreAgents: number; periode: Periode; clientStripe?: string | null }): Promise<string> {
+// Client Stripe du compte, créé au premier paiement avec le nom de l'entreprise et son numéro de TVA,
+// puis tenu à jour : ce sont eux que Stripe reprend sur la facture.
+export async function preparerClient(o: { userId: string; email: string; facturation: Facturation; clientStripe: string | null }): Promise<string> {
+  const { raisonSociale, numeroTva } = o.facturation;
+  if (!o.clientStripe) {
+    const c = await stripe().customers.create({
+      email: o.email,
+      ...(raisonSociale ? { name: raisonSociale } : {}),
+      metadata: { userId: o.userId },
+      ...(numeroTva ? { tax_id_data: [{ type: "eu_vat" as const, value: numeroTva }] } : {}),
+    });
+    return c.id;
+  }
+  await synchroniserFacturation(o.clientStripe, o.facturation);
+  return o.clientStripe;
+}
+
+// Met à jour le nom et le numéro de TVA d'un client existant : l'ancien numéro est remplacé.
+export async function synchroniserFacturation(clientStripe: string, f: Facturation): Promise<void> {
+  await stripe().customers.update(clientStripe, { name: f.raisonSociale ?? "" });
+  const anciens = await stripe().customers.listTaxIds(clientStripe, { limit: 20 });
+  for (const t of anciens.data) {
+    if (t.type === "eu_vat" && t.value !== f.numeroTva) await stripe().customers.deleteTaxId(clientStripe, t.id);
+  }
+  if (f.numeroTva && !anciens.data.some((t) => t.type === "eu_vat" && t.value === f.numeroTva)) {
+    await stripe().customers.createTaxId(clientStripe, { type: "eu_vat", value: f.numeroTva });
+  }
+}
+
+export async function creerSessionPaiement(o: { userId: string; nombreAgents: number; periode: Periode; clientStripe: string }): Promise<string> {
   const montant = montantCentimesHT(o.nombreAgents, o.periode);
   if (montant === null) throw new Error("Formule inconnue.");
   const site = adresseSite();
@@ -25,7 +55,12 @@ export async function creerSessionPaiement(o: { userId: string; email: string; n
     locale: "fr",
     client_reference_id: o.userId,
     metadata: { userId: o.userId },
-    ...(o.clientStripe ? { customer: o.clientStripe } : { customer_email: o.email }),
+    customer: o.clientStripe,
+    // Facturation professionnelle : adresse de facturation, et possibilité d'ajouter ou de corriger le
+    // nom de l'entreprise et le numéro de TVA sur la page de paiement elle-même.
+    billing_address_collection: "required",
+    tax_id_collection: { enabled: true },
+    customer_update: { name: "auto", address: "auto" },
     line_items: [
       {
         quantity: 1,

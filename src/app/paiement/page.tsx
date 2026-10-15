@@ -28,6 +28,7 @@ export default async function PaiementPage({ searchParams }: { searchParams: Pro
   // Formule sans les agents choisis : on retourne les choisir avant de payer.
   if (agents.length !== abonnement.nombreAgents) redirect(`/activation?agents=${abonnement.nombreAgents}&periode=${periode}`);
 
+  const utilisateur = await prisma.user.findUnique({ where: { id: userId }, select: { raisonSociale: true, numeroTva: true } });
   const montant = montantCentimesHT(abonnement.nombreAgents, periode)!;
   const offre = OFFRES.find((o) => o.nombreAgents === abonnement.nombreAgents)!;
   const mode = modePaiement(process.env);
@@ -89,6 +90,7 @@ export default async function PaiementPage({ searchParams }: { searchParams: Pro
               ) : null}
             </div>
             <PaiementBouton
+              initial={{ raisonSociale: utilisateur?.raisonSociale ?? "", numeroTva: utilisateur?.numeroTva ?? "" }}
               desactive={mode === "indisponible"}
               libelle={mode === "stripe" ? `Payer ${formaterEuros(montant)} HT` : mode === "demonstration" ? "Continuer vers le paiement de démonstration" : "Paiement indisponible"}
             />
