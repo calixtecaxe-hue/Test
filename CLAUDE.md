@@ -274,6 +274,19 @@ aucun seuil de marché n'est écrit dans le classeur ni dans le document, donc t
 dans le classeur), impact qualifié Bloquant / Frein / Secondaire (« règles fixes » non fournies), règle
 d'agrégation quand un thème porte plusieurs indicateurs. Rapport des tests : `docs/rapport-tests-etape-5.md`.
 
+**Réponses typées et banque de questions (construit)** : chaque question a une **spécification de
+réponse** (`src/lib/donnees/reponse-spec.ts`) : nombre (unité, bornes), oui / non, choix, cases, liste libre,
+texte, mois et année, plusieurs champs, tableau (lignes fixes, issues d'une question de cadrage, d'une liste,
+ou libres ; total imposé). Elle vient de la banque (`question.reponse`) ou, à défaut, de ce que le format du
+classeur permet de déduire sans ambiguïté (`proposerSpec` : 178 données sur 395) ; les 217 autres (« Choix » sans
+liste, plusieurs champs, tableaux) **doivent être définies dans la banque**, sinon saisie libre. Le serveur
+refuse toute réponse non conforme (`validerReponse`), le navigateur contrôle le même code
+(`src/lib/audit/saisie.ts`). **La banque s'écrit dans Excel** : `python3 scripts/exporter-modele-banque.py`
+produit `CAXE_Banque_Questions.xlsx` (une ligne par donnée posée, prérempli), `python3 scripts/importer-banque.py
+<classeur>` le convertit en `data/banque/questions.json` (contrôle chaque ligne, n'écrit rien s'il reste une
+erreur). Les croisements ne sont pas encore exécutables : leurs formules sont en texte libre dans le classeur ;
+elles se brancheront sur les réponses typées une fois la banque écrite.
+
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),
 puis la connexion des deux. Tant que la banque n'existe pas, rien n'est inventé :
