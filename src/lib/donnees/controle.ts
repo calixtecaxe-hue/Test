@@ -200,6 +200,29 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     }
   }
 
+  // Seuils : chaque seuil vise une donnée existante de son thème ; les thèmes notés sans
+  // seuil sont comptés (rien n'est inventé : ils sortent « règle manquante » du moteur).
+  for (const sd of e.seuils) {
+    const d = donnees.get(sd.donnee);
+    if (!d) erreurs.push(`Un seuil vise une donnée inconnue : ${sd.donnee}.`);
+    else if (d.theme !== sd.theme) erreurs.push(`Le seuil de ${sd.donnee} annonce le thème ${sd.theme}, la donnée est dans ${d.theme}.`);
+    if (sd.source === null) avertissements.push(`Seuil « à valider » (sans source) : ${sd.donnee}.`);
+  }
+  const themesAvecSeuil = new Set(e.seuils.map((s) => s.theme));
+  const themesNotes = e.themes.filter((t) => t.nature !== "contexte");
+  const sansSeuil = themesNotes.filter((t) => !themesAvecSeuil.has(t.code));
+  // Document : au moins 2 questions par thème noté.
+  let notesTropCourts = 0;
+  for (const t of themesNotes) {
+    // Données collectées (posées, partagées, importées ou lues chez un autre agent), hors calculs.
+    const collectees = e.donnees.filter((d) => d.theme === t.code && d.mode !== "calculee").length;
+    const posees = e.donnees.filter((d) => d.theme === t.code && (d.mode === "demandee" || d.mode === "partagee")).length;
+    if (collectees < 2) {
+      notesTropCourts++;
+      avertissements.push(`Le thème noté ${t.code} (${t.nom}) n'a que ${collectees} donnée(s) collectée(s) (${posees} posée(s) au dirigeant) ; le document en demande au moins 2 questions.`);
+    }
+  }
+
   // Banque : chaque question référence une donnée demandée.
   const questions = new Map<string, number>();
   for (const q of e.banque) {
@@ -231,6 +254,9 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
       déclencheurs: e.declencheurs.length,
       "références non résolues": nonResolues,
       "règles d'affichage à préciser": aPreciser,
+      seuils: e.seuils.length,
+      "thèmes notés sans seuil": sansSeuil.length,
+      "thèmes notés avec moins de 2 questions": notesTropCourts,
     },
   };
 }

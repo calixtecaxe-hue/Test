@@ -118,3 +118,18 @@ export function declencheurRepondu(code: string, reponses: Reponses, regles: Reg
   }
   return lire(code) !== undefined;
 }
+
+// Ancienneté de l'entreprise en mois entiers révolus (D01 : date de création).
+export function ancienneteEnMois(creation: Date, maintenant: Date): number {
+  let mois = (maintenant.getUTCFullYear() - creation.getUTCFullYear()) * 12 + (maintenant.getUTCMonth() - creation.getUTCMonth());
+  if (maintenant.getUTCDate() < creation.getUTCDate()) mois -= 1;
+  return Math.max(0, mois);
+}
+
+// Condition de période d'une donnée (colonne « Période » du classeur) que le moteur sait
+// lire : « Si plus de N mois d'existence (sinon masquée) ». Les autres formulations
+// (« période adaptée », « si un premier exercice est clos »…) ne masquent rien ici.
+export function moisMinimumDExistence(periode: string | null): number | null {
+  const m = periode ? /^Si plus de (\d+) mois d'existence \(sinon masquée\)$/.exec(periode.trim()) : null;
+  return m ? Number(m[1]) : null;
+}

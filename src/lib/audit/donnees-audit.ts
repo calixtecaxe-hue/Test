@@ -12,6 +12,7 @@ import lexique from "../../../data/lexique.json";
 import routage from "../../../data/routage.json";
 import inscription from "../../../data/inscription.json";
 import reglesAffichage from "../../../data/regles-affichage.json";
+import seuils from "../../../data/seuils.json";
 import banque from "../../../data/banque/questions.json";
 import { schemaFichiers, type EnsembleDonnees } from "../donnees/schemas.ts";
 
@@ -26,5 +27,6 @@ export const ENSEMBLE: EnsembleDonnees = {
   routage: schemaFichiers.routage.parse(routage),
   inscription: schemaFichiers.inscription.parse(inscription),
   reglesAffichage: schemaFichiers.reglesAffichage.parse(reglesAffichage),
+  seuils: schemaFichiers.seuils.parse(seuils),
   banque: schemaFichiers.banque.parse(banque),
 };

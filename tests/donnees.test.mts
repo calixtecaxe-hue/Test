@@ -14,8 +14,9 @@ const copie = (): EnsembleDonnees => structuredClone(reel);
 test("les fichiers du dépôt passent le contrôle sans erreur ; seules les règles à préciser sont signalées", () => {
   const r = controlerDonnees(reel);
   assert.deepEqual(r.erreurs, []);
-  assert.deepEqual(r.avertissements.filter((a) => !a.startsWith("Règle à préciser")), []);
-  assert.equal(r.avertissements.length, 3);
+  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté "));
+  assert.deepEqual(inattendus, []);
+  assert.equal(r.avertissements.filter((a) => a.startsWith("Règle à préciser")).length, 3);
 });
 
 test("une condition ou un masquage du classeur sans règle d'affichage est une erreur", () => {

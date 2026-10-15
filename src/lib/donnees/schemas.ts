@@ -265,6 +265,25 @@ export const inscription = z.object({
 });
 export type Inscription = z.infer<typeof inscription>;
 
+// --- Seuils de notation (pas encore écrits) -----------------------------------
+
+// Voir src/lib/moteur/notation.ts : un seuil dit comment une donnée est notée, d'où vient
+// sa référence, et pour quelle zone ou quelle taille il vaut.
+// Défini ici pour que le contrôle des données puisse le lire sans importer le moteur.
+export const seuilDonnee = z.object({
+  theme: codeTheme,
+  donnee: codeDonnee,
+  notation: z.discriminatedUnion("type", [
+    z.object({ type: z.literal("marche_haut"), moyenne: z.number(), rougeSous: z.number() }),
+    z.object({ type: z.literal("marche_bas"), moyenne: z.number(), rougeAuDela: z.number() }),
+    z.object({ type: z.literal("fourchette"), min: z.number(), max: z.number(), tolerance: z.number().positive().default(1) }),
+    z.object({ type: z.literal("pratique") }),
+  ]),
+  source: z.string().min(1).nullable(),
+  zones: z.array(z.enum(["URBAINE_DENSE", "PERIURBAINE", "RURALE"])).optional(),
+  tailles: z.array(z.enum(["seul", "equipe_2_5", "structure_6_plus"])).optional(),
+});
+
 // --- Banque de questions (pas encore écrite) ---------------------------------
 
 // Contrat minimal : une question écrite pour une donnée « demandée ». Le texte
@@ -291,6 +310,7 @@ export type EnsembleDonnees = {
   routage: Routage;
   inscription: Inscription;
   reglesAffichage: ReglesAffichage;
+  seuils: z.infer<typeof seuilDonnee>[];
   banque: Question[];
 };
 
@@ -305,5 +325,6 @@ export const schemaFichiers = {
   routage,
   inscription,
   reglesAffichage,
+  seuils: z.array(seuilDonnee),
   banque: z.array(question),
 } as const;

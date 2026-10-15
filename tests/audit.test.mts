@@ -233,7 +233,10 @@ test("seul, l'agent RH masque les thèmes d'équipe et ne pose aucune question s
 
 test("« ne publie pas » masque les thèmes de performance Comm (ex. réseaux actifs)", () => {
   const a = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { D21: saisie("non") } }));
-  assert.ok(a.themesMasques.some((t) => t.code === "COM-10"));
+  assert.ok(a.themesMasques.some((t) => t.code === "COM-23"));
+  // COM-10 est masqué pour qui ne publie pas, mais ses questions « si vous ne publiez pas encore » restent posées.
+  const com10 = a.themes.find((t) => t.theme.code === "COM-10");
+  assert.deepEqual(com10?.questions.map((q) => q.code), ["COM-10.03", "COM-10.04", "COM-10.05"]);
 });
 
 test("le niveau approfondi pose plus de questions que le niveau essentiel", () => {

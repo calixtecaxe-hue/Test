@@ -8,7 +8,7 @@ import { AGENTS } from "@/lib/agents";
 import { PROFILS, type ProfilId } from "@/lib/donnees/schemas";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { assemblerQuestionnaire, compterQuestions } from "@/lib/audit/assemblage";
-import { tailleDepuisEffectif } from "@/lib/audit/affichage";
+import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
 import { estScalaire } from "@/lib/audit/reponse";
 import { reponsesDuCompte } from "@/lib/audit/compte";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
@@ -60,7 +60,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
   }
 
   const [utilisateur, objectifs] = await Promise.all([
-    prisma.user.findUnique({ where: { id: userId }, select: { profils: true, nombreCollaborateurs: true, niveauAudit: true } }),
+    prisma.user.findUnique({ where: { id: userId }, select: { profils: true, nombreCollaborateurs: true, niveauAudit: true, dateCreationEntreprise: true } }),
     prisma.objectif.findMany({ where: { userId, agent: agent.code }, orderBy: { creeLe: "desc" }, take: 10 }),
   ]);
   if (!utilisateur) redirect("/connexion");
@@ -82,6 +82,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
       taille,
       niveau: utilisateur.niveauAudit === "APPROFONDI" ? "approfondi" : "essentiel",
       reponses,
+      ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()),
     });
     const themes: ThemeClient[] = a.themes.map((t) => ({
       code: t.theme.code,

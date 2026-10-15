@@ -20,6 +20,7 @@ import {
   declencheurRepondu,
   evaluer,
   lecteurDeclencheurs,
+  moisMinimumDExistence,
   type TailleId,
 } from "./affichage.ts";
 import { accepteLesQuatreReponses, type Reponses } from "./reponse.ts";
@@ -31,6 +32,9 @@ export type ContexteAssemblage = {
   profils: ProfilId[];
   taille: TailleId;
   niveau: Niveau;
+  // Ancienneté en mois (D01) : une donnée « si plus de N mois d'existence » est masquée
+  // avant. Non renseignée : rien n'est masqué.
+  ancienneteMois?: number;
   // Tout ce que le compte a déjà répondu, tous agents confondus (données partagées).
   reponses: Reponses;
 };
@@ -136,7 +140,15 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, ctx: ContexteAssembla
     const masquage = theme.masquePour ? regles.masquages[theme.masquePour] : undefined;
     if (masquage) pointer(clesDeLaRegle(masquage));
     const masque = masquage ? evaluer(masquage, lire) : false;
-    if (masque === true) {
+    // Une donnée qui porte sa propre condition, vraie, reste posée même si le thème est
+    // masqué (ex. COM-10 : masqué pour qui ne publie pas, mais ses questions « si vous ne
+    // publiez pas encore » s'adressent justement à lui).
+    const conditionVraie = (d: Donnee) => {
+      const c = d.condition ? regles.conditions[d.condition] : undefined;
+      return c !== undefined && evaluer(c, lire) === true;
+    };
+    const candidatesTheme = masque === true ? candidates.filter(conditionVraie) : candidates;
+    if (masque === true && candidatesTheme.length === 0) {
       themesMasques.push(theme);
       continue;
     }
@@ -147,8 +159,10 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, ctx: ContexteAssembla
     }
 
     const questions: QuestionAssemblee[] = [];
-    for (const d of candidates) {
+    for (const d of candidatesTheme) {
       const condition = d.condition ? regles.conditions[d.condition] : undefined;
+      const minimum = moisMinimumDExistence(d.periode);
+      if (minimum !== null && ctx.ancienneteMois !== undefined && ctx.ancienneteMois < minimum) continue;
       if (condition) pointer(clesDeLaRegle(condition));
       const visible = condition ? evaluer(condition, lire) : true;
       if (visible === false) continue;
