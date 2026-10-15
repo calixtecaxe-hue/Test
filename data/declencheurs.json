@@ -1,0 +1,218 @@
+[
+  {
+    "code": "D01",
+    "question": "Date de création de l'entreprise",
+    "posee": "Inscription",
+    "reponses": "Mois et année",
+    "effet": "Fixe la période disponible : aucune question sur une période antérieure à la création ; comparaisons à 6 mois et 12 mois seulement si l'entreprise a l'âge requis ; les cumuls « sur 12 mois » portent sur les mois existants",
+    "donneesConcernees": 72
+  },
+  {
+    "code": "D02",
+    "question": "Effectif",
+    "posee": "Inscription",
+    "reponses": "Seul · 2 à 5 · 6 et plus",
+    "effet": "Seul : aucune question salariés, réunions, turnover, absentéisme, délégation interne ; à la place, prestataires, freelances, automatisation et dépendance au dirigeant. 2 à 5 : questions simples (polyvalence, dépendance, délégation, surcharge). 6 et plus : recrutement, management, départs, absences",
+    "donneesConcernees": 79
+  },
+  {
+    "code": "D03",
+    "question": "Canaux qui vous amènent des clients",
+    "posee": "Écran A04",
+    "reponses": "Cases : bouche-à-oreille, fiche Google, site, réseaux sociaux, publicité, plateformes, partenaires, prospection, passage, salons",
+    "effet": "Seuls les canaux cochés reçoivent des questions : une ligne par canal coché dans le tableau des canaux ; écrans partenaires, prospection, fiche Google, site et plateformes seulement si le canal est coché",
+    "donneesConcernees": 26
+  },
+  {
+    "code": "D04",
+    "question": "Faites-vous de la publicité payante ou travaillez-vous avec une agence marketing ?",
+    "posee": "Écran A04",
+    "reponses": "Oui · non",
+    "effet": "Dépenses par canal payant, agence, évolution du budget",
+    "donneesConcernees": 3
+  },
+  {
+    "code": "D05",
+    "question": "Votre activité fonctionne-t-elle sur rendez-vous ?",
+    "posee": "Écran A10",
+    "reponses": "Oui · non",
+    "effet": "Rendez-vous, absences, créneaux disponibles et occupés",
+    "donneesConcernees": 9
+  },
+  {
+    "code": "D06",
+    "question": "Faites-vous des devis ou des propositions commerciales ?",
+    "posee": "Écran A11",
+    "reponses": "Oui · non",
+    "effet": "Devis et relances, cycle de vente, acomptes",
+    "donneesConcernees": 17
+  },
+  {
+    "code": "D07",
+    "question": "Avez-vous du stock ?",
+    "posee": "Écran F20",
+    "reponses": "Oui · non",
+    "effet": "Bloc Stock complet (FIN-37 à FIN-45) et délai de livraison fournisseur",
+    "donneesConcernees": 19
+  },
+  {
+    "code": "D08",
+    "question": "Achetez-vous des marchandises ou des matières ? Sous-traitez-vous ? Avez-vous des fournisseurs réguliers ?",
+    "posee": "Écran F04",
+    "reponses": "3 × oui / non",
+    "effet": "Achats, sous-traitance, tableau des fournisseurs, délais de paiement fournisseurs",
+    "donneesConcernees": 9
+  },
+  {
+    "code": "D09",
+    "question": "Vos clients paient-ils après réception d'une facture ?",
+    "posee": "Écran F11",
+    "reponses": "Oui · non (paiement immédiat)",
+    "effet": "Délai de facturation, délai d'encaissement, retards et impayés",
+    "donneesConcernees": 13
+  },
+  {
+    "code": "D10",
+    "question": "Avez-vous un crédit ou un leasing en cours ?",
+    "posee": "Écran F16",
+    "reponses": "Oui · non",
+    "effet": "Tableau des emprunts et leasings",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D11",
+    "question": "Avez-vous été à découvert sur la période ?",
+    "posee": "Écran F17",
+    "reponses": "Oui · non",
+    "effet": "Jours, montants, agios et causes du découvert",
+    "donneesConcernees": 5
+  },
+  {
+    "code": "D12",
+    "question": "Avez-vous un investissement prévu, ou réalisé depuis 24 mois ? Est-il déjà en service ?",
+    "posee": "Écran F18",
+    "reponses": "Oui · non, puis oui · non",
+    "effet": "Coût, financement, gain attendu ; gain constaté seulement s'il est en service",
+    "donneesConcernees": 6
+  },
+  {
+    "code": "D13",
+    "question": "Avez-vous recruté sur la période, ou prévoyez-vous de recruter ?",
+    "posee": "Écran R14",
+    "reponses": "Recruté · prévu · ni l'un ni l'autre",
+    "effet": "Recrutements, intégration, autonomie des recrues ; départs précoces seulement s'il y a eu des recrutements",
+    "donneesConcernees": 11
+  },
+  {
+    "code": "D14",
+    "question": "Vendez-vous par abonnement ?",
+    "posee": "Inscription (métier)",
+    "reponses": "Oui · non",
+    "effet": "Abonnés, revenu récurrent, résiliations",
+    "donneesConcernees": 13
+  },
+  {
+    "code": "D15",
+    "question": "Avez-vous des clients professionnels réguliers ?",
+    "posee": "Écran A16",
+    "reponses": "Oui · non",
+    "effet": "Tableau des 5 plus gros clients, temps passé et délai de paiement de chacun",
+    "donneesConcernees": 6
+  },
+  {
+    "code": "D16",
+    "question": "Votre activité est-elle 100 % en ligne ?",
+    "posee": "Inscription (métier)",
+    "reponses": "Oui · non",
+    "effet": "Masque zone, fiche Google, jours fermés, boutique",
+    "donneesConcernees": 22
+  },
+  {
+    "code": "D17",
+    "question": "Avez-vous un programme de parrainage ?",
+    "posee": "Écran A17",
+    "reponses": "Oui · non",
+    "effet": "Clients venus par parrainage",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D18",
+    "question": "Facturez-vous au temps passé (heure, jour) ?",
+    "posee": "Écran A14",
+    "reponses": "Oui · non",
+    "effet": "Taux horaire, heures travaillées et facturées, coût et marge par heure",
+    "donneesConcernees": 5
+  },
+  {
+    "code": "D19",
+    "question": "Votre travail est-il planifié à l'avance (planning, carnet de commandes) ?",
+    "posee": "Écran A18",
+    "reponses": "Oui · non",
+    "effet": "Semaines remplies, montant signé non réalisé, délai de démarrage",
+    "donneesConcernees": 5
+  },
+  {
+    "code": "D20",
+    "question": "Jours d'ouverture",
+    "posee": "Écran A21",
+    "reponses": "Cases à cocher",
+    "effet": "Demandes reçues les jours fermés, seulement s'il y a au moins un jour fermé",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D21",
+    "question": "Publiez-vous déjà sur les réseaux sociaux ?",
+    "posee": "Écran C03",
+    "reponses": "Oui · non",
+    "effet": "Oui : diagnostic de performance (audience, engagement, clics, publications, qualité). Non : parcours de démarrage (réseaux de la cible, temps disponible, contacts existants) et premiers contenus",
+    "donneesConcernees": 14
+  },
+  {
+    "code": "D22",
+    "question": "Réseaux réellement utilisés, et date d'ouverture de chacun",
+    "posee": "Écran C03",
+    "reponses": "Cases : LinkedIn, Instagram, Facebook, TikTok, YouTube, X, Pinterest, autre + date",
+    "effet": "Une ligne par réseau coché dans tous les tableaux Comm ; aucune statistique sur un réseau non utilisé ; périodes adaptées à l'âge de chaque compte",
+    "donneesConcernees": 10
+  },
+  {
+    "code": "D23",
+    "question": "Avez-vous un site ? Mesurez-vous ses visites avec un outil ?",
+    "posee": "Écran C04",
+    "reponses": "Oui · non, puis oui · non",
+    "effet": "Demandes reçues via le site ; sources, pages et évolution du trafic seulement si un outil de mesure existe",
+    "donneesConcernees": 6
+  },
+  {
+    "code": "D24",
+    "question": "Avez-vous un fichier de contacts ou une base email ?",
+    "posee": "Écran C06",
+    "reponses": "Oui · non",
+    "effet": "Taille et composition du fichier, envois, résultats des envois",
+    "donneesConcernees": 6
+  },
+  {
+    "code": "D25",
+    "question": "Avez-vous une offre d'appel (guide, diagnostic, estimation, essai, webinaire…) ?",
+    "posee": "Écran C08",
+    "reponses": "Oui · non",
+    "effet": "Visiteurs de l'offre, contacts récoltés, qualifiés, rendez-vous, clients, coût",
+    "donneesConcernees": 3
+  },
+  {
+    "code": "D26",
+    "question": "Avez-vous accès aux statistiques de vos réseaux, ou les connectez-vous ?",
+    "posee": "Écran C13",
+    "reponses": "Connecté · accès manuel · non",
+    "effet": "Connecté : statistiques des 10 dernières publications lues automatiquement. Accès manuel : saisie des 3 meilleures et 3 moins bonnes. Non : estimations en tranches",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D27",
+    "question": "La personne la plus chargée, est-ce vous ?",
+    "posee": "Écran R07",
+    "reponses": "Vous · une autre personne",
+    "effet": "Si c'est vous : ses heures et ses tâches transférables sont reprises de vos réponses (RH-05), pas reposées",
+    "donneesConcernees": 2
+  }
+]

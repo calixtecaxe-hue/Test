@@ -1,0 +1,4934 @@
+[
+  {
+    "code": "COM-01.01",
+    "theme": "COM-01",
+    "ecran": "C01 · Votre positionnement et votre offre",
+    "libelle": "Votre entreprise en une phrase : ce que vous faites, pour qui, et en quoi vous êtes différent",
+    "format": "Texte court",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-01.02"
+    ],
+    "utiliseeDansTexte": "COM-01.02"
+  },
+  {
+    "code": "COM-01.02",
+    "theme": "COM-01",
+    "ecran": null,
+    "libelle": "Positionnement clair : cible, résultat et différence présents dans la phrase",
+    "format": "Oui / partiel / non",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Grille fixe de 3 critères appliquée par l'IA",
+    "entrees": [
+      "COM-01.01"
+    ],
+    "entreesTexte": "COM-01.01",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-02.01",
+    "theme": "COM-02",
+    "ecran": "C01 · Votre positionnement et votre offre",
+    "libelle": "Client que votre communication cherche à attirer en priorité (choisi parmi vos types de clients)",
+    "format": "Choix dans la liste",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-02.02",
+      "COM-06.01",
+      "COM-11.01",
+      "COM-54.01"
+    ],
+    "utiliseeDansTexte": "COM-02.02, COM-06.01, COM-11.01, COM-54.01"
+  },
+  {
+    "code": "COM-02.02",
+    "theme": "COM-02",
+    "ecran": null,
+    "libelle": "Cible de la communication comparée aux clients qui rapportent le plus",
+    "format": "Oui / non",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Cible déclarée face au type de client à la plus forte valeur annuelle (ACQ-01)",
+    "entrees": [
+      "COM-02.01",
+      "ACQ-01.12"
+    ],
+    "entreesTexte": "COM-02.01, ACQ-01.12",
+    "utiliseeDans": [
+      "XC27"
+    ],
+    "utiliseeDansTexte": "XC27, DC04"
+  },
+  {
+    "code": "COM-03.01",
+    "theme": "COM-03",
+    "ecran": "C01 · Votre positionnement et votre offre",
+    "libelle": "Résultat concret que vous promettez à vos clients",
+    "format": "Texte court",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "COM-04.01",
+    "theme": "COM-04",
+    "ecran": "C01 · Votre positionnement et votre offre",
+    "libelle": "Pour votre offre principale : résultat promis, preuve qu'il est atteignable, délai pour l'obtenir, effort demandé au client",
+    "format": "4 champs courts",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-05.01",
+    "theme": "COM-05",
+    "ecran": "C01 · Votre positionnement et votre offre",
+    "libelle": "Garantie ou engagement proposé : satisfait ou remboursé, délai garanti, essai gratuit, aucun",
+    "format": "Choix + texte",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "COM-06.01",
+    "theme": "COM-06",
+    "ecran": null,
+    "libelle": "Ton adapté à la cible : registre, vocabulaire, niveau technique",
+    "format": "Oui / partiel / non",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Évalué par l'IA sur les publications importées. La forme seulement : le public visé est noté en COM-54",
+    "entrees": [
+      "COM-39.02",
+      "COM-02.01"
+    ],
+    "entreesTexte": "COM-39.02, COM-02.01",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-07.01",
+    "theme": "COM-07",
+    "ecran": "C01 · Votre positionnement et votre offre",
+    "libelle": "Logo, couleurs et ton identiques sur le site, les réseaux, les devis et la vitrine : oui, en partie, non",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "COM-08.01",
+    "theme": "COM-08",
+    "ecran": "C01 · Votre positionnement et votre offre",
+    "libelle": "Certifications, labels ou garanties professionnelles affichés",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-08.02"
+    ],
+    "utiliseeDansTexte": "COM-08.02"
+  },
+  {
+    "code": "COM-08.02",
+    "theme": "COM-08",
+    "ecran": null,
+    "libelle": "Éléments de réassurance visibles",
+    "format": "Liste",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Avis, ancienneté (inscription), certifications, preuves publiées",
+    "entrees": [
+      "ACQ-06.01",
+      "COM-08.01",
+      "COM-09.01"
+    ],
+    "entreesTexte": "ACQ-06.01, COM-08.01, COM-09.01",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-09.01",
+    "theme": "COM-09",
+    "ecran": "C02 · Vos preuves (tableau par type)",
+    "libelle": "Vos preuves par type — témoignage écrit, témoignage vidéo, étude de cas avec résultat chiffré, avant / après, photos ou vidéos de réalisations, avis détaillé : nombre disponible, nombre publié sur le site, nombre publié sur les réseaux",
+    "format": "Tableau 6 × 3",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-08.02",
+      "COM-09.04",
+      "COM-09.05",
+      "COM-09.06",
+      "COM-34.03",
+      "XC15"
+    ],
+    "utiliseeDansTexte": "COM-08.02, COM-09.04, COM-09.05, COM-09.06, COM-34.03, XC15"
+  },
+  {
+    "code": "COM-09.02",
+    "theme": "COM-09",
+    "ecran": "C02 · Vos preuves (tableau par type)",
+    "libelle": "Date de votre preuve la plus récente",
+    "format": "Mois et année",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "COM-09.03",
+    "theme": "COM-09",
+    "ecran": "C02 · Vos preuves (tableau par type)",
+    "libelle": "Types de clients et offres représentés par ces preuves",
+    "format": "Cases (reprend ACQ-01 et ACQ-13)",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-09.07"
+    ],
+    "utiliseeDansTexte": "COM-09.07"
+  },
+  {
+    "code": "COM-09.04",
+    "theme": "COM-09",
+    "ecran": null,
+    "libelle": "Preuves exploitables au total, dont avec résultat chiffré",
+    "format": "Nombre et %",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Somme du tableau ; part des études de cas chiffrées",
+    "entrees": [
+      "COM-09.01"
+    ],
+    "entreesTexte": "COM-09.01",
+    "utiliseeDans": [
+      "XC13"
+    ],
+    "utiliseeDansTexte": "XC13"
+  },
+  {
+    "code": "COM-09.05",
+    "theme": "COM-09",
+    "ecran": null,
+    "libelle": "Part des preuves réellement publiées",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": "Preuves publiées (site ou réseaux) ÷ preuves disponibles",
+    "entrees": [
+      "COM-09.01"
+    ],
+    "entreesTexte": "COM-09.01",
+    "utiliseeDans": [
+      "XC13",
+      "XC14"
+    ],
+    "utiliseeDansTexte": "XC13, XC14, DC09"
+  },
+  {
+    "code": "COM-09.06",
+    "theme": "COM-09",
+    "ecran": null,
+    "libelle": "Preuves possibles au regard de l'activité",
+    "format": "Nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": "Clients ou ventes de la période comparés aux preuves et aux avis disponibles",
+    "entrees": [
+      "ACQ-17.01",
+      "ACQ-11.01",
+      "ACQ-21.02",
+      "ACQ-11.06",
+      "ACQ-11.07",
+      "ACQ-11.14",
+      "COM-09.01",
+      "ACQ-06.01"
+    ],
+    "entreesTexte": "ACQ-17.01, ACQ-11.01, ACQ-21.02, ACQ-11.06, ACQ-11.07, ACQ-11.14, COM-09.01, ACQ-06.01",
+    "utiliseeDans": [
+      "XC14"
+    ],
+    "utiliseeDansTexte": "XC14"
+  },
+  {
+    "code": "COM-09.07",
+    "theme": "COM-09",
+    "ecran": null,
+    "libelle": "Offres et types de clients sans aucune preuve",
+    "format": "Liste",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Offres et types non couverts par une preuve",
+    "entrees": [
+      "COM-09.03",
+      "ACQ-01.01",
+      "ACQ-13.01"
+    ],
+    "entreesTexte": "COM-09.03, ACQ-01.01, ACQ-13.01",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-10.01",
+    "theme": "COM-10",
+    "ecran": "C03 · Vos réseaux (tableau par réseau)",
+    "libelle": "Pour chaque réseau réellement utilisé (LinkedIn, Instagram, Facebook, TikTok, YouTube, X, Pinterest, autre) : date d'ouverture du compte, publications par mois, format principal, date de la dernière publication, qui publie",
+    "format": "Tableau par réseau",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D22 · une ligne par réseau utilisé",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-10.06",
+      "COM-11.01",
+      "COM-17.04",
+      "COM-18.02",
+      "COM-30.01",
+      "COM-31.06",
+      "COM-32.05",
+      "COM-35.03",
+      "COM-37.02",
+      "XC01",
+      "XC02"
+    ],
+    "utiliseeDansTexte": "COM-10.06, COM-11.01, COM-17.04, COM-18.02, COM-30.01, COM-31.06, COM-32.05, COM-35.03, COM-37.02, XC01, XC02, DC01"
+  },
+  {
+    "code": "COM-10.02",
+    "theme": "COM-10",
+    "ecran": "C03 · Vos réseaux (tableau par réseau)",
+    "libelle": "Périodes d'au moins 3 semaines sans publication, par réseau",
+    "format": "Nombre par réseau",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": "D22 · une ligne par réseau utilisé",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": "Période adaptée : depuis l'ouverture du compte si moins de 6 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Lu dans les dates de publication si le réseau est connecté",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-33.02",
+      "XC16"
+    ],
+    "utiliseeDansTexte": "COM-33.02, XC16"
+  },
+  {
+    "code": "COM-10.03",
+    "theme": "COM-10",
+    "ecran": "C14 · Démarrer votre communication",
+    "libelle": "Réseaux où se trouvent vos clients, selon vous",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous ne publiez pas encore",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-10.04",
+    "theme": "COM-10",
+    "ecran": "C14 · Démarrer votre communication",
+    "libelle": "Heures par semaine que vous pouvez consacrer à la communication",
+    "format": "Heures",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous ne publiez pas encore",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XC33"
+    ],
+    "utiliseeDansTexte": "XC33"
+  },
+  {
+    "code": "COM-10.05",
+    "theme": "COM-10",
+    "ecran": "C14 · Démarrer votre communication",
+    "libelle": "Contacts que vous pouvez solliciter dès le départ : clients, fournisseurs, partenaires, proches",
+    "format": "Tranches : moins de 50 · 50-200 · 200-500 · plus de 500 · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous ne publiez pas encore",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XC33"
+    ],
+    "utiliseeDansTexte": "XC33"
+  },
+  {
+    "code": "COM-10.06",
+    "theme": "COM-10",
+    "ecran": null,
+    "libelle": "Réseaux ouverts et réseaux réellement tenus",
+    "format": "Nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Tenu = au moins 2 publications par mois et dernière publication de moins de 30 jours",
+    "entrees": [
+      "COM-10.01"
+    ],
+    "entreesTexte": "COM-10.01",
+    "utiliseeDans": [
+      "XC26"
+    ],
+    "utiliseeDansTexte": "XC26"
+  },
+  {
+    "code": "COM-11.01",
+    "theme": "COM-11",
+    "ecran": null,
+    "libelle": "Réseaux utilisés comparés aux réseaux où se trouve la cible",
+    "format": "Liste",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Réseaux utilisés face au type de client visé ; règle par type (particuliers locaux, professionnels, jeunes, etc.)",
+    "entrees": [
+      "COM-10.01",
+      "COM-02.01"
+    ],
+    "entreesTexte": "COM-10.01, COM-02.01",
+    "utiliseeDans": [
+      "XC26"
+    ],
+    "utiliseeDansTexte": "XC26, DC03"
+  },
+  {
+    "code": "COM-12.01",
+    "theme": "COM-12",
+    "ecran": "A04 · Vos canaux (tableau)",
+    "libelle": "Demandes, nouveaux clients et part du CA venant des réseaux sociaux, du site et de la fiche Google (lignes du tableau des canaux)",
+    "format": "Tableau par canal",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-03.02, ACQ-03.03, ACQ-03.04), sinon ici",
+    "entrees": [
+      "ACQ-03.02",
+      "ACQ-03.03",
+      "ACQ-03.04"
+    ],
+    "entreesTexte": "ACQ-03.02, ACQ-03.03, ACQ-03.04",
+    "utiliseeDans": [
+      "COM-12.02",
+      "COM-19.03",
+      "COM-22.02",
+      "COM-22.03"
+    ],
+    "utiliseeDansTexte": "COM-12.02, COM-19.03, COM-22.02, COM-22.03"
+  },
+  {
+    "code": "COM-12.02",
+    "theme": "COM-12",
+    "ecran": null,
+    "libelle": "Les quatre canaux d'acquisition utilisés",
+    "format": "Liste",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Contact direct connus, contact direct inconnus, contenu gratuit, publicité : repris du tableau des canaux",
+    "entrees": [
+      "ACQ-03.01",
+      "ACQ-03.02"
+    ],
+    "entreesTexte": "ACQ-03.01, ACQ-03.02",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-13.01",
+    "theme": "COM-13",
+    "ecran": "A07 · Votre présence en ligne",
+    "libelle": "Visites du site par mois (e-commerce : visiteurs de la boutique, déjà demandés par l'agent Acquisition)",
+    "format": "Nombre",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": "D23 · si site",
+    "declencheurs": [
+      "D23"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-06.07, ACQ-02.01), sinon ici",
+    "entrees": [
+      "ACQ-06.07",
+      "ACQ-02.01"
+    ],
+    "entreesTexte": "ACQ-06.07, ACQ-02.01",
+    "utiliseeDans": [
+      "COM-13.07",
+      "COM-13.08",
+      "COM-13.09"
+    ],
+    "utiliseeDansTexte": "COM-13.07, COM-13.08, COM-13.09"
+  },
+  {
+    "code": "COM-13.02",
+    "theme": "COM-13",
+    "ecran": "C04 · Votre site",
+    "libelle": "Outil de mesure des visites : Google Analytics, outil du créateur de site, aucun",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D23 · si site",
+    "declencheurs": [
+      "D23"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "COM-13.03",
+    "theme": "COM-13",
+    "ecran": "C04 · Votre site",
+    "libelle": "Demandes reçues via le site par mois, par type : formulaire, appel, prise de rendez-vous, demande de devis, téléchargement, inscription, achat (le total remplit la ligne « site » du tableau des canaux)",
+    "format": "Tableau par type",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D23 · si site",
+    "declencheurs": [
+      "D23"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-22.02"
+    ],
+    "utiliseeDansTexte": "COM-22.02"
+  },
+  {
+    "code": "COM-13.04",
+    "theme": "COM-13",
+    "ecran": "C04 · Votre site",
+    "libelle": "Sources des visites : recherche Google, réseaux sociaux, publicité, accès direct, sites partenaires",
+    "format": "% par source",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": "D23 · si outil de mesure du site",
+    "declencheurs": [
+      "D23"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Lu dans l'outil de mesure s'il est connecté",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-13.05",
+    "theme": "COM-13",
+    "ecran": "C04 · Votre site",
+    "libelle": "Pages les plus visitées et pages d'entrée",
+    "format": "Liste",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": "D23 · si outil de mesure du site",
+    "declencheurs": [
+      "D23"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Lu dans l'outil de mesure",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-13.06",
+    "theme": "COM-13",
+    "ecran": "C04 · Votre site",
+    "libelle": "Visites par mois il y a 6 mois",
+    "format": "Nombre",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": "D23 · si outil de mesure du site",
+    "declencheurs": [
+      "D23"
+    ],
+    "periode": "Si le site et l'outil de mesure existent depuis plus de 6 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Lu dans l'outil de mesure",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-13.09"
+    ],
+    "utiliseeDansTexte": "COM-13.09"
+  },
+  {
+    "code": "COM-13.07",
+    "theme": "COM-13",
+    "ecran": null,
+    "libelle": "CA que représente un point de transformation du site en plus",
+    "format": "€",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Potentiel CA"
+    ],
+    "calcul": "Visites × 1 % × taux de transformation des demandes × panier moyen",
+    "entrees": [
+      "ACQ-06.07",
+      "ACQ-02.01",
+      "ACQ-11.19",
+      "ACQ-15.06"
+    ],
+    "entreesTexte": "ACQ-06.07, ACQ-02.01, ACQ-11.19, ACQ-15.06",
+    "utiliseeDans": [
+      "XC08"
+    ],
+    "utiliseeDansTexte": "XC08"
+  },
+  {
+    "code": "COM-13.08",
+    "theme": "COM-13",
+    "ecran": null,
+    "libelle": "Attirer plus ou convertir mieux ?",
+    "format": "Choix",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Convertir d'abord si le taux de transformation du site (ACQ-06 ; e-commerce : ACQ-11) est bas pour un trafic suffisant ; attirer d'abord si le taux est bon mais le trafic faible (seuils à valider)",
+    "entrees": [
+      "ACQ-06.09",
+      "ACQ-11.28",
+      "ACQ-06.07",
+      "ACQ-02.01"
+    ],
+    "entreesTexte": "ACQ-06.09, ACQ-11.28, ACQ-06.07, ACQ-02.01",
+    "utiliseeDans": [
+      "XC08"
+    ],
+    "utiliseeDansTexte": "XC08, DC07"
+  },
+  {
+    "code": "COM-13.09",
+    "theme": "COM-13",
+    "ecran": null,
+    "libelle": "Évolution du trafic sur 6 mois",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "(Visites actuelles − visites il y a 6 mois) ÷ visites il y a 6 mois",
+    "entrees": [
+      "ACQ-06.07",
+      "ACQ-02.01",
+      "COM-13.06"
+    ],
+    "entreesTexte": "ACQ-06.07, ACQ-02.01, COM-13.06",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-14.01",
+    "theme": "COM-14",
+    "ecran": "C05 · Votre fiche Google et vos avis",
+    "libelle": "Votre fiche Google contient : photos de moins de 3 mois, horaires à jour, description, bonnes catégories, publication de moins de 30 jours",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D03 · si « fiche Google » est cochée",
+    "declencheurs": [
+      "D03"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-14.03"
+    ],
+    "utiliseeDansTexte": "COM-14.03"
+  },
+  {
+    "code": "COM-14.02",
+    "theme": "COM-14",
+    "ecran": "A07 · Votre présence en ligne",
+    "libelle": "Vues de la fiche et actions (appels, itinéraires, clics vers le site) par mois",
+    "format": "Nombres",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": "D03 · si « fiche Google » est cochée",
+    "declencheurs": [
+      "D03"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-06.05, ACQ-06.04), sinon ici",
+    "entrees": [
+      "ACQ-06.05",
+      "ACQ-06.04"
+    ],
+    "entreesTexte": "ACQ-06.05, ACQ-06.04",
+    "utiliseeDans": [
+      "COM-22.02",
+      "XC29"
+    ],
+    "utiliseeDansTexte": "COM-22.02, XC29"
+  },
+  {
+    "code": "COM-14.03",
+    "theme": "COM-14",
+    "ecran": null,
+    "libelle": "Complétude de la fiche Google",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Éléments cochés ÷ 5",
+    "entrees": [
+      "COM-14.01"
+    ],
+    "entreesTexte": "COM-14.01",
+    "utiliseeDans": [
+      "XC29"
+    ],
+    "utiliseeDansTexte": "XC29"
+  },
+  {
+    "code": "COM-15.01",
+    "theme": "COM-15",
+    "ecran": "C06 · Votre fichier de contacts (tableau)",
+    "libelle": "Votre fichier de contacts, par catégorie : prospects, clients actuels, anciens clients (repris de ACQ-17 si connu), partenaires, inscrits à la newsletter",
+    "format": "Tableau 5 lignes (nombres)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D24 · si fichier de contacts",
+    "declencheurs": [
+      "D24"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-15.07"
+    ],
+    "utiliseeDansTexte": "COM-15.07"
+  },
+  {
+    "code": "COM-15.02",
+    "theme": "COM-15",
+    "ecran": "C06 · Votre fichier de contacts (tableau)",
+    "libelle": "Nouveaux contacts par mois, et d'où ils viennent : site, offre d'appel, boutique, salon, réseaux",
+    "format": "Nombre + choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D24 · si fichier de contacts",
+    "declencheurs": [
+      "D24"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-15.03",
+    "theme": "COM-15",
+    "ecran": "C06 · Votre fichier de contacts (tableau)",
+    "libelle": "Date du dernier envoi à ce fichier, et nombre d'envois sur les 6 derniers mois",
+    "format": "Date + nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D24 · si fichier de contacts",
+    "declencheurs": [
+      "D24"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 6 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-15.08",
+      "COM-15.10"
+    ],
+    "utiliseeDansTexte": "COM-15.08, COM-15.10"
+  },
+  {
+    "code": "COM-15.04",
+    "theme": "COM-15",
+    "ecran": "C06 · Votre fichier de contacts (tableau)",
+    "libelle": "Demandes et ventes générées par vos envois sur la période",
+    "format": "2 nombres",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D24 · si fichier de contacts",
+    "declencheurs": [
+      "D24"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-15.10"
+    ],
+    "utiliseeDansTexte": "COM-15.10"
+  },
+  {
+    "code": "COM-15.05",
+    "theme": "COM-15",
+    "ecran": "C06 · Votre fichier de contacts (tableau)",
+    "libelle": "Part des contacts réellement joignables (email ou téléphone valide, accord pour être contacté)",
+    "format": "Tranches : moins de 25 % · 25-50 % · 50-75 % · plus de 75 % · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D24 · si fichier de contacts",
+    "declencheurs": [
+      "D24"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-15.07"
+    ],
+    "utiliseeDansTexte": "COM-15.07"
+  },
+  {
+    "code": "COM-15.06",
+    "theme": "COM-15",
+    "ecran": "C06 · Votre fichier de contacts (tableau)",
+    "libelle": "Pour vos derniers envois : taux d'ouverture, taux de clic, désinscriptions, réponses",
+    "format": "% et nombres",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": "D24 · si fichier de contacts",
+    "declencheurs": [
+      "D24"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Lu dans l'outil d'emailing s'il est connecté",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-15.11"
+    ],
+    "utiliseeDansTexte": "COM-15.11"
+  },
+  {
+    "code": "COM-15.07",
+    "theme": "COM-15",
+    "ecran": null,
+    "libelle": "Taille du fichier et contacts joignables",
+    "format": "Nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Somme des catégories × part joignable",
+    "entrees": [
+      "COM-15.01",
+      "COM-15.05"
+    ],
+    "entreesTexte": "COM-15.01, COM-15.05",
+    "utiliseeDans": [
+      "COM-15.09",
+      "COM-15.11"
+    ],
+    "utiliseeDansTexte": "COM-15.09, COM-15.11"
+  },
+  {
+    "code": "COM-15.08",
+    "theme": "COM-15",
+    "ecran": null,
+    "libelle": "Mois depuis le dernier envoi, et fréquence d'envoi",
+    "format": "Mois et envois par mois",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Date du jour − dernier envoi ; envois ÷ 6",
+    "entrees": [
+      "COM-15.03"
+    ],
+    "entreesTexte": "COM-15.03",
+    "utiliseeDans": [
+      "COM-15.09",
+      "XC10"
+    ],
+    "utiliseeDansTexte": "COM-15.09, XC10"
+  },
+  {
+    "code": "COM-15.09",
+    "theme": "COM-15",
+    "ecran": null,
+    "libelle": "Fichier inexploité",
+    "format": "Oui / non et nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": "Contacts joignables sans aucun envoi depuis plus de 3 mois",
+    "entrees": [
+      "COM-15.07",
+      "COM-15.08"
+    ],
+    "entreesTexte": "COM-15.07, COM-15.08",
+    "utiliseeDans": [
+      "XC10"
+    ],
+    "utiliseeDansTexte": "XC10, DC13"
+  },
+  {
+    "code": "COM-15.10",
+    "theme": "COM-15",
+    "ecran": null,
+    "libelle": "Demandes et ventes par envoi",
+    "format": "Nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Demandes et ventes ÷ envois de la période",
+    "entrees": [
+      "COM-15.04",
+      "COM-15.03"
+    ],
+    "entreesTexte": "COM-15.04, COM-15.03",
+    "utiliseeDans": [
+      "COM-15.11"
+    ],
+    "utiliseeDansTexte": "COM-15.11"
+  },
+  {
+    "code": "COM-15.11",
+    "theme": "COM-15",
+    "ecran": null,
+    "libelle": "Potentiel d'un envoi au fichier",
+    "format": "€",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Potentiel CA"
+    ],
+    "calcul": "Contacts joignables × taux de réponse prudent × taux de transformation × panier moyen",
+    "entrees": [
+      "COM-15.07",
+      "ACQ-11.19",
+      "ACQ-15.06",
+      "COM-15.10",
+      "COM-15.06"
+    ],
+    "entreesTexte": "COM-15.07, ACQ-11.19, ACQ-15.06, COM-15.10, COM-15.06",
+    "utiliseeDans": [
+      "XC10"
+    ],
+    "utiliseeDansTexte": "XC10"
+  },
+  {
+    "code": "COM-16.01",
+    "theme": "COM-16",
+    "ecran": "C05 · Votre fiche Google et vos avis",
+    "libelle": "Position quand on cherche « votre métier + votre ville » : 3 premiers résultats, première page, plus loin",
+    "format": "Choix",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": "D03 · si « fiche Google » est cochée",
+    "declencheurs": [
+      "D03"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Vérifiée par une recherche automatique",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XC29"
+    ],
+    "utiliseeDansTexte": "XC29"
+  },
+  {
+    "code": "COM-17.01",
+    "theme": "COM-17",
+    "ecran": "C07 · Audience et résultats par réseau (tableau)",
+    "libelle": "Pour chaque réseau utilisé : abonnés aujourd'hui, personnes touchées par mois (portée), impressions si connues — abonnés = audience possédée ; portée = personnes réellement touchées ; impressions = nombre d'affichages",
+    "format": "Tableau par réseau (Tranches : moins de 500 · 500-2 000 · 2 000-5 000 · 5 000-10 000 · 10 000-50 000 · plus de 50 000 · je ne sais pas si non connecté)",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": "D22 · une ligne par réseau utilisé",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": "Lu dans les statistiques des réseaux connectés ; sinon tranches",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-17.04",
+      "COM-17.05",
+      "COM-19.02",
+      "COM-36.01",
+      "COM-37.02",
+      "COM-38.01",
+      "XC01",
+      "XC06"
+    ],
+    "utiliseeDansTexte": "COM-17.04, COM-17.05, COM-19.02, COM-36.01, COM-37.02, COM-38.01, XC01, XC06, DC06"
+  },
+  {
+    "code": "COM-17.02",
+    "theme": "COM-17",
+    "ecran": "C07 · Audience et résultats par réseau (tableau)",
+    "libelle": "Nouveaux abonnés et désabonnements par mois, par réseau",
+    "format": "Nombres par réseau",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": "D22 · une ligne par réseau utilisé",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Statistiques des réseaux",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-17.03",
+    "theme": "COM-17",
+    "ecran": "C07 · Audience et résultats par réseau (tableau)",
+    "libelle": "Part de la portée faite auprès de non-abonnés",
+    "format": "% par réseau",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": "D22 · une ligne par réseau utilisé",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Statistiques des réseaux",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-17.04",
+    "theme": "COM-17",
+    "ecran": null,
+    "libelle": "Portée moyenne par publication",
+    "format": "Nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Portée ÷ publications du mois",
+    "entrees": [
+      "COM-17.01",
+      "COM-10.01"
+    ],
+    "entreesTexte": "COM-17.01, COM-10.01",
+    "utiliseeDans": [
+      "XC19"
+    ],
+    "utiliseeDansTexte": "XC19, DC02"
+  },
+  {
+    "code": "COM-17.05",
+    "theme": "COM-17",
+    "ecran": null,
+    "libelle": "Portée rapportée aux abonnés",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Portée ÷ abonnés",
+    "entrees": [
+      "COM-17.01"
+    ],
+    "entreesTexte": "COM-17.01",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-18.01",
+    "theme": "COM-18",
+    "ecran": "C07 · Audience et résultats par réseau (tableau)",
+    "libelle": "Pour chaque réseau : réactions par mois — likes, commentaires, partages, sauvegardes, republications, réponses",
+    "format": "Tableau par réseau",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": "D22 · une ligne par réseau utilisé",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": "Statistiques des réseaux ; sinon total estimé",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-18.02",
+      "COM-18.03",
+      "COM-36.01",
+      "XC01"
+    ],
+    "utiliseeDansTexte": "COM-18.02, COM-18.03, COM-36.01, XC01"
+  },
+  {
+    "code": "COM-18.02",
+    "theme": "COM-18",
+    "ecran": null,
+    "libelle": "Réactions par publication",
+    "format": "Nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Réactions ÷ publications",
+    "entrees": [
+      "COM-18.01",
+      "COM-10.01"
+    ],
+    "entreesTexte": "COM-18.01, COM-10.01",
+    "utiliseeDans": [
+      "XC19"
+    ],
+    "utiliseeDansTexte": "XC19"
+  },
+  {
+    "code": "COM-18.03",
+    "theme": "COM-18",
+    "ecran": null,
+    "libelle": "Part des réactions fortes (commentaires, partages, sauvegardes)",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Réactions fortes ÷ réactions totales",
+    "entrees": [
+      "COM-18.01"
+    ],
+    "entreesTexte": "COM-18.01",
+    "utiliseeDans": [
+      "XC19"
+    ],
+    "utiliseeDansTexte": "XC19"
+  },
+  {
+    "code": "COM-19.01",
+    "theme": "COM-19",
+    "ecran": "C07 · Audience et résultats par réseau (tableau)",
+    "libelle": "Pour chaque réseau : clics par mois, et destination principale — site, fiche Google, formulaire, prise de rendez-vous, téléphone, WhatsApp, email, page produit ou offre",
+    "format": "Tableau par réseau",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": "D22 · une ligne par réseau utilisé",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": "Statistiques des réseaux ; sinon estimation",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-19.02",
+      "COM-19.03",
+      "XC01",
+      "XC09"
+    ],
+    "utiliseeDansTexte": "COM-19.02, COM-19.03, XC01, XC09"
+  },
+  {
+    "code": "COM-19.02",
+    "theme": "COM-19",
+    "ecran": null,
+    "libelle": "Taux de clic",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Clics ÷ portée",
+    "entrees": [
+      "COM-19.01",
+      "COM-17.01"
+    ],
+    "entreesTexte": "COM-19.01, COM-17.01",
+    "utiliseeDans": [
+      "XC06",
+      "XC19"
+    ],
+    "utiliseeDansTexte": "XC06, XC19, DC02, DC06, DC08"
+  },
+  {
+    "code": "COM-19.03",
+    "theme": "COM-19",
+    "ecran": null,
+    "libelle": "Conversion du trafic social",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Demandes venant des réseaux ÷ clics",
+    "entrees": [
+      "ACQ-03.02",
+      "COM-19.01"
+    ],
+    "entreesTexte": "ACQ-03.02, COM-19.01",
+    "utiliseeDans": [
+      "XC09"
+    ],
+    "utiliseeDansTexte": "XC09, DC06, DC07"
+  },
+  {
+    "code": "COM-20.01",
+    "theme": "COM-20",
+    "ecran": null,
+    "libelle": "Part des publications avec un appel à l'action clair, et où il mène",
+    "format": "% et liste",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Publications notées « oui » sur le critère appel à l'action ÷ publications analysées ; destinations repérées par l'IA",
+    "entrees": [
+      "COM-53.01",
+      "COM-39.02"
+    ],
+    "entreesTexte": "COM-53.01, COM-39.02",
+    "utiliseeDans": [
+      "COM-24.02"
+    ],
+    "utiliseeDansTexte": "COM-24.02"
+  },
+  {
+    "code": "COM-21.01",
+    "theme": "COM-21",
+    "ecran": "C08 · Votre offre d'appel",
+    "libelle": "Votre offre d'appel (contenu gratuit contre des coordonnées) : guide, diagnostic, estimation, audit, checklist, livre blanc, simulateur, consultation gratuite, échantillon, essai, webinaire, autre",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-24.02"
+    ],
+    "utiliseeDansTexte": "COM-24.02, DC08, DC13"
+  },
+  {
+    "code": "COM-21.02",
+    "theme": "COM-21",
+    "ecran": "C08 · Votre offre d'appel",
+    "libelle": "Par mois : visiteurs de la page de l'offre, contacts récoltés, contacts qualifiés, rendez-vous, clients",
+    "format": "Tableau 5 nombres",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D25 · si offre d'appel",
+    "declencheurs": [
+      "D25"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-21.05",
+      "COM-21.06",
+      "COM-21.07",
+      "COM-21.08"
+    ],
+    "utiliseeDansTexte": "COM-21.05, COM-21.06, COM-21.07, COM-21.08"
+  },
+  {
+    "code": "COM-21.03",
+    "theme": "COM-21",
+    "ecran": "C08 · Votre offre d'appel",
+    "libelle": "Coût de promotion de l'offre par mois",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D25 · si offre d'appel",
+    "declencheurs": [
+      "D25"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-21.08"
+    ],
+    "utiliseeDansTexte": "COM-21.08"
+  },
+  {
+    "code": "COM-21.04",
+    "theme": "COM-21",
+    "ecran": "C08 · Votre offre d'appel",
+    "libelle": "Source principale des contacts récoltés",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D25 · si offre d'appel",
+    "declencheurs": [
+      "D25"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-21.05",
+    "theme": "COM-21",
+    "ecran": null,
+    "libelle": "Conversion de l'offre d'appel",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Contacts récoltés ÷ visiteurs de l'offre",
+    "entrees": [
+      "COM-21.02"
+    ],
+    "entreesTexte": "COM-21.02",
+    "utiliseeDans": [
+      "XC11"
+    ],
+    "utiliseeDansTexte": "XC11"
+  },
+  {
+    "code": "COM-21.06",
+    "theme": "COM-21",
+    "ecran": null,
+    "libelle": "Transformation contact récolté → client",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Clients ÷ contacts récoltés",
+    "entrees": [
+      "COM-21.02"
+    ],
+    "entreesTexte": "COM-21.02",
+    "utiliseeDans": [
+      "XC11"
+    ],
+    "utiliseeDansTexte": "XC11"
+  },
+  {
+    "code": "COM-21.07",
+    "theme": "COM-21",
+    "ecran": null,
+    "libelle": "CA généré par l'offre d'appel",
+    "format": "€",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Clients × panier moyen",
+    "entrees": [
+      "COM-21.02",
+      "ACQ-15.06"
+    ],
+    "entreesTexte": "COM-21.02, ACQ-15.06",
+    "utiliseeDans": [
+      "COM-21.08",
+      "XC11"
+    ],
+    "utiliseeDansTexte": "COM-21.08, XC11"
+  },
+  {
+    "code": "COM-21.08",
+    "theme": "COM-21",
+    "ecran": null,
+    "libelle": "Valeur d'un contact récolté, et coût d'un contact",
+    "format": "€",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "CA généré ÷ contacts ; coût de promotion ÷ contacts",
+    "entrees": [
+      "COM-21.07",
+      "COM-21.02",
+      "COM-21.03"
+    ],
+    "entreesTexte": "COM-21.07, COM-21.02, COM-21.03",
+    "utiliseeDans": [
+      "XC11"
+    ],
+    "utiliseeDansTexte": "XC11"
+  },
+  {
+    "code": "COM-22.01",
+    "theme": "COM-22",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Sur vos 20 derniers clients en boutique ou en salle, combien disent venir des réseaux ou de Google ?",
+    "format": "Nombre sur 20",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XC31"
+    ],
+    "utiliseeDansTexte": "XC31"
+  },
+  {
+    "code": "COM-22.02",
+    "theme": "COM-22",
+    "ecran": null,
+    "libelle": "Demandes et clients venant de la communication (réseaux, site, fiche Google), par réseau",
+    "format": "Nombres",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Lignes réseaux, site et fiche Google du tableau des canaux, réparties par réseau quand c'est connu",
+    "entrees": [
+      "ACQ-03.02",
+      "ACQ-03.03",
+      "COM-13.03",
+      "ACQ-06.04"
+    ],
+    "entreesTexte": "ACQ-03.02, ACQ-03.03, COM-13.03, ACQ-06.04",
+    "utiliseeDans": [
+      "COM-31.07",
+      "COM-32.06",
+      "COM-38.01",
+      "XC01",
+      "XC02",
+      "XC07"
+    ],
+    "utiliseeDansTexte": "COM-31.07, COM-32.06, COM-38.01, XC01, XC02, XC07, DC03, DC11"
+  },
+  {
+    "code": "COM-22.03",
+    "theme": "COM-22",
+    "ecran": null,
+    "libelle": "CA venant de la communication",
+    "format": "€ et %",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Part du CA des canaux réseaux, site et fiche Google × CA annuel",
+    "entrees": [
+      "ACQ-03.04"
+    ],
+    "entreesTexte": "ACQ-03.04, Inscription · CA mensuel",
+    "utiliseeDans": [
+      "XC01",
+      "XC31"
+    ],
+    "utiliseeDansTexte": "XC01, XC31"
+  },
+  {
+    "code": "COM-23.01",
+    "theme": "COM-23",
+    "ecran": "C09 · Vos messages (tableau par messagerie)",
+    "libelle": "Pour chaque messagerie utilisée (Instagram, LinkedIn, Facebook, WhatsApp, Messenger, chat du site) : messages reçus par mois, dont demandes commerciales, dont service après-vente",
+    "format": "Tableau par messagerie",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D22 · une ligne par messagerie utilisée",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-23.04",
+      "COM-23.05",
+      "COM-23.06"
+    ],
+    "utiliseeDansTexte": "COM-23.04, COM-23.05, COM-23.06"
+  },
+  {
+    "code": "COM-23.02",
+    "theme": "COM-23",
+    "ecran": "C09 · Vos messages (tableau par messagerie)",
+    "libelle": "Répartition de vos réponses à ces messages (téléphone, email et formulaire sont traités en ACQ-08)",
+    "format": "Tranches : moins d'1 h · moins de 24 h · plus d'un jour · jamais · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-23.06"
+    ],
+    "utiliseeDansTexte": "COM-23.06, DC14"
+  },
+  {
+    "code": "COM-23.03",
+    "theme": "COM-23",
+    "ecran": "C09 · Vos messages (tableau par messagerie)",
+    "libelle": "Par mois : conversations commerciales qui ont abouti à un rendez-vous ou un devis, et à une vente",
+    "format": "2 nombres",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-23.05"
+    ],
+    "utiliseeDansTexte": "COM-23.05"
+  },
+  {
+    "code": "COM-23.04",
+    "theme": "COM-23",
+    "ecran": null,
+    "libelle": "Messages → demandes commerciales",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": "Demandes commerciales ÷ messages reçus",
+    "entrees": [
+      "COM-23.01"
+    ],
+    "entreesTexte": "COM-23.01",
+    "utiliseeDans": [
+      "XC12"
+    ],
+    "utiliseeDansTexte": "XC12, DC04"
+  },
+  {
+    "code": "COM-23.05",
+    "theme": "COM-23",
+    "ecran": null,
+    "libelle": "Conversations commerciales → rendez-vous → ventes",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Rendez-vous ÷ demandes commerciales ; ventes ÷ demandes commerciales",
+    "entrees": [
+      "COM-23.03",
+      "COM-23.01"
+    ],
+    "entreesTexte": "COM-23.03, COM-23.01",
+    "utiliseeDans": [
+      "COM-23.06",
+      "XC12"
+    ],
+    "utiliseeDansTexte": "COM-23.06, XC12"
+  },
+  {
+    "code": "COM-23.06",
+    "theme": "COM-23",
+    "ecran": null,
+    "libelle": "CA perdu par an sur les messages commerciaux sans réponse",
+    "format": "€",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": "Demandes commerciales × part « jamais » × taux de vente des conversations × panier × 12",
+    "entrees": [
+      "COM-23.01",
+      "COM-23.02",
+      "COM-23.05",
+      "ACQ-15.06"
+    ],
+    "entreesTexte": "COM-23.01, COM-23.02, COM-23.05, ACQ-15.06",
+    "utiliseeDans": [
+      "XC12"
+    ],
+    "utiliseeDansTexte": "XC12, DC14"
+  },
+  {
+    "code": "COM-24.01",
+    "theme": "COM-24",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Objectif principal de votre communication : trouver des clients, vous faire connaître, fidéliser, recruter",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-24.02"
+    ],
+    "utiliseeDansTexte": "COM-24.02"
+  },
+  {
+    "code": "COM-24.02",
+    "theme": "COM-24",
+    "ecran": null,
+    "libelle": "Objectif et dispositif cohérents ?",
+    "format": "Oui / non",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Objectif « trouver des clients » sans appel à l'action, sans offre d'appel et sans suivi des demandes = incohérent",
+    "entrees": [
+      "COM-24.01",
+      "COM-21.01",
+      "COM-20.01",
+      "COM-43.02"
+    ],
+    "entreesTexte": "COM-24.01, COM-21.01, COM-20.01, COM-43.02",
+    "utiliseeDans": [
+      "XC28"
+    ],
+    "utiliseeDansTexte": "XC28"
+  },
+  {
+    "code": "COM-25.01",
+    "theme": "COM-25",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Les 2 ou 3 sujets dont vous parlez le plus souvent",
+    "format": "Texte court",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-26.01",
+    "theme": "COM-26",
+    "ecran": "C13 · Vos publications (connexion ou saisie)",
+    "libelle": "Publications des 3 derniers mois, par réseau, par format (vidéo courte, vidéo longue, carrousel, photo, texte, story) et par type (commercial, pédagogique, preuve ou cas client, coulisses, actualité, dirigeant, avant / après, marque employeur)",
+    "format": "Tableau (sinon répartition approximative en %)",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": "Période adaptée : depuis l'ouverture du compte si moins de 3 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Lu sur les profils connectés ou collés ; le type est repéré par l'IA",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-27.01"
+    ],
+    "utiliseeDansTexte": "COM-27.01"
+  },
+  {
+    "code": "COM-27.01",
+    "theme": "COM-27",
+    "ecran": null,
+    "libelle": "Mix éditorial réel par format et par type",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Répartition des publications des 3 derniers mois",
+    "entrees": [
+      "COM-26.01"
+    ],
+    "entreesTexte": "COM-26.01",
+    "utiliseeDans": [
+      "COM-40.01",
+      "XC04"
+    ],
+    "utiliseeDansTexte": "COM-40.01, XC04"
+  },
+  {
+    "code": "COM-28.01",
+    "theme": "COM-28",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Calendrier de publication : écrit et suivi, existe mais pas suivi, aucun",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XC17"
+    ],
+    "utiliseeDansTexte": "XC17, DC05"
+  },
+  {
+    "code": "COM-29.01",
+    "theme": "COM-29",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Concurrents dont vous suivez la communication, et ce qui marche chez eux selon vous",
+    "format": "Texte court",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-30.01",
+    "theme": "COM-30",
+    "ecran": null,
+    "libelle": "Qui produit le contenu : vous, un salarié, un prestataire",
+    "format": "Choix",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Repris de la répartition des heures et du tableau des réseaux",
+    "entrees": [
+      "COM-31.02",
+      "COM-10.01"
+    ],
+    "entreesTexte": "COM-31.02, COM-10.01",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-31.01",
+    "theme": "COM-31",
+    "ecran": "C11 · Votre temps (tableau par tâche)",
+    "libelle": "Heures par semaine consacrées à la communication, par tâche : idées et rédaction ; visuels, tournage, montage ; publication et programmation ; réponses aux commentaires, messages et avis ; emails et site ; statistiques et prestataires",
+    "format": "Tableau 6 lignes (heures)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-31.05"
+    ],
+    "utiliseeDansTexte": "COM-31.05"
+  },
+  {
+    "code": "COM-31.02",
+    "theme": "COM-31",
+    "ecran": "C11 · Votre temps (tableau par tâche)",
+    "libelle": "Répartition de ces heures : vous, salariés, freelance ou agence",
+    "format": "% (3 colonnes)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-30.01"
+    ],
+    "utiliseeDansTexte": "COM-30.01"
+  },
+  {
+    "code": "COM-31.03",
+    "theme": "COM-31",
+    "ecran": "C11 · Votre temps (tableau par tâche)",
+    "libelle": "Répartition de ces heures par réseau",
+    "format": "% par réseau",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D22 · une ligne par réseau utilisé",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XC02"
+    ],
+    "utiliseeDansTexte": "XC02, DC03, DC11"
+  },
+  {
+    "code": "COM-31.04",
+    "theme": "COM-31",
+    "ecran": "C11 · Votre temps (tableau par tâche)",
+    "libelle": "Répartition de ces heures par format (vidéo, carrousel, photo, texte)",
+    "format": "% par format",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-41.01",
+      "XC03"
+    ],
+    "utiliseeDansTexte": "COM-41.01, XC03, DC11"
+  },
+  {
+    "code": "COM-31.05",
+    "theme": "COM-31",
+    "ecran": null,
+    "libelle": "Heures de communication par semaine",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Somme du tableau",
+    "entrees": [
+      "COM-31.01"
+    ],
+    "entreesTexte": "COM-31.01",
+    "utiliseeDans": [
+      "COM-31.06",
+      "COM-31.07",
+      "COM-31.08",
+      "XC01"
+    ],
+    "utiliseeDansTexte": "COM-31.06, COM-31.07, COM-31.08, XC01"
+  },
+  {
+    "code": "COM-31.06",
+    "theme": "COM-31",
+    "ecran": null,
+    "libelle": "Publications produites par heure",
+    "format": "Nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Publications par mois ÷ (heures × 4,33)",
+    "entrees": [
+      "COM-10.01",
+      "COM-31.05"
+    ],
+    "entreesTexte": "COM-10.01, COM-31.05",
+    "utiliseeDans": [
+      "XC21"
+    ],
+    "utiliseeDansTexte": "XC21"
+  },
+  {
+    "code": "COM-31.07",
+    "theme": "COM-31",
+    "ecran": null,
+    "libelle": "Demandes et clients obtenus par heure de communication",
+    "format": "Nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Demandes et clients venant de la communication ÷ heures par mois",
+    "entrees": [
+      "COM-22.02",
+      "COM-31.05"
+    ],
+    "entreesTexte": "COM-22.02, COM-31.05",
+    "utiliseeDans": [
+      "XC21"
+    ],
+    "utiliseeDansTexte": "XC21"
+  },
+  {
+    "code": "COM-31.08",
+    "theme": "COM-31",
+    "ecran": null,
+    "libelle": "Valeur du temps consacré à la communication",
+    "format": "€ par mois",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": "Heures × coût d'une heure (agent Finance) ou CA par heure du dirigeant",
+    "entrees": [
+      "COM-31.05",
+      "FIN-07.12",
+      "FIN-07.13"
+    ],
+    "entreesTexte": "COM-31.05, FIN-07.12, FIN-07.13",
+    "utiliseeDans": [
+      "COM-32.06",
+      "XC21"
+    ],
+    "utiliseeDansTexte": "COM-32.06, XC21"
+  },
+  {
+    "code": "COM-32.01",
+    "theme": "COM-32",
+    "ecran": "A08 · Votre budget marketing",
+    "libelle": "Création de contenu, agence et outils marketing par mois",
+    "format": "€",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-07.03, ACQ-07.01, ACQ-07.04), sinon ici",
+    "entrees": [
+      "ACQ-07.03",
+      "ACQ-07.01",
+      "ACQ-07.04"
+    ],
+    "entreesTexte": "ACQ-07.03, ACQ-07.01, ACQ-07.04",
+    "utiliseeDans": [
+      "COM-32.04"
+    ],
+    "utiliseeDansTexte": "COM-32.04"
+  },
+  {
+    "code": "COM-32.02",
+    "theme": "COM-32",
+    "ecran": "C12 · Votre budget communication (tableau)",
+    "libelle": "Autres dépenses de communication par mois : community manager, influence, impression (flyers, cartes), autres. La création de contenu, l'agence et les outils (banque d'images comprise) sont dans les postes partagés",
+    "format": "Tableau par poste (€)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-32.04"
+    ],
+    "utiliseeDansTexte": "COM-32.04"
+  },
+  {
+    "code": "COM-32.03",
+    "theme": "COM-32",
+    "ecran": "C12 · Votre budget communication (tableau)",
+    "libelle": "Budget communication total il y a 12 mois, même périmètre qu'aujourd'hui : contenu, agence, outils, community manager, influence, impression (sans la publicité)",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-32.07"
+    ],
+    "utiliseeDansTexte": "COM-32.07"
+  },
+  {
+    "code": "COM-32.04",
+    "theme": "COM-32",
+    "ecran": null,
+    "libelle": "Budget communication total par mois",
+    "format": "€",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Postes partagés + autres postes",
+    "entrees": [
+      "ACQ-07.03",
+      "ACQ-07.01",
+      "ACQ-07.04",
+      "COM-32.02"
+    ],
+    "entreesTexte": "ACQ-07.03, ACQ-07.01, ACQ-07.04, COM-32.02",
+    "utiliseeDans": [
+      "COM-32.05",
+      "COM-32.06",
+      "COM-32.07"
+    ],
+    "utiliseeDansTexte": "COM-32.05, COM-32.06, COM-32.07"
+  },
+  {
+    "code": "COM-32.05",
+    "theme": "COM-32",
+    "ecran": null,
+    "libelle": "Coût par contenu publié",
+    "format": "€",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Budget ÷ publications du mois",
+    "entrees": [
+      "COM-32.04",
+      "COM-10.01"
+    ],
+    "entreesTexte": "COM-32.04, COM-10.01",
+    "utiliseeDans": [
+      "XC22"
+    ],
+    "utiliseeDansTexte": "XC22"
+  },
+  {
+    "code": "COM-32.06",
+    "theme": "COM-32",
+    "ecran": null,
+    "libelle": "Coût par demande et par client venant de la communication (temps compris)",
+    "format": "€",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "(Budget + valeur du temps) ÷ demandes, puis ÷ clients",
+    "entrees": [
+      "COM-32.04",
+      "COM-31.08",
+      "COM-22.02"
+    ],
+    "entreesTexte": "COM-32.04, COM-31.08, COM-22.02",
+    "utiliseeDans": [
+      "XC22"
+    ],
+    "utiliseeDansTexte": "XC22, DC12"
+  },
+  {
+    "code": "COM-32.07",
+    "theme": "COM-32",
+    "ecran": null,
+    "libelle": "Évolution du budget sur 12 mois, face à l'évolution des demandes",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Évolution du budget comparée à celle des demandes venant de la communication",
+    "entrees": [
+      "COM-32.04",
+      "COM-32.03",
+      "ACQ-02.06"
+    ],
+    "entreesTexte": "COM-32.04, COM-32.03, ACQ-02.06",
+    "utiliseeDans": [
+      "XC22"
+    ],
+    "utiliseeDansTexte": "XC22, DC12"
+  },
+  {
+    "code": "COM-33.01",
+    "theme": "COM-33",
+    "ecran": "C13 · Vos publications (connexion ou saisie)",
+    "libelle": "Dates de vos publications des 3 derniers mois",
+    "format": "Liste de dates",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": "Période adaptée : depuis l'ouverture du compte si moins de 3 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Lu sur les profils connectés ; sinon : semaines sans publication",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-33.02",
+      "COM-33.03"
+    ],
+    "utiliseeDansTexte": "COM-33.02, COM-33.03"
+  },
+  {
+    "code": "COM-33.02",
+    "theme": "COM-33",
+    "ecran": null,
+    "libelle": "Régularité : semaines avec au moins une publication ÷ semaines analysées",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Semaines publiées ÷ semaines de la période",
+    "entrees": [
+      "COM-33.01",
+      "COM-10.02"
+    ],
+    "entreesTexte": "COM-33.01, COM-10.02",
+    "utiliseeDans": [
+      "XC16"
+    ],
+    "utiliseeDansTexte": "XC16, DC05"
+  },
+  {
+    "code": "COM-33.03",
+    "theme": "COM-33",
+    "ecran": null,
+    "libelle": "Durée moyenne entre deux publications, et plus longue interruption",
+    "format": "Jours",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Écart moyen et écart maximal entre deux dates",
+    "entrees": [
+      "COM-33.01"
+    ],
+    "entreesTexte": "COM-33.01",
+    "utiliseeDans": [
+      "XC16"
+    ],
+    "utiliseeDansTexte": "XC16, DC05"
+  },
+  {
+    "code": "COM-34.01",
+    "theme": "COM-34",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Un même contenu est décliné sur plusieurs réseaux ou formats : souvent, parfois, jamais",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "COM-34.02",
+    "theme": "COM-34",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Contenus longs (vidéos, articles, webinaires) ou anciens contenus performants réutilisables",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-34.03"
+    ],
+    "utiliseeDansTexte": "COM-34.03"
+  },
+  {
+    "code": "COM-34.03",
+    "theme": "COM-34",
+    "ecran": null,
+    "libelle": "Contenus réutilisables sans nouvelle production",
+    "format": "Liste et nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": "Repérés par l'IA : vidéos longues → extraits, cas clients → posts, questions fréquentes → contenus, témoignages et photos non publiés, anciens contenus performants à republier",
+    "entrees": [
+      "COM-09.01",
+      "COM-34.02",
+      "COM-39.01"
+    ],
+    "entreesTexte": "COM-09.01, COM-34.02, COM-39.01",
+    "utiliseeDans": [
+      "XC15"
+    ],
+    "utiliseeDansTexte": "XC15"
+  },
+  {
+    "code": "COM-35.01",
+    "theme": "COM-35",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Contenus prêts d'avance (finalisés ou programmés), contenus à finaliser, idées notées",
+    "format": "3 nombres",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-35.03"
+    ],
+    "utiliseeDansTexte": "COM-35.03"
+  },
+  {
+    "code": "COM-35.02",
+    "theme": "COM-35",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Ressources disponibles : banque de photos et vidéos, modèles (templates), contenus intemporels",
+    "format": "Cases + nombre",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-35.03",
+    "theme": "COM-35",
+    "ecran": null,
+    "libelle": "Semaines de publication d'avance",
+    "format": "Semaines",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Contenus prêts ÷ publications par semaine",
+    "entrees": [
+      "COM-35.01",
+      "COM-10.01"
+    ],
+    "entreesTexte": "COM-35.01, COM-10.01",
+    "utiliseeDans": [
+      "XC17"
+    ],
+    "utiliseeDansTexte": "XC17, DC01"
+  },
+  {
+    "code": "COM-36.01",
+    "theme": "COM-36",
+    "ecran": null,
+    "libelle": "Taux d'engagement par réseau",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Réactions ÷ portée (à défaut ÷ abonnés, en le précisant)",
+    "entrees": [
+      "COM-18.01",
+      "COM-17.01"
+    ],
+    "entreesTexte": "COM-18.01, COM-17.01",
+    "utiliseeDans": [
+      "XC19"
+    ],
+    "utiliseeDansTexte": "XC19, DC02"
+  },
+  {
+    "code": "COM-37.01",
+    "theme": "COM-37",
+    "ecran": "C07 · Audience et résultats par réseau (tableau)",
+    "libelle": "Abonnés de chaque réseau il y a 6 mois",
+    "format": "Nombre par réseau",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": "D22 · une ligne par réseau utilisé",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": "Par réseau : seulement si le compte existait il y a 6 mois ; sinon abonnés à l'ouverture du compte",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Seulement si le compte existait il y a 6 mois ; sinon abonnés à l'ouverture ou plus ancienne donnée connue, ou « je ne sais pas »",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-37.02"
+    ],
+    "utiliseeDansTexte": "COM-37.02"
+  },
+  {
+    "code": "COM-37.02",
+    "theme": "COM-37",
+    "ecran": null,
+    "libelle": "Croissance de l'audience : nouveaux abonnés nets, en %, et par mois",
+    "format": "Nombre et %",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "(Abonnés actuels − abonnés de départ) ÷ abonnés de départ, puis ÷ nombre de mois",
+    "entrees": [
+      "COM-17.01",
+      "COM-37.01",
+      "COM-10.01"
+    ],
+    "entreesTexte": "COM-17.01, COM-37.01, COM-10.01",
+    "utiliseeDans": [
+      "XC07",
+      "XC18"
+    ],
+    "utiliseeDansTexte": "XC07, XC18"
+  },
+  {
+    "code": "COM-38.01",
+    "theme": "COM-38",
+    "ecran": null,
+    "libelle": "Rendement de l'audience",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Demandes venant des réseaux ÷ abonnés",
+    "entrees": [
+      "COM-22.02",
+      "COM-17.01"
+    ],
+    "entreesTexte": "COM-22.02, COM-17.01",
+    "utiliseeDans": [
+      "XC20"
+    ],
+    "utiliseeDansTexte": "XC20, DC13"
+  },
+  {
+    "code": "COM-39.01",
+    "theme": "COM-39",
+    "ecran": "C13 · Vos publications (connexion ou saisie)",
+    "libelle": "Statistiques des 10 dernières publications : portée ou vues, réactions, commentaires, partages, sauvegardes, clics, visites du profil, abonnements, messages et contacts générés",
+    "format": "Tableau 10 lignes",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": "D26 · statistiques connectées (sinon 3 meilleures et 3 moins bonnes)",
+    "declencheurs": [
+      "D26"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Lu automatiquement si le réseau est connecté ; sinon saisi pour vos 3 meilleures et vos 3 moins bonnes publications seulement",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-34.03",
+      "COM-39.04",
+      "COM-39.05",
+      "COM-39.06"
+    ],
+    "utiliseeDansTexte": "COM-34.03, COM-39.04, COM-39.05, COM-39.06"
+  },
+  {
+    "code": "COM-39.02",
+    "theme": "COM-39",
+    "ecran": "C13 · Vos publications (connexion ou saisie)",
+    "libelle": "Texte et visuel de ces publications",
+    "format": "Connexion ou copier-coller",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Sert à la grille de qualité et au repérage du format, du sujet et de l'accroche",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-06.01",
+      "COM-20.01",
+      "COM-39.04",
+      "COM-49.01",
+      "COM-50.01",
+      "COM-51.01",
+      "COM-52.01",
+      "COM-53.01",
+      "COM-54.01"
+    ],
+    "utiliseeDansTexte": "COM-06.01, COM-20.01, COM-39.04, COM-49.01, COM-50.01, COM-51.01, COM-52.01, COM-53.01, COM-54.01"
+  },
+  {
+    "code": "COM-39.03",
+    "theme": "COM-39",
+    "ecran": "C13 · Vos publications (connexion ou saisie)",
+    "libelle": "Pour les vidéos : vues, durée moyenne de visionnage, part regardée jusqu'au bout",
+    "format": "Nombres et %",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": "D26 · statistiques connectées",
+    "declencheurs": [
+      "D26"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Statistiques des réseaux",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-39.04",
+    "theme": "COM-39",
+    "ecran": null,
+    "libelle": "Format, sujet, accroche, durée, appel à l'action, date, heure et type de chaque publication",
+    "format": "Étiquettes",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Repérés par l'IA dans les publications importées",
+    "entrees": [
+      "COM-39.02",
+      "COM-39.01"
+    ],
+    "entreesTexte": "COM-39.02, COM-39.01",
+    "utiliseeDans": [
+      "COM-39.05",
+      "COM-39.06"
+    ],
+    "utiliseeDansTexte": "COM-39.05, COM-39.06"
+  },
+  {
+    "code": "COM-39.05",
+    "theme": "COM-39",
+    "ecran": null,
+    "libelle": "Résultats moyens par format et par sujet : portée, engagement, clics, messages, contacts",
+    "format": "Tableau",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Moyenne des statistiques regroupées par étiquette",
+    "entrees": [
+      "COM-39.01",
+      "COM-39.04"
+    ],
+    "entreesTexte": "COM-39.01, COM-39.04",
+    "utiliseeDans": [
+      "COM-40.01",
+      "COM-41.01",
+      "XC03",
+      "XC05"
+    ],
+    "utiliseeDansTexte": "COM-40.01, COM-41.01, XC03, XC05, DC01, DC11"
+  },
+  {
+    "code": "COM-39.06",
+    "theme": "COM-39",
+    "ecran": null,
+    "libelle": "Ce qu'ont en commun les meilleures publications",
+    "format": "Liste",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Étiquettes les plus fréquentes parmi les publications du haut du classement (clics et contacts d'abord, portée ensuite)",
+    "entrees": [
+      "COM-39.01",
+      "COM-39.04"
+    ],
+    "entreesTexte": "COM-39.01, COM-39.04",
+    "utiliseeDans": [
+      "XC04"
+    ],
+    "utiliseeDansTexte": "XC04"
+  },
+  {
+    "code": "COM-40.01",
+    "theme": "COM-40",
+    "ecran": null,
+    "libelle": "Écart entre ce qui marche et ce qui est publié",
+    "format": "Points de %",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Part du format ou sujet le plus performant dans les publications − sa part dans les résultats",
+    "entrees": [
+      "COM-39.05",
+      "COM-27.01"
+    ],
+    "entreesTexte": "COM-39.05, COM-27.01",
+    "utiliseeDans": [
+      "XC04"
+    ],
+    "utiliseeDansTexte": "XC04"
+  },
+  {
+    "code": "COM-41.01",
+    "theme": "COM-41",
+    "ecran": null,
+    "libelle": "Contenus produits en vain",
+    "format": "Liste et heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": "Formats et sujets du bas du classement, avec le temps qu'ils consomment",
+    "entrees": [
+      "COM-39.05",
+      "COM-31.04"
+    ],
+    "entreesTexte": "COM-39.05, COM-31.04",
+    "utiliseeDans": [
+      "XC03"
+    ],
+    "utiliseeDansTexte": "XC03"
+  },
+  {
+    "code": "COM-42.01",
+    "theme": "COM-42",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Mentions de l'entreprise sans action de votre part sur 6 mois (articles, publications de clients, recommandations en ligne)",
+    "format": "Tranches : aucune · 1-3 · 4-10 · plus de 10 · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 6 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-42.02",
+    "theme": "COM-42",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Publications de clients qui vous mentionnent, par mois",
+    "format": "Nombre",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": "Lu sur les réseaux connectés",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-43.01",
+    "theme": "COM-43",
+    "ecran": "A19 · Votre suivi commercial",
+    "libelle": "Fréquence à laquelle vous regardez vos statistiques de communication (ligne « communication » du tableau de suivi)",
+    "format": "Choix",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-20.02), sinon ici",
+    "entrees": [
+      "ACQ-20.02"
+    ],
+    "entreesTexte": "ACQ-20.02",
+    "utiliseeDans": [
+      "XC30"
+    ],
+    "utiliseeDansTexte": "XC30, DC10"
+  },
+  {
+    "code": "COM-43.02",
+    "theme": "COM-43",
+    "ecran": null,
+    "libelle": "Pilotage de la communication",
+    "format": "% et liste",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Réponses précises, estimées, « je ne sais pas » et « je ne suis pas cette donnée » sur la Comm, en distinguant activité (publications) et contribution commerciale (clics, contacts, clients)",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-24.02",
+      "XC30"
+    ],
+    "utiliseeDansTexte": "COM-24.02, XC30, DC10"
+  },
+  {
+    "code": "COM-44.01",
+    "theme": "COM-44",
+    "ecran": "A07 · Votre présence en ligne",
+    "libelle": "Nombre d'avis, note, avis des 6 derniers mois (Google et plateforme principale)",
+    "format": "Nombres et note",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis l'ouverture de la fiche si moins de 6 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-06.01, ACQ-06.02, ACQ-06.03, ACQ-06.08), sinon ici",
+    "entrees": [
+      "ACQ-06.01",
+      "ACQ-06.02",
+      "ACQ-06.03",
+      "ACQ-06.08"
+    ],
+    "entreesTexte": "ACQ-06.01, ACQ-06.02, ACQ-06.03, ACQ-06.08",
+    "utiliseeDans": [
+      "COM-08.02",
+      "COM-09.06",
+      "COM-44.05",
+      "COM-46.03",
+      "COM-44.06"
+    ],
+    "utiliseeDansTexte": "COM-08.02, COM-09.06, COM-44.05, COM-46.03, COM-44.06"
+  },
+  {
+    "code": "COM-44.02",
+    "theme": "COM-44",
+    "ecran": "C05 · Votre fiche Google et vos avis",
+    "libelle": "Autres plateformes d'avis utilisées (Trustpilot, TripAdvisor, Facebook, plateforme du métier, marketplace) : nombre d'avis et note",
+    "format": "Tableau par plateforme",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-44.03",
+    "theme": "COM-44",
+    "ecran": "C05 · Votre fiche Google et vos avis",
+    "libelle": "Répartition des avis : 5 étoiles, 4 étoiles, 3 et moins",
+    "format": "3 nombres",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Lu sur la fiche Google",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-44.04",
+    "theme": "COM-44",
+    "ecran": "C05 · Votre fiche Google et vos avis",
+    "libelle": "Texte des derniers avis de votre boutique ou de votre plateforme principale (Trustpilot, Avis Vérifiés, marketplace)",
+    "format": "Connexion ou copier-coller",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Lu dans la boutique ou la plateforme d'avis si elle est connectée, sinon copier-coller des 20 derniers avis",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-44.05"
+    ],
+    "utiliseeDansTexte": "COM-44.05"
+  },
+  {
+    "code": "COM-44.05",
+    "theme": "COM-44",
+    "ecran": null,
+    "libelle": "Thèmes positifs et motifs négatifs les plus cités",
+    "format": "Liste",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Repérés par l'IA dans le texte des avis importés : fiche Google ; e-commerce : boutique ou plateforme principale",
+    "entrees": [
+      "ACQ-06.01",
+      "COM-44.04"
+    ],
+    "entreesTexte": "ACQ-06.01, COM-44.04",
+    "utiliseeDans": [
+      "XC25"
+    ],
+    "utiliseeDansTexte": "XC25"
+  },
+  {
+    "code": "COM-44.06",
+    "theme": "COM-44",
+    "ecran": null,
+    "libelle": "Nouveaux avis par mois",
+    "format": "Nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Avis des 6 derniers mois ÷ 6 (ou ÷ mois d'existence de la fiche)",
+    "entrees": [
+      "ACQ-06.03"
+    ],
+    "entreesTexte": "ACQ-06.03",
+    "utiliseeDans": [
+      "COM-44.07",
+      "XC24"
+    ],
+    "utiliseeDansTexte": "COM-44.07, XC24"
+  },
+  {
+    "code": "COM-44.07",
+    "theme": "COM-44",
+    "ecran": null,
+    "libelle": "Part des clients qui laissent un avis",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": "Nouveaux avis ÷ nouveaux clients ou ventes sur la même période",
+    "entrees": [
+      "COM-44.06",
+      "ACQ-11.01",
+      "ACQ-21.02",
+      "ACQ-11.06",
+      "ACQ-11.07",
+      "ACQ-11.14"
+    ],
+    "entreesTexte": "COM-44.06, ACQ-11.01, ACQ-21.02, ACQ-11.06, ACQ-11.07, ACQ-11.14",
+    "utiliseeDans": [
+      "XC14",
+      "XC24"
+    ],
+    "utiliseeDansTexte": "XC14, XC24, DC09"
+  },
+  {
+    "code": "COM-45.01",
+    "theme": "COM-45",
+    "ecran": "C05 · Votre fiche Google et vos avis",
+    "libelle": "Vous demandez un avis : à chaque client, parfois, jamais — et comment (lien, QR code, message automatique)",
+    "format": "Choix + choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XC24"
+    ],
+    "utiliseeDansTexte": "XC24"
+  },
+  {
+    "code": "COM-46.01",
+    "theme": "COM-46",
+    "ecran": "C05 · Votre fiche Google et vos avis",
+    "libelle": "Avis ayant reçu une réponse (positifs, négatifs) et délai moyen de réponse",
+    "format": "Nombres et jours",
+    "mode": "importee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Lu sur la fiche Google ; sinon tranches",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "COM-46.03"
+    ],
+    "utiliseeDansTexte": "COM-46.03"
+  },
+  {
+    "code": "COM-46.02",
+    "theme": "COM-46",
+    "ecran": "C05 · Votre fiche Google et vos avis",
+    "libelle": "Qui répond aux avis, et existe-t-il une règle (délai, modèle de réponse) ?",
+    "format": "Choix + oui / non",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XC23"
+    ],
+    "utiliseeDansTexte": "XC23"
+  },
+  {
+    "code": "COM-46.03",
+    "theme": "COM-46",
+    "ecran": null,
+    "libelle": "Taux de réponse aux avis positifs et négatifs, et avis sans réponse",
+    "format": "% et nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Avis répondus ÷ avis reçus ; ancienneté des avis sans réponse",
+    "entrees": [
+      "COM-46.01",
+      "ACQ-06.01"
+    ],
+    "entreesTexte": "COM-46.01, ACQ-06.01",
+    "utiliseeDans": [
+      "XC23"
+    ],
+    "utiliseeDansTexte": "XC23"
+  },
+  {
+    "code": "COM-47.01",
+    "theme": "COM-47",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Part des commentaires qui reçoivent une réponse",
+    "format": "Tranches : presque tous · la moitié · peu · aucun · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "COM-48.01",
+    "theme": "COM-48",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Relais qui ont parlé de vous : presse, associations, créateurs de contenu, autres entreprises",
+    "format": "Cases + nombre",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Opportunité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "COM-48.02",
+    "theme": "COM-48",
+    "ecran": "C10 · Votre stratégie et votre organisation",
+    "libelle": "Collaborations avec des créateurs de contenu sur la période : nombre, coût, ventes générées (code promo, lien suivi)",
+    "format": "3 nombres",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XC32"
+    ],
+    "utiliseeDansTexte": "XC32"
+  },
+  {
+    "code": "COM-49.01",
+    "theme": "COM-49",
+    "ecran": null,
+    "libelle": "Accroche : la première ligne ou les premières secondes arrêtent le défilement",
+    "format": "Oui / partiel / non par publication",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Grille fixe appliquée par l'IA aux 10 dernières publications",
+    "entrees": [
+      "COM-39.02"
+    ],
+    "entreesTexte": "COM-39.02",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "DC02"
+  },
+  {
+    "code": "COM-50.01",
+    "theme": "COM-50",
+    "ecran": null,
+    "libelle": "Angle client : la publication parle du client et de son problème",
+    "format": "Oui / partiel / non",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Grille fixe appliquée par l'IA",
+    "entrees": [
+      "COM-39.02"
+    ],
+    "entreesTexte": "COM-39.02",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "DC02"
+  },
+  {
+    "code": "COM-51.01",
+    "theme": "COM-51",
+    "ecran": null,
+    "libelle": "Bénéfice explicite pour le lecteur",
+    "format": "Oui / partiel / non",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Grille fixe appliquée par l'IA",
+    "entrees": [
+      "COM-39.02"
+    ],
+    "entreesTexte": "COM-39.02",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "DC02"
+  },
+  {
+    "code": "COM-52.01",
+    "theme": "COM-52",
+    "ecran": null,
+    "libelle": "Preuve : chiffre, exemple ou témoignage",
+    "format": "Oui / partiel / non",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Grille fixe appliquée par l'IA",
+    "entrees": [
+      "COM-39.02"
+    ],
+    "entreesTexte": "COM-39.02",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "DC09"
+  },
+  {
+    "code": "COM-53.01",
+    "theme": "COM-53",
+    "ecran": null,
+    "libelle": "Appel à l'action : la publication dit quoi faire ensuite",
+    "format": "Oui / partiel / non",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Grille fixe appliquée par l'IA",
+    "entrees": [
+      "COM-39.02"
+    ],
+    "entreesTexte": "COM-39.02",
+    "utiliseeDans": [
+      "COM-20.01",
+      "XC06"
+    ],
+    "utiliseeDansTexte": "COM-20.01, XC06, DC08"
+  },
+  {
+    "code": "COM-54.01",
+    "theme": "COM-54",
+    "ecran": null,
+    "libelle": "Public visé : la publication s'adresse à la cible déclarée, pas à un autre public",
+    "format": "Oui / partiel / non",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Grille fixe appliquée par l'IA. Le fond seulement : le ton est noté en COM-06",
+    "entrees": [
+      "COM-39.02",
+      "COM-02.01"
+    ],
+    "entreesTexte": "COM-39.02, COM-02.01",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  }
+]

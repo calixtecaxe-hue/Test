@@ -1,0 +1,275 @@
+// Schéma de données CAXE.
+// Voir CLAUDE.md section 8 : le questionnaire et ses seuils restent des
+// données (fichiers), pas des tables — seuls le compte et les réponses
+// brutes sont persistés ici.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Type de zone déclaré à l'inscription (CLAUDE.md section 6).
+// Segmente les seuils de volume (ex. contacts vendeurs/mois).
+enum TypeZone {
+  URBAINE_DENSE
+  PERIURBAINE
+  RURALE
+}
+
+// Les quatre agents (CLAUDE.md section 3). Un seul est construit
+// aujourd'hui (ACQUISITION_CA), mais l'accès est modélisé pour les
+// quatre dès maintenant : "rétrofitter ça plus tard serait coûteux."
+enum AgentCode {
+  ACQUISITION_CA
+  FINANCE_RENTABILITE
+  RH_ORGANISATION
+  COMM_CREATION
+}
+
+// Compte dirigeant. Les sept champs d'inscription (CLAUDE.md section 6)
+// sont collectés une seule fois, hors questionnaire.
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Les sept champs d'inscription.
+  metierPrecis           String
+  // Activités cochées pour les métiers qui en regroupent plusieurs (plusieurs
+  // choix possibles) ; vide pour les autres métiers.
+  sousVariantes          String[]
+  // Routage invisible (CLAUDE.md section 5), recalculé côté serveur à partir de
+  // data/routage.json : catégorie (id) et profils d'entreprise retenus.
+  categorie              String
+  profils                String[]
+  // Texte saisi avec « Autre (précisez) » (toujours gardé, pour repérer les activités qui
+  // manquent à la liste), métier écrit par un client qui ne trouve pas le sien, et réponse à
+  // « vendez-vous aussi des produits ? » pour les métiers dont le stock en dépend.
+  autreActiviteTexte     String?
+  metierAbsentTexte      String?
+  vendProduits           Boolean?
+  chiffreAffairesMensuel Decimal  @db.Decimal(12, 2)
+  nombreCollaborateurs   Int
+  dateCreationEntreprise DateTime
+  typeZone               TypeZone
+  ville                  String
+
+  // Niveau des questionnaires (essentiel ou approfondi), choisi une fois et valable
+  // pour tous les agents (CLAUDE.md section 6). Vide tant qu'il n'a pas été choisi.
+  niveauAudit NiveauAudit?
+
+  // Facturation professionnelle (facultative) : nom de l'entreprise et numéro de TVA
+  // intracommunautaire, demandés au paiement et repris sur la facture.
+  raisonSociale String?
+  numeroTva     String?
+
+  agentAccess AgentAccess[]
+  objectifs   Objectif[]
+  abonnement  Abonnement?
+  reponses    ReponseAudit[]
+
+  @@index([metierPrecis])
+}
+
+// Droit d'accès à un agent, attaché au compte (CLAUDE.md section 1).
+// Un dirigeant abonné au seul agent Acquisition ne doit voir ni ouvrir
+// les trois autres : chaque entrée est contrôlée indépendamment.
+model AgentAccess {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agent      AgentCode
+  actif      Boolean   @default(true)
+  souscritLe DateTime  @default(now())
+
+  @@unique([userId, agent])
+}
+
+// Statut d'un objectif au fil des audits. Un seul objectif est ACTIF par
+// compte et par agent ; en relançant un audit avec un nouvel objectif, le
+// précédent passe à REMPLACE et reste consultable pour comparer l'évolution.
+enum StatutObjectif {
+  ACTIF
+  ATTEINT
+  ABANDONNE
+  REMPLACE
+}
+
+// Objectif du dirigeant, propre à un agent et à un audit (CLAUDE.md section 0).
+// Il n'appartient pas au profil de l'entreprise : le même compte peut avoir un
+// objectif Acquisition, un objectif Finance, etc., enregistrés séparément et
+// conservés avec leur historique.
+model Objectif {
+  id     String    @id @default(cuid())
+  userId String
+  user   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agent  AgentCode
+
+  // L'objectif en une phrase : « baisser le turnover de 5 % sur les 3 prochains mois ».
+  texteBrut String
+
+  // Les trois champs saisis, l'indicateur rattaché (ou null) et l'échéance :
+  // { quoi, ampleur: { valeur, unite }, delaiMois, indicateur, echeance }.
+  // Voir src/lib/audit/objectif.ts (type ObjectifEnregistre).
+  structure Json
+
+  // Échéance de l'objectif, extraite de structure.deadline pour pouvoir
+  // filtrer et trier sans lire le JSON.
+  echeance DateTime @db.Date
+
+  statut StatutObjectif @default(ACTIF)
+
+  // Avancement vers l'objectif, en pourcentage : renseigné plus tard, quand le
+  // détail du calcul sera arrêté (CLAUDE.md section 0). Vide pour l'instant.
+  progression Decimal? @db.Decimal(6, 2)
+
+  creeLe    DateTime  @default(now())
+  clotureLe DateTime?
+
+  @@index([userId, agent, creeLe])
+}
+
+enum PeriodeFacturation {
+  MENSUEL
+  ANNUEL
+}
+
+// Formule choisie par le compte (CLAUDE.md section 10) : 2, 3 ou 4 agents, en
+// facturation mensuelle ou annuelle. Le paiement n'est pas encore branché : cette
+// table ne dit que ce que le dirigeant a choisi. Les agents ouverts sont dans
+// AgentAccess.
+// EN_ATTENTE_PAIEMENT : formule choisie, aucun paiement reçu, aucun agent ouvert.
+// ACTIF : paiement reçu. IMPAYE : un renouvellement a échoué (l'accès reste ouvert jusqu'à la fin
+// de la période déjà payée). RESILIE : abonnement arrêté (accès jusqu'à la fin de la période payée).
+enum StatutAbonnement {
+  EN_ATTENTE_PAIEMENT
+  ACTIF
+  IMPAYE
+  RESILIE
+}
+
+model Abonnement {
+  id                   String             @id @default(cuid())
+  userId               String             @unique
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nombreAgents         Int
+  periode              PeriodeFacturation
+  statut               StatutAbonnement   @default(EN_ATTENTE_PAIEMENT)
+  // « stripe » ou « demonstration » (aucun paiement réel).
+  fournisseur          String?
+  stripeCustomerId     String?
+  stripeSubscriptionId String?            @unique
+  // Fin de la période déjà payée : l'accès reste ouvert jusqu'à cette date.
+  finPeriodeLe         DateTime?
+  activeLe             DateTime?
+  debutLe              DateTime           @default(now())
+  modifieLe            DateTime           @updatedAt
+}
+
+// Événements de paiement déjà traités (identifiant de l'événement du fournisseur) : un même
+// événement reçu deux fois n'est appliqué qu'une fois.
+model EvenementPaiement {
+  id     String   @id
+  type   String
+  recuLe DateTime @default(now())
+}
+
+enum NiveauAudit {
+  ESSENTIEL
+  APPROFONDI
+}
+
+// Réponse du dirigeant à une donnée du questionnaire ou à une question déclencheuse.
+// Enregistrée sur le compte dès qu'elle est posée, quel que soit l'agent : une donnée
+// partagée n'est jamais redemandée (CLAUDE.md section 6). `cle` est le code de la
+// donnée (ACQ-02.01) ou la clé d'une réponse de déclencheur (D07, D08.achats).
+// `reponse` : voir src/lib/audit/reponse.ts (les quatre réponses, ou une saisie).
+model ReponseAudit {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cle       String
+  reponse   Json
+  creeLe    DateTime @default(now())
+  modifieLe DateTime @updatedAt
+
+  @@unique([userId, cle])
+}
+
+enum NiveauReference {
+  METIER
+  FAMILLE
+  NATIONAL
+}
+
+enum StatutReference {
+  ACTIF
+  A_REVOIR
+  VALIDE_FONDATEUR
+  REJETE
+  AUCUNE_REFERENCE
+}
+
+// Référence de marché pour un indicateur et un profil (cahier « références de marché », partie 1).
+// Trouvée par l'agent de recherche, contrôlée par le code, partagée par tous les clients du même
+// profil. Une ligne est une VERSION : on ne supprime jamais, on crée une nouvelle version.
+// Les colonnes de clé n'ont pas de NULL (chaîne vide = non précisé) pour que l'unicité tienne.
+// Voir src/lib/references/types.ts pour les règles de cohérence d'une ligne.
+model ReferenceMarche {
+  id             String          @id @default(cuid())
+  themeId        String
+  indicateurId   String
+  niveau         NiveauReference
+  metier         String          @default("")
+  famille        String          @default("")
+  sousVariante   String          @default("")
+  zone           String          @default("toutes")
+  trancheTaille  String          @default("toutes")
+  valeurCentrale Float?
+  borneBasse     Float?
+  borneHaute     Float?
+  statistique    String?
+  unite          String
+  periode        String
+  sens           String
+  // Source principale et seconde source : voir `source` dans src/lib/references/types.ts.
+  source         Json?
+  secondeSource  Json?
+  confiance      String?
+  statut         StatutReference
+  dateExpiration DateTime?       @db.Date
+  version        Int
+  actif          Boolean         @default(false)
+  nbUtilisations Int             @default(0)
+  motif          String?
+  creeLe         DateTime        @default(now())
+
+  @@unique([indicateurId, niveau, metier, famille, sousVariante, zone, trancheTaille, version])
+  @@index([indicateurId, actif])
+  @@index([statut])
+}
+
+// Journal de chaque recherche de référence : requêtes, pages lues, résultat et coût. Sert aussi de
+// verrou (une seule recherche en cours par couple indicateur + métier) et de compteur de tentatives.
+model RechercheReference {
+  id           String    @id @default(cuid())
+  indicateurId String
+  metier       String
+  debutLe      DateTime  @default(now())
+  finLe        DateTime?
+  // en_cours | acceptee | rejetee | aucune_reference | erreur
+  etat         String
+  journal      Json?
+  referenceId  String?
+  // Coût en centimes d'euro : jamais de flottant pour de l'argent.
+  coutCentimes Int       @default(0)
+
+  @@index([indicateurId, metier, etat])
+  @@index([debutLe])
+}
