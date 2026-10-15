@@ -130,8 +130,7 @@ export function OffresTarifs() {
                         {formaterEuros(
                           prixMensuelEquivalentAnnuelCentimesHT(mensuel),
                         )}{" "}
-                        HT / mois, au lieu de {formaterEuros(mensuel)} HT /
-                        mois en facturation mensuelle.
+                        au lieu de {formaterEuros(mensuel)} HT.
                       </>
                     ) : (
                       "Facturation mensuelle."
