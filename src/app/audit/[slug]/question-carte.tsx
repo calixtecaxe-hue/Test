@@ -210,7 +210,7 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
       return (
         <div className="mt-3">
           <div className="tableau-reponse" role="region" aria-label="Tableau de réponses" tabIndex={0}>
-            <table>
+            <table style={{ minWidth: `${110 + spec.colonnes.length * 120}px` }}>
               <thead>
                 <tr>
                   <th scope="col"><span className="sr-only">Ligne</span></th>

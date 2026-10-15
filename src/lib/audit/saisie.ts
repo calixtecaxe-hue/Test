@@ -6,7 +6,7 @@
 // Ce fichier n'importe que des fonctions pures : il se teste directement avec Node.
 
 import type { ChampNomme, ChampSimple, ContexteLignes, ReponseAValider, ReponseSpec, ValeursStructurees } from "../donnees/reponse-spec.ts";
-import { validerSelonSpec } from "../donnees/reponse-spec.ts";
+import { idsDeListe, validerSelonSpec } from "../donnees/reponse-spec.ts";
 import { lireNombre } from "./nombre.ts";
 
 // Ce qui est tapé, par champ. Les nombres restent du texte jusqu'à l'envoi.
@@ -93,7 +93,15 @@ export function construireReponse(spec: ReponseSpec | null, s: Saisie, ctx: Cont
       const champs = s.champs ?? {};
       const colonnes: ChampNomme[] = spec.type === "composite" ? spec.champs : spec.colonnes;
       const valeurs: ValeursStructurees = {};
+      // Lignes qui existent encore : une case d'un canal décoché ou d'un élément retiré de la liste est ignorée.
+      let lignesValides: Set<string> | null = null;
+      if (spec.type === "tableau") {
+        const l = spec.lignes;
+        const ids = l.source === "fixe" ? l.items.map((i) => i.id) : l.source === "declencheur" ? ctx.lignesDeclencheur(l.cle) : l.source === "donnee" ? idsDeListe(ctx.elementsDeListe?.(l.code) ?? []) : Array.from({ length: l.max }, (_, i) => String(i + 1));
+        lignesValides = new Set(ids);
+      }
       for (const [cle, texte] of Object.entries(champs)) {
+        if (lignesValides && !lignesValides.has(cle.slice(0, cle.lastIndexOf(".")))) continue;
         const id = cle.includes(".") ? cle.slice(cle.lastIndexOf(".") + 1) : cle;
         const colonne = colonnes.find((c) => c.id === id);
         if (id === "nom" && spec.type === "tableau") {

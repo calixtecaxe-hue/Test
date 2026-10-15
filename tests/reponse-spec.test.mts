@@ -326,3 +326,11 @@ test("le contrôle exige que la liste source d'un tableau soit une liste dans la
   e.banque.push({ donnee: "ACQ-01.01", texte: "Vos types de clients", aide: null, repli: null, reponse: { type: "liste", max: 4 } });
   assert.deepEqual(controlerDonnees(e).erreurs, []);
 });
+
+test("une case d'une ligne qui n'existe plus (canal décoché) est ignorée au lieu de bloquer le tableau", () => {
+  const ctx = { lignesDeclencheur: () => ["site"] };
+  const r = construireReponse(tableauCanaux, { champs: { "site.part": "100", "fiche_google.part": "0", "fiche_google.cout": "300" } }, ctx);
+  assert.deepEqual(r, { reponse: { genre: "valeurs", valeurs: { "site.part": 100 } }, erreur: null });
+  const aucune = construireReponse(tableauCanaux, { champs: { "fiche_google.part": "10" } }, ctx);
+  assert.deepEqual(aucune, { reponse: null, erreur: null });
+});

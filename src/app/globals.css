@@ -3703,7 +3703,6 @@ h3,
 
 .tableau-reponse table {
   width: 100%;
-  min-width: 480px;
   border-collapse: collapse;
   font-size: 14px;
 }
