@@ -63,6 +63,8 @@ export type QuestionAssemblee = {
   specSource: "banque" | "classeur" | null;
   // Déjà posée par un autre agent : reprise telle quelle, jamais redemandée.
   dejaPosee: boolean;
+  // Code de la donnée qui porte la réponse quand elle a été donnée pour un autre agent.
+  dejaPoseeDans: string | null;
 };
 
 export type DeclencheurAPoser = { code: string; question: string; forme: FormeDeclencheur };
@@ -224,6 +226,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
         spec,
         specSource,
         dejaPosee: deja && ctx.reponses[d.code] === undefined,
+        dejaPoseeDans: ctx.reponses[d.code] === undefined ? equivalents.find((c) => ctx.reponses[c] !== undefined) ?? null : null,
       });
     }
     if (questions.length > 0) themes.push({ theme, questions });

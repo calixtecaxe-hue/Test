@@ -8,6 +8,7 @@ import { AGENTS } from "@/lib/agents";
 import { PROFILS, type ProfilId } from "@/lib/donnees/schemas";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { assemblerQuestionnaire, compterQuestions } from "@/lib/audit/assemblage";
+import { specDeLaDonnee } from "@/lib/audit/validation";
 import { exclusionsAcquisition } from "@/lib/routage";
 import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
 import { reponsesDuCompte } from "@/lib/audit/compte";
@@ -15,6 +16,7 @@ import type { ObjectifEnregistre } from "@/lib/audit/objectif";
 import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifActif } from "./objectif-actif";
 import { NiveauChoix } from "./niveau-choix";
+import { NiveauReglage } from "./niveau-reglage";
 import { Questionnaire, type ThemeClient } from "./questionnaire";
 
 export const metadata: Metadata = {
@@ -71,10 +73,13 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
   const taille = tailleDepuisEffectif(utilisateur.nombreCollaborateurs);
 
   let corps: React.ReactNode = null;
+  let reglageNiveau: React.ReactNode = null;
   if (actif && !utilisateur.niveauAudit) {
     const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur.categorie));
     corps = <NiveauChoix essentielles={n.essentielles} approfondies={n.total} />;
   } else if (actif && utilisateur.niveauAudit) {
+    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur.categorie));
+    reglageNiveau = <NiveauReglage niveau={utilisateur.niveauAudit} essentielles={n.essentielles} total={n.total} />;
     const reponses = await reponsesDuCompte(userId);
     const a = assemblerQuestionnaire(ENSEMBLE, {
       agent: agent.code,
@@ -99,10 +104,17 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
         spec: q.spec,
         quatreReponses: q.quatreReponses,
         dejaPosee: q.dejaPosee,
+        source: q.dejaPoseeDans
+          ? {
+              code: q.dejaPoseeDans,
+              spec: specDeLaDonnee(ENSEMBLE, q.dejaPoseeDans).spec,
+              agent: AGENTS.find((a) => a.code === ENSEMBLE.themes.find((t) => t.code === q.dejaPoseeDans!.slice(0, q.dejaPoseeDans!.indexOf(".")))?.agent)?.nom ?? "un autre agent",
+            }
+          : null,
       })),
     }));
     // Seules les réponses utiles à cet écran partent au navigateur.
-    const cles = new Set<string>([...a.declencheursConcernes.flatMap((d) => Object.keys(reponses).filter((c) => c === d.code || c.startsWith(`${d.code}.`))), ...themes.flatMap((t) => t.questions.map((q) => q.code))]);
+    const cles = new Set<string>([...a.declencheursConcernes.flatMap((d) => Object.keys(reponses).filter((c) => c === d.code || c.startsWith(`${d.code}.`))), ...themes.flatMap((t) => t.questions.flatMap((q) => [q.code, ...(q.source ? [q.source.code] : []), ...(q.spec?.type === "tableau" && q.spec.lignes.source === "donnee" ? [q.spec.lignes.code] : [])]))]);
     const reponsesEcran = Object.fromEntries(Object.entries(reponses).filter(([c]) => cles.has(c)));
     // Noms des canaux, réseaux… cochés au cadrage, pour nommer les lignes des tableaux.
     const libellesLignes: Record<string, Record<string, string>> = {};
@@ -131,6 +143,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
         <>
           <h1 className="sr-only">Audit {agent.nom}</h1>
           <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} />
+          {reglageNiveau}
           {corps}
         </>
       ) : (

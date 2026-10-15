@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
@@ -13,6 +13,8 @@ import { ChoixCases } from "@/components/choix-cases";
 import { libelleQuestion } from "@/lib/donnees/lexique";
 import { metiersTries, router, trouverMetier } from "@/lib/routage";
 import { INSCRIPTION_CLIENT, LEXIQUE_CLIENT, ROUTAGE_CLIENT } from "@/lib/routage-client";
+import { AGENTS } from "@/lib/agents";
+import { lireFormuleDansAdresse, type FormuleChoisie } from "@/lib/formule-url";
 import logo from "../../../public/logo-caxe.png";
 
 // Dossier d'inscription : une question à la fois, le métier en premier. Chaque
@@ -78,6 +80,13 @@ export default function Inscription() {
   const route = useRouter();
   const [valeurs, setValeurs] = useState<Valeurs>(VIDE);
   const [etape, setEtape] = useState(0);
+  // Formule choisie avant l'inscription (dans l'adresse) : gardée jusqu'à la création du compte.
+  const recherche = useSyncExternalStore(
+    () => () => {},
+    () => window.location.search,
+    () => "",
+  );
+  const formuleChoisie: FormuleChoisie | null = useMemo(() => lireFormuleDansAdresse(recherche), [recherche]);
   const [erreurs, setErreurs] = useState<Record<string, string>>({});
   const [erreurGenerale, setErreurGenerale] = useState<string | null>(null);
   const [enCours, setEnCours] = useState(false);
@@ -200,6 +209,7 @@ export default function Inscription() {
     setErreurs({});
 
     const payload = {
+      formule: formuleChoisie ? { nombreAgents: formuleChoisie.nombreAgents, periode: formuleChoisie.periode, agents: formuleChoisie.agents } : undefined,
       email,
       motDePasse,
       metierPrecis: valeurs.metier,
@@ -246,7 +256,13 @@ export default function Inscription() {
         route.push("/connexion");
         return;
       }
-      route.push("/tableau-de-bord");
+      // Une formule choisie avant l'inscription est enregistrée avec le compte ; si elle ne convient
+      // pas à ce métier (ex. agent Comm pour une profession réglementée), on la refait ensemble.
+      if (resultat.formule === "non_appliquee" && formuleChoisie) {
+        route.push(`/activation?agents=${formuleChoisie.nombreAgents}&periode=${formuleChoisie.periode}`);
+      } else {
+        route.push("/tableau-de-bord");
+      }
       route.refresh();
     } catch {
       setErreurGenerale("Une erreur est survenue. Réessayez.");
@@ -265,6 +281,21 @@ export default function Inscription() {
         Ces informations servent à choisir le questionnaire et les seuils de
         comparaison adaptés à votre entreprise. Vous ne les donnez qu&apos;une fois.
       </p>
+
+      {formuleChoisie ? (
+        <div className="mt-6 rounded-xl border border-[var(--line)] bg-[var(--panel)] p-4 text-sm" data-formule-choisie>
+          <p className="text-[var(--text)]">
+            Votre formule : {formuleChoisie.nombreAgents} agents, facturation {formuleChoisie.periode === "annuel" ? "annuelle" : "mensuelle"}.
+          </p>
+          <p className="mt-1 text-[var(--text-muted)]">
+            {formuleChoisie.agents.map((c) => AGENTS.find((a) => a.code === c)?.nom).join(" · ")}
+          </p>
+          <p className="mt-2 text-[var(--text-muted)]">
+            Elle sera enregistrée avec votre compte. Aucun paiement n&apos;est pris.{" "}
+            <Link href="/offres" className="text-[var(--blue-1)] hover:underline">Changer de formule</Link>
+          </p>
+        </div>
+      ) : null}
 
       <div className="mt-8">
         <p className="mb-2 text-xs text-[var(--text-faint)]" aria-live="polite">

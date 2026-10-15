@@ -17,6 +17,8 @@ export type QuestionClient = {
   spec: ReponseSpec | null;
   quatreReponses: boolean;
   dejaPosee: boolean;
+  // Réponse donnée pour un autre agent : où elle est enregistrée, et comment elle se modifie.
+  source: { code: string; spec: ReponseSpec | null; agent: string } | null;
 };
 
 type Etat = "repos" | "enregistrement" | "enregistre" | "erreur";
@@ -255,13 +257,54 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
 
 // --- La carte d'une question ---------------------------------------------------------------
 
+// Ce que dit une réponse déjà enregistrée, en une ligne.
+export function resumeReponse(r: Reponse | undefined): string {
+  if (!r) return "Pas encore de réponse.";
+  switch (r.genre) {
+    case "exact":
+      return formaterNombre(r.valeur);
+    case "estimation":
+      return `Entre ${formaterNombre(r.min)} et ${formaterNombre(r.max)} (estimation)`;
+    case "inconnu":
+      return "« Je ne sais pas »";
+    case "non_suivi":
+      return "« Je ne suis pas cette donnée »";
+    case "saisie":
+      return Array.isArray(r.valeur) ? r.valeur.join(", ") : typeof r.valeur === "boolean" ? (r.valeur ? "Oui" : "Non") : r.valeur === "oui" ? "Oui" : r.valeur === "non" ? "Non" : r.valeur;
+    case "valeurs": {
+      const n = Object.values(r.valeurs).filter((v) => v !== null && v !== "").length;
+      return `${n} valeur${n > 1 ? "s" : ""} renseignée${n > 1 ? "s" : ""}`;
+    }
+  }
+}
+
+// Donnée déjà posée pour un autre agent : reprise ici, jamais redemandée, mais modifiable.
+export function CartePartagee({ q, reponse, onModifier }: { q: QuestionClient; reponse: Reponse | undefined; onModifier: () => void }) {
+  return (
+    <li className="rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5" data-question={q.code} data-traitee="oui" data-partagee="oui">
+      <p className="text-[var(--text)]">{q.texte ?? q.libelle}</p>
+      <p className="mt-3 text-sm text-[var(--text-muted)]">
+        Déjà renseigné pour l&apos;audit {q.source?.agent ?? "d'un autre agent"} : vous n&apos;avez pas à le saisir de nouveau.
+      </p>
+      <p className="mt-2 text-sm text-[var(--text)]">Votre réponse : {resumeReponse(reponse)}</p>
+      <button type="button" onClick={onModifier} className="audit-lien mt-3 text-sm text-[var(--blue-1)] hover:underline">
+        Modifier cette réponse
+      </button>
+    </li>
+  );
+}
+
 export function QuestionCarte({
   q,
   reponse,
   cadrage,
   libellesLignes,
   enregistrer,
+  partageAvec,
+  onTerminer,
 }: {
+  partageAvec?: string;
+  onTerminer?: () => void;
   q: QuestionClient;
   reponse: Reponse | undefined;
   cadrage: Reponses;
@@ -385,6 +428,7 @@ export function QuestionCarte({
       <p className="text-[var(--text)]">{q.texte ?? q.libelle}</p>
       {q.texte === null ? <p className="mt-1 text-xs text-[var(--text-muted)]">Question à rédiger dans la banque · libellé du classeur · {q.code}</p> : null}
       {q.aide ? <p className="mt-1 text-sm text-[var(--text-muted)]">{q.aide}</p> : null}
+      {partageAvec ? <p className="mt-2 text-sm text-[var(--text-muted)]">Cette réponse est partagée avec l&apos;audit {partageAvec} : la modifier la change aussi là-bas.</p> : null}
 
       {q.dejaPosee ? (
         <p className="mt-3 text-sm text-[var(--text-muted)]">Déjà renseigné avec un autre agent : repris ici, vous n&apos;avez pas à le saisir de nouveau.</p>
@@ -405,6 +449,9 @@ export function QuestionCarte({
             {erreur ? <span className="text-[var(--red-1)]">{erreur}</span> : null}
             {traitee || mode !== "reponse" ? (
               <button type="button" onClick={effacer} className="text-[var(--text-muted)] hover:text-[var(--text)]">Effacer ma réponse</button>
+            ) : null}
+            {onTerminer ? (
+              <button type="button" onClick={onTerminer} className="text-[var(--blue-1)] hover:underline">Terminer</button>
             ) : null}
           </div>
         </>

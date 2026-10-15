@@ -1,5 +1,6 @@
 "use client";
 
+import { adresseInscription } from "@/lib/formule-url";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
@@ -240,10 +241,10 @@ export function ChoixAgents({
           <div className="activation-suite flex flex-col items-center gap-4">
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Link
-                href="/inscription"
+                href={connecte ? "/tableau-de-bord" : adresseInscription({ nombreAgents: offre.nombreAgents, periode: annuel ? "annuel" : "mensuel", agents: tous ? proposes.map((a) => a.code) : choisis })}
                 className="bouton-eclat inline-flex items-center justify-center rounded-[4px] border border-transparent bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-6 py-3 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
               >
-                Compléter mon profil
+                {connecte ? "Voir mon compte" : "Compléter mon profil"}
               </Link>
               {tous ? null : (
                 <button
@@ -287,13 +288,13 @@ export function ChoixAgents({
             "Le paiement n'est pas encore en place : aucun paiement n'est pris, votre choix est enregistré."
           ) : (
             <>
-              Aucun paiement n&apos;est pris et votre choix n&apos;est pas
-              enregistré.{" "}
+              Aucun paiement n&apos;est pris. Votre choix sera enregistré à la
+              création de votre compte.{" "}
               <Link
-                href="/connexion?depuis=/activation"
+                href={`/connexion?depuis=${encodeURIComponent(`/activation?agents=${offre.nombreAgents}&periode=${annuel ? "annuel" : "mensuel"}`)}`}
                 className="text-[var(--blue-1)] hover:underline"
               >
-                Connectez-vous pour l&apos;enregistrer.
+                Vous avez déjà un compte ? Connectez-vous.
               </Link>
             </>
           )}

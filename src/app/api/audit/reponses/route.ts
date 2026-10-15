@@ -7,6 +7,8 @@ import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { validerReponse } from "@/lib/audit/validation";
 import { agentsActifs, reponsesDuCompte } from "@/lib/audit/compte";
 import { exclusionsAcquisition } from "@/lib/routage";
+import { equivalences } from "@/lib/audit/assemblage";
+import type { AgentCode } from "@prisma/client";
 
 const corps = z.object({
   cle: z.string().min(1).max(40),
@@ -36,7 +38,14 @@ export async function PUT(request: Request) {
   const verdict = validerReponse(ENSEMBLE, cle, reponse, await reponsesDuCompte(userId), compte ? exclusionsAcquisition(ENSEMBLE.routage, compte.categorie) : null);
   if (!verdict.ok) return NextResponse.json({ erreur: verdict.message }, { status: 400 });
   // Une réponse de cadrage sert à tous les agents : il suffit d'en avoir un.
-  const autorise = verdict.agent ? actifs.includes(verdict.agent) : actifs.length > 0;
+  // Une donnée partagée se modifie depuis n'importe lequel des agents qui la posent : il suffit
+  // d'avoir accès à l'un d'eux.
+  const agentsDeLaDonnee = new Set<string>(verdict.agent ? [verdict.agent] : []);
+  for (const autre of equivalences(ENSEMBLE.donnees).get(cle) ?? []) {
+    const a = ENSEMBLE.themes.find((t) => t.code === autre.slice(0, autre.indexOf(".")))?.agent;
+    if (a) agentsDeLaDonnee.add(a);
+  }
+  const autorise = verdict.agent ? actifs.some((a: AgentCode) => agentsDeLaDonnee.has(a)) : actifs.length > 0;
   if (!autorise) return NextResponse.json({ erreur: "Cet agent n'est pas inclus dans votre formule." }, { status: 403 });
 
   await prisma.reponseAudit.upsert({

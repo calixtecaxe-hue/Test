@@ -6,7 +6,7 @@ import { ChoixCases } from "@/components/choix-cases";
 import { aUneReponse, type Reponse, type Reponses } from "@/lib/audit/reponse";
 import type { FormeDeclencheur } from "@/lib/donnees/schemas";
 import { enregistrerReponse } from "./enregistrer";
-import { QuestionCarte, type LibellesLignes, type QuestionClient } from "./question-carte";
+import { CartePartagee, QuestionCarte, type LibellesLignes, type QuestionClient } from "./question-carte";
 export type { QuestionClient };
 
 export type ThemeClient = { code: string; nom: string; bloc: string; questions: QuestionClient[] };
@@ -104,6 +104,7 @@ export function Questionnaire({
   const router = useRouter();
   const [reponses, setReponses] = useState<Reponses>(reponsesInitiales);
   const reprise = useRef(false);
+  const [ouvertes, setOuvertes] = useState<Set<string>>(new Set());
 
   const toutes = themes.flatMap((t) => t.questions);
   const traitees = toutes.filter((q) => reponses[q.code] !== undefined || q.dejaPosee).length;
@@ -162,9 +163,28 @@ export function Questionnaire({
               <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">{t.bloc}</p>
               <h3 className="mt-1 text-lg">{t.nom}</h3>
               <ul className="mt-4 flex flex-col gap-3">
-                {t.questions.map((q) => (
-                  <QuestionCarte key={q.code} q={q} reponse={reponses[q.code]} cadrage={reponses} libellesLignes={libellesLignes} enregistrer={enregistrerQuestion} />
-                ))}
+                {t.questions.map((q) => {
+                  if (q.dejaPosee && q.source) {
+                    const source = q.source;
+                    if (!ouvertes.has(q.code)) {
+                      return <CartePartagee key={q.code} q={q} reponse={reponses[source.code]} onModifier={() => setOuvertes((o) => new Set(o).add(q.code))} />;
+                    }
+                    // La réponse est enregistrée dans la donnée d'origine, avec sa propre spécification.
+                    return (
+                      <QuestionCarte
+                        key={q.code}
+                        q={{ ...q, code: source.code, spec: source.spec, dejaPosee: false, source: null }}
+                        reponse={reponses[source.code]}
+                        cadrage={reponses}
+                        libellesLignes={libellesLignes}
+                        enregistrer={enregistrerQuestion}
+                        partageAvec={source.agent}
+                        onTerminer={() => setOuvertes((o) => { const n = new Set(o); n.delete(q.code); return n; })}
+                      />
+                    );
+                  }
+                  return <QuestionCarte key={q.code} q={q} reponse={reponses[q.code]} cadrage={reponses} libellesLignes={libellesLignes} enregistrer={enregistrerQuestion} />;
+                })}
               </ul>
             </div>
           ))}
