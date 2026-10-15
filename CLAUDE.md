@@ -205,8 +205,10 @@ Agents nommés par leur fonction, **sans prénom ni personnage**.
 
 ## 10. Abonnement
 
-Paliers mensuels **2 agents 59,99 € HT, 3 agents 79,99 € HT, 4 agents 109,99 € HT.
-Pas d'offre à 1 agent.** Badge « Recommandé » sur le palier 3, formule suggérée à
+Paliers mensuels **2 agents 59,99 € HT, 3 agents 79,99 € HT, 4 agents 99,99 € HT.
+Pas d'offre à 1 agent.** (Le document de règles du 15 octobre indique 109,99 € pour
+4 agents : c'est une erreur, le prix retenu est 99,99 €, confirmé par le
+propriétaire du produit. À corriger dans le document.) Badge « Recommandé » sur le palier 3, formule suggérée à
 l'inscription, essai d'un agent non souscrit, mais **aucun agent coché d'avance**.
 L'accès aux agents est **un droit attaché au compte**, contrôlé à chaque entrée
 d'agent (page comme API).
@@ -218,9 +220,16 @@ hors du code, métier par métier, puis déposés comme fichiers de données, va
 par un script de contrôle (code, nature, règle ; pas de doublon avec le socle ;
 budget de questions ; au moins 2 questions par thème noté ; lexique complet).
 Secteur pilote : agence immobilière indépendante (transaction), agent
-Acquisition. Fichiers de travail : `CAXE_Questionnaire_Grille_Pilote.xlsx` et
-`CAXE_Themes_Chiffres_4_agents.xlsx` (**non présents dans le dépôt**). Le
-premier utilise encore les types A / B / C : ne pas les reprendre tels quels.
+Acquisition. Fichiers de travail : `CAXE_Themes_Chiffres_4_agents_8.xlsx`
+(version du 14 octobre : 162 thèmes, données, croisements, scénarios, déclencheurs,
+lexique des 4 agents) et `CAXE_Questionnaire_Grille_Pilote.xlsx` (**pas encore
+dans le dépôt**; il utilise encore les types A / B / C : ne pas les reprendre
+tels quels).
+
+**Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
+moteur), puis la **banque de questions** (rédaction finale de chaque question),
+puis la connexion des deux. Tant que la banque n'existe pas, rien n'est inventé :
+les questions sont marquées manquantes.
 
 ## 12. Charte et ton
 
