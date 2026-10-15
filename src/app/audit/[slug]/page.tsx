@@ -81,7 +81,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
     // Catégorie dont le questionnaire reste à créer (Fabrication) : aucun profil, donc rien à poser pour l'instant.
     corps = (
       <p className="mt-10 rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5 text-sm text-[var(--text-muted)]" data-questionnaire-en-preparation>
-        Le questionnaire de votre activité est en cours de préparation. Votre objectif est enregistré : vous retrouverez cet audit ici dès qu'il sera ouvert.
+        Le questionnaire de votre activité est en cours de préparation. Votre objectif est enregistré : vous retrouverez cet audit ici dès qu&apos;il sera ouvert.
       </p>
     );
   } else if (actif && utilisateur.niveauAudit) {

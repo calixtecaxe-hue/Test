@@ -82,6 +82,13 @@ deux dernières étapes, sur un constat déjà calculé.
   agence web, com ou marketing : projets ponctuels / contrats mensuels).
   **Cases à cocher, plusieurs choix possibles.** Une case → la variante ; plusieurs
   → le socle une fois plus le bloc de chaque spécialité, sans doublon.
+- **Liste des métiers (15 octobre)** : recherche par synonymes ; métiers à plusieurs activités = cases à
+  cocher plus **« Autre (précisez) »** (seule, elle applique l'activité par défaut du métier ; le texte est
+  gardé sur le compte). **« Mon métier n'est pas dans la liste »** : le dirigeant décrit son activité et
+  choisit la catégorie qui y ressemble le plus (jamais une profession réglementée). Stock : si le métier ne le
+  tranche pas, une question oui / non à l'inscription. Agent Comm : plusieurs activités = règle la plus
+  prudente ; « à trancher » = décision ouverte, l'agent reste proposé. Catégorie **Fabrication** : questionnaire
+  à créer, l'audit affiche « en préparation ». Ne rien trancher de ces points seul.
 - **Routage invisible** : métier → **catégorie** (10, agriculture exclue) →
   **profil** (7 : Rendez-vous, Commerce, E-commerce, Restaurant, Artisan /
   chantier, B2B / cycle long, Abonnement). Le dirigeant ne voit jamais la
@@ -248,11 +255,11 @@ tels quels).
 `diagnostic-comm.json` (14 problèmes), `declencheurs.json` (27), `lexique.json`,
 `regles-affichage.json` (conditions d'affichage, masquages de thèmes et réponses attendues des
 déclencheurs, **écrit à la main** d'après le classeur ; le contrôle échoue si une condition du classeur n'y a pas
-de règle ; trois règles sont « à préciser »), `routage.json` (10 catégories, 7 profils, métiers du document),
+de règle ; trois règles sont « à préciser »), `routage.json` (11 catégories, 7 profils, 149 métiers et 52 activités tirés du document « CAXE — Liste des métiers » du 15 octobre, avec synonymes de recherche, stock oui / non / à demander et agent Comm oui / non / à trancher),
 `inscription.json` (questions du dossier d'inscription, avec mots du lexique) et
 `banque/questions.json` (vide). Les huit premiers viennent du classeur par
 `python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` et `inscription.json` sont écrits
-d'après le document de règles. Schémas : `src/lib/donnees/schemas.ts` ; routage : `src/lib/routage.ts` ;
+d'après le document de règles et la liste des métiers (`python3 scripts/ecrire-routage-metiers.py` réécrit `routage.json` ; les profils des professions réglementées ajoutées sont déduits et marqués `aConfirmer`). Schémas : `src/lib/donnees/schemas.ts` ; routage : `src/lib/routage.ts` ;
 lexique : `src/lib/donnees/lexique.ts` (un mot du lexique s'écrit `{demande}`,
 `{nouveau_client}` dans un gabarit ; les formes sont au singulier). Contrôle :
 `npm run donnees:controle` (et `npm test`). **Le classeur reste l'outil d'écriture :
