@@ -18,6 +18,8 @@ import {
   type Reponses,
 } from "../src/lib/audit/reponse.ts";
 import {
+  sensDeLObjectif,
+  verifierVraisemblance,
   calculerEcheance,
   objectifSaisieSchema,
   phraseObjectif,
@@ -128,7 +130,8 @@ test("l'objectif refuse un champ vide, un chiffre nul et un délai hors limites"
   assert.equal(objectifSaisieSchema.safeParse({ ...base, ampleur: { valeur: 10, unite: "kg" } }).success, false);
   assert.equal(objectifSaisieSchema.safeParse({ ...base, delaiMois: 0 }).success, false);
   assert.equal(objectifSaisieSchema.safeParse({ ...base, delaiMois: 2.5 }).success, false);
-  assert.equal(objectifSaisieSchema.safeParse({ ...base, delaiMois: 61 }).success, false);
+  assert.equal(objectifSaisieSchema.safeParse({ ...base, delaiMois: 121 }).success, false);
+  assert.equal(objectifSaisieSchema.safeParse({ ...base, delaiMois: 120 }).success, true, "10 ans");
 });
 
 test("l'échéance tombe le même jour, ou le dernier jour du mois s'il n'existe pas", () => {
@@ -347,4 +350,128 @@ test("un nombre tapé à la française est lu comme le dirigeant l'entend", () =
     ["", null], ["abc", null], ["1e999", null], ["1e3", null], ["1,2,3", null], ["1.2.3", null], ["12,", null], [".", null], ["-", null], ["1 2a", null], ["Infinity", null], ["NaN", null],
   ];
   for (const [entree, attendu] of cas) assert.equal(lireNombre(entree), attendu, `« ${entree} »`);
+});
+
+// --- Professions réglementées : l'audit Acquisition ne pose pas ce qu'il n'a pas le droit de recommander -------
+
+import { exclusionsAcquisition } from "../src/lib/routage.ts";
+
+test("pour une profession réglementée, ni publicité payante, ni prospection, ni partenaires ne sont demandés", () => {
+  const ex = exclusionsAcquisition(reel.routage, "professions-reglementees");
+  assert.ok(ex);
+  assert.equal(exclusionsAcquisition(reel.routage, "prestation-chantier"), null);
+  const tous: Reponses = Object.fromEntries(reel.declencheurs.map((d) => [d.code, saisie("oui")]));
+  tous.D03 = saisie(["bouche_a_oreille", "publicite", "prospection", "partenaires", "site"]);
+  const base = { agent: "ACQUISITION_CA" as const, profils: ["b2b" as const], taille: "equipe_2_5" as const, niveau: "approfondi" as const, reponses: tous };
+  const libre = assemblerQuestionnaire(reel, base);
+  const regl = assemblerQuestionnaire(reel, { ...base, exclusions: ex });
+
+  const codesCadrage = regl.declencheursConcernes.map((d) => d.code);
+  assert.ok(!codesCadrage.includes("D04"), "pas de question sur la publicité payante");
+  assert.ok(libre.declencheursConcernes.some((d) => d.code === "D04"));
+  const d03 = regl.declencheursConcernes.find((d) => d.code === "D03")!;
+  assert.ok(d03.forme.type === "cases");
+  const ids = d03.forme.type === "cases" ? d03.forme.options.map((o) => o.id) : [];
+  for (const interdit of ["publicite", "prospection", "partenaires"]) assert.ok(!ids.includes(interdit), interdit);
+  assert.ok(ids.includes("site") && ids.includes("bouche_a_oreille"));
+
+  const themes = regl.themes.map((t) => t.theme.code);
+  assert.ok(!themes.includes("ACQ-04") && !themes.includes("ACQ-05"));
+  assert.ok(libre.themes.some((t) => t.theme.code === "ACQ-04") && libre.themes.some((t) => t.theme.code === "ACQ-05"));
+  assert.ok(!regl.themesMasques.some((t) => t.code === "ACQ-04"), "un thème écarté n'est ni posé, ni « masqué »");
+
+  // Aucune donnée qui dépend de la publicité payante ou des canaux écartés.
+  const posees = new Set(regl.themes.flatMap((t) => t.questions.map((q) => q.code)));
+  for (const d of reel.donnees) {
+    if (d.condition && /D04|« prospection »|« partenaires »/.test(d.condition)) assert.ok(!posees.has(d.code), `${d.code} (${d.condition})`);
+  }
+  assert.ok(regl.statistiques.aPoser < libre.statistiques.aPoser);
+});
+
+test("les exclusions ne touchent que l'agent Acquisition", () => {
+  const ex = exclusionsAcquisition(reel.routage, "professions-reglementees");
+  const tous: Reponses = Object.fromEntries(reel.declencheurs.map((d) => [d.code, saisie("oui")]));
+  const a = assemblerQuestionnaire(reel, { agent: "FINANCE_RENTABILITE", profils: ["b2b"], taille: "equipe_2_5", niveau: "approfondi", reponses: tous, exclusions: ex });
+  const b = assemblerQuestionnaire(reel, { agent: "FINANCE_RENTABILITE", profils: ["b2b"], taille: "equipe_2_5", niveau: "approfondi", reponses: tous });
+  assert.equal(a.statistiques.aPoser, b.statistiques.aPoser);
+});
+
+test("le serveur refuse à une profession réglementée les réponses qu'on ne lui pose pas", () => {
+  const ex = exclusionsAcquisition(reel.routage, "professions-reglementees");
+  assert.ok(!validerReponse(reel, "D04", saisie("oui"), {}, ex).ok);
+  assert.ok(validerReponse(reel, "D04", saisie("oui"), {}, null).ok);
+  assert.ok(!validerReponse(reel, "D03", saisie(["site", "publicite"]), {}, ex).ok);
+  assert.ok(validerReponse(reel, "D03", saisie(["site", "bouche_a_oreille"]), {}, ex).ok);
+  assert.ok(validerReponse(reel, "D03", saisie(["site", "publicite"]), {}, null).ok);
+});
+
+test("une réponse donnée avant l'exclusion (canal « publicité » coché) est ignorée à l'assemblage", () => {
+  const ex = exclusionsAcquisition(reel.routage, "professions-reglementees");
+  const rep: Reponses = { ...Object.fromEntries(reel.declencheurs.map((d) => [d.code, saisie("oui")])), D03: saisie(["publicite", "site"]) };
+  const a = assemblerQuestionnaire(reel, { agent: "ACQUISITION_CA", profils: ["b2b"], taille: "equipe_2_5", niveau: "approfondi", reponses: rep, exclusions: ex });
+  const posees = a.themes.flatMap((t) => t.questions.map((q) => q.code));
+  const dependantPub = reel.donnees.filter((d) => d.condition?.includes("D04")).map((d) => d.code);
+  for (const c of dependantPub) assert.ok(!posees.includes(c), c);
+});
+
+// --- Vraisemblance d'un objectif selon son délai ---------------------------------------------------
+
+const F = reel.limitesObjectif.facteurAnnuelMax;
+const obj = (quoi: string, valeur: number, delaiMois: number, unite: "pourcent" | "euros" | "unites" = "pourcent") => ({ quoi, ampleur: { valeur, unite }, delaiMois });
+
+test("le sens d'un objectif se lit dans le verbe", () => {
+  assert.equal(sensDeLObjectif("baisser le turnover"), "baisse");
+  assert.equal(sensDeLObjectif("réduire les impayés"), "baisse");
+  assert.equal(sensDeLObjectif("diminuer mon délai de réponse"), "baisse");
+  assert.equal(sensDeLObjectif("augmenter mon chiffre d'affaires"), "hausse");
+  assert.equal(sensDeLObjectif("Gagner des clients"), "hausse");
+  assert.equal(sensDeLObjectif("améliorer la transformation"), "hausse");
+  assert.equal(sensDeLObjectif("le turnover"), "inconnu");
+  assert.equal(sensDeLObjectif("réduire le montant des impayés"), "baisse", "« montant » n'est pas un verbe de hausse");
+});
+
+test("+300 % est impossible sur peu de temps et acceptable sur 10 ans", () => {
+  assert.equal(F, 4);
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 300, 120), F).ok, true, "300 % sur 10 ans");
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 300, 24), F).ok, true, "300 % sur 2 ans");
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 300, 12), F).ok, true, "300 % sur 1 an : la limite");
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 300, 11), F).ok, false);
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 300, 3), F).ok, false);
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 5, 3), F).ok, true, "5 % en 3 mois");
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 15, 12), F).ok, true);
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 50, 1), F).ok, false, "50 % en 1 mois");
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 40, 6), F).ok, true, "40 % en 6 mois : 1,4^2 = 1,96 par an");
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 100, 3), F).ok, false, "doubler en 3 mois");
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 100, 6), F).ok, true, "doubler en 6 mois : ×4 par an");
+});
+
+test("le message dit ce qui serait accepté : l'ampleur maximale et le délai minimal", () => {
+  const v = verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 300, 3), F);
+  assert.ok(!v.ok);
+  assert.match(v.message, /\+300 % en 3 mois dépasse/);
+  assert.match(v.message, /maximum retenu est \+41 %/, v.message);
+  assert.match(v.message, /au moins 12 mois/);
+  const long = verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 2000, 24), F);
+  assert.ok(!long.ok && /au moins/.test(long.message));
+});
+
+test("une baisse se juge dans son sens ; 100 % de baisse supprime l'indicateur", () => {
+  assert.equal(verifierVraisemblance(obj("baisser le turnover", 5, 3), F).ok, true, "l'exemple du document");
+  assert.equal(verifierVraisemblance(obj("baisser le turnover", 20, 3), F).ok, true);
+  assert.equal(verifierVraisemblance(obj("baisser le turnover", 50, 3), F).ok, false);
+  assert.equal(verifierVraisemblance(obj("baisser le turnover", 50, 6), F).ok, true, "÷4 par an");
+  const cent = verifierVraisemblance(obj("baisser le turnover", 100, 60), F);
+  assert.ok(!cent.ok && /supprimerait entièrement/.test(cent.message));
+  const baisse = verifierVraisemblance(obj("baisser le turnover", 60, 3), F);
+  assert.ok(!baisse.ok && /−60 %/.test(baisse.message));
+});
+
+test("sans sens reconnu, on retient la lecture la plus indulgente (hausse)", () => {
+  assert.equal(verifierVraisemblance(obj("le turnover", 40, 6), F).ok, true);
+  assert.equal(verifierVraisemblance(obj("le turnover", 300, 3), F).ok, false);
+});
+
+test("un objectif en euros ou en nombre n'est pas comparé : aucune valeur de départ", () => {
+  assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 5000000, 1, "euros"), F).ok, true);
+  assert.equal(verifierVraisemblance(obj("gagner des clients", 500, 1, "unites"), F).ok, true);
 });

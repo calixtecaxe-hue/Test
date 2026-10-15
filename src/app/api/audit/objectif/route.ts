@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { agentsActifs } from "@/lib/audit/compte";
-import { enregistrerObjectif, objectifSaisieSchema, phraseObjectif } from "@/lib/audit/objectif";
+import { enregistrerObjectif, objectifSaisieSchema, phraseObjectif, verifierVraisemblance } from "@/lib/audit/objectif";
 import { codeAgent } from "@/lib/donnees/schemas";
 
 const corps = z.object({ agent: codeAgent, objectif: z.unknown() });
@@ -31,6 +31,9 @@ export async function POST(request: Request) {
     const premier = saisie.error.issues[0];
     return NextResponse.json({ erreur: premier?.message ?? "Objectif invalide.", champ: premier?.path[0] }, { status: 400 });
   }
+
+  const vraisemblance = verifierVraisemblance(saisie.data, ENSEMBLE.limitesObjectif.facteurAnnuelMax);
+  if (!vraisemblance.ok) return NextResponse.json({ erreur: vraisemblance.message, champ: vraisemblance.champ }, { status: 400 });
 
   const maintenant = new Date();
   const objectif = enregistrerObjectif(saisie.data, ENSEMBLE.themes.filter((t) => t.agent === agent), maintenant);

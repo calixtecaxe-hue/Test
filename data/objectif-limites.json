@@ -1,0 +1,6 @@
+{
+  "source": "Valeur de travail à valider par le propriétaire du produit : aucune source ne la fixe dans le classeur ni dans le document de règles.",
+  "aValider": true,
+  "facteurAnnuelMax": 4,
+  "note": "Un objectif en pourcentage est refusé s'il demande, ramené à une année, de multiplier l'indicateur par plus de 4 (ou de le diviser par plus de 4). +300 % en 12 mois est la limite ; +300 % en 10 ans est très en dessous ; +300 % en 3 mois est refusé. Le moteur juge ensuite, avec les chiffres du dirigeant, si l'objectif est réaliste ; ce plafond ne sert qu'à écarter l'impossible."
+}

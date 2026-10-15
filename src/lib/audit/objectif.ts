@@ -15,7 +15,7 @@ import type { Theme } from "../donnees/schemas.ts";
 export const UNITES_AMPLEUR = ["pourcent", "euros", "unites"] as const;
 export type UniteAmpleur = (typeof UNITES_AMPLEUR)[number];
 
-export const DELAI_MAX_MOIS = 60;
+export const DELAI_MAX_MOIS = 120;
 
 export const objectifSaisieSchema = z.object({
   quoi: z
@@ -119,5 +119,60 @@ export function enregistrerObjectif(
     ...saisie,
     indicateur: rattacherIndicateur(saisie.quoi, themesDeLAgent),
     echeance: calculerEcheance(maintenant, saisie.delaiMois),
+  };
+}
+
+// --- Vraisemblance ---------------------------------------------------------------------------
+//
+// Un objectif en pourcentage dépend de son délai : +300 % en 10 ans est modeste, +300 % en
+// 3 mois est impossible. On ramène l'objectif à une année (changement composé) et on le
+// compare à la limite de data/objectif-limites.json (facteur annuel maximal). Ce n'est pas
+// le jugement du moteur sur le réalisme (il se fera avec les chiffres du dirigeant) : c'est
+// seulement ce qui écarte l'impossible. Les objectifs en euros ou en nombre n'ont pas de
+// valeur de départ connue ici : ils ne sont pas comparés.
+
+export type Sens = "hausse" | "baisse" | "inconnu";
+
+const VERBES_BAISSE = ["baisser", "reduire", "diminuer", "limiter", "raccourcir", "descendre", "abaisser", "alleger", "contenir", "eviter"];
+const VERBES_HAUSSE = ["augmenter", "accroitre", "gagner", "doubler", "tripler", "ameliorer", "developper", "monter", "accelerer", "hausser", "progresser", "gonfler"];
+
+// Sens du changement, lu dans les mots du dirigeant : le premier verbe reconnu l'emporte.
+export function sensDeLObjectif(quoi: string): Sens {
+  const mots = sansAccents(quoi).split(/[^a-z]+/).filter(Boolean);
+  for (const m of mots) {
+    if (VERBES_BAISSE.some((v) => m === v || m.startsWith(v.slice(0, Math.max(5, v.length - 2))))) return "baisse";
+    if (VERBES_HAUSSE.some((v) => m === v || m.startsWith(v.slice(0, Math.max(5, v.length - 2))))) return "hausse";
+  }
+  return "inconnu";
+}
+
+export type Vraisemblance = { ok: true } | { ok: false; message: string; champ: "ampleur" | "delaiMois" };
+
+function entier(n: number): string {
+  return new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 }).format(n);
+}
+
+export function verifierVraisemblance(o: ObjectifSaisie, facteurAnnuelMax: number): Vraisemblance {
+  if (o.ampleur.unite !== "pourcent") return { ok: true };
+  const p = o.ampleur.valeur / 100;
+  const baisse = sensDeLObjectif(o.quoi) === "baisse";
+  if (baisse && p >= 1) {
+    return { ok: false, champ: "ampleur", message: "Une baisse de 100 % ou plus supprimerait entièrement l'indicateur. Fixez une baisse plus mesurée." };
+  }
+  const facteur = baisse ? 1 - p : 1 + p;
+  const tempoAnnuel = (Math.abs(Math.log(facteur)) * 12) / o.delaiMois;
+  const limite = Math.log(facteurAnnuelMax);
+  if (tempoAnnuel <= limite + 1e-9) return { ok: true };
+
+  const signe = baisse ? "−" : "+";
+  // Ce qui serait accepté : l'ampleur maximale sur ce délai, ou le délai minimal pour cette ampleur.
+  const pMax = baisse ? (1 - Math.pow(facteurAnnuelMax, -o.delaiMois / 12)) * 100 : (Math.pow(facteurAnnuelMax, o.delaiMois / 12) - 1) * 100;
+  const moisMin = Math.ceil((Math.abs(Math.log(facteur)) * 12) / limite - 1e-9);
+  const delai = o.delaiMois === 1 ? "1 mois" : `${o.delaiMois} mois`;
+  const maxTexte = pMax >= 1 ? `${signe}${entier(Math.floor(pMax))} %` : `${signe}${(Math.floor(pMax * 10) / 10).toLocaleString("fr-FR")} %`;
+  return {
+    ok: false,
+    champ: "delaiMois",
+    message: `${signe}${formaterNombre(o.ampleur.valeur)} % en ${delai} dépasse ce qu'une entreprise peut atteindre. Sur ${delai}, le maximum retenu est ${maxTexte} ; pour ${signe}${formaterNombre(o.ampleur.valeur)} %, prévoyez au moins ${moisMin} mois.`,
   };
 }

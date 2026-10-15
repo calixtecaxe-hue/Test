@@ -7,6 +7,7 @@
 import type { CodeAgent, EnsembleDonnees } from "../donnees/schemas.ts";
 import { reponseSchema, type Reponse, type Reponses } from "./reponse.ts";
 import { proposerSpec, validerSelonSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
+import type { Exclusions } from "./assemblage.ts";
 
 export type Verdict =
   | { ok: true; reponse: Reponse; agent: CodeAgent | null }
@@ -27,7 +28,7 @@ export function specDeLaDonnee(e: EnsembleDonnees, code: string): { spec: Repons
 }
 
 // `dejaRepondu` : réponses du compte, pour les tableaux dont les lignes viennent d'une question de cadrage.
-export function validerReponse(e: EnsembleDonnees, cle: string, brut: unknown, dejaRepondu: Reponses = {}): Verdict {
+export function validerReponse(e: EnsembleDonnees, cle: string, brut: unknown, dejaRepondu: Reponses = {}, exclusions: Exclusions | null = null): Verdict {
   const analyse = reponseSchema.safeParse(brut);
   if (!analyse.success) return refus(analyse.error.issues[0]?.message ?? "Réponse invalide.");
   const reponse = analyse.data;
@@ -35,6 +36,7 @@ export function validerReponse(e: EnsembleDonnees, cle: string, brut: unknown, d
   const dec = CLE_DECLENCHEUR.exec(cle);
   if (dec) {
     const [, code, sous] = dec;
+    if (exclusions?.declencheurs.includes(code)) return refus("Cette question ne concerne pas votre activité.");
     const forme = e.reglesAffichage.declencheurs[code];
     if (!forme) return refus("Cette question n'existe pas.");
     if (reponse.genre !== "saisie") return refus("Répondez par un choix.");
@@ -45,6 +47,7 @@ export function validerReponse(e: EnsembleDonnees, cle: string, brut: unknown, d
         break;
       case "cases":
         if (sous || !Array.isArray(v) || !v.every((x) => forme.options.some((o) => o.id === x))) return refus("Choix non reconnu.");
+        if (v.some((x) => exclusions?.optionsCadrage[code]?.includes(x))) return refus("Ce choix ne concerne pas votre activité.");
         break;
       case "choix":
         if (sous || typeof v !== "string" || !forme.options.some((o) => o.id === v)) return refus("Choix non reconnu.");

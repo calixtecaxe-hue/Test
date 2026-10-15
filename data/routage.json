@@ -2,99 +2,565 @@
   "source": "docs/regles-de-fonctionnement.md, partie 3 (« Routage métier → catégorie → profil »), version du 15 octobre 2026",
   "note": "La liste des métiers reprend les exemples du document ; elle est à compléter métier par métier (rien n'est inventé). Agriculture : supprimée du produit.",
   "profils": [
-    { "id": "rdv", "libelle": "Rendez-vous" },
-    { "id": "commerce", "libelle": "Commerce" },
-    { "id": "ecommerce", "libelle": "E-commerce" },
-    { "id": "restaurant", "libelle": "Restaurant" },
-    { "id": "chantier", "libelle": "Artisan / chantier" },
-    { "id": "b2b", "libelle": "B2B / cycle long" },
-    { "id": "abonnement", "libelle": "Abonnement" }
+    {
+      "id": "rdv",
+      "libelle": "Rendez-vous"
+    },
+    {
+      "id": "commerce",
+      "libelle": "Commerce"
+    },
+    {
+      "id": "ecommerce",
+      "libelle": "E-commerce"
+    },
+    {
+      "id": "restaurant",
+      "libelle": "Restaurant"
+    },
+    {
+      "id": "chantier",
+      "libelle": "Artisan / chantier"
+    },
+    {
+      "id": "b2b",
+      "libelle": "B2B / cycle long"
+    },
+    {
+      "id": "abonnement",
+      "libelle": "Abonnement"
+    }
   ],
   "categories": [
-    { "numero": 1, "id": "commerce-stock", "libelle": "Commerce avec stock physique", "profils": ["commerce"], "profilsConditionnels": [{ "profil": "ecommerce", "condition": "vend en ligne" }], "blocStock": true, "reglementee": false, "notes": "Bloc Stock de Finance affiché." },
-    { "numero": 2, "id": "prestation-chantier", "libelle": "Prestation sur chantier ou projet", "profils": ["chantier"], "profilsConditionnels": [], "blocStock": false, "reglementee": false, "notes": "Paysagiste « entretien » → Abonnement." },
-    { "numero": 3, "id": "prestation-recurrente", "libelle": "Prestation récurrente ou abonnement", "profils": ["abonnement"], "profilsConditionnels": [], "blocStock": false, "reglementee": false, "notes": "SaaS : lexique propre à écrire." },
-    { "numero": 4, "id": "transaction-cycle-long", "libelle": "Transaction de forte valeur, cycle long", "profils": ["b2b"], "profilsConditionnels": [], "blocStock": false, "reglementee": false, "notes": "Immobilier « gestion locative » → Abonnement ; secteur pilote." },
-    { "numero": 5, "id": "transport-logistique", "libelle": "Transport et logistique", "profils": ["b2b"], "profilsConditionnels": [{ "profil": "abonnement", "condition": "contrats réguliers" }], "blocStock": false, "reglementee": false, "notes": null },
-    { "numero": 6, "id": "professions-reglementees", "libelle": "Professions libérales réglementées", "profils": [], "profilsConditionnels": [], "blocStock": false, "reglementee": true, "notes": "Profil selon le métier. Socle seulement, aucun module métier ; pas d'agent Comm ni de conseil publicitaire." },
-    { "numero": 7, "id": "rendez-vous-non-reglemente", "libelle": "Rendez-vous non réglementé", "profils": ["rdv"], "profilsConditionnels": [], "blocStock": false, "reglementee": false, "notes": "Module métier de 5 questions maximum." },
-    { "numero": 8, "id": "restauration", "libelle": "Restauration", "profils": ["restaurant"], "profilsConditionnels": [{ "profil": "ecommerce", "condition": "vente en ligne" }], "blocStock": false, "reglementee": false, "notes": "Lexique propre (couverts, services)." },
-    { "numero": 9, "id": "commerce-en-ligne", "libelle": "Commerce en ligne", "profils": ["ecommerce"], "profilsConditionnels": [], "blocStock": false, "reglementee": false, "notes": "Données locales masquées si l'activité est 100 % en ligne." },
-    { "numero": 10, "id": "agences-services-entreprises", "libelle": "Agences et services aux entreprises", "profils": ["b2b"], "profilsConditionnels": [{ "profil": "abonnement", "condition": "contrats mensuels" }], "blocStock": false, "reglementee": false, "notes": "Sous-question : projets ponctuels, contrats mensuels." }
+    {
+      "numero": 1,
+      "id": "commerce-stock",
+      "libelle": "Commerce avec stock physique",
+      "profils": [
+        "commerce"
+      ],
+      "profilsConditionnels": [
+        {
+          "profil": "ecommerce",
+          "condition": "vend en ligne"
+        }
+      ],
+      "blocStock": true,
+      "reglementee": false,
+      "notes": "Bloc Stock de Finance affiché."
+    },
+    {
+      "numero": 2,
+      "id": "prestation-chantier",
+      "libelle": "Prestation sur chantier ou projet",
+      "profils": [
+        "chantier"
+      ],
+      "profilsConditionnels": [],
+      "blocStock": false,
+      "reglementee": false,
+      "notes": "Paysagiste « entretien » → Abonnement."
+    },
+    {
+      "numero": 3,
+      "id": "prestation-recurrente",
+      "libelle": "Prestation récurrente ou abonnement",
+      "profils": [
+        "abonnement"
+      ],
+      "profilsConditionnels": [],
+      "blocStock": false,
+      "reglementee": false,
+      "notes": "SaaS : lexique propre à écrire."
+    },
+    {
+      "numero": 4,
+      "id": "transaction-cycle-long",
+      "libelle": "Transaction de forte valeur, cycle long",
+      "profils": [
+        "b2b"
+      ],
+      "profilsConditionnels": [],
+      "blocStock": false,
+      "reglementee": false,
+      "notes": "Immobilier « gestion locative » → Abonnement ; secteur pilote."
+    },
+    {
+      "numero": 5,
+      "id": "transport-logistique",
+      "libelle": "Transport et logistique",
+      "profils": [
+        "b2b"
+      ],
+      "profilsConditionnels": [
+        {
+          "profil": "abonnement",
+          "condition": "contrats réguliers"
+        }
+      ],
+      "blocStock": false,
+      "reglementee": false,
+      "notes": null
+    },
+    {
+      "numero": 6,
+      "id": "professions-reglementees",
+      "libelle": "Professions libérales réglementées",
+      "profils": [],
+      "profilsConditionnels": [],
+      "blocStock": false,
+      "reglementee": true,
+      "notes": "Profil selon le métier. Socle seulement, aucun module métier ; pas d'agent Comm ni de conseil publicitaire."
+    },
+    {
+      "numero": 7,
+      "id": "rendez-vous-non-reglemente",
+      "libelle": "Rendez-vous non réglementé",
+      "profils": [
+        "rdv"
+      ],
+      "profilsConditionnels": [],
+      "blocStock": false,
+      "reglementee": false,
+      "notes": "Module métier de 5 questions maximum."
+    },
+    {
+      "numero": 8,
+      "id": "restauration",
+      "libelle": "Restauration",
+      "profils": [
+        "restaurant"
+      ],
+      "profilsConditionnels": [
+        {
+          "profil": "ecommerce",
+          "condition": "vente en ligne"
+        }
+      ],
+      "blocStock": false,
+      "reglementee": false,
+      "notes": "Lexique propre (couverts, services)."
+    },
+    {
+      "numero": 9,
+      "id": "commerce-en-ligne",
+      "libelle": "Commerce en ligne",
+      "profils": [
+        "ecommerce"
+      ],
+      "profilsConditionnels": [],
+      "blocStock": false,
+      "reglementee": false,
+      "notes": "Données locales masquées si l'activité est 100 % en ligne."
+    },
+    {
+      "numero": 10,
+      "id": "agences-services-entreprises",
+      "libelle": "Agences et services aux entreprises",
+      "profils": [
+        "b2b"
+      ],
+      "profilsConditionnels": [
+        {
+          "profil": "abonnement",
+          "condition": "contrats mensuels"
+        }
+      ],
+      "blocStock": false,
+      "reglementee": false,
+      "notes": "Sous-question : projets ponctuels, contrats mensuels."
+    }
   ],
   "metiers": [
-    { "id": "boulanger", "libelle": "Boulanger", "categorie": "commerce-stock" },
-    { "id": "boucher", "libelle": "Boucher", "categorie": "commerce-stock" },
-    { "id": "fleuriste", "libelle": "Fleuriste", "categorie": "commerce-stock" },
-    { "id": "caviste", "libelle": "Caviste", "categorie": "commerce-stock" },
-    { "id": "opticien", "libelle": "Opticien", "categorie": "commerce-stock" },
-    { "id": "pharmacie", "libelle": "Pharmacie", "categorie": "commerce-stock" },
-    { "id": "magasin-vetements", "libelle": "Magasin de vêtements", "categorie": "commerce-stock" },
-    { "id": "electricien", "libelle": "Électricien", "categorie": "prestation-chantier" },
-    { "id": "plombier", "libelle": "Plombier", "categorie": "prestation-chantier" },
-    { "id": "macon", "libelle": "Maçon", "categorie": "prestation-chantier" },
-    { "id": "peintre", "libelle": "Peintre", "categorie": "prestation-chantier" },
-    { "id": "menuisier", "libelle": "Menuisier", "categorie": "prestation-chantier" },
-    { "id": "couvreur", "libelle": "Couvreur", "categorie": "prestation-chantier" },
-    { "id": "paysagiste", "libelle": "Paysagiste", "categorie": "prestation-chantier", "sousVariantes": [
-      { "id": "creation", "libelle": "Création", "profils": ["chantier"] },
-      { "id": "entretien", "libelle": "Entretien régulier", "profils": ["abonnement"] }
-    ] },
-    { "id": "aide-a-domicile", "libelle": "Aide à domicile", "categorie": "prestation-recurrente" },
-    { "id": "creche", "libelle": "Crèche", "categorie": "prestation-recurrente" },
-    { "id": "nettoyage-locaux", "libelle": "Nettoyage de locaux", "categorie": "prestation-recurrente" },
-    { "id": "syndic", "libelle": "Syndic", "categorie": "prestation-recurrente" },
-    { "id": "conciergerie", "libelle": "Conciergerie", "categorie": "prestation-recurrente" },
-    { "id": "editeur-saas", "libelle": "Éditeur de logiciel en abonnement (SaaS)", "categorie": "prestation-recurrente" },
-    { "id": "agence-immobiliere", "libelle": "Agence immobilière indépendante", "categorie": "transaction-cycle-long", "pilote": true, "sousVariantes": [
-      { "id": "transaction", "libelle": "Transaction (vente et achat)", "profils": ["b2b"] },
-      { "id": "gestion-locative", "libelle": "Gestion locative", "profils": ["abonnement"] },
-      { "id": "syndic", "libelle": "Syndic", "profils": ["abonnement"] },
-      { "id": "conciergerie-saisonniere", "libelle": "Conciergerie saisonnière", "profils": ["abonnement"] }
-    ] },
-    { "id": "agence-voyage", "libelle": "Agence de voyage", "categorie": "transaction-cycle-long", "sousVariantes": [
-      { "id": "particuliers", "libelle": "Clientèle particuliers", "profils": null },
-      { "id": "entreprises-groupes", "libelle": "Clientèle entreprises ou groupes", "profils": null }
-    ] },
-    { "id": "concession-automobile", "libelle": "Concession automobile", "categorie": "transaction-cycle-long", "notes": "Vente + atelier : un seul modèle au lancement." },
-    { "id": "courtier", "libelle": "Courtier", "categorie": "transaction-cycle-long" },
-    { "id": "dernier-kilometre", "libelle": "Dernier kilomètre", "categorie": "transport-logistique" },
-    { "id": "fret", "libelle": "Fret", "categorie": "transport-logistique" },
-    { "id": "demenagement", "libelle": "Déménagement", "categorie": "transport-logistique" },
-    { "id": "vtc-taxi", "libelle": "VTC / taxi", "categorie": "transport-logistique" },
-    { "id": "location-vehicules", "libelle": "Location de véhicules", "categorie": "transport-logistique" },
-    { "id": "avocat", "libelle": "Avocat", "categorie": "professions-reglementees", "profils": ["b2b"] },
-    { "id": "notaire", "libelle": "Notaire", "categorie": "professions-reglementees", "profils": ["b2b"] },
-    { "id": "medecin", "libelle": "Médecin", "categorie": "professions-reglementees", "profils": ["rdv"] },
-    { "id": "kine", "libelle": "Kinésithérapeute", "categorie": "professions-reglementees", "profils": ["rdv"] },
-    { "id": "expert-comptable", "libelle": "Expert-comptable", "categorie": "professions-reglementees", "profils": ["abonnement"] },
-    { "id": "architecte", "libelle": "Architecte", "categorie": "professions-reglementees", "profils": ["b2b"] },
-    { "id": "coiffeur", "libelle": "Coiffeur", "categorie": "rendez-vous-non-reglemente" },
-    { "id": "estheticienne", "libelle": "Esthéticienne", "categorie": "rendez-vous-non-reglemente" },
-    { "id": "garage", "libelle": "Garage", "categorie": "rendez-vous-non-reglemente" },
-    { "id": "photographe", "libelle": "Photographe", "categorie": "rendez-vous-non-reglemente" },
-    { "id": "coach-sportif", "libelle": "Coach sportif", "categorie": "rendez-vous-non-reglemente" },
-    { "id": "auto-ecole", "libelle": "Auto-école", "categorie": "rendez-vous-non-reglemente" },
-    { "id": "restaurant", "libelle": "Restaurant", "categorie": "restauration" },
-    { "id": "cafe", "libelle": "Café", "categorie": "restauration" },
-    { "id": "food-truck", "libelle": "Food truck", "categorie": "restauration" },
-    { "id": "traiteur", "libelle": "Traiteur", "categorie": "restauration" },
-    { "id": "boutique-en-ligne", "libelle": "Boutique en ligne", "categorie": "commerce-en-ligne" },
-    { "id": "marque-vente-directe", "libelle": "Marque vendue en direct", "categorie": "commerce-en-ligne" },
-    { "id": "vendeur-marketplace", "libelle": "Vendeur sur marketplace", "categorie": "commerce-en-ligne" },
-    { "id": "agence-web-com-marketing", "libelle": "Agence web, com ou marketing", "categorie": "agences-services-entreprises", "sousVariantes": [
-      { "id": "projets-ponctuels", "libelle": "Projets ponctuels", "profils": ["b2b"] },
-      { "id": "contrats-mensuels", "libelle": "Contrats mensuels", "profils": ["b2b", "abonnement"] }
-    ] },
-    { "id": "studio-design", "libelle": "Studio de design", "categorie": "agences-services-entreprises" },
-    { "id": "esn", "libelle": "ESN", "categorie": "agences-services-entreprises" },
-    { "id": "consultant", "libelle": "Consultant", "categorie": "agences-services-entreprises" },
-    { "id": "freelance-tech", "libelle": "Freelance tech", "categorie": "agences-services-entreprises" }
+    {
+      "id": "boulanger",
+      "libelle": "Boulanger",
+      "categorie": "commerce-stock"
+    },
+    {
+      "id": "boucher",
+      "libelle": "Boucher",
+      "categorie": "commerce-stock"
+    },
+    {
+      "id": "fleuriste",
+      "libelle": "Fleuriste",
+      "categorie": "commerce-stock"
+    },
+    {
+      "id": "caviste",
+      "libelle": "Caviste",
+      "categorie": "commerce-stock"
+    },
+    {
+      "id": "opticien",
+      "libelle": "Opticien",
+      "categorie": "commerce-stock"
+    },
+    {
+      "id": "pharmacie",
+      "libelle": "Pharmacie",
+      "categorie": "commerce-stock"
+    },
+    {
+      "id": "magasin-vetements",
+      "libelle": "Magasin de vêtements",
+      "categorie": "commerce-stock"
+    },
+    {
+      "id": "electricien",
+      "libelle": "Électricien",
+      "categorie": "prestation-chantier"
+    },
+    {
+      "id": "plombier",
+      "libelle": "Plombier",
+      "categorie": "prestation-chantier"
+    },
+    {
+      "id": "macon",
+      "libelle": "Maçon",
+      "categorie": "prestation-chantier"
+    },
+    {
+      "id": "peintre",
+      "libelle": "Peintre",
+      "categorie": "prestation-chantier"
+    },
+    {
+      "id": "menuisier",
+      "libelle": "Menuisier",
+      "categorie": "prestation-chantier"
+    },
+    {
+      "id": "couvreur",
+      "libelle": "Couvreur",
+      "categorie": "prestation-chantier"
+    },
+    {
+      "id": "paysagiste",
+      "libelle": "Paysagiste",
+      "categorie": "prestation-chantier",
+      "sousVariantes": [
+        {
+          "id": "creation",
+          "libelle": "Création",
+          "profils": [
+            "chantier"
+          ]
+        },
+        {
+          "id": "entretien",
+          "libelle": "Entretien régulier",
+          "profils": [
+            "abonnement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aide-a-domicile",
+      "libelle": "Aide à domicile",
+      "categorie": "prestation-recurrente"
+    },
+    {
+      "id": "creche",
+      "libelle": "Crèche",
+      "categorie": "prestation-recurrente"
+    },
+    {
+      "id": "nettoyage-locaux",
+      "libelle": "Nettoyage de locaux",
+      "categorie": "prestation-recurrente"
+    },
+    {
+      "id": "syndic",
+      "libelle": "Syndic",
+      "categorie": "prestation-recurrente"
+    },
+    {
+      "id": "conciergerie",
+      "libelle": "Conciergerie",
+      "categorie": "prestation-recurrente"
+    },
+    {
+      "id": "editeur-saas",
+      "libelle": "Éditeur de logiciel en abonnement (SaaS)",
+      "categorie": "prestation-recurrente"
+    },
+    {
+      "id": "agence-immobiliere",
+      "libelle": "Agence immobilière indépendante",
+      "categorie": "transaction-cycle-long",
+      "pilote": true,
+      "sousVariantes": [
+        {
+          "id": "transaction",
+          "libelle": "Transaction (vente et achat)",
+          "profils": [
+            "b2b"
+          ]
+        },
+        {
+          "id": "gestion-locative",
+          "libelle": "Gestion locative",
+          "profils": [
+            "abonnement"
+          ]
+        },
+        {
+          "id": "syndic",
+          "libelle": "Syndic",
+          "profils": [
+            "abonnement"
+          ]
+        },
+        {
+          "id": "conciergerie-saisonniere",
+          "libelle": "Conciergerie saisonnière",
+          "profils": [
+            "abonnement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agence-voyage",
+      "libelle": "Agence de voyage",
+      "categorie": "transaction-cycle-long",
+      "sousVariantes": [
+        {
+          "id": "particuliers",
+          "libelle": "Clientèle particuliers",
+          "profils": null
+        },
+        {
+          "id": "entreprises-groupes",
+          "libelle": "Clientèle entreprises ou groupes",
+          "profils": null
+        }
+      ]
+    },
+    {
+      "id": "concession-automobile",
+      "libelle": "Concession automobile",
+      "categorie": "transaction-cycle-long",
+      "notes": "Vente + atelier : un seul modèle au lancement."
+    },
+    {
+      "id": "courtier",
+      "libelle": "Courtier",
+      "categorie": "transaction-cycle-long"
+    },
+    {
+      "id": "dernier-kilometre",
+      "libelle": "Dernier kilomètre",
+      "categorie": "transport-logistique"
+    },
+    {
+      "id": "fret",
+      "libelle": "Fret",
+      "categorie": "transport-logistique"
+    },
+    {
+      "id": "demenagement",
+      "libelle": "Déménagement",
+      "categorie": "transport-logistique"
+    },
+    {
+      "id": "vtc-taxi",
+      "libelle": "VTC / taxi",
+      "categorie": "transport-logistique"
+    },
+    {
+      "id": "location-vehicules",
+      "libelle": "Location de véhicules",
+      "categorie": "transport-logistique"
+    },
+    {
+      "id": "avocat",
+      "libelle": "Avocat",
+      "categorie": "professions-reglementees",
+      "profils": [
+        "b2b"
+      ]
+    },
+    {
+      "id": "notaire",
+      "libelle": "Notaire",
+      "categorie": "professions-reglementees",
+      "profils": [
+        "b2b"
+      ]
+    },
+    {
+      "id": "medecin",
+      "libelle": "Médecin",
+      "categorie": "professions-reglementees",
+      "profils": [
+        "rdv"
+      ]
+    },
+    {
+      "id": "kine",
+      "libelle": "Kinésithérapeute",
+      "categorie": "professions-reglementees",
+      "profils": [
+        "rdv"
+      ]
+    },
+    {
+      "id": "expert-comptable",
+      "libelle": "Expert-comptable",
+      "categorie": "professions-reglementees",
+      "profils": [
+        "abonnement"
+      ]
+    },
+    {
+      "id": "architecte",
+      "libelle": "Architecte",
+      "categorie": "professions-reglementees",
+      "profils": [
+        "b2b"
+      ]
+    },
+    {
+      "id": "coiffeur",
+      "libelle": "Coiffeur",
+      "categorie": "rendez-vous-non-reglemente"
+    },
+    {
+      "id": "estheticienne",
+      "libelle": "Esthéticienne",
+      "categorie": "rendez-vous-non-reglemente"
+    },
+    {
+      "id": "garage",
+      "libelle": "Garage",
+      "categorie": "rendez-vous-non-reglemente"
+    },
+    {
+      "id": "photographe",
+      "libelle": "Photographe",
+      "categorie": "rendez-vous-non-reglemente"
+    },
+    {
+      "id": "coach-sportif",
+      "libelle": "Coach sportif",
+      "categorie": "rendez-vous-non-reglemente"
+    },
+    {
+      "id": "auto-ecole",
+      "libelle": "Auto-école",
+      "categorie": "rendez-vous-non-reglemente"
+    },
+    {
+      "id": "restaurant",
+      "libelle": "Restaurant",
+      "categorie": "restauration"
+    },
+    {
+      "id": "cafe",
+      "libelle": "Café",
+      "categorie": "restauration"
+    },
+    {
+      "id": "food-truck",
+      "libelle": "Food truck",
+      "categorie": "restauration"
+    },
+    {
+      "id": "traiteur",
+      "libelle": "Traiteur",
+      "categorie": "restauration"
+    },
+    {
+      "id": "boutique-en-ligne",
+      "libelle": "Boutique en ligne",
+      "categorie": "commerce-en-ligne"
+    },
+    {
+      "id": "marque-vente-directe",
+      "libelle": "Marque vendue en direct",
+      "categorie": "commerce-en-ligne"
+    },
+    {
+      "id": "vendeur-marketplace",
+      "libelle": "Vendeur sur marketplace",
+      "categorie": "commerce-en-ligne"
+    },
+    {
+      "id": "agence-web-com-marketing",
+      "libelle": "Agence web, com ou marketing",
+      "categorie": "agences-services-entreprises",
+      "sousVariantes": [
+        {
+          "id": "projets-ponctuels",
+          "libelle": "Projets ponctuels",
+          "profils": [
+            "b2b"
+          ]
+        },
+        {
+          "id": "contrats-mensuels",
+          "libelle": "Contrats mensuels",
+          "profils": [
+            "b2b",
+            "abonnement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "studio-design",
+      "libelle": "Studio de design",
+      "categorie": "agences-services-entreprises"
+    },
+    {
+      "id": "esn",
+      "libelle": "ESN",
+      "categorie": "agences-services-entreprises"
+    },
+    {
+      "id": "consultant",
+      "libelle": "Consultant",
+      "categorie": "agences-services-entreprises"
+    },
+    {
+      "id": "freelance-tech",
+      "libelle": "Freelance tech",
+      "categorie": "agences-services-entreprises"
+    }
   ],
   "reglementees": {
-    "agentsExclus": ["COMM_CREATION"],
+    "agentsExclus": [
+      "COMM_CREATION"
+    ],
     "nombreMaxAgents": 3,
     "moduleMetier": false,
-    "acquisitionNeRecommandePas": ["publicité payante", "démarchage", "apporteurs d'affaires rémunérés", "renvoi vers l'agent Comm"]
+    "acquisitionNeRecommandePas": [
+      "publicité payante",
+      "démarchage",
+      "apporteurs d'affaires rémunérés",
+      "renvoi vers l'agent Comm"
+    ],
+    "acquisitionExclut": {
+      "declencheurs": [
+        "D04"
+      ],
+      "optionsCadrage": {
+        "D03": [
+          "publicite",
+          "prospection",
+          "partenaires"
+        ]
+      },
+      "themes": [
+        "ACQ-04",
+        "ACQ-05"
+      ],
+      "note": "Pas de publicité payante (D04), de prospection ni de partenaires dans les canaux (D03), donc ni le thème Prospection active ni le thème Partenaires. Les questions ne sont pas posées : l'agent ne peut pas recommander ce qu'il ne mesure pas."
+    }
   }
 }

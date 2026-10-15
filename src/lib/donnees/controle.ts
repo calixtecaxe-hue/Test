@@ -150,6 +150,18 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     avertissements.push(`Le routage compte ${e.routage.categories.length} catégories ; le document en prévoit 10.`);
   }
 
+  // Exclusions des professions réglementées : tout ce qu'elles citent existe.
+  const exclut = e.routage.reglementees.acquisitionExclut;
+  if (exclut) {
+    for (const d of exclut.declencheurs) if (!declencheurs.has(d)) erreurs.push(`Les exclusions réglementées citent un déclencheur inconnu : ${d}.`);
+    for (const t of exclut.themes) if (!themes.has(t)) erreurs.push(`Les exclusions réglementées citent un thème inconnu : ${t}.`);
+    for (const [cle, ids] of Object.entries(exclut.optionsCadrage)) {
+      const forme = e.reglesAffichage.declencheurs[cle];
+      if (!forme || forme.type !== "cases") erreurs.push(`Les exclusions réglementées citent des options pour ${cle}, qui n'est pas une question à cases.`);
+      else for (const id of ids) if (!forme.options.some((o) => o.id === id)) erreurs.push(`Les exclusions réglementées citent une option inconnue de ${cle} : ${id}.`);
+    }
+  }
+
   // Inscription : questions complètes, et mots du lexique employés qui existent.
   const clesLexique = new Set(e.lexique.map((m) => cleLexique(m.mot)));
   const idsAttendus = ["metier", "sousVariantes", "chiffreAffairesMensuel", "nombreCollaborateurs", "anciennete", "typeZone", "ville", "acces"];

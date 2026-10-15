@@ -8,6 +8,7 @@ import { AGENTS } from "@/lib/agents";
 import { PROFILS, type ProfilId } from "@/lib/donnees/schemas";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { assemblerQuestionnaire, compterQuestions } from "@/lib/audit/assemblage";
+import { exclusionsAcquisition } from "@/lib/routage";
 import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
 import { reponsesDuCompte } from "@/lib/audit/compte";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
@@ -59,7 +60,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
   }
 
   const [utilisateur, objectifs] = await Promise.all([
-    prisma.user.findUnique({ where: { id: userId }, select: { profils: true, nombreCollaborateurs: true, niveauAudit: true, dateCreationEntreprise: true } }),
+    prisma.user.findUnique({ where: { id: userId }, select: { profils: true, categorie: true, nombreCollaborateurs: true, niveauAudit: true, dateCreationEntreprise: true } }),
     prisma.objectif.findMany({ where: { userId, agent: agent.code }, orderBy: { creeLe: "desc" }, take: 10 }),
   ]);
   if (!utilisateur) redirect("/connexion");
@@ -71,7 +72,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
 
   let corps: React.ReactNode = null;
   if (actif && !utilisateur.niveauAudit) {
-    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille);
+    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur.categorie));
     corps = <NiveauChoix essentielles={n.essentielles} approfondies={n.total} />;
   } else if (actif && utilisateur.niveauAudit) {
     const reponses = await reponsesDuCompte(userId);
@@ -82,6 +83,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
       niveau: utilisateur.niveauAudit === "APPROFONDI" ? "approfondi" : "essentiel",
       reponses,
       ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()),
+      exclusions: exclusionsAcquisition(ENSEMBLE.routage, utilisateur.categorie),
     });
     const themes: ThemeClient[] = a.themes.map((t) => ({
       code: t.theme.code,
@@ -128,7 +130,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
       {actif && structure ? (
         <>
           <h1 className="sr-only">Audit {agent.nom}</h1>
-          <ObjectifActif agent={agent.code} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} />
+          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} />
           {corps}
         </>
       ) : (
@@ -137,7 +139,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
           <p className="mt-2 text-[var(--text-muted)]">
             Quel résultat voulez-vous obtenir avec cet agent ? Dites ce que vous voulez changer, de combien, et en combien de temps.
           </p>
-          <ObjectifFormulaire agent={agent.code} />
+          <ObjectifFormulaire agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} />
         </>
       )}
 

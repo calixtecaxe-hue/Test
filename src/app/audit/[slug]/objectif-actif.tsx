@@ -5,14 +5,14 @@ import { ObjectifFormulaire } from "./objectif-formulaire";
 
 // Objectif en cours de l'agent, avec la possibilité d'en fixer un nouveau (l'ancien
 // reste dans l'historique).
-export function ObjectifActif({ agent, phrase, echeance, indicateur }: { agent: string; phrase: string; echeance: string; indicateur: string | null }) {
+export function ObjectifActif({ agent, facteurAnnuelMax, phrase, echeance, indicateur }: { agent: string; facteurAnnuelMax: number; phrase: string; echeance: string; indicateur: string | null }) {
   const [edition, setEdition] = useState(false);
   if (edition) {
     return (
       <div className="mt-6">
         <h2 className="text-xl">Changer d&apos;objectif</h2>
         <p className="mt-1 text-sm text-[var(--text-muted)]">L&apos;objectif actuel restera dans votre historique.</p>
-        <ObjectifFormulaire agent={agent} annulable onAnnuler={() => setEdition(false)} onEnregistre={() => setEdition(false)} />
+        <ObjectifFormulaire agent={agent} facteurAnnuelMax={facteurAnnuelMax} annulable onAnnuler={() => setEdition(false)} onEnregistre={() => setEdition(false)} />
       </div>
     );
   }

@@ -88,3 +88,11 @@ export function router(
     },
   };
 }
+
+export type ExclusionsAcquisition = NonNullable<Routage["reglementees"]["acquisitionExclut"]>;
+
+// Ce que l'audit Acquisition ne pose pas à ce compte : vide pour un métier non réglementé.
+export function exclusionsAcquisition(routage: Routage, categorieId: string): ExclusionsAcquisition | null {
+  const categorie = routage.categories.find((c) => c.id === categorieId);
+  return categorie?.reglementee ? routage.reglementees.acquisitionExclut ?? null : null;
+}

@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { validerReponse } from "@/lib/audit/validation";
 import { agentsActifs, reponsesDuCompte } from "@/lib/audit/compte";
+import { exclusionsAcquisition } from "@/lib/routage";
 
 const corps = z.object({
   cle: z.string().min(1).max(40),
@@ -31,7 +32,8 @@ export async function PUT(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const verdict = validerReponse(ENSEMBLE, cle, reponse, await reponsesDuCompte(userId));
+  const compte = await prisma.user.findUnique({ where: { id: userId }, select: { categorie: true } });
+  const verdict = validerReponse(ENSEMBLE, cle, reponse, await reponsesDuCompte(userId), compte ? exclusionsAcquisition(ENSEMBLE.routage, compte.categorie) : null);
   if (!verdict.ok) return NextResponse.json({ erreur: verdict.message }, { status: 400 });
   // Une réponse de cadrage sert à tous les agents : il suffit d'en avoir un.
   const autorise = verdict.agent ? actifs.includes(verdict.agent) : actifs.length > 0;

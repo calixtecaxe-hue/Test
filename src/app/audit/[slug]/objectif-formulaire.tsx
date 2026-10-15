@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChoixCases } from "@/components/choix-cases";
-import { phraseObjectif, type UniteAmpleur } from "@/lib/audit/objectif";
+import { DELAI_MAX_MOIS, phraseObjectif, verifierVraisemblance, type UniteAmpleur } from "@/lib/audit/objectif";
 import { lireNombre } from "@/lib/audit/nombre";
 
 const UNITES = [
@@ -14,7 +14,7 @@ const UNITES = [
 
 // Objectif de l'agent en trois champs : ce que le dirigeant veut changer, de combien,
 // en combien de temps. Première étape de l'audit.
-export function ObjectifFormulaire({ agent, annulable, onAnnuler, onEnregistre }: { agent: string; annulable?: boolean; onAnnuler?: () => void; onEnregistre?: () => void }) {
+export function ObjectifFormulaire({ agent, facteurAnnuelMax, annulable, onAnnuler, onEnregistre }: { agent: string; facteurAnnuelMax: number; annulable?: boolean; onAnnuler?: () => void; onEnregistre?: () => void }) {
   const router = useRouter();
   const id = useId();
   const [quoi, setQuoi] = useState("");
@@ -41,6 +41,12 @@ export function ObjectifFormulaire({ agent, annulable, onAnnuler, onEnregistre }
     if (quoi.trim().length < 3) manques.quoi = "Dites ce que vous voulez changer, par exemple « baisser le turnover ».";
     if (valeur === null || valeur <= 0) manques.ampleur = "Indiquez de combien, avec un nombre supérieur à zéro.";
     if (mois === null || !Number.isInteger(mois) || mois < 1) manques.delaiMois = "Indiquez en combien de mois, avec un nombre entier.";
+    else if (mois > DELAI_MAX_MOIS) manques.delaiMois = `Le délai ne dépasse pas ${DELAI_MAX_MOIS} mois (10 ans).`;
+    // Un objectif impossible sur ce délai est expliqué tout de suite, avec ce qui serait accepté.
+    if (Object.keys(manques).length === 0 && valeur !== null && mois !== null) {
+      const v = verifierVraisemblance({ quoi, ampleur: { valeur, unite }, delaiMois: mois }, facteurAnnuelMax);
+      if (!v.ok) manques[v.champ] = v.message;
+    }
     setErreurs(manques);
     if (Object.keys(manques).length > 0) return;
 

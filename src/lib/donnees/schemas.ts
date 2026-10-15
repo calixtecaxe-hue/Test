@@ -244,6 +244,16 @@ export const routage = z.object({
     nombreMaxAgents: z.number().int(),
     moduleMetier: z.boolean(),
     acquisitionNeRecommandePas: z.array(z.string()),
+    // Ce que l'audit Acquisition ne pose pas à ces métiers : questions de cadrage, options de
+    // cadrage et thèmes. Données, pas code : on ne demande pas ce qu'on n'a pas le droit de recommander.
+    acquisitionExclut: z
+      .object({
+        declencheurs: z.array(z.string().regex(/^D\d{2}$/)),
+        optionsCadrage: z.record(z.string().regex(/^D\d{2}$/), z.array(z.string())),
+        themes: z.array(codeTheme),
+        note: z.string().optional(),
+      })
+      .optional(),
   }),
 });
 export type Routage = z.infer<typeof routage>;
@@ -286,6 +296,17 @@ export const seuilDonnee = z.object({
   tailles: z.array(z.enum(["seul", "equipe_2_5", "structure_6_plus"])).optional(),
 });
 
+// --- Limites d'un objectif ----------------------------------------------------------
+
+// Ce qui écarte un objectif impossible (voir src/lib/audit/objectif.ts). Valeur à valider.
+export const limitesObjectif = z.object({
+  source: z.string(),
+  aValider: z.boolean(),
+  facteurAnnuelMax: z.number().gt(1),
+  note: z.string().optional(),
+});
+export type LimitesObjectif = z.infer<typeof limitesObjectif>;
+
 // --- Banque de questions (pas encore écrite) ---------------------------------
 
 // Contrat minimal : une question écrite pour une donnée « demandée ». Le texte
@@ -317,6 +338,7 @@ export type EnsembleDonnees = {
   inscription: Inscription;
   reglesAffichage: ReglesAffichage;
   seuils: z.infer<typeof seuilDonnee>[];
+  limitesObjectif: LimitesObjectif;
   banque: Question[];
 };
 
@@ -332,5 +354,6 @@ export const schemaFichiers = {
   inscription,
   reglesAffichage,
   seuils: z.array(seuilDonnee),
+  limitesObjectif,
   banque: z.array(question),
 } as const;
