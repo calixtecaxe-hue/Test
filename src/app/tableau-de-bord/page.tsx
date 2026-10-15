@@ -40,6 +40,7 @@ export default async function TableauDeBord() {
     select: { agent: true },
   });
   const agentsSouscrits = AGENTS.filter((a) => acces.some((x) => x.agent === a.code));
+  const abonnement = await prisma.abonnement.findUnique({ where: { userId: utilisateur.id } });
 
   const metier = getMetier(utilisateur.metierPrecis);
   const sousVariantes = getSousVariantes(
@@ -99,6 +100,31 @@ export default async function TableauDeBord() {
           </div>
         </dl>
       </div>
+
+      <section className="mt-10" aria-labelledby="formule">
+        <h2 id="formule" className="text-base">
+          Votre formule
+        </h2>
+        {abonnement ? (
+          <p className="mt-3 text-sm text-[var(--text-muted)]">
+            {abonnement.nombreAgents} agents, facturation{" "}
+            {abonnement.periode === "ANNUEL" ? "annuelle" : "mensuelle"}.{" "}
+            <Link
+              href={`/activation?agents=${abonnement.nombreAgents}&periode=${abonnement.periode === "ANNUEL" ? "annuel" : "mensuel"}`}
+              className="text-[var(--blue-1)] hover:underline"
+            >
+              Modifier mes agents
+            </Link>
+          </p>
+        ) : (
+          <p className="mt-3 text-sm text-[var(--text-muted)]">
+            Aucune formule choisie pour le moment.{" "}
+            <Link href="/offres" className="text-[var(--blue-1)] hover:underline">
+              Voir les offres
+            </Link>
+          </p>
+        )}
+      </section>
 
       <section className="mt-10" aria-labelledby="audits">
         <h2 id="audits" className="text-base">

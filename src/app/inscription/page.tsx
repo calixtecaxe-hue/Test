@@ -304,7 +304,7 @@ export default function Inscription() {
               options={METIERS}
               valeur={valeurs.metier}
               onChange={(m) => setValeurs((v) => ({ ...v, metier: m, sousVariantes: [] }))}
-              placeholder="Tapez quelques lettres de votre métier"
+              placeholder="Tapez quelques lettres pour réduire la liste"
             />
           </Champ>
         ) : null}

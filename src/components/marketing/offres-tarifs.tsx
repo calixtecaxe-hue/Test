@@ -108,6 +108,7 @@ export function OffresTarifs() {
               <div
                 className={`carte-offre ${vedette ? "carte-offre-vedette" : ""}`}
               >
+                {vedette ? <span className="carte-badge">Recommandé</span> : null}
                 <h2 className="text-2xl">{offre.nombreAgents} agents</h2>
                 <p className="mt-2 text-sm text-[var(--text-muted)]">
                   {tousLesAgents
@@ -129,8 +130,8 @@ export function OffresTarifs() {
                         {formaterEuros(
                           prixMensuelEquivalentAnnuelCentimesHT(mensuel),
                         )}{" "}
-                        HT / mois, au lieu de {formaterEuros(mensuel * 12)} HT
-                        en facturation mensuelle.
+                        HT / mois, au lieu de {formaterEuros(mensuel)} HT /
+                        mois en facturation mensuelle.
                       </>
                     ) : (
                       "Facturation mensuelle."

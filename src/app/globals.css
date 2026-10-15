@@ -779,6 +779,7 @@ h3,
 }
 
 .carte-offre {
+  position: relative;
   display: flex;
   height: 100%;
   flex-direction: column;
@@ -800,6 +801,20 @@ h3,
   background: linear-gradient(var(--panel), var(--panel)) padding-box,
     linear-gradient(100deg, var(--blue-1), var(--white-1), var(--red-1))
       border-box;
+}
+
+/* Badge de la formule suggérée : sobre, posé sur le bord haut de la carte. */
+.carte-badge {
+  position: absolute;
+  top: -12px;
+  left: 32px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--blue-1);
+  font-family: var(--corps);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--bg);
 }
 
 .prix-ligne {
@@ -3542,4 +3557,82 @@ h3,
   height: 8px;
   border-radius: 50%;
   background: var(--bg);
+}
+
+/* Passage à « Vos agents sont prêts » : sceau redessiné, cartes validées l'une
+   après l'autre, texte et boutons qui reviennent en douceur. Les cartes
+   glissent à leur nouvelle place par la transition de vue du navigateur. */
+::view-transition-group(*) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+}
+
+.activation-bascule,
+.activation-suite {
+  animation: demo-entree 0.5s ease both;
+}
+
+.activation-suite {
+  animation-delay: 0.35s;
+}
+
+.choix-grille.confirmee .choix-agent.choisi {
+  animation: activation-validation 0.9s ease-out both;
+  animation-delay: calc(var(--rang, 0) * 120ms);
+}
+
+.choix-grille.confirmee .choix-agent.choisi .choix-case-coche {
+  animation: activation-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+  animation-delay: calc(var(--rang, 0) * 120ms + 150ms);
+}
+
+@keyframes activation-validation {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--couleur-agent) 50%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+
+@keyframes activation-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  .activation-bascule,
+  .activation-suite,
+  .choix-grille.confirmee .choix-agent.choisi,
+  .choix-grille.confirmee .choix-agent.choisi .choix-case-coche {
+    animation: none;
+  }
+}
+
+/* Liste des métiers, toujours visible sous le champ de recherche. */
+.recherche-champ {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recherche-liste {
+  max-height: 264px;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  list-style: none;
+  scrollbar-width: thin;
 }

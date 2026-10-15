@@ -56,6 +56,7 @@ model User {
 
   agentAccess AgentAccess[]
   objectifs   Objectif[]
+  abonnement  Abonnement?
 
   @@index([metierPrecis])
 }
@@ -116,4 +117,23 @@ model Objectif {
   clotureLe DateTime?
 
   @@index([userId, agent, creeLe])
+}
+
+enum PeriodeFacturation {
+  MENSUEL
+  ANNUEL
+}
+
+// Formule choisie par le compte (CLAUDE.md section 10) : 2, 3 ou 4 agents, en
+// facturation mensuelle ou annuelle. Le paiement n'est pas encore branché : cette
+// table ne dit que ce que le dirigeant a choisi. Les agents ouverts sont dans
+// AgentAccess.
+model Abonnement {
+  id           String             @id @default(cuid())
+  userId       String             @unique
+  user         User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nombreAgents Int
+  periode      PeriodeFacturation
+  debutLe      DateTime           @default(now())
+  modifieLe    DateTime           @updatedAt
 }

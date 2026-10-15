@@ -212,6 +212,13 @@ propriétaire du produit. À corriger dans le document.) Badge « Recommandé »
 l'inscription, essai d'un agent non souscrit, mais **aucun agent coché d'avance**.
 L'accès aux agents est **un droit attaché au compte**, contrôlé à chaque entrée
 d'agent (page comme API).
+Le texte annuel compare des montants du même rythme : « Soit 50,99 € HT / mois, au
+lieu de 59,99 € HT / mois en facturation mensuelle » (le prix principal est le
+montant à l'année). Implémentation : `src/lib/abonnement.ts` (paliers, droits,
+professions réglementées), `POST /api/abonnement`, modèles `Abonnement` et
+`AgentAccess`. **Le paiement n'est pas branché** : seul le choix est enregistré.
+Pas encore construits : « formule suggérée à l'inscription » et « essai d'un agent
+non souscrit » (le document ne les détaille pas).
 
 ## 11. Données et pilote
 
