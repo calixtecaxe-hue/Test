@@ -6,6 +6,7 @@
 
 import { OFFRES } from "./offres.ts";
 import type { CodeAgent, Routage } from "./donnees/schemas.ts";
+import { contrainteDepuisCompte, type CompteRoutable } from "./routage.ts";
 
 export const TOUS_LES_AGENTS: CodeAgent[] = [
   "ACQUISITION_CA",
@@ -21,13 +22,11 @@ export type ContrainteCompte = {
   nombreMaxAgents: number | null;
 };
 
-// Ce que le compte a le droit de souscrire, d'après la catégorie de son métier.
-export function contrainteDuCompte(routage: Routage, categorieId: string): ContrainteCompte {
-  const categorie = routage.categories.find((c) => c.id === categorieId);
-  if (categorie?.reglementee) {
-    return { agentsExclus: routage.reglementees.agentsExclus, nombreMaxAgents: routage.reglementees.nombreMaxAgents };
-  }
-  return { agentsExclus: [], nombreMaxAgents: null };
+// Ce que le compte a le droit de souscrire, d'après son métier et ce qu'il a coché (profession
+// réglementée ou activité sans agent Comm : pas d'agent Comm, donc 3 agents au plus).
+export function contrainteDuCompte(routage: Routage, compte: CompteRoutable): ContrainteCompte {
+  const c = contrainteDepuisCompte(routage, compte);
+  return { agentsExclus: c.agentsExclus, nombreMaxAgents: c.nombreMaxAgents };
 }
 
 export function agentsProposables(c: ContrainteCompte): CodeAgent[] {

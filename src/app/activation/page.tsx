@@ -29,9 +29,9 @@ export default async function ActivationPage({
 
   const session = await auth();
   const utilisateur = session?.user?.id
-    ? await prisma.user.findUnique({ where: { id: session.user.id }, select: { categorie: true } })
+    ? await prisma.user.findUnique({ where: { id: session.user.id }, select: { categorie: true, metierPrecis: true, sousVariantes: true } })
     : null;
-  const contrainte = utilisateur ? contrainteDuCompte(ROUTAGE, utilisateur.categorie) : { agentsExclus: [], nombreMaxAgents: null };
+  const contrainte = utilisateur ? contrainteDuCompte(ROUTAGE, utilisateur) : { agentsExclus: [], nombreMaxAgents: null };
   const dejaChoisis = utilisateur
     ? (
         await prisma.agentAccess.findMany({

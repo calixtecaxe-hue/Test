@@ -62,7 +62,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
   }
 
   const [utilisateur, objectifs] = await Promise.all([
-    prisma.user.findUnique({ where: { id: userId }, select: { profils: true, categorie: true, nombreCollaborateurs: true, niveauAudit: true, dateCreationEntreprise: true } }),
+    prisma.user.findUnique({ where: { id: userId }, select: { profils: true, categorie: true, metierPrecis: true, sousVariantes: true, nombreCollaborateurs: true, niveauAudit: true, dateCreationEntreprise: true } }),
     prisma.objectif.findMany({ where: { userId, agent: agent.code }, orderBy: { creeLe: "desc" }, take: 10 }),
   ]);
   if (!utilisateur) redirect("/connexion");
@@ -75,10 +75,10 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
   let corps: React.ReactNode = null;
   let reglageNiveau: React.ReactNode = null;
   if (actif && !utilisateur.niveauAudit) {
-    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur.categorie));
+    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
     corps = <NiveauChoix essentielles={n.essentielles} approfondies={n.total} />;
   } else if (actif && utilisateur.niveauAudit) {
-    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur.categorie));
+    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
     reglageNiveau = <NiveauReglage niveau={utilisateur.niveauAudit} essentielles={n.essentielles} total={n.total} />;
     const reponses = await reponsesDuCompte(userId);
     const a = assemblerQuestionnaire(ENSEMBLE, {
@@ -88,7 +88,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
       niveau: utilisateur.niveauAudit === "APPROFONDI" ? "approfondi" : "essentiel",
       reponses,
       ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()),
-      exclusions: exclusionsAcquisition(ENSEMBLE.routage, utilisateur.categorie),
+      exclusions: exclusionsAcquisition(ENSEMBLE.routage, utilisateur),
     });
     const themes: ThemeClient[] = a.themes.map((t) => ({
       code: t.theme.code,

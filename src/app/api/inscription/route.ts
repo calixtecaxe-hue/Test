@@ -4,7 +4,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { inscriptionSchema } from "@/lib/validation/inscription";
 import { ROUTAGE } from "@/lib/routage-donnees";
-import { router } from "@/lib/routage";
+import { METIER_ABSENT, router } from "@/lib/routage";
 import { z } from "zod";
 import { contrainteDuCompte, TOUS_LES_AGENTS, validerChoix } from "@/lib/abonnement";
 
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
   // Le routage est recalculé ici, jamais lu dans la requête.
-  const routage = router(ROUTAGE, data.metierPrecis, data.sousVariantes);
+  const routage = router(ROUTAGE, data.metierPrecis, data.sousVariantes, { autre: data.autre, categorieAbsente: data.categorieAbsente });
   if (!routage.ok) {
     return NextResponse.json({ erreur: "Formulaire invalide.", champs: { [routage.erreur.champ]: [routage.erreur.message] } }, { status: 400 });
   }
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
 
   // Formule choisie avant l'inscription : enregistrée avec le compte si elle est valable pour ce métier.
   const formuleBrute = formuleSchema.safeParse((body as { formule?: unknown } | null)?.formule);
-  const verdict = formuleBrute.success ? validerChoix(formuleBrute.data as Parameters<typeof validerChoix>[0], contrainteDuCompte(ROUTAGE, routage.routage.categorie.id)) : null;
+  const verdict = formuleBrute.success ? validerChoix(formuleBrute.data as Parameters<typeof validerChoix>[0], { agentsExclus: routage.routage.agentsExclus, nombreMaxAgents: routage.routage.nombreMaxAgents }) : null;
   const periode = formuleBrute.success && formuleBrute.data.periode === "annuel" ? "ANNUEL" : "MENSUEL";
 
   try {
@@ -45,6 +45,9 @@ export async function POST(request: Request) {
         sousVariantes: routage.routage.sousVariantes,
         categorie: routage.routage.categorie.id,
         profils: routage.routage.profils,
+        autreActiviteTexte: data.autre ? data.autreTexte ?? null : null,
+        metierAbsentTexte: data.metierPrecis === METIER_ABSENT ? data.metierAbsentTexte ?? null : null,
+        vendProduits: routage.routage.stock === "a_demander" ? data.vendProduits ?? null : null,
         chiffreAffairesMensuel: new Prisma.Decimal(data.chiffreAffairesMensuel),
         nombreCollaborateurs: data.nombreCollaborateurs,
         dateCreationEntreprise: new Date(data.dateCreationEntreprise),

@@ -34,8 +34,8 @@ export async function PUT(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const compte = await prisma.user.findUnique({ where: { id: userId }, select: { categorie: true } });
-  const verdict = validerReponse(ENSEMBLE, cle, reponse, await reponsesDuCompte(userId), compte ? exclusionsAcquisition(ENSEMBLE.routage, compte.categorie) : null);
+  const compte = await prisma.user.findUnique({ where: { id: userId }, select: { categorie: true, metierPrecis: true, sousVariantes: true } });
+  const verdict = validerReponse(ENSEMBLE, cle, reponse, await reponsesDuCompte(userId), compte ? exclusionsAcquisition(ENSEMBLE.routage, compte) : null);
   if (!verdict.ok) return NextResponse.json({ erreur: verdict.message }, { status: 400 });
   // Une réponse de cadrage sert à tous les agents : il suffit d'en avoir un.
   // Une donnée partagée se modifie depuis n'importe lequel des agents qui la posent : il suffit

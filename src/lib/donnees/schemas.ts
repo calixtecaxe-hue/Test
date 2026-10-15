@@ -209,6 +209,24 @@ export type ReglesAffichage = z.infer<typeof reglesAffichage>;
 
 // --- Routage métier → catégorie → profil -------------------------------------
 
+export const stockMetier = z.enum(["oui", "non", "a_demander"]);
+export const agentCommMetier = z.enum(["oui", "non", "a_trancher"]);
+
+// Une activité d'un métier à plusieurs sous-parties (« Gestion locative » pour une agence
+// immobilière). Elle porte sa propre catégorie, son stock et l'accès à l'agent Comm.
+const sousPartie = z.object({
+  id: z.string(),
+  libelle: z.string(),
+  // Questionnaire reçu quand le client ne coche que « Autre (précisez) ».
+  defaut: z.boolean().optional(),
+  categorie: z.string(),
+  stock: stockMetier,
+  agentComm: agentCommMetier,
+  // Profil propre à l'activité quand la catégorie n'en donne pas (réglementé).
+  profils: z.array(profilId).optional(),
+  aConfirmer: z.string().optional(),
+});
+
 export const routage = z.object({
   source: z.string(),
   note: z.string(),
@@ -220,8 +238,9 @@ export const routage = z.object({
       libelle: z.string(),
       profils: z.array(profilId),
       profilsConditionnels: z.array(z.object({ profil: profilId, condition: z.string() })),
-      blocStock: z.boolean(),
       reglementee: z.boolean(),
+      // Catégorie dont le questionnaire reste à créer (Fabrication) : aucun profil rattaché.
+      aCreer: z.boolean().optional(),
       notes: z.string().nullable(),
     })
   ),
@@ -229,14 +248,21 @@ export const routage = z.object({
     z.object({
       id: z.string(),
       libelle: z.string(),
+      secteur: z.string(),
+      // Catégorie du métier, ou de sa sous-partie par défaut.
       categorie: z.string(),
+      // Stock : marchandises achetées d'avance. « À demander » : une question à l'inscription.
+      stock: stockMetier,
+      // Accès à l'agent Comm. « À trancher » : décision encore ouverte (traité comme « oui »).
+      agentComm: agentCommMetier,
       pilote: z.boolean().optional(),
+      // Mots que le client peut taper pour trouver ce métier (« consultant RH »).
+      synonymes: z.array(z.string()).optional(),
       // Profil propre au métier quand la catégorie n'en donne pas (professions réglementées).
       profils: z.array(profilId).optional(),
+      aConfirmer: z.string().optional(),
       notes: z.string().optional(),
-      sousVariantes: z
-        .array(z.object({ id: z.string(), libelle: z.string(), profils: z.array(profilId).nullable() }))
-        .optional(),
+      sousVariantes: z.array(sousPartie).optional(),
     })
   ),
   reglementees: z.object({

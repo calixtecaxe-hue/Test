@@ -35,11 +35,11 @@ export async function POST(request: Request) {
 
   const utilisateur = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { categorie: true },
+    select: { categorie: true, metierPrecis: true, sousVariantes: true },
   });
   if (!utilisateur) return NextResponse.json({ erreur: "Connexion requise." }, { status: 401 });
 
-  const verdict = validerChoix(parsed.data as Parameters<typeof validerChoix>[0], contrainteDuCompte(ROUTAGE, utilisateur.categorie));
+  const verdict = validerChoix(parsed.data as Parameters<typeof validerChoix>[0], contrainteDuCompte(ROUTAGE, utilisateur));
   if (!verdict.ok) {
     return NextResponse.json({ erreur: verdict.erreur.message, champ: verdict.erreur.champ }, { status: 400 });
   }

@@ -131,24 +131,52 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     for (const p of PROFILS) if (!(p in m.formes)) erreurs.push(`Le mot « ${m.mot} » n'a pas de colonne ${p}.`);
   }
 
-  // Routage : chaque métier pointe une catégorie existante ; une catégorie sans
-  // profil par défaut (professions réglementées) exige un profil par métier.
+  // Routage : chaque métier et chaque activité pointent une catégorie existante ; une catégorie
+  // sans profil (professions réglementées) exige un profil propre au métier ou à l'activité, sauf
+  // la catégorie dont le questionnaire reste à créer (Fabrication) ; un métier à activités en a
+  // exactement une « par défaut ».
   const categories = new Map(e.routage.categories.map((c) => [c.id, c]));
   const profilsConnus = new Set(e.routage.profils.map((p) => p.id));
   for (const p of PROFILS) if (!profilsConnus.has(p)) erreurs.push(`Le profil ${p} manque dans le routage.`);
+  let activites = 0;
+  let commATrancher = 0;
+  const secteurs = new Set<string>();
   for (const m of e.routage.metiers) {
-    const c = categories.get(m.categorie);
-    if (!c) {
-      erreurs.push(`Le métier ${m.id} référence une catégorie inconnue : ${m.categorie}.`);
-      continue;
-    }
-    if (c.profils.length === 0 && !(m.profils && m.profils.length > 0)) {
-      erreurs.push(`Le métier ${m.id} (${c.libelle}) n'a ni profil de catégorie ni profil propre.`);
+    secteurs.add(m.secteur);
+    if (m.agentComm === "a_trancher") commATrancher++;
+    if (m.aConfirmer) avertissements.push(`Le métier ${m.id} : ${m.aConfirmer}.`);
+    const parts = m.sousVariantes ?? [];
+    const profilManquant = (cat: string, propres: string[] | undefined, nom: string) => {
+      const c = categories.get(cat);
+      if (!c) {
+        erreurs.push(`${nom} référence une catégorie inconnue : ${cat}.`);
+        return;
+      }
+      if (c.profils.length === 0 && !c.aCreer && !(propres && propres.length > 0)) erreurs.push(`${nom} (${c.libelle}) n'a ni profil de catégorie ni profil propre.`);
+    };
+    profilManquant(m.categorie, m.profils, `Le métier ${m.id}`);
+    if (parts.length > 0) {
+      activites += parts.length;
+      if (parts.filter((v) => v.defaut).length !== 1) erreurs.push(`Le métier ${m.id} doit avoir exactement une activité « par défaut ».`);
+      for (const d of doublons(parts.map((v) => v.id))) erreurs.push(`Le métier ${m.id} a deux activités ${d}.`);
+      for (const v of parts) {
+        profilManquant(v.categorie, v.profils ?? m.profils, `L'activité ${m.id}/${v.id}`);
+        if (v.agentComm === "a_trancher") commATrancher++;
+        if (v.aConfirmer) avertissements.push(`L'activité ${m.id}/${v.id} : ${v.aConfirmer}.`);
+      }
+      const defaut = parts.find((v) => v.defaut);
+      if (defaut && (defaut.categorie !== m.categorie || defaut.stock !== m.stock || defaut.agentComm !== m.agentComm)) {
+        erreurs.push(`Le métier ${m.id} doit reprendre la catégorie, le stock et l'agent Comm de son activité par défaut.`);
+      }
     }
   }
-  if (e.routage.categories.length !== 10) {
-    avertissements.push(`Le routage compte ${e.routage.categories.length} catégories ; le document en prévoit 10.`);
+  for (const c of e.routage.categories) {
+    if (c.aCreer) {
+      const n = e.routage.metiers.filter((m) => m.categorie === c.id || (m.sousVariantes ?? []).some((v) => v.categorie === c.id)).length;
+      avertissements.push(`La catégorie « ${c.libelle} » n'a pas encore de questionnaire (${n} métiers) : aucun profil rattaché.`);
+    }
   }
+  if (commATrancher > 0) avertissements.push(`${commATrancher} métier(s) ou activité(s) ont l'agent Comm « à trancher » : l'agent reste proposé tant que la décision est ouverte.`);
 
   // Exclusions des professions réglementées : tout ce qu'elles citent existe.
   const exclut = e.routage.reglementees.acquisitionExclut;
@@ -292,6 +320,9 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
       déclencheurs: e.declencheurs.length,
       "références non résolues": nonResolues,
       "règles d'affichage à préciser": aPreciser,
+      métiers: e.routage.metiers.length,
+      "activités de métiers (sous-parties)": activites,
+      "métiers avec agent Comm à trancher": commATrancher,
       seuils: e.seuils.length,
       "thèmes notés sans seuil": sansSeuil.length,
       "thèmes notés avec moins de 2 questions": notesTropCourts,

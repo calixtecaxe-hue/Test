@@ -14,7 +14,7 @@ const copie = (): EnsembleDonnees => structuredClone(reel);
 test("les fichiers du dépôt passent le contrôle sans erreur ; seules les règles à préciser sont signalées", () => {
   const r = controlerDonnees(reel);
   assert.deepEqual(r.erreurs, []);
-  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté "));
+  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté ") && !/^(Le métier|L'activité|La catégorie|\d+ métier)/.test(a));
   assert.deepEqual(inattendus, []);
   assert.equal(r.avertissements.filter((a) => a.startsWith("Règle à préciser")).length, 3);
 });
@@ -69,8 +69,8 @@ test("le classeur contient 27 déclencheurs, 13 scénarios, 14 problèmes de com
   assert.deepEqual(reel.diagnosticComm.ordreLectureChiffres.slice(0, 2), ["Clients", "CA"]);
 });
 
-test("le routage compte 10 catégories ; l'agriculture n'existe pas", () => {
-  assert.equal(reel.routage.categories.length, 10);
+test("le routage compte 11 catégories (10 + Fabrication à créer) ; l'agriculture n'existe pas", () => {
+  assert.equal(reel.routage.categories.length, 11);
   assert.ok(!reel.routage.categories.some((c) => /agricult/i.test(c.libelle)));
   assert.ok(!reel.routage.metiers.some((m) => /agricult/i.test(m.libelle)));
 });

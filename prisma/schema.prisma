@@ -48,6 +48,12 @@ model User {
   // data/routage.json : catégorie (id) et profils d'entreprise retenus.
   categorie              String
   profils                String[]
+  // Texte saisi avec « Autre (précisez) » (toujours gardé, pour repérer les activités qui
+  // manquent à la liste), métier écrit par un client qui ne trouve pas le sien, et réponse à
+  // « vendez-vous aussi des produits ? » pour les métiers dont le stock en dépend.
+  autreActiviteTexte     String?
+  metierAbsentTexte      String?
+  vendProduits           Boolean?
   chiffreAffairesMensuel Decimal  @db.Decimal(12, 2)
   nombreCollaborateurs   Int
   dateCreationEntreprise DateTime

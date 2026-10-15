@@ -5,7 +5,7 @@
 // Ce fichier n'importe que zod et le routage : il se teste directement avec Node.
 
 import { z } from "zod";
-import { router } from "../routage.ts";
+import { METIER_ABSENT, router } from "../routage.ts";
 import type { Routage } from "../donnees/schemas.ts";
 
 const ANNEE_MINIMALE = 1900;
@@ -31,6 +31,16 @@ export function creerSchemaInscription(routage: Routage) {
         .refine((v) => new TextEncoder().encode(v).length <= MOT_DE_PASSE_MAX_OCTETS, "Le mot de passe est trop long : 72 octets au maximum (environ 60 caractères)."),
       metierPrecis: z.string().min(1, "Indiquez votre métier."),
       sousVariantes: z.array(z.string()).default([]),
+      // « Autre (précisez) » : cochée avec d'autres cases elle ne change rien ; cochée seule, elle
+      // donne le questionnaire de l'activité par défaut. Le texte est toujours enregistré, pour
+      // repérer les activités qui manquent à la liste.
+      autre: z.boolean().default(false),
+      autreTexte: z.string().trim().max(200, "Le texte est trop long.").optional(),
+      // « Mon métier n'est pas dans la liste » : ce que fait le client, et ce qui y ressemble le plus.
+      metierAbsentTexte: z.string().trim().max(200, "Le texte est trop long.").optional(),
+      categorieAbsente: z.string().optional(),
+      // Réponse à la question posée aux métiers dont le stock dépend de ce qu'ils vendent.
+      vendProduits: z.boolean().optional(),
       chiffreAffairesMensuel: z.coerce
         .number({ message: "Indiquez un chiffre d'affaires mensuel." })
         .nonnegative("Le chiffre d'affaires ne peut pas être négatif.")
@@ -50,8 +60,20 @@ export function creerSchemaInscription(routage: Routage) {
       ville: z.string().trim().min(1, "Indiquez la ville.").max(120, "Le nom de la ville est trop long."),
     })
     .superRefine((data, ctx) => {
-      const r = router(routage, data.metierPrecis, data.sousVariantes);
-      if (!r.ok) ctx.addIssue({ code: "custom", path: [r.erreur.champ], message: r.erreur.message });
+      const r = router(routage, data.metierPrecis, data.sousVariantes, { autre: data.autre, categorieAbsente: data.categorieAbsente });
+      if (!r.ok) {
+        ctx.addIssue({ code: "custom", path: [r.erreur.champ], message: r.erreur.message });
+        return;
+      }
+      if (data.autre && data.sousVariantes.length === 0 && !data.autreTexte) {
+        ctx.addIssue({ code: "custom", path: ["autreTexte"], message: "Précisez ce que vous faites." });
+      }
+      if (data.metierPrecis === METIER_ABSENT && !data.metierAbsentTexte) {
+        ctx.addIssue({ code: "custom", path: ["metierAbsentTexte"], message: "Indiquez votre métier." });
+      }
+      if (r.routage.stock === "a_demander" && data.vendProduits === undefined) {
+        ctx.addIssue({ code: "custom", path: ["vendProduits"], message: "Dites si vous vendez aussi des produits." });
+      }
     });
 }
 

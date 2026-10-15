@@ -356,10 +356,13 @@ test("un nombre tapé à la française est lu comme le dirigeant l'entend", () =
 
 import { exclusionsAcquisition } from "../src/lib/routage.ts";
 
+const AVOCAT = { metierPrecis: "avocat", sousVariantes: [], categorie: "professions-reglementees" };
+const ELECTRICIEN = { metierPrecis: "electricien", sousVariantes: [], categorie: "prestation-chantier" };
+
 test("pour une profession réglementée, ni publicité payante, ni prospection, ni partenaires ne sont demandés", () => {
-  const ex = exclusionsAcquisition(reel.routage, "professions-reglementees");
+  const ex = exclusionsAcquisition(reel.routage, AVOCAT);
   assert.ok(ex);
-  assert.equal(exclusionsAcquisition(reel.routage, "prestation-chantier"), null);
+  assert.equal(exclusionsAcquisition(reel.routage, ELECTRICIEN), null);
   const tous: Reponses = Object.fromEntries(reel.declencheurs.map((d) => [d.code, saisie("oui")]));
   tous.D03 = saisie(["bouche_a_oreille", "publicite", "prospection", "partenaires", "site"]);
   const base = { agent: "ACQUISITION_CA" as const, profils: ["b2b" as const], taille: "equipe_2_5" as const, niveau: "approfondi" as const, reponses: tous };
@@ -389,7 +392,7 @@ test("pour une profession réglementée, ni publicité payante, ni prospection, 
 });
 
 test("les exclusions ne touchent que l'agent Acquisition", () => {
-  const ex = exclusionsAcquisition(reel.routage, "professions-reglementees");
+  const ex = exclusionsAcquisition(reel.routage, AVOCAT);
   const tous: Reponses = Object.fromEntries(reel.declencheurs.map((d) => [d.code, saisie("oui")]));
   const a = assemblerQuestionnaire(reel, { agent: "FINANCE_RENTABILITE", profils: ["b2b"], taille: "equipe_2_5", niveau: "approfondi", reponses: tous, exclusions: ex });
   const b = assemblerQuestionnaire(reel, { agent: "FINANCE_RENTABILITE", profils: ["b2b"], taille: "equipe_2_5", niveau: "approfondi", reponses: tous });
@@ -397,7 +400,7 @@ test("les exclusions ne touchent que l'agent Acquisition", () => {
 });
 
 test("le serveur refuse à une profession réglementée les réponses qu'on ne lui pose pas", () => {
-  const ex = exclusionsAcquisition(reel.routage, "professions-reglementees");
+  const ex = exclusionsAcquisition(reel.routage, AVOCAT);
   assert.ok(!validerReponse(reel, "D04", saisie("oui"), {}, ex).ok);
   assert.ok(validerReponse(reel, "D04", saisie("oui"), {}, null).ok);
   assert.ok(!validerReponse(reel, "D03", saisie(["site", "publicite"]), {}, ex).ok);
@@ -406,7 +409,7 @@ test("le serveur refuse à une profession réglementée les réponses qu'on ne l
 });
 
 test("une réponse donnée avant l'exclusion (canal « publicité » coché) est ignorée à l'assemblage", () => {
-  const ex = exclusionsAcquisition(reel.routage, "professions-reglementees");
+  const ex = exclusionsAcquisition(reel.routage, AVOCAT);
   const rep: Reponses = { ...Object.fromEntries(reel.declencheurs.map((d) => [d.code, saisie("oui")])), D03: saisie(["publicite", "site"]) };
   const a = assemblerQuestionnaire(reel, { agent: "ACQUISITION_CA", profils: ["b2b"], taille: "equipe_2_5", niveau: "approfondi", reponses: rep, exclusions: ex });
   const posees = a.themes.flatMap((t) => t.questions.map((q) => q.code));

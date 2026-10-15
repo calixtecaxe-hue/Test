@@ -8,8 +8,8 @@ import { agentsProposables, contrainteDuCompte, nombresAgentsProposables, valide
 import { OFFRES, formaterEuros, prixAnnuelCentimesHT, prixMensuelEquivalentAnnuelCentimesHT } from "../src/lib/offres.ts";
 
 const { routage } = chargerDepuisDisque(join(fileURLToPath(new URL("..", import.meta.url)), "data"));
-const libre = contrainteDuCompte(routage, "commerce-stock");
-const reglementee = contrainteDuCompte(routage, "professions-reglementees");
+const libre = contrainteDuCompte(routage, { metierPrecis: "boulanger-patissier", sousVariantes: [], categorie: "commerce-stock" });
+const reglementee = contrainteDuCompte(routage, { metierPrecis: "avocat", sousVariantes: [], categorie: "professions-reglementees" });
 
 test("paliers et prix : 2, 3 et 4 agents à 59,99 / 79,99 / 99,99 € HT, pas d'offre à 1 agent", () => {
   assert.deepEqual(OFFRES.map((o) => [o.nombreAgents, o.prixMensuelCentimesHT]), [[2, 5999], [3, 7999], [4, 9999]]);
@@ -60,4 +60,21 @@ test("profession réglementée : l'agent Comm et la formule à 4 agents sont ref
   assert.ok(!quatre.ok && quatre.erreur.champ === "nombreAgents" && /3 agents au maximum/.test(quatre.erreur.message));
   const trois = validerChoix({ nombreAgents: 3, periode: "annuel", agents: ["ACQUISITION_CA", "FINANCE_RENTABILITE", "RH_ORGANISATION"] }, reglementee);
   assert.ok(trois.ok);
+});
+
+test("un métier de la communication n'a pas l'agent Comm sans être une profession réglementée : 3 agents au plus", () => {
+  const com = contrainteDuCompte(routage, { metierPrecis: "communication-et-marketing", sousVariantes: ["projets-ponctuels"], categorie: "agences-services-entreprises" });
+  assert.deepEqual(com.agentsExclus, ["COMM_CREATION"]);
+  assert.deepEqual(nombresAgentsProposables(com), [2, 3]);
+  assert.ok(!agentsProposables(com).includes("COMM_CREATION"));
+  assert.ok(!validerChoix({ nombreAgents: 4, periode: "mensuel", agents: ["ACQUISITION_CA", "FINANCE_RENTABILITE", "RH_ORGANISATION", "COMM_CREATION"] }, com).ok);
+  assert.ok(validerChoix({ nombreAgents: 3, periode: "annuel", agents: ["ACQUISITION_CA", "FINANCE_RENTABILITE", "RH_ORGANISATION"] }, com).ok);
+});
+
+test("une activité cochée sans agent Comm l'enlève pour tout le compte (règle la plus prudente)", () => {
+  const mixte = contrainteDuCompte(routage, { metierPrecis: "consultant", sousVariantes: ["strategie-management-et-organisation", "conseil-juridique"], categorie: "agences-services-entreprises" });
+  assert.deepEqual(mixte.agentsExclus, ["COMM_CREATION"]);
+  assert.equal(mixte.nombreMaxAgents, 3);
+  const simple = contrainteDuCompte(routage, { metierPrecis: "consultant", sousVariantes: ["strategie-management-et-organisation"], categorie: "agences-services-entreprises" });
+  assert.deepEqual(simple.agentsExclus, []);
 });
