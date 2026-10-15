@@ -71,12 +71,12 @@ function colonnesDiagnostic(exemple: string): Colonne[] {
         {
           titre: "Votre objectif",
           texte:
-            "Au lancement de chaque audit, vous écrivez avec vos mots le résultat que vous voulez atteindre et le délai. Chaque agent a son propre objectif, conservé avec son historique.",
+            "Au lancement de chaque audit, vous remplissez trois champs courts : ce que vous voulez changer, de combien, en combien de temps. Chaque agent a son propre objectif, conservé avec son historique.",
         },
         {
           titre: "Votre questionnaire",
           texte:
-            "Les questions sont choisies, parmi celles rédigées pour votre métier, selon votre profil et votre objectif. Vous y répondez à votre rythme : vos réponses sont enregistrées au fur et à mesure.",
+            "Les questions sont choisies, parmi celles rédigées pour votre métier, selon votre profil, la taille de votre entreprise et vos réponses de cadrage. Vous y répondez à votre rythme : vos réponses sont enregistrées au fur et à mesure.",
         },
         {
           titre: "Une estimation vaut mieux que rien",

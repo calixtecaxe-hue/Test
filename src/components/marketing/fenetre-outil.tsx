@@ -9,9 +9,9 @@ import demo from "@/lib/demo-outil.json";
 type DemoAgent = {
   accueil: string;
   objectif: {
-    // La phrase que le dirigeant écrit au lancement de l'audit, et ce que CAXE en comprend.
+    // Les trois champs que le dirigeant remplit au lancement de l'audit, et la phrase qui en résulte.
+    champs: { quoi: string; combien: string; mois: string };
     texte: string;
-    compris: { indicateur: string; evolution: string; delai: string };
     titre: string;
     signe: string;
     atteint: number;
@@ -45,9 +45,10 @@ type Bloc =
   | { t: "suivi" };
 
 type Vue = "fil" | "objectif" | "questionnaire" | "suivi";
-// Étape de l'objectif : le dirigeant écrit, CAXE lit, puis confirme ce qui a été compris.
-type ObjectifEtat = { texte: string; actif: boolean; etape: "saisie" | "analyse" | "compris" };
-const OBJECTIF_VIDE: ObjectifEtat = { texte: "", actif: false, etape: "saisie" };
+// Étape de l'objectif : trois champs courts (ce qu'on change, de combien, en combien de mois),
+// remplis un à un ; « actif » est le champ en cours de saisie (-1 : aucun).
+type ObjectifEtat = { champs: [string, string, string]; actif: number; etape: "saisie" | "enregistre" };
+const OBJECTIF_VIDE: ObjectifEtat = { champs: ["", "", ""], actif: -1, etape: "saisie" };
 type SuiviEtat = {
   oui: number[];
   non: number | null;
@@ -607,27 +608,30 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       ajouter({ t: "profil" });
       await pause(450);
 
-      // L'objectif : un seul champ libre, propre à cet audit. Le dirigeant
-      // l'écrit comme il le dirait ; CAXE le lit, en tire l'indicateur, la
-      // variation et l'échéance, et le confirme avant de lancer l'audit.
+      // L'objectif : trois champs courts, propres à cet audit. Le dirigeant dit ce
+      // qu'il veut changer, de combien et en combien de mois ; la phrase qui en
+      // résulte devient son objectif pour cet agent.
       setVue("objectif");
       await pause(250);
-      await deplacer("objectif-champ", 0.2);
-      await cliquer();
-      setObjEtat({ texte: "", actif: true, etape: "saisie" });
-      for (let k = 3; k < d.objectif.texte.length + 3; k += 3) {
-        setObjEtat((o) => ({ ...o, texte: d.objectif.texte.slice(0, k) }));
-        await pause(14);
+      const saisies: string[] = [d.objectif.champs.quoi, d.objectif.champs.combien, d.objectif.champs.mois];
+      for (let c = 0; c < 3; c++) {
+        await deplacer(`objectif-champ-${c}`, 0.2);
+        await cliquer();
+        setObjEtat((o) => ({ ...o, actif: c }));
+        for (let k = 3; k < saisies[c].length + 3; k += 3) {
+          setObjEtat((o) => {
+            const champs: [string, string, string] = [...o.champs];
+            champs[c] = saisies[c].slice(0, k);
+            return { ...o, champs };
+          });
+          await pause(14);
+        }
+        await pause(120);
       }
-      await pause(150);
       await deplacer("objectif-continuer");
       await cliquer("objectif-continuer");
-      setObjEtat((o) => ({ ...o, actif: false, etape: "analyse" }));
-      await pause(550);
-      setObjEtat((o) => ({ ...o, etape: "compris" }));
-      await pause(900);
-      await deplacer("objectif-lancer");
-      await cliquer("objectif-lancer");
+      setObjEtat((o) => ({ ...o, actif: -1, etape: "enregistre" }));
+      await pause(1100);
       ajouter({ t: "moi", texte: d.objectif.texte });
       setParcours(2);
       setVue("questionnaire");
@@ -766,65 +770,46 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
 
   const classeSurvol = (nom: string) => (survol === nom ? "survol" : "");
 
-  // Étape de l'objectif, comme dans l'audit : un champ libre, puis ce que
-  // CAXE en a compris (indicateur, évolution visée, échéance).
+  // Étape de l'objectif, comme dans l'audit : trois champs courts, puis l'objectif
+  // en une phrase.
   function rendreObjectif(o: ObjectifEtat) {
-    const c = donnees.objectif.compris;
+    const ex = ["Ex. : baisser le turnover", "Ex. : 5", "Ex. : 3"];
+    const libelles = ["Ce que vous voulez changer", "De combien", "En combien de mois"];
     return (
       <div className="demo-quest demo-objectif-etape">
         <p className="msg-titre">Audit · {agent.nom}</p>
         <p className="demo-objectif-etape-titre">Votre objectif</p>
-        <p className="demo-sous-titre">Quel résultat concret souhaitez-vous atteindre, et dans quel délai ?</p>
-        {o.etape === "compris" ? (
-          <>
-            <p className="demo-objectif-dit">{donnees.objectif.texte}</p>
-            <p className="demo-objectif-compris-titre">Voici ce que nous avons compris</p>
-            <div className="demo-compris">
-              <div>
-                <span className="l">Indicateur</span>
-                <span className="v">{c.indicateur}</span>
-              </div>
-              <div>
-                <span className="l">Évolution visée</span>
-                <span className="v">{c.evolution}</span>
-              </div>
-              <div>
-                <span className="l">Échéance</span>
-                <span className="v">{c.delai}</span>
-              </div>
-            </div>
-            <span
-              data-cible="objectif-lancer"
-              className={`demo-valider-point primaire ${classeSurvol("objectif-lancer")}`}
-            >
-              Lancer l&apos;audit
-            </span>
-          </>
+        <p className="demo-sous-titre">
+          Dites ce que vous voulez changer, de combien, et en combien de temps.
+        </p>
+        {o.etape === "enregistre" ? (
+          <p className="demo-objectif-dit">{donnees.objectif.texte}</p>
         ) : (
-          <>
-            <span
-              className={`demo-champ demo-libre demo-libre-plein ${o.actif ? "plein" : ""}`}
-              data-cible="objectif-champ"
-            >
-              {o.texte ? (
-                <>
-                  {o.texte}
-                  {o.actif ? <span className="demo-caret" /> : null}
-                </>
-              ) : (
-                <span className="demo-placeholder">
-                  Ex. : augmenter mon chiffre d&apos;affaires de 15 % dans les 12 prochains mois
-                </span>
-              )}
-            </span>
-            <span
-              data-cible="objectif-continuer"
-              className={`demo-valider-point primaire ${classeSurvol("objectif-continuer")}`}
-            >
-              {o.etape === "analyse" ? "Lecture de votre objectif…" : "Continuer"}
-            </span>
-          </>
+          libelles.map((l, k) => (
+            <div key={l} className="demo-objectif-champ">
+              <span className="demo-objectif-champ-libelle">{l}</span>
+              <span
+                className={`demo-champ demo-libre demo-libre-plein ${o.actif === k ? "plein" : ""}`}
+                data-cible={`objectif-champ-${k}`}
+              >
+                {o.champs[k] ? (
+                  <>
+                    {o.champs[k]}
+                    {o.actif === k ? <span className="demo-caret" /> : null}
+                  </>
+                ) : (
+                  <span className="demo-placeholder">{ex[k]}</span>
+                )}
+              </span>
+            </div>
+          ))
         )}
+        <span
+          data-cible="objectif-continuer"
+          className={`demo-valider-point primaire ${classeSurvol("objectif-continuer")}`}
+        >
+          {o.etape === "enregistre" ? "Objectif enregistré" : "Enregistrer mon objectif"}
+        </span>
       </div>
     );
   }
@@ -844,7 +829,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
       <div className="demo-quest">
         <p className="msg-titre">Questionnaire · {agent.nom}</p>
         <p className="demo-sous-titre">
-          Questions rédigées à l&apos;avance pour votre métier, choisies selon votre objectif.
+          Questions rédigées à l&apos;avance pour votre métier, choisies selon votre profil.
           Aucune n&apos;est obligatoire.
         </p>
         <p className="demo-apercu">

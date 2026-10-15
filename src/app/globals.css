@@ -3248,7 +3248,27 @@ h3,
 }
 
 .demo-objectif-etape .demo-libre {
-  margin: 12px 0;
+  margin: 4px 0 0;
+}
+
+.demo-objectif-champ {
+  margin: 10px 0 0;
+}
+
+.demo-objectif-champ-libelle {
+  display: block;
+  font-size: 11.5px;
+  color: var(--text-faint);
+}
+
+.demo-objectif-etape .demo-valider-point {
+  margin-top: 14px;
+}
+
+/* Les trois champs de l'objectif sont courts : une ligne suffit. */
+.demo-objectif-etape .demo-objectif-champ .demo-champ {
+  min-height: 36px;
+  padding-block: 8px;
 }
 
 .demo-objectif-dit {

@@ -105,8 +105,7 @@
         "reponse": "Certains choisissent l'agence qui annonce le prix le plus élevé."
       },
       "objectif": {
-        "texte": "Je veux augmenter mon chiffre d'affaires de 15 % dans les 12 prochains mois.",
-        "compris": { "indicateur": "Chiffre d'affaires", "evolution": "+15 %", "delai": "12 mois" },
+        "texte": "augmenter mon chiffre d'affaires de 15 % sur les 12 prochains mois",
         "titre": "+15 % de CA sur 12 mois",
         "signe": "+",
         "atteint": 6,
@@ -122,7 +121,12 @@
             "statut": "Rouge",
             "potentiel": "+6 %"
           }
-        ]
+        ],
+        "champs": {
+          "quoi": "augmenter mon chiffre d'affaires",
+          "combien": "15",
+          "mois": "12"
+        }
       }
     },
     "FINANCE_RENTABILITE": {
@@ -208,8 +212,7 @@
         "reponse": "Les délais de paiement des clients."
       },
       "objectif": {
-        "texte": "Je veux améliorer ma trésorerie de 5 % dans les 12 prochains mois.",
-        "compris": { "indicateur": "Trésorerie", "evolution": "+5 %", "delai": "12 mois" },
+        "texte": "améliorer ma trésorerie de 5 % sur les 12 prochains mois",
         "titre": "+5 % de trésorerie sur 12 mois",
         "signe": "+",
         "atteint": 2,
@@ -225,7 +228,12 @@
             "statut": "Orange",
             "potentiel": "+2 %"
           }
-        ]
+        ],
+        "champs": {
+          "quoi": "améliorer ma trésorerie",
+          "combien": "5",
+          "mois": "12"
+        }
       }
     },
     "RH_ORGANISATION": {
@@ -311,8 +319,7 @@
         "reponse": "Les postes de terrain."
       },
       "objectif": {
-        "texte": "Je veux réduire mon turnover de 20 % dans les 12 prochains mois.",
-        "compris": { "indicateur": "Turnover", "evolution": "−20 %", "delai": "12 mois" },
+        "texte": "réduire mon turnover de 20 % sur les 12 prochains mois",
         "titre": "−20 % de turnover sur 12 mois",
         "signe": "−",
         "atteint": 8,
@@ -328,7 +335,12 @@
             "statut": "Orange",
             "potentiel": "−8 %"
           }
-        ]
+        ],
+        "champs": {
+          "quoi": "réduire mon turnover",
+          "combien": "20",
+          "mois": "12"
+        }
       }
     },
     "COMM_CREATION": {
@@ -422,8 +434,7 @@
         "reponse": "Rassurer les vendeurs."
       },
       "objectif": {
-        "texte": "Je veux augmenter de 20 % la conversion de mes publications Instagram en achats d'ici 12 mois.",
-        "compris": { "indicateur": "Conversion des publications", "evolution": "+20 %", "delai": "12 mois" },
+        "texte": "augmenter la conversion de mes publications en achats de 20 % sur les 12 prochains mois",
         "titre": "+20 % de conversion des publications Instagram en achats, sur 12 mois",
         "signe": "+",
         "atteint": 8,
@@ -439,7 +450,12 @@
             "statut": "Rouge",
             "potentiel": "+8 %"
           }
-        ]
+        ],
+        "champs": {
+          "quoi": "augmenter la conversion de mes publications en achats",
+          "combien": "20",
+          "mois": "12"
+        }
       }
     }
   },
