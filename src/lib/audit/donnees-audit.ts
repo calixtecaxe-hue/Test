@@ -14,6 +14,8 @@ import inscription from "../../../data/inscription.json";
 import reglesAffichage from "../../../data/regles-affichage.json";
 import seuils from "../../../data/seuils.json";
 import limitesObjectif from "../../../data/objectif-limites.json";
+import catalogue from "../../../data/catalogue-themes.json";
+import parametresReferences from "../../../data/parametres-references.json";
 import banque from "../../../data/banque/questions.json";
 import { schemaFichiers, type EnsembleDonnees } from "../donnees/schemas.ts";
 
@@ -29,6 +31,8 @@ export const ENSEMBLE: EnsembleDonnees = {
   inscription: schemaFichiers.inscription.parse(inscription),
   reglesAffichage: schemaFichiers.reglesAffichage.parse(reglesAffichage),
   seuils: schemaFichiers.seuils.parse(seuils),
+  catalogue: schemaFichiers.catalogue.parse(catalogue),
+  parametresReferences: schemaFichiers.parametresReferences.parse(parametresReferences),
   limitesObjectif: schemaFichiers.limitesObjectif.parse(limitesObjectif),
   banque: schemaFichiers.banque.parse(banque),
 };

@@ -249,6 +249,43 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     else if (d.theme !== sd.theme) erreurs.push(`Le seuil de ${sd.donnee} annonce le thème ${sd.theme}, la donnée est dans ${d.theme}.`);
     if (sd.source === null) avertissements.push(`Seuil « à valider » (sans source) : ${sd.donnee}.`);
   }
+  // Catalogue des références de marché : une fiche par thème, seuls les thèmes de nature Marché se
+  // comparent à un marché, chaque indicateur est une donnée du bon thème avec un sens et des bornes
+  // cohérentes. Un indicateur en brouillon n'est jamais cherché : c'est un avertissement tant que le
+  // propriétaire ne l'a pas validé.
+  const fiches = new Map(e.catalogue.map((f) => [f.theme, f]));
+  for (const d of doublons(e.catalogue.map((f) => f.theme))) erreurs.push(`Catalogue : thème en double : ${d}.`);
+  for (const t of e.themes) {
+    const f = fiches.get(t.code);
+    if (!f) {
+      erreurs.push(`Le thème ${t.code} n'a pas de fiche dans data/catalogue-themes.json.`);
+      continue;
+    }
+    if (f.nature !== t.nature) erreurs.push(`La fiche ${t.code} annonce la nature ${f.nature}, le thème est ${t.nature}.`);
+    if (f.rechercheReference && t.nature !== "marche") erreurs.push(`La fiche ${t.code} demande une recherche de référence alors que le thème est de nature ${t.nature}.`);
+    if (f.rechercheReference && f.indicateurs.length === 0) erreurs.push(`La fiche ${t.code} demande une recherche de référence sans indicateur.`);
+    if (!f.rechercheReference && f.indicateurs.length > 0) erreurs.push(`La fiche ${t.code} liste des indicateurs sans recherche de référence.`);
+    if (!f.rechercheReference && !f.motif) erreurs.push(`La fiche ${t.code} ne dit pas pourquoi elle n'a pas de recherche de référence.`);
+    for (const i of f.indicateurs) {
+      const dn = donnees.get(i.id);
+      if (!dn) erreurs.push(`L'indicateur ${i.id} n'est pas une donnée connue.`);
+      else if (dn.theme !== t.code) erreurs.push(`L'indicateur ${i.id} est rangé sous ${t.code}, la donnée est dans ${dn.theme}.`);
+      const { min, max } = i.bornesVraisemblance;
+      if (min !== null && max !== null && min > max) erreurs.push(`L'indicateur ${i.id} a des bornes de vraisemblance inversées.`);
+      if (i.statutRedaction === "valide") {
+        if (i.sens === null) erreurs.push(`L'indicateur ${i.id} est validé sans sens.`);
+        if (i.sensIncertain) erreurs.push(`L'indicateur ${i.id} est validé alors que son sens est marqué incertain.`);
+      }
+    }
+  }
+  const brouillons = e.catalogue.flatMap((f) => f.indicateurs).filter((i) => i.statutRedaction === "brouillon");
+  if (brouillons.length > 0) avertissements.push(`${brouillons.length} indicateurs de références de marché sont en brouillon : aucune recherche ne part avant leur validation.`);
+  const sensIncertains = brouillons.filter((i) => i.sensIncertain).map((i) => i.id);
+  if (sensIncertains.length > 0) avertissements.push(`Sens à trancher pour : ${sensIncertains.join(", ")}.`);
+  const p = e.parametresReferences;
+  if (p.plafondsBudget.quotidienEuros === null) avertissements.push("Aucun plafond quotidien de dépenses pour les recherches de références : seul le plafond mensuel s'applique.");
+  for (const c of Object.keys(p.miseAJour.moisParCategorie)) if (!categories.has(c)) erreurs.push(`Fréquence de mise à jour : catégorie inconnue « ${c} ».`);
+
   const themesAvecSeuil = new Set(e.seuils.map((s) => s.theme));
   const themesNotes = e.themes.filter((t) => t.nature !== "contexte");
   const sansSeuil = themesNotes.filter((t) => !themesAvecSeuil.has(t.code));
@@ -326,6 +363,8 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
       seuils: e.seuils.length,
       "thèmes notés sans seuil": sansSeuil.length,
       "thèmes notés avec moins de 2 questions": notesTropCourts,
+      "thèmes avec recherche de référence": e.catalogue.filter((f) => f.rechercheReference).length,
+      "indicateurs de référence en brouillon": brouillons.length,
     },
   };
 }

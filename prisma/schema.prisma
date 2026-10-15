@@ -170,3 +170,75 @@ model ReponseAudit {
 
   @@unique([userId, cle])
 }
+
+enum NiveauReference {
+  METIER
+  FAMILLE
+  NATIONAL
+}
+
+enum StatutReference {
+  ACTIF
+  A_REVOIR
+  VALIDE_FONDATEUR
+  REJETE
+  AUCUNE_REFERENCE
+}
+
+// Référence de marché pour un indicateur et un profil (cahier « références de marché », partie 1).
+// Trouvée par l'agent de recherche, contrôlée par le code, partagée par tous les clients du même
+// profil. Une ligne est une VERSION : on ne supprime jamais, on crée une nouvelle version.
+// Les colonnes de clé n'ont pas de NULL (chaîne vide = non précisé) pour que l'unicité tienne.
+// Voir src/lib/references/types.ts pour les règles de cohérence d'une ligne.
+model ReferenceMarche {
+  id             String          @id @default(cuid())
+  themeId        String
+  indicateurId   String
+  niveau         NiveauReference
+  metier         String          @default("")
+  famille        String          @default("")
+  sousVariante   String          @default("")
+  zone           String          @default("toutes")
+  trancheTaille  String          @default("toutes")
+  valeurCentrale Float?
+  borneBasse     Float?
+  borneHaute     Float?
+  statistique    String?
+  unite          String
+  periode        String
+  sens           String
+  // Source principale et seconde source : voir `source` dans src/lib/references/types.ts.
+  source         Json?
+  secondeSource  Json?
+  confiance      String?
+  statut         StatutReference
+  dateExpiration DateTime?       @db.Date
+  version        Int
+  actif          Boolean         @default(false)
+  nbUtilisations Int             @default(0)
+  motif          String?
+  creeLe         DateTime        @default(now())
+
+  @@unique([indicateurId, niveau, metier, famille, sousVariante, zone, trancheTaille, version])
+  @@index([indicateurId, actif])
+  @@index([statut])
+}
+
+// Journal de chaque recherche de référence : requêtes, pages lues, résultat et coût. Sert aussi de
+// verrou (une seule recherche en cours par couple indicateur + métier) et de compteur de tentatives.
+model RechercheReference {
+  id           String    @id @default(cuid())
+  indicateurId String
+  metier       String
+  debutLe      DateTime  @default(now())
+  finLe        DateTime?
+  // en_cours | acceptee | rejetee | aucune_reference | erreur
+  etat         String
+  journal      Json?
+  referenceId  String?
+  // Coût en centimes d'euro : jamais de flottant pour de l'argent.
+  coutCentimes Int       @default(0)
+
+  @@index([indicateurId, metier, etat])
+  @@index([debutLe])
+}

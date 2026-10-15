@@ -144,11 +144,12 @@ function themeNote() {
   return { a, t, cible: scalaires[0].code, autre: scalaires[1].code };
 }
 
-test("sans seuil dans data/seuils.json, un thème noté sort « règle manquante », jamais une couleur inventée", () => {
+test("sans seuil ni référence, un thème noté ne reçoit jamais une couleur inventée", () => {
   const { a, t, cible } = themeNote();
   const rep: Reponses = { ...tous, ...Object.fromEntries(t.questions.map((q) => [q.code, { genre: "exact" as const, valeur: 5 }])) };
   const c = constaterAgent(reel, [], a, rep, { zone: "PERIURBAINE", taille: "equipe_2_5" }).find((x) => x.theme === t.theme.code)!;
-  assert.equal(c.statut, "regle_manquante");
+  // Thème de nature Marché : « aucune référence » (les pratiques et cohérences gardent « règle manquante »).
+  assert.equal(c.statut, "aucune_reference");
   assert.equal(c.couleur, null);
   assert.ok(cible);
 });
@@ -223,7 +224,7 @@ test("un thème de contexte n'est pas noté ; un thème masqué est masqué, pas
 test("le constat ne produit aucun score global", () => {
   const a = assemblerQuestionnaire(reel, { ...ctx, reponses: tous });
   const constats = constaterAgent(reel, [], a, tous, { zone: "PERIURBAINE", taille: "equipe_2_5" });
-  for (const c of constats) assert.deepEqual(Object.keys(c).sort(), ["aValider", "couleur", "couverture", "estimee", "nature", "nom", "raison", "statut", "theme"]);
+  for (const c of constats) assert.deepEqual(Object.keys(c).sort(), ["aValider", "couleur", "couverture", "estimee", "indicateursSansReference", "nature", "nom", "raison", "reperes", "statut", "theme"]);
 });
 
 // --- Ancienneté (D01) -------------------------------------------------------------------

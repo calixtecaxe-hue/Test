@@ -322,6 +322,59 @@ export const seuilDonnee = z.object({
   tailles: z.array(z.enum(["seul", "equipe_2_5", "structure_6_plus"])).optional(),
 });
 
+// --- Catalogue des thèmes et paramètres des références de marché ----------------------
+
+// Une fiche par thème (data/catalogue-themes.json, écrit par scripts/ecrire-catalogue-themes.py).
+// Seuls les thèmes de nature Marché se comparent à un chiffre de marché : `rechercheReference`
+// est « non » pour tous les autres, qui ne déclenchent jamais de recherche. Un indicateur « en
+// brouillon » n'est jamais cherché : le propriétaire le valide d'abord (définition, sens, bornes).
+export const UNITES_INDICATEUR = ["pourcent", "jours", "mois", "euros", "euros_par_heure", "note"] as const;
+export const SENS_INDICATEUR = ["plus_haut_mieux", "plus_bas_mieux", "fourchette_ideale"] as const;
+
+export const indicateurCatalogue = z.object({
+  id: codeDonnee,
+  libelle: z.string().min(1),
+  definition: z.string().min(1),
+  unite: z.enum(UNITES_INDICATEUR),
+  periode: z.string().min(1),
+  sens: z.enum(SENS_INDICATEUR).nullable(),
+  sensIncertain: z.boolean(),
+  bornesVraisemblance: z.object({ min: z.number().nullable(), max: z.number().nullable() }),
+  motsCles: z.array(z.string().min(1)).min(1),
+  // Un repère national tous secteurs n'a de sens que si l'indicateur se compare d'un secteur à l'autre.
+  nationalAutorise: z.boolean(),
+  statutRedaction: z.enum(["brouillon", "valide"]),
+});
+export type IndicateurCatalogue = z.infer<typeof indicateurCatalogue>;
+
+export const ficheTheme = z.object({
+  theme: codeTheme,
+  agent: codeAgent,
+  libelle: z.string().min(1),
+  nature: z.enum(["marche", "pratique", "coherence", "contexte"]),
+  rechercheReference: z.boolean(),
+  motif: z.string().nullable(),
+  indicateurs: z.array(indicateurCatalogue),
+});
+export type FicheTheme = z.infer<typeof ficheTheme>;
+
+// Paramètres réglables (data/parametres-references.json). Valeurs de travail, modifiables sans toucher au code.
+export const parametresReferences = z.object({
+  source: z.string(),
+  tolerancePourcent: z.number().positive(),
+  recoupementEcartMaxPourcent: z.number().positive(),
+  ageSourceMaxAns: z.object({ solide: z.number().positive(), indicatif: z.number().positive() }),
+  echantillonMinSolide: z.number().int().positive(),
+  sautDeValeurRevuePourcent: z.number().positive(),
+  rechercheMaxParCouple: z.number().int().positive(),
+  aucuneReferenceNouvelleTentativeJours: z.number().int().positive(),
+  // Fréquence de mise à jour : 3 mois par défaut, réglable par catégorie de métier (clé = id de catégorie).
+  miseAJour: z.object({ moisParDefaut: z.number().int().positive(), moisParCategorie: z.record(z.string(), z.number().int().positive()) }),
+  plafondsBudget: z.object({ mensuelEuros: z.number().positive(), quotidienEuros: z.number().positive().nullable() }),
+  derive: z.object({ clientsMin: z.number().int().positive(), partMemeCote: z.number().gt(0).lt(1) }),
+});
+export type ParametresReferences = z.infer<typeof parametresReferences>;
+
 // --- Limites d'un objectif ----------------------------------------------------------
 
 // Ce qui écarte un objectif impossible (voir src/lib/audit/objectif.ts). Valeur à valider.
@@ -365,6 +418,8 @@ export type EnsembleDonnees = {
   reglesAffichage: ReglesAffichage;
   seuils: z.infer<typeof seuilDonnee>[];
   limitesObjectif: LimitesObjectif;
+  catalogue: FicheTheme[];
+  parametresReferences: ParametresReferences;
   banque: Question[];
 };
 
@@ -381,5 +436,7 @@ export const schemaFichiers = {
   reglesAffichage,
   seuils: z.array(seuilDonnee),
   limitesObjectif,
+  catalogue: z.array(ficheTheme),
+  parametresReferences,
   banque: z.array(question),
 } as const;

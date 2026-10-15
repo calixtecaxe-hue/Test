@@ -27,6 +27,8 @@ export function chargerDepuisDisque(dossier: string): EnsembleDonnees {
     reglesAffichage: schemaFichiers.reglesAffichage.parse(lire(dossier, "regles-affichage.json")),
     seuils: schemaFichiers.seuils.parse(lire(dossier, "seuils.json")),
     limitesObjectif: schemaFichiers.limitesObjectif.parse(lire(dossier, "objectif-limites.json")),
+    catalogue: schemaFichiers.catalogue.parse(lire(dossier, "catalogue-themes.json")),
+    parametresReferences: schemaFichiers.parametresReferences.parse(lire(dossier, "parametres-references.json")),
     banque: schemaFichiers.banque.parse(lire(dossier, "banque", "questions.json")),
   };
 }

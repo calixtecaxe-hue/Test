@@ -1,0 +1,13 @@
+{
+  "source": "Valeurs de travail du chantier « références de marché » (cahier du 15 octobre), réglables ici sans toucher au code. Fréquence de mise à jour : tous les 3 mois par défaut, à ajuster par secteur (décision du propriétaire du produit) ; aucun réglage par secteur n'est encore fourni.",
+  "tolerancePourcent": 10,
+  "recoupementEcartMaxPourcent": 20,
+  "ageSourceMaxAns": { "solide": 3, "indicatif": 5 },
+  "echantillonMinSolide": 30,
+  "sautDeValeurRevuePourcent": 25,
+  "rechercheMaxParCouple": 4,
+  "aucuneReferenceNouvelleTentativeJours": 90,
+  "miseAJour": { "moisParDefaut": 3, "moisParCategorie": {} },
+  "plafondsBudget": { "mensuelEuros": 20, "quotidienEuros": null },
+  "derive": { "clientsMin": 30, "partMemeCote": 0.8 }
+}

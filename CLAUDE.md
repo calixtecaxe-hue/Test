@@ -51,6 +51,12 @@ et premium, jamais comme un gadget.
 - Dynamique permis : le choix, parmi des questions écrites, de celles d'un point
   d'étape ; la rédaction du rapport et des relances ; une légère adaptation du ton
   d'une question. Jamais la substance ni la structure.
+- **Chiffre de marché** (décision du 15 octobre) : un chiffre de marché est **un extrait vérifié par le
+  code dans une source citée**, jamais produit ni recalculé par l'IA. Un agent de recherche, séparé de l'IA
+  qui rédige le rapport, le trouve ; le code le contrôle ; il est enregistré en base et réutilisé par tous
+  les clients du même profil. Le moteur ne lit que ces références, il n'appelle jamais l'IA. Sans référence,
+  le thème s'affiche avec les chiffres du client et sans comparaison au marché ; un rapport n'est jamais
+  bloqué.
 - Deux couches de données : réponses fermées et chiffrées → calcul ; réponses
   ouvertes (facultatives) → contexte pour l'IA, **jamais dans le calcul**.
 - **Aucune question codée en dur.** Questions, seuils, croisements, lexique,
@@ -303,6 +309,23 @@ produit `CAXE_Banque_Questions.xlsx` (une ligne par donnée posée, prérempli),
 <classeur>` le convertit en `data/banque/questions.json` (contrôle chaque ligne, n'écrit rien s'il reste une
 erreur). Les croisements ne sont pas encore exécutables : leurs formules sont en texte libre dans le classeur ;
 elles se brancheront sur les réponses typées une fois la banque écrite.
+
+**Références de marché (chantier du 15 octobre, étape a construite)** : seuls les **22 thèmes de nature
+Marché** se comparent à un chiffre de marché (les 140 autres n'ont jamais de recherche). `data/catalogue-themes.json`
+(écrit par `python3 scripts/ecrire-catalogue-themes.py`) : une fiche par thème, avec pour les thèmes de nature Marché les
+indicateurs comparables (36, tous **en brouillon** : sens, bornes et mots-clés à valider par le propriétaire avant toute
+recherche ; FIN-37, volume absolu, ne se compare pas). `data/parametres-references.json` : paramètres réglables (tolérance
+±10 %, recoupement 20 %, âge des sources 3 / 5 ans, 4 recherches maximum par couple, **mise à jour tous les 3 mois par défaut,
+réglable par catégorie de métier**, plafond mensuel de 20 € pour le pilote). Base : `ReferenceMarche` (versions, jamais
+supprimées) et `RechercheReference` (journal, verrou, coût). Code : `src/lib/references/` (`types.ts` forme d'une référence,
+`cascade.ts` choix de la plus précise : métier + activité + zone + taille, puis métier, puis famille = catégorie, puis
+national seulement si l'indicateur l'autorise ; décision de lancer une recherche ; échéances, `contexte.ts` contexte d'un
+compte, `depot.ts` lecture en base). Le constat (`moteur/constat.ts`) distingue `aucune_reference`, `reference_disponible`,
+`sans_comparaison` et `regle_manquante` (pratique et cohérence : leur règle de notation n'est **pas écrite non plus**) ;
+`moteur/affichage-constat.ts` ne montre jamais au client un mot technique. Règle provisoire à confirmer : pour un compte
+à plusieurs activités, l'activité par défaut du métier sert de repère. **Pas encore construits** : agent de recherche et
+garde-fous (b), position du client face au marché et gel par audit (c), mises à jour (d), file de revue et suivi (e).
+La valeur du client pour un indicateur calculé n'est pas calculable tant que les formules des croisements sont en texte libre.
 
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),
