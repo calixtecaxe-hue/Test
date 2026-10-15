@@ -415,6 +415,9 @@ export const THEMES_GENERATION = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 25, 27, 39, 41, 55, 56, 57, 58,
 ];
 
+// ATTENTION : remplacé par `data/themes.json` (classeur du 14 octobre, source de
+// vérité depuis le 15 octobre : 45 thèmes Finance dont le bloc Stock de 9). Non utilisé ; à supprimer quand le site
+// lira les thèmes dans les fichiers de données.
 // Les 40 thèmes de l'agent Finance & Rentabilité, en huit groupes (fournis par
 // le client), mis de côté pour un usage ultérieur. Chaque thème est
 // [titre, précision]. La numérotation suit l'ordre : groupe 1 = thèmes 1 à 7, etc.
@@ -624,6 +627,9 @@ export const GROUPES_FINANCE: GroupeComm[] = [
   },
 ];
 
+// ATTENTION : remplacé par `data/themes.json` (classeur du 14 octobre, source de
+// vérité depuis le 15 octobre : 40 thèmes RH). Non utilisé ; à supprimer quand le site
+// lira les thèmes dans les fichiers de données.
 // Les 40 thèmes de l'agent RH & Organisation, en huit groupes (fournis par le
 // client), mis de côté pour un usage ultérieur. Chaque thème est
 // [titre, précision]. La numérotation suit l'ordre : groupe 1 = thèmes 1 à 5,

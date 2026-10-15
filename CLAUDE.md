@@ -226,6 +226,20 @@ lexique des 4 agents) et `CAXE_Questionnaire_Grille_Pilote.xlsx` (**pas encore
 dans le dépôt**; il utilise encore les types A / B / C : ne pas les reprendre
 tels quels).
 
+**Fichiers de données (dossier `data/`)** : `themes.json` (162 thèmes), `donnees-*.json`
+(792 données, par agent), `croisements.json` (157), `scenarios.json` (13),
+`diagnostic-comm.json` (14 problèmes), `declencheurs.json` (27), `lexique.json`,
+`routage.json` (10 catégories, 7 profils, métiers du document) et
+`banque/questions.json` (vide). Les huit premiers viennent du classeur par
+`python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` est écrit
+d'après le document de règles. Schémas : `src/lib/donnees/schemas.ts`. Contrôle :
+`npm run donnees:controle` (et `npm test`). **Le classeur reste l'outil d'écriture :
+on le modifie, on relance l'import, on ne modifie pas les JSON à la main.**
+
+**Décisions du 15 octobre** : prix du palier 4 = 99,99 € HT ; remise annuelle de
+15 % conservée (pour engager à l'année) ; portraits illustrés des agents conservés
+(l'interdiction de « personnage » vise les prénoms) ; objectif en trois champs.
+
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),
 puis la connexion des deux. Tant que la banque n'existe pas, rien n'est inventé :
