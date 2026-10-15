@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { getMetier, getSousVariante } from "@/lib/metiers";
+import { getMetier, getSousVariantes } from "@/lib/metiers";
 import { AGENTS } from "@/lib/agents";
 import { DeconnexionBouton } from "./deconnexion-bouton";
 
@@ -42,9 +42,9 @@ export default async function TableauDeBord() {
   const agentsSouscrits = AGENTS.filter((a) => acces.some((x) => x.agent === a.code));
 
   const metier = getMetier(utilisateur.metierPrecis);
-  const sousVariante = getSousVariante(
+  const sousVariantes = getSousVariantes(
     utilisateur.metierPrecis,
-    utilisateur.sousVariante
+    utilisateur.sousVariantes
   );
 
   return (
@@ -62,7 +62,9 @@ export default async function TableauDeBord() {
             <dt className="text-xs text-[var(--text-faint)]">Métier</dt>
             <dd className="mt-1">
               {metier?.libelle ?? utilisateur.metierPrecis}
-              {sousVariante ? ` — ${sousVariante.libelle}` : ""}
+              {sousVariantes.length > 0
+                ? ` — ${sousVariantes.map((v) => v.libelle).join(", ")}`
+                : ""}
             </dd>
           </div>
           <div>

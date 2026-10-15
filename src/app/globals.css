@@ -3426,3 +3426,120 @@ h3,
   aspect-ratio: auto;
   object-fit: contain;
 }
+
+/* Inscription progressive : une question à la fois. Transition sobre, coupée
+   quand les animations sont réduites. */
+.inscription-etape {
+  animation: inscription-entree 0.28s ease both;
+}
+
+@keyframes inscription-entree {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inscription-etape {
+    animation: none;
+  }
+}
+
+.inscription-progres {
+  height: 4px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(244, 236, 216, 0.1);
+}
+
+.inscription-progres > div {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+  transition: width 0.3s ease;
+}
+
+.cases-groupe {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 8px;
+  border: none;
+}
+
+.case-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  font-family: var(--corps);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.case-option:hover {
+  border-color: rgba(244, 236, 216, 0.32);
+}
+
+.case-option.choisie {
+  border-color: var(--blue-1);
+  background: rgba(91, 159, 236, 0.1);
+}
+
+.case-option:has(.case-entree:focus-visible) {
+  outline: 2px solid var(--blue-1);
+  outline-offset: 2px;
+}
+
+.case-entree {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.case-marque {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1.5px solid var(--text-faint);
+  color: var(--bg);
+}
+
+.case-marque.radio {
+  border-radius: 50%;
+}
+
+.case-option.choisie .case-marque {
+  border-color: var(--blue-1);
+  background: var(--blue-1);
+}
+
+.case-marque svg {
+  width: 13px;
+  height: 13px;
+}
+
+.case-point {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg);
+}

@@ -1,0 +1,13 @@
+{
+  "source": "docs/regles-de-fonctionnement.md, partie 3 (« Dossier d'inscription »). Une question à la fois, le métier en premier. Les formulations par profil (parProfil) sont vides : le document n'en fournit aucune.",
+  "questions": [
+    { "id": "metier", "libelle": "Quel est votre métier ?", "aide": "Indiquez votre métier exact, par exemple électricien ou boulanger.", "unite": null, "parProfil": {} },
+    { "id": "sousVariantes", "libelle": "Quelles activités exercez-vous ?", "aide": "Cochez toutes celles qui s'appliquent.", "unite": null, "parProfil": {} },
+    { "id": "chiffreAffairesMensuel", "libelle": "Quel est votre chiffre d'affaires mensuel ?", "aide": "En euros, estimation acceptée.", "unite": "€ par mois", "parProfil": {} },
+    { "id": "nombreCollaborateurs", "libelle": "Combien de personnes travaillent dans votre entreprise ?", "aide": "Vous y compris.", "unite": "personnes", "parProfil": {} },
+    { "id": "anciennete", "libelle": "Quand votre entreprise a-t-elle été créée ?", "aide": "Mois et année.", "unite": null, "parProfil": {} },
+    { "id": "typeZone", "libelle": "Dans quel type de zone se trouve votre entreprise ?", "aide": null, "unite": null, "parProfil": {} },
+    { "id": "ville", "libelle": "Dans quelle ville est-elle installée ?", "aide": null, "unite": null, "parProfil": {} },
+    { "id": "acces", "libelle": "Créez votre accès", "aide": "Votre adresse email et un mot de passe de 10 caractères minimum.", "unite": null, "parProfil": {} }
+  ]
+}

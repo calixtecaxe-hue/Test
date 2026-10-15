@@ -41,7 +41,13 @@ model User {
 
   // Les sept champs d'inscription.
   metierPrecis           String
-  sousVariante           String?
+  // Activités cochées pour les métiers qui en regroupent plusieurs (plusieurs
+  // choix possibles) ; vide pour les autres métiers.
+  sousVariantes          String[]
+  // Routage invisible (CLAUDE.md section 5), recalculé côté serveur à partir de
+  // data/routage.json : catégorie (id) et profils d'entreprise retenus.
+  categorie              String
+  profils                String[]
   chiffreAffairesMensuel Decimal  @db.Decimal(12, 2)
   nombreCollaborateurs   Int
   dateCreationEntreprise DateTime

@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { inscriptionSchema } from "@/lib/validation/inscription";
+import { ROUTAGE } from "@/lib/routage-donnees";
+import { router } from "@/lib/routage";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -16,6 +18,11 @@ export async function POST(request: Request) {
   }
 
   const data = parsed.data;
+  // Le routage est recalculé ici, jamais lu dans la requête.
+  const routage = router(ROUTAGE, data.metierPrecis, data.sousVariantes);
+  if (!routage.ok) {
+    return NextResponse.json({ erreur: "Formulaire invalide.", champs: { [routage.erreur.champ]: [routage.erreur.message] } }, { status: 400 });
+  }
   const passwordHash = await bcrypt.hash(data.motDePasse, 12);
 
   try {
@@ -24,7 +31,9 @@ export async function POST(request: Request) {
         email: data.email,
         passwordHash,
         metierPrecis: data.metierPrecis,
-        sousVariante: data.sousVariante ?? null,
+        sousVariantes: routage.routage.sousVariantes,
+        categorie: routage.routage.categorie.id,
+        profils: routage.routage.profils,
         chiffreAffairesMensuel: new Prisma.Decimal(data.chiffreAffairesMensuel),
         nombreCollaborateurs: data.nombreCollaborateurs,
         dateCreationEntreprise: new Date(data.dateCreationEntreprise),

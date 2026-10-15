@@ -30,8 +30,8 @@ export const PREFIXE_AGENT: Record<CodeAgent, string> = {
   COMM_CREATION: "COM",
 };
 
-export const PROFILS = ["rdv", "commerce", "ecommerce", "restaurant", "chantier", "b2b", "abonnement"] as const;
-export const TAILLES = ["seul", "equipe_2_5", "structure_6_plus"] as const;
+import { PROFILS, TAILLES } from "./constantes.ts";
+export { PROFILS, TAILLES };
 export const profilId = z.enum(PROFILS);
 export type ProfilId = z.infer<typeof profilId>;
 
@@ -186,7 +186,7 @@ export const routage = z.object({
       profils: z.array(profilId).optional(),
       notes: z.string().optional(),
       sousVariantes: z
-        .array(z.object({ id: z.string(), libelle: z.string(), profilsAjoutes: z.array(profilId).nullable() }))
+        .array(z.object({ id: z.string(), libelle: z.string(), profils: z.array(profilId).nullable() }))
         .optional(),
     })
   ),
@@ -198,6 +198,25 @@ export const routage = z.object({
   }),
 });
 export type Routage = z.infer<typeof routage>;
+
+// --- Questions du dossier d'inscription ---------------------------------------
+
+// Une question de l'inscription : un gabarit de texte qui peut employer les mots
+// du lexique entre accolades (« {demande} »), l'unité de la réponse et une aide.
+// `parProfil` permet une formulation propre à un profil ; vide tant que le
+// document n'en fournit aucune (rien n'est inventé).
+export const questionInscription = z.object({
+  id: z.enum(["metier", "sousVariantes", "chiffreAffairesMensuel", "nombreCollaborateurs", "anciennete", "typeZone", "ville", "acces"]),
+  libelle: z.string().min(1),
+  aide: z.string().nullable(),
+  unite: z.string().nullable(),
+  parProfil: z.partialRecord(profilId, z.string()),
+});
+export const inscription = z.object({
+  source: z.string(),
+  questions: z.array(questionInscription),
+});
+export type Inscription = z.infer<typeof inscription>;
 
 // --- Banque de questions (pas encore écrite) ---------------------------------
 
@@ -223,6 +242,7 @@ export type EnsembleDonnees = {
   declencheurs: z.infer<typeof declencheur>[];
   lexique: z.infer<typeof motLexique>[];
   routage: Routage;
+  inscription: Inscription;
   banque: Question[];
 };
 
@@ -235,5 +255,6 @@ export const schemaFichiers = {
   declencheurs: z.array(declencheur),
   lexique: z.array(motLexique),
   routage,
+  inscription,
   banque: z.array(question),
 } as const;

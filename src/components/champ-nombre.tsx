@@ -39,13 +39,18 @@ export function ChampNombre({
   name,
   decimales = false,
   required,
+  valeurInitiale,
 }: {
   id: string;
   name: string;
   decimales?: boolean;
   required?: boolean;
+  // Valeur brute à l'ouverture (« 100000 »), pour revenir sur une réponse déjà donnée.
+  valeurInitiale?: string;
 }) {
-  const [valeur, setValeur] = useState({ affichage: "", brut: "" });
+  const [valeur, setValeur] = useState(() =>
+    valeurInitiale ? formater(valeurInitiale, decimales) : { affichage: "", brut: "" },
+  );
   const champ = useRef<HTMLInputElement>(null);
   const curseur = useRef<number | null>(null);
 

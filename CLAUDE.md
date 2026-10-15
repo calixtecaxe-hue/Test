@@ -229,10 +229,13 @@ tels quels).
 **Fichiers de données (dossier `data/`)** : `themes.json` (162 thèmes), `donnees-*.json`
 (792 données, par agent), `croisements.json` (157), `scenarios.json` (13),
 `diagnostic-comm.json` (14 problèmes), `declencheurs.json` (27), `lexique.json`,
-`routage.json` (10 catégories, 7 profils, métiers du document) et
+`routage.json` (10 catégories, 7 profils, métiers du document),
+`inscription.json` (questions du dossier d'inscription, avec mots du lexique) et
 `banque/questions.json` (vide). Les huit premiers viennent du classeur par
-`python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` est écrit
-d'après le document de règles. Schémas : `src/lib/donnees/schemas.ts`. Contrôle :
+`python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` et `inscription.json` sont écrits
+d'après le document de règles. Schémas : `src/lib/donnees/schemas.ts` ; routage : `src/lib/routage.ts` ;
+lexique : `src/lib/donnees/lexique.ts` (un mot du lexique s'écrit `{demande}`,
+`{nouveau_client}` dans un gabarit ; les formes sont au singulier). Contrôle :
 `npm run donnees:controle` (et `npm test`). **Le classeur reste l'outil d'écriture :
 on le modifie, on relance l'import, on ne modifie pas les JSON à la main.**
 

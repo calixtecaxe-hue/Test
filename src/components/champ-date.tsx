@@ -7,6 +7,9 @@ import { classeChamp } from "@/components/champ";
 // à la place du sélecteur natif du navigateur, qui ne se stylise pas. Le champ
 // caché envoie la date au format aaaa-mm-jj, comme le faisait <input type="date">.
 // Une date de création d'entreprise ne peut pas être dans le futur.
+//
+// Avec `precision="mois"`, seul le mois compte (mm/aaaa) : le calendrier s'ouvre
+// sur les mois et le champ caché envoie le premier jour du mois (aaaa-mm-01).
 
 const MOIS = [
   "janvier",
@@ -30,7 +33,8 @@ type Vue = "jours" | "mois" | "annees";
 
 const cle = (d: Jour) => d.a * 10000 + d.m * 100 + d.j;
 const deux = (n: number) => String(n).padStart(2, "0");
-const enTexte = (d: Jour) => `${deux(d.j)}/${deux(d.m + 1)}/${d.a}`;
+const enTexte = (d: Jour, mois: boolean) =>
+  mois ? `${deux(d.m + 1)}/${d.a}` : `${deux(d.j)}/${deux(d.m + 1)}/${d.a}`;
 const enIso = (d: Jour) => `${d.a}-${deux(d.m + 1)}-${deux(d.j)}`;
 
 function aujourdhui(): Jour {
@@ -53,7 +57,14 @@ function ajouterMois(d: Jour, n: number): Jour {
   };
 }
 
-function analyser(texte: string): Jour | null {
+function analyser(texte: string, parMois: boolean): Jour | null {
+  if (parMois) {
+    const m = /^(\d{2})\/(\d{4})$/.exec(texte);
+    if (!m) return null;
+    const numero = Number(m[1]);
+    const a = Number(m[2]);
+    return numero >= 1 && numero <= 12 && a >= ANNEE_MINIMALE ? { a, m: numero - 1, j: 1 } : null;
+  }
   const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(texte);
   if (!m) return null;
   const j = Number(m[1]);
@@ -67,7 +78,11 @@ function analyser(texte: string): Jour | null {
 }
 
 // Insère les « / » pendant la frappe : 15032020 devient 15/03/2020.
-function masquer(saisie: string): string {
+function masquer(saisie: string, mois: boolean): string {
+  if (mois) {
+    const c = saisie.replace(/\D/g, "").slice(0, 6);
+    return c.length <= 2 ? c : `${c.slice(0, 2)}/${c.slice(2)}`;
+  }
   const c = saisie.replace(/\D/g, "").slice(0, 8);
   if (c.length <= 2) return c;
   if (c.length <= 4) return `${c.slice(0, 2)}/${c.slice(2)}`;
@@ -111,15 +126,24 @@ export function ChampDate({
   id,
   name,
   required,
+  precision = "jour",
+  valeurInitiale,
 }: {
   id: string;
   name: string;
   required?: boolean;
+  precision?: "jour" | "mois";
+  // Date à l'ouverture, au format aaaa-mm-jj, pour revenir sur une réponse déjà donnée.
+  valeurInitiale?: string;
 }) {
+  const parMois = precision === "mois";
   const aujour = aujourdhui();
-  const [texte, setTexte] = useState("");
+  const [texte, setTexte] = useState(() => {
+    const m = valeurInitiale ? /^(\d{4})-(\d{2})-(\d{2})$/.exec(valeurInitiale) : null;
+    return m ? enTexte({ a: Number(m[1]), m: Number(m[2]) - 1, j: Number(m[3]) }, precision === "mois") : "";
+  });
   const [ouvert, setOuvert] = useState(false);
-  const [vue, setVue] = useState<Vue>("jours");
+  const [vue, setVue] = useState<Vue>(parMois ? "mois" : "jours");
   const [affiche, setAffiche] = useState({ a: aujour.a, m: aujour.m });
   const [focus, setFocus] = useState<Jour>(aujour);
   const racine = useRef<HTMLDivElement>(null);
@@ -127,16 +151,21 @@ export function ChampDate({
   const focaliser = useRef(false);
   const idDialogue = useId();
 
-  const analyse = analyser(texte);
-  const choisi = analyse && cle(analyse) <= cle(aujour) ? analyse : null;
+  const analyse = analyser(texte, parMois);
+  const choisi =
+    analyse && (parMois ? analyse.a * 12 + analyse.m <= aujour.a * 12 + aujour.m : cle(analyse) <= cle(aujour))
+      ? analyse
+      : null;
 
   useEffect(() => {
     champ.current?.setCustomValidity(
       texte && !choisi
-        ? "Indiquez une date valide, passée, au format jj/mm/aaaa."
+        ? parMois
+          ? "Indiquez un mois valide, passé, au format mm/aaaa."
+          : "Indiquez une date valide, passée, au format jj/mm/aaaa."
         : "",
     );
-  }, [texte, choisi]);
+  }, [texte, choisi, parMois]);
 
   useEffect(() => {
     if (!ouvert) return;
@@ -159,7 +188,7 @@ export function ChampDate({
     const depart = choisi ?? aujour;
     setAffiche({ a: depart.a, m: depart.m });
     setFocus(depart);
-    setVue("jours");
+    setVue(parMois ? "mois" : "jours");
     focaliser.current = true;
     setOuvert(true);
   }
@@ -170,15 +199,15 @@ export function ChampDate({
   }
 
   function surTexte(event: React.ChangeEvent<HTMLInputElement>) {
-    const valeur = masquer(event.target.value);
+    const valeur = masquer(event.target.value, parMois);
     setTexte(valeur);
-    const d = analyser(valeur);
+    const d = analyser(valeur, parMois);
     if (d) setAffiche({ a: d.a, m: d.m });
   }
 
   function prendre(d: Jour) {
     if (cle(d) > cle(aujour)) return;
-    setTexte(enTexte(d));
+    setTexte(enTexte(d, parMois));
     fermer(true);
   }
 
@@ -259,8 +288,8 @@ export function ChampDate({
         type="text"
         inputMode="numeric"
         autoComplete="off"
-        placeholder="jj/mm/aaaa"
-        maxLength={10}
+        placeholder={parMois ? "mm/aaaa" : "jj/mm/aaaa"}
+        maxLength={parMois ? 7 : 10}
         required={required}
         value={texte}
         onChange={surTexte}
@@ -295,7 +324,7 @@ export function ChampDate({
         <div
           id={idDialogue}
           role="dialog"
-          aria-label="Choisir une date"
+          aria-label={parMois ? "Choisir un mois" : "Choisir une date"}
           className="cal"
         >
           <div className="cal-tete">
@@ -308,7 +337,9 @@ export function ChampDate({
                     ? "mois"
                     : vue === "mois"
                       ? "annees"
-                      : "jours",
+                      : parMois
+                        ? "mois"
+                        : "jours",
                 )
               }
             >
@@ -387,6 +418,10 @@ export function ChampDate({
                       : ""
                   }`}
                   onClick={() => {
+                    if (parMois) {
+                      prendre({ a: affiche.a, m: i, j: 1 });
+                      return;
+                    }
                     setAffiche({ a: affiche.a, m: i });
                     setFocus({ a: affiche.a, m: i, j: 1 });
                     setVue("jours");
@@ -429,7 +464,7 @@ export function ChampDate({
               Effacer
             </button>
             <button type="button" onClick={() => prendre(aujour)}>
-              Aujourd&apos;hui
+              {parMois ? "Ce mois-ci" : "Aujourd'hui"}
             </button>
           </div>
         </div>

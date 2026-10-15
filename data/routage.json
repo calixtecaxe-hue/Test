@@ -37,8 +37,8 @@
     { "id": "menuisier", "libelle": "Menuisier", "categorie": "prestation-chantier" },
     { "id": "couvreur", "libelle": "Couvreur", "categorie": "prestation-chantier" },
     { "id": "paysagiste", "libelle": "Paysagiste", "categorie": "prestation-chantier", "sousVariantes": [
-      { "id": "creation", "libelle": "Création", "profilsAjoutes": ["chantier"] },
-      { "id": "entretien", "libelle": "Entretien régulier", "profilsAjoutes": ["abonnement"] }
+      { "id": "creation", "libelle": "Création", "profils": ["chantier"] },
+      { "id": "entretien", "libelle": "Entretien régulier", "profils": ["abonnement"] }
     ] },
     { "id": "aide-a-domicile", "libelle": "Aide à domicile", "categorie": "prestation-recurrente" },
     { "id": "creche", "libelle": "Crèche", "categorie": "prestation-recurrente" },
@@ -47,14 +47,14 @@
     { "id": "conciergerie", "libelle": "Conciergerie", "categorie": "prestation-recurrente" },
     { "id": "editeur-saas", "libelle": "Éditeur de logiciel en abonnement (SaaS)", "categorie": "prestation-recurrente" },
     { "id": "agence-immobiliere", "libelle": "Agence immobilière indépendante", "categorie": "transaction-cycle-long", "pilote": true, "sousVariantes": [
-      { "id": "transaction", "libelle": "Transaction (vente et achat)", "profilsAjoutes": ["b2b"] },
-      { "id": "gestion-locative", "libelle": "Gestion locative", "profilsAjoutes": ["abonnement"] },
-      { "id": "syndic", "libelle": "Syndic", "profilsAjoutes": ["abonnement"] },
-      { "id": "conciergerie-saisonniere", "libelle": "Conciergerie saisonnière", "profilsAjoutes": ["abonnement"] }
+      { "id": "transaction", "libelle": "Transaction (vente et achat)", "profils": ["b2b"] },
+      { "id": "gestion-locative", "libelle": "Gestion locative", "profils": ["abonnement"] },
+      { "id": "syndic", "libelle": "Syndic", "profils": ["abonnement"] },
+      { "id": "conciergerie-saisonniere", "libelle": "Conciergerie saisonnière", "profils": ["abonnement"] }
     ] },
     { "id": "agence-voyage", "libelle": "Agence de voyage", "categorie": "transaction-cycle-long", "sousVariantes": [
-      { "id": "particuliers", "libelle": "Clientèle particuliers", "profilsAjoutes": null },
-      { "id": "entreprises-groupes", "libelle": "Clientèle entreprises ou groupes", "profilsAjoutes": null }
+      { "id": "particuliers", "libelle": "Clientèle particuliers", "profils": null },
+      { "id": "entreprises-groupes", "libelle": "Clientèle entreprises ou groupes", "profils": null }
     ] },
     { "id": "concession-automobile", "libelle": "Concession automobile", "categorie": "transaction-cycle-long", "notes": "Vente + atelier : un seul modèle au lancement." },
     { "id": "courtier", "libelle": "Courtier", "categorie": "transaction-cycle-long" },
@@ -83,8 +83,8 @@
     { "id": "marque-vente-directe", "libelle": "Marque vendue en direct", "categorie": "commerce-en-ligne" },
     { "id": "vendeur-marketplace", "libelle": "Vendeur sur marketplace", "categorie": "commerce-en-ligne" },
     { "id": "agence-web-com-marketing", "libelle": "Agence web, com ou marketing", "categorie": "agences-services-entreprises", "sousVariantes": [
-      { "id": "projets-ponctuels", "libelle": "Projets ponctuels", "profilsAjoutes": ["b2b"] },
-      { "id": "contrats-mensuels", "libelle": "Contrats mensuels", "profilsAjoutes": ["abonnement"] }
+      { "id": "projets-ponctuels", "libelle": "Projets ponctuels", "profils": ["b2b"] },
+      { "id": "contrats-mensuels", "libelle": "Contrats mensuels", "profils": ["b2b", "abonnement"] }
     ] },
     { "id": "studio-design", "libelle": "Studio de design", "categorie": "agences-services-entreprises" },
     { "id": "esn", "libelle": "ESN", "categorie": "agences-services-entreprises" },

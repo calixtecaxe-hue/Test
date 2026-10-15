@@ -10,6 +10,7 @@
 
 import { PREFIXE_AGENT, PROFILS, TAILLES } from "./schemas.ts";
 import type { CodeAgent, EnsembleDonnees } from "./schemas.ts";
+import { cleLexique, variablesDuGabarit } from "./lexique.ts";
 
 export type Rapport = {
   erreurs: string[];
@@ -146,6 +147,21 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
   }
   if (e.routage.categories.length !== 10) {
     avertissements.push(`Le routage compte ${e.routage.categories.length} catégories ; le document en prévoit 10.`);
+  }
+
+  // Inscription : questions complètes, et mots du lexique employés qui existent.
+  const clesLexique = new Set(e.lexique.map((m) => cleLexique(m.mot)));
+  const idsAttendus = ["metier", "sousVariantes", "chiffreAffairesMensuel", "nombreCollaborateurs", "anciennete", "typeZone", "ville", "acces"];
+  for (const id of idsAttendus) {
+    if (!e.inscription.questions.some((q) => q.id === id)) erreurs.push(`La question d'inscription « ${id} » manque.`);
+  }
+  for (const d of doublons(e.inscription.questions.map((q) => q.id))) erreurs.push(`Question d'inscription en double : ${d}.`);
+  for (const q of e.inscription.questions) {
+    for (const g of [q.libelle, q.aide ?? "", ...Object.values(q.parProfil)]) {
+      for (const v of variablesDuGabarit(g)) {
+        if (!clesLexique.has(v)) erreurs.push(`La question d'inscription « ${q.id} » emploie un mot inconnu du lexique : {${v}}.`);
+      }
+    }
   }
 
   // Banque : chaque question référence une donnée demandée.

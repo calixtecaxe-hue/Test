@@ -1,55 +1,214 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
-import { METIERS } from "@/lib/metiers";
 import { Champ, classeChamp } from "@/components/champ";
 import { ChampDate } from "@/components/champ-date";
 import { ChampNombre } from "@/components/champ-nombre";
-import { MenuDeroulant } from "@/components/menu-deroulant";
+import { ChampRecherche } from "@/components/champ-recherche";
+import { ChoixCases } from "@/components/choix-cases";
+import { libelleQuestion } from "@/lib/donnees/lexique";
+import { metiersTries, router, trouverMetier } from "@/lib/routage";
+import { INSCRIPTION_CLIENT, LEXIQUE_CLIENT, ROUTAGE_CLIENT } from "@/lib/routage-client";
 import logo from "../../../public/logo-caxe.png";
 
-const metiersActifs = METIERS.filter((m) => m.actif);
+// Dossier d'inscription : une question à la fois, le métier en premier. Chaque
+// question suivante est formulée avec les mots du métier (lexique) quand le
+// document en prévoit. Le routage (catégorie, profils) n'est jamais envoyé : le
+// serveur le recalcule (CLAUDE.md section 5).
+
+type IdEtape =
+  | "metier"
+  | "sousVariantes"
+  | "chiffreAffairesMensuel"
+  | "nombreCollaborateurs"
+  | "anciennete"
+  | "typeZone"
+  | "ville"
+  | "acces";
+
+type Valeurs = {
+  metier: string;
+  sousVariantes: string[];
+  chiffreAffairesMensuel: string;
+  nombreCollaborateurs: string;
+  anciennete: string;
+  typeZone: string;
+  ville: string;
+  email: string;
+};
+
+const VIDE: Valeurs = {
+  metier: "",
+  sousVariantes: [],
+  chiffreAffairesMensuel: "",
+  nombreCollaborateurs: "",
+  anciennete: "",
+  typeZone: "",
+  ville: "",
+  email: "",
+};
+
+const ZONES = [
+  { valeur: "URBAINE_DENSE", libelle: "Urbaine dense" },
+  { valeur: "PERIURBAINE", libelle: "Périurbaine" },
+  { valeur: "RURALE", libelle: "Rurale" },
+];
+
+// Champ du serveur → étape où le corriger.
+const ETAPE_DU_CHAMP: Record<string, IdEtape> = {
+  metierPrecis: "metier",
+  sousVariantes: "sousVariantes",
+  chiffreAffairesMensuel: "chiffreAffairesMensuel",
+  nombreCollaborateurs: "nombreCollaborateurs",
+  dateCreationEntreprise: "anciennete",
+  typeZone: "typeZone",
+  ville: "ville",
+  email: "acces",
+  motDePasse: "acces",
+};
+
+const METIERS = metiersTries(ROUTAGE_CLIENT).map((m) => ({ valeur: m.id, libelle: m.libelle }));
+const QUESTIONS = Object.fromEntries(INSCRIPTION_CLIENT.questions.map((q) => [q.id, q]));
 
 export default function Inscription() {
-  const router = useRouter();
-  const [metierPrecis, setMetierPrecis] = useState(metiersActifs[0]?.id ?? "");
-  const [erreurs, setErreurs] = useState<Record<string, string[]>>({});
+  const route = useRouter();
+  const [valeurs, setValeurs] = useState<Valeurs>(VIDE);
+  const [etape, setEtape] = useState(0);
+  const [erreurs, setErreurs] = useState<Record<string, string>>({});
   const [erreurGenerale, setErreurGenerale] = useState<string | null>(null);
   const [enCours, setEnCours] = useState(false);
+  const formulaire = useRef<HTMLFormElement>(null);
 
-  const metier = metiersActifs.find((m) => m.id === metierPrecis);
-  const sousVariantesActives =
-    metier?.sousVariantes?.filter((v) => v.actif) ?? [];
+  const metier = trouverMetier(ROUTAGE_CLIENT, valeurs.metier);
+  const aDesActivites = (metier?.sousVariantes?.length ?? 0) > 0;
+  const etapes: IdEtape[] = [
+    "metier",
+    ...(aDesActivites ? (["sousVariantes"] as const) : []),
+    "chiffreAffairesMensuel",
+    "nombreCollaborateurs",
+    "anciennete",
+    "typeZone",
+    "ville",
+    "acces",
+  ];
+  const courante = etapes[Math.min(etape, etapes.length - 1)];
+  const derniere = etape >= etapes.length - 1;
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  // Les mots du métier, dès que le métier (et ses activités) sont connus.
+  const routage = valeurs.metier
+    ? router(ROUTAGE_CLIENT, valeurs.metier, valeurs.sousVariantes)
+    : null;
+  const profils = routage?.ok ? routage.routage.profils : [];
+  const question = QUESTIONS[courante];
+  const titre = libelleQuestion(question, profils, LEXIQUE_CLIENT);
+
+  // Le focus passe à la première réponse possible quand la question change.
+  useEffect(() => {
+    formulaire.current
+      ?.querySelector<HTMLElement>(
+        "input:not([type=hidden]):not([type=checkbox]):not([type=radio]), input[type=checkbox], input[type=radio], button[role=combobox]",
+      )
+      ?.focus();
+  }, [courante]);
+
+  function lire(nom: string): string {
+    // Par le nom : le champ caché des nombres et des dates porte le nom, le champ
+    // visible porte seulement l'identifiant.
+    return formulaire.current?.querySelector<HTMLInputElement>(`input[name="${nom}"]`)?.value ?? "";
+  }
+
+  // Vérifie la question en cours ; rend le message d'erreur, ou null.
+  function verifier(): { erreur: string | null; suite?: Partial<Valeurs> } {
+    switch (courante) {
+      case "metier":
+        return valeurs.metier ? { erreur: null } : { erreur: "Choisissez votre métier dans la liste." };
+      case "sousVariantes":
+        return valeurs.sousVariantes.length > 0
+          ? { erreur: null }
+          : { erreur: "Cochez au moins une activité." };
+      case "chiffreAffairesMensuel": {
+        const v = lire("chiffreAffairesMensuel");
+        return v === "" || Number.isNaN(Number(v))
+          ? { erreur: "Indiquez un chiffre d'affaires mensuel, même approximatif." }
+          : { erreur: null, suite: { chiffreAffairesMensuel: v } };
+      }
+      case "nombreCollaborateurs": {
+        const v = lire("nombreCollaborateurs");
+        return v === "" || Number(v) < 1
+          ? { erreur: "Indiquez au moins une personne : vous." }
+          : { erreur: null, suite: { nombreCollaborateurs: v } };
+      }
+      case "anciennete": {
+        const v = lire("dateCreationEntreprise");
+        return v === ""
+          ? { erreur: "Indiquez un mois passé, au format mm/aaaa." }
+          : { erreur: null, suite: { anciennete: v } };
+      }
+      case "typeZone":
+        return valeurs.typeZone ? { erreur: null } : { erreur: "Choisissez le type de zone." };
+      case "ville": {
+        const v = lire("ville").trim();
+        return v === "" ? { erreur: "Indiquez la ville." } : { erreur: null, suite: { ville: v } };
+      }
+      case "acces":
+        return { erreur: null };
+    }
+  }
+
+  function precedente() {
+    setErreurs({});
+    setErreurGenerale(null);
+    setEtape((e) => Math.max(e - 1, 0));
+  }
+
+  async function surEnvoi(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setErreurGenerale(null);
-    setErreurs({});
 
-    const formData = new FormData(event.currentTarget);
-    const motDePasse = formData.get("motDePasse");
-    const confirmation = formData.get("confirmation");
-    if (motDePasse !== confirmation) {
-      setErreurs({
-        confirmation: ["Les deux mots de passe ne correspondent pas."],
-      });
+    if (courante === "acces") {
+      await creer();
       return;
     }
 
+    const { erreur, suite } = verifier();
+    if (erreur) {
+      setErreurs({ [courante]: erreur });
+      return;
+    }
+    setErreurs({});
+    if (suite) setValeurs((v) => ({ ...v, ...suite }));
+    setEtape((e) => e + 1);
+  }
+
+  async function creer() {
+    const email = lire("email").trim();
+    const motDePasse = lire("motDePasse");
+    const confirmation = lire("confirmation");
+    const nouvelles: Record<string, string> = {};
+    if (!/^\S+@\S+\.\S+$/.test(email)) nouvelles.email = "Adresse email invalide.";
+    if (motDePasse.length < 10) nouvelles.motDePasse = "Le mot de passe doit contenir au moins 10 caractères.";
+    else if (motDePasse !== confirmation) nouvelles.confirmation = "Les deux mots de passe ne correspondent pas.";
+    setValeurs((v) => ({ ...v, email }));
+    if (Object.keys(nouvelles).length > 0) {
+      setErreurs(nouvelles);
+      return;
+    }
+    setErreurs({});
+
     const payload = {
-      email: formData.get("email"),
+      email,
       motDePasse,
-      metierPrecis: formData.get("metierPrecis"),
-      sousVariante: formData.get("sousVariante") || undefined,
-      chiffreAffairesMensuel: formData.get("chiffreAffairesMensuel"),
-      nombreCollaborateurs: formData.get("nombreCollaborateurs"),
-      dateCreationEntreprise: formData.get("dateCreationEntreprise"),
-      typeZone: formData.get("typeZone"),
-      ville: formData.get("ville"),
+      metierPrecis: valeurs.metier,
+      sousVariantes: valeurs.sousVariantes,
+      chiffreAffairesMensuel: valeurs.chiffreAffairesMensuel,
+      nombreCollaborateurs: valeurs.nombreCollaborateurs,
+      dateCreationEntreprise: valeurs.anciennete,
+      typeZone: valeurs.typeZone,
+      ville: valeurs.ville,
     };
 
     setEnCours(true);
@@ -62,7 +221,18 @@ export default function Inscription() {
       const resultat = await reponse.json();
 
       if (!reponse.ok) {
-        setErreurs(resultat.champs ?? {});
+        const champs: Record<string, string[]> = resultat.champs ?? {};
+        const premier = Object.keys(champs).find((c) => ETAPE_DU_CHAMP[c]);
+        if (premier) {
+          const cible = ETAPE_DU_CHAMP[premier];
+          const index = etapes.indexOf(cible);
+          setErreurs(
+            Object.fromEntries(
+              Object.entries(champs).map(([c, m]) => [ETAPE_DU_CHAMP[c] ?? c, m[0]]),
+            ),
+          );
+          if (index >= 0) setEtape(index);
+        }
         setErreurGenerale(resultat.erreur ?? "Le compte n'a pas pu être créé.");
         return;
       }
@@ -72,14 +242,12 @@ export default function Inscription() {
         motDePasse: payload.motDePasse,
         redirect: false,
       });
-
       if (connexion?.error) {
-        router.push("/connexion");
+        route.push("/connexion");
         return;
       }
-
-      router.push("/tableau-de-bord");
-      router.refresh();
+      route.push("/tableau-de-bord");
+      route.refresh();
     } catch {
       setErreurGenerale("Une erreur est survenue. Réessayez.");
     } finally {
@@ -95,181 +263,199 @@ export default function Inscription() {
       <h1 className="mt-8 text-2xl">Créer un compte</h1>
       <p className="mt-2 text-[var(--text-muted)]">
         Ces informations servent à choisir le questionnaire et les seuils de
-        comparaison adaptés à votre entreprise.
+        comparaison adaptés à votre entreprise. Vous ne les donnez qu&apos;une fois.
       </p>
 
-      <form onSubmit={onSubmit} className="mt-10 flex flex-col gap-6">
-        <Champ
-          label="Adresse email"
-          htmlFor="email"
-          erreur={erreurs.email?.[0]}
+      <div className="mt-8">
+        <p className="mb-2 text-xs text-[var(--text-faint)]" aria-live="polite">
+          Question {etape + 1} sur {etapes.length}
+        </p>
+        <div
+          className="inscription-progres"
+          role="progressbar"
+          aria-valuemin={1}
+          aria-valuemax={etapes.length}
+          aria-valuenow={etape + 1}
+          aria-label="Avancement de l'inscription"
         >
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            autoComplete="email"
-            className={classeChamp}
-          />
-        </Champ>
+          <div style={{ width: `${((etape + 1) / etapes.length) * 100}%` }} />
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <Champ
-            label="Mot de passe"
-            htmlFor="motDePasse"
-            aide="10 caractères minimum."
-            erreur={erreurs.motDePasse?.[0]}
-          >
-            <input
-              id="motDePasse"
-              name="motDePasse"
-              type="password"
-              required
-              minLength={10}
-              autoComplete="new-password"
-              className={classeChamp}
-            />
-          </Champ>
-          <Champ
-            label="Confirmation"
-            htmlFor="confirmation"
-            erreur={erreurs.confirmation?.[0]}
-          >
-            <input
-              id="confirmation"
-              name="confirmation"
-              type="password"
-              required
-              minLength={10}
-              autoComplete="new-password"
-              className={classeChamp}
-            />
-          </Champ>
+      <form
+        key={courante}
+        ref={formulaire}
+        onSubmit={surEnvoi}
+        noValidate
+        className="inscription-etape mt-8 flex flex-col gap-6"
+      >
+        <div>
+          <h2 className="text-xl">{titre}</h2>
+          {question.aide ? (
+            <p className="mt-1 text-sm text-[var(--text-muted)]">{question.aide}</p>
+          ) : null}
         </div>
 
-        <hr className="border-[var(--line)]" />
-
-        <Champ
-          label="Métier précis"
-          htmlFor="metierPrecis"
-          erreur={erreurs.metierPrecis?.[0]}
-        >
-          <MenuDeroulant
-            id="metierPrecis"
-            name="metierPrecis"
-            valeur={metierPrecis}
-            onChange={setMetierPrecis}
-            options={metiersActifs.map((m) => ({
-              valeur: m.id,
-              libelle: m.libelle,
-            }))}
-          />
-        </Champ>
-
-        {sousVariantesActives.length > 0 ? (
-          <Champ
-            label="Activité"
-            htmlFor="sousVariante"
-            erreur={erreurs.sousVariante?.[0]}
-          >
-            <MenuDeroulant
-              key={metierPrecis}
-              id="sousVariante"
-              name="sousVariante"
-              options={sousVariantesActives.map((v) => ({
-                valeur: v.id,
-                libelle: v.libelle,
-              }))}
+        {courante === "metier" ? (
+          <Champ label="Métier" htmlFor="metier" erreur={erreurs.metier}>
+            <ChampRecherche
+              id="metier"
+              name="metier"
+              options={METIERS}
+              valeur={valeurs.metier}
+              onChange={(m) => setValeurs((v) => ({ ...v, metier: m, sousVariantes: [] }))}
+              placeholder="Tapez quelques lettres de votre métier"
             />
           </Champ>
         ) : null}
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {courante === "sousVariantes" && metier ? (
+          <div>
+            <ChoixCases
+              nom="sousVariantes"
+              type="checkbox"
+              legende={question.libelle}
+              options={(metier.sousVariantes ?? []).map((v) => ({ valeur: v.id, libelle: v.libelle }))}
+              valeurs={valeurs.sousVariantes}
+              onChange={(s) => setValeurs((v) => ({ ...v, sousVariantes: s }))}
+            />
+            {erreurs.sousVariantes ? (
+              <p className="mt-2 text-xs text-[var(--red-1)]">{erreurs.sousVariantes}</p>
+            ) : null}
+          </div>
+        ) : null}
+
+        {courante === "chiffreAffairesMensuel" ? (
           <Champ
-            label="Chiffre d'affaires mensuel"
+            label={question.unite ?? "Chiffre d'affaires mensuel"}
             htmlFor="chiffreAffairesMensuel"
-            aide="En euros, estimation acceptée."
-            erreur={erreurs.chiffreAffairesMensuel?.[0]}
+            erreur={erreurs.chiffreAffairesMensuel}
           >
             <ChampNombre
               id="chiffreAffairesMensuel"
               name="chiffreAffairesMensuel"
               decimales
-              required
+              valeurInitiale={valeurs.chiffreAffairesMensuel}
             />
           </Champ>
+        ) : null}
+
+        {courante === "nombreCollaborateurs" ? (
           <Champ
-            label="Nombre de collaborateurs"
+            label={question.unite ?? "Nombre de personnes"}
             htmlFor="nombreCollaborateurs"
-            aide="Vous y compris."
-            erreur={erreurs.nombreCollaborateurs?.[0]}
+            erreur={erreurs.nombreCollaborateurs}
           >
             <ChampNombre
               id="nombreCollaborateurs"
               name="nombreCollaborateurs"
-              required
+              valeurInitiale={valeurs.nombreCollaborateurs}
             />
           </Champ>
-        </div>
+        ) : null}
 
-        <Champ
-          label="Date de création de l'entreprise"
-          htmlFor="dateCreationEntreprise"
-          erreur={erreurs.dateCreationEntreprise?.[0]}
-        >
-          <ChampDate
-            id="dateCreationEntreprise"
-            name="dateCreationEntreprise"
-            required
-          />
-        </Champ>
-
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <Champ
-            label="Type de zone"
-            htmlFor="typeZone"
-            erreur={erreurs.typeZone?.[0]}
-          >
-            <MenuDeroulant
-              id="typeZone"
-              name="typeZone"
-              options={[
-                { valeur: "URBAINE_DENSE", libelle: "Urbaine dense" },
-                { valeur: "PERIURBAINE", libelle: "Périurbaine" },
-                { valeur: "RURALE", libelle: "Rurale" },
-              ]}
+        {courante === "anciennete" ? (
+          <Champ label="Mois de création" htmlFor="dateCreationEntreprise" erreur={erreurs.anciennete}>
+            <ChampDate
+              id="dateCreationEntreprise"
+              name="dateCreationEntreprise"
+              precision="mois"
+              valeurInitiale={valeurs.anciennete}
             />
           </Champ>
-          <Champ label="Ville" htmlFor="ville" erreur={erreurs.ville?.[0]}>
+        ) : null}
+
+        {courante === "typeZone" ? (
+          <div>
+            <ChoixCases
+              nom="typeZone"
+              type="radio"
+              legende={question.libelle}
+              options={ZONES}
+              valeurs={valeurs.typeZone ? [valeurs.typeZone] : []}
+              onChange={(z) => setValeurs((v) => ({ ...v, typeZone: z[0] ?? "" }))}
+            />
+            {erreurs.typeZone ? <p className="mt-2 text-xs text-[var(--red-1)]">{erreurs.typeZone}</p> : null}
+          </div>
+        ) : null}
+
+        {courante === "ville" ? (
+          <Champ label="Ville" htmlFor="ville" erreur={erreurs.ville}>
             <input
               id="ville"
               name="ville"
               type="text"
-              required
+              autoComplete="address-level2"
+              defaultValue={valeurs.ville}
               className={classeChamp}
             />
           </Champ>
-        </div>
-
-        {erreurGenerale ? (
-          <p className="text-sm text-[var(--red-1)]">{erreurGenerale}</p>
         ) : null}
 
-        <button
-          type="submit"
-          disabled={enCours}
-          className="mt-2 rounded-[4px] bg-[var(--blue-1)] px-5 py-2.5 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)] disabled:opacity-60"
-        >
-          {enCours ? "Création du compte…" : "Créer mon compte"}
-        </button>
+        {courante === "acces" ? (
+          <>
+            <Champ label="Adresse email" htmlFor="email" erreur={erreurs.email}>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                defaultValue={valeurs.email}
+                className={classeChamp}
+              />
+            </Champ>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <Champ
+                label="Mot de passe"
+                htmlFor="motDePasse"
+                aide="10 caractères minimum."
+                erreur={erreurs.motDePasse}
+              >
+                <input
+                  id="motDePasse"
+                  name="motDePasse"
+                  type="password"
+                  autoComplete="new-password"
+                  className={classeChamp}
+                />
+              </Champ>
+              <Champ label="Confirmation" htmlFor="confirmation" erreur={erreurs.confirmation}>
+                <input
+                  id="confirmation"
+                  name="confirmation"
+                  type="password"
+                  autoComplete="new-password"
+                  className={classeChamp}
+                />
+              </Champ>
+            </div>
+          </>
+        ) : null}
+
+        {erreurGenerale ? <p className="text-sm text-[var(--red-1)]">{erreurGenerale}</p> : null}
+
+        <div className="flex flex-wrap items-center gap-4">
+          <button
+            type="submit"
+            disabled={enCours}
+            className="rounded-[4px] bg-[var(--blue-1)] px-5 py-2.5 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)] disabled:opacity-60"
+          >
+            {derniere ? (enCours ? "Création du compte…" : "Créer mon compte") : "Continuer"}
+          </button>
+          {etape > 0 ? (
+            <button
+              type="button"
+              onClick={precedente}
+              className="text-[var(--text-muted)] hover:text-[var(--text)]"
+            >
+              Retour
+            </button>
+          ) : null}
+        </div>
 
         <p className="text-sm text-[var(--text-muted)]">
           Vous avez déjà un compte ?{" "}
-          <Link
-            href="/connexion"
-            className="text-[var(--blue-1)] hover:underline"
-          >
+          <Link href="/connexion" className="text-[var(--blue-1)] hover:underline">
             Se connecter
           </Link>
         </p>
