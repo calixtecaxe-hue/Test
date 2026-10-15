@@ -6,7 +6,7 @@ import { inscriptionSchema } from "@/lib/validation/inscription";
 import { ROUTAGE } from "@/lib/routage-donnees";
 import { METIER_ABSENT, router } from "@/lib/routage";
 import { z } from "zod";
-import { contrainteDuCompte, TOUS_LES_AGENTS, validerChoix } from "@/lib/abonnement";
+import { TOUS_LES_AGENTS, validerChoix } from "@/lib/abonnement";
 
 // Formule choisie avant l'inscription : gardée jusqu'à la création du compte, puis vérifiée ici
 // comme pour POST /api/abonnement (jamais fiée au navigateur).

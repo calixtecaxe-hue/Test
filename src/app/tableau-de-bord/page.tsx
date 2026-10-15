@@ -66,9 +66,9 @@ export default async function TableauDeBord() {
           <div>
             <dt className="text-xs text-[var(--text-faint)]">Métier</dt>
             <dd className="mt-1">
-              {metier?.libelle ?? utilisateur.metierPrecis}
-              {sousVariantes.length > 0
-                ? ` — ${sousVariantes.map((v) => v.libelle).join(", ")}`
+              {utilisateur.metierPrecis === "absent" ? utilisateur.metierAbsentTexte ?? "Autre métier" : metier?.libelle ?? utilisateur.metierPrecis}
+              {sousVariantes.length > 0 || utilisateur.autreActiviteTexte
+                ? ` — ${[...sousVariantes.map((v) => v.libelle), ...(utilisateur.autreActiviteTexte ? [utilisateur.autreActiviteTexte] : [])].join(", ")}`
                 : ""}
             </dd>
           </div>

@@ -77,6 +77,13 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
   if (actif && !utilisateur.niveauAudit) {
     const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
     corps = <NiveauChoix essentielles={n.essentielles} approfondies={n.total} />;
+  } else if (actif && profils.length === 0 && agent.code !== "RH_ORGANISATION") {
+    // Catégorie dont le questionnaire reste à créer (Fabrication) : aucun profil, donc rien à poser pour l'instant.
+    corps = (
+      <p className="mt-10 rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5 text-sm text-[var(--text-muted)]" data-questionnaire-en-preparation>
+        Le questionnaire de votre activité est en cours de préparation. Votre objectif est enregistré : vous retrouverez cet audit ici dès qu'il sera ouvert.
+      </p>
+    );
   } else if (actif && utilisateur.niveauAudit) {
     const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
     reglageNiveau = <NiveauReglage niveau={utilisateur.niveauAudit} essentielles={n.essentielles} total={n.total} />;

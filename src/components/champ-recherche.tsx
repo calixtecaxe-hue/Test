@@ -24,7 +24,7 @@ export function ChampRecherche({
 }: {
   id: string;
   name: string;
-  options: OptionMenu[];
+  options: (OptionMenu & { mots?: string[] })[];
   valeur: string;
   onChange: (valeur: string) => void;
   placeholder?: string;
@@ -41,7 +41,7 @@ export function ChampRecherche({
   const filtrees =
     choisie && texte === choisie.libelle
       ? options
-      : options.filter((o) => normaliser(o.libelle).includes(recherche));
+      : options.filter((o) => normaliser(o.libelle).includes(recherche) || (o.mots ?? []).some((m) => normaliser(m).includes(recherche)));
 
   useEffect(() => {
     racine.current?.querySelector(`[data-index="${actif}"]`)?.scrollIntoView({ block: "nearest" });
@@ -107,7 +107,12 @@ export function ChampRecherche({
               onMouseDown={(event) => event.preventDefault()}
               onClick={() => choisir(option)}
             >
-              <span>{option.libelle}</span>
+              <span>
+                {option.libelle}
+                {recherche && !normaliser(option.libelle).includes(recherche) ? (
+                  <span className="ml-2 text-xs text-[var(--text-muted)]">{(option.mots ?? []).find((m) => normaliser(m).includes(recherche))}</span>
+                ) : null}
+              </span>
               {option.valeur === valeur ? (
                 <svg
                   viewBox="0 0 24 24"

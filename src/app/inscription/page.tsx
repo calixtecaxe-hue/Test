@@ -11,7 +11,7 @@ import { ChampNombre } from "@/components/champ-nombre";
 import { ChampRecherche } from "@/components/champ-recherche";
 import { ChoixCases } from "@/components/choix-cases";
 import { libelleQuestion } from "@/lib/donnees/lexique";
-import { metiersTries, router, trouverMetier } from "@/lib/routage";
+import { METIER_ABSENT, metiersTries, router, trouverMetier } from "@/lib/routage";
 import { INSCRIPTION_CLIENT, LEXIQUE_CLIENT, ROUTAGE_CLIENT } from "@/lib/routage-client";
 import { AGENTS } from "@/lib/agents";
 import { lireFormuleDansAdresse, type FormuleChoisie } from "@/lib/formule-url";
@@ -25,6 +25,8 @@ import logo from "../../../public/logo-caxe.png";
 type IdEtape =
   | "metier"
   | "sousVariantes"
+  | "metierAbsent"
+  | "stock"
   | "chiffreAffairesMensuel"
   | "nombreCollaborateurs"
   | "anciennete"
@@ -35,6 +37,13 @@ type IdEtape =
 type Valeurs = {
   metier: string;
   sousVariantes: string[];
+  // « Autre (précisez) » cochée, et ce que le client y a écrit.
+  autre: boolean;
+  autreTexte: string;
+  // « Mon métier n'est pas dans la liste » : son métier, et la catégorie qui y ressemble le plus.
+  metierAbsentTexte: string;
+  categorieAbsente: string;
+  vendProduits: "" | "oui" | "non";
   chiffreAffairesMensuel: string;
   nombreCollaborateurs: string;
   anciennete: string;
@@ -46,6 +55,11 @@ type Valeurs = {
 const VIDE: Valeurs = {
   metier: "",
   sousVariantes: [],
+  autre: false,
+  autreTexte: "",
+  metierAbsentTexte: "",
+  categorieAbsente: "",
+  vendProduits: "",
   chiffreAffairesMensuel: "",
   nombreCollaborateurs: "",
   anciennete: "",
@@ -64,6 +78,10 @@ const ZONES = [
 const ETAPE_DU_CHAMP: Record<string, IdEtape> = {
   metierPrecis: "metier",
   sousVariantes: "sousVariantes",
+  autreTexte: "sousVariantes",
+  metierAbsentTexte: "metierAbsent",
+  categorieAbsente: "metierAbsent",
+  vendProduits: "stock",
   chiffreAffairesMensuel: "chiffreAffairesMensuel",
   nombreCollaborateurs: "nombreCollaborateurs",
   dateCreationEntreprise: "anciennete",
@@ -73,7 +91,11 @@ const ETAPE_DU_CHAMP: Record<string, IdEtape> = {
   motDePasse: "acces",
 };
 
-const METIERS = metiersTries(ROUTAGE_CLIENT).map((m) => ({ valeur: m.id, libelle: m.libelle }));
+const METIERS = metiersTries(ROUTAGE_CLIENT).map((m) => ({ valeur: m.id, libelle: m.libelle, mots: m.synonymes }));
+// Valeur de la case « Autre (précisez) » dans la liste des activités.
+const CASE_AUTRE = "__autre";
+// Catégories proposées à qui ne trouve pas son métier (hors professions réglementées, à choisir dans la liste).
+const CATEGORIES_ABSENT = ROUTAGE_CLIENT.categories.filter((c) => !c.reglementee).map((c) => ({ valeur: c.id, libelle: c.libelle }));
 const QUESTIONS = Object.fromEntries(INSCRIPTION_CLIENT.questions.map((q) => [q.id, q]));
 
 export default function Inscription() {
@@ -93,10 +115,17 @@ export default function Inscription() {
   const formulaire = useRef<HTMLFormElement>(null);
 
   const metier = trouverMetier(ROUTAGE_CLIENT, valeurs.metier);
+  const absent = valeurs.metier === METIER_ABSENT;
   const aDesActivites = (metier?.sousVariantes?.length ?? 0) > 0;
+  // Le routage se recalcule avec ce que le client a déjà dit ; il sait si une question sur le stock s'impose.
+  const routage = valeurs.metier
+    ? router(ROUTAGE_CLIENT, valeurs.metier, valeurs.sousVariantes, { autre: valeurs.autre, categorieAbsente: valeurs.categorieAbsente })
+    : null;
   const etapes: IdEtape[] = [
     "metier",
     ...(aDesActivites ? (["sousVariantes"] as const) : []),
+    ...(absent ? (["metierAbsent"] as const) : []),
+    ...(routage?.ok && routage.routage.stock === "a_demander" ? (["stock"] as const) : []),
     "chiffreAffairesMensuel",
     "nombreCollaborateurs",
     "anciennete",
@@ -108,9 +137,6 @@ export default function Inscription() {
   const derniere = etape >= etapes.length - 1;
 
   // Les mots du métier, dès que le métier (et ses activités) sont connus.
-  const routage = valeurs.metier
-    ? router(ROUTAGE_CLIENT, valeurs.metier, valeurs.sousVariantes)
-    : null;
   const profils = routage?.ok ? routage.routage.profils : [];
   const question = QUESTIONS[courante];
   const titre = libelleQuestion(question, profils, LEXIQUE_CLIENT);
@@ -135,10 +161,18 @@ export default function Inscription() {
     switch (courante) {
       case "metier":
         return valeurs.metier ? { erreur: null } : { erreur: "Choisissez votre métier dans la liste." };
-      case "sousVariantes":
-        return valeurs.sousVariantes.length > 0
-          ? { erreur: null }
-          : { erreur: "Cochez au moins une activité." };
+      case "sousVariantes": {
+        if (valeurs.sousVariantes.length === 0 && !valeurs.autre) return { erreur: "Cochez au moins une activité, ou « Autre »." };
+        // « Autre » cochée seule : on veut savoir ce que le client fait.
+        if (valeurs.sousVariantes.length === 0 && valeurs.autreTexte.trim() === "") return { erreur: "Précisez ce que vous faites." };
+        return { erreur: null };
+      }
+      case "metierAbsent":
+        if (valeurs.metierAbsentTexte.trim() === "") return { erreur: "Écrivez votre métier." };
+        if (!valeurs.categorieAbsente) return { erreur: "Choisissez ce qui ressemble le plus à votre activité." };
+        return { erreur: null };
+      case "stock":
+        return valeurs.vendProduits ? { erreur: null } : { erreur: "Répondez par oui ou par non." };
       case "chiffreAffairesMensuel": {
         const v = lire("chiffreAffairesMensuel");
         return v === "" || Number.isNaN(Number(v))
@@ -214,6 +248,11 @@ export default function Inscription() {
       motDePasse,
       metierPrecis: valeurs.metier,
       sousVariantes: valeurs.sousVariantes,
+      autre: valeurs.autre,
+      autreTexte: valeurs.autre ? valeurs.autreTexte : undefined,
+      metierAbsentTexte: absent ? valeurs.metierAbsentTexte : undefined,
+      categorieAbsente: absent ? valeurs.categorieAbsente : undefined,
+      vendProduits: valeurs.vendProduits ? valeurs.vendProduits === "oui" : undefined,
       chiffreAffairesMensuel: valeurs.chiffreAffairesMensuel,
       nombreCollaborateurs: valeurs.nombreCollaborateurs,
       dateCreationEntreprise: valeurs.anciennete,
@@ -334,9 +373,21 @@ export default function Inscription() {
               name="metier"
               options={METIERS}
               valeur={valeurs.metier}
-              onChange={(m) => setValeurs((v) => ({ ...v, metier: m, sousVariantes: [] }))}
+              onChange={(m) => setValeurs((v) => ({ ...v, metier: m, sousVariantes: [], autre: false, autreTexte: "", categorieAbsente: "", vendProduits: "" }))}
               placeholder="Tapez quelques lettres pour réduire la liste"
             />
+            <button
+              type="button"
+              onClick={() => {
+                setValeurs((v) => ({ ...v, metier: METIER_ABSENT, sousVariantes: [], autre: false, autreTexte: "", categorieAbsente: "", vendProduits: "" }));
+                setErreurs({});
+                setEtape((e) => e + 1);
+              }}
+              className="mt-3 w-fit text-sm text-[var(--blue-1)] hover:underline"
+              data-metier-absent
+            >
+              Mon métier n&apos;est pas dans la liste
+            </button>
           </Champ>
         ) : null}
 
@@ -346,13 +397,68 @@ export default function Inscription() {
               nom="sousVariantes"
               type="checkbox"
               legende={question.libelle}
-              options={(metier.sousVariantes ?? []).map((v) => ({ valeur: v.id, libelle: v.libelle }))}
-              valeurs={valeurs.sousVariantes}
-              onChange={(s) => setValeurs((v) => ({ ...v, sousVariantes: s }))}
+              options={[...(metier.sousVariantes ?? []).map((v) => ({ valeur: v.id, libelle: v.libelle })), { valeur: CASE_AUTRE, libelle: "Autre (précisez)" }]}
+              valeurs={[...valeurs.sousVariantes, ...(valeurs.autre ? [CASE_AUTRE] : [])]}
+              onChange={(s) => setValeurs((v) => ({ ...v, sousVariantes: s.filter((x) => x !== CASE_AUTRE), autre: s.includes(CASE_AUTRE), autreTexte: s.includes(CASE_AUTRE) ? v.autreTexte : "" }))}
             />
+            {valeurs.autre ? (
+              <div className="mt-4">
+                <label htmlFor="autreTexte" className="champ-etiquette">Précisez ce que vous faites</label>
+                <input
+                  id="autreTexte"
+                  type="text"
+                  maxLength={200}
+                  value={valeurs.autreTexte}
+                  onChange={(e) => setValeurs((v) => ({ ...v, autreTexte: e.target.value }))}
+                  className={`${classeChamp} mt-2`}
+                />
+              </div>
+            ) : null}
             {erreurs.sousVariantes ? (
               <p className="mt-2 text-xs text-[var(--red-1)]">{erreurs.sousVariantes}</p>
             ) : null}
+          </div>
+        ) : null}
+
+        {courante === "metierAbsent" ? (
+          <div className="flex flex-col gap-6">
+            <div className="champ-groupe">
+              <label htmlFor="metierAbsentTexte" className="champ-etiquette">Votre métier</label>
+              <input
+                id="metierAbsentTexte"
+                type="text"
+                maxLength={200}
+                value={valeurs.metierAbsentTexte}
+                onChange={(e) => setValeurs((v) => ({ ...v, metierAbsentTexte: e.target.value }))}
+                className={classeChamp}
+              />
+            </div>
+            <div>
+              <ChoixCases
+                nom="categorieAbsente"
+                type="radio"
+                legende="Ce qui ressemble le plus à votre activité"
+                options={CATEGORIES_ABSENT}
+                valeurs={valeurs.categorieAbsente ? [valeurs.categorieAbsente] : []}
+                onChange={(c) => setValeurs((v) => ({ ...v, categorieAbsente: c[0] ?? "", vendProduits: "" }))}
+              />
+              <p className="mt-3 text-xs text-[var(--text-muted)]">Une profession réglementée (avocat, médecin…) se choisit dans la liste des métiers.</p>
+            </div>
+            {erreurs.metierAbsent ? <p className="text-xs text-[var(--red-1)]">{erreurs.metierAbsent}</p> : null}
+          </div>
+        ) : null}
+
+        {courante === "stock" ? (
+          <div>
+            <ChoixCases
+              nom="vendProduits"
+              type="radio"
+              legende={question.libelle}
+              options={[{ valeur: "oui", libelle: "Oui" }, { valeur: "non", libelle: "Non" }]}
+              valeurs={valeurs.vendProduits ? [valeurs.vendProduits] : []}
+              onChange={(r) => setValeurs((v) => ({ ...v, vendProduits: (r[0] as "oui" | "non") ?? "" }))}
+            />
+            {erreurs.stock ? <p className="mt-2 text-xs text-[var(--red-1)]">{erreurs.stock}</p> : null}
           </div>
         ) : null}
 

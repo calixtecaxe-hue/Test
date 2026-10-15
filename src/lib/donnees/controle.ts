@@ -192,7 +192,7 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
 
   // Inscription : questions complètes, et mots du lexique employés qui existent.
   const clesLexique = new Set(e.lexique.map((m) => cleLexique(m.mot)));
-  const idsAttendus = ["metier", "sousVariantes", "chiffreAffairesMensuel", "nombreCollaborateurs", "anciennete", "typeZone", "ville", "acces"];
+  const idsAttendus = ["metier", "sousVariantes", "metierAbsent", "stock", "chiffreAffairesMensuel", "nombreCollaborateurs", "anciennete", "typeZone", "ville", "acces"];
   for (const id of idsAttendus) {
     if (!e.inscription.questions.some((q) => q.id === id)) erreurs.push(`La question d'inscription « ${id} » manque.`);
   }

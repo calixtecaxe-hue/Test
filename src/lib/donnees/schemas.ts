@@ -291,7 +291,7 @@ export type Routage = z.infer<typeof routage>;
 // `parProfil` permet une formulation propre à un profil ; vide tant que le
 // document n'en fournit aucune (rien n'est inventé).
 export const questionInscription = z.object({
-  id: z.enum(["metier", "sousVariantes", "chiffreAffairesMensuel", "nombreCollaborateurs", "anciennete", "typeZone", "ville", "acces"]),
+  id: z.enum(["metier", "sousVariantes", "metierAbsent", "stock", "chiffreAffairesMensuel", "nombreCollaborateurs", "anciennete", "typeZone", "ville", "acces"]),
   libelle: z.string().min(1),
   aide: z.string().nullable(),
   unite: z.string().nullable(),
