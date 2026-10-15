@@ -43,19 +43,19 @@ test("un volume absolu qui dépend de la taille ne se compare pas à un marché"
   assert.match(f.motif ?? "", /taille/);
 });
 
-test("tout indicateur du catalogue est en brouillon : aucune recherche ne part sans validation", () => {
+test("tout indicateur du catalogue est validé, avec un sens, et ses bornes ne reposent que sur la logique", () => {
   const indicateurs = reel.catalogue.flatMap((f) => f.indicateurs);
   assert.ok(indicateurs.length > 0);
-  assert.ok(indicateurs.every((i) => i.statutRedaction === "brouillon"));
-  // Les bornes ne reposent que sur la logique : une part est entre 0 et 100, rien d'autre n'est inventé.
+  assert.ok(indicateurs.every((i) => i.statutRedaction === "valide" && i.sens !== null && !i.sensIncertain));
+  // Une part est entre 0 et 100, rien d'autre n'est inventé.
   for (const i of indicateurs.filter((x) => x.unite === "pourcent")) assert.deepEqual(i.bornesVraisemblance, { min: 0, max: 100 });
   for (const i of indicateurs.filter((x) => x.unite !== "pourcent")) assert.equal(i.bornesVraisemblance.max, null);
 });
 
-test("le contrôle des données accepte le catalogue et signale les brouillons", async () => {
+test("le contrôle des données accepte le catalogue validé", async () => {
   const { contr } = await import("../src/lib/donnees/controle.ts").then((m) => ({ contr: m.controlerDonnees(reel) }));
   assert.deepEqual(contr.erreurs, []);
-  assert.ok(contr.avertissements.some((a) => a.includes("en brouillon")));
+  assert.ok(!contr.avertissements.some((a) => a.includes("en brouillon")));
 });
 
 // --- Forme d'une référence ------------------------------------------------------------

@@ -310,11 +310,11 @@ produit `CAXE_Banque_Questions.xlsx` (une ligne par donnée posée, prérempli),
 erreur). Les croisements ne sont pas encore exécutables : leurs formules sont en texte libre dans le classeur ;
 elles se brancheront sur les réponses typées une fois la banque écrite.
 
-**Références de marché (chantier du 15 octobre, étape a construite)** : seuls les **22 thèmes de nature
+**Références de marché (chantier du 15 octobre, étapes a et b construites)** : seuls les **22 thèmes de nature
 Marché** se comparent à un chiffre de marché (les 140 autres n'ont jamais de recherche). `data/catalogue-themes.json`
 (écrit par `python3 scripts/ecrire-catalogue-themes.py`) : une fiche par thème, avec pour les thèmes de nature Marché les
-indicateurs comparables (36, tous **en brouillon** : sens, bornes et mots-clés à valider par le propriétaire avant toute
-recherche ; FIN-37, volume absolu, ne se compare pas). `data/parametres-references.json` : paramètres réglables (tolérance
+indicateurs comparables (36, **validés par le propriétaire le 15 octobre** ; FIN-37, volume absolu, ne se compare pas ; un
+indicateur en brouillon n'est jamais cherché). `data/parametres-references.json` : paramètres réglables (tolérance
 ±10 %, recoupement 20 %, âge des sources 3 / 5 ans, 4 recherches maximum par couple, **mise à jour tous les 3 mois par défaut,
 réglable par catégorie de métier**, plafond mensuel de 20 € pour le pilote). Base : `ReferenceMarche` (versions, jamais
 supprimées) et `RechercheReference` (journal, verrou, coût). Code : `src/lib/references/` (`types.ts` forme d'une référence,
@@ -323,8 +323,15 @@ national seulement si l'indicateur l'autorise ; décision de lancer une recherch
 compte, `depot.ts` lecture en base). Le constat (`moteur/constat.ts`) distingue `aucune_reference`, `reference_disponible`,
 `sans_comparaison` et `regle_manquante` (pratique et cohérence : leur règle de notation n'est **pas écrite non plus**) ;
 `moteur/affichage-constat.ts` ne montre jamais au client un mot technique. Règle provisoire à confirmer : pour un compte
-à plusieurs activités, l'activité par défaut du métier sert de repère. **Pas encore construits** : agent de recherche et
-garde-fous (b), position du client face au marché et gel par audit (c), mises à jour (d), file de revue et suivi (e).
+à plusieurs activités, l'activité par défaut du métier sert de repère. **Étape b (agent de recherche et garde-fous)** : `references/recherche.ts` (demande : métier, indicateur et type de zone
+seulement, jamais une donnée du client), `client-anthropic.ts` (API Claude, recherche web côté serveur, modèle réglable dans
+`parametresReferences.agentRecherche`), `proposition.ts` (sortie JSON validée), `verification-page.ts` (le serveur relit la page
+ciblée : https seulement, pas d'adresse interne, extrait et chiffre retrouvés), `pdf.ts`, `garde-fous.ts` (qualité de source,
+exactitude, recoupement, confiance ; le niveau 1 n'est accordé que pour un domaine de `data/sources-reconnues.json`),
+`orchestrer.ts` (un couple de bout en bout : plafonds de budget, verrou, journal), `depot-prisma.ts`. Lancer :
+`node scripts/references-traiter.mts --indicateur ACQ-10.13 --metier electricien [--dry-run]` (clé `ANTHROPIC_API_KEY`
+requise sans `--dry-run`). **Aucune recherche réelle n'a encore été lancée.** **Pas encore construits** : position du client
+face au marché et gel par audit (c), mises à jour (d), file de revue et suivi (e).
 La valeur du client pour un indicateur calculé n'est pas calculable tant que les formules des croisements sont en texte libre.
 
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,

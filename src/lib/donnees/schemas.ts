@@ -358,6 +358,18 @@ export const ficheTheme = z.object({
 });
 export type FicheTheme = z.infer<typeof ficheTheme>;
 
+// Sources reconnues (data/sources-reconnues.json) : domaines officiels de niveau 1, fédérations et
+// observatoires validés à la main, domaines exclus. L'agent de recherche ne décide jamais seul qu'une
+// source est officielle.
+export const sourcesReconnues = z.object({
+  source: z.string(),
+  niveau1Domaines: z.array(z.string().min(1)),
+  federationsEtObservatoiresValides: z.array(z.string().min(1)),
+  exclusDomaines: z.array(z.string().min(1)),
+  domainesCaxe: z.array(z.string().min(1)),
+});
+export type SourcesReconnues = z.infer<typeof sourcesReconnues>;
+
 // Paramètres réglables (data/parametres-references.json). Valeurs de travail, modifiables sans toucher au code.
 export const parametresReferences = z.object({
   source: z.string(),
@@ -371,6 +383,23 @@ export const parametresReferences = z.object({
   // Fréquence de mise à jour : 3 mois par défaut, réglable par catégorie de métier (clé = id de catégorie).
   miseAJour: z.object({ moisParDefaut: z.number().int().positive(), moisParCategorie: z.record(z.string(), z.number().int().positive()) }),
   plafondsBudget: z.object({ mensuelEuros: z.number().positive(), quotidienEuros: z.number().positive().nullable() }),
+  // Au-delà de cet écart à la médiane des autres métiers de la même famille, une valeur passe en revue.
+  ecartAuxPairsRevuePourcent: z.number().positive(),
+  agentRecherche: z.object({
+    modele: z.string().min(1),
+    effort: z.enum(["low", "medium", "high", "xhigh", "max"]),
+    maxTokens: z.number().int().positive(),
+    recherchesWebMax: z.number().int().positive(),
+    reprisesMax: z.number().int().nonnegative(),
+    delaiPageSecondes: z.number().positive(),
+    taillePageMaxOctets: z.number().int().positive(),
+  }),
+  tarifs: z.object({
+    entreeUsdParMillionTokens: z.number().nonnegative(),
+    sortieUsdParMillionTokens: z.number().nonnegative(),
+    rechercheWebUsdPourMille: z.number().nonnegative(),
+    usdVersEur: z.number().positive(),
+  }),
   derive: z.object({ clientsMin: z.number().int().positive(), partMemeCote: z.number().gt(0).lt(1) }),
 });
 export type ParametresReferences = z.infer<typeof parametresReferences>;
@@ -420,6 +449,7 @@ export type EnsembleDonnees = {
   limitesObjectif: LimitesObjectif;
   catalogue: FicheTheme[];
   parametresReferences: ParametresReferences;
+  sourcesReconnues: SourcesReconnues;
   banque: Question[];
 };
 
@@ -438,5 +468,6 @@ export const schemaFichiers = {
   limitesObjectif,
   catalogue: z.array(ficheTheme),
   parametresReferences,
+  sourcesReconnues,
   banque: z.array(question),
 } as const;

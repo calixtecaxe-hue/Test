@@ -4,9 +4,9 @@
 Règle : seuls les thèmes de nature « Marché » se comparent à un chiffre de marché. Les autres
 (pratique, cohérence, contexte) ne déclenchent jamais de recherche.
 
-Pour les thèmes de nature Marché, la liste des indicateurs ci-dessous est un BROUILLON (statut
-« brouillon ») : libellé, formule et unité viennent du classeur ; le sens (plus haut / plus bas
-mieux) et les mots-clés sont des propositions à valider. Les bornes de vraisemblance ne portent
+Pour les thèmes de nature Marché, la liste des indicateurs ci-dessous a été VALIDÉE par le propriétaire
+le 15 octobre (« ok pour les 36 ») : libellé, formule et unité viennent du classeur ; le sens (plus haut /
+plus bas mieux) et les mots-clés sont ses propositions retenues. Les bornes de vraisemblance ne portent
 que sur ce que la logique impose (une part est entre 0 et 100 %, une durée n'est pas négative) ;
 tout autre plafond reste à fixer. Aucune recherche ne part tant qu'un indicateur est en brouillon.
 """
@@ -63,7 +63,16 @@ INDICATEURS = {
 }
 
 # Sens dont la direction dépend du métier ou du contexte : à trancher avec le propriétaire.
-SENS_INCERTAIN = {"ACQ-13.03", "ACQ-21.09", "FIN-07.08", "FIN-38.01", "COM-44.01"}
+# Validé par le propriétaire le 15 octobre (« ok pour les 36 ») : les sens proposés sont retenus.
+SENS_INCERTAIN = set()
+
+# Quatre données du classeur regroupent plusieurs chiffres : on garde celui qui se compare à un marché.
+PRECISIONS = {
+    "FIN-38.01": ("Jours de ventes couverts par le stock", "Valeur du stock ÷ (achats mensuels ÷ 30)"),
+    "FIN-40.04": ("Pertes de stock en % des achats", "Pertes ÷ achats"),
+    "RH-34.04": ("Taux d'absence", "Jours d'absence ÷ effectif, puis ÷ jours travaillés"),
+    "COM-44.01": ("Note moyenne des avis", "Note moyenne affichée sur la fiche Google et sur la plateforme d'avis principale"),
+}
 
 MOTIF_NON = {
     "pratique": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
@@ -95,13 +104,14 @@ for t in themes:
             if not code.startswith(t["code"] + "."):
                 continue
             d = donnees[code]
+            libelle, definition = PRECISIONS.get(code, (d["libelle"], d["calcul"] or d["libelle"]))
             inds.append({
-                "id": code, "libelle": d["libelle"],
-                "definition": d["calcul"] or d["libelle"],
+                "id": code, "libelle": libelle,
+                "definition": definition,
                 "unite": unite, "periode": periode, "sens": sens,
                 "sensIncertain": code in SENS_INCERTAIN,
                 "bornesVraisemblance": bornes(unite),
-                "motsCles": mots, "nationalAutorise": False, "statutRedaction": "brouillon",
+                "motsCles": mots, "nationalAutorise": False, "statutRedaction": "valide",
             })
         if inds:
             fiche["rechercheReference"] = True
@@ -116,5 +126,5 @@ if absents:
 
 json.dump(catalogue, open(os.path.join(RACINE, "data/catalogue-themes.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 oui = [f for f in catalogue if f["rechercheReference"]]
-print(f"{len(catalogue)} thèmes ; {len(oui)} avec recherche de référence ; {sum(len(f['indicateurs']) for f in oui)} indicateurs en brouillon")
+print(f"{len(catalogue)} thèmes ; {len(oui)} avec recherche de référence ; {sum(len(f['indicateurs']) for f in oui)} indicateurs validés")
 print("Thèmes de nature Marché sans indicateur :", [f["theme"] for f in catalogue if f["nature"] == "marche" and not f["rechercheReference"]])

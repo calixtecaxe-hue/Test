@@ -33,7 +33,7 @@
           "leads qualifiés"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-02.08",
@@ -52,7 +52,7 @@
           "demande vers rendez-vous"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -126,7 +126,7 @@
           "taux de rappel"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -154,7 +154,7 @@
           "taux de présence aux rendez-vous"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-09.10",
@@ -173,7 +173,7 @@
           "no-show"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-09.11",
@@ -191,7 +191,7 @@
           "taux de transformation des rendez-vous"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -220,7 +220,7 @@
           "taux de transformation des devis"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-10.14",
@@ -238,7 +238,7 @@
           "taux d'acceptation des devis en montant"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-10.16",
@@ -256,7 +256,7 @@
           "efficacité des relances de devis"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -285,7 +285,7 @@
           "taux de conversion des demandes"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-11.24",
@@ -304,7 +304,7 @@
           "taux de transformation en magasin"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -332,7 +332,7 @@
           "durée du cycle de vente"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -351,7 +351,7 @@
         "unite": "euros_par_heure",
         "periode": "heure",
         "sens": "fourchette_ideale",
-        "sensIncertain": true,
+        "sensIncertain": false,
         "bornesVraisemblance": {
           "min": 0,
           "max": null
@@ -361,7 +361,7 @@
           "tarif horaire moyen"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -389,7 +389,7 @@
           "part des ventes avec remise"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-14.02",
@@ -407,7 +407,7 @@
           "remise moyenne accordée"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -454,7 +454,7 @@
           "taux de rétention clients"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-17.17",
@@ -473,7 +473,7 @@
           "taux de clients perdus"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-17.22",
@@ -492,7 +492,7 @@
           "churn"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-17.24",
@@ -510,7 +510,7 @@
           "durée moyenne d'un abonnement"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -556,7 +556,7 @@
         "unite": "pourcent",
         "periode": "mois",
         "sens": "fourchette_ideale",
-        "sensIncertain": true,
+        "sensIncertain": false,
         "bornesVraisemblance": {
           "min": 0,
           "max": 100
@@ -566,7 +566,7 @@
           "taux de remplissage"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "ACQ-21.12",
@@ -585,7 +585,7 @@
           "taux d'activité facturable"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -676,7 +676,7 @@
         "unite": "pourcent",
         "periode": "mois",
         "sens": "fourchette_ideale",
-        "sensIncertain": true,
+        "sensIncertain": false,
         "bornesVraisemblance": {
           "min": 0,
           "max": 100
@@ -686,7 +686,7 @@
           "ratio masse salariale sur CA"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "FIN-07.10",
@@ -705,7 +705,7 @@
           "CA par personne"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -815,7 +815,7 @@
           "DSO"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "FIN-17.07",
@@ -833,7 +833,7 @@
           "retard moyen de paiement"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -1027,12 +1027,12 @@
     "indicateurs": [
       {
         "id": "FIN-38.01",
-        "libelle": "Rotation du stock : jours de ventes couverts, et nombre de rotations par an",
-        "definition": "Valeur du stock ÷ (achats mensuels ÷ 30) ; rotations par an = 365 ÷ jours",
+        "libelle": "Jours de ventes couverts par le stock",
+        "definition": "Valeur du stock ÷ (achats mensuels ÷ 30)",
         "unite": "jours",
         "periode": "an",
         "sens": "fourchette_ideale",
-        "sensIncertain": true,
+        "sensIncertain": false,
         "bornesVraisemblance": {
           "min": 0,
           "max": null
@@ -1042,7 +1042,7 @@
           "jours de stock"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -1065,8 +1065,8 @@
     "indicateurs": [
       {
         "id": "FIN-40.04",
-        "libelle": "Pertes en % des achats et en % du CA",
-        "definition": "Pertes ÷ achats, et ÷ CA",
+        "libelle": "Pertes de stock en % des achats",
+        "definition": "Pertes ÷ achats",
         "unite": "pourcent",
         "periode": "an",
         "sens": "plus_bas_mieux",
@@ -1080,7 +1080,7 @@
           "pertes et invendus en pourcentage des achats"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -1433,7 +1433,7 @@
           "taux de départ annuel"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -1456,7 +1456,7 @@
     "indicateurs": [
       {
         "id": "RH-34.04",
-        "libelle": "Jours d'absence par personne et taux d'absence",
+        "libelle": "Taux d'absence",
         "definition": "Jours d'absence ÷ effectif, puis ÷ jours travaillés",
         "unite": "pourcent",
         "periode": "an",
@@ -1470,7 +1470,7 @@
           "taux d'absentéisme"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -1705,7 +1705,7 @@
           "part des réactions fortes sur les réseaux sociaux"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -1733,7 +1733,7 @@
           "taux de clic réseaux sociaux"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "COM-19.03",
@@ -1751,7 +1751,7 @@
           "taux de conversion du trafic social"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -1806,7 +1806,7 @@
           "taux de messages devenant des demandes commerciales"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -1942,7 +1942,7 @@
           "taux d'engagement réseaux sociaux"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
@@ -2019,12 +2019,12 @@
     "indicateurs": [
       {
         "id": "COM-44.01",
-        "libelle": "Nombre d'avis, note, avis des 6 derniers mois (Google et plateforme principale)",
-        "definition": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-06.01, ACQ-06.02, ACQ-06.03, ACQ-06.08), sinon ici",
+        "libelle": "Note moyenne des avis",
+        "definition": "Note moyenne affichée sur la fiche Google et sur la plateforme d'avis principale",
         "unite": "note",
         "periode": "avis",
         "sens": "plus_haut_mieux",
-        "sensIncertain": true,
+        "sensIncertain": false,
         "bornesVraisemblance": {
           "min": null,
           "max": null
@@ -2033,7 +2033,7 @@
           "note moyenne des avis Google"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       },
       {
         "id": "COM-44.07",
@@ -2051,7 +2051,7 @@
           "taux de clients laissant un avis"
         ],
         "nationalAutorise": false,
-        "statutRedaction": "brouillon"
+        "statutRedaction": "valide"
       }
     ]
   },
