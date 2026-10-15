@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChoixCases } from "@/components/choix-cases";
 import { phraseObjectif, type UniteAmpleur } from "@/lib/audit/objectif";
+import { lireNombre } from "@/lib/audit/nombre";
 
 const UNITES = [
   { valeur: "pourcent", libelle: "En pourcentage (%)" },
@@ -11,16 +12,9 @@ const UNITES = [
   { valeur: "unites", libelle: "En nombre" },
 ];
 
-function lireNombre(texte: string): number | null {
-  const t = texte.trim().replace(/\s/g, "").replace(",", ".");
-  if (t === "") return null;
-  const n = Number(t);
-  return Number.isFinite(n) ? n : null;
-}
-
 // Objectif de l'agent en trois champs : ce que le dirigeant veut changer, de combien,
 // en combien de temps. Première étape de l'audit.
-export function ObjectifFormulaire({ agent, annulable, onAnnuler }: { agent: string; annulable?: boolean; onAnnuler?: () => void }) {
+export function ObjectifFormulaire({ agent, annulable, onAnnuler, onEnregistre }: { agent: string; annulable?: boolean; onAnnuler?: () => void; onEnregistre?: () => void }) {
   const router = useRouter();
   const id = useId();
   const [quoi, setQuoi] = useState("");
@@ -57,6 +51,7 @@ export function ObjectifFormulaire({ agent, annulable, onAnnuler }: { agent: str
       body: JSON.stringify({ agent, objectif: { quoi, ampleur: { valeur, unite }, delaiMois: mois } }),
     }).catch(() => null);
     if (r?.ok) {
+      onEnregistre?.();
       router.refresh();
       return;
     }

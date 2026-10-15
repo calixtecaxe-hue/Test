@@ -9,29 +9,45 @@ import { router } from "../routage.ts";
 import type { Routage } from "../donnees/schemas.ts";
 
 const ANNEE_MINIMALE = 1900;
+// Bornes qui évitent un dépassement de la base (Decimal(12,2), Int) et des saisies absurdes.
+const CA_MENSUEL_MAX = 1_000_000_000;
+const PERSONNES_MAX = 100_000;
+// bcrypt ne lit que les 72 premiers octets d'un mot de passe : au-delà, la fin serait ignorée.
+const MOT_DE_PASSE_MAX_OCTETS = 72;
+
+function estUneDateReelle(v: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return false;
+  const d = new Date(`${v}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === v;
+}
 
 export function creerSchemaInscription(routage: Routage) {
   return z
     .object({
-      email: z.string().trim().toLowerCase().email("Adresse email invalide."),
-      motDePasse: z.string().min(10, "Le mot de passe doit contenir au moins 10 caractères."),
+      email: z.string().trim().toLowerCase().max(254, "Adresse email invalide.").email("Adresse email invalide."),
+      motDePasse: z
+        .string()
+        .min(10, "Le mot de passe doit contenir au moins 10 caractères.")
+        .refine((v) => new TextEncoder().encode(v).length <= MOT_DE_PASSE_MAX_OCTETS, "Le mot de passe est trop long : 72 octets au maximum (environ 60 caractères)."),
       metierPrecis: z.string().min(1, "Indiquez votre métier."),
       sousVariantes: z.array(z.string()).default([]),
       chiffreAffairesMensuel: z.coerce
         .number({ message: "Indiquez un chiffre d'affaires mensuel." })
-        .nonnegative("Le chiffre d'affaires ne peut pas être négatif."),
+        .nonnegative("Le chiffre d'affaires ne peut pas être négatif.")
+        .max(CA_MENSUEL_MAX, "Ce chiffre d'affaires mensuel est trop élevé : vérifiez le montant."),
       nombreCollaborateurs: z.coerce
         .number({ message: "Indiquez le nombre de personnes qui travaillent dans l'entreprise." })
         .int("Le nombre de personnes doit être un entier.")
-        .min(1, "Indiquez au moins une personne : vous."),
+        .min(1, "Indiquez au moins une personne : vous.")
+        .max(PERSONNES_MAX, "Ce nombre de personnes est trop élevé : vérifiez-le."),
       // Mois de création, au format aaaa-mm-jj (le premier du mois suffit).
       dateCreationEntreprise: z
         .string()
-        .refine((v) => /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v)), "Indiquez le mois de création.")
+        .refine(estUneDateReelle, "Indiquez le mois de création.")
         .refine((v) => Number(v.slice(0, 4)) >= ANNEE_MINIMALE, "Indiquez le mois de création.")
         .refine((v) => Date.parse(v) <= Date.now(), "La date de création ne peut pas être dans le futur."),
       typeZone: z.enum(["URBAINE_DENSE", "PERIURBAINE", "RURALE"], { message: "Indiquez le type de zone." }),
-      ville: z.string().trim().min(1, "Indiquez la ville."),
+      ville: z.string().trim().min(1, "Indiquez la ville.").max(120, "Le nom de la ville est trop long."),
     })
     .superRefine((data, ctx) => {
       const r = router(routage, data.metierPrecis, data.sousVariantes);

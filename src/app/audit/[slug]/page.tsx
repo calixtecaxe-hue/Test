@@ -118,10 +118,11 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
 
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-6 py-16">
-      <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-faint)]">Audit · {agent.nom}</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">Audit · {agent.nom}</p>
 
       {actif && structure ? (
         <>
+          <h1 className="sr-only">Audit {agent.nom}</h1>
           <ObjectifActif agent={agent.code} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} />
           {corps}
         </>
@@ -147,7 +148,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
                 className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 rounded-xl border border-[var(--line)] px-4 py-3"
               >
                 <span className="text-[var(--text)]">{o.texteBrut}</span>
-                <span className="text-xs text-[var(--text-faint)]">
+                <span className="text-xs text-[var(--text-muted)]">
                   {LIBELLES_STATUT[o.statut]} · créé le {formaterDate(o.creeLe)}
                 </span>
               </li>

@@ -12,13 +12,13 @@ export function ObjectifActif({ agent, phrase, echeance, indicateur }: { agent: 
       <div className="mt-6">
         <h2 className="text-xl">Changer d&apos;objectif</h2>
         <p className="mt-1 text-sm text-[var(--text-muted)]">L&apos;objectif actuel restera dans votre historique.</p>
-        <ObjectifFormulaire agent={agent} annulable onAnnuler={() => setEdition(false)} />
+        <ObjectifFormulaire agent={agent} annulable onAnnuler={() => setEdition(false)} onEnregistre={() => setEdition(false)} />
       </div>
     );
   }
   return (
     <section className="mt-6 rounded-xl border border-[var(--line)] bg-[var(--panel)] p-6" aria-labelledby="objectif-actif">
-      <p id="objectif-actif" className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-faint)]">
+      <p id="objectif-actif" className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">
         Votre objectif
       </p>
       <p className="mt-2 text-lg text-[var(--text)]">{phrase}</p>

@@ -333,3 +333,18 @@ test("on ne répond pas à une donnée calculée ni à une donnée qui n'existe 
   assert.equal(validerReponse(reel, calculee.code, saisie("1")).ok, false);
   assert.equal(validerReponse(reel, "ACQ-99.99", saisie("1")).ok, false);
 });
+
+// --- Lecture des nombres tapés -----------------------------------------------------------
+
+import { lireNombre } from "../src/lib/audit/nombre.ts";
+
+test("un nombre tapé à la française est lu comme le dirigeant l'entend", () => {
+  const cas: [string, number | null][] = [
+    ["32", 32], ["0", 0], ["12,5", 12.5], ["12.5", 12.5], ["0,5", 0.5], [",5", 0.5],
+    ["1 250", 1250], ["1 250", 1250], ["1 250,75", 1250.75],
+    ["1.000", 1000], ["12.345.678", 12345678], ["1.234,56", 1234.56], ["1,234.56", 1234.56],
+    ["-50", -50], ["+7", 7], ["  42  ", 42],
+    ["", null], ["abc", null], ["1e999", null], ["1e3", null], ["1,2,3", null], ["1.2.3", null], ["12,", null], [".", null], ["-", null], ["1 2a", null], ["Infinity", null], ["NaN", null],
+  ];
+  for (const [entree, attendu] of cas) assert.equal(lireNombre(entree), attendu, `« ${entree} »`);
+});

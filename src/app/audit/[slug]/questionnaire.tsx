@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChoixCases } from "@/components/choix-cases";
 import { aUneReponse, type Reponse, type Reponses } from "@/lib/audit/reponse";
+import { formaterNombre, lireNombre } from "@/lib/audit/nombre";
 import type { FormeDeclencheur } from "@/lib/donnees/schemas";
 import { enregistrerReponse } from "./enregistrer";
 
@@ -22,13 +23,6 @@ export type ThemeClient = { code: string; nom: string; bloc: string; questions: 
 export type DeclencheurClient = { code: string; question: string; forme: FormeDeclencheur };
 
 type Etat = "repos" | "enregistrement" | "enregistre" | "erreur";
-
-function lireNombre(texte: string): number | null {
-  const t = texte.trim().replace(/\s/g, "").replace(",", ".");
-  if (t === "") return null;
-  const n = Number(t);
-  return Number.isFinite(n) ? n : null;
-}
 
 function brut(r: Reponse | undefined): string | string[] | undefined {
   if (!r || r.genre !== "saisie") return undefined;
@@ -106,7 +100,7 @@ function Cadrage({ declencheurs, reponses, enregistrer }: { declencheurs: Declen
 
 type Mode = "exact" | "estimation" | "inconnu" | "non_suivi" | "saisie";
 
-function Question({ q, reponse, enregistrer }: { q: QuestionClient; reponse: Reponse | undefined; enregistrer: (cle: string, r: Reponse | null) => Promise<string | null> }) {
+function Question({ q, reponse, enregistrer }: { q: QuestionClient; reponse: Reponse | undefined; enregistrer: (cle: string, r: Reponse | null, rapide?: boolean) => Promise<string | null> }) {
   const id = useId();
   const initial = reponse?.genre as Mode | undefined;
   const [mode, setMode] = useState<Mode | null>(q.scalaire && initial === "saisie" ? null : initial ?? null);
@@ -117,10 +111,33 @@ function Question({ q, reponse, enregistrer }: { q: QuestionClient; reponse: Rep
   const [etat, setEtat] = useState<Etat>("repos");
   const [erreur, setErreur] = useState<string | null>(null);
   const minuteur = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Saisie en attente d'envoi (undefined : rien). Elle part dès que le champ perd le focus,
+  // que l'onglet se cache ou que la question disparaît : rien n'est perdu en quittant la page.
+  const attente = useRef<Reponse | null | undefined>(undefined);
+  const enregistrerRef = useRef(enregistrer);
+  useEffect(() => { enregistrerRef.current = enregistrer; });
 
-  useEffect(() => () => { if (minuteur.current) clearTimeout(minuteur.current); }, []);
+  function vider() {
+    if (attente.current === undefined) return;
+    if (minuteur.current) clearTimeout(minuteur.current);
+    const r = attente.current;
+    attente.current = undefined;
+    void enregistrerRef.current(q.code, r, true);
+  }
+  useEffect(() => {
+    const cacher = () => { if (document.visibilityState === "hidden") vider(); };
+    window.addEventListener("pagehide", vider);
+    document.addEventListener("visibilitychange", cacher);
+    return () => {
+      window.removeEventListener("pagehide", vider);
+      document.removeEventListener("visibilitychange", cacher);
+      vider();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function envoyer(r: Reponse | null) {
+    attente.current = undefined;
     setEtat("enregistrement");
     setErreur(null);
     const e = await enregistrer(q.code, r);
@@ -135,17 +152,20 @@ function Question({ q, reponse, enregistrer }: { q: QuestionClient; reponse: Rep
   // Les saisies partent après une courte pause : on ne perd rien si le dirigeant ferme la page.
   function programmer(r: Reponse | null) {
     if (minuteur.current) clearTimeout(minuteur.current);
+    attente.current = r;
     minuteur.current = setTimeout(() => envoyer(r), 600);
   }
 
   function choisir(m: Mode) {
     if (minuteur.current) clearTimeout(minuteur.current);
+    attente.current = undefined;
     setMode(m);
     if (m === "inconnu" || m === "non_suivi") void envoyer({ genre: m });
   }
 
   function effacer() {
     if (minuteur.current) clearTimeout(minuteur.current);
+    attente.current = undefined;
     setMode(null);
     setExact("");
     setMin("");
@@ -157,6 +177,14 @@ function Question({ q, reponse, enregistrer }: { q: QuestionClient; reponse: Rep
   function surExact(v: string) {
     setExact(v);
     const n = lireNombre(v);
+    if (v.trim() !== "" && n === null) {
+      // Illisible : on n'écrase pas la réponse déjà enregistrée, on l'explique.
+      attente.current = undefined;
+      if (minuteur.current) clearTimeout(minuteur.current);
+      setErreur("Ce n'est pas un nombre lisible. Écrivez par exemple 1 250 ou 12,5.");
+      return;
+    }
+    setErreur(null);
     programmer(n === null ? null : { genre: "exact", valeur: n });
   }
   function surFourchette(nouveauMin: string, nouveauMax: string) {
@@ -164,7 +192,11 @@ function Question({ q, reponse, enregistrer }: { q: QuestionClient; reponse: Rep
     setMax(nouveauMax);
     const a = lireNombre(nouveauMin);
     const b = lireNombre(nouveauMax);
-    if (a === null || b === null) return;
+    if ((nouveauMin.trim() !== "" && a === null) || (nouveauMax.trim() !== "" && b === null)) {
+      setErreur("Ce n'est pas un nombre lisible. Écrivez par exemple 1 250 ou 12,5.");
+      return;
+    }
+    if (a === null || b === null) { setErreur(null); return; }
     if (a > b) {
       setErreur("Le minimum doit être inférieur ou égal au maximum.");
       return;
@@ -187,7 +219,7 @@ function Question({ q, reponse, enregistrer }: { q: QuestionClient; reponse: Rep
   return (
     <li className="rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5" data-question={q.code} data-traitee={traitee ? "oui" : "non"}>
       <p className="text-[var(--text)]">{q.texte ?? q.libelle}</p>
-      {q.texte === null ? <p className="mt-1 text-xs text-[var(--text-faint)]">Question à rédiger dans la banque · libellé du classeur · {q.code}</p> : null}
+      {q.texte === null ? <p className="mt-1 text-xs text-[var(--text-muted)]">Question à rédiger dans la banque · libellé du classeur · {q.code}</p> : null}
       {q.aide ? <p className="mt-1 text-sm text-[var(--text-muted)]">{q.aide}</p> : null}
 
       {q.dejaPosee ? (
@@ -205,18 +237,19 @@ function Question({ q, reponse, enregistrer }: { q: QuestionClient; reponse: Rep
           {q.scalaire && mode === "exact" ? (
             <div className="champ-groupe mt-3">
               <label htmlFor={`${id}-exact`} className="champ-etiquette">Votre chiffre</label>
-              <input id={`${id}-exact`} type="text" inputMode="decimal" value={exact} onChange={(e) => surExact(e.target.value)} className="champ-saisie" />
+              <input id={`${id}-exact`} type="text" inputMode="decimal" value={exact} onChange={(e) => surExact(e.target.value)} onBlur={vider} className="champ-saisie" />
+              {lireNombre(exact) !== null ? <p className="champ-aide">Valeur retenue : {formaterNombre(lireNombre(exact)!)}</p> : null}
             </div>
           ) : null}
           {q.scalaire && mode === "estimation" ? (
             <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="champ-groupe">
                 <label htmlFor={`${id}-min`} className="champ-etiquette">Entre</label>
-                <input id={`${id}-min`} type="text" inputMode="decimal" value={min} onChange={(e) => surFourchette(e.target.value, max)} className="champ-saisie" />
+                <input id={`${id}-min`} type="text" inputMode="decimal" value={min} onChange={(e) => surFourchette(e.target.value, max)} onBlur={vider} className="champ-saisie" />
               </div>
               <div className="champ-groupe">
                 <label htmlFor={`${id}-max`} className="champ-etiquette">Et</label>
-                <input id={`${id}-max`} type="text" inputMode="decimal" value={max} onChange={(e) => surFourchette(min, e.target.value)} className="champ-saisie" />
+                <input id={`${id}-max`} type="text" inputMode="decimal" value={max} onChange={(e) => surFourchette(min, e.target.value)} onBlur={vider} className="champ-saisie" />
               </div>
               <p className="champ-aide sm:col-span-2">Nous retenons le milieu de la fourchette, signalé comme estimé.</p>
             </div>
@@ -224,7 +257,7 @@ function Question({ q, reponse, enregistrer }: { q: QuestionClient; reponse: Rep
           {!q.scalaire && mode !== "inconnu" && mode !== "non_suivi" ? (
             <div className="champ-groupe mt-3">
               <label htmlFor={`${id}-texte`} className="champ-etiquette">Votre réponse</label>
-              <textarea id={`${id}-texte`} value={texte} onChange={(e) => { setMode("saisie"); surTexte(e.target.value); }} rows={2} maxLength={2000} className="champ-saisie" />
+              <textarea id={`${id}-texte`} value={texte} onChange={(e) => { setMode("saisie"); surTexte(e.target.value); }} rows={2} maxLength={2000} onBlur={vider} className="champ-saisie" />
             </div>
           ) : null}
 
@@ -233,8 +266,8 @@ function Question({ q, reponse, enregistrer }: { q: QuestionClient; reponse: Rep
           {mode === "non_suivi" ? <p className="mt-3 text-sm text-[var(--text-muted)]">Noté : cette donnée n&apos;est pas suivie dans votre entreprise. Le rapport vous dira comment commencer à la suivre.</p> : null}
 
           <div className="mt-3 flex items-center gap-4 text-xs" aria-live="polite">
-            {etat === "enregistrement" ? <span className="text-[var(--text-faint)]">Enregistrement…</span> : null}
-            {etat === "enregistre" ? <span className="text-[var(--text-faint)]">Enregistré</span> : null}
+            {etat === "enregistrement" ? <span className="text-[var(--text-muted)]">Enregistrement…</span> : null}
+            {etat === "enregistre" ? <span className="text-[var(--text-muted)]">Enregistré</span> : null}
             {erreur ? <span className="text-[var(--red-1)]">{erreur}</span> : null}
             {traitee || mode ? (
               <button type="button" onClick={effacer} className="text-[var(--text-muted)] hover:text-[var(--text)]">Effacer ma réponse</button>
@@ -281,8 +314,8 @@ export function Questionnaire({
     const e = await enregistrerReponse(cle, r);
     if (!e) router.refresh();
   }
-  async function enregistrerQuestion(cle: string, r: Reponse | null): Promise<string | null> {
-    const e = await enregistrerReponse(cle, r);
+  async function enregistrerQuestion(cle: string, r: Reponse | null, rapide = false): Promise<string | null> {
+    const e = await enregistrerReponse(cle, r, rapide);
     if (!e) setReponses((x) => ({ ...x, [cle]: r ?? undefined }));
     return e;
   }
@@ -310,16 +343,16 @@ export function Questionnaire({
             : `${traitees} question${traitees > 1 ? "s" : ""} traitée${traitees > 1 ? "s" : ""} sur ${toutes.length}, dont ${repondues} avec une réponse. Aucune question n'est obligatoire. Vos réponses sont enregistrées au fur et à mesure : vous pouvez quitter cette page et reprendre plus tard.`}
         </p>
         {manquantes > 0 ? (
-          <p className="mt-2 text-xs text-[var(--text-faint)]">
+          <p className="mt-2 text-xs text-[var(--text-muted)]">
             {manquantes} question{manquantes > 1 ? "s" : ""} n&apos;ont pas encore été rédigée{manquantes > 1 ? "s" : ""} dans la banque : le libellé du classeur s&apos;affiche à la place.
           </p>
         ) : null}
-        {masques > 0 ? <p className="mt-1 text-xs text-[var(--text-faint)]">{masques} thème{masques > 1 ? "s" : ""} masqué{masques > 1 ? "s" : ""} : ils ne s&apos;appliquent pas à votre entreprise.</p> : null}
+        {masques > 0 ? <p className="mt-1 text-xs text-[var(--text-muted)]">{masques} thème{masques > 1 ? "s" : ""} masqué{masques > 1 ? "s" : ""} : ils ne s&apos;appliquent pas à votre entreprise.</p> : null}
 
         <div className="mt-6 flex flex-col gap-10">
           {themes.map((t) => (
             <div key={t.code}>
-              <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-faint)]">{t.bloc}</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">{t.bloc}</p>
               <h3 className="mt-1 text-lg">{t.nom}</h3>
               <ul className="mt-4 flex flex-col gap-3">
                 {t.questions.map((q) => (

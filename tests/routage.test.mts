@@ -180,3 +180,19 @@ test("le routage envoyé par le navigateur est ignoré", () => {
   assert.ok(r.success);
   if (r.success) assert.ok(!("categorie" in r.data) && !("profils" in r.data));
 });
+
+test("l'inscription refuse les valeurs qui feraient échouer la base ou tronquer le mot de passe", () => {
+  assert.match(erreurs({ ...valide, chiffreAffairesMensuel: "1000000000000" }).join("\n"), /chiffreAffairesMensuel: .*trop élevé/);
+  assert.match(erreurs({ ...valide, chiffreAffairesMensuel: "99999999999" }).join("\n"), /chiffreAffairesMensuel/);
+  assert.deepEqual(erreurs({ ...valide, chiffreAffairesMensuel: "1000000000" }), []);
+  assert.match(erreurs({ ...valide, nombreCollaborateurs: "1000000000000" }).join("\n"), /nombreCollaborateurs: .*trop élevé/);
+  assert.match(erreurs({ ...valide, motDePasse: "a".repeat(73) }).join("\n"), /motDePasse: .*72 octets/);
+  assert.deepEqual(erreurs({ ...valide, motDePasse: "a".repeat(72) }), []);
+  // 40 caractères accentués = 80 octets : trop long pour bcrypt.
+  assert.match(erreurs({ ...valide, motDePasse: "é".repeat(40) }).join("\n"), /motDePasse/);
+  assert.match(erreurs({ ...valide, ville: "v".repeat(121) }).join("\n"), /ville: .*trop long/);
+  assert.match(erreurs({ ...valide, email: `${"a".repeat(250)}@x.fr` }).join("\n"), /email/);
+  assert.match(erreurs({ ...valide, dateCreationEntreprise: "2021-02-30" }).join("\n"), /dateCreationEntreprise/);
+  assert.match(erreurs({ ...valide, dateCreationEntreprise: "2021-13-01" }).join("\n"), /dateCreationEntreprise/);
+  assert.deepEqual(erreurs({ ...valide, dateCreationEntreprise: "2020-02-29" }), []);
+});

@@ -263,6 +263,17 @@ catégorie et le module métier : ces trois couches sont assemblées ensemble (p
 « importées » (connexions comptabilité, caisse, réseaux) ne sont pas posées : aucune connexion n'existe.
 Tant que la banque est vide, l'écran affiche le libellé du classeur, marqué « question à rédiger ».
 
+**Moteur (étape 5, construit)** : `src/lib/moteur/` : `notation.ts` (vert / orange / rouge : la moyenne
+du marché est orange, deux sens avec tolérance d'un point, pratique absente / partielle / en place ; choix
+du seuil le plus précis par zone et taille), `chaine.ts` (leviers multipliés, jamais additionnés ; deux
+leviers sur la même étape = règle à préciser, aucun chiffre ; plafond de capacité à deux chiffres ; période
+commune : par jour × jours ouverts × 4,3), `constat.ts` (par thème : masqué, non évalué, contexte, règle
+manquante, noté ; seuil sans source = « à valider »). Les seuils vivent dans `data/seuils.json`, **vide** :
+aucun seuil de marché n'est écrit dans le classeur ni dans le document, donc tous les thèmes notés sortent
+« règle manquante ». Pas encore écrits : impacts chiffrés par thème (formules des croisements, en texte libre
+dans le classeur), impact qualifié Bloquant / Frein / Secondaire (« règles fixes » non fournies), règle
+d'agrégation quand un thème porte plusieurs indicateurs. Rapport des tests : `docs/rapport-tests-etape-5.md`.
+
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),
 puis la connexion des deux. Tant que la banque n'existe pas, rien n'est inventé :
