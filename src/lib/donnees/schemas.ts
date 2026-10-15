@@ -158,6 +158,53 @@ export const motLexique = z.object({
   formes: z.object(Object.fromEntries(PROFILS.map((p) => [p, z.string().nullable()])) as Record<(typeof PROFILS)[number], z.ZodNullable<z.ZodString>>),
 });
 
+// --- Règles d'affichage (conditions, masquages, réponses des déclencheurs) ------
+
+// Réponses connues du dirigeant : clé → valeur (« D07 » → « oui », « D03 » → liste de
+// canaux, « D08.achats » → « non »). D02 (effectif) vient du compte.
+const operateur = z.enum(["egal", "different", "contient", "non_vide", "vide", "dans", "moins_de"]);
+const regleSimple = z.object({
+  cle: z.string().min(1),
+  op: operateur,
+  valeur: z.union([z.string(), z.number(), z.array(z.string())]).optional(),
+});
+export const regle = z.union([
+  regleSimple,
+  z.object({ tous: z.array(regleSimple).min(1) }),
+  z.object({ un: z.array(regleSimple).min(1) }),
+  // Règle que le classeur ne permet pas de trancher : la question reste affichée.
+  z.object({ aPreciser: z.string().min(1) }),
+]);
+export type Regle = z.infer<typeof regle>;
+
+// Comment poser un déclencheur au dirigeant. Les libellés viennent du classeur.
+const optionDeclencheur = z.object({ id: z.string(), libelle: z.string() });
+export const formeDeclencheur = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("oui_non") }),
+  z.object({ type: z.literal("cases"), options: z.array(optionDeclencheur) }),
+  z.object({ type: z.literal("choix"), options: z.array(optionDeclencheur) }),
+  // Plusieurs oui / non à la suite. Une sous-question peut dépendre d'une réponse précédente.
+  z.object({
+    type: z.literal("oui_non_multiple"),
+    sousCles: z.array(
+      z.object({
+        cle: z.string(),
+        libelle: z.string(),
+        siCle: z.object({ cle: z.string(), egal: z.string() }).optional(),
+      })
+    ),
+  }),
+]);
+export type FormeDeclencheur = z.infer<typeof formeDeclencheur>;
+
+export const reglesAffichage = z.object({
+  source: z.string(),
+  declencheurs: z.record(z.string().regex(/^D\d{2}$/), formeDeclencheur),
+  conditions: z.record(z.string(), regle),
+  masquages: z.record(z.string(), regle),
+});
+export type ReglesAffichage = z.infer<typeof reglesAffichage>;
+
 // --- Routage métier → catégorie → profil -------------------------------------
 
 export const routage = z.object({
@@ -243,6 +290,7 @@ export type EnsembleDonnees = {
   lexique: z.infer<typeof motLexique>[];
   routage: Routage;
   inscription: Inscription;
+  reglesAffichage: ReglesAffichage;
   banque: Question[];
 };
 
@@ -256,5 +304,6 @@ export const schemaFichiers = {
   lexique: z.array(motLexique),
   routage,
   inscription,
+  reglesAffichage,
   banque: z.array(question),
 } as const;

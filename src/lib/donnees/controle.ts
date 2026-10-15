@@ -164,6 +164,42 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     }
   }
 
+  // Règles d'affichage : chaque condition et chaque masquage du classeur a sa règle,
+  // et chaque règle porte sur un déclencheur connu.
+  const regles = e.reglesAffichage;
+  const conditionsClasseur = new Set(e.donnees.map((d) => d.condition).filter((c): c is string => c !== null));
+  const masquagesClasseur = new Set(e.themes.map((t) => t.masquePour).filter((m): m is string => m !== null));
+  for (const c of conditionsClasseur) {
+    if (!(c in regles.conditions)) erreurs.push(`La condition « ${c} » n'a pas de règle d'affichage.`);
+  }
+  for (const m of masquagesClasseur) {
+    if (!(m in regles.masquages)) erreurs.push(`Le masquage « ${m} » n'a pas de règle d'affichage.`);
+  }
+  for (const c of Object.keys(regles.conditions)) {
+    if (!conditionsClasseur.has(c)) avertissements.push(`La règle d'affichage « ${c} » ne correspond à aucune condition du classeur.`);
+  }
+  for (const m of Object.keys(regles.masquages)) {
+    if (!masquagesClasseur.has(m)) avertissements.push(`Le masquage « ${m} » ne correspond à aucun thème du classeur.`);
+  }
+  const clesDeclencheurs = new Set<string>(["D02"]);
+  for (const [code, forme] of Object.entries(regles.declencheurs)) {
+    if (!declencheurs.has(code)) erreurs.push(`Le déclencheur ${code} (règles d'affichage) n'existe pas.`);
+    if (forme.type === "oui_non_multiple") for (const s of forme.sousCles) clesDeclencheurs.add(s.cle ? `${code}.${s.cle}` : code);
+    else clesDeclencheurs.add(code);
+  }
+  const toutesRegles = [...Object.entries(regles.conditions), ...Object.entries(regles.masquages)];
+  let aPreciser = 0;
+  for (const [nom, r] of toutesRegles) {
+    if ("aPreciser" in r) {
+      aPreciser++;
+      avertissements.push(`Règle à préciser (« ${nom} ») : ${r.aPreciser}`);
+      continue;
+    }
+    for (const simple of "tous" in r ? r.tous : "un" in r ? r.un : [r]) {
+      if (!clesDeclencheurs.has(simple.cle)) erreurs.push(`La règle « ${nom} » porte sur une réponse inconnue : ${simple.cle}.`);
+    }
+  }
+
   // Banque : chaque question référence une donnée demandée.
   const questions = new Map<string, number>();
   for (const q of e.banque) {
@@ -194,6 +230,7 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
       scénarios: e.scenarios.length,
       déclencheurs: e.declencheurs.length,
       "références non résolues": nonResolues,
+      "règles d'affichage à préciser": aPreciser,
     },
   };
 }

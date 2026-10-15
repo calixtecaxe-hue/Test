@@ -3636,3 +3636,40 @@ h3,
   list-style: none;
   scrollbar-width: thin;
 }
+
+/* Audit : choix du type de réponse à une question chiffrée */
+.reponse-choix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.reponse-bouton {
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--corps);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.reponse-bouton:hover {
+  border-color: rgba(244, 236, 216, 0.32);
+  color: var(--text);
+}
+
+.reponse-bouton.actif {
+  border-color: var(--blue-1);
+  background: rgba(91, 159, 236, 0.12);
+  color: var(--text);
+}
+
+.reponse-bouton:focus-visible {
+  outline: 2px solid var(--blue-1);
+  outline-offset: 2px;
+}

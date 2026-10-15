@@ -11,10 +11,26 @@ const dossier = join(fileURLToPath(new URL("..", import.meta.url)), "data");
 const reel = chargerDepuisDisque(dossier);
 const copie = (): EnsembleDonnees => structuredClone(reel);
 
-test("les fichiers du dépôt passent le contrôle sans erreur ni avertissement", () => {
+test("les fichiers du dépôt passent le contrôle sans erreur ; seules les règles à préciser sont signalées", () => {
   const r = controlerDonnees(reel);
   assert.deepEqual(r.erreurs, []);
-  assert.deepEqual(r.avertissements, []);
+  assert.deepEqual(r.avertissements.filter((a) => !a.startsWith("Règle à préciser")), []);
+  assert.equal(r.avertissements.length, 3);
+});
+
+test("une condition ou un masquage du classeur sans règle d'affichage est une erreur", () => {
+  const e = copie();
+  delete e.reglesAffichage.conditions["D06 · si devis ou propositions"];
+  delete e.reglesAffichage.masquages["Sans stock"];
+  const r = controlerDonnees(e);
+  assert.ok(r.erreurs.some((m) => m.includes("D06 · si devis ou propositions")));
+  assert.ok(r.erreurs.some((m) => m.includes("Sans stock")));
+});
+
+test("une règle d'affichage qui porte sur une réponse inconnue est une erreur", () => {
+  const e = copie();
+  e.reglesAffichage.conditions["D07 · si stock"] = { cle: "D99", op: "egal", valeur: "oui" };
+  assert.ok(controlerDonnees(e).erreurs.some((m) => m.includes("D99")));
 });
 
 test("le nombre de thèmes par agent est celui du document de règles", () => {

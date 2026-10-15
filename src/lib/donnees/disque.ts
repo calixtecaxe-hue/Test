@@ -24,6 +24,7 @@ export function chargerDepuisDisque(dossier: string): EnsembleDonnees {
     lexique: schemaFichiers.lexique.parse(lire(dossier, "lexique.json")),
     routage: schemaFichiers.routage.parse(lire(dossier, "routage.json")),
     inscription: schemaFichiers.inscription.parse(lire(dossier, "inscription.json")),
+    reglesAffichage: schemaFichiers.reglesAffichage.parse(lire(dossier, "regles-affichage.json")),
     banque: schemaFichiers.banque.parse(lire(dossier, "banque", "questions.json")),
   };
 }

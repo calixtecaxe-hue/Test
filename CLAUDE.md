@@ -236,7 +236,9 @@ tels quels).
 **Fichiers de données (dossier `data/`)** : `themes.json` (162 thèmes), `donnees-*.json`
 (792 données, par agent), `croisements.json` (157), `scenarios.json` (13),
 `diagnostic-comm.json` (14 problèmes), `declencheurs.json` (27), `lexique.json`,
-`routage.json` (10 catégories, 7 profils, métiers du document),
+`regles-affichage.json` (conditions d'affichage, masquages de thèmes et réponses attendues des
+déclencheurs, **écrit à la main** d'après le classeur ; le contrôle échoue si une condition du classeur n'y a pas
+de règle ; trois règles sont « à préciser »), `routage.json` (10 catégories, 7 profils, métiers du document),
 `inscription.json` (questions du dossier d'inscription, avec mots du lexique) et
 `banque/questions.json` (vide). Les huit premiers viennent du classeur par
 `python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` et `inscription.json` sont écrits
@@ -249,6 +251,17 @@ on le modifie, on relance l'import, on ne modifie pas les JSON à la main.**
 **Décisions du 15 octobre** : prix du palier 4 = 99,99 € HT ; remise annuelle de
 15 % conservée (pour engager à l'année) ; portraits illustrés des agents conservés
 (l'interdiction de « personnage » vise les prénoms) ; objectif en trois champs.
+
+**Audit d'un agent (étape 4, construit)** : `src/lib/audit/` : `reponse.ts` (les quatre
+réponses, règle des 50 %, règle du quart), `objectif.ts` (objectif en trois champs, échéance,
+rattachement à un indicateur), `affichage.ts` (règles d'affichage, effectif → taille),
+`assemblage.ts` (assemblage par profil, taille, niveau, déclencheurs ; données partagées déjà posées),
+`validation.ts` (contrôle serveur des réponses). Tables `ReponseAudit` (réponses du compte, tous agents
+confondus) et `User.niveauAudit`. Routes `PUT /api/audit/reponses`, `POST /api/audit/objectif`,
+`PUT /api/audit/niveau`. Écran `/audit/[slug]`. Le classeur ne distingue pas encore le socle, le module
+catégorie et le module métier : ces trois couches sont assemblées ensemble (par profil). Les données
+« importées » (connexions comptabilité, caisse, réseaux) ne sont pas posées : aucune connexion n'existe.
+Tant que la banque est vide, l'écran affiche le libellé du classeur, marqué « question à rédiger ».
 
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),

@@ -54,9 +54,14 @@ model User {
   typeZone               TypeZone
   ville                  String
 
+  // Niveau des questionnaires (essentiel ou approfondi), choisi une fois et valable
+  // pour tous les agents (CLAUDE.md section 6). Vide tant qu'il n'a pas été choisi.
+  niveauAudit NiveauAudit?
+
   agentAccess AgentAccess[]
   objectifs   Objectif[]
   abonnement  Abonnement?
+  reponses    ReponseAudit[]
 
   @@index([metierPrecis])
 }
@@ -95,12 +100,12 @@ model Objectif {
   user   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   agent  AgentCode
 
-  // Ce que le dirigeant a écrit, tel quel (précisions éventuelles incluses).
+  // L'objectif en une phrase : « baisser le turnover de 5 % sur les 3 prochains mois ».
   texteBrut String
 
-  // Interprétation structurée : metric, current_value, target_value,
-  // target_change, target_delta, unit, deadline, audit_agent. Voir
-  // src/lib/objectif/interpreter.ts (type ObjectifStructure).
+  // Les trois champs saisis, l'indicateur rattaché (ou null) et l'échéance :
+  // { quoi, ampleur: { valeur, unite }, delaiMois, indicateur, echeance }.
+  // Voir src/lib/audit/objectif.ts (type ObjectifEnregistre).
   structure Json
 
   // Échéance de l'objectif, extraite de structure.deadline pour pouvoir
@@ -136,4 +141,26 @@ model Abonnement {
   periode      PeriodeFacturation
   debutLe      DateTime           @default(now())
   modifieLe    DateTime           @updatedAt
+}
+
+enum NiveauAudit {
+  ESSENTIEL
+  APPROFONDI
+}
+
+// Réponse du dirigeant à une donnée du questionnaire ou à une question déclencheuse.
+// Enregistrée sur le compte dès qu'elle est posée, quel que soit l'agent : une donnée
+// partagée n'est jamais redemandée (CLAUDE.md section 6). `cle` est le code de la
+// donnée (ACQ-02.01) ou la clé d'une réponse de déclencheur (D07, D08.achats).
+// `reponse` : voir src/lib/audit/reponse.ts (les quatre réponses, ou une saisie).
+model ReponseAudit {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cle       String
+  reponse   Json
+  creeLe    DateTime @default(now())
+  modifieLe DateTime @updatedAt
+
+  @@unique([userId, cle])
 }

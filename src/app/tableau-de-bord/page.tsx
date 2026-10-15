@@ -41,6 +41,10 @@ export default async function TableauDeBord() {
   });
   const agentsSouscrits = AGENTS.filter((a) => acces.some((x) => x.agent === a.code));
   const abonnement = await prisma.abonnement.findUnique({ where: { userId: utilisateur.id } });
+  const objectifsActifs = await prisma.objectif.findMany({
+    where: { userId: utilisateur.id, statut: "ACTIF" },
+    select: { agent: true },
+  });
 
   const metier = getMetier(utilisateur.metierPrecis);
   const sousVariantes = getSousVariantes(
@@ -139,7 +143,9 @@ export default async function TableauDeBord() {
                   className="flex items-center justify-between rounded-xl border border-[var(--line)] px-4 py-3 transition hover:border-[var(--blue-1)]"
                 >
                   <span>{a.nom}</span>
-                  <span className="text-sm text-[var(--blue-1)]">Définir mon objectif</span>
+                  <span className="text-sm text-[var(--blue-1)]">
+                    {objectifsActifs.some((o) => o.agent === a.code) ? "Reprendre mon audit" : "Définir mon objectif"}
+                  </span>
                 </Link>
               </li>
             ))}
@@ -153,7 +159,7 @@ export default async function TableauDeBord() {
           </p>
         )}
         <p className="mt-4 text-sm text-[var(--text-muted)]">
-          Chaque audit commence par votre objectif. Le questionnaire n&apos;est pas encore disponible depuis cet écran.
+          Chaque audit commence par votre objectif. Vos réponses sont enregistrées au fur et à mesure : vous pouvez reprendre un audit à tout moment.
         </p>
       </section>
     </main>
