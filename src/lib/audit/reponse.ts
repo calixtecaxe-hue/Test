@@ -30,6 +30,13 @@ export const reponseSchema = z.discriminatedUnion("genre", [
     genre: z.literal("saisie"),
     valeur: z.union([z.string().max(2000), z.boolean(), z.array(z.string().max(200)).max(50)]),
   }),
+  // Plusieurs valeurs (plusieurs champs, ou un tableau : « ligne.colonne » → valeur).
+  z.object({
+    genre: z.literal("valeurs"),
+    valeurs: z
+      .record(z.string().max(100), z.union([z.number().finite(), z.string().max(2000), z.boolean(), z.array(z.string().max(200)).max(50), z.null()]))
+      .refine((v) => Object.keys(v).length <= 400, { message: "Trop de valeurs." }),
+  }),
 ]);
 export type Reponse = z.infer<typeof reponseSchema>;
 
@@ -52,6 +59,9 @@ export function valeurRetenue(reponse: Reponse | undefined): ValeurRetenue | nul
 export function aUneReponse(reponse: Reponse | undefined): boolean {
   if (!reponse) return false;
   if (reponse.genre === "inconnu" || reponse.genre === "non_suivi") return false;
+  if (reponse.genre === "valeurs") {
+    return Object.values(reponse.valeurs).some((v) => v !== null && v !== "" && !(Array.isArray(v) && v.length === 0));
+  }
   if (reponse.genre === "saisie") {
     const v = reponse.valeur;
     return typeof v === "string" ? v.trim() !== "" : Array.isArray(v) ? v.length > 0 : true;

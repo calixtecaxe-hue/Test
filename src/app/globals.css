@@ -3693,3 +3693,73 @@ h3,
   outline: 2px solid var(--blue-1);
   outline-offset: 2px;
 }
+
+/* Audit : tableaux et champs à unité */
+.tableau-reponse {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.tableau-reponse table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tableau-reponse th,
+.tableau-reponse td {
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--line);
+}
+
+.tableau-reponse thead th {
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.tableau-reponse tbody th {
+  font-weight: 500;
+  color: var(--text);
+  min-width: 140px;
+}
+
+.tableau-reponse tbody tr:last-child th,
+.tableau-reponse tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tableau-reponse:focus-visible {
+  outline: 2px solid var(--blue-1);
+  outline-offset: 2px;
+}
+
+.champ-cellule {
+  min-height: 40px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.champ-avec-unite {
+  position: relative;
+  display: block;
+}
+
+.champ-avec-unite .champ-cellule {
+  padding-right: 52px;
+}
+
+.champ-unite {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--text-muted);
+  pointer-events: none;
+}

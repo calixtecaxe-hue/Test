@@ -24,6 +24,7 @@ import {
   type TailleId,
 } from "./affichage.ts";
 import { accepteLesQuatreReponses, type Reponses } from "./reponse.ts";
+import { proposerSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
 
 export type Niveau = "essentiel" | "approfondi";
 
@@ -51,6 +52,10 @@ export type QuestionAssemblee = {
   aide: string | null;
   repli: string | null;
   quatreReponses: boolean;
+  // Réponse attendue : celle de la banque, sinon celle que le format du classeur permet de
+  // déduire ; null si la banque doit encore la définir (saisie libre en attendant).
+  spec: ReponseSpec | null;
+  specSource: "banque" | "classeur" | null;
   // Déjà posée par un autre agent : reprise telle quelle, jamais redemandée.
   dejaPosee: boolean;
 };
@@ -179,6 +184,9 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, ctx: ContexteAssembla
         if (!f.ok) continue;
         texte = f.texte;
       }
+      const proposee = proposerSpec(d.format);
+      const spec = q?.reponse ?? (proposee.certitude === "sure" ? proposee.spec : null);
+      const specSource = q?.reponse ? "banque" : spec ? "classeur" : null;
       const equivalents = [...(equiv.get(d.code) ?? [])];
       const deja = ctx.reponses[d.code] !== undefined || equivalents.some((c) => ctx.reponses[c] !== undefined);
       if (deja) dejaPosees++;
@@ -192,7 +200,9 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, ctx: ContexteAssembla
         texte,
         aide: q?.aide ?? null,
         repli: q?.repli ?? null,
-        quatreReponses: accepteLesQuatreReponses(d.format),
+        quatreReponses: spec ? spec.type === "nombre" : accepteLesQuatreReponses(d.format),
+        spec,
+        specSource,
         dejaPosee: deja && ctx.reponses[d.code] === undefined,
       });
     }

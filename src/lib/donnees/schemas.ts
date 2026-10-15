@@ -31,6 +31,8 @@ export const PREFIXE_AGENT: Record<CodeAgent, string> = {
 };
 
 import { PROFILS, TAILLES } from "./constantes.ts";
+import { reponseSpec } from "./reponse-spec.ts";
+export { reponseSpec };
 export { PROFILS, TAILLES };
 export const profilId = z.enum(PROFILS);
 export type ProfilId = z.infer<typeof profilId>;
@@ -294,6 +296,10 @@ export const question = z.object({
   texte: z.string().min(1),
   aide: z.string().nullable(),
   repli: z.string().nullable(),
+  // Réponse attendue (nombre, choix, cases, plusieurs valeurs, tableau). Absente : le
+  // moteur utilise ce que le format du classeur permet de déduire, sinon la question
+  // reste en saisie libre et le contrôle la signale.
+  reponse: reponseSpec.nullable().optional(),
 });
 export type Question = z.infer<typeof question>;
 

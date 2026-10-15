@@ -9,7 +9,6 @@ import { PROFILS, type ProfilId } from "@/lib/donnees/schemas";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { assemblerQuestionnaire, compterQuestions } from "@/lib/audit/assemblage";
 import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
-import { estScalaire } from "@/lib/audit/reponse";
 import { reponsesDuCompte } from "@/lib/audit/compte";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
 import { ObjectifFormulaire } from "./objectif-formulaire";
@@ -95,7 +94,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
         aide: q.aide,
         repli: q.repli,
         format: q.format,
-        scalaire: estScalaire(q.format),
+        spec: q.spec,
         quatreReponses: q.quatreReponses,
         dejaPosee: q.dejaPosee,
       })),
@@ -103,6 +102,11 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
     // Seules les réponses utiles à cet écran partent au navigateur.
     const cles = new Set<string>([...a.declencheursConcernes.flatMap((d) => Object.keys(reponses).filter((c) => c === d.code || c.startsWith(`${d.code}.`))), ...themes.flatMap((t) => t.questions.map((q) => q.code))]);
     const reponsesEcran = Object.fromEntries(Object.entries(reponses).filter(([c]) => cles.has(c)));
+    // Noms des canaux, réseaux… cochés au cadrage, pour nommer les lignes des tableaux.
+    const libellesLignes: Record<string, Record<string, string>> = {};
+    for (const [code, f] of Object.entries(ENSEMBLE.reglesAffichage.declencheurs)) {
+      if (f.type === "cases") libellesLignes[code] = Object.fromEntries(f.options.map((o) => [o.id, o.libelle]));
+    }
     corps = (
       <Questionnaire
         declencheurs={a.declencheursConcernes.map((d) => ({ code: d.code, question: d.question, forme: d.forme }))}
@@ -110,6 +114,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
         reponsesInitiales={reponsesEcran}
         masques={a.themesMasques.length}
         manquantes={a.statistiques.manquantes}
+        libellesLignes={libellesLignes}
       />
     );
   }

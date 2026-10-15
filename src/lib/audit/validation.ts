@@ -5,7 +5,8 @@
 // Ce fichier n'importe que des types et reponse.ts : il se teste directement avec Node.
 
 import type { CodeAgent, EnsembleDonnees } from "../donnees/schemas.ts";
-import { estScalaire, reponseSchema, type Reponse } from "./reponse.ts";
+import { reponseSchema, type Reponse, type Reponses } from "./reponse.ts";
+import { proposerSpec, validerSelonSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
 
 export type Verdict =
   | { ok: true; reponse: Reponse; agent: CodeAgent | null }
@@ -15,7 +16,18 @@ const refus = (message: string): Verdict => ({ ok: false, message });
 
 const CLE_DECLENCHEUR = /^(D\d{2})(?:\.([a-z_]+))?$/;
 
-export function validerReponse(e: EnsembleDonnees, cle: string, brut: unknown): Verdict {
+// Réponse attendue à une donnée : celle écrite dans la banque, sinon celle que le format du
+// classeur permet de déduire sans ambiguïté, sinon aucune (saisie libre).
+export function specDeLaDonnee(e: EnsembleDonnees, code: string): { spec: ReponseSpec | null; source: "banque" | "classeur" | null } {
+  const q = e.banque.find((x) => x.donnee === code);
+  if (q?.reponse) return { spec: q.reponse, source: "banque" };
+  const d = e.donnees.find((x) => x.code === code);
+  const p = proposerSpec(d?.format ?? null);
+  return p.certitude === "sure" && p.spec ? { spec: p.spec, source: "classeur" } : { spec: null, source: null };
+}
+
+// `dejaRepondu` : réponses du compte, pour les tableaux dont les lignes viennent d'une question de cadrage.
+export function validerReponse(e: EnsembleDonnees, cle: string, brut: unknown, dejaRepondu: Reponses = {}): Verdict {
   const analyse = reponseSchema.safeParse(brut);
   if (!analyse.success) return refus(analyse.error.issues[0]?.message ?? "Réponse invalide.");
   const reponse = analyse.data;
@@ -46,7 +58,20 @@ export function validerReponse(e: EnsembleDonnees, cle: string, brut: unknown): 
 
   const donnee = e.donnees.find((d) => d.code === cle);
   if (!donnee || (donnee.mode !== "demandee" && donnee.mode !== "partagee")) return refus("Cette question n'existe pas.");
-  if ((reponse.genre === "exact" || reponse.genre === "estimation") && !estScalaire(donnee.format)) {
+  const { spec } = specDeLaDonnee(e, cle);
+  if (spec) {
+    const lignesDeclencheur = (c: string): string[] => {
+      const r = dejaRepondu[c];
+      return r?.genre === "saisie" && Array.isArray(r.valeur) ? r.valeur : [];
+    };
+    const elementsDeListe = (c: string): string[] => {
+      const r = dejaRepondu[c];
+      return r?.genre === "saisie" && Array.isArray(r.valeur) ? r.valeur : [];
+    };
+    const verdict = validerSelonSpec(spec, reponse, { lignesDeclencheur, elementsDeListe });
+    if (!verdict.ok) return refus(verdict.message);
+  } else if (reponse.genre === "exact" || reponse.genre === "estimation" || reponse.genre === "valeurs") {
+    // Sans spécification de réponse, seuls un texte, « je ne sais pas » et « je ne suis pas cette donnée » sont permis.
     return refus("Cette question ne se répond pas par un seul chiffre.");
   }
   const theme = e.themes.find((t) => t.code === donnee.theme);

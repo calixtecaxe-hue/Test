@@ -11,6 +11,7 @@
 import { PREFIXE_AGENT, PROFILS, TAILLES } from "./schemas.ts";
 import type { CodeAgent, EnsembleDonnees } from "./schemas.ts";
 import { cleLexique, variablesDuGabarit } from "./lexique.ts";
+import { proposerSpec } from "./reponse-spec.ts";
 
 export type Rapport = {
   erreurs: string[];
@@ -232,6 +233,29 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     questions.set(q.donnee, (questions.get(q.donnee) ?? 0) + 1);
   }
   for (const [code, n] of questions) if (n > 1) erreurs.push(`La donnée ${code} a ${n} questions dans la banque.`);
+  // Réponse attendue : cohérente avec le format du classeur, lignes de tableau issues d'un cadrage existant.
+  for (const q of e.banque) {
+    const d = donnees.get(q.donnee);
+    if (!d || !q.reponse) continue;
+    const p = proposerSpec(d.format);
+    if (p.certitude === "sure" && p.spec && p.spec.type !== q.reponse.type) {
+      avertissements.push(`La réponse de ${q.donnee} (${q.reponse.type}) s'écarte du format du classeur « ${d.format} » (${p.spec.type}).`);
+    }
+    if (q.reponse.type === "tableau" && q.reponse.lignes.source === "declencheur" && !(q.reponse.lignes.cle in e.reglesAffichage.declencheurs)) {
+      erreurs.push(`Les lignes du tableau de ${q.donnee} viennent d'un déclencheur sans question de cadrage : ${q.reponse.lignes.cle}.`);
+    }
+  }
+  for (const q of e.banque) {
+    if (q.reponse?.type === "tableau" && q.reponse.lignes.source === "donnee") {
+      const cible = q.reponse.lignes.code;
+      const liste = e.banque.find((x) => x.donnee === cible)?.reponse;
+      if (!donnees.get(cible)) erreurs.push(`Les lignes du tableau de ${q.donnee} viennent d'une donnée inconnue : ${cible}.`);
+      else if (!liste || liste.type !== "liste") erreurs.push(`Les lignes du tableau de ${q.donnee} viennent de ${cible}, dont la réponse n'est pas une liste dans la banque.`);
+    }
+  }
+  const posees = e.donnees.filter((d) => d.mode === "demandee" || d.mode === "partagee");
+  const banqueParDonnee = new Map(e.banque.map((q) => [q.donnee, q]));
+  const sansSpec = posees.filter((d) => !banqueParDonnee.get(d.code)?.reponse && proposerSpec(d.format).certitude !== "sure");
 
   const demandees = e.donnees.filter((d) => d.mode === "demandee");
   const parAgent = (a: CodeAgent) => e.themes.filter((t) => t.agent === a).length;
@@ -248,6 +272,8 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
       données: e.donnees.length,
       "données demandées": demandees.length,
       "questions écrites": e.banque.length,
+      "données posées dont la réponse se déduit du format": posees.length - sansSpec.length,
+      "données posées dont la réponse reste à définir dans la banque": sansSpec.length,
       "questions manquantes": demandees.length - questions.size,
       croisements: e.croisements.length,
       scénarios: e.scenarios.length,
