@@ -92,7 +92,11 @@ deux dernières étapes, sur un constat déjà calculé.
 - **Professions réglementées** : socle seulement, aucun module métier, **pas
   d'agent Comm** (3 agents au maximum). L'agent Acquisition ne leur recommande
   ni publicité payante, ni démarchage, ni apporteurs d'affaires rémunérés, et
-  n'affiche pas le renvoi vers Comm.
+  n'affiche pas le renvoi vers Comm. **L'audit Acquisition ne leur pose pas non plus** les
+  questions correspondantes : pas de question sur la publicité payante (D04), pas de canaux
+  « publicité », « prospection » ni « partenaires » (D03), pas de thèmes Prospection active ni
+  Partenaires. Liste dans `data/routage.json` (`reglementees.acquisitionExclut`), appliquée à
+  l'assemblage et refusée côté serveur.
 
 ## 6. Audit d'un agent
 
@@ -217,8 +221,14 @@ lieu de 59,99 € HT / mois en facturation mensuelle » (le prix principal est l
 montant à l'année). Implémentation : `src/lib/abonnement.ts` (paliers, droits,
 professions réglementées), `POST /api/abonnement`, modèles `Abonnement` et
 `AgentAccess`. **Le paiement n'est pas branché** : seul le choix est enregistré.
+**Parcours** : la formule choisie avant l'inscription voyage dans l'adresse
+(`/inscription?agents=3&periode=annuel&choix=…`, `src/lib/formule-url.ts`) et est enregistrée avec le compte à la
+création (`POST /api/inscription`, revérifiée comme `/api/abonnement` ; si elle ne convient pas au métier, le compte
+est créé sans formule et le dirigeant est renvoyé vers `/activation`). Le niveau du questionnaire se change depuis
+l'audit ; une donnée partagée déjà posée pour un autre agent se modifie depuis n'importe lequel des agents ouverts.
 Pas encore construits : « formule suggérée à l'inscription » et « essai d'un agent
-non souscrit » (le document ne les détaille pas).
+non souscrit » (le document ne les détaille pas). **Cookies, politique de confidentialité et mentions RGPD : rédigés par le
+propriétaire du produit, à intégrer tels quels ; ne rien écrire à sa place.**
 
 ## 11. Données et pilote
 

@@ -36,6 +36,8 @@ Date : 15 octobre 2026. Branche `claude/caxe-project-context-gntrhm`.
 
 ### Produit et parcours
 
+*Mise à jour : les points 1, 2, 3 et 4 ci-dessous sont corrigés (formule gardée jusqu'à l'inscription, niveau et données partagées modifiables, questions écartées pour les professions réglementées, plafond d'objectif selon le délai). Le plafond (×4 par an) est une valeur de travail à valider.*
+
 1. **La formule choisie avant l'inscription est perdue.** Un visiteur choisit son offre et ses agents, mais l'écran dit « votre choix n'est pas enregistré » ; après l'inscription le compte affiche « Aucune formule choisie ». Il doit revenir aux offres. À décider : inscrire d'abord, ou garder le choix dans l'adresse jusqu'à l'inscription.
 2. **Le niveau (essentiel / approfondi) ne peut pas être changé.** Le texte promet « Vous pourrez le modifier plus tard », aucun écran ne le permet. Même chose pour les données partagées déjà posées par un autre agent : « modifiables par le dirigeant » dans le document, pas d'écran.
 3. **Professions réglementées : l'audit Acquisition pose encore des questions sur la publicité payante et les canaux Publicité, Prospection, Partenaires.** Le document interdit de les recommander, pas de les demander. Point lié à celui déjà ouvert avec un avocat.
