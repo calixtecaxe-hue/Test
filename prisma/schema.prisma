@@ -139,14 +139,40 @@ enum PeriodeFacturation {
 // facturation mensuelle ou annuelle. Le paiement n'est pas encore branché : cette
 // table ne dit que ce que le dirigeant a choisi. Les agents ouverts sont dans
 // AgentAccess.
+// EN_ATTENTE_PAIEMENT : formule choisie, aucun paiement reçu, aucun agent ouvert.
+// ACTIF : paiement reçu. IMPAYE : un renouvellement a échoué (l'accès reste ouvert jusqu'à la fin
+// de la période déjà payée). RESILIE : abonnement arrêté (accès jusqu'à la fin de la période payée).
+enum StatutAbonnement {
+  EN_ATTENTE_PAIEMENT
+  ACTIF
+  IMPAYE
+  RESILIE
+}
+
 model Abonnement {
-  id           String             @id @default(cuid())
-  userId       String             @unique
-  user         User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  nombreAgents Int
-  periode      PeriodeFacturation
-  debutLe      DateTime           @default(now())
-  modifieLe    DateTime           @updatedAt
+  id                   String             @id @default(cuid())
+  userId               String             @unique
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nombreAgents         Int
+  periode              PeriodeFacturation
+  statut               StatutAbonnement   @default(EN_ATTENTE_PAIEMENT)
+  // « stripe » ou « demonstration » (aucun paiement réel).
+  fournisseur          String?
+  stripeCustomerId     String?
+  stripeSubscriptionId String?            @unique
+  // Fin de la période déjà payée : l'accès reste ouvert jusqu'à cette date.
+  finPeriodeLe         DateTime?
+  activeLe             DateTime?
+  debutLe              DateTime           @default(now())
+  modifieLe            DateTime           @updatedAt
+}
+
+// Événements de paiement déjà traités (identifiant de l'événement du fournisseur) : un même
+// événement reçu deux fois n'est appliqué qu'une fois.
+model EvenementPaiement {
+  id     String   @id
+  type   String
+  recuLe DateTime @default(now())
 }
 
 enum NiveauAudit {

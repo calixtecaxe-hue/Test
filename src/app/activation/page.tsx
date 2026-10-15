@@ -7,14 +7,15 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { ROUTAGE } from "@/lib/routage-donnees";
 import { contrainteDuCompte } from "@/lib/abonnement";
+import { accesOuvert } from "@/lib/paiement/etat";
+import { redirect } from "next/navigation";
 import { ChoixAgents } from "./choix-agents";
 
 export const metadata: Metadata = {
   title: "Choisir vos agents — CAXE",
 };
 
-// Moment qui suit le choix de la formule : le paiement n'est pas branché (aucun
-// paiement n'est pris), mais, connecté, le dirigeant enregistre ses agents. La
+// Moment qui suit le choix de la formule : connecté, le dirigeant enregistre ses agents puis passe au paiement. La
 // formule arrive dans l'adresse (?agents=3&periode=annuel). Les professions
 // réglementées n'ont pas l'agent Comm et 3 agents au maximum.
 export default async function ActivationPage({
@@ -32,6 +33,11 @@ export default async function ActivationPage({
     ? await prisma.user.findUnique({ where: { id: session.user.id }, select: { categorie: true, metierPrecis: true, sousVariantes: true } })
     : null;
   const contrainte = utilisateur ? contrainteDuCompte(ROUTAGE, utilisateur) : { agentsExclus: [], nombreMaxAgents: null };
+  // Abonnement en cours : la formule ne se change pas ici.
+  if (session?.user?.id) {
+    const abo = await prisma.abonnement.findUnique({ where: { userId: session.user.id }, select: { statut: true, finPeriodeLe: true } });
+    if (abo && accesOuvert(abo, new Date())) redirect("/compte");
+  }
   const dejaChoisis = utilisateur
     ? (
         await prisma.agentAccess.findMany({

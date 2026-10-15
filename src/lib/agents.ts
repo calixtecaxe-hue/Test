@@ -7,6 +7,8 @@ export type Agent = {
   code: "ACQUISITION_CA" | "FINANCE_RENTABILITE" | "RH_ORGANISATION" | "COMM_CREATION";
   slug: string;
   nom: string;
+  // La question à laquelle l'agent répond (CLAUDE.md section 9).
+  question: string;
   nature: "diagnostic" | "génératif";
   couvre: string;
   neFaitJamais: string | null;
@@ -19,6 +21,7 @@ export const AGENTS: Agent[] = [
     code: "ACQUISITION_CA",
     slug: "acquisition-chiffre-affaires",
     nom: "Acquisition & Chiffre d'affaires",
+    question: "Quels leviers comblent l'écart à votre objectif ?",
     nature: "diagnostic",
     couvre: "Génération de contacts, conversion, chiffre d'affaires, honoraires.",
     neFaitJamais: "Jugement de qualité créative d'un contenu.",
@@ -29,6 +32,7 @@ export const AGENTS: Agent[] = [
     code: "FINANCE_RENTABILITE",
     slug: "finance-rentabilite",
     nom: "Finance & Rentabilité",
+    question: "Votre objectif est-il rentable et finançable ?",
     nature: "diagnostic",
     couvre:
       "Santé opérationnelle via ratios déclarés : marge, trésorerie, structure de coûts.",
@@ -41,6 +45,7 @@ export const AGENTS: Agent[] = [
     code: "RH_ORGANISATION",
     slug: "rh-organisation",
     nom: "RH & Organisation",
+    question: "Votre organisation peut-elle porter votre objectif ?",
     nature: "diagnostic",
     couvre: "Signaux organisationnels : turnover, charge, clarté des rôles.",
     neFaitJamais: "Droit du travail, contrats, médiation de conflit.",
@@ -51,6 +56,7 @@ export const AGENTS: Agent[] = [
     code: "COMM_CREATION",
     slug: "comm-creation-contenu",
     nom: "Comm & Création de contenu",
+    question: "Votre présence en ligne génère-t-elle assez de contacts ?",
     nature: "génératif",
     couvre:
       "Analyse des publications existantes et de leurs indicateurs de performance ; génère des propositions de contenu.",

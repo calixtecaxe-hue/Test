@@ -3,6 +3,7 @@ import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { ROUTAGE } from "@/lib/routage-donnees";
+import { accesOuvert } from "@/lib/paiement/etat";
 import { contrainteDuCompte, TOUS_LES_AGENTS, validerChoix } from "@/lib/abonnement";
 
 const choixSchema = z.object({
@@ -25,7 +26,7 @@ export async function GET() {
 
 // Enregistre le choix de formule et d'agents. Les règles (palier, nombre d'agents,
 // professions réglementées) sont revérifiées ici, jamais fiées au navigateur. Le
-// paiement n'est pas branché : seul le choix est enregistré.
+// choix est enregistré ici ; le paiement se fait ensuite sur /paiement.
 export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ erreur: "Connexion requise." }, { status: 401 });
@@ -45,6 +46,11 @@ export async function POST(request: Request) {
   }
 
   const userId = session.user.id;
+  // Un abonnement en cours ne change pas de formule sans passer par la facturation (non ouvert).
+  const existant = await prisma.abonnement.findUnique({ where: { userId }, select: { statut: true, finPeriodeLe: true } });
+  if (existant && accesOuvert(existant, new Date())) {
+    return NextResponse.json({ erreur: "Le changement de formule en cours d'abonnement n'est pas encore ouvert." }, { status: 409 });
+  }
   const periode = parsed.data.periode === "annuel" ? "ANNUEL" : "MENSUEL";
   await prisma.$transaction([
     prisma.abonnement.upsert({

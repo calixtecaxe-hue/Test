@@ -18,6 +18,7 @@ import { ObjectifActif } from "./objectif-actif";
 import { NiveauChoix } from "./niveau-choix";
 import { NiveauReglage } from "./niveau-reglage";
 import { Questionnaire, type ThemeClient } from "./questionnaire";
+import { TeteAgent, type EtapeParcours } from "./tete-agent";
 
 export const metadata: Metadata = {
   title: "Votre audit — CAXE",
@@ -49,13 +50,13 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
   const acces = await aAccesAgent(userId, agent.code);
   if (!acces) {
     return (
-      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-6 py-16">
+      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-6 py-16">
         <h1 className="text-2xl">{agent.nom}</h1>
         <p className="mt-4 text-[var(--text-muted)]">
-          Cet agent n&apos;est pas inclus dans votre formule. Vous pouvez modifier vos agents depuis les offres.
+          Cet agent n&apos;est pas ouvert pour votre compte : il ne fait pas partie de votre formule, ou votre abonnement n&apos;est pas en cours.
         </p>
-        <Link href="/offres" className="mt-6 w-fit text-[var(--blue-1)] hover:underline">
-          Voir les offres
+        <Link href="/tableau-de-bord" className="mt-6 w-fit text-[var(--blue-1)] hover:underline">
+          Retour à mes agents
         </Link>
       </main>
     );
@@ -142,25 +143,28 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
 
   const structure = actif ? (actif.structure as unknown as ObjectifEnregistre) : null;
 
+  const etapeParcours: EtapeParcours = !actif ? 1 : !utilisateur.niveauAudit ? 2 : 3;
+
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-6 py-16">
-      <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">Audit · {agent.nom}</p>
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-2 px-6 py-10">
+      <TeteAgent agent={agent} etape={etapeParcours} />
 
       {actif && structure ? (
         <>
-          <h1 className="sr-only">Audit {agent.nom}</h1>
           <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} />
           {reglageNiveau}
           {corps}
         </>
       ) : (
-        <>
-          <h1 className="mt-3 text-2xl">Votre objectif</h1>
+        <section aria-labelledby="objectif" className="mt-8">
+          <h2 id="objectif" className="text-2xl">
+            Votre objectif
+          </h2>
           <p className="mt-2 text-[var(--text-muted)]">
-            Quel résultat voulez-vous obtenir avec cet agent ? Dites ce que vous voulez changer, de combien, et en combien de temps.
+            Avant toute question, dites ce que vous voulez obtenir avec cet agent : ce que vous voulez changer, de combien, et en combien de temps. Toute l&apos;analyse part de là.
           </p>
           <ObjectifFormulaire agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} />
-        </>
+        </section>
       )}
 
       {historique.length > 0 ? (

@@ -299,8 +299,11 @@ export default function Inscription() {
       // pas à ce métier (ex. agent Comm pour une profession réglementée), on la refait ensemble.
       if (resultat.formule === "non_appliquee" && formuleChoisie) {
         route.push(`/activation?agents=${formuleChoisie.nombreAgents}&periode=${formuleChoisie.periode}`);
+      } else if (resultat.formule === "enregistree") {
+        // Formule enregistrée avec le compte : il reste à la régler.
+        route.push("/paiement");
       } else {
-        route.push("/tableau-de-bord");
+        route.push("/offres");
       }
       route.refresh();
     } catch {
@@ -330,7 +333,7 @@ export default function Inscription() {
             {formuleChoisie.agents.map((c) => AGENTS.find((a) => a.code === c)?.nom).join(" · ")}
           </p>
           <p className="mt-2 text-[var(--text-muted)]">
-            Elle sera enregistrée avec votre compte. Aucun paiement n&apos;est pris.{" "}
+            Elle sera enregistrée avec votre compte. Vous la réglez à l&apos;étape suivante.{" "}
             <Link href="/offres" className="text-[var(--blue-1)] hover:underline">Changer de formule</Link>
           </p>
         </div>

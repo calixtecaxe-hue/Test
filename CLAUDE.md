@@ -233,7 +233,16 @@ Le texte annuel compare des montants du même rythme : « Soit 50,99 € HT / mo
 lieu de 59,99 € HT / mois en facturation mensuelle » (le prix principal est le
 montant à l'année). Implémentation : `src/lib/abonnement.ts` (paliers, droits,
 professions réglementées), `POST /api/abonnement`, modèles `Abonnement` et
-`AgentAccess`. **Le paiement n'est pas branché** : seul le choix est enregistré.
+`AgentAccess`. **Paiement (construit)** : Stripe Checkout en abonnement (`src/lib/paiement/` : `etat.ts` montants, mode, accès et
+traduction des événements, `stripe.ts`, `abonnement-serveur.ts`), `POST /api/paiement/{session,webhook,portail,demonstration}`,
+pages `/paiement`, `/paiement/succes`, `/paiement/demonstration`. `Abonnement.statut` : EN_ATTENTE_PAIEMENT, ACTIF, IMPAYE, RESILIE ;
+**l'accès aux agents exige un abonnement en cours** (ouvert jusqu'à la fin de la période payée après un impayé ou une résiliation) :
+`aAccesAgent`, `agentsActifs` et les routes `/api/audit/*` le vérifient. Le prix est toujours recalculé côté serveur. Sans clé Stripe :
+mode **démonstration** (aucun paiement, dit clairement à l'écran) en développement, « indisponible » en production, jamais d'accès
+offert par défaut. À fournir par le propriétaire : compte Stripe (clés, secret du webhook, portail client), TVA / Stripe Tax, conditions
+générales de vente. Le changement de formule en cours d'abonnement n'est pas ouvert. **Espace abonné** : groupe de routes
+`src/app/(espace)/` (en-tête, `/tableau-de-bord` « Mes agents », `/audit/[slug]` avec parcours Objectif → Niveau et cadrage →
+Questionnaire → Résultats, `/compte`) ; l'objectif reste toujours demandé avant les questions.
 **Parcours** : la formule choisie avant l'inscription voyage dans l'adresse
 (`/inscription?agents=3&periode=annuel&choix=…`, `src/lib/formule-url.ts`) et est enregistrée avec le compte à la
 création (`POST /api/inscription`, revérifiée comme `/api/abonnement` ; si elle ne convient pas au métier, le compte
