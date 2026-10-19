@@ -30,7 +30,8 @@ page d'accueil, **la direction artistique et le contenu ne changent pas** : seul
 (`Commencer mon audit` dans l'en-tête, `Fixer mon objectif` après « Comment ça marche », quatre portes d'entrée dites avec les mots du
 dirigeant dans `src/components/marketing/portes-entree.tsx`, `Voir les offres` à côté de `Créer un compte`). **Tous les boutons d'appel
 mènent à la création du compte (`/inscription`) et portent un halo qui respire et un éclat qui traverse (classe `bouton-appel`, arrêtés
-au survol et sous `prefers-reduced-motion`), sauf « Venez les essayer » (défilement vers les agents) et « Voir les offres ».** Idée gardée
+au survol et sous `prefers-reduced-motion`), sauf « Voir les offres ». Dans le héros, « Venez les essayer » est le seul bouton : il
+clignote et mène à `/inscription` (le bouton « Créer un compte » du héros a été supprimé à la demande du propriétaire).** Idée gardée
 pour plus tard, pas encore construite : une page « Audit Express » où le visiteur saisit ses propres chiffres (CA, prospects, rendez-vous,
 clients) et voit son entonnoir étape par étape avant de créer un compte, sans jugement « bon » ou « mauvais » tant qu'aucune référence n'existe.
 

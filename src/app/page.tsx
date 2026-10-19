@@ -67,16 +67,10 @@ export default function Accueil() {
               </p>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
                 <Link
-                  href="/#agents-selecteur"
-                  className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
+                  href="/inscription"
+                  className="bouton-eclat bouton-appel rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
                 >
                   Venez les essayer
-                </Link>
-                <Link
-                  href="/inscription"
-                  className="bouton-eclat bouton-appel rounded-[4px] border border-[var(--line)] px-6 py-3 font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
-                >
-                  Créer un compte
                 </Link>
               </div>
             </div>
