@@ -343,6 +343,8 @@ requise sans `--dry-run`). **Aucune recherche réelle n'a encore été lancée.*
 face au marché et gel par audit (c), mises à jour (d), file de revue et suivi (e).
 La valeur du client pour un indicateur calculé n'est pas calculable tant que les formules des croisements sont en texte libre.
 
+**Banque de questions de l'agent Acquisition (19 octobre)** : `data/banque/questions.json` contient **37 questions écrites** par le propriétaire (classeur `CAXE_Banque_Questions_3.xlsx`, importé par `python3 scripts/importer-banque.py <classeur> --ecarter-inconnues`). Les 7 questions du profil location (ACQ-11.31 à 11.37) sont dans `data/banque/en-attente.json` : leurs données n'existent pas encore dans le classeur des 4 agents. L'import reporte aussi l'onglet Lexique du classeur dans `data/lexique.json` pour les 7 profils (mots `demandes`, `unites_vendues`, `unites_a_louer`, `jours_ouverture`, `hors_location` ; clé explicite `cle` quand elle ne se déduit pas du libellé) ; le contrôle refuse un mot de lexique inconnu dans une question. **Note « Modifications du 19 octobre » du classeur, pas encore reportée** (elle demande le classeur des 4 agents mis à jour, que je n'ai pas) : lexique par métier (10 lexiques propres à un métier, onglet Routage), profil « location », bloc Stock ouvert à tous les profils, questions devis ouvertes à tous, 17 canaux (D03), données ACQ-11.31 à 11.40 et croisement du profil location, doublons supprimés (ACQ-17.01 calculée).
+
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),
 puis la connexion des deux. Tant que la banque n'existe pas, rien n'est inventé :
