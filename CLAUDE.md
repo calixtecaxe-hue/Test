@@ -364,6 +364,19 @@ requise sans `--dry-run`). **Aucune recherche réelle n'a encore été lancée.*
 face au marché et gel par audit (c), mises à jour (d), file de revue et suivi (e).
 La valeur du client pour un indicateur calculé n'est pas calculable tant que les formules des croisements sont en texte libre.
 
+**Effets d'actions (19 octobre, partie code construite, aucune recherche réelle lancée)** : `data/catalogue-effets.json` (écrit par
+`python3 scripts/ecrire-catalogue-effets.py`) liste six actions **en brouillon**, une par croisement à « part récupérable prudente »
+(EFF-ACQ-01 relance des devis XA24, EFF-ACQ-02 complément XA19, EFF-ACQ-03 anciens clients XA17, EFF-ACQ-04 paniers abandonnés XA35,
+EFF-COM-01 réseau existant XC33, EFF-RH-01 automatisation XR15) ; aucune ne part en recherche avant validation par le propriétaire. Un effet a la
+forme d'un indicateur (période « effet », unité %, bornes 0 à 100) : la chaîne de `src/lib/references/` sert telle quelle (variante de
+demande `genre: "effet"` dans `recherche.ts`, enregistrement dans `ReferenceMarche` sous le code EFF-…, même cascade métier puis famille,
+jamais national, mêmes plafonds de budget). Lancer : `node scripts/references-traiter.mts --effet EFF-ACQ-01 --metier electricien
+[--dry-run]`. `src/lib/effets/potentiel.ts` : le moteur applique le taux sourcé au montant en jeu du client (fourchette), ou, sans taux,
+renvoie le seul montant en jeu ; jamais d'addition d'effets. **Pas encore construits** : la liste complète des actions (le catalogue est un
+brouillon à valider ; l'IA du rapport choisit parmi ces actions pour obtenir un chiffre, toute autre action reste « sans chiffre
+sourcé »), le calcul du montant en jeu (formules des croisements encore en texte libre), l'effet de l'ensemble par recalcul de la chaîne,
+l'affichage dans le rapport, la mise à jour périodique. Clé requise : `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt).
+
 **Banque de questions de l'agent Acquisition (19 octobre)** : `data/banque/questions.json` contient **37 questions écrites** par le propriétaire (classeur `CAXE_Banque_Questions_3.xlsx`, importé par `python3 scripts/importer-banque.py <classeur> --ecarter-inconnues`). Les 7 questions du profil location (ACQ-11.31 à 11.37) sont dans `data/banque/en-attente.json` : leurs données n'existent pas encore dans le classeur des 4 agents. L'import reporte aussi l'onglet Lexique du classeur dans `data/lexique.json` pour les 7 profils (mots `demandes`, `unites_vendues`, `unites_a_louer`, `jours_ouverture`, `hors_location` ; clé explicite `cle` quand elle ne se déduit pas du libellé) ; le contrôle refuse un mot de lexique inconnu dans une question. **Note « Modifications du 19 octobre » du classeur, pas encore reportée** (elle demande le classeur des 4 agents mis à jour, que je n'ai pas) : lexique par métier (10 lexiques propres à un métier, onglet Routage), profil « location », bloc Stock ouvert à tous les profils, questions devis ouvertes à tous, 17 canaux (D03), données ACQ-11.31 à 11.40 et croisement du profil location, doublons supprimés (ACQ-17.01 calculée).
 
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,

@@ -282,6 +282,23 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
   if (brouillons.length > 0) avertissements.push(`${brouillons.length} indicateurs de références de marché sont en brouillon : aucune recherche ne part avant leur validation.`);
   const sensIncertains = brouillons.filter((i) => i.sensIncertain).map((i) => i.id);
   if (sensIncertains.length > 0) avertissements.push(`Sens à trancher pour : ${sensIncertains.join(", ")}.`);
+  // Catalogue des effets d'actions : une action, un effet mesuré, rattaché à un thème de son agent et aux
+  // croisements qui l'utilisent. Un effet en brouillon n'est jamais cherché.
+  const codesCroisements = new Set(e.croisements.map((c) => c.code));
+  const themesParCode = new Map(e.themes.map((t) => [t.code, t]));
+  for (const d of doublons(e.catalogueEffets.map((x) => x.id))) erreurs.push(`Catalogue des effets : code en double : ${d}.`);
+  for (const x of e.catalogueEffets) {
+    const t = themesParCode.get(x.theme);
+    if (!t) erreurs.push(`L'effet ${x.id} est rangé sous un thème inconnu : ${x.theme}.`);
+    else if (t.agent !== x.agent) erreurs.push(`L'effet ${x.id} annonce l'agent ${x.agent}, le thème ${x.theme} est celui de ${t.agent}.`);
+    if (!x.id.includes(x.agent === "ACQUISITION_CA" ? "ACQ" : x.agent === "FINANCE_RENTABILITE" ? "FIN" : x.agent === "RH_ORGANISATION" ? "RH" : "COM")) erreurs.push(`Le code de l'effet ${x.id} ne correspond pas à son agent (${x.agent}).`);
+    for (const c of x.croisements) if (!codesCroisements.has(c)) erreurs.push(`L'effet ${x.id} cite un croisement inconnu : ${c}.`);
+    const { min, max } = x.bornesVraisemblance;
+    if (min !== null && max !== null && min > max) erreurs.push(`L'effet ${x.id} a des bornes de vraisemblance inversées.`);
+    if (x.statutRedaction === "valide" && (x.sens === null || x.sensIncertain)) erreurs.push(`L'effet ${x.id} est validé sans sens certain.`);
+  }
+  const effetsEnBrouillon = e.catalogueEffets.filter((x) => x.statutRedaction === "brouillon").length;
+  if (effetsEnBrouillon > 0) avertissements.push(`${effetsEnBrouillon} effets d'actions sont en brouillon : aucune recherche ne part avant leur validation.`);
   const p = e.parametresReferences;
   if (p.plafondsBudget.quotidienEuros === null) avertissements.push("Aucun plafond quotidien de dépenses pour les recherches de références : seul le plafond mensuel s'applique.");
   for (const c of Object.keys(p.miseAJour.moisParCategorie)) if (!categories.has(c)) erreurs.push(`Fréquence de mise à jour : catégorie inconnue « ${c} ».`);
@@ -370,6 +387,7 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
       "thèmes notés sans seuil": sansSeuil.length,
       "thèmes notés avec moins de 2 questions": notesTropCourts,
       "thèmes avec recherche de référence": e.catalogue.filter((f) => f.rechercheReference).length,
+      "effets d'actions au catalogue": e.catalogueEffets.length,
       "indicateurs de référence en brouillon": brouillons.length,
     },
   };

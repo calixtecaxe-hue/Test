@@ -15,6 +15,7 @@ import reglesAffichage from "../../../data/regles-affichage.json";
 import seuils from "../../../data/seuils.json";
 import limitesObjectif from "../../../data/objectif-limites.json";
 import catalogue from "../../../data/catalogue-themes.json";
+import catalogueEffets from "../../../data/catalogue-effets.json";
 import parametresReferences from "../../../data/parametres-references.json";
 import sourcesReconnues from "../../../data/sources-reconnues.json";
 import banque from "../../../data/banque/questions.json";
@@ -33,6 +34,7 @@ export const ENSEMBLE: EnsembleDonnees = {
   reglesAffichage: schemaFichiers.reglesAffichage.parse(reglesAffichage),
   seuils: schemaFichiers.seuils.parse(seuils),
   catalogue: schemaFichiers.catalogue.parse(catalogue),
+  catalogueEffets: schemaFichiers.catalogueEffets.parse(catalogueEffets),
   parametresReferences: schemaFichiers.parametresReferences.parse(parametresReferences),
   sourcesReconnues: schemaFichiers.sourcesReconnues.parse(sourcesReconnues),
   limitesObjectif: schemaFichiers.limitesObjectif.parse(limitesObjectif),

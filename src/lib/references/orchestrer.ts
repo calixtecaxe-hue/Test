@@ -50,6 +50,9 @@ export type Dependances = {
 };
 
 export type EntreeCouple = {
+  // « effet » : l'effet d'une action (catalogue-effets.json) ; sinon un chiffre de marché.
+  genre?: "marche" | "effet";
+  action?: string;
   fiche: Pick<FicheTheme, "theme" | "rechercheReference">;
   indicateur: IndicateurCatalogue;
   metier: { id: string; libelle: string };
@@ -110,7 +113,7 @@ export async function traiterCouple(dep: Dependances, e: EntreeCouple): Promise<
   };
 
   try {
-    const reponse = await dep.client.chercher({ indicateur: e.indicateur, metierLibelle: e.metier.libelle, zone: null });
+    const reponse = await dep.client.chercher({ genre: e.genre ?? "marche", action: e.action, indicateur: e.indicateur, metierLibelle: e.metier.libelle, zone: null });
     cout = coutEnCentimes(reponse.usage, params.tarifs);
     journal.pagesVues = reponse.pagesVues;
     if (reponse.refus) return await clore("erreur", "La demande a été refusée par les classificateurs de sécurité.", null);

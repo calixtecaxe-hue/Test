@@ -349,6 +349,24 @@ export const indicateurCatalogue = z.object({
 });
 export type IndicateurCatalogue = z.infer<typeof indicateurCatalogue>;
 
+// Effet d'une action (data/catalogue-effets.json, écrit par scripts/ecrire-catalogue-effets.py). Ce que
+// rapporte une action, mesuré dans une source citée, pour un métier : même chaîne de recherche et de
+// contrôle que les chiffres de marché. Un effet a la forme d'un indicateur (définition, unité, bornes,
+// mots-clés) pour réutiliser cette chaîne ; sa période vaut toujours « effet ». Un effet « en brouillon »
+// n'est jamais cherché : le propriétaire le valide d'abord. Le moteur applique le taux aux volumes du
+// client ; l'IA ne choisit jamais le pourcentage.
+export const effetCatalogue = indicateurCatalogue.extend({
+  id: z.string().regex(/^EFF-(ACQ|FIN|RH|COM)-\d{2}$/, "Code d'effet attendu : EFF-ACQ-01."),
+  theme: codeTheme,
+  agent: codeAgent,
+  // L'action telle que le rapport la nomme (« Relancer systématiquement les devis sans réponse »).
+  action: z.string().min(1),
+  // Croisements du classeur qui calculent un gain avec ce taux (« part récupérable prudente »).
+  croisements: z.array(z.string().regex(/^X[ARFC]\d{2}$/)),
+  periode: z.literal("effet"),
+});
+export type EffetCatalogue = z.infer<typeof effetCatalogue>;
+
 export const ficheTheme = z.object({
   theme: codeTheme,
   agent: codeAgent,
@@ -450,6 +468,7 @@ export type EnsembleDonnees = {
   seuils: z.infer<typeof seuilDonnee>[];
   limitesObjectif: LimitesObjectif;
   catalogue: FicheTheme[];
+  catalogueEffets: EffetCatalogue[];
   parametresReferences: ParametresReferences;
   sourcesReconnues: SourcesReconnues;
   banque: Question[];
@@ -469,6 +488,7 @@ export const schemaFichiers = {
   seuils: z.array(seuilDonnee),
   limitesObjectif,
   catalogue: z.array(ficheTheme),
+  catalogueEffets: z.array(effetCatalogue),
   parametresReferences,
   sourcesReconnues,
   banque: z.array(question),
