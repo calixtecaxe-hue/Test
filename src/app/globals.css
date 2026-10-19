@@ -864,6 +864,25 @@ h3,
   color: var(--text-muted);
 }
 
+/* Puce qui mène quelque part (portes d'entrée de l'accueil) : texte plein et survol visibles. */
+.puce-agent-lien {
+  color: var(--text);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.puce-agent-lien:hover,
+.puce-agent-lien:focus-visible {
+  border-color: var(--blue-1);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .puce-agent-lien:hover,
+  .puce-agent-lien:focus-visible {
+    transform: none;
+  }
+}
+
 /* Aperçu de l'outil (premier hero) : messagerie avec la liste des agents,
    une conversation qui s'écrit et un compte rendu complet, voir
    fenetre-outil.tsx. */

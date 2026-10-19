@@ -6,6 +6,7 @@ import { GrillePoints } from "@/components/marketing/grille-points";
 import { Reveal } from "@/components/marketing/reveal";
 import { HeroVideo } from "@/components/marketing/hero-video";
 import { AgentsSelecteur } from "@/components/marketing/agents-selecteur";
+import { PortesEntree } from "@/components/marketing/portes-entree";
 
 const chemin = "M 18 8 C 65 8, 82 25, 82 50 C 82 75, 65 92, 18 92";
 
@@ -126,6 +127,16 @@ export default function Accueil() {
               </div>
             ))}
           </div>
+          <Reveal>
+            <div className="mt-14 flex justify-center">
+              <Link
+                href="/inscription"
+                className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
+              >
+                Fixer mon objectif
+              </Link>
+            </div>
+          </Reveal>
         </section>
 
         <section className="mx-auto max-w-[1560px] px-6 py-20 lg:px-12">
@@ -140,6 +151,9 @@ export default function Accueil() {
           <div className="mt-10">
             <AgentsSelecteur />
           </div>
+          <Reveal>
+            <PortesEntree />
+          </Reveal>
         </section>
 
         <section className="px-6 py-20">
@@ -150,12 +164,20 @@ export default function Accueil() {
                 La création d&apos;un compte prend quelques minutes. Vous
                 répondez au questionnaire à votre rythme.
               </p>
-              <Link
-                href="/inscription"
-                className="bouton-eclat mt-8 rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
-              >
-                Créer un compte
-              </Link>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="/inscription"
+                  className="bouton-eclat rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
+                >
+                  Créer un compte
+                </Link>
+                <Link
+                  href="/offres"
+                  className="rounded-[4px] border border-[var(--line)] px-6 py-3 font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
+                >
+                  Voir les offres
+                </Link>
+              </div>
             </div>
           </Reveal>
         </section>

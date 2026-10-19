@@ -22,6 +22,14 @@ et premium, jamais comme un gadget.
 
 **Règle fondatrice : le moteur diagnostique, l'IA prescrit.**
 
+**Marketing de CAXE (19 octobre)** : le dossier « Client idéal & stratégie de contenu organique » (octobre 2026) définit
+le dirigeant à convaincre (2 à 30 salariés, 300 k€ à 5 M€ de CA, qui sait que son entreprise pourrait mieux fonctionner sans savoir
+quoi traiter en premier) et la stratégie de contenu de CAXE. Il sert **uniquement à la promotion de CAXE** : ne jamais l'intégrer aux
+fichiers de données, au moteur, aux questionnaires ni aux prompts des agents, qui concernent les clients et leurs entreprises. Sur la
+page d'accueil, **la direction artistique et le contenu ne changent pas** : seuls des boutons de conversion ont été ajoutés
+(`Commencer mon audit` dans l'en-tête, `Fixer mon objectif` après « Comment ça marche », quatre portes d'entrée dites avec les mots du
+dirigeant dans `src/components/marketing/portes-entree.tsx`, `Voir les offres` à côté de `Créer un compte`).
+
 ## 2. Les trois réflexes (à tout moment)
 
 1. Si une demande revient à faire calculer ou juger quelque chose par l'IA,

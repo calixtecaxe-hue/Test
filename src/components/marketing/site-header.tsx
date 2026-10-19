@@ -34,12 +34,20 @@ export function SiteHeader() {
           </Link>
         </nav>
 
-        <Link
-          href="/connexion"
-          className="hidden rounded-[4px] border border-[var(--line)] px-4 py-2 text-sm font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] sm:inline-block"
-        >
-          Se connecter
-        </Link>
+        <div className="hidden items-center gap-3 sm:flex">
+          <Link
+            href="/inscription"
+            className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-4 py-2 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
+          >
+            Commencer mon audit
+          </Link>
+          <Link
+            href="/connexion"
+            className="rounded-[4px] border border-[var(--line)] px-4 py-2 text-sm font-medium text-[var(--text)] transition hover:border-[var(--blue-1)]"
+          >
+            Se connecter
+          </Link>
+        </div>
       </div>
 
       <nav className="mt-4 flex justify-center gap-6 text-sm text-[var(--text-muted)] sm:hidden">
