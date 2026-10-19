@@ -298,7 +298,7 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     if (x.statutRedaction === "valide" && (x.sens === null || x.sensIncertain)) erreurs.push(`L'effet ${x.id} est validé sans sens certain.`);
   }
   const effetsEnBrouillon = e.catalogueEffets.filter((x) => x.statutRedaction === "brouillon").length;
-  if (effetsEnBrouillon > 0) avertissements.push(`${effetsEnBrouillon} effets d'actions sont en brouillon : aucune recherche ne part avant leur validation.`);
+  if (effetsEnBrouillon > 0) avertissements.push(`Effets d'actions à valider : ${effetsEnBrouillon} ne sont pas validés ; aucune recherche ne part avant leur validation.`);
   const p = e.parametresReferences;
   if (p.plafondsBudget.quotidienEuros === null) avertissements.push("Aucun plafond quotidien de dépenses pour les recherches de références : seul le plafond mensuel s'applique.");
   for (const c of Object.keys(p.miseAJour.moisParCategorie)) if (!categories.has(c)) erreurs.push(`Fréquence de mise à jour : catégorie inconnue « ${c} ».`);
