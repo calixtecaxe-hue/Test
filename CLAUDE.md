@@ -202,6 +202,13 @@ Le moteur est **couvert par des tests**.
 - **Tour « ce que vous avez déjà tenté »**, après le premier calcul, sur les 5 ou
   6 axes faibles seulement (rien / en place et ça marche / sans résultat / pas
   tenu dans la durée) ; ces réponses n'entrent jamais dans le calcul.
+- **Aucun gain projeté (décision du 19 octobre, option A)** : l'IA ne pose aucune hypothèse d'impact et
+  n'annonce aucun montant à venir pour une action (« +4 devis, +5 600 € » est exclu). L'effet attendu est écrit
+  en mots ; l'avancement vers l'objectif se calcule sur ce que le dirigeant **déclare** au point d'étape
+  (exemple du propriétaire : il relance ses devis et signe 3 devis de plus → 3 % de l'objectif atteints, parce
+  que c'est réellement arrivé). Le moteur continue de classer les leviers par impact calculé sur les volumes du
+  client. Six croisements portent une « part récupérable prudente, à sourcer » (XA17, XA19, XA24, XA35, XC33,
+  XR15) : à ne pas afficher tant que le propriétaire n'a pas tranché.
 - Suivi : point d'étape à l'**échéance propre de chaque action**, boucle
   d'ajustement, alertes, ré-audit trimestriel, classement sectoriel, historique.
   Gamification discrète. À construire plus tard, dans cet ordre.
@@ -374,7 +381,7 @@ sur les petits éléments, 12 px sur les cartes. À proscrire : l'or #C9A961,
 Cormorant Garamond, Playfair Display.
 
 Ton : **vouvoiement, français de France, sobre et factuel, sans superlatif, sans
-point d'exclamation ni émoji.** Jamais le mot « fiable ». Un bouton dit ce qui va
+point d'exclamation ni émoji.** Le mot « fiable » est accepté (décision du 19 octobre, à propos du prompt de l'agent Acquisition). Un bouton dit ce qui va
 se passer. Un écran vide est une invitation à agir. Une erreur explique et
 corrige.
 
@@ -398,6 +405,13 @@ sauvegardées en continu (perdre des réponses est un échec produit).
 | Agents personnifiés | Noms fonctionnels |
 
 ## 15. Points encore ouverts (ne pas trancher seul)
+
+Prompts des agents (décisions du 19 octobre) : le prompt Acquisition (`docs/prompt-agent-acquisition.md`) doit être
+mis à jour pour l'option A (étape « Filtrer et chiffrer », champ « Impact estimé » devenu « Effet attendu »,
+exemple 1) ; les brouillons Finance, RH et Comm sont dans le document « Prompts — Finance, RH et Comm : parties
+propres à l'agent (brouillons) » (Claude Docs) ; les couleurs vert / orange / rouge sont gardées pour la phase
+d'essai (à supprimer sur demande) ; **la publicité des professions réglementées est le dernier point à trancher
+avant la publication du site** (avocat spécialisé).
 
 Seuils « à valider » (test sur 5 à 10 cas réels) ; mini-questionnaire anonyme RH
 aux salariés ; connexion Meta pour l'agent Comm ; seuil d'heures par jour
