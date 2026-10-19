@@ -407,6 +407,43 @@ h3,
   left: 130%;
 }
 
+/* Bouton d'appel à l'action : un halo qui respire (moins d'un battement par seconde) et un éclat qui
+   traverse le bouton, pour attirer le regard. Arrêtés au survol et si le visiteur réduit les animations. */
+.bouton-appel {
+  animation: appel-halo 2.8s ease-out infinite;
+}
+
+.bouton-appel::after {
+  animation: appel-eclat 4.2s ease-in-out infinite;
+}
+
+.bouton-appel:hover,
+.bouton-appel:focus-visible,
+.bouton-appel:hover::after,
+.bouton-appel:focus-visible::after {
+  animation: none;
+}
+
+@keyframes appel-halo {
+  0% {
+    box-shadow: 0 0 0 0 rgba(91, 159, 236, 0.55);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 14px rgba(91, 159, 236, 0);
+  }
+}
+
+@keyframes appel-eclat {
+  0% {
+    left: -60%;
+  }
+  30%,
+  100% {
+    left: 130%;
+  }
+}
+
 /* Lien de navigation avec soulignement animé */
 .lien-nav {
   position: relative;
@@ -868,15 +905,36 @@ h3,
 .puce-agent-lien {
   color: var(--text);
   transition: border-color 0.2s ease, transform 0.2s ease;
+  animation: appel-halo 3s ease-out infinite;
+}
+
+/* Les quatre puces s'allument l'une après l'autre. */
+.puce-agent-lien:nth-child(2) {
+  animation-delay: 0.45s;
+}
+
+.puce-agent-lien:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+.puce-agent-lien:nth-child(4) {
+  animation-delay: 1.35s;
 }
 
 .puce-agent-lien:hover,
 .puce-agent-lien:focus-visible {
   border-color: var(--blue-1);
   transform: translateY(-2px);
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .bouton-appel,
+  .bouton-appel::after,
+  .puce-agent-lien {
+    animation: none;
+  }
+
   .puce-agent-lien:hover,
   .puce-agent-lien:focus-visible {
     transform: none;

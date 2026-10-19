@@ -2,8 +2,8 @@ import Link from "next/link";
 import { AGENTS, couleurAgent, type Agent } from "@/lib/agents";
 import { AgentAvatar } from "@/components/marketing/agent-avatar";
 
-// Les quatre situations qui amènent un dirigeant à CAXE, dites avec ses mots, chacune menant à l'agent
-// qui y répond. Texte de présentation du site seulement : rien ici ne sert au moteur ni aux agents.
+// Les quatre situations qui amènent un dirigeant à CAXE, dites avec ses mots. Chacune mène à la création du
+// compte. Texte de présentation du site seulement : rien ici ne sert au moteur ni aux agents.
 const SITUATIONS: Record<Agent["code"], string> = {
   ACQUISITION_CA: "Trouver où je perds mes clients",
   FINANCE_RENTABILITE: "Voir si ma rentabilité suit mon CA",
@@ -21,7 +21,7 @@ export function PortesEntree() {
         {AGENTS.map((agent) => (
           <Link
             key={agent.code}
-            href={`/agents/${agent.slug}`}
+            href="/inscription"
             className="puce-agent puce-agent-lien"
             style={{ minHeight: 44 }}
           >

@@ -37,7 +37,7 @@ export function SiteHeader() {
         <div className="hidden items-center gap-3 sm:flex">
           <Link
             href="/inscription"
-            className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-4 py-2 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
+            className="bouton-eclat bouton-appel rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-4 py-2 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
           >
             Commencer mon audit
           </Link>

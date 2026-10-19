@@ -74,7 +74,7 @@ export default function Accueil() {
                 </Link>
                 <Link
                   href="/inscription"
-                  className="rounded-[4px] border border-[var(--line)] px-6 py-3 font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
+                  className="bouton-eclat bouton-appel rounded-[4px] border border-[var(--line)] px-6 py-3 font-medium text-[var(--text)] transition hover:border-[var(--blue-1)] hover:text-[var(--blue-1)]"
                 >
                   Créer un compte
                 </Link>
@@ -131,7 +131,7 @@ export default function Accueil() {
             <div className="mt-14 flex justify-center">
               <Link
                 href="/inscription"
-                className="bouton-eclat rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
+                className="bouton-eclat bouton-appel rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-7 py-3.5 font-medium text-[var(--bg)] transition hover:brightness-110"
               >
                 Fixer mon objectif
               </Link>
@@ -167,7 +167,7 @@ export default function Accueil() {
               <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
                 <Link
                   href="/inscription"
-                  className="bouton-eclat rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
+                  className="bouton-eclat bouton-appel rounded-[4px] bg-[var(--blue-1)] px-6 py-3 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)]"
                 >
                   Créer un compte
                 </Link>
