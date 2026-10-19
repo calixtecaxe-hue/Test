@@ -39,7 +39,7 @@ et premium, jamais comme un gadget.
 | 2. Moteur | Code déterministe, testé | Couleurs, écarts, impacts, priorités | Appeler l'IA |
 | 3. IA | Modèle génératif | Rédiger l'analyse, **prescrire** les recommandations | Recalculer ou réécrire un chiffre |
 
-- **L'IA ne produit aucune question, aucune couleur, aucun chiffre.** Elle ne
+- **L'IA ne produit aucune question, aucune couleur, aucun chiffre qui ne soit vérifié par le code dans une source citée** (voir « Effet d'une action » ci-dessous). Elle ne
   traite que les indicateurs signalés par le moteur (jamais un « vert » qu'elle
   jugerait problématique) et reste dans le périmètre de son agent : jamais de
   conseil juridique, fiscal, comptable, médical ni de droit du travail.
@@ -57,6 +57,18 @@ et premium, jamais comme un gadget.
   les clients du même profil. Le moteur ne lit que ces références, il n'appelle jamais l'IA. Sans référence,
   le thème s'affiche avec les chiffres du client et sans comparaison au marché ; un rapport n'est jamais
   bloqué.
+- **Effet d'une action (décision du 19 octobre)** : le rapport dit comment atteindre l'objectif et ce que chaque
+  action peut rapporter, avec recul. Le taux d'effet d'une action **dépend du métier** (ce qui vaut pour un secteur
+  ne vaut pas pour un autre). Un agent de recherche, séparé de l'IA qui rédige le rapport, le cherche **une seule
+  fois par action et par métier** (jamais à chaque rapport : coût inutile), propose une fourchette prudente avec sa
+  source (extrait, page, date) ; **le code relit la page et vérifie que le chiffre y figure**, sinon aucun chiffre
+  n'est affiché et l'effet est décrit en mots. Le résultat est enregistré en base et réutilisé par tous les clients
+  du même métier (même cascade que les chiffres de marché : métier, puis famille, puis national si permis ; mêmes
+  plafonds de budget ; mise à jour périodique). Le **moteur** applique le taux aux volumes du client et calcule
+  l'effet de l'ensemble en recalculant la chaîne : on n'additionne jamais les effets de plusieurs actions (6 % +
+  4 % + 5 % n'est pas 15 %), et si le plan ne suffit pas pour l'objectif, le rapport le dit. Le potentiel est
+  toujours présenté comme un potentiel, jamais comme une promesse. Un rapport n'est jamais bloqué : sans taux
+  sourcé, « pas de chiffre sourcé » et l'effet en mots. Pas encore construit.
 - Deux couches de données : réponses fermées et chiffrées → calcul ; réponses
   ouvertes (facultatives) → contexte pour l'IA, **jamais dans le calcul**.
 - **Aucune question codée en dur.** Questions, seuils, croisements, lexique,
@@ -202,13 +214,15 @@ Le moteur est **couvert par des tests**.
 - **Tour « ce que vous avez déjà tenté »**, après le premier calcul, sur les 5 ou
   6 axes faibles seulement (rien / en place et ça marche / sans résultat / pas
   tenu dans la durée) ; ces réponses n'entrent jamais dans le calcul.
-- **Aucun gain projeté (décision du 19 octobre, option A)** : l'IA ne pose aucune hypothèse d'impact et
-  n'annonce aucun montant à venir pour une action (« +4 devis, +5 600 € » est exclu). L'effet attendu est écrit
-  en mots ; l'avancement vers l'objectif se calcule sur ce que le dirigeant **déclare** au point d'étape
-  (exemple du propriétaire : il relance ses devis et signe 3 devis de plus → 3 % de l'objectif atteints, parce
-  que c'est réellement arrivé). Le moteur continue de classer les leviers par impact calculé sur les volumes du
-  client. Six croisements portent une « part récupérable prudente, à sourcer » (XA17, XA19, XA24, XA35, XC33,
-  XR15) : à ne pas afficher tant que le propriétaire n'a pas tranché.
+- **Effet attendu et avancement réel (décision du 19 octobre)** : l'IA ne choisit jamais un pourcentage ni un
+  montant. L'effet potentiel d'une action vient d'un taux sourcé et vérifié par le code (section 3, « Effet
+  d'une action ») appliqué par le moteur aux volumes du client ; sans taux sourcé, l'effet est écrit en mots.
+  L'**avancement** vers l'objectif, lui, se calcule uniquement sur ce que le dirigeant **déclare** au point
+  d'étape (exemple du propriétaire : il relance ses devis et signe 3 devis de plus → 3 % de l'objectif atteints,
+  parce que c'est réellement arrivé). Le moteur classe les leviers par impact calculé sur les volumes du client.
+  Six croisements portent une « part récupérable prudente, à sourcer » (XA17, XA19, XA24, XA35, XC33, XR15) :
+  ils se brancheront sur ces taux sourcés ; tant qu'un taux n'est pas disponible, ils affichent le montant en
+  jeu (les devis sans réponse × leur montant moyen) et jamais un gain.
 - Suivi : point d'étape à l'**échéance propre de chaque action**, boucle
   d'ajustement, alertes, ré-audit trimestriel, classement sectoriel, historique.
   Gamification discrète. À construire plus tard, dans cet ordre.
@@ -407,8 +421,9 @@ sauvegardées en continu (perdre des réponses est un échec produit).
 ## 15. Points encore ouverts (ne pas trancher seul)
 
 Prompts des agents (décisions du 19 octobre) : le prompt Acquisition (`docs/prompt-agent-acquisition.md`) doit être
-mis à jour pour l'option A (étape « Filtrer et chiffrer », champ « Impact estimé » devenu « Effet attendu »,
-exemple 1) ; les brouillons Finance, RH et Comm sont dans le document « Prompts — Finance, RH et Comm : parties
+mis à jour pour la règle « effet d'une action » (étape « Filtrer et chiffrer » : l'agent ne pose plus d'hypothèse,
+il reçoit le taux sourcé et le potentiel calculés par le moteur ; champ « Impact estimé » rempli par le moteur,
+ou « pas de chiffre sourcé » ; exemple 1 ; question « 10 points ou +10 % » sans objet) ; les brouillons Finance, RH et Comm sont dans le document « Prompts — Finance, RH et Comm : parties
 propres à l'agent (brouillons) » (Claude Docs) ; les couleurs vert / orange / rouge sont gardées pour la phase
 d'essai (à supprimer sur demande) ; **la publicité des professions réglementées est le dernier point à trancher
 avant la publication du site** (avocat spécialisé).
