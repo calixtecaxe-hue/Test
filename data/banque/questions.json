@@ -1,1 +1,806 @@
-[]
+[
+  {
+    "donnee": "ACQ-01.01",
+    "texte": "À quelles grandes catégories de clients vendez-vous ?",
+    "aide": "Par exemple : particuliers, entreprises, collectivités, syndics de copropriété. 4 au plus.",
+    "repli": null,
+    "reponse": {
+      "type": "liste",
+      "max": 4
+    }
+  },
+  {
+    "donnee": "ACQ-01.02",
+    "texte": "Quelle part de votre chiffre d'affaires vient de chacune de ces catégories de clients ?",
+    "aide": "Par exemple : 70 % particuliers, 30 % entreprises. Une estimation suffit.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "donnee",
+        "code": "ACQ-01.01"
+      },
+      "colonnes": [
+        {
+          "id": "part_du_ca",
+          "libelle": "Part du CA",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ],
+      "total": {
+        "colonne": "part_du_ca",
+        "valeur": 100
+      }
+    }
+  },
+  {
+    "donnee": "ACQ-01.03",
+    "texte": "Sur les 12 derniers mois, combien de clients différents avez-vous eus dans chaque catégorie ?",
+    "aide": "Par exemple : 120 particuliers et 8 entreprises. Un client qui a acheté plusieurs fois ne compte qu'une fois.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "donnee",
+        "code": "ACQ-01.01"
+      },
+      "colonnes": [
+        {
+          "id": "clients_sur_12_mois",
+          "libelle": "Clients sur 12 mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-01.04",
+    "texte": "Dans chaque catégorie, combien de fois par an un même client achète-t-il chez vous, en moyenne ?",
+    "aide": "Par exemple : 1 fois pour un particulier, 4 fois pour une entreprise. Un client venu une seule fois compte 1.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "donnee",
+        "code": "ACQ-01.01"
+      },
+      "colonnes": [
+        {
+          "id": "achats_par_an",
+          "libelle": "Achats par an",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-01.05",
+    "texte": "Quelles catégories de clients voulez-vous développer en priorité ?",
+    "aide": "Répondez oui pour une ou deux catégories au plus.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "donnee",
+        "code": "ACQ-01.01"
+      },
+      "colonnes": [
+        {
+          "id": "priorite",
+          "libelle": "Priorité",
+          "spec": {
+            "type": "oui_non"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-01.06",
+    "texte": "À quelle distance de votre entreprise se trouvent vos clients ?",
+    "aide": "Une estimation suffit, par exemple 60 % à moins de 5 km.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "moins_de_5_km",
+            "libelle": "Moins de 5 km"
+          },
+          {
+            "id": "5_a_10_km",
+            "libelle": "5 à 10 km"
+          },
+          {
+            "id": "10_a_25_km",
+            "libelle": "10 à 25 km"
+          },
+          {
+            "id": "25_a_50_km",
+            "libelle": "25 à 50 km"
+          },
+          {
+            "id": "plus_de_50_km",
+            "libelle": "Plus de 50 km"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "part_des_clients",
+          "libelle": "Part des clients",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ],
+      "total": {
+        "colonne": "part_des_clients",
+        "valeur": 100
+      }
+    }
+  },
+  {
+    "donnee": "ACQ-01.07",
+    "texte": "Quelle zone vous rapporte le plus de chiffre d'affaires ?",
+    "aide": "Un quartier, une ville, un département ou une région, selon l'étendue de votre activité.",
+    "repli": null,
+    "reponse": {
+      "type": "texte",
+      "max": 100
+    }
+  },
+  {
+    "donnee": "ACQ-01.08",
+    "texte": "Quelle part de votre chiffre d'affaires faites-vous dans cette zone ?",
+    "aide": "Une estimation suffit.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "pourcent",
+      "min": 0,
+      "max": 100
+    }
+  },
+  {
+    "donnee": "ACQ-01.09",
+    "texte": "Jusqu'à quelle distance acceptez-vous de partir pour un chantier ?",
+    "aide": "En kilomètres depuis votre entreprise.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "km",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-01.10",
+    "texte": "Quelle part de vos ventes se fait hors de votre région, y compris à l'étranger ?",
+    "aide": "Votre outil de boutique en ligne donne la répartition des commandes par région et par pays.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "pourcent",
+      "min": 0,
+      "max": 100
+    }
+  },
+  {
+    "donnee": "ACQ-02.01",
+    "texte": "En moyenne sur les 3 derniers mois, combien de {demandes} avez-vous par mois ?",
+    "aide": "Comptez-les toutes, même celles qui n'ont rien donné.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-02.02",
+    "texte": "Il y a 6 mois, combien de {demandes} aviez-vous par mois ?",
+    "aide": "Un ordre de grandeur suffit.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-02.03",
+    "texte": "Il y a 12 mois, à la même saison, combien de {demandes} aviez-vous par mois ?",
+    "aide": "Un ordre de grandeur suffit. La même saison permet de comparer sans l'effet des vacances ou des fêtes.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-02.04",
+    "texte": "Sur un mois, combien de ces {demandes} correspondent vraiment à ce que vous faites : votre zone, votre offre, vos prix ?",
+    "aide": "Si vous pensez en pourcentage : la moitié de 40 demandes, c'est 20.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-02.05",
+    "texte": "Quand une demande ne correspond pas à ce que vous faites, quelle en est la raison la plus fréquente ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "hors_de_votre_zone",
+          "libelle": "Hors de votre zone"
+        },
+        {
+          "id": "budget_trop_faible",
+          "libelle": "Budget trop faible"
+        },
+        {
+          "id": "hors_de_votre_offre",
+          "libelle": "Hors de votre offre"
+        },
+        {
+          "id": "simple_curiosite",
+          "libelle": "Simple curiosité"
+        },
+        {
+          "id": "delai_impossible_a_tenir",
+          "libelle": "Délai impossible à tenir"
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-03.01",
+    "texte": "Par quels canaux vos clients arrivent-ils jusqu'à vous ?",
+    "aide": "Cochez tous ceux qui vous ont amené au moins un client ces 12 derniers mois. Plateformes : TheFork, Doctolib, Booking, Uber Eats, Malt, marketplace… Annuaires : PagesJaunes et sites d'annuaires. Réseaux d'affaires : BNI, CCI, clubs d'entrepreneurs. Réseau ou enseigne : les clients envoyés par votre franchise ou votre groupement. Passage : les clients qui passent devant chez vous.",
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "bouche_a_oreille",
+          "libelle": "Bouche-à-oreille"
+        },
+        {
+          "id": "fiche_google",
+          "libelle": "Fiche Google"
+        },
+        {
+          "id": "site_internet",
+          "libelle": "Site internet"
+        },
+        {
+          "id": "reseaux_sociaux",
+          "libelle": "Réseaux sociaux"
+        },
+        {
+          "id": "publicite_en_ligne",
+          "libelle": "Publicité en ligne"
+        },
+        {
+          "id": "publicite_locale",
+          "libelle": "Publicité locale"
+        },
+        {
+          "id": "plateformes",
+          "libelle": "Plateformes"
+        },
+        {
+          "id": "annuaires",
+          "libelle": "Annuaires"
+        },
+        {
+          "id": "partenaires",
+          "libelle": "Partenaires"
+        },
+        {
+          "id": "prospection",
+          "libelle": "Prospection"
+        },
+        {
+          "id": "emailing_et_sms",
+          "libelle": "Emailing et SMS"
+        },
+        {
+          "id": "passage",
+          "libelle": "Passage"
+        },
+        {
+          "id": "salons_et_evenements",
+          "libelle": "Salons et événements"
+        },
+        {
+          "id": "reseaux_d_affaires",
+          "libelle": "Réseaux d'affaires"
+        },
+        {
+          "id": "appels_d_offres",
+          "libelle": "Appels d'offres"
+        },
+        {
+          "id": "reseau_ou_enseigne",
+          "libelle": "Réseau ou enseigne"
+        },
+        {
+          "id": "autre",
+          "libelle": "Autre"
+        }
+      ],
+      "minChoix": 1
+    }
+  },
+  {
+    "donnee": "ACQ-03.02",
+    "texte": "Quelle part de vos {demandes} vient de chaque canal ?",
+    "aide": "Par exemple : 50 % bouche-à-oreille, 30 % fiche Google, 20 % site internet. Une estimation suffit.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D03"
+      },
+      "colonnes": [
+        {
+          "id": "part_des_demandes",
+          "libelle": "Part des demandes",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ],
+      "total": {
+        "colonne": "part_des_demandes",
+        "valeur": 100
+      }
+    }
+  },
+  {
+    "donnee": "ACQ-03.03",
+    "texte": "Quelle part de vos nouveaux clients vient de chaque canal ?",
+    "aide": "Par exemple : 60 % bouche-à-oreille, 40 % fiche Google. Un client compte dans le canal par lequel il est arrivé la première fois.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D03"
+      },
+      "colonnes": [
+        {
+          "id": "part_des_nouveaux_clients",
+          "libelle": "Part des nouveaux clients",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ],
+      "total": {
+        "colonne": "part_des_nouveaux_clients",
+        "valeur": 100
+      }
+    }
+  },
+  {
+    "donnee": "ACQ-03.04",
+    "texte": "Sur les 12 derniers mois, quelle part de votre chiffre d'affaires vient de chaque canal ?",
+    "aide": "Une estimation suffit. Rattachez chaque client au canal par lequel il est arrivé la première fois.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D03"
+      },
+      "colonnes": [
+        {
+          "id": "part_du_ca",
+          "libelle": "Part du CA",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ],
+      "total": {
+        "colonne": "part_du_ca",
+        "valeur": 100
+      }
+    }
+  },
+  {
+    "donnee": "ACQ-03.05",
+    "texte": "Combien payez-vous chaque mois pour chaque canal, hors commissions sur les ventes ?",
+    "aide": "Publicité, abonnement à une plateforme, stand de salon ramené au mois. Laissez 0 pour les canaux gratuits. Les honoraires d'agence et les commissions sur les ventes sont demandés à part.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D03"
+      },
+      "colonnes": [
+        {
+          "id": "depense_fixe_par_mois",
+          "libelle": "Dépense fixe par mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-03.06",
+    "texte": "Sur les 12 derniers mois, comment évolue chaque canal ?",
+    "aide": "Jugez au nombre de clients qu'il vous apporte.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D03"
+      },
+      "colonnes": [
+        {
+          "id": "tendance",
+          "libelle": "Tendance",
+          "spec": {
+            "type": "choix",
+            "options": [
+              {
+                "id": "en_hausse",
+                "libelle": "En hausse"
+              },
+              {
+                "id": "stable",
+                "libelle": "Stable"
+              },
+              {
+                "id": "en_baisse",
+                "libelle": "En baisse"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-04.01",
+    "texte": "Combien d'heures par semaine passez-vous, vous et votre équipe, à prospecter ?",
+    "aide": "Prospecter : aller chercher des clients qui ne vous ont rien demandé (appels, emails, messages, visites).",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "heures",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-04.02",
+    "texte": "Combien d'actions de prospection faites-vous par semaine, pour chaque type ?",
+    "aide": "Comptez les actions faites, qu'elles aient eu une réponse ou non.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "appels",
+            "libelle": "Appels"
+          },
+          {
+            "id": "emails",
+            "libelle": "Emails"
+          },
+          {
+            "id": "messages_linkedin_sms",
+            "libelle": "Messages (LinkedIn, SMS…)"
+          },
+          {
+            "id": "visites_sur_place",
+            "libelle": "Visites sur place"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "par_semaine",
+          "libelle": "Par semaine",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-04.03",
+    "texte": "Combien de réponses positives votre prospection vous apporte-t-elle par mois ?",
+    "aide": "Une réponse positive : la personne accepte d'en parler, demande une offre ou un rendez-vous.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-04.04",
+    "texte": "Combien de rendez-vous votre prospection vous apporte-t-elle par mois ?",
+    "aide": "Seulement les rendez-vous obtenus auprès de personnes que vous avez contactées en premier.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-04.05",
+    "texte": "Sur les 12 derniers mois, combien de clients avez-vous signés grâce à la prospection ?",
+    "aide": "Un client compte s'il ne vous avait rien demandé avant que vous le contactiez.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-04.06",
+    "texte": "Dans votre fichier de prospects, combien de contacts n'avez-vous encore jamais sollicités ?",
+    "aide": "Votre tableur ou votre logiciel de suivi des prospects (CRM).",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-05.01",
+    "texte": "Combien de partenaires peuvent vous envoyer des clients, au total ?",
+    "aide": "Prescripteurs, apporteurs d'affaires, affiliés : toute personne ou entreprise qui vous recommande, rémunérée ou non, même si elle ne l'a pas fait récemment.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-05.02",
+    "texte": "Sur les 12 derniers mois, combien de ces partenaires vous ont apporté au moins un client ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-05.03",
+    "texte": "Pour vos 3 principaux partenaires, que vous ont-ils apporté ?",
+    "aide": "Nommez chaque partenaire simplement, par exemple « Architecte Durand ».",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "libre",
+        "max": 3
+      },
+      "colonnes": [
+        {
+          "id": "contacts_apportes_par_mois",
+          "libelle": "Contacts apportés par mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "clients_signes_sur_12_mois",
+          "libelle": "Clients signés sur 12 mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "ca_sur_12_mois",
+          "libelle": "CA sur 12 mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-05.04",
+    "texte": "Que versez-vous à un partenaire pour chaque client qu'il vous apporte ?",
+    "aide": "Remplissez la case qui correspond à votre façon de faire. 0 si vous ne versez rien.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "commission_sur_la_vente",
+          "libelle": "Commission sur la vente",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "ou_montant_fixe_par_client",
+          "libelle": "Ou montant fixe par client",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-06.08",
+    "texte": "Sur votre plateforme principale, quelle est votre note et combien d'avis avez-vous ?",
+    "aide": "TheFork, Doctolib, Trustpilot, votre marketplace… Recopiez ce qui est affiché sur votre page.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "note",
+          "libelle": "Note",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "note_sur",
+          "libelle": "Note sur",
+          "spec": {
+            "type": "choix",
+            "options": [
+              {
+                "id": "5",
+                "libelle": "5"
+              },
+              {
+                "id": "10",
+                "libelle": "10"
+              }
+            ]
+          }
+        },
+        {
+          "id": "nombre_d_avis",
+          "libelle": "Nombre d'avis",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-07.01",
+    "texte": "Combien payez-vous par mois à une agence ou à un prestataire marketing ?",
+    "aide": "Si vous payez à l'année ou au projet, divisez le total de l'année par 12.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-07.02",
+    "texte": "Quel pourcentage chaque plateforme prélève-t-elle sur les ventes qu'elle vous apporte ?",
+    "aide": "Nommez la plateforme (TheFork, Uber Eats, Doctolib…). Le taux figure sur ses factures ou ses relevés.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "libre",
+        "max": 5
+      },
+      "colonnes": [
+        {
+          "id": "commission",
+          "libelle": "Commission",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-07.03",
+    "texte": "Combien dépensez-vous par mois pour faire créer du contenu : photographe, vidéaste, graphiste ?",
+    "aide": "Ramené au mois : un shooting à 600 € par an fait 50 € par mois. 0 si vous le faites vous-même.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-07.04",
+    "texte": "Combien vous coûtent par mois vos outils marketing : emailing, logiciel de réservation ou de suivi des clients, banque d'images ?",
+    "aide": "Comptez seulement les outils qui servent à attirer ou à suivre vos clients.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-07.05",
+    "texte": "Il y a 12 mois, combien dépensiez-vous par mois au total en publicité, agence, contenu et outils marketing ?",
+    "aide": "Sans les commissions des plateformes. Un ordre de grandeur suffit.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    }
+  }
+]

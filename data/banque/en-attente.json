@@ -1,0 +1,81 @@
+[
+  {
+    "donnee": "ACQ-11.31",
+    "texte": "Sur les 12 derniers mois, combien de {unites_vendues} avez-vous au total ?",
+    "aide": "Chaque chambre, emplacement ou véhicule loué une nuit ou une journée compte pour 1. Votre logiciel de réservation donne ce chiffre.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-11.32",
+    "texte": "Combien de {unites_a_louer} louez-vous ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-11.33",
+    "texte": "Sur les 12 derniers mois, combien de {jours_ouverture} avez-vous été ouvert ?",
+    "aide": "365 si vous êtes ouvert toute l'année. Une saison d'avril à septembre en fait environ 180.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0,
+      "max": 366
+    }
+  },
+  {
+    "donnee": "ACQ-11.34",
+    "texte": "Sur les 12 derniers mois, combien de {demandes} avez-vous dû refuser faute de disponibilité ?",
+    "aide": "Une estimation suffit : 3 refus par semaine pendant 10 semaines de haute saison font 30.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-11.35",
+    "texte": "Sur les 12 derniers mois, combien de réservations ont été annulées trop tard pour être relouées, ou pas honorées ?",
+    "aide": "Votre logiciel de réservation et vos plateformes les comptent.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-11.36",
+    "texte": "En moyenne, combien de {jours_ouverture} dure une réservation ?",
+    "aide": "Une estimation suffit.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-11.37",
+    "texte": "Quelle part de votre chiffre d'affaires vient d'autre chose que {hors_location} ?",
+    "aide": "Une estimation suffit.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "pourcent",
+      "min": 0,
+      "max": 100
+    }
+  }
+]

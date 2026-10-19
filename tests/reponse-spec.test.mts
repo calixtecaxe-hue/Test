@@ -175,7 +175,9 @@ function avecBanque(code: string, reponse: ReponseSpec | null): EnsembleDonnees 
   e.banque = [{ donnee: code, texte: "Question de test", aide: null, repli: null, reponse }];
   return e;
 }
-const donneeAvecFormat = (f: string) => reel.donnees.find((d) => d.mode === "demandee" && d.format === f)!;
+// Une donnée qui n'a pas encore de question dans la banque réelle : le classeur seul décide de sa réponse.
+const sansQuestion = new Set(reel.donnees.filter((d) => !reel.banque.some((q) => q.donnee === d.code)).map((d) => d.code));
+const donneeAvecFormat = (f: string) => reel.donnees.find((d) => d.mode === "demandee" && d.format === f && sansQuestion.has(d.code))!;
 
 test("la spécification de la banque l'emporte sur celle du classeur ; sinon celle du classeur ; sinon aucune", () => {
   const nombreSimple = donneeAvecFormat("Nombre");

@@ -8,12 +8,19 @@ L'import contrôle chaque ligne (type de réponse, options, champs, lignes, tota
 chaque erreur avec son numéro de ligne Excel, et n'écrit RIEN tant qu'il en reste. Il lance
 ensuite le contrôle complet des données (npm run donnees:controle). Une ligne sans question
 est ignorée : la donnée reste « manquante ».
+
+Option `--ecarter-inconnues` : une question dont le code n'existe pas dans les données des
+4 agents (par exemple ajoutée au classeur de rédaction avant d'être ajoutée au classeur des
+4 agents) n'est pas importée ; elle est mise de côté dans `data/banque/en-attente.json`, avec
+un avertissement, et reprise automatiquement quand le code existera.
 """
 import argparse
+import glob
 import json
 import re
 import subprocess
 import sys
+import unicodedata
 from pathlib import Path
 
 import openpyxl
@@ -40,6 +47,60 @@ def nombre_cellule(v):
     if isinstance(v, (int, float)):
         return int(v) if float(v).is_integer() else float(v)
     return nombre(str(v).strip())
+
+
+PROFILS_LEXIQUE = ["rdv", "commerce", "ecommerce", "restaurant", "chantier", "b2b", "abonnement"]
+
+
+def cle_lexique(mot):
+    """Même règle que `cleLexique` (src/lib/donnees/lexique.ts)."""
+    t = unicodedata.normalize("NFD", mot.lower())
+    t = re.sub(r"[\u0300-\u036f]", "", t)
+    t = re.sub(r"['’]", " ", t)
+    return re.sub(r"[^a-z0-9]+", "_", t).strip("_")
+
+
+def fusionner_lexique(wb, chemin, ecrire):
+    """Onglet « Lexique » du classeur de la banque -> data/lexique.json, pour les 7 profils.
+
+    Un mot nouveau est ajouté ; une forme qui diffère est mise à jour (et listée). Les lexiques
+    propres à un métier (hébergement, négoce, cabinet…) ne sont pas encore branchés : ils sont
+    comptés et signalés, jamais perdus (ils restent dans le classeur).
+    """
+    if "Lexique" not in wb.sheetnames:
+        return
+    lignes = list(wb["Lexique"].iter_rows(values_only=True))
+    if not lignes:
+        return
+    titres = [str(c).strip() if c is not None else "" for c in lignes[0]]
+    colonnes = {p: titres.index(p) for p in PROFILS_LEXIQUE if p in titres}
+    autres = [t for t in titres[2:] if t and t not in PROFILS_LEXIQUE]
+    lexique = json.loads(chemin.read_text(encoding="utf-8"))
+    par_cle = {m.get("cle") or cle_lexique(m["mot"]): m for m in lexique}
+    ajoutes, modifies = [], []
+    for ligne in lignes[1:]:
+        brut = texte(ligne[0])
+        mot = texte(ligne[1]) if len(ligne) > 1 else None
+        if not brut or not mot:
+            continue
+        cle = brut.strip("{} ")
+        formes = {p: texte(ligne[i]) for p, i in colonnes.items()}
+        existant = par_cle.get(cle)
+        if existant is None:
+            lexique.append({"mot": mot, "cle": cle, "formes": {p: formes.get(p) for p in PROFILS_LEXIQUE}})
+            ajoutes.append(cle)
+            continue
+        for p, f in formes.items():
+            if existant["formes"].get(p) != f:
+                modifies.append(f"{cle}/{p} : « {existant['formes'].get(p)} » devient « {f} »")
+                existant["formes"][p] = f
+    if ecrire and (ajoutes or modifies):
+        chemin.write_text(json.dumps(lexique, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Lexique : {len(ajoutes)} mot(s) ajouté(s) ({', '.join(ajoutes) or '—'}), {len(modifies)} forme(s) mise(s) à jour.")
+    for m in modifies:
+        print("   - " + m)
+    if autres:
+        print(f"   Lexiques propres à un métier non branchés ({len(autres)}) : {', '.join(autres)}.")
 
 
 def construire_reponse(ligne, erreur):
@@ -169,6 +230,8 @@ def main():
     ap.add_argument("classeur")
     ap.add_argument("--sortie", default=str(RACINE / "data" / "banque" / "questions.json"))
     ap.add_argument("--sans-controle", action="store_true")
+    ap.add_argument("--ecarter-inconnues", action="store_true",
+                    help="met de côté les questions dont la donnée n'existe pas encore (data/banque/en-attente.json)")
     args = ap.parse_args()
 
     wb = openpyxl.load_workbook(args.classeur, data_only=True)
@@ -209,6 +272,20 @@ def main():
             entree["reponse"] = reponse
         questions.append(entree)
 
+    # Le lexique du classeur n'est reporté dans les données que pour l'import « officiel » (sortie par défaut).
+    sortie_officielle = Path(args.sortie).resolve() == (RACINE / "data" / "banque" / "questions.json").resolve()
+    if not erreurs and sortie_officielle:
+        fusionner_lexique(wb, RACINE / "data" / "lexique.json", ecrire=True)
+
+    en_attente = []
+    if args.ecarter_inconnues and not erreurs:
+        connus = set()
+        for f in glob.glob(str(RACINE / "data" / "donnees-*.json")):
+            for d in json.loads(Path(f).read_text(encoding="utf-8")):
+                connus.add(d["code"])
+        en_attente = [q for q in questions if q["donnee"] not in connus]
+        questions = [q for q in questions if q["donnee"] in connus]
+
     if erreurs:
         print(f"{len(erreurs)} erreur(s) : rien n'a été écrit.", file=sys.stderr)
         for e in erreurs:
@@ -217,6 +294,14 @@ def main():
 
     Path(args.sortie).write_text(json.dumps(questions, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"{len(questions)} question(s) écrites dans {args.sortie} ({ignorees} ligne(s) sans question ignorée(s)).")
+    fichier_attente = Path(args.sortie).with_name("en-attente.json")
+    if en_attente:
+        fichier_attente.write_text(json.dumps(en_attente, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        codes = ", ".join(q["donnee"] for q in en_attente)
+        print(f"ATTENTION : {len(en_attente)} question(s) mise(s) de côté dans {fichier_attente.name}, car la donnée n'existe pas "
+              f"dans les données des 4 agents : {codes}. Elles ne sont pas posées tant que le classeur des 4 agents ne les contient pas.")
+    elif args.ecarter_inconnues and fichier_attente.exists():
+        fichier_attente.unlink()
 
     if not args.sans_controle:
         r = subprocess.run(["node", str(RACINE / "scripts" / "controle-donnees.mts")], cwd=RACINE, capture_output=True, text=True)

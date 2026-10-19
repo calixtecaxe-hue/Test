@@ -253,12 +253,20 @@ test("le niveau approfondi pose plus de questions que le niveau essentiel", () =
   assert.ok(ess.themes.every((t) => t.questions.every((q) => q.niveau === "essentiel")));
 });
 
-test("aucune question n'est inventée : la banque est vide, les questions sont signalées manquantes", () => {
-  const a = assemblerQuestionnaire(reel, ctx("ACQUISITION_CA", { reponses: { D05: saisie("oui"), D06: saisie("oui") } }));
+test("aucune question n'est inventée : sans banque, les questions sont signalées manquantes", () => {
+  const sansBanque: EnsembleDonnees = { ...reel, banque: [] };
+  const a = assemblerQuestionnaire(sansBanque, ctx("ACQUISITION_CA", { reponses: { D05: saisie("oui"), D06: saisie("oui") } }));
   assert.ok(a.statistiques.aPoser > 0);
   assert.equal(a.statistiques.ecrites, 0);
   assert.equal(a.statistiques.manquantes, a.statistiques.aPoser);
   for (const t of a.themes) for (const q of t.questions) assert.equal(q.texte, null);
+});
+
+test("la banque réelle : une question écrite n'est comptée écrite que si sa donnée est posée, les autres restent manquantes", () => {
+  const a = assemblerQuestionnaire(reel, ctx("ACQUISITION_CA", { reponses: { D05: saisie("oui"), D06: saisie("oui") } }));
+  assert.equal(a.statistiques.ecrites + a.statistiques.manquantes, a.statistiques.aPoser);
+  const ecrites = new Set(reel.banque.map((q) => q.donnee));
+  for (const t of a.themes) for (const q of t.questions) assert.equal(q.texte !== null, ecrites.has(q.code), q.code);
 });
 
 test("une question écrite dans la banque prend les mots du métier", () => {
@@ -321,7 +329,8 @@ test("une réponse de déclencheur doit correspondre à ce qui est posé", () =>
 
 test("une réponse de donnée : seul un chiffre admet exact et estimation, tout admet « je ne sais pas »", () => {
   const scalaire = reel.donnees.find((d) => d.mode === "demandee" && d.format === "€")!;
-  const tableau = reel.donnees.find((d) => d.mode === "demandee" && d.format?.startsWith("Tableau"))!;
+  const ecrites = new Set(reel.banque.map((q) => q.donnee));
+  const tableau = reel.donnees.find((d) => d.mode === "demandee" && d.format?.startsWith("Tableau") && !ecrites.has(d.code))!;
   const v = validerReponse(reel, scalaire.code, { genre: "estimation", min: 10, max: 20 });
   assert.equal(v.ok, true);
   assert.equal(v.ok && v.agent, reel.themes.find((t) => t.code === scalaire.theme)!.agent);

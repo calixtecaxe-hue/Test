@@ -8,7 +8,7 @@
       "restaurant": "Réservation ou demande",
       "chantier": "Demande de devis",
       "b2b": "Contact entrant (lead)",
-      "abonnement": "Demande d'essai ou d'information"
+      "abonnement": "Demande d'information ou d'essai"
     }
   },
   {
@@ -20,7 +20,7 @@
       "restaurant": "Couvert",
       "chantier": "Devis signé",
       "b2b": "Contrat signé",
-      "abonnement": "Nouvel abonné"
+      "abonnement": "Nouveau client sous contrat"
     }
   },
   {
@@ -32,7 +32,7 @@
       "restaurant": "Ticket moyen par couvert",
       "chantier": "Montant moyen d'un chantier",
       "b2b": "Valeur moyenne d'un contrat",
-      "abonnement": "Revenu moyen par abonné"
+      "abonnement": "Revenu mensuel moyen par client"
     }
   },
   {
@@ -50,13 +50,13 @@
   {
     "mot": "Devis",
     "formes": {
-      "rdv": null,
-      "commerce": null,
-      "ecommerce": null,
+      "rdv": "Devis",
+      "commerce": "Devis",
+      "ecommerce": "Devis",
       "restaurant": "Devis traiteur ou groupe",
       "chantier": "Devis",
       "b2b": "Proposition commerciale",
-      "abonnement": null
+      "abonnement": "Proposition ou devis"
     }
   },
   {
@@ -68,7 +68,7 @@
       "restaurant": "Couvert servi",
       "chantier": "Chantier terminé",
       "b2b": "Dossier livré",
-      "abonnement": "Abonné servi"
+      "abonnement": "Client servi"
     }
   },
   {
@@ -80,7 +80,7 @@
       "restaurant": "Places × services",
       "chantier": "Heures de chantier disponibles",
       "b2b": "Dossiers traitables par mois",
-      "abonnement": "Abonnés gérables"
+      "abonnement": "Clients que vous pouvez suivre"
     }
   },
   {
@@ -104,7 +104,7 @@
       "restaurant": "Habitué",
       "chantier": "Client qui redemande",
       "b2b": "Client qui renouvelle",
-      "abonnement": "Abonné qui reste"
+      "abonnement": "Client qui reste"
     }
   },
   {
@@ -116,7 +116,7 @@
       "restaurant": "Coût matière du plat",
       "chantier": "Matériaux + heures de chantier",
       "b2b": "Heures passées + sous-traitance",
-      "abonnement": "Coût de service par abonné (hébergement, support)"
+      "abonnement": "Coût mensuel pour servir un client (temps, fournitures, outils)"
     }
   },
   {
@@ -128,7 +128,72 @@
       "restaurant": "Marge par couvert",
       "chantier": "Marge par chantier",
       "b2b": "Marge par mission ou contrat",
-      "abonnement": "Marge par abonné"
+      "abonnement": "Marge par client et par mois"
+    }
+  },
+  {
+    "mot": "Demandes (au pluriel, dans une phrase)",
+    "cle": "demandes",
+    "formes": {
+      "rdv": "demandes de rendez-vous",
+      "commerce": "visiteurs en boutique",
+      "ecommerce": "visites sur votre site",
+      "restaurant": "réservations ou demandes",
+      "chantier": "demandes de devis",
+      "b2b": "demandes entrantes",
+      "abonnement": "demandes d'information ou d'essai"
+    }
+  },
+  {
+    "mot": "Unités vendues (pluriel)",
+    "cle": "unites_vendues",
+    "formes": {
+      "rdv": null,
+      "commerce": null,
+      "ecommerce": null,
+      "restaurant": null,
+      "chantier": null,
+      "b2b": null,
+      "abonnement": null
+    }
+  },
+  {
+    "mot": "Ce qui se loue (pluriel)",
+    "cle": "unites_a_louer",
+    "formes": {
+      "rdv": null,
+      "commerce": null,
+      "ecommerce": null,
+      "restaurant": null,
+      "chantier": null,
+      "b2b": null,
+      "abonnement": null
+    }
+  },
+  {
+    "mot": "Nuits ou jours",
+    "cle": "jours_ouverture",
+    "formes": {
+      "rdv": null,
+      "commerce": null,
+      "ecommerce": null,
+      "restaurant": null,
+      "chantier": null,
+      "b2b": null,
+      "abonnement": null
+    }
+  },
+  {
+    "mot": "Ce qui n'est pas la location",
+    "cle": "hors_location",
+    "formes": {
+      "rdv": null,
+      "commerce": null,
+      "ecommerce": null,
+      "restaurant": null,
+      "chantier": null,
+      "b2b": null,
+      "abonnement": null
     }
   }
 ]

@@ -83,10 +83,13 @@ test("professions réglementées : pas de Comm, 3 agents au maximum, un profil p
   for (const m of metiers) assert.ok(m.profils && m.profils.length > 0, m.id);
 });
 
-test("la banque est vide : toutes les données demandées sont signalées comme sans question", () => {
+test("une donnée demandée sans question écrite est signalée manquante, jamais inventée", () => {
   const r = controlerDonnees(reel);
-  assert.equal(r.statistiques["questions écrites"], 0);
-  assert.equal(r.statistiques["questions manquantes"], r.statistiques["données demandées"]);
+  assert.equal(r.statistiques["questions écrites"], reel.banque.length);
+  assert.equal(r.statistiques["questions manquantes"], r.statistiques["données demandées"] - reel.banque.length);
+  const sansBanque = controlerDonnees({ ...reel, banque: [] });
+  assert.equal(sansBanque.statistiques["questions écrites"], 0);
+  assert.equal(sansBanque.statistiques["questions manquantes"], sansBanque.statistiques["données demandées"]);
 });
 
 // Le contrôle doit refuser ce qu'il est censé refuser.

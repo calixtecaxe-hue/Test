@@ -10,7 +10,7 @@
 
 import { PREFIXE_AGENT, PROFILS, TAILLES } from "./schemas.ts";
 import type { CodeAgent, EnsembleDonnees } from "./schemas.ts";
-import { cleLexique, variablesDuGabarit } from "./lexique.ts";
+import { cleDuMot, variablesDuGabarit } from "./lexique.ts";
 import { proposerSpec } from "./reponse-spec.ts";
 
 export type Rapport = {
@@ -191,7 +191,7 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
   }
 
   // Inscription : questions complètes, et mots du lexique employés qui existent.
-  const clesLexique = new Set(e.lexique.map((m) => cleLexique(m.mot)));
+  const clesLexique = new Set(e.lexique.map((m) => cleDuMot(m)));
   const idsAttendus = ["metier", "sousVariantes", "metierAbsent", "stock", "chiffreAffairesMensuel", "nombreCollaborateurs", "anciennete", "typeZone", "ville", "acces"];
   for (const id of idsAttendus) {
     if (!e.inscription.questions.some((q) => q.id === id)) erreurs.push(`La question d'inscription « ${id} » manque.`);
@@ -310,6 +310,12 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     questions.set(q.donnee, (questions.get(q.donnee) ?? 0) + 1);
   }
   for (const [code, n] of questions) if (n > 1) erreurs.push(`La donnée ${code} a ${n} questions dans la banque.`);
+  // Un mot du lexique écrit dans une question doit exister : sinon la question ne s'afficherait jamais.
+  for (const q of e.banque) {
+    for (const mot of new Set([q.texte, q.aide, q.repli].flatMap((t) => (t ? variablesDuGabarit(t) : [])))) {
+      if (!clesLexique.has(mot)) erreurs.push(`La question de ${q.donnee} emploie le mot {${mot}}, absent du lexique.`);
+    }
+  }
   // Réponse attendue : cohérente avec le format du classeur, lignes de tableau issues d'un cadrage existant.
   for (const q of e.banque) {
     const d = donnees.get(q.donnee);

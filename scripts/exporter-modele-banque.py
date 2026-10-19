@@ -183,7 +183,7 @@ def main():
         wl.cell(1, j, t).font = Font(bold=True)
     import unicodedata, re
     for i, m in enumerate(d["lexique"], 2):
-        s = re.sub(r"[^a-z0-9]+", "_", "".join(c for c in unicodedata.normalize("NFD", m["mot"].lower()) if not unicodedata.combining(c))).strip("_")
+        s = m.get("cle") or re.sub(r"[^a-z0-9]+", "_", "".join(c for c in unicodedata.normalize("NFD", m["mot"].lower()) if not unicodedata.combining(c))).strip("_")
         wl.cell(i, 1, "{" + s + "}")
         wl.cell(i, 2, m["mot"])
         for j, p in enumerate(profils, 3):

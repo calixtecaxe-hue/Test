@@ -219,8 +219,8 @@ test("la même question prend les mots du métier", () => {
 });
 
 test("un mot absent pour le profil (« — ») rend la question sans objet", () => {
-  const f = formuler("Combien de {devis} avez-vous envoyés ?", ["commerce"], lexique);
-  assert.deepEqual(f, { ok: false, motsAbsents: ["devis"] });
+  const f = formuler("Combien de {unites_vendues} avez-vous vendues ?", ["commerce"], lexique);
+  assert.deepEqual(f, { ok: false, motsAbsents: ["unites_vendues"] });
 });
 
 test("avec plusieurs profils, le premier qui a le mot l'emporte", () => {
@@ -239,6 +239,19 @@ test("le contrôle refuse un mot de lexique inconnu dans une question d'inscript
   const e = structuredClone(donnees);
   e.inscription.questions[0].libelle = "Quel {mot_inconnu} ?";
   assert.match(controlerDonnees(e).erreurs.join("\n"), /mot inconnu du lexique : \{mot_inconnu\}/);
+});
+
+test("le contrôle refuse un mot de lexique inconnu dans une question de la banque", () => {
+  const e = structuredClone(donnees);
+  const q = e.banque[0];
+  q.texte = "Combien de {mot_inconnu} avez-vous ?";
+  assert.match(controlerDonnees(e).erreurs.join("\n"), new RegExp(`${q.donnee} emploie le mot \\{mot_inconnu\\}`));
+});
+
+test("un mot du lexique peut porter une clé explicite, qui l'emporte sur celle du libellé", () => {
+  const lex = [{ mot: "Nuits ou jours", cle: "jours_ouverture", formes: { rdv: null, commerce: null, ecommerce: null, restaurant: null, chantier: null, b2b: "jours", abonnement: null } }];
+  assert.deepEqual(formuler("Ouvert {jours_ouverture} ?", ["b2b"], lex), { ok: true, texte: "Ouvert jours ?" });
+  assert.deepEqual(formuler("Ouvert {nuits_ou_jours} ?", ["b2b"], lex), { ok: false, motsAbsents: ["nuits_ou_jours"] });
 });
 
 // Validation de l'inscription

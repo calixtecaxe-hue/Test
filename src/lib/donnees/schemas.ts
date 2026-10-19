@@ -157,6 +157,8 @@ export const declencheur = z.object({
 // Une même question, les mots du métier : une forme par profil.
 export const motLexique = z.object({
   mot: z.string().min(1),
+  // Mot écrit dans un gabarit, quand il ne se déduit pas du libellé (« jours_ouverture »).
+  cle: z.string().regex(/^[a-z0-9_]+$/).optional(),
   formes: z.object(Object.fromEntries(PROFILS.map((p) => [p, z.string().nullable()])) as Record<(typeof PROFILS)[number], z.ZodNullable<z.ZodString>>),
 });
 
