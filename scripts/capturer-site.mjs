@@ -6,7 +6,7 @@
 //   SORTIE=/chemin/site node scripts/capturer-site.mjs
 //
 // Puis publier SORTIE/index.html avec les autres fichiers du dossier.
-import pw from process.env.PLAYWRIGHT_INDEX ?? "/opt/node22/lib/node_modules/playwright/index.js";
+const pw = (await import(process.env.PLAYWRIGHT_INDEX ?? "/opt/node22/lib/node_modules/playwright/index.js")).default;
 const { chromium } = pw;
 import { mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { createHash } from "node:crypto";
