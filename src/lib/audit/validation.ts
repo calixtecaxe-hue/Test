@@ -8,6 +8,7 @@ import type { CodeAgent, EnsembleDonnees } from "../donnees/schemas.ts";
 import { reponseSchema, type Reponse, type Reponses } from "./reponse.ts";
 import { proposerSpec, validerSelonSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
 import type { Exclusions } from "./assemblage.ts";
+import { donneeDuDeclencheur } from "./affichage.ts";
 
 export type Verdict =
   | { ok: true; reponse: Reponse; agent: CodeAgent | null }
@@ -52,6 +53,8 @@ export function validerReponse(e: EnsembleDonnees, cle: string, brut: unknown, d
       case "choix":
         if (sous || typeof v !== "string" || !forme.options.some((o) => o.id === v)) return refus("Choix non reconnu.");
         break;
+      case "reponse_donnee":
+        return refus("Cette question se répond dans le questionnaire.");
       case "oui_non_multiple":
         if (!forme.sousCles.some((s) => s.cle === (sous ?? "")) || (v !== "oui" && v !== "non")) return refus("Répondez par oui ou par non.");
         break;
@@ -64,13 +67,18 @@ export function validerReponse(e: EnsembleDonnees, cle: string, brut: unknown, d
   const { spec } = specDeLaDonnee(e, cle);
   if (spec) {
     const lignesDeclencheur = (c: string): string[] => {
-      const r = dejaRepondu[c];
+      const r = dejaRepondu[donneeDuDeclencheur(e.reglesAffichage, c) ?? c];
       return r?.genre === "saisie" && Array.isArray(r.valeur) ? r.valeur : [];
     };
     const elementsDeListe = (c: string): string[] => {
       const r = dejaRepondu[c];
       return r?.genre === "saisie" && Array.isArray(r.valeur) ? r.valeur : [];
     };
+    // Question qui tient lieu de déclencheur : un choix exclu pour ce compte est refusé côté serveur.
+    if (exclusions && spec.type === "cases" && reponse.genre === "saisie" && Array.isArray(reponse.valeur)) {
+      const interdites = Object.entries(exclusions.optionsCadrage).filter(([c]) => donneeDuDeclencheur(e.reglesAffichage, c) === cle).flatMap(([, ids]) => ids);
+      if (reponse.valeur.some((x) => interdites.includes(x))) return refus("Ce choix ne concerne pas votre activité.");
+    }
     const verdict = validerSelonSpec(spec, reponse, { lignesDeclencheur, elementsDeListe });
     if (!verdict.ok) return refus(verdict.message);
   } else if (reponse.genre === "exact" || reponse.genre === "estimation" || reponse.genre === "valeurs") {

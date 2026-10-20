@@ -3,7 +3,7 @@
 //
 // Ce fichier n'importe que des types et reponse.ts : il se teste directement avec Node.
 
-import type { FormeDeclencheur, Regle, ReglesAffichage } from "../donnees/schemas.ts";
+import type { FormeDeclencheur, Regle, RegleSimple, ReglesAffichage } from "../donnees/schemas.ts";
 import type { Reponses } from "./reponse.ts";
 
 export const TAILLES_D02 = ["seul", "equipe_2_5", "structure_6_plus"] as const;
@@ -17,19 +17,21 @@ export function tailleDepuisEffectif(personnes: number): TailleId {
   return "structure_6_plus";
 }
 
-export type Valeur = string | string[];
+export type Valeur = string | number | string[];
 export type Lecteur = (cle: string) => Valeur | undefined;
 
 // Vrai, faux, ou null quand une réponse manque encore.
 export type Tri = boolean | null;
 
-type Simple = Extract<Regle, { cle: string }>;
+type Simple = RegleSimple;
 
 function evaluerSimple(r: Simple, lire: Lecteur): Tri {
   const v = lire(r.cle);
   if (v === undefined) return r.op === "vide" ? true : null;
   const taille = Array.isArray(v) ? v.length : v === "" ? 0 : 1;
   switch (r.op) {
+    case "plus_de":
+      return typeof v === "number" && typeof r.valeur === "number" ? v > r.valeur : false;
     case "egal":
       return v === r.valeur;
     case "different":
@@ -41,7 +43,7 @@ function evaluerSimple(r: Simple, lire: Lecteur): Tri {
     case "vide":
       return taille === 0;
     case "dans":
-      return Array.isArray(r.valeur) && !Array.isArray(v) ? r.valeur.includes(v) : false;
+      return Array.isArray(r.valeur) && !Array.isArray(v) ? r.valeur.includes(String(v)) : false;
     case "moins_de":
       return Array.isArray(v) && typeof r.valeur === "number" ? v.length < r.valeur : false;
   }
@@ -60,21 +62,33 @@ function combiner(resultats: Tri[], tous: boolean): Tri {
 // reste affichée).
 export function evaluer(regle: Regle, lire: Lecteur): Tri | "a_preciser" {
   if ("aPreciser" in regle) return "a_preciser";
-  if ("tous" in regle) return combiner(regle.tous.map((r) => evaluerSimple(r, lire)), true);
-  if ("un" in regle) return combiner(regle.un.map((r) => evaluerSimple(r, lire)), false);
+  const sous = (liste: Regle[]): Tri[] => liste.map((r) => {
+    const t = evaluer(r, lire);
+    return t === "a_preciser" ? null : t;
+  });
+  if ("tous" in regle) return combiner(sous(regle.tous), true);
+  if ("un" in regle) return combiner(sous(regle.un), false);
   return evaluerSimple(regle, lire);
 }
 
 // Les clés de réponse d'une règle (« D08.achats »), pour savoir quels déclencheurs poser.
 export function clesDeLaRegle(regle: Regle): string[] {
   if ("aPreciser" in regle) return [];
-  if ("tous" in regle) return regle.tous.map((r) => r.cle);
-  if ("un" in regle) return regle.un.map((r) => r.cle);
+  if ("tous" in regle) return regle.tous.flatMap(clesDeLaRegle);
+  if ("un" in regle) return regle.un.flatMap(clesDeLaRegle);
   return [regle.cle];
 }
 
+// Clé qui désigne la réponse à une donnée : « ACQ-10.06 », « FIN-10.01#champ », « RH-32.01#ligne.colonne ».
+const RE_CLE_DONNEE = /^((?:ACQ|FIN|RH|COM)-\d{2}\.\d{2})(?:#(.+))?$/;
+export function cleDeDonnee(cle: string): { donnee: string; chemin: string | null } | null {
+  const m = RE_CLE_DONNEE.exec(cle);
+  return m ? { donnee: m[1], chemin: m[2] ?? null } : null;
+}
+
 export function declencheurDeLaCle(cle: string): string {
-  return cle.split(".")[0];
+  const d = cleDeDonnee(cle);
+  return d ? d.donnee : cle.split(".")[0];
 }
 
 // --- Lecture des réponses du dirigeant ------------------------------------------
@@ -87,12 +101,43 @@ function brut(reponses: Reponses, cle: string): Valeur | undefined {
   return v;
 }
 
-// Lecteur des réponses aux déclencheurs. D02 vient du compte. Une sous-question qui
+// Réponse à une donnée, lue comme valeur de déclencheur. Un chiffre exact vaut son nombre, une estimation son
+// milieu ; « je ne sais pas » et « je ne suis pas cette donnée » ne répondent à rien (la question suivante attend).
+// Une question à plusieurs champs ou un tableau se lit par « #champ » ou « #ligne.colonne ».
+function lireDonnee(reponses: Reponses, donnee: string, chemin: string | null): Valeur | undefined {
+  const r = reponses[donnee];
+  if (!r) return undefined;
+  switch (r.genre) {
+    case "exact":
+      return chemin ? undefined : r.valeur;
+    case "estimation":
+      return chemin ? undefined : (r.min + r.max) / 2;
+    case "saisie":
+      if (chemin) return undefined;
+      return typeof r.valeur === "boolean" ? (r.valeur ? "oui" : "non") : r.valeur;
+    case "valeurs": {
+      if (!chemin) return undefined;
+      const v = r.valeurs[chemin];
+      if (v === undefined || v === null) return undefined;
+      return typeof v === "boolean" ? (v ? "oui" : "non") : v;
+    }
+    default:
+      return undefined;
+  }
+}
+
+// Lecteur des réponses aux déclencheurs. D02 vient du compte. D30 (« avant la première création de contenu »)
+// vaut « non » pendant l'audit : le brief de création se pose plus tard, à la première création. Une sous-question qui
 // n'a pas lieu d'être posée (« est-il en service ? » quand il n'y a pas
 // d'investissement) vaut « non ».
 export function lecteurDeclencheurs(reponses: Reponses, taille: TailleId, regles: ReglesAffichage): Lecteur {
   return (cle) => {
     if (cle === "D02") return taille;
+    if (cle === "D30") return "non";
+    const donnee = cleDeDonnee(cle);
+    if (donnee) return lireDonnee(reponses, donnee.donnee, donnee.chemin);
+    const forme0 = regles.declencheurs[cle.split(".")[0]];
+    if (forme0?.type === "reponse_donnee" && !cle.includes(".")) return lireDonnee(reponses, forme0.donnee, null);
     const direct = brut(reponses, cle);
     if (direct !== undefined) return direct;
     const [code, sous] = cle.split(".");
@@ -106,6 +151,12 @@ export function lecteurDeclencheurs(reponses: Reponses, taille: TailleId, regles
     }
     return undefined;
   };
+}
+
+// Donnée dont la réponse tient lieu de réponse au déclencheur (D03 → ACQ-03.01), ou null.
+export function donneeDuDeclencheur(regles: ReglesAffichage, code: string): string | null {
+  const f = regles.declencheurs[code];
+  return f?.type === "reponse_donnee" ? f.donnee : null;
 }
 
 // Un déclencheur est répondu quand toutes ses sous-questions applicables le sont.

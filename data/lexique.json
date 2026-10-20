@@ -8,7 +8,20 @@
       "restaurant": "Réservation ou demande",
       "chantier": "Demande de devis",
       "b2b": "Contact entrant (lead)",
-      "abonnement": "Demande d'information ou d'essai"
+      "abonnement": "Demande d'information ou d'essai",
+      "location": "Demande de réservation"
+    },
+    "metiers": {
+      "hebergement": "Demande de réservation",
+      "location_vehicules": "Demande de location",
+      "immobilier": "Contact propriétaire (vente ou location)",
+      "projet_particuliers": "Demande de devis",
+      "vente_de_biens": "Contact acheteur",
+      "negoce": "Demande de prix",
+      "fabrication": "Demande de prix ou de devis",
+      "cabinet": "Demande de rendez-vous ou de consultation",
+      "course": "Demande de course",
+      "livraison_repas": "Visite de votre menu en ligne"
     }
   },
   {
@@ -20,7 +33,20 @@
       "restaurant": "Client venu pour la première fois",
       "chantier": "Devis signé",
       "b2b": "Contrat signé",
-      "abonnement": "Nouveau client sous contrat"
+      "abonnement": "Nouveau client sous contrat",
+      "location": "Réservation d'un nouveau client"
+    },
+    "metiers": {
+      "hebergement": "Réservation d'un nouveau client",
+      "location_vehicules": "Location d'un nouveau client",
+      "immobilier": "Mandat signé",
+      "projet_particuliers": "Devis signé",
+      "vente_de_biens": "Vente signée (bon de commande ou réservation)",
+      "negoce": "Première commande d'un nouveau client",
+      "fabrication": "Première commande d'un nouveau client",
+      "cabinet": "Dossier ouvert",
+      "course": "Course d'un nouveau client",
+      "livraison_repas": "Commande d'un nouveau client"
     }
   },
   {
@@ -32,7 +58,20 @@
       "restaurant": "Ticket moyen par couvert",
       "chantier": "Montant moyen d'un chantier",
       "b2b": "Valeur moyenne d'un contrat",
-      "abonnement": "Revenu mensuel moyen par client"
+      "abonnement": "Revenu mensuel moyen par client",
+      "location": "Prix moyen d'un séjour"
+    },
+    "metiers": {
+      "hebergement": "Prix moyen d'un séjour",
+      "location_vehicules": "Prix moyen d'une location",
+      "immobilier": "Honoraires moyens par vente ou location",
+      "projet_particuliers": "Montant moyen d'un projet",
+      "vente_de_biens": "Prix de vente moyen",
+      "negoce": "Montant moyen d'une commande",
+      "fabrication": "Montant moyen d'une commande",
+      "cabinet": "Honoraires moyens par dossier",
+      "course": "Prix moyen d'une course",
+      "livraison_repas": "Panier moyen"
     }
   },
   {
@@ -44,7 +83,20 @@
       "restaurant": null,
       "chantier": "Visite technique ou métré",
       "b2b": "Rendez-vous de découverte",
-      "abonnement": "Rendez-vous de découverte"
+      "abonnement": "Rendez-vous de découverte",
+      "location": null
+    },
+    "metiers": {
+      "hebergement": null,
+      "location_vehicules": null,
+      "immobilier": "Rendez-vous d'estimation",
+      "projet_particuliers": "Rendez-vous de présentation",
+      "vente_de_biens": "Visite ou essai",
+      "negoce": "Visite chez le client",
+      "fabrication": "Rendez-vous ou visite chez le client",
+      "cabinet": "Premier rendez-vous",
+      "course": null,
+      "livraison_repas": null
     }
   },
   {
@@ -56,7 +108,20 @@
       "restaurant": "Devis traiteur ou groupe",
       "chantier": "Devis",
       "b2b": "Proposition commerciale",
-      "abonnement": "Proposition ou devis"
+      "abonnement": "Proposition ou devis",
+      "location": "Devis groupe ou séminaire"
+    },
+    "metiers": {
+      "hebergement": "Devis groupe ou séminaire",
+      "location_vehicules": "Devis longue durée ou entreprise",
+      "immobilier": "Proposition de mandat (avec estimation)",
+      "projet_particuliers": "Devis",
+      "vente_de_biens": "Proposition de prix",
+      "negoce": "Proposition de prix",
+      "fabrication": "Devis ou proposition de prix",
+      "cabinet": "Proposition d'honoraires",
+      "course": "Devis",
+      "livraison_repas": "Devis"
     }
   },
   {
@@ -68,7 +133,20 @@
       "restaurant": "Couvert servi",
       "chantier": "Chantier terminé",
       "b2b": "Dossier livré",
-      "abonnement": "Client servi"
+      "abonnement": "Client servi",
+      "location": "Nuitée vendue"
+    },
+    "metiers": {
+      "hebergement": "Nuitée vendue",
+      "location_vehicules": "Jour de location vendu",
+      "immobilier": "Vente ou location conclue",
+      "projet_particuliers": "Projet réalisé",
+      "vente_de_biens": "Bien livré",
+      "negoce": "Commande livrée",
+      "fabrication": "Commande livrée",
+      "cabinet": "Dossier traité",
+      "course": "Course réalisée",
+      "livraison_repas": "Commande livrée"
     }
   },
   {
@@ -80,7 +158,20 @@
       "restaurant": "Places × services",
       "chantier": "Heures de chantier disponibles",
       "b2b": "Dossiers traitables par mois",
-      "abonnement": "Clients que vous pouvez suivre"
+      "abonnement": "Clients que vous pouvez suivre",
+      "location": "Chambres, logements ou emplacements × nuits d'ouverture"
+    },
+    "metiers": {
+      "hebergement": "Chambres, logements ou emplacements × nuits d'ouverture",
+      "location_vehicules": "Véhicules × jours d'ouverture",
+      "immobilier": "Mandats qu'un négociateur peut suivre",
+      "projet_particuliers": "Projets réalisables par mois",
+      "vente_de_biens": "Ventes qu'un vendeur peut suivre par mois",
+      "negoce": "Commandes préparables par jour",
+      "fabrication": "Production possible par mois",
+      "cabinet": "Dossiers traitables par mois",
+      "course": "Courses possibles par jour",
+      "livraison_repas": "Commandes préparables par service"
     }
   },
   {
@@ -92,7 +183,20 @@
       "restaurant": "Réservations à venir",
       "chantier": "Carnet de commandes",
       "b2b": "Affaires signées à livrer",
-      "abonnement": null
+      "abonnement": null,
+      "location": "Réservations à venir"
+    },
+    "metiers": {
+      "hebergement": "Réservations à venir",
+      "location_vehicules": "Réservations à venir",
+      "immobilier": "Ventes ou locations signées en attente de conclusion",
+      "projet_particuliers": "Projets signés à réaliser",
+      "vente_de_biens": "Ventes signées en attente de livraison",
+      "negoce": "Commandes à livrer",
+      "fabrication": "Commandes à produire",
+      "cabinet": "Dossiers ouverts en cours",
+      "course": "Courses réservées à l'avance",
+      "livraison_repas": null
     }
   },
   {
@@ -104,7 +208,20 @@
       "restaurant": "Habitué",
       "chantier": "Client qui redemande",
       "b2b": "Client qui renouvelle",
-      "abonnement": "Client qui reste"
+      "abonnement": "Client qui reste",
+      "location": "Client qui revient"
+    },
+    "metiers": {
+      "hebergement": "Client qui revient",
+      "location_vehicules": "Client qui revient",
+      "immobilier": "Client qui vous confie un nouveau projet",
+      "projet_particuliers": "Client qui revient pour un autre projet",
+      "vente_de_biens": "Client qui rachète chez vous",
+      "negoce": "Client qui repasse commande",
+      "fabrication": "Client qui repasse commande",
+      "cabinet": "Client qui revient avec un nouveau dossier",
+      "course": "Client qui revient",
+      "livraison_repas": "Client qui commande à nouveau"
     }
   },
   {
@@ -116,7 +233,20 @@
       "restaurant": "Coût matière du plat",
       "chantier": "Matériaux + heures de chantier",
       "b2b": "Heures passées + sous-traitance",
-      "abonnement": "Coût mensuel pour servir un client (temps, fournitures, outils)"
+      "abonnement": "Coût mensuel pour servir un client (temps, fournitures, outils)",
+      "location": "Ménage, linge et produits d'accueil par nuitée"
+    },
+    "metiers": {
+      "hebergement": "Ménage, linge et produits d'accueil par nuitée",
+      "location_vehicules": "Nettoyage, entretien et assurance par jour de location",
+      "immobilier": "Commission du négociateur + frais de diffusion",
+      "projet_particuliers": "Fournitures, sous-traitants et heures passées",
+      "vente_de_biens": "Prix d'achat ou de revient du bien + préparation",
+      "negoce": "Prix d'achat de la marchandise + transport",
+      "fabrication": "Matières + heures de production",
+      "cabinet": "Heures passées + frais du dossier",
+      "course": "Carburant ou recharge et péages par course",
+      "livraison_repas": "Coût matière + emballage par commande"
     }
   },
   {
@@ -128,7 +258,20 @@
       "restaurant": "Marge par couvert",
       "chantier": "Marge par chantier",
       "b2b": "Marge par mission ou contrat",
-      "abonnement": "Marge par client et par mois"
+      "abonnement": "Marge par client et par mois",
+      "location": "Marge par nuitée"
+    },
+    "metiers": {
+      "hebergement": "Marge par nuitée",
+      "location_vehicules": "Marge par jour de location",
+      "immobilier": "Marge par vente ou location",
+      "projet_particuliers": "Marge par projet",
+      "vente_de_biens": "Marge par bien vendu",
+      "negoce": "Marge par commande",
+      "fabrication": "Marge par commande",
+      "cabinet": "Marge par dossier",
+      "course": "Marge par course",
+      "livraison_repas": "Marge par commande"
     }
   },
   {
@@ -141,7 +284,20 @@
       "restaurant": "réservations ou demandes",
       "chantier": "demandes de devis",
       "b2b": "contacts entrants",
-      "abonnement": "demandes d'information ou d'essai"
+      "abonnement": "demandes d'information ou d'essai",
+      "location": "demandes de réservation"
+    },
+    "metiers": {
+      "hebergement": "demandes de réservation",
+      "location_vehicules": "demandes de location",
+      "immobilier": "contacts propriétaires",
+      "projet_particuliers": "demandes de devis",
+      "vente_de_biens": "contacts acheteurs",
+      "negoce": "demandes de prix",
+      "fabrication": "demandes de prix ou de devis",
+      "cabinet": "demandes de rendez-vous ou de consultation",
+      "course": "demandes de course",
+      "livraison_repas": "visites de votre menu en ligne"
     }
   },
   {
@@ -154,7 +310,20 @@
       "restaurant": null,
       "chantier": null,
       "b2b": null,
-      "abonnement": null
+      "abonnement": null,
+      "location": "nuitées vendues"
+    },
+    "metiers": {
+      "hebergement": "nuitées vendues",
+      "location_vehicules": "jours de location vendus",
+      "immobilier": null,
+      "projet_particuliers": null,
+      "vente_de_biens": null,
+      "negoce": null,
+      "fabrication": null,
+      "cabinet": null,
+      "course": null,
+      "livraison_repas": null
     }
   },
   {
@@ -167,7 +336,20 @@
       "restaurant": null,
       "chantier": null,
       "b2b": null,
-      "abonnement": null
+      "abonnement": null,
+      "location": "chambres, logements ou emplacements"
+    },
+    "metiers": {
+      "hebergement": "chambres, logements ou emplacements",
+      "location_vehicules": "véhicules",
+      "immobilier": null,
+      "projet_particuliers": null,
+      "vente_de_biens": null,
+      "negoce": null,
+      "fabrication": null,
+      "cabinet": null,
+      "course": null,
+      "livraison_repas": null
     }
   },
   {
@@ -180,7 +362,20 @@
       "restaurant": null,
       "chantier": null,
       "b2b": null,
-      "abonnement": null
+      "abonnement": null,
+      "location": "nuits"
+    },
+    "metiers": {
+      "hebergement": "nuits",
+      "location_vehicules": "jours",
+      "immobilier": null,
+      "projet_particuliers": null,
+      "vente_de_biens": null,
+      "negoce": null,
+      "fabrication": null,
+      "cabinet": null,
+      "course": null,
+      "livraison_repas": null
     }
   },
   {
@@ -193,7 +388,20 @@
       "restaurant": null,
       "chantier": null,
       "b2b": null,
-      "abonnement": null
+      "abonnement": null,
+      "location": "petit-déjeuner, restaurant, bar, activités"
+    },
+    "metiers": {
+      "hebergement": "petit-déjeuner, restaurant, bar, activités",
+      "location_vehicules": "assurances, options, kilomètres supplémentaires, carburant",
+      "immobilier": null,
+      "projet_particuliers": null,
+      "vente_de_biens": null,
+      "negoce": null,
+      "fabrication": null,
+      "cabinet": null,
+      "course": null,
+      "livraison_repas": null
     }
   },
   {
@@ -206,7 +414,20 @@
       "restaurant": "devis traiteur ou groupe",
       "chantier": "devis",
       "b2b": "propositions commerciales",
-      "abonnement": "propositions ou devis"
+      "abonnement": "propositions ou devis",
+      "location": "devis groupe ou séminaire"
+    },
+    "metiers": {
+      "hebergement": "devis groupe ou séminaire",
+      "location_vehicules": "devis longue durée ou entreprise",
+      "immobilier": "propositions de mandat",
+      "projet_particuliers": "devis",
+      "vente_de_biens": "propositions de prix",
+      "negoce": "propositions de prix",
+      "fabrication": "devis ou propositions de prix",
+      "cabinet": "propositions d'honoraires",
+      "course": "devis",
+      "livraison_repas": "devis"
     }
   },
   {
@@ -219,7 +440,20 @@
       "restaurant": "couverts servis",
       "chantier": "chantiers terminés",
       "b2b": "dossiers livrés",
-      "abonnement": "clients servis"
+      "abonnement": "clients servis",
+      "location": "nuitées vendues"
+    },
+    "metiers": {
+      "hebergement": "nuitées vendues",
+      "location_vehicules": "jours de location vendus",
+      "immobilier": "ventes ou locations conclues",
+      "projet_particuliers": "projets réalisés",
+      "vente_de_biens": "biens livrés",
+      "negoce": "commandes livrées",
+      "fabrication": "commandes livrées",
+      "cabinet": "dossiers traités",
+      "course": "courses réalisées",
+      "livraison_repas": "commandes livrées"
     }
   },
   {
@@ -232,7 +466,20 @@
       "restaurant": "la cuisine et le service en salle",
       "chantier": "les chantiers et les interventions",
       "b2b": "les missions et les dossiers clients",
-      "abonnement": "le service rendu aux abonnés"
+      "abonnement": "le service rendu aux abonnés",
+      "location": "l'accueil, le ménage et l'entretien"
+    },
+    "metiers": {
+      "hebergement": "l'accueil, le ménage et l'entretien",
+      "location_vehicules": "la préparation et l'entretien des véhicules",
+      "immobilier": "les estimations, les visites et le suivi des biens",
+      "projet_particuliers": "la réalisation des projets",
+      "vente_de_biens": "la préparation, la livraison et le service après-vente",
+      "negoce": "la préparation et la livraison des commandes",
+      "fabrication": "la fabrication et la préparation des commandes",
+      "cabinet": "le traitement des dossiers",
+      "course": "la conduite",
+      "livraison_repas": "la cuisine et la préparation des commandes"
     }
   }
 ]

@@ -37,9 +37,9 @@ test("une règle d'affichage qui porte sur une réponse inconnue est une erreur"
 test("le nombre de thèmes par agent est celui du document de règles", () => {
   const par = (a: string) => reel.themes.filter((t) => t.agent === a).length;
   assert.equal(par("ACQUISITION_CA"), 23);
-  assert.equal(par("FINANCE_RENTABILITE"), 45);
-  assert.equal(par("RH_ORGANISATION"), 40);
-  assert.equal(par("COMM_CREATION"), 54);
+  assert.equal(par("FINANCE_RENTABILITE"), 48);
+  assert.equal(par("RH_ORGANISATION"), 49);
+  assert.equal(par("COMM_CREATION"), 61);
 });
 
 test("Finance : le bloc Stock compte 9 thèmes, masqués sans stock", () => {
@@ -51,7 +51,7 @@ test("Finance : le bloc Stock compte 9 thèmes, masqués sans stock", () => {
 test("les quatre natures de notation, et seulement elles", () => {
   const natures = new Set(reel.themes.map((t) => t.nature));
   assert.deepEqual([...natures].sort(), ["coherence", "contexte", "marche", "pratique"]);
-  assert.equal(reel.themes.filter((t) => t.nature === "contexte").length, 4);
+  assert.equal(reel.themes.filter((t) => t.nature === "contexte").length, 11);
 });
 
 test("RH se règle sur la taille, les autres agents sur le profil", () => {
@@ -62,8 +62,8 @@ test("RH se règle sur la taille, les autres agents sur le profil", () => {
   }
 });
 
-test("le classeur contient 27 déclencheurs, 13 scénarios, 14 problèmes de communication", () => {
-  assert.equal(reel.declencheurs.length, 27);
+test("le classeur contient 65 déclencheurs, 13 scénarios, 14 problèmes de communication", () => {
+  assert.equal(reel.declencheurs.length, 65);
   assert.equal(reel.scenarios.length, 13);
   assert.equal(reel.diagnosticComm.problemes.length, 14);
   assert.deepEqual(reel.diagnosticComm.ordreLectureChiffres.slice(0, 2), ["Clients", "CA"]);

@@ -12,6 +12,7 @@ Rien n'est inventé : tout champ vient d'une cellule du classeur. Une cellule
 import json
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 import openpyxl
@@ -35,7 +36,23 @@ MODES = {"Demandée": "demandee", "Importée": "importee", "Calculée": "calcule
 NIVEAUX = {"Essentiel": "essentiel", "Approfondi": "approfondi"}
 CHIFFRE = {"Oui": "oui", "Non": "non", "Calculé": "calcule"}
 SUR = {"CA": "ca", "trésorerie": "tresorerie", "contacts": "contacts", "marge": "marge", "heures": "heures"}
-PROFILS = ["rdv", "commerce", "ecommerce", "restaurant", "chantier", "b2b", "abonnement"]
+# 8 profils depuis le classeur du 20 octobre (« Location » : hébergement et location de véhicules).
+PROFILS = ["rdv", "commerce", "ecommerce", "restaurant", "chantier", "b2b", "abonnement", "location"]
+# Les onglets Croisements n'ont pas encore de colonne Location : aucun croisement ne s'applique à ce profil.
+PROFILS_CROISEMENTS = PROFILS[:7]
+# Lexiques propres à un métier (onglet Lexique, colonnes après « Clé dans les questions »), clé technique.
+LEXIQUES_METIER = {
+    "Hébergement": "hebergement",
+    "Location de véhicules": "location_vehicules",
+    "Agence immobilière": "immobilier",
+    "Projets de particuliers": "projet_particuliers",
+    "Vente de biens": "vente_de_biens",
+    "Négoce": "negoce",
+    "Fabrication": "fabrication",
+    "Cabinet": "cabinet",
+    "Course (VTC, taxi, coursier)": "course",
+    "Livraison de repas": "livraison_repas",
+}
 TAILLES = ["seul", "equipe_2_5", "structure_6_plus"]
 RE_DONNEE = re.compile(r"\b(?:ACQ|FIN|RH|COM)-\d{2}\.\d{2}\b")
 RE_CROISEMENT = re.compile(r"\b(?:XA|XF|XC|XR)\d{2}\b")
@@ -138,10 +155,12 @@ def croisements(wb):
         ws = wb[onglet]
         entetes = [c.value for c in ws[1]]
         rh = onglet == "Croisements RH"
-        cles = TAILLES if rh else PROFILS
+        cles = TAILLES if rh else PROFILS_CROISEMENTS
         i0 = entetes.index("Seul") if rh else entetes.index("RDV")
         for r in lignes(ws):
             marques = {k: (r[i0 + n] == "●") for n, k in enumerate(cles)}
+            if not rh:
+                marques["location"] = False
             sortie.append({
                 "code": r[0],
                 "agent": AGENTS[r[1]],
@@ -210,18 +229,40 @@ def declencheurs(wb):
     ecrire("declencheurs.json", sortie)
 
 
+def cle_lexique(mot):
+    """Même règle que `cleLexique` (src/lib/donnees/lexique.ts)."""
+    t = unicodedata.normalize("NFD", mot.lower())
+    t = re.sub(r"[\u0300-\u036f]", "", t)
+    t = re.sub(r"['’]", " ", t)
+    return re.sub(r"[^a-z0-9]+", "_", t).strip("_")
+
+
 def lexique(wb):
+    """Onglet Lexique : une ligne par mot ; colonnes = 7 profils, « Clé dans les questions », puis les lexiques par
+    métier. Le profil « location » prend les formes de la colonne « Hébergement » ; les lexiques par métier sont
+    gardés tels quels (champ `metiers`), le moteur les branchera métier par métier."""
     ws = wb["Lexique"]
     toutes = [r for r in ws.iter_rows(values_only=True)]
     i_entete = next(i for i, r in enumerate(toutes) if r[0] == "Mot générique")
-    profils = [str(c) for c in toutes[i_entete][1:8]]
+    entete = [str(c).strip() if c is not None else "" for c in toutes[i_entete]]
+    i_cle = entete.index("Clé dans les questions")
+    i_metiers = {LEXIQUES_METIER[t]: i for i, t in enumerate(entete) if t in LEXIQUES_METIER}
     mots = []
     for r in toutes[i_entete + 1:]:
         if not r[0] or str(r[0]).startswith("Quel profil"):
             break
-        mots.append({"mot": r[0], "formes": dict(zip(PROFILS, [v(c) for c in r[1:8]]))})
+        formes = dict(zip(PROFILS[:7], [v(c) for c in r[1:8]]))
+        metiers = {k: v(r[i]) for k, i in i_metiers.items()}
+        formes["location"] = metiers.get("hebergement")
+        mot = {"mot": r[0]}
+        cle = (v(r[i_cle]) or "").strip("{} ")
+        if cle and cle != cle_lexique(r[0]):
+            mot["cle"] = cle
+        mot["formes"] = formes
+        mot["metiers"] = metiers
+        mots.append(mot)
     ecrire("lexique.json", mots)
-    return profils
+    return entete[1:8]
 
 
 def main():

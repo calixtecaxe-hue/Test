@@ -29,6 +29,10 @@
     {
       "id": "abonnement",
       "libelle": "Abonnement"
+    },
+    {
+      "id": "location",
+      "libelle": "Location"
     }
   ],
   "categories": [
@@ -1386,7 +1390,10 @@
       "secteur": "Transport et logistique",
       "categorie": "transport-logistique",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "profilsImposes": [
+        "location"
+      ]
     },
     {
       "id": "restaurant",
@@ -1458,7 +1465,10 @@
       "secteur": "Hôtellerie-restauration",
       "categorie": "restauration",
       "stock": "a_demander",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "profilsImposes": [
+        "location"
+      ]
     },
     {
       "id": "camping",
@@ -1466,7 +1476,10 @@
       "secteur": "Hôtellerie-restauration",
       "categorie": "restauration",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "profilsImposes": [
+        "location"
+      ]
     },
     {
       "id": "gite",
@@ -1474,7 +1487,10 @@
       "secteur": "Hôtellerie-restauration",
       "categorie": "restauration",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "profilsImposes": [
+        "location"
+      ]
     },
     {
       "id": "chambre-d-hotes",
@@ -1482,7 +1498,10 @@
       "secteur": "Hôtellerie-restauration",
       "categorie": "restauration",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "profilsImposes": [
+        "location"
+      ]
     },
     {
       "id": "coiffeur",
@@ -1884,7 +1903,8 @@
       ],
       "optionsCadrage": {
         "D03": [
-          "publicite",
+          "publicite_en_ligne",
+          "publicite_locale",
           "prospection",
           "partenaires"
         ]

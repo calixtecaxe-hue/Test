@@ -131,7 +131,7 @@ export function router(
       parts = cochees.map((id) => variantes.find((v) => v.id === id)!);
     }
   }
-  return resultat(routage, metier.id, parts, cochees, autre, profilsDuMetier);
+  return resultat(routage, metier.id, parts, cochees, autre, profilsDuMetier, metier.profilsImposes ?? []);
 }
 
 function resultat(
@@ -140,7 +140,8 @@ function resultat(
   parts: Partie[],
   cochees: string[],
   autre: boolean,
-  profilsDuMetier: ProfilId[]
+  profilsDuMetier: ProfilId[],
+  profilsImposes: ProfilId[] = []
 ): { ok: true; routage: ResultatRoutage } | { ok: false; erreur: ErreurRoutage } {
   const categories = parts.map((p) => routage.categories.find((c) => c.id === p.categorie));
   if (categories.some((c) => !c)) return { ok: false, erreur: { champ: "metierPrecis", message: "Métier non reconnu." } };
@@ -150,7 +151,7 @@ function resultat(
   // réglementées), ceux de l'activité ou du métier.
   const retenus = new Set<ProfilId>();
   parts.forEach((p, i) => {
-    const base = cats[i].profils.length > 0 ? cats[i].profils : p.profils ?? profilsDuMetier;
+    const base = profilsImposes.length > 0 ? profilsImposes : cats[i].profils.length > 0 ? cats[i].profils : p.profils ?? profilsDuMetier;
     base.forEach((x) => retenus.add(x));
   });
   const profils = PROFILS.filter((p) => retenus.has(p));

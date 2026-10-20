@@ -159,6 +159,8 @@ export const motLexique = z.object({
   mot: z.string().min(1),
   // Mot écrit dans un gabarit, quand il ne se déduit pas du libellé (« jours_ouverture »).
   cle: z.string().regex(/^[a-z0-9_]+$/).optional(),
+  // Lexiques propres à un métier (hébergement, négoce, cabinet…) : pas encore branchés sur le moteur.
+  metiers: z.record(z.string(), z.string().nullable()).optional(),
   formes: z.object(Object.fromEntries(PROFILS.map((p) => [p, z.string().nullable()])) as Record<(typeof PROFILS)[number], z.ZodNullable<z.ZodString>>),
 });
 
@@ -166,20 +168,28 @@ export const motLexique = z.object({
 
 // Réponses connues du dirigeant : clé → valeur (« D07 » → « oui », « D03 » → liste de
 // canaux, « D08.achats » → « non »). D02 (effectif) vient du compte.
-const operateur = z.enum(["egal", "different", "contient", "non_vide", "vide", "dans", "moins_de"]);
+//
+// Depuis le 20 octobre, une clé peut aussi être **la réponse à une donnée** : « ACQ-10.06 » (la valeur),
+// « FIN-10.01#retours_par_mois » (un champ d'une question à plusieurs champs) ou
+// « RH-32.01#demission.departs » (une case d'un tableau : ligne.colonne). C'est ce que le classeur appelle un
+// déclencheur dérivé (D28 à D65) : la question suivante attend que celle-ci soit répondue.
+const operateur = z.enum(["egal", "different", "contient", "non_vide", "vide", "dans", "moins_de", "plus_de"]);
 const regleSimple = z.object({
   cle: z.string().min(1),
   op: operateur,
   valeur: z.union([z.string(), z.number(), z.array(z.string())]).optional(),
 });
-export const regle = z.union([
-  regleSimple,
-  z.object({ tous: z.array(regleSimple).min(1) }),
-  z.object({ un: z.array(regleSimple).min(1) }),
-  // Règle que le classeur ne permet pas de trancher : la question reste affichée.
-  z.object({ aPreciser: z.string().min(1) }),
-]);
-export type Regle = z.infer<typeof regle>;
+export type RegleSimple = z.infer<typeof regleSimple>;
+export type Regle = RegleSimple | { tous: Regle[] } | { un: Regle[] } | { aPreciser: string };
+export const regle: z.ZodType<Regle> = z.lazy(() =>
+  z.union([
+    regleSimple,
+    z.object({ tous: z.array(regle).min(1) }),
+    z.object({ un: z.array(regle).min(1) }),
+    // Règle que le classeur ne permet pas de trancher : la question reste affichée.
+    z.object({ aPreciser: z.string().min(1) }),
+  ])
+);
 
 // Comment poser un déclencheur au dirigeant. Les libellés viennent du classeur.
 const optionDeclencheur = z.object({ id: z.string(), libelle: z.string() });
@@ -187,6 +197,9 @@ export const formeDeclencheur = z.discriminatedUnion("type", [
   z.object({ type: z.literal("oui_non") }),
   z.object({ type: z.literal("cases"), options: z.array(optionDeclencheur) }),
   z.object({ type: z.literal("choix"), options: z.array(optionDeclencheur) }),
+  // Déclencheur qui est lui-même une question de la banque (D03 = ACQ-03.01…) : on ne le pose pas au cadrage,
+  // sa réponse est celle de la donnée.
+  z.object({ type: z.literal("reponse_donnee"), donnee: z.string().regex(/^(ACQ|FIN|RH|COM)-\d{2}\.\d{2}$/) }),
   // Plusieurs oui / non à la suite. Une sous-question peut dépendre d'une réponse précédente.
   z.object({
     type: z.literal("oui_non_multiple"),
@@ -262,6 +275,8 @@ export const routage = z.object({
       synonymes: z.array(z.string()).optional(),
       // Profil propre au métier quand la catégorie n'en donne pas (professions réglementées).
       profils: z.array(profilId).optional(),
+      // Profils qui remplacent ceux de la catégorie (hébergement et location de véhicules : profil location).
+      profilsImposes: z.array(profilId).optional(),
       aConfirmer: z.string().optional(),
       notes: z.string().optional(),
       sousVariantes: z.array(sousPartie).optional(),

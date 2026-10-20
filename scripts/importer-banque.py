@@ -267,6 +267,7 @@ def main():
     ap.add_argument("classeur")
     ap.add_argument("--sortie", default=str(RACINE / "data" / "banque" / "questions.json"))
     ap.add_argument("--sans-controle", action="store_true")
+    ap.add_argument("--reporter-lexique", action="store_true", help="reporte aussi l'onglet Lexique de la banque dans data/lexique.json (le classeur des 4 agents en est la source depuis le 20 octobre)")
     ap.add_argument("--ecarter-inconnues", action="store_true",
                     help="met de côté les questions dont la donnée n'existe pas encore (data/banque/en-attente.json)")
     args = ap.parse_args()
@@ -311,7 +312,7 @@ def main():
 
     # Le lexique du classeur n'est reporté dans les données que pour l'import « officiel » (sortie par défaut).
     sortie_officielle = Path(args.sortie).resolve() == (RACINE / "data" / "banque" / "questions.json").resolve()
-    if not erreurs and sortie_officielle:
+    if not erreurs and sortie_officielle and args.reporter_lexique:
         fusionner_lexique(wb, RACINE / "data" / "lexique.json", ecrire=True)
 
     en_attente = []

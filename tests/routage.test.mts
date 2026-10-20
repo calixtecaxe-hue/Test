@@ -249,7 +249,7 @@ test("le contrôle refuse un mot de lexique inconnu dans une question de la banq
 });
 
 test("un mot du lexique peut porter une clé explicite, qui l'emporte sur celle du libellé", () => {
-  const lex = [{ mot: "Nuits ou jours", cle: "jours_ouverture", formes: { rdv: null, commerce: null, ecommerce: null, restaurant: null, chantier: null, b2b: "jours", abonnement: null } }];
+  const lex = [{ mot: "Nuits ou jours", cle: "jours_ouverture", formes: { rdv: null, commerce: null, ecommerce: null, restaurant: null, chantier: null, b2b: "jours", abonnement: null, location: null } }];
   assert.deepEqual(formuler("Ouvert {jours_ouverture} ?", ["b2b"], lex), { ok: true, texte: "Ouvert jours ?" });
   assert.deepEqual(formuler("Ouvert {nuits_ou_jours} ?", ["b2b"], lex), { ok: false, motsAbsents: ["nuits_ou_jours"] });
 });
@@ -351,4 +351,15 @@ test("le stock « à demander » impose une réponse ; un métier au stock connu
   assert.match(erreurs(garage).join("\n"), /vendProduits: Dites si vous vendez aussi des produits/);
   assert.deepEqual(erreurs({ ...garage, vendProduits: false }), []);
   assert.deepEqual(erreurs({ ...valide, metierPrecis: "electricien", sousVariantes: [] }), []);
+});
+
+test("les métiers d'hébergement et la location de véhicules ont le profil location, et eux seuls", () => {
+  for (const id of ["hotel", "camping", "gite", "chambre-d-hotes", "location-de-vehicules"]) {
+    const r = router(routage, id, []);
+    assert.ok(r.ok, id);
+    if (r.ok) assert.deepEqual(r.routage.profils, ["location"], id);
+  }
+  const restaurant = router(routage, "restaurant", []);
+  assert.ok(restaurant.ok && restaurant.routage.profils.includes("restaurant") && !restaurant.routage.profils.includes("location"));
+  assert.deepEqual(routage.metiers.filter((m) => m.profilsImposes?.includes("location")).map((m) => m.id).sort(), ["camping", "chambre-d-hotes", "gite", "hotel", "location-de-vehicules"]);
 });

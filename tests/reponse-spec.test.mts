@@ -204,7 +204,8 @@ test("le serveur refuse une réponse qui ne correspond pas à la spécification,
 test("le serveur contrôle les lignes d'un tableau avec les réponses déjà données au cadrage", () => {
   const cible = reel.donnees.find((d) => (d.mode === "demandee" || d.mode === "partagee") && d.format === "Tableau par canal")!;
   const e = avecBanque(cible.code, tableauCanaux);
-  const deja = { D03: saisie(["site"]) };
+  // D03 (canaux) est la question ACQ-03.01 : ses lignes viennent de la réponse à cette donnée.
+  const deja = { "ACQ-03.01": saisie(["site"]) };
   assert.ok(validerReponse(e, cible.code, { genre: "valeurs", valeurs: { "site.part": 100 } }, deja).ok);
   assert.ok(!validerReponse(e, cible.code, { genre: "valeurs", valeurs: { "salons.part": 100 } }, deja).ok);
   assert.ok(!validerReponse(e, cible.code, { genre: "valeurs", valeurs: { "site.part": 100 } }, {}).ok, "sans canal coché, aucune ligne");

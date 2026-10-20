@@ -20,12 +20,13 @@ import {
   declencheurRepondu,
   evaluer,
   lecteurDeclencheurs,
+  donneeDuDeclencheur,
   moisMinimumDExistence,
   type TailleId,
 } from "./affichage.ts";
 import { accepteLesQuatreReponses, type Reponses } from "./reponse.ts";
 import { proposerSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
-import type { Routage } from "../donnees/schemas.ts";
+import type { ReglesAffichage, Routage } from "../donnees/schemas.ts";
 
 export type Exclusions = NonNullable<Routage["reglementees"]["acquisitionExclut"]>;
 
@@ -113,21 +114,24 @@ function concerne(d: Donnee, profils: ProfilId[], taille: TailleId): boolean {
 
 // Les questions de cadrage exclues valent « non » ; les options exclues d'une question à cases
 // sont retirées, y compris d'une réponse donnée avant.
-export function appliquerExclusions(reponses: Reponses, ex: Exclusions | null | undefined): Reponses {
+export function appliquerExclusions(reponses: Reponses, ex: Exclusions | null | undefined, regles?: ReglesAffichage): Reponses {
   if (!ex) return reponses;
   const r: Reponses = { ...reponses };
   for (const d of ex.declencheurs) r[d] = { genre: "saisie", valeur: "non" };
   for (const [cle, ids] of Object.entries(ex.optionsCadrage)) {
-    const v = r[cle];
-    if (v?.genre === "saisie" && Array.isArray(v.valeur)) r[cle] = { genre: "saisie", valeur: v.valeur.filter((x) => !ids.includes(x)) };
+    // Un déclencheur qui est une question de la banque (D03 → ACQ-03.01) : l'exclusion s'applique à la donnée.
+    for (const k of [cle, regles ? donneeDuDeclencheur(regles, cle) : null]) {
+      const v = k ? r[k] : undefined;
+      if (k && v?.genre === "saisie" && Array.isArray(v.valeur)) r[k] = { genre: "saisie", valeur: v.valeur.filter((x) => !ids.includes(x)) };
+    }
   }
   return r;
 }
 
 export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssemblage): Assemblage {
   const ex = entree.agent === "ACQUISITION_CA" ? entree.exclusions : null;
-  const ctx: ContexteAssemblage = { ...entree, reponses: appliquerExclusions(entree.reponses, ex) };
   const regles = e.reglesAffichage;
+  const ctx: ContexteAssemblage = { ...entree, reponses: appliquerExclusions(entree.reponses, ex, regles) };
   const lire = lecteurDeclencheurs(ctx.reponses, ctx.taille, regles);
   const banque = new Map<string, Question>(e.banque.map((q) => [q.donnee, q]));
   const equiv = equivalences(e.donnees);
@@ -207,7 +211,12 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
         texte = f.texte;
       }
       const proposee = proposerSpec(d.format);
-      const spec = q?.reponse ?? (proposee.certitude === "sure" ? proposee.spec : null);
+      let spec = q?.reponse ?? (proposee.certitude === "sure" ? proposee.spec : null);
+      // Question qui tient lieu de déclencheur : les options exclues pour ce compte (publicité…) ne sont pas proposées.
+      if (spec?.type === "cases" && ex) {
+        const retirees = Object.entries(ex.optionsCadrage).filter(([cle]) => donneeDuDeclencheur(regles, cle) === d.code).flatMap(([, ids]) => ids);
+        if (retirees.length > 0) spec = { ...spec, options: spec.options.filter((o) => !retirees.includes(o.id)) };
+      }
       const specSource = q?.reponse ? "banque" : spec ? "classeur" : null;
       const equivalents = [...(equiv.get(d.code) ?? [])];
       const deja = ctx.reponses[d.code] !== undefined || equivalents.some((c) => ctx.reponses[c] !== undefined);
@@ -233,7 +242,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
   }
 
   const declencheursConcernes: DeclencheurAPoser[] = [...concernes]
-    .filter((code) => code !== "D02" && regles.declencheurs[code] && !(ex?.declencheurs ?? []).includes(code))
+    .filter((code) => code !== "D02" && regles.declencheurs[code] && regles.declencheurs[code].type !== "reponse_donnee" && !(ex?.declencheurs ?? []).includes(code))
     .sort()
     .map((code) => {
       const forme = regles.declencheurs[code];

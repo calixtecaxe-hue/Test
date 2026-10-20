@@ -15,7 +15,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Chaque demande que vous recevez vaut en moyenne X €. »"
@@ -43,7 +44,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Taux de référence du secteur (seuil Marché)",
     "phraseRapport": "« Vous recevez assez de demandes, mais c'est l'étape devis → signature qui bloque : X % contre Y % dans votre secteur. »"
@@ -67,7 +69,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Taux de référence du secteur (seuil Marché)",
     "phraseRapport": "« Rejoindre la moyenne de votre secteur sur cette étape rapporterait environ X € par mois. »"
@@ -88,7 +91,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous perdez environ X € par an à cause des demandes et des appels auxquels vous ne répondez pas. »"
@@ -110,7 +114,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Le manque de créneaux vous coûte environ X € par mois, les délais trop longs Y €. »"
@@ -131,7 +136,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Ouvrir le samedi représenterait environ X € de CA par mois, à comparer au coût d'une journée (agent Finance). »"
@@ -153,7 +159,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre planning n'est rempli qu'à X %, soit environ Y € de capacité inutilisée par mois. »"
@@ -174,7 +181,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Pour atteindre +15 %, il vous faut environ X clients de plus par mois. »"
@@ -196,7 +204,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Soit X demandes de plus par mois, à taux de transformation constant. »"
@@ -217,7 +226,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Le canal A vous coûte X € par client, le canal B Y €. »"
@@ -241,7 +251,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« X % de votre budget part dans des canaux qui coûtent plus qu'ils ne rapportent. »"
@@ -263,7 +274,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous mettez X % du budget sur le canal A, qui ne fait que Y % de votre CA. »"
@@ -284,7 +296,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« X % de vos demandes viennent d'un seul canal. »"
@@ -307,7 +320,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« X % de votre CA dépend de trois clients, dont Y € sans aucun engagement. »"
@@ -329,7 +343,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos partenaires vous rapportent X € nets par an, dont Y % grâce à un seul. »"
@@ -354,7 +369,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos clients dépensent X € par an mais seulement Y % reviennent : 10 % de clients fidèles en plus représenteraient environ Z €. »"
@@ -376,7 +392,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Part récupérable prudente, à sourcer",
     "phraseRapport": "« X anciens clients n'ont rien acheté depuis un an ; en faire revenir une petite part représente environ Y €. »"
@@ -399,7 +416,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Un client vous coûte X € à acquérir et vous rapporte Y € sur toute la relation. »"
@@ -420,7 +438,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Part récupérable prudente, à sourcer",
     "phraseRapport": "« Proposer votre complément à chaque client représenterait environ X € par an. »"
@@ -441,7 +460,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos remises vous coûtent environ X € par an. »"
@@ -464,7 +484,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre planning est plein sur X semaines et vos prix sont Y % sous vos concurrents : une hausse de 5 % représenterait Z €. »"
@@ -485,7 +506,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« X € de devis attendent une réponse ; à votre taux habituel, environ Y € devraient se signer. »"
@@ -508,7 +530,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous signez X % de vos devis mais seulement Y % du montant : vous perdez surtout les gros projets. »"
@@ -530,7 +553,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune si vos relances sont mesurées ; sinon part récupérable prudente, à sourcer",
     "phraseRapport": "« Relancer vos devis sans réponse pourrait récupérer environ X € par mois. »"
@@ -551,7 +575,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Les absences sans prévenir vous coûtent environ X € par an. »"
@@ -572,7 +597,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Il vous reste X semaines libres sur 3 mois, soit environ Y € que l'équipe actuelle peut absorber. »"
@@ -593,7 +619,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« X heures par mois ne sont pas facturées, soit environ Y €. »"
@@ -614,7 +641,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Une heure de prospection vous rapporte en moyenne X €. »"
@@ -636,7 +664,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos mois creux représentent X € de moins que votre moyenne ; la cause déclarée est Y. »"
@@ -661,7 +690,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre CA est stable, mais vos demandes baissent de X % : c'est la hausse du panier qui compense, pour l'instant. »"
@@ -686,7 +716,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« X % de vos clients sont à moins de 10 km : c'est là que votre communication doit porter. »"
@@ -708,7 +739,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Un client professionnel vous rapporte X fois plus par an qu'un particulier, alors que vous visez les particuliers. »"
@@ -729,7 +761,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Les réservations refusées et non honorées vous coûtent environ X € par mois. »"
@@ -753,7 +786,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Les places vides de vos services les plus calmes représentent environ X € par mois. »"
@@ -775,7 +809,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Part récupérable prudente, à sourcer",
     "phraseRapport": "« X paniers sont abandonnés chaque mois ; une relance automatique en récupère une partie, soit environ Y €. »"
@@ -796,7 +831,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Les résiliations vous font perdre X € de revenu sur un an. »"
@@ -818,7 +854,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Réduire vos résiliations d'un point par mois vaut environ X € par an. »"
@@ -841,7 +878,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Taux de référence du secteur (seuil Marché)",
     "phraseRapport": "« Sur X visiteurs par mois, un point de transformation en plus vaut environ Y €. »"
@@ -864,7 +902,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« La plateforme vous coûte X € par client, votre propre site Y €. »"
@@ -885,7 +924,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos affaires en cours couvrent X % du CA supplémentaire que vous visez. »"
@@ -909,7 +949,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« X % de vos demandes arrivent quand vous êtes fermé et attendent le lendemain : une réponse automatique ou une prise de rendez-vous en ligne les retiendrait. »"
@@ -933,7 +974,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos samedis sont pleins et vos mardis à moitié vides : déplacer une partie de la demande vers les créneaux calmes vaut environ X € par mois. »"
@@ -956,7 +998,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous avez X avis contre Y pour votre concurrent le plus proche. »"
@@ -978,7 +1021,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos charges fixes représentent X % de votre CA. Votre seuil de rentabilité est d'environ Y € par mois, pour un CA moyen de Z €. »"
@@ -999,7 +1043,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre CA dépasse votre seuil de X % : vous pouvez perdre Y € de CA par mois avant de perdre de l'argent. »"
@@ -1021,7 +1066,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre rémunération de X € fait passer votre seuil à Y € ; à 0 €, l'entreprise ne paraît rentable que parce que vous ne vous payez pas. »"
@@ -1044,7 +1090,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Pour couvrir aussi vos remboursements, il vous faut X € de CA par mois. »"
@@ -1068,7 +1115,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Ratio de référence du secteur (seuil Marché), à sourcer",
     "phraseRapport": "« Votre masse salariale représente X % de votre CA, vos achats Y %. »"
@@ -1092,7 +1140,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos trois principaux postes représentent X € par mois. 8 % d'économie dessus améliorerait votre résultat d'environ Y € par an. Commencez par Z, qui a augmenté de N % en un an. »"
@@ -1116,7 +1165,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos charges ont augmenté de X % en un an, votre CA de Y % : votre marge se réduit. »"
@@ -1138,7 +1188,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Quand votre CA augmente de 10 %, vos coûts variables augmentent de X % : chaque euro de croissance vous rapporte Y centimes. »"
@@ -1162,7 +1213,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos fournisseurs ont augmenté de X % sur 12 mois, vos prix de Y % : Z € de marge perdue par an. »"
@@ -1186,7 +1238,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre premier fournisseur représente X % de vos achats et n'a pas été renégocié depuis Y mois. Une baisse de 5 % représenterait Z € par an. »"
@@ -1209,7 +1262,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« X % de vos achats dépendent d'un fournisseur sans solution de remplacement. »"
@@ -1234,7 +1288,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous pourriez économiser environ X € par an sur vos contrats ; Y arrivent à renouvellement dans les 3 mois. »"
@@ -1259,7 +1314,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Reprises, retours, gestes commerciaux et pertes vous coûtent X € par an, soit Y % de votre CA. »"
@@ -1281,7 +1337,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre entreprise dispose d'environ X mois de sécurité de trésorerie. »"
@@ -1302,7 +1359,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Au rythme des 3 derniers mois, votre trésorerie tient X mois. »"
@@ -1325,7 +1383,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous êtes rentable sur le papier (X €) mais votre trésorerie a baissé de Y € : l'argent est bloqué dans vos créances et votre stock. »"
@@ -1346,7 +1405,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous facturez X € par mois mais n'encaissez que Y €. »"
@@ -1369,7 +1429,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« En X, votre trésorerie passera sous Y € à cause de Z ; ce paiement peut être étalé. »"
@@ -1391,7 +1452,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous pouvez absorber un imprévu de X € ; celui de l'an dernier (Y €) vous mettrait aujourd'hui à découvert. »"
@@ -1415,7 +1477,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre activité immobilise X € : Y € chez vos clients, Z € en stock. »"
@@ -1440,7 +1503,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos clients vous paient en X jours, vous payez vos fournisseurs en Y jours : cet écart immobilise Z € de trésorerie. »"
@@ -1464,7 +1528,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Facturer le jour même et réduire vos délais clients de 15 jours libérerait environ X €. »"
@@ -1488,7 +1553,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« X € de factures sont en retard, soit Y % de votre CA mensuel ; Z € ont plus de 90 jours. »"
@@ -1510,7 +1576,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Les impayés vous ont coûté X % de votre CA l'an dernier, contre Y % l'année d'avant. »"
@@ -1532,7 +1599,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Sur vos chantiers sans acompte, vous avancez en moyenne X € ; un acompte de 30 % libérerait Y € de trésorerie. »"
@@ -1555,7 +1623,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Payer comptant votre fournisseur vous ferait gagner X % ; avec votre trésorerie actuelle, c'est rentable / risqué. »"
@@ -1577,7 +1646,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos remboursements absorbent X % de votre marge ; Y € par mois seront libérés dans Z mois. »"
@@ -1601,7 +1671,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous êtes à découvert X jours par mois depuis Y mois : ce n'est plus un accident, et cela vous coûte Z € par an. »"
@@ -1626,7 +1697,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Cet investissement devait rapporter X € par mois, il en rapporte Y € (écart de Z %) ; il sera remboursé dans N mois. »"
@@ -1647,7 +1719,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous avez payé X € comptant : vos mois de sécurité sont passés de Y à Z. »"
@@ -1669,7 +1742,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Si votre plus gros client partait demain, votre trésorerie vous permettrait de tenir environ X mois. »"
@@ -1690,7 +1764,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Atteindre votre objectif nécessiterait environ X € de trésorerie avant que la croissance ne génère du cash. »"
@@ -1713,7 +1788,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Avec votre trésorerie actuelle, vous pouvez financer environ X € de CA supplémentaire par mois sans emprunter. »"
@@ -1736,7 +1812,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre offre A fait 50 % de votre CA avec 15 % de marge ; l'offre B 20 % avec 45 %. »"
@@ -1758,7 +1835,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre offre A coûte X € une fois les charges réparties : vendue Y €, elle ne couvre pas ses frais. »"
@@ -1780,7 +1858,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Le client A vous prend X heures par mois pour Y € : il vous rapporte Z €, contre N € en moyenne. »"
@@ -1804,7 +1883,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Une heure de travail vous coûte X € et vous rapporte Y € ; seules Z % des heures sont facturées. »"
@@ -1827,7 +1907,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous vous versez X € par mois ; après charges et remboursements, l'entreprise dégage Y € de marge. »"
@@ -1848,7 +1929,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous estimez votre marge à X % ; vos chiffres indiquent Y %. »"
@@ -1873,7 +1955,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous avez X € immobilisés en stock, dont Y € n'ont généré aucune vente depuis six mois. »"
@@ -1895,7 +1978,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Ratio de référence du secteur (seuil Marché), à sourcer",
     "phraseRapport": "« Votre stock représente X jours de ventes ; il a augmenté de Y % quand votre CA a augmenté de Z %. »"
@@ -1919,7 +2003,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Ratio de référence du secteur (seuil Marché), à sourcer",
     "phraseRapport": "« Vos pertes représentent X % de vos achats, soit Y € par an, surtout à cause de Z. »"
@@ -1943,7 +2028,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos ruptures représentent environ X € de CA et Y € de marge perdus par an. »"
@@ -1964,7 +2050,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Les minimums de commande vous font immobiliser X € de stock pour Y € de remise par an. »"
@@ -1988,7 +2075,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre dernier inventaire a révélé X € d'écart, soit Y % du stock. »"
@@ -2017,7 +2105,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous maîtrisez bien votre activité commerciale, mais X indicateurs essentiels de rentabilité et de trésorerie ne sont pas suivis. »"
@@ -2040,7 +2129,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre revenu récurrent couvre X % de vos charges fixes. »"
@@ -2064,7 +2154,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Une commande de X € vous laisse Y € une fois la livraison, le paiement, les retours et la publicité payés. »"
@@ -2087,7 +2178,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Ratio de référence du secteur (seuil Marché), à sourcer",
     "phraseRapport": "« Votre coût matière représente X % du CA ; chaque couvert vous laisse Y €, et les pertes alimentaires Z € par an. »"
@@ -2111,7 +2203,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Un chantier moyen vous laisse X €, soit Y % de son montant. »"
@@ -2138,7 +2231,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous publiez environ X contenus par mois pour Y heures de travail. Ils génèrent Z impressions, mais seulement N clics et M demandes. Le problème n'est pas votre capacité à produire, mais la capacité du contenu à déclencher une action. »"
@@ -2161,7 +2255,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Instagram représente X % de votre temps mais Y % des demandes ; LinkedIn Z % du temps mais N % des demandes. »"
@@ -2184,7 +2279,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Deux formats prennent X % de votre temps pour Y % des résultats : réallouer ce temps améliorerait l'efficacité sans travailler plus. »"
@@ -2207,7 +2303,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos 5 meilleures publications sont des cas clients, mais ce format ne représente que X % de votre contenu. Passez-le à 25-30 % pendant 30 jours et mesurez les demandes. »"
@@ -2228,7 +2325,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos contenus pédagogiques touchent beaucoup de monde mais génèrent peu de clics ; vos cas clients touchent moins mais génèrent trois fois plus de demandes. »"
@@ -2251,7 +2349,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Seuil de taux de clic faible, à valider",
     "phraseRapport": "« Votre problème n'est pas la visibilité : vos contenus touchent X personnes par mois, mais moins de Y % cliquent. Retravaillez l'appel à l'action et l'offre avant d'augmenter la fréquence. »"
@@ -2274,7 +2373,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre audience a augmenté de X %, mais vos demandes sont restées stables : la visibilité ne se transforme pas encore en clients. »"
@@ -2298,7 +2398,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Seuils de trafic et de conversion, à valider",
     "phraseRapport": "« Votre site reçoit X visiteurs par mois pour Y demandes (Z %). Augmenter le trafic avant d'améliorer la conversion aurait un rendement limité. »"
@@ -2320,7 +2421,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Sur X clics depuis vos réseaux, seuls Y deviennent une demande : la page d'arrivée ne fait pas son travail. »"
@@ -2343,7 +2445,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Taux de réponse prudent à un envoi, à sourcer",
     "phraseRapport": "« Vous possédez X contacts qui n'ont pas été sollicités depuis Y mois. Avant d'investir dans l'acquisition, cette audience est un actif sous-exploité. »"
@@ -2367,7 +2470,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre guide récolte X contacts par mois, dont Y deviennent clients : chaque contact vaut environ Z €. »"
@@ -2390,7 +2494,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Sur X messages par mois, Y sont des demandes commerciales et Z deviennent des ventes ; les messages restés sans réponse représentent environ N € par an. »"
@@ -2412,7 +2517,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous disposez de X réalisations exploitables mais seulement Y sont visibles sur vos supports. »"
@@ -2435,7 +2541,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous avez réalisé X prestations mais n'avez que Y avis et Z cas clients publiés : votre activité produit bien plus de preuves que votre communication n'en exploite. »"
@@ -2457,7 +2564,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous disposez de X témoignages dont Y ont été utilisés : votre priorité n'est pas de trouver de nouvelles idées mais d'exploiter les preuves existantes. »"
@@ -2480,7 +2588,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous publiez 12 fois par mois, mais en 4 jours puis plus rien pendant 3 semaines : le volume est bon, la régularité non. »"
@@ -2502,7 +2611,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous avez X contenus prêts, soit Y semaines d'avance : le problème n'est pas la production mais la distribution et la conversion. »"
@@ -2523,7 +2633,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre audience LinkedIn progresse de X % par mois, Instagram stagne. »"
@@ -2548,7 +2659,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Taux de référence par réseau, à sourcer",
     "phraseRapport": "« Chaque publication touche en moyenne X personnes et en fait cliquer Y. »"
@@ -2569,7 +2681,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Pour 1 000 abonnés, vous obtenez X demandes par mois. »"
@@ -2592,7 +2705,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous consacrez X heures par semaine à la communication, soit environ Y € de temps par mois, pour Z demandes. »"
@@ -2615,7 +2729,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Chaque contenu vous coûte X €, chaque demande venant de la communication Y €, contre Z € par la publicité (agent Acquisition). »"
@@ -2637,7 +2752,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous répondez à X % de vos avis avec un délai moyen de Y jours. Avant de chercher plus d'avis, mettez en place une réponse en moins de 48 heures. »"
@@ -2660,7 +2776,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous obtenez X avis par mois pour Y clients : demander l'avis systématiquement en apporterait Z de plus. »"
@@ -2681,7 +2798,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vos clients citent surtout X : c'est votre meilleur argument. Le motif négatif le plus fréquent est Y. »"
@@ -2703,7 +2821,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous avez X comptes ouverts mais n'en tenez qu'un ; celui où se trouvent vos clients est Y. »"
@@ -2724,7 +2843,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre communication vise les particuliers, alors que vos clients professionnels vous rapportent X fois plus par an. »"
@@ -2745,7 +2865,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre objectif est de trouver des clients, mais aucune publication ne dit quoi faire ensuite et aucune demande n'est suivie. »"
@@ -2768,7 +2889,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Votre fiche Google n'est complète qu'à X % et vous apparaissez en Y position : c'est votre canal le plus rentable à améliorer. »"
@@ -2790,7 +2912,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Vous publiez régulièrement mais ne suivez ni les clics ni les contacts générés : vous connaissez votre activité de communication, pas encore sa contribution commerciale. »"
@@ -2812,7 +2935,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« X clients sur 20 disent venir des réseaux ou de Google : environ Y € de CA par mois. »"
@@ -2834,7 +2958,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "hypotheseExterne": "Aucune",
     "phraseRapport": "« Une vente obtenue par vos collaborations coûte X €, contre Y € par la publicité. »"
@@ -2856,7 +2981,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "hypotheseExterne": "Part prudente de contacts qui répondent, à sourcer",
     "phraseRapport": "« En sollicitant vos X contacts existants, vous pouvez viser environ Y premiers abonnés et Z premiers avis dans le premier mois. »"

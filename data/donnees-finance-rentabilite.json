@@ -17,7 +17,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -51,7 +52,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -85,7 +87,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -117,7 +120,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -153,7 +157,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -184,7 +189,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -220,7 +226,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -251,7 +258,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -287,7 +295,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -321,7 +330,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -350,7 +360,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -386,7 +397,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -420,7 +432,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -455,7 +468,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -489,7 +503,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -521,7 +536,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -557,7 +573,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte",
@@ -582,7 +599,7 @@
     "format": "€",
     "mode": "partagee",
     "niveau": "essentiel",
-    "condition": null,
+    "condition": "Pas posée si les agents Acquisition et Comm sont faits : calculée",
     "declencheurs": [],
     "periode": null,
     "profils": {
@@ -592,7 +609,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte",
@@ -627,7 +645,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -648,8 +667,10 @@
     "format": "€",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D31 · sauf micro-entreprise",
+    "declencheurs": [
+      "D31"
+    ],
     "periode": "Si un premier exercice est clos (sinon masquée)",
     "profils": {
       "rdv": true,
@@ -658,7 +679,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -690,7 +712,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -721,7 +744,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -752,7 +776,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -786,7 +811,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -836,7 +862,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -867,7 +894,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -902,7 +930,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -936,7 +965,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -972,7 +1002,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -1006,7 +1037,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -1040,7 +1072,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -1071,7 +1104,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -1105,7 +1139,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte",
@@ -1138,7 +1173,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -1167,7 +1203,7 @@
     "libelle": "Total des charges variables il y a 12 mois (achats compris)",
     "format": "€",
     "mode": "demandee",
-    "niveau": "approfondi",
+    "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
     "periode": "Si plus de 12 mois d'existence (sinon masquée)",
@@ -1178,7 +1214,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -1209,7 +1246,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -1240,7 +1278,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -1280,7 +1319,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -1311,7 +1351,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1346,7 +1387,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -1393,7 +1435,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -1430,7 +1473,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -1467,7 +1511,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -1500,7 +1545,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -1523,7 +1569,7 @@
     "theme": "FIN-07",
     "ecran": "A14 · Vos prix et remises",
     "libelle": "Taux horaire ou journalier facturé",
-    "format": "€",
+    "format": "Plusieurs champs : Tarif · Par",
     "mode": "partagee",
     "niveau": "essentiel",
     "condition": "D18 · si facturation au temps",
@@ -1538,7 +1584,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -1573,7 +1620,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -1606,7 +1654,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -1637,7 +1686,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -1670,7 +1720,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -1703,7 +1754,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -1737,7 +1789,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -1766,7 +1819,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1797,7 +1851,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -1841,7 +1896,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -1875,7 +1931,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -1912,7 +1969,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -1948,7 +2006,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -1981,7 +2040,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2022,7 +2082,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2046,7 +2107,7 @@
     "libelle": "Vos 3 principaux fournisseurs : achats par mois, hausse de prix sur 12 mois, date de la dernière renégociation, fournisseur de remplacement identifié (oui / non)",
     "format": "Tableau 3 × 4",
     "mode": "demandee",
-    "niveau": "essentiel",
+    "niveau": "approfondi",
     "condition": "D08 · si fournisseurs réguliers",
     "declencheurs": [
       "D08"
@@ -2059,7 +2120,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque",
@@ -2098,7 +2160,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -2131,7 +2194,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2158,13 +2222,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -2195,7 +2260,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -2230,7 +2296,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -2263,7 +2330,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -2299,7 +2367,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -2334,7 +2403,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2369,7 +2439,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2402,7 +2473,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Potentiel CA"
@@ -2424,7 +2496,7 @@
     "libelle": "Vos abonnements et contrats (logiciels, télécoms, maintenance, location de matériel…) : coût par mois, nombre d'utilisateurs, date de renouvellement, résiliable ou engagé, peu ou pas utilisé. Sans les outils marketing (budget marketing) ni les leasings (déclarés avec les crédits)",
     "format": "Tableau (une ligne par contrat)",
     "mode": "demandee",
-    "niveau": "essentiel",
+    "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
     "periode": null,
@@ -2435,7 +2507,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte",
@@ -2458,7 +2531,7 @@
     "code": "FIN-09.02",
     "theme": "FIN-09",
     "ecran": "F05 · Vos abonnements et contrats (tableau)",
-    "libelle": "Contrats dont le prix a augmenté sur 12 mois (case à cocher dans le tableau)",
+    "libelle": "Nombre de contrats dont le prix a augmenté sur 12 mois",
     "format": "Case par ligne",
     "mode": "demandee",
     "niveau": "approfondi",
@@ -2472,7 +2545,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2503,7 +2577,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2532,7 +2607,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -2563,7 +2639,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -2597,7 +2674,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2628,7 +2706,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2661,7 +2740,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2694,7 +2774,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2710,10 +2791,38 @@
     "utiliseeDansTexte": "XF12"
   },
   {
+    "code": "FIN-09.10",
+    "theme": "FIN-09",
+    "ecran": null,
+    "libelle": "Coût total des abonnements et contrats par mois (le détail FIN-09.01 n'est demandé que si le thème ressort en difficulté ; FIN-09.05 = ce total tant que le détail manque)",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
     "code": "FIN-10.01",
     "theme": "FIN-10",
     "ecran": "F07 · Vos erreurs et gestes commerciaux",
-    "libelle": "Par mois : nombre de reprises, de retours et de gestes commerciaux ; coût direct moyen d'une reprise (matière, déplacement) et d'un geste commercial (le nombre de reprises est partagé avec RH-16)",
+    "libelle": "Par mois : nombre de reprises, de retours et de gestes commerciaux ; coût direct moyen d'une reprise (matière, déplacement) et d'un geste commercial (le nombre de reprises est partagé avec RH-16) — déclencheur D40",
     "format": "Tableau (3 nombres, 2 coûts)",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -2727,7 +2836,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2750,9 +2860,11 @@
     "libelle": "Cause principale : erreur de réalisation, défaut produit, retard, besoin mal compris, livraison",
     "format": "Choix",
     "mode": "demandee",
-    "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "niveau": "approfondi",
+    "condition": "D40 · si reprises, retours ou gestes",
+    "declencheurs": [
+      "D40"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -2761,7 +2873,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2781,9 +2894,11 @@
     "libelle": "Temps moyen passé sur une reprise (partagé avec RH-16)",
     "format": "Heures",
     "mode": "demandee",
-    "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "niveau": "approfondi",
+    "condition": "D48 · si vous avez des reprises",
+    "declencheurs": [
+      "D48"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -2792,7 +2907,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2814,8 +2930,10 @@
     "format": "€",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D41 · si vous avez des retours",
+    "declencheurs": [
+      "D41"
+    ],
     "periode": null,
     "profils": {
       "rdv": false,
@@ -2824,7 +2942,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -2846,8 +2965,10 @@
     "format": "Choix",
     "mode": "demandee",
     "niveau": "approfondi",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D40 · si reprises, retours ou gestes",
+    "declencheurs": [
+      "D40"
+    ],
     "periode": "Période adaptée : depuis la création si moins de 12 mois",
     "profils": {
       "rdv": true,
@@ -2856,7 +2977,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2887,7 +3009,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -2923,7 +3046,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -2959,7 +3083,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2993,7 +3118,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -3024,7 +3150,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3056,7 +3183,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3087,7 +3215,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3118,7 +3247,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -3159,7 +3289,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3194,7 +3325,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3229,7 +3361,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -3263,7 +3396,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -3297,7 +3431,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -3328,7 +3463,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3361,7 +3497,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3395,7 +3532,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -3429,7 +3567,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -3463,7 +3602,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3496,7 +3636,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3527,7 +3668,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3564,7 +3706,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3598,7 +3741,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -3612,6 +3756,34 @@
       "XF18"
     ],
     "utiliseeDansTexte": "XF18"
+  },
+  {
+    "code": "FIN-13.06",
+    "theme": "FIN-13",
+    "ecran": null,
+    "libelle": "Plan de trésorerie des mois à venir",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "FIN-14.01",
@@ -3631,7 +3803,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -3668,7 +3841,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3702,7 +3876,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3733,7 +3908,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3769,7 +3945,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3801,7 +3978,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -3837,7 +4015,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -3858,7 +4037,7 @@
     "libelle": "Factures émises par mois",
     "format": "Nombre",
     "mode": "demandee",
-    "niveau": "essentiel",
+    "niveau": "approfondi",
     "condition": "D09 · si paiement après facture",
     "declencheurs": [
       "D09"
@@ -3871,7 +4050,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -3891,7 +4071,7 @@
     "libelle": "Facturation : à la main, avec un logiciel, automatique à la fin de la prestation",
     "format": "Choix",
     "mode": "demandee",
-    "niveau": "essentiel",
+    "niveau": "approfondi",
     "condition": "D09 · si paiement après facture",
     "declencheurs": [
       "D09"
@@ -3904,7 +4084,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -3935,7 +4116,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -3966,7 +4148,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -3997,7 +4180,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -4028,7 +4212,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -4063,7 +4248,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -4096,7 +4282,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -4130,7 +4317,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -4163,7 +4351,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -4194,7 +4383,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -4230,7 +4420,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -4261,7 +4452,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -4295,7 +4487,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -4329,7 +4522,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -4346,6 +4540,36 @@
       "XF21"
     ],
     "utiliseeDansTexte": "FIN-37.05, XF16, XF20, XF21"
+  },
+  {
+    "code": "FIN-17.10",
+    "theme": "FIN-17",
+    "ecran": null,
+    "libelle": "Moyen de paiement le plus utilisé par les clients",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D09 · si paiement après facture",
+    "declencheurs": [
+      "D09"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "FIN-18.01",
@@ -4367,7 +4591,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte",
@@ -4389,7 +4614,7 @@
     "libelle": "Clients en retard",
     "format": "Nombre",
     "mode": "demandee",
-    "niveau": "essentiel",
+    "niveau": "approfondi",
     "condition": "D09 · si paiement après facture",
     "declencheurs": [
       "D09"
@@ -4402,7 +4627,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -4422,7 +4648,7 @@
     "libelle": "Montant du plus gros impayé",
     "format": "€",
     "mode": "demandee",
-    "niveau": "essentiel",
+    "niveau": "approfondi",
     "condition": "D09 · si paiement après facture",
     "declencheurs": [
       "D09"
@@ -4435,7 +4661,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -4468,7 +4695,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -4499,7 +4727,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -4533,7 +4762,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -4564,7 +4794,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -4598,7 +4829,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -4631,7 +4863,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -4664,7 +4897,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -4698,7 +4932,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -4731,7 +4966,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -4761,13 +4997,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4796,13 +5033,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -4833,7 +5071,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -4868,7 +5107,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -4905,7 +5145,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4938,7 +5179,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -4958,7 +5200,7 @@
     "code": "FIN-20.03",
     "theme": "FIN-20",
     "ecran": "F15 · Vos paiements fournisseurs",
-    "libelle": "Remise proposée pour un paiement rapide",
+    "libelle": "Remise pour paiement rapide proposée — déclencheur D43",
     "format": "Oui / non + %",
     "mode": "demandee",
     "niveau": "approfondi",
@@ -4974,7 +5216,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -5007,7 +5250,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -5038,7 +5282,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -5074,7 +5319,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -5108,7 +5354,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -5123,6 +5370,36 @@
       "XF22"
     ],
     "utiliseeDansTexte": "XF22"
+  },
+  {
+    "code": "FIN-20.08",
+    "theme": "FIN-20",
+    "ecran": null,
+    "libelle": "Remise proposée pour paiement rapide",
+    "format": "%",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D43 · si remise pour paiement rapide",
+    "declencheurs": [
+      "D43"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "FIN-21.01",
@@ -5144,7 +5421,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -5176,7 +5454,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -5209,7 +5488,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -5244,7 +5524,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -5273,7 +5554,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -5308,7 +5590,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -5339,7 +5622,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -5373,7 +5657,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -5408,7 +5693,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -5439,7 +5725,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -5477,7 +5764,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -5510,7 +5798,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -5543,7 +5832,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -5563,7 +5853,7 @@
     "libelle": "Cause principale : client en retard, mois creux, gros achat, charges trop lourdes",
     "format": "Choix",
     "mode": "demandee",
-    "niveau": "essentiel",
+    "niveau": "approfondi",
     "condition": "D11 · si découvert sur la période",
     "declencheurs": [
       "D11"
@@ -5576,7 +5866,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -5593,7 +5884,7 @@
     "code": "FIN-24.05",
     "theme": "FIN-24",
     "ecran": "F17 · Votre découvert",
-    "libelle": "Mois de l'année concernés, et dernier mois sans aucun jour de découvert",
+    "libelle": "Mois de l'année où l'entreprise est à découvert (le dernier mois sans découvert se déduit des réponses)",
     "format": "Cases à cocher + mois",
     "mode": "demandee",
     "niveau": "approfondi",
@@ -5609,7 +5900,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -5640,7 +5932,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -5674,7 +5967,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -5708,7 +6002,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -5742,7 +6037,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -5780,7 +6076,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -5811,7 +6108,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -5847,7 +6145,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -5880,7 +6179,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -5911,7 +6211,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -5948,7 +6249,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -5984,7 +6286,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -6017,7 +6320,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -6048,7 +6352,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -6086,7 +6391,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -6120,7 +6426,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -6155,7 +6462,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -6192,7 +6500,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6227,7 +6536,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -6261,7 +6571,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6297,7 +6608,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6337,7 +6649,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -6369,7 +6682,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -6400,7 +6714,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -6422,7 +6737,7 @@
     "libelle": "Outil de suivi de vos chiffres financiers : aucun, tableur, logiciel de gestion, tableau de bord du comptable — mis à jour automatiquement ou à la main (l'outil de suivi des contacts et des devis est un autre outil, ACQ-20)",
     "format": "Choix",
     "mode": "demandee",
-    "niveau": "essentiel",
+    "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
     "periode": null,
@@ -6433,7 +6748,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -6464,7 +6780,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -6495,7 +6812,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -6526,7 +6844,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -6557,7 +6876,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -6584,13 +6904,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -6626,13 +6947,14 @@
     ],
     "periode": "Si plus de 12 mois d'existence (sinon masquée)",
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -6659,13 +6981,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -6690,13 +7013,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -6727,7 +7051,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6760,7 +7085,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -6795,7 +7121,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -6826,13 +7153,14 @@
     ],
     "periode": "Seulement les durées plus courtes que l'ancienneté (3, 6, 12 mois)",
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -6861,13 +7189,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -6894,13 +7223,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -6931,7 +7261,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -6965,7 +7296,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -6995,13 +7327,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -7030,13 +7363,14 @@
     ],
     "periode": "Si plus de 12 mois d'existence (sinon masquée)",
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -7067,7 +7401,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -7102,7 +7437,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -7136,7 +7472,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7155,7 +7492,7 @@
     "code": "FIN-41.01",
     "theme": "FIN-41",
     "ecran": "F22 · Ruptures et commandes fournisseurs",
-    "libelle": "Ruptures par mois sur vos 20 meilleures ventes, et durée moyenne d'une rupture",
+    "libelle": "Ruptures par mois sur vos 20 meilleures ventes, et durée moyenne d'une rupture — déclencheur D42",
     "format": "Nombre et jours",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -7165,13 +7502,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -7191,20 +7529,21 @@
     "libelle": "Pendant les ruptures : ventes perdues (clients repartis sans rien) et commandes reportées, par mois",
     "format": "Nombre (2 colonnes)",
     "mode": "demandee",
-    "niveau": "essentiel",
-    "condition": "D07 · si stock",
+    "niveau": "approfondi",
+    "condition": "D42 · si vous avez des ruptures",
     "declencheurs": [
-      "D07"
+      "D42"
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -7235,7 +7574,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -7270,7 +7610,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -7303,7 +7644,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -7333,13 +7675,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7372,7 +7715,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -7399,13 +7743,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7436,7 +7781,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7465,13 +7811,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7502,7 +7849,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7533,13 +7881,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7566,13 +7915,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -7600,13 +7950,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
+      "rdv": true,
       "commerce": true,
       "ecommerce": true,
       "restaurant": true,
       "chantier": true,
-      "b2b": false,
-      "abonnement": false
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -7637,7 +7988,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -7652,5 +8004,175 @@
       "XF45"
     ],
     "utiliseeDansTexte": "XF45"
+  },
+  {
+    "code": "FIN-46.01",
+    "theme": "FIN-46",
+    "ecran": null,
+    "libelle": "Ce que le dirigeant s'est versé sur 12 mois (salaire, prélèvements, dividendes) ; le moteur divise par 12 pour le mois",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "FIN-46.02",
+    "theme": "FIN-46",
+    "ecran": null,
+    "libelle": "Cotisations sociales personnelles du dirigeant par mois",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "FIN-46.03",
+    "theme": "FIN-46",
+    "ecran": null,
+    "libelle": "Rémunération mensuelle souhaitée par le dirigeant",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "FIN-47.01",
+    "theme": "FIN-47",
+    "ecran": null,
+    "libelle": "Forme de l'entreprise — déclencheur D31 : sert seulement à lire les chiffres (résultat, rémunération), jamais à un conseil fiscal ou juridique",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "FIN-47.02",
+    "theme": "FIN-47",
+    "ecran": null,
+    "libelle": "Compte bancaire réservé à l'activité",
+    "format": "Oui / non",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D31 · si micro-entreprise ou entreprise individuelle",
+    "declencheurs": [
+      "D31"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "FIN-48.01",
+    "theme": "FIN-48",
+    "ecran": null,
+    "libelle": "Dernier point fait avec le banquier sur l'activité",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   }
 ]

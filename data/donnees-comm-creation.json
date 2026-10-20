@@ -17,7 +17,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -48,7 +49,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -79,7 +81,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -113,7 +116,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -147,7 +151,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -176,7 +181,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -191,7 +197,7 @@
     "code": "COM-05.01",
     "theme": "COM-05",
     "ecran": "C01 · Votre positionnement et votre offre",
-    "libelle": "Garantie ou engagement proposé : satisfait ou remboursé, délai garanti, essai gratuit, aucun",
+    "libelle": "Garantie proposée — déclencheur D56",
     "format": "Choix + texte",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -205,7 +211,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -215,6 +222,36 @@
     "entreesTexte": null,
     "utiliseeDans": [],
     "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "COM-05.02",
+    "theme": "COM-05",
+    "ecran": null,
+    "libelle": "Ce que garantit exactement le dirigeant",
+    "format": "Texte court",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D56 · si garantie proposée",
+    "declencheurs": [
+      "D56"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "COM-06.01",
@@ -234,7 +271,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -266,7 +304,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -295,7 +334,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -326,7 +366,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -359,7 +400,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -395,7 +437,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -410,7 +453,7 @@
     "code": "COM-09.03",
     "theme": "COM-09",
     "ecran": "C02 · Vos preuves (tableau par type)",
-    "libelle": "Types de clients et offres représentés par ces preuves",
+    "libelle": "Catégories de clients représentées par au moins une preuve (les offres sont en COM-09.08)",
     "format": "Cases (reprend ACQ-01 et ACQ-13)",
     "mode": "demandee",
     "niveau": "approfondi",
@@ -424,7 +467,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -455,7 +499,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -488,7 +533,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -522,7 +568,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Opportunité"
@@ -562,7 +609,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -576,6 +624,34 @@
     "entreesTexte": "COM-09.03, ACQ-01.01, ACQ-13.01",
     "utiliseeDans": [],
     "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-09.08",
+    "theme": "COM-09",
+    "ecran": null,
+    "libelle": "Offres principales représentées par au moins une preuve",
+    "format": "Tableau : Au moins une preuve (lignes fixe: Offre 1 / Offre 2 / Offre 3)",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "COM-10.01",
@@ -597,7 +673,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -640,7 +717,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -674,7 +752,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -705,7 +784,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -738,7 +818,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -769,7 +850,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -783,6 +865,64 @@
       "XC26"
     ],
     "utiliseeDansTexte": "XC26"
+  },
+  {
+    "code": "COM-10.07",
+    "theme": "COM-10",
+    "ecran": null,
+    "libelle": "Publication régulière — déclencheur D21 : « au moins une fois par mois » → parcours amélioration ; sinon parcours mise en place (et brief de création, D30)",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-10.08",
+    "theme": "COM-10",
+    "ecran": null,
+    "libelle": "Réseaux réellement utilisés — déclencheur D22 (lignes des tableaux « cadrage: D22 »)",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "COM-11.01",
@@ -802,7 +942,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -822,7 +963,7 @@
     "code": "COM-12.01",
     "theme": "COM-12",
     "ecran": "A04 · Vos canaux (tableau)",
-    "libelle": "Demandes, nouveaux clients et part du CA venant des réseaux sociaux, du site et de la fiche Google (lignes du tableau des canaux)",
+    "libelle": "Part des demandes, des nouveaux clients et du CA par canal — partagée avec ACQ-03.02, ACQ-03.03 et ACQ-03.04 : posée ici seulement si l'agent Acquisition ne l'a pas fait",
     "format": "Tableau par canal",
     "mode": "partagee",
     "niveau": "essentiel",
@@ -836,7 +977,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -874,7 +1016,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -908,7 +1051,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -946,7 +1090,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -977,7 +1122,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -995,8 +1141,8 @@
     "theme": "COM-13",
     "ecran": "C04 · Votre site",
     "libelle": "Sources des visites : recherche Google, réseaux sociaux, publicité, accès direct, sites partenaires",
-    "format": "% par source",
-    "mode": "importee",
+    "format": "Tableau : Part des visites (lignes fixe: Recherche Google / Réseaux sociaux / Publicité / Accès direct / Autres sites)",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": "D23 · si outil de mesure du site",
     "declencheurs": [
@@ -1010,12 +1156,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
     ],
-    "calcul": "Lu dans l'outil de mesure s'il est connecté",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans l'outil de mesure s'il est connecté",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [],
@@ -1027,7 +1174,7 @@
     "ecran": "C04 · Votre site",
     "libelle": "Pages les plus visitées et pages d'entrée",
     "format": "Liste",
-    "mode": "importee",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": "D23 · si outil de mesure du site",
     "declencheurs": [
@@ -1041,12 +1188,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
     ],
-    "calcul": "Lu dans l'outil de mesure",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans l'outil de mesure",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [],
@@ -1058,7 +1206,7 @@
     "ecran": "C04 · Votre site",
     "libelle": "Visites par mois il y a 6 mois",
     "format": "Nombre",
-    "mode": "importee",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": "D23 · si outil de mesure du site",
     "declencheurs": [
@@ -1072,12 +1220,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": "Lu dans l'outil de mesure",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans l'outil de mesure",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -1103,7 +1252,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -1139,7 +1289,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -1175,7 +1326,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -1189,6 +1341,34 @@
     "entreesTexte": "ACQ-06.07, ACQ-02.01, COM-13.06",
     "utiliseeDans": [],
     "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-13.10",
+    "theme": "COM-13",
+    "ecran": null,
+    "libelle": "Site internet — déclencheur D23 (oui si « Site internet » est déjà coché en ACQ-03.01)",
+    "format": "Oui / non",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "COM-14.01",
@@ -1210,7 +1390,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1243,7 +1424,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -1278,7 +1460,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -1313,7 +1496,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -1346,7 +1530,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -1361,7 +1546,7 @@
     "code": "COM-15.03",
     "theme": "COM-15",
     "ecran": "C06 · Votre fichier de contacts (tableau)",
-    "libelle": "Date du dernier envoi à ce fichier, et nombre d'envois sur les 6 derniers mois",
+    "libelle": "Date du dernier envoi à ce fichier, et nombre d'envois sur les 6 derniers mois — déclencheur D58",
     "format": "Date + nombre",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -1377,7 +1562,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -1399,9 +1585,9 @@
     "format": "2 nombres",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": "D24 · si fichier de contacts",
+    "condition": "D58 · si vous écrivez à votre fichier",
     "declencheurs": [
-      "D24"
+      "D58"
     ],
     "periode": "Période adaptée : depuis la création si moins de 12 mois",
     "profils": {
@@ -1411,7 +1597,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -1444,7 +1631,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -1462,12 +1650,12 @@
     "theme": "COM-15",
     "ecran": "C06 · Votre fichier de contacts (tableau)",
     "libelle": "Pour vos derniers envois : taux d'ouverture, taux de clic, désinscriptions, réponses",
-    "format": "% et nombres",
-    "mode": "importee",
+    "format": "Plusieurs champs : Taux d'ouverture · Taux de clic · Désinscriptions · Réponses",
+    "mode": "demandee",
     "niveau": "approfondi",
-    "condition": "D24 · si fichier de contacts",
+    "condition": "D58 · si vous écrivez à votre fichier",
     "declencheurs": [
-      "D24"
+      "D58"
     ],
     "periode": null,
     "profils": {
@@ -1477,12 +1665,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": "Lu dans l'outil d'emailing s'il est connecté",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans l'outil d'emailing s'il est connecté",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -1508,7 +1697,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -1543,7 +1733,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -1577,7 +1768,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -1611,7 +1803,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1645,7 +1838,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -1665,12 +1859,40 @@
     "utiliseeDansTexte": "XC10"
   },
   {
+    "code": "COM-15.12",
+    "theme": "COM-15",
+    "ecran": null,
+    "libelle": "Fichier de contacts — déclencheur D24",
+    "format": "Oui / non",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
     "code": "COM-16.01",
     "theme": "COM-16",
     "ecran": "C05 · Votre fiche Google et vos avis",
     "libelle": "Position quand on cherche « votre métier + votre ville » : 3 premiers résultats, première page, plus loin",
     "format": "Choix",
-    "mode": "importee",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D03 · si « fiche Google » est cochée",
     "declencheurs": [
@@ -1684,12 +1906,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
     ],
-    "calcul": "Vérifiée par une recherche automatique",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Vérifiée par une recherche automatique",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -1702,8 +1925,8 @@
     "theme": "COM-17",
     "ecran": "C07 · Audience et résultats par réseau (tableau)",
     "libelle": "Pour chaque réseau utilisé : abonnés aujourd'hui, personnes touchées par mois (portée), impressions si connues — abonnés = audience possédée ; portée = personnes réellement touchées ; impressions = nombre d'affichages",
-    "format": "Tableau par réseau (Tranches : moins de 500 · 500-2 000 · 2 000-5 000 · 5 000-10 000 · 10 000-50 000 · plus de 50 000 · je ne sais pas si non connecté)",
-    "mode": "importee",
+    "format": "Tableau : Abonnés · Personnes touchées par mois (moyenne des 3 derniers mois) (lignes cadrage: D22)",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D22 · une ligne par réseau utilisé",
     "declencheurs": [
@@ -1717,12 +1940,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
     ],
-    "calcul": "Lu dans les statistiques des réseaux connectés ; sinon tranches",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans les statistiques des réseaux connectés ; sinon tranches",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -1742,8 +1966,8 @@
     "theme": "COM-17",
     "ecran": "C07 · Audience et résultats par réseau (tableau)",
     "libelle": "Nouveaux abonnés et désabonnements par mois, par réseau",
-    "format": "Nombres par réseau",
-    "mode": "importee",
+    "format": "Tableau : Nouveaux abonnés · Désabonnements (lignes cadrage: D22)",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": "D22 · une ligne par réseau utilisé",
     "declencheurs": [
@@ -1757,12 +1981,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": "Statistiques des réseaux",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Statistiques des réseaux",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [],
@@ -1773,8 +1998,8 @@
     "theme": "COM-17",
     "ecran": "C07 · Audience et résultats par réseau (tableau)",
     "libelle": "Part de la portée faite auprès de non-abonnés",
-    "format": "% par réseau",
-    "mode": "importee",
+    "format": "Tableau : Part de non-abonnés (lignes cadrage: D22)",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": "D22 · une ligne par réseau utilisé",
     "declencheurs": [
@@ -1788,12 +2013,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
     ],
-    "calcul": "Statistiques des réseaux",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Statistiques des réseaux",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [],
@@ -1817,7 +2043,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -1851,7 +2078,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -1869,8 +2097,8 @@
     "theme": "COM-18",
     "ecran": "C07 · Audience et résultats par réseau (tableau)",
     "libelle": "Pour chaque réseau : réactions par mois — likes, commentaires, partages, sauvegardes, republications, réponses",
-    "format": "Tableau par réseau",
-    "mode": "importee",
+    "format": "Tableau : J'aime · Commentaires · Partages · Enregistrements (lignes cadrage: D22)",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D22 · une ligne par réseau utilisé",
     "declencheurs": [
@@ -1884,12 +2112,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
     ],
-    "calcul": "Statistiques des réseaux ; sinon total estimé",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Statistiques des réseaux ; sinon total estimé",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -1918,7 +2147,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -1952,7 +2182,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1972,8 +2203,8 @@
     "theme": "COM-19",
     "ecran": "C07 · Audience et résultats par réseau (tableau)",
     "libelle": "Pour chaque réseau : clics par mois, et destination principale — site, fiche Google, formulaire, prise de rendez-vous, téléphone, WhatsApp, email, page produit ou offre",
-    "format": "Tableau par réseau",
-    "mode": "importee",
+    "format": "Tableau : Clics par mois · Destination principale (lignes cadrage: D22)",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D22 · une ligne par réseau utilisé",
     "declencheurs": [
@@ -1987,12 +2218,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
     ],
-    "calcul": "Statistiques des réseaux ; sinon estimation",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Statistiques des réseaux ; sinon estimation",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -2021,7 +2253,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -2056,7 +2289,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2090,7 +2324,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2110,7 +2345,7 @@
     "code": "COM-21.01",
     "theme": "COM-21",
     "ecran": "C08 · Votre offre d'appel",
-    "libelle": "Votre offre d'appel (contenu gratuit contre des coordonnées) : guide, diagnostic, estimation, audit, checklist, livre blanc, simulateur, consultation gratuite, échantillon, essai, webinaire, autre",
+    "libelle": "Offre d'appel — déclencheur D25 (« Non, rien » masque COM-21.02 à 21.04)",
     "format": "Choix",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -2124,7 +2359,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2157,7 +2393,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -2193,7 +2430,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2226,7 +2464,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2255,7 +2494,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -2288,7 +2528,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2321,7 +2562,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -2356,7 +2598,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -2391,7 +2634,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Parcours"
@@ -2422,7 +2666,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -2463,7 +2708,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -2480,16 +2726,16 @@
     "utiliseeDansTexte": "XC01, XC31"
   },
   {
-    "code": "COM-23.01",
-    "theme": "COM-23",
-    "ecran": "C09 · Vos messages (tableau par messagerie)",
-    "libelle": "Pour chaque messagerie utilisée (Instagram, LinkedIn, Facebook, WhatsApp, Messenger, chat du site) : messages reçus par mois, dont demandes commerciales, dont service après-vente",
-    "format": "Tableau par messagerie",
+    "code": "COM-22.04",
+    "theme": "COM-22",
+    "ecran": null,
+    "libelle": "Répartition par réseau des demandes et clients venus des réseaux sociaux (ligne « Réseaux sociaux » du tableau des canaux)",
+    "format": "Tableau : Part (lignes cadrage: D22)",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": "D22 · une ligne par messagerie utilisée",
+    "condition": "D03 · si « Réseaux sociaux » est coché",
     "declencheurs": [
-      "D22"
+      "D03"
     ],
     "periode": null,
     "profils": {
@@ -2499,7 +2745,36 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-23.01",
+    "theme": "COM-23",
+    "ecran": "C09 · Vos messages (tableau par messagerie)",
+    "libelle": "Pour chaque messagerie utilisée (Instagram, LinkedIn, Facebook, WhatsApp, Messenger, chat du site) : messages reçus par mois, dont demandes commerciales, dont service après-vente — déclencheur D59",
+    "format": "Tableau par messagerie",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -2519,11 +2794,13 @@
     "theme": "COM-23",
     "ecran": "C09 · Vos messages (tableau par messagerie)",
     "libelle": "Répartition de vos réponses à ces messages (téléphone, email et formulaire sont traités en ACQ-08)",
-    "format": "Tranches : moins d'1 h · moins de 24 h · plus d'un jour · jamais · je ne sais pas",
+    "format": "Tableau : Part des messages (lignes fixe: En moins d'1 heure / D'1 heure à 24 heures / Après plus d'un jour / Jamais)",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D59 · si vous recevez des messages",
+    "declencheurs": [
+      "D59"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -2532,7 +2809,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2553,8 +2831,10 @@
     "format": "2 nombres",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D59 · si vous recevez des messages",
+    "declencheurs": [
+      "D59"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -2563,7 +2843,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -2594,7 +2875,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -2627,7 +2909,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -2662,7 +2945,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -2698,7 +2982,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -2729,7 +3014,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2767,7 +3053,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2782,9 +3069,9 @@
     "code": "COM-26.01",
     "theme": "COM-26",
     "ecran": "C13 · Vos publications (connexion ou saisie)",
-    "libelle": "Publications des 3 derniers mois, par réseau, par format (vidéo courte, vidéo longue, carrousel, photo, texte, story) et par type (commercial, pédagogique, preuve ou cas client, coulisses, actualité, dirigeant, avant / après, marque employeur)",
-    "format": "Tableau (sinon répartition approximative en %)",
-    "mode": "importee",
+    "libelle": "Publications des 3 derniers mois, par réseau, par format (vidéo courte, vidéo longue, carrousel, photo, texte, story) et par type (commercial, pédagogique, preuve ou cas client, coulisses, actualité, dirigeant, avant / après, marque employeur) — déclencheur D63",
+    "format": "Tableau : Publications (lignes fixe: Vidéo courte / Vidéo longue / Carrousel / Photo / Texte / Story)",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D21 · si vous publiez déjà",
     "declencheurs": [
@@ -2798,12 +3085,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
     ],
-    "calcul": "Lu sur les profils connectés ou collés ; le type est repéré par l'IA",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu sur les profils connectés ou collés ; le type est repéré par l'IA",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -2829,7 +3117,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -2844,6 +3133,36 @@
       "XC04"
     ],
     "utiliseeDansTexte": "COM-40.01, XC04"
+  },
+  {
+    "code": "COM-27.02",
+    "theme": "COM-27",
+    "ecran": null,
+    "libelle": "Répartition des publications par étape du funnel : se faire connaître, prouver, faire agir (calculée à partir des publications quand elles sont connectées)",
+    "format": "Tableau : Part des publications (lignes fixe: Vous faire connaître : conseils, coulisses, actualité, humour / Montrer que votre travail est bon : avis, réalisations, avant-après, cas clients / Donner envie d'agir : offre, promotion, invitation à vous contacter)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "COM-28.01",
@@ -2865,7 +3184,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2896,7 +3216,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2925,7 +3246,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -2943,7 +3265,7 @@
     "code": "COM-31.01",
     "theme": "COM-31",
     "ecran": "C11 · Votre temps (tableau par tâche)",
-    "libelle": "Heures par semaine consacrées à la communication, par tâche : idées et rédaction ; visuels, tournage, montage ; publication et programmation ; réponses aux commentaires, messages et avis ; emails et site ; statistiques et prestataires",
+    "libelle": "Heures par semaine consacrées à la communication, par tâche : idées et rédaction ; visuels, tournage, montage ; publication et programmation ; réponses aux commentaires, messages et avis ; emails et site ; statistiques et prestataires — déclencheur D60",
     "format": "Tableau 6 lignes (heures)",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -2957,7 +3279,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -2978,8 +3301,10 @@
     "format": "% (3 colonnes)",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D60 · si vous consacrez du temps à la communication",
+    "declencheurs": [
+      "D60"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -2988,7 +3313,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -3021,7 +3347,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -3054,7 +3381,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -3086,7 +3414,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -3122,7 +3451,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -3156,7 +3486,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -3190,7 +3521,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -3212,8 +3544,8 @@
     "code": "COM-32.01",
     "theme": "COM-32",
     "ecran": "A08 · Votre budget marketing",
-    "libelle": "Création de contenu, agence et outils marketing par mois",
-    "format": "€",
+    "libelle": "Création de contenu, agence et outils marketing par mois — partagée avec ACQ-07.03, ACQ-07.01 et ACQ-07.04 (un champ pour chacune) : posée ici seulement si l'agent Acquisition ne l'a pas fait",
+    "format": "Plusieurs champs : Création de contenu : photographe, vidéaste, graphiste · Agence ou prestataire marketing · Outils marketing",
     "mode": "partagee",
     "niveau": "essentiel",
     "condition": null,
@@ -3226,7 +3558,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -3261,7 +3594,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -3278,7 +3612,7 @@
     "code": "COM-32.03",
     "theme": "COM-32",
     "ecran": "C12 · Votre budget communication (tableau)",
-    "libelle": "Budget communication total il y a 12 mois, même périmètre qu'aujourd'hui : contenu, agence, outils, community manager, influence, impression (sans la publicité)",
+    "libelle": "Dépenses d'il y a 12 mois sur les seuls postes propres à la Comm (community manager, influence, impression) ; contenu, agence, outils et publicité d'il y a 12 mois = ACQ-07.05, partagée",
     "format": "€",
     "mode": "demandee",
     "niveau": "approfondi",
@@ -3292,7 +3626,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -3323,7 +3658,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -3361,7 +3697,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -3395,7 +3732,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -3430,7 +3768,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -3451,9 +3790,9 @@
     "code": "COM-33.01",
     "theme": "COM-33",
     "ecran": "C13 · Vos publications (connexion ou saisie)",
-    "libelle": "Dates de vos publications des 3 derniers mois",
-    "format": "Liste de dates",
-    "mode": "importee",
+    "libelle": "Régularité par réseau : semaines publiées sur 12 et plus longue pause (remplace la saisie des dates et COM-10.02 quand le réseau n'est pas connecté)",
+    "format": "Tableau : Semaines avec une publication · Plus longue pause (lignes cadrage: D22)",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D21 · si vous publiez déjà",
     "declencheurs": [
@@ -3467,12 +3806,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
     ],
-    "calcul": "Lu sur les profils connectés ; sinon : semaines sans publication",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu sur les profils connectés ; sinon : semaines sans publication",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -3499,7 +3839,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -3533,7 +3874,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -3568,7 +3910,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -3599,7 +3942,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -3630,7 +3974,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -3667,7 +4012,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -3684,14 +4030,12 @@
     "code": "COM-35.02",
     "theme": "COM-35",
     "ecran": "C10 · Votre stratégie et votre organisation",
-    "libelle": "Ressources disponibles : banque de photos et vidéos, modèles (templates), contenus intemporels",
+    "libelle": "Ressources disponibles pour produire (posée aussi dans le parcours mise en place : elle sert l'agent de création)",
     "format": "Cases + nombre",
     "mode": "demandee",
-    "niveau": "approfondi",
-    "condition": "D21 · si vous publiez déjà",
-    "declencheurs": [
-      "D21"
-    ],
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -3700,7 +4044,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -3729,7 +4074,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -3763,7 +4109,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -3784,8 +4131,8 @@
     "theme": "COM-37",
     "ecran": "C07 · Audience et résultats par réseau (tableau)",
     "libelle": "Abonnés de chaque réseau il y a 6 mois",
-    "format": "Nombre par réseau",
-    "mode": "importee",
+    "format": "Tableau : Abonnés il y a 6 mois (lignes cadrage: D22)",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D22 · une ligne par réseau utilisé",
     "declencheurs": [
@@ -3799,12 +4146,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": "Seulement si le compte existait il y a 6 mois ; sinon abonnés à l'ouverture ou plus ancienne donnée connue, ou « je ne sais pas »",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Seulement si le compte existait il y a 6 mois ; sinon abonnés à l'ouverture ou plus ancienne donnée connue, ou « je ne sais pas »",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -3830,7 +4178,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -3866,7 +4215,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -3886,11 +4236,11 @@
     "code": "COM-39.01",
     "theme": "COM-39",
     "ecran": "C13 · Vos publications (connexion ou saisie)",
-    "libelle": "Statistiques des 10 dernières publications : portée ou vues, réactions, commentaires, partages, sauvegardes, clics, visites du profil, abonnements, messages et contacts générés",
-    "format": "Tableau 10 lignes",
-    "mode": "importee",
+    "libelle": "Résultats des 3 meilleures et 3 moins bonnes publications (les 10 dernières sont lues automatiquement si le réseau est connecté)",
+    "format": "Tableau : Réseau · Personnes touchées · Réactions · Visites du profil · Nouveaux abonnés · Clics · Messages ou demandes (lignes fixe: Meilleure 1 / Meilleure 2 / Meilleure 3 / Moins bonne 1 / Moins bonne 2 / Moins bonne 3)",
+    "mode": "demandee",
     "niveau": "essentiel",
-    "condition": "D26 · statistiques connectées (sinon 3 meilleures et 3 moins bonnes)",
+    "condition": "D26 · saisie si les statistiques ne sont pas connectées",
     "declencheurs": [
       "D26"
     ],
@@ -3902,12 +4252,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
     ],
-    "calcul": "Lu automatiquement si le réseau est connecté ; sinon saisi pour vos 3 meilleures et vos 3 moins bonnes publications seulement",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu automatiquement si le réseau est connecté ; sinon saisi pour vos 3 meilleures et vos 3 moins bonnes publications seulement",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -3923,8 +4274,8 @@
     "theme": "COM-39",
     "ecran": "C13 · Vos publications (connexion ou saisie)",
     "libelle": "Texte et visuel de ces publications",
-    "format": "Connexion ou copier-coller",
-    "mode": "importee",
+    "format": "Tableau : Texte · Lien (lignes fixe: Meilleure 1 / Meilleure 2 / Meilleure 3 / Moins bonne 1 / Moins bonne 2 / Moins bonne 3)",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D21 · si vous publiez déjà",
     "declencheurs": [
@@ -3938,12 +4289,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
     ],
-    "calcul": "Sert à la grille de qualité et au repérage du format, du sujet et de l'accroche",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Sert à la grille de qualité et au repérage du format, du sujet et de l'accroche",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -3964,12 +4316,13 @@
     "theme": "COM-39",
     "ecran": "C13 · Vos publications (connexion ou saisie)",
     "libelle": "Pour les vidéos : vues, durée moyenne de visionnage, part regardée jusqu'au bout",
-    "format": "Nombres et %",
-    "mode": "importee",
+    "format": "Plusieurs champs : Vues par vidéo · Secondes regardées en moyenne · Part vue jusqu'au bout",
+    "mode": "demandee",
     "niveau": "approfondi",
-    "condition": "D26 · statistiques connectées",
+    "condition": "D26 + D63 · si accès aux statistiques et vidéos publiées",
     "declencheurs": [
-      "D26"
+      "D26",
+      "D63"
     ],
     "periode": null,
     "profils": {
@@ -3979,12 +4332,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
     ],
-    "calcul": "Statistiques des réseaux",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Statistiques des réseaux",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [],
@@ -4008,7 +4362,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4043,7 +4398,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4080,7 +4436,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4095,6 +4452,36 @@
       "XC04"
     ],
     "utiliseeDansTexte": "XC04"
+  },
+  {
+    "code": "COM-39.07",
+    "theme": "COM-39",
+    "ecran": null,
+    "libelle": "Accès aux statistiques des publications — déclencheur D26 (connexion des comptes proposée à part par le moteur)",
+    "format": "Oui / non",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "COM-40.01",
@@ -4114,7 +4501,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4148,7 +4536,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -4182,7 +4571,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -4199,7 +4589,7 @@
     "ecran": "C10 · Votre stratégie et votre organisation",
     "libelle": "Publications de clients qui vous mentionnent, par mois",
     "format": "Nombre",
-    "mode": "importee",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
@@ -4211,12 +4601,13 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Opportunité"
     ],
-    "calcul": "Lu sur les réseaux connectés",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu sur les réseaux connectés",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [],
@@ -4240,7 +4631,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4273,7 +4665,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -4288,10 +4681,38 @@
     "utiliseeDansTexte": "COM-24.02, XC30, DC10"
   },
   {
+    "code": "COM-43.03",
+    "theme": "COM-43",
+    "ecran": null,
+    "libelle": "Moyens de savoir quels clients viennent des publications",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
     "code": "COM-44.01",
     "theme": "COM-44",
     "ecran": "A07 · Votre présence en ligne",
-    "libelle": "Nombre d'avis, note, avis des 6 derniers mois (Google et plateforme principale)",
+    "libelle": "Avis Google : nombre, note, avis des 6 derniers mois — partagée avec ACQ-06.01 (la plateforme principale est ACQ-06.08) — déclencheur D61",
     "format": "Nombres et note",
     "mode": "partagee",
     "niveau": "essentiel",
@@ -4305,7 +4726,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -4345,7 +4767,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -4361,11 +4784,13 @@
     "theme": "COM-44",
     "ecran": "C05 · Votre fiche Google et vos avis",
     "libelle": "Répartition des avis : 5 étoiles, 4 étoiles, 3 et moins",
-    "format": "3 nombres",
-    "mode": "importee",
+    "format": "Plusieurs champs : 5 étoiles · 4 étoiles · 3 étoiles ou moins",
+    "mode": "demandee",
     "niveau": "approfondi",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D61 · si vous avez des avis",
+    "declencheurs": [
+      "D61"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -4374,12 +4799,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": "Lu sur la fiche Google",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu sur la fiche Google",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [],
@@ -4389,26 +4815,29 @@
     "code": "COM-44.04",
     "theme": "COM-44",
     "ecran": "C05 · Votre fiche Google et vos avis",
-    "libelle": "Texte des derniers avis de votre boutique ou de votre plateforme principale (Trustpilot, Avis Vérifiés, marketplace)",
-    "format": "Connexion ou copier-coller",
-    "mode": "importee",
+    "libelle": "Texte des 20 derniers avis (fiche Google, boutique ou plateforme) : thèmes positifs, motifs négatifs, et témoignages réutilisables par l'agent de création",
+    "format": "Texte",
+    "mode": "demandee",
     "niveau": "approfondi",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D61 · si vous avez des avis",
+    "declencheurs": [
+      "D61"
+    ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
+      "rdv": true,
+      "commerce": true,
       "ecommerce": true,
-      "restaurant": false,
-      "chantier": false,
-      "b2b": false,
-      "abonnement": false
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
     ],
-    "calcul": "Lu dans la boutique ou la plateforme d'avis si elle est connectée, sinon copier-coller des 20 derniers avis",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans la boutique ou la plateforme d'avis si elle est connectée, sinon copier-coller des 20 derniers avis",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -4434,7 +4863,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4468,7 +4898,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -4502,7 +4933,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Opportunité"
@@ -4527,7 +4959,7 @@
     "code": "COM-45.01",
     "theme": "COM-45",
     "ecran": "C05 · Votre fiche Google et vos avis",
-    "libelle": "Vous demandez un avis : à chaque client, parfois, jamais — et comment (lien, QR code, message automatique)",
+    "libelle": "Demande d'avis — déclencheur D62",
     "format": "Choix + choix",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -4541,7 +4973,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4555,15 +4988,17 @@
     "utiliseeDansTexte": "XC24"
   },
   {
-    "code": "COM-46.01",
-    "theme": "COM-46",
-    "ecran": "C05 · Votre fiche Google et vos avis",
-    "libelle": "Avis ayant reçu une réponse (positifs, négatifs) et délai moyen de réponse",
-    "format": "Nombres et jours",
-    "mode": "importee",
+    "code": "COM-45.02",
+    "theme": "COM-45",
+    "ecran": null,
+    "libelle": "Façon de demander un avis",
+    "format": "Cases à cocher",
+    "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D62 · si vous demandez des avis",
+    "declencheurs": [
+      "D62"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -4572,12 +5007,43 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-46.01",
+    "theme": "COM-46",
+    "ecran": "C05 · Votre fiche Google et vos avis",
+    "libelle": "Avis ayant reçu une réponse (positifs, négatifs) et délai moyen de réponse",
+    "format": "Plusieurs champs : Avis positifs avec une réponse · Avis négatifs avec une réponse · Délai moyen de réponse",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D61 · si vous avez des avis",
+    "declencheurs": [
+      "D61"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": "Lu sur la fiche Google ; sinon tranches",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu sur la fiche Google ; sinon tranches",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -4593,8 +5059,10 @@
     "format": "Choix + oui / non",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D61 · si vous avez des avis",
+    "declencheurs": [
+      "D61"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -4603,7 +5071,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4634,7 +5103,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -4670,7 +5140,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4699,7 +5170,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -4714,7 +5186,7 @@
     "code": "COM-48.02",
     "theme": "COM-48",
     "ecran": "C10 · Votre stratégie et votre organisation",
-    "libelle": "Collaborations avec des créateurs de contenu sur la période : nombre, coût, ventes générées (code promo, lien suivi)",
+    "libelle": "Collaborations avec des créateurs et ventes suivies (le coût est la ligne « Influence » de COM-32.02)",
     "format": "3 nombres",
     "mode": "demandee",
     "niveau": "approfondi",
@@ -4728,7 +5200,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -4759,7 +5232,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -4790,7 +5264,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -4821,7 +5296,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -4852,7 +5328,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -4883,7 +5360,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -4917,7 +5395,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -4930,5 +5409,811 @@
     "entreesTexte": "COM-39.02, COM-02.01",
     "utiliseeDans": [],
     "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "COM-55.01",
+    "theme": "COM-55",
+    "ecran": null,
+    "libelle": "Profil de chaque réseau : description claire, lien, bouton de contact, publications épinglées",
+    "format": "Tableau : Description claire : quoi, pour qui, où · Lien vers votre site ou votre prise de rendez-vous · Bouton de contact · Publications épinglées qui présentent votre offre (lignes cadrage: D22)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-56.01",
+    "theme": "COM-56",
+    "ecran": null,
+    "libelle": "Comptes déjà ouverts, même abandonnés",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous ne publiez pas encore",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-56.02",
+    "theme": "COM-56",
+    "ecran": null,
+    "libelle": "Ce qui a empêché de publier jusqu'ici",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous ne publiez pas encore",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-56.03",
+    "theme": "COM-56",
+    "ecran": null,
+    "libelle": "Qui s'occuperait des publications",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous ne publiez pas encore",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-56.04",
+    "theme": "COM-56",
+    "ecran": null,
+    "libelle": "Budget mensuel possible pour lancer la communication",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous ne publiez pas encore",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.01",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Portrait du client idéal",
+    "format": "Texte",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.02",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Tutoiement ou vouvoiement",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.03",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Ton voulu",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.04",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Mots à employer et à éviter",
+    "format": "Plusieurs champs : À employer · À éviter",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.05",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Apparition du dirigeant dans les contenus",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.06",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Logo, charte graphique et couleurs (dépôt des fichiers à prévoir dans le moteur)",
+    "format": "Plusieurs champs : Logo · Charte graphique · Vos couleurs",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.07",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Contenus à produire",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.08",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Validation avant publication",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.10",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Offre à mettre en avant en priorité",
+    "format": "Texte court",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.11",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Questions les plus fréquentes des clients",
+    "format": "Liste",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.12",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Hésitations entendues avant l'achat",
+    "format": "Liste",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.13",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Dates qui comptent dans l'année",
+    "format": "Liste",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.14",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Règles du métier à respecter pour communiquer",
+    "format": "Texte",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.15",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Comptes et publications qui inspirent le dirigeant",
+    "format": "Texte",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-57.16",
+    "theme": "COM-57",
+    "ecran": null,
+    "libelle": "Langues de publication",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D30 · avant la première création de contenu",
+    "declencheurs": [
+      "D30"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-58.01",
+    "theme": "COM-58",
+    "ecran": null,
+    "libelle": "Action unique attendue après une publication, et lien ou numéro où envoyer la personne (reprise par le brief de création, ancienne COM-57.09)",
+    "format": "Plusieurs champs : Action · Lien ou numéro où l'envoyer",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-58.02",
+    "theme": "COM-58",
+    "ecran": null,
+    "libelle": "Moyens de contact, de réservation ou d'achat en ligne qui existent aujourd'hui : les destinations possibles du funnel",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-59.01",
+    "theme": "COM-59",
+    "ecran": null,
+    "libelle": "Visites du profil par mois, par réseau : l'étape entre la publication vue et le clic ou l'abonnement",
+    "format": "Tableau : Visites du profil par mois (lignes cadrage: D22)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D22 · une ligne par réseau utilisé",
+    "declencheurs": [
+      "D22"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-60.01",
+    "theme": "COM-60",
+    "ecran": null,
+    "libelle": "Page d'arrivée du lien du profil — déclencheur D64",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-60.02",
+    "theme": "COM-60",
+    "ecran": null,
+    "libelle": "Ce que montre la page d'arrivée sans faire défiler : offre, preuve, bouton unique, formulaire court, prix",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D64 · si le profil mène vers une page",
+    "declencheurs": [
+      "D64"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-61.01",
+    "theme": "COM-61",
+    "ecran": null,
+    "libelle": "Ce que fait le dirigeant des personnes qui ont réagi ou écrit sans acheter — déclencheur D65",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D21 · si vous publiez déjà",
+    "declencheurs": [
+      "D21"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "COM-61.02",
+    "theme": "COM-61",
+    "ecran": null,
+    "libelle": "Personnes intéressées contactées par le dirigeant chaque mois, et clients obtenus ainsi",
+    "format": "Plusieurs champs : Personnes contactées par mois · Devenues clientes par mois",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D65 · si vous leur écrivez en message privé",
+    "declencheurs": [
+      "D65"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   }
 ]

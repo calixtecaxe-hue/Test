@@ -192,6 +192,12 @@ PROFILS_REGLEMENTES = {
 }
 
 
+# Métiers d'hébergement et de location de véhicules : leur profil d'entreprise est « location »
+# (ACQ-11.31 à 11.37 ne sont posées qu'à ce profil). Le classeur ne dit pas si un hôtel avec restaurant
+# garde aussi le profil restaurant : à confirmer par le propriétaire.
+METIERS_LOCATION = {"hotel", "camping", "gite", "chambre-d-hotes", "location-de-vehicules"}
+
+
 def main():
     r = json.loads(FICHIER.read_text(encoding="utf-8"))
     if not any(c["id"] == "fabrication" for c in r["categories"]):
@@ -246,6 +252,13 @@ def main():
                 if secteur.startswith("Bien-être"):
                     m["notes"] = "Réglementé par prudence (document « Liste des métiers »)."
             ajouter(m)
+
+    # Profil location (classeur du 20 octobre, point 3) : hébergement et location de véhicules.
+    if not any(p["id"] == "location" for p in r["profils"]):
+        r["profils"].append({"id": "location", "libelle": "Location"})
+    for m in metiers:
+        if m["id"] in METIERS_LOCATION:
+            m["profilsImposes"] = ["location"]
 
     r["metiers"] = metiers
     r["source"] = "Document « CAXE — Règles de fonctionnement » (15 octobre 2026), partie 3, et document « CAXE — Liste des métiers » (15 octobre 2026)."

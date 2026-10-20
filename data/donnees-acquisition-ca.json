@@ -3,7 +3,7 @@
     "code": "ACQ-01.01",
     "theme": "ACQ-01",
     "ecran": "A01 · Vos types de clients (tableau)",
-    "libelle": "Types de clients (ex. particuliers, professionnels, collectivités), jusqu'à 4",
+    "libelle": "Types de clients (ex. particuliers, professionnels, collectivités), jusqu'à 4 — partagée avec Comm (COM-02.01, COM-09.03) : posée par le premier agent qui en a besoin",
     "format": "Liste",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -17,7 +17,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -48,7 +49,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque",
@@ -80,7 +82,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Potentiel CA"
@@ -111,7 +114,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Potentiel CA"
@@ -142,7 +146,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -173,7 +178,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible",
@@ -206,7 +212,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -237,7 +244,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque",
@@ -269,7 +277,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -300,7 +309,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Opportunité"
@@ -329,7 +339,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -362,7 +373,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -398,7 +410,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -430,7 +443,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -463,7 +477,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -492,7 +507,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours",
@@ -537,7 +553,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -568,7 +585,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -599,7 +617,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème",
@@ -632,7 +651,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -661,7 +681,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -698,7 +719,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -732,7 +754,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Parcours"
@@ -766,7 +789,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -793,7 +817,7 @@
     "code": "ACQ-03.01",
     "theme": "ACQ-03",
     "ecran": "A04 · Vos canaux (tableau)",
-    "libelle": "Canaux qui amènent des clients : bouche-à-oreille, fiche Google, site, réseaux sociaux, publicité, plateformes, partenaires, prospection, passage, salons",
+    "libelle": "Canaux qui amènent des clients : bouche-à-oreille, fiche Google, site, réseaux sociaux, publicité, plateformes, partenaires, prospection, passage, salons — partagée avec Comm (COM-12.01) : posée par le premier agent qui en a besoin",
     "format": "Liste (une ligne par canal)",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -807,7 +831,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -824,7 +849,7 @@
     "code": "ACQ-03.02",
     "theme": "ACQ-03",
     "ecran": "A04 · Vos canaux (tableau)",
-    "libelle": "Demandes par mois, par canal",
+    "libelle": "Part des demandes par canal (le nombre par canal est calculé : ACQ-02.01 × part)",
     "format": "Nombre par ligne",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -840,7 +865,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -863,7 +889,7 @@
     "code": "ACQ-03.03",
     "theme": "ACQ-03",
     "ecran": "A04 · Vos canaux (tableau)",
-    "libelle": "Nouveaux clients par mois, par canal",
+    "libelle": "Part des nouveaux clients par canal (le nombre par canal est calculé avec le total ACQ-11.01 quand il est posé)",
     "format": "Nombre par ligne",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -879,7 +905,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -916,7 +943,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -954,7 +982,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte",
@@ -994,7 +1023,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -1025,7 +1055,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1057,7 +1088,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1089,7 +1121,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1122,7 +1155,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte",
@@ -1161,7 +1195,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1196,7 +1231,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -1231,7 +1267,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -1264,7 +1301,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Parcours"
@@ -1299,7 +1337,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Parcours"
@@ -1332,7 +1371,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Parcours"
@@ -1365,7 +1405,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -1398,7 +1439,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Opportunité"
@@ -1429,7 +1471,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -1461,7 +1504,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -1493,7 +1537,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -1528,7 +1573,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Opportunité"
@@ -1562,7 +1608,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -1595,7 +1642,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1628,7 +1676,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Potentiel CA",
@@ -1665,7 +1714,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -1696,7 +1746,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -1728,7 +1779,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1759,7 +1811,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -1790,7 +1843,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -1823,7 +1877,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Potentiel CA"
@@ -1843,9 +1898,9 @@
     "code": "ACQ-06.01",
     "theme": "ACQ-06",
     "ecran": "A07 · Votre présence en ligne",
-    "libelle": "Nombre d'avis Google",
-    "format": "Nombre",
-    "mode": "importee",
+    "libelle": "Avis Google : nombre, note, avis des 6 derniers mois (regroupe ACQ-06.01, 06.02 et 06.03) — partagée avec COM-44.01",
+    "format": "Plusieurs champs : Avis au total · Note sur 5 · Avis reçus sur les 6 derniers mois",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D03 · si « fiche Google » est cochée",
     "declencheurs": [
@@ -1859,12 +1914,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
     ],
-    "calcul": "Lu sur la fiche Google si elle est connectée",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu sur la fiche Google si elle est connectée",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -1882,8 +1938,8 @@
     "ecran": "A07 · Votre présence en ligne",
     "libelle": "Note Google moyenne",
     "format": "Note sur 5",
-    "mode": "importee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": "D03 · si « fiche Google » est cochée",
     "declencheurs": [
       "D03"
@@ -1896,14 +1952,17 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
     ],
-    "calcul": "Lu sur la fiche Google",
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Lue dans la réponse à ACQ-06.01 (champ « Note sur 5 »)",
+    "entrees": [
+      "ACQ-06.01"
+    ],
+    "entreesTexte": "ACQ-06.01",
     "utiliseeDans": [
       "ACQ-06.11"
     ],
@@ -1915,8 +1974,8 @@
     "ecran": "A07 · Votre présence en ligne",
     "libelle": "Avis reçus sur les 6 derniers mois",
     "format": "Nombre",
-    "mode": "importee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": "D03 · si « fiche Google » est cochée",
     "declencheurs": [
       "D03"
@@ -1929,14 +1988,17 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": "Lu sur la fiche Google",
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Lue dans la réponse à ACQ-06.01 (champ « Avis reçus sur les 6 derniers mois »)",
+    "entrees": [
+      "ACQ-06.01"
+    ],
+    "entreesTexte": "ACQ-06.01",
     "utiliseeDans": [
       "COM-44.06",
       "XA43"
@@ -1947,9 +2009,9 @@
     "code": "ACQ-06.04",
     "theme": "ACQ-06",
     "ecran": "A07 · Votre présence en ligne",
-    "libelle": "Actions depuis la fiche par mois : appels, itinéraires, clics vers le site",
-    "format": "Nombre par type",
-    "mode": "importee",
+    "libelle": "Vues de la fiche Google et actions (appels, itinéraires, clics vers le site), en totaux sur 3 mois : le moteur divise par 3 pour avoir le mois. Le passage des vues aux actions est la conversion de la fiche. Regroupe ACQ-06.04 et 06.05 — partagée avec COM-14.02",
+    "format": "Plusieurs champs : Vues de votre fiche · Appels · Demandes d'itinéraire · Clics vers votre site",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D03 · si « fiche Google » est cochée",
     "declencheurs": [
@@ -1963,12 +2025,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
     ],
-    "calcul": "Statistiques de la fiche Google",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Statistiques de la fiche Google",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -1984,8 +2047,8 @@
     "ecran": "A07 · Votre présence en ligne",
     "libelle": "Vues de la fiche Google par mois",
     "format": "Nombre",
-    "mode": "importee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": "D03 · si « fiche Google » est cochée",
     "declencheurs": [
       "D03"
@@ -1998,14 +2061,17 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
     ],
-    "calcul": "Statistiques de la fiche Google",
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Lue dans la réponse à ACQ-06.04 (champ « Vues de votre fiche », total sur 3 mois) ÷ 3",
+    "entrees": [
+      "ACQ-06.04"
+    ],
+    "entreesTexte": "ACQ-06.04",
     "utiliseeDans": [
       "ACQ-06.10"
     ],
@@ -2015,9 +2081,9 @@
     "code": "ACQ-06.06",
     "theme": "ACQ-06",
     "ecran": "A07 · Votre présence en ligne",
-    "libelle": "Nombre d'avis et note des 2 concurrents les plus proches",
-    "format": "Nombre et note",
-    "mode": "importee",
+    "libelle": "Avis et note des 2 concurrents qui apparaissent en premier sur « métier + ville » : repère local pour l'objectif d'avis (plus parlant qu'une moyenne nationale)",
+    "format": "Tableau : Nom · Avis · Note sur 5 (lignes fixe: Concurrent 1 / Concurrent 2)",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": "D03 · si « fiche Google » est cochée",
     "declencheurs": [
@@ -2031,12 +2097,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
     ],
-    "calcul": "Recherche locale automatique",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Recherche locale automatique",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -2048,9 +2115,9 @@
     "code": "ACQ-06.07",
     "theme": "ACQ-06",
     "ecran": "A07 · Votre présence en ligne",
-    "libelle": "Visites du site par mois",
+    "libelle": "Visites du site par mois — partagée avec COM-13.01",
     "format": "Nombre",
-    "mode": "importee",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D03 · si « site » est coché",
     "declencheurs": [
@@ -2064,12 +2131,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
     ],
-    "calcul": "Statistiques du site si connecté",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Statistiques du site si connecté",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -2100,7 +2168,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -2131,7 +2200,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2166,7 +2236,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2198,7 +2269,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -2214,6 +2286,66 @@
       "XA43"
     ],
     "utiliseeDansTexte": "XA43"
+  },
+  {
+    "code": "ACQ-06.12",
+    "theme": "ACQ-06",
+    "ecran": null,
+    "libelle": "Actions possibles directement depuis la fiche Google — explique un faible passage des vues aux contacts (taux calculé avec ACQ-06.04)",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D03 · si « fiche Google » est cochée",
+    "declencheurs": [
+      "D03"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-06.13",
+    "theme": "ACQ-06",
+    "ecran": null,
+    "libelle": "Mots tapés sur Google pour trouver la fiche, avec leur nombre de recherches sur 3 mois — montre si l'entreprise est trouvée sur ses prestations qui rapportent le plus ; repris aussi par l'agent de création (sujets de contenus)",
+    "format": "Tableau : Nombre de recherches (lignes libre: 5)",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D03 · si « fiche Google » est cochée",
+    "declencheurs": [
+      "D03"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "ACQ-07.01",
@@ -2235,7 +2367,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2269,7 +2402,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2302,7 +2436,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2334,7 +2469,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2352,7 +2488,7 @@
     "code": "ACQ-07.05",
     "theme": "ACQ-07",
     "ecran": "A08 · Votre budget marketing",
-    "libelle": "Budget marketing total il y a 12 mois, même périmètre qu'aujourd'hui : publicité, agence, contenu, outils (hors commissions)",
+    "libelle": "Budget marketing total il y a 12 mois, même périmètre qu'aujourd'hui : publicité, agence, contenu, outils (hors commissions) — partagée avec Comm (COM-32.07) : posée par le premier agent qui en a besoin",
     "format": "€",
     "mode": "demandee",
     "niveau": "approfondi",
@@ -2368,7 +2504,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2399,7 +2536,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -2440,7 +2578,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2479,7 +2618,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -2510,7 +2650,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2542,7 +2683,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -2574,7 +2716,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -2612,7 +2755,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -2647,7 +2791,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2680,7 +2825,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -2714,7 +2860,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème",
@@ -2733,7 +2880,7 @@
     "code": "ACQ-08.02",
     "theme": "ACQ-08",
     "ecran": "A09 · Votre réactivité",
-    "libelle": "Appels manqués par semaine",
+    "libelle": "Appels manqués par semaine — déclencheur D37",
     "format": "Nombre",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -2747,7 +2894,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2768,8 +2916,10 @@
     "format": "%",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D37 · si vous manquez des appels",
+    "declencheurs": [
+      "D37"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -2778,7 +2928,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2809,7 +2960,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2838,7 +2990,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -2869,7 +3022,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -2898,7 +3052,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -2929,7 +3084,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -2963,7 +3119,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -3001,7 +3158,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Parcours"
@@ -3022,8 +3180,8 @@
     "code": "ACQ-09.02",
     "theme": "ACQ-09",
     "ecran": "A10 · Vos rendez-vous",
-    "libelle": "Annulations prévenues par mois",
-    "format": "Nombre",
+    "libelle": "Rendez-vous annulés avec prévenance et absences sans prévenir, par mois (regroupe les anciennes ACQ-09.02 et ACQ-09.03)",
+    "format": "Plusieurs champs : Annulés en vous prévenant · Absents sans prévenir",
     "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D05 · si activité sur rendez-vous",
@@ -3038,7 +3196,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -3057,8 +3216,8 @@
     "ecran": "A10 · Vos rendez-vous",
     "libelle": "Absences sans prévenir par mois",
     "format": "Nombre",
-    "mode": "demandee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": "D05 · si activité sur rendez-vous",
     "declencheurs": [
       "D05"
@@ -3071,14 +3230,17 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
     ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Lue dans la réponse à ACQ-09.02 (champ « Absents sans prévenir »)",
+    "entrees": [
+      "ACQ-09.02"
+    ],
+    "entreesTexte": "ACQ-09.02",
     "utiliseeDans": [
       "ACQ-09.08",
       "ACQ-09.10",
@@ -3106,7 +3268,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -3137,7 +3300,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Parcours"
@@ -3168,7 +3332,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -3199,7 +3364,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -3230,7 +3396,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -3267,7 +3434,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -3301,7 +3469,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -3333,7 +3502,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Parcours"
@@ -3367,7 +3537,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -3401,7 +3572,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -3421,8 +3593,8 @@
     "code": "ACQ-10.01",
     "theme": "ACQ-10",
     "ecran": "A11 · Vos devis",
-    "libelle": "Devis envoyés par mois",
-    "format": "Nombre",
+    "libelle": "Devis envoyés par mois : nombre et montant total (regroupe les anciennes ACQ-10.01 et ACQ-10.02)",
+    "format": "Plusieurs champs : Nombre par mois · Montant total par mois",
     "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D06 · si devis ou propositions",
@@ -3431,13 +3603,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -3458,8 +3631,8 @@
     "ecran": "A11 · Vos devis",
     "libelle": "Montant total des devis envoyés par mois",
     "format": "€",
-    "mode": "demandee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": "D06 · si devis ou propositions",
     "declencheurs": [
       "D06"
@@ -3472,14 +3645,17 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
     ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Lue dans la réponse à ACQ-10.01 (champ « Montant total par mois »)",
+    "entrees": [
+      "ACQ-10.01"
+    ],
+    "entreesTexte": "ACQ-10.01",
     "utiliseeDans": [
       "ACQ-10.14",
       "ACQ-10.15"
@@ -3490,8 +3666,8 @@
     "code": "ACQ-10.03",
     "theme": "ACQ-10",
     "ecran": "A11 · Vos devis",
-    "libelle": "Devis acceptés par mois",
-    "format": "Nombre",
+    "libelle": "Devis acceptés par mois : nombre et montant total (regroupe les anciennes ACQ-10.03 et ACQ-10.04)",
+    "format": "Plusieurs champs : Nombre par mois · Montant total par mois",
     "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D06 · si devis ou propositions",
@@ -3500,13 +3676,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -3527,8 +3704,8 @@
     "ecran": "A11 · Vos devis",
     "libelle": "Montant des devis acceptés par mois",
     "format": "€",
-    "mode": "demandee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": "D06 · si devis ou propositions",
     "declencheurs": [
       "D06"
@@ -3541,14 +3718,17 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Mesure"
     ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Lue dans la réponse à ACQ-10.03 (champ « Montant total par mois »)",
+    "entrees": [
+      "ACQ-10.03"
+    ],
+    "entreesTexte": "ACQ-10.03",
     "utiliseeDans": [
       "ACQ-10.14",
       "ACQ-10.15"
@@ -3569,13 +3749,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -3592,7 +3773,7 @@
     "code": "ACQ-10.06",
     "theme": "ACQ-10",
     "ecran": "A11 · Vos devis",
-    "libelle": "Part des devis sans réponse que vous relancez",
+    "libelle": "Part des devis sans réponse que vous relancez — déclencheur D36",
     "format": "%",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -3602,13 +3783,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -3630,19 +3812,20 @@
     "format": "Jours",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": "D06 · si devis ou propositions",
+    "condition": "D36 · si vous relancez vos devis",
     "declencheurs": [
-      "D06"
+      "D36"
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -3667,13 +3850,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Potentiel CA"
@@ -3700,13 +3884,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -3727,19 +3912,20 @@
     "format": "Nombre",
     "mode": "demandee",
     "niveau": "approfondi",
-    "condition": "D06 · si devis ou propositions",
+    "condition": "D36 · si vous relancez vos devis",
     "declencheurs": [
-      "D06"
+      "D36"
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -3758,19 +3944,20 @@
     "format": "Nombre",
     "mode": "demandee",
     "niveau": "approfondi",
-    "condition": "D06 · si devis ou propositions",
+    "condition": "D36 · si vous relancez vos devis",
     "declencheurs": [
-      "D06"
+      "D36"
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -3801,7 +3988,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -3837,7 +4025,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -3872,7 +4061,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -3908,7 +4098,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -3947,7 +4138,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -3983,7 +4175,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -4017,7 +4210,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -4053,7 +4247,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -4092,7 +4287,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -4124,7 +4320,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -4148,7 +4345,7 @@
     "libelle": "Motifs des affaires non signées : prix, délai, concurrent, absence de suivi, projet abandonné, hors offre",
     "format": "Part estimée par motif",
     "mode": "demandee",
-    "niveau": "essentiel",
+    "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
     "periode": null,
@@ -4159,7 +4356,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier",
@@ -4192,7 +4390,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -4221,7 +4420,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -4241,7 +4441,7 @@
     "code": "ACQ-11.07",
     "theme": "ACQ-11",
     "ecran": "A13 · Votre boutique, salle ou site",
-    "libelle": "Couverts par mois, midi et soir",
+    "libelle": "Couverts moyens par service, midi et soir (couverts par mois calculés : × services par semaine × 4,33)",
     "format": "Nombre (2 colonnes)",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -4255,7 +4455,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -4290,7 +4491,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -4322,7 +4524,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -4353,7 +4556,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -4384,7 +4588,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -4415,7 +4620,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -4446,7 +4652,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -4477,7 +4684,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -4502,7 +4710,7 @@
     "ecran": "A13 · Votre boutique, salle ou site",
     "libelle": "Paniers abandonnés par mois",
     "format": "Nombre",
-    "mode": "importee",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
@@ -4514,12 +4722,13 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
     ],
-    "calcul": "Lu dans la boutique en ligne",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans la boutique en ligne",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -4546,7 +4755,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -4562,8 +4772,8 @@
     "theme": "ACQ-11",
     "ecran": "A13 · Votre boutique, salle ou site",
     "libelle": "Part des visites sur mobile et taux de conversion sur mobile",
-    "format": "%",
-    "mode": "importee",
+    "format": "Plusieurs champs : Visites sur mobile · Visites mobiles qui commandent",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
@@ -4575,12 +4785,13 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": "Statistiques du site",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Statistiques du site",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [],
@@ -4604,7 +4815,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -4638,7 +4850,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Cible",
@@ -4678,7 +4891,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -4713,7 +4927,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -4747,7 +4962,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -4780,7 +4996,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -4811,7 +5028,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -4847,7 +5065,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -4882,7 +5101,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -4917,7 +5137,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -4953,7 +5174,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -4990,7 +5212,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -5024,7 +5247,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -5041,6 +5265,202 @@
     "utiliseeDansTexte": "XA35"
   },
   {
+    "code": "ACQ-11.31",
+    "theme": "ACQ-11",
+    "ecran": null,
+    "libelle": "Unités vendues sur les 12 derniers mois : nuitées (hébergement) ou jours de location (véhicules)",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-11.32",
+    "theme": "ACQ-11",
+    "ecran": null,
+    "libelle": "Chambres, logements, emplacements ou véhicules à louer",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-11.33",
+    "theme": "ACQ-11",
+    "ecran": null,
+    "libelle": "Nuits ou jours d'ouverture sur les 12 derniers mois",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-11.34",
+    "theme": "ACQ-11",
+    "ecran": null,
+    "libelle": "Demandes refusées faute de disponibilité sur les 12 derniers mois",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-11.35",
+    "theme": "ACQ-11",
+    "ecran": null,
+    "libelle": "Réservations annulées trop tard pour être relouées, ou non honorées, sur les 12 derniers mois",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-11.36",
+    "theme": "ACQ-11",
+    "ecran": null,
+    "libelle": "Durée moyenne d'une réservation, en nuits ou en jours",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-11.37",
+    "theme": "ACQ-11",
+    "ecran": null,
+    "libelle": "Part du CA qui ne vient pas de la location : services annexes",
+    "format": "%",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
     "code": "ACQ-12.01",
     "theme": "ACQ-12",
     "ecran": "A12 · Vos ventes",
@@ -5054,13 +5474,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -5087,13 +5508,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -5110,7 +5532,7 @@
     "code": "ACQ-12.03",
     "theme": "ACQ-12",
     "ecran": "A12 · Vos ventes",
-    "libelle": "Affaires en cours aujourd'hui : nombre et montant total",
+    "libelle": "Affaires en discussion pas encore chiffrées : nombre et montant estimé (les devis en attente sont en ACQ-10.08)",
     "format": "Nombre et €",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -5120,13 +5542,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
-      "chantier": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Potentiel CA"
@@ -5153,13 +5576,14 @@
     ],
     "periode": null,
     "profils": {
-      "rdv": false,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
-      "chantier": false,
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -5188,7 +5612,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -5221,7 +5646,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -5256,7 +5682,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -5287,7 +5714,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -5321,7 +5749,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -5340,7 +5769,7 @@
     "theme": "ACQ-13",
     "ecran": "A14 · Vos prix et remises",
     "libelle": "Taux horaire facturé",
-    "format": "€ par heure",
+    "format": "Plusieurs champs : Tarif · Par",
     "mode": "demandee",
     "niveau": "essentiel",
     "condition": "D18 · si facturation au temps",
@@ -5355,7 +5784,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -5373,8 +5803,8 @@
     "code": "ACQ-13.04",
     "theme": "ACQ-13",
     "ecran": "A14 · Vos prix et remises",
-    "libelle": "Date de votre dernière hausse de prix",
-    "format": "Mois et année",
+    "libelle": "Date et montant de la dernière hausse de prix — partagée avec FIN-04.01 : posée une seule fois",
+    "format": "Plusieurs champs : Date de la hausse · Hausse",
     "mode": "demandee",
     "niveau": "essentiel",
     "condition": null,
@@ -5387,7 +5817,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -5418,7 +5849,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -5435,8 +5867,8 @@
     "ecran": "A14 · Vos prix et remises",
     "libelle": "Ampleur de cette dernière hausse",
     "format": "%",
-    "mode": "demandee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": null,
     "declencheurs": [],
     "periode": null,
@@ -5447,14 +5879,17 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Lue dans la réponse à ACQ-13.04 (champ « Hausse », en %) : questions fusionnées",
+    "entrees": [
+      "ACQ-13.04"
+    ],
+    "entreesTexte": "ACQ-13.04",
     "utiliseeDans": [
       "FIN-04.04",
       "XF09"
@@ -5479,7 +5914,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -5510,7 +5946,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -5545,7 +5982,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -5576,7 +6014,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -5593,10 +6032,38 @@
     "utiliseeDansTexte": "XA21"
   },
   {
+    "code": "ACQ-13.11",
+    "theme": "ACQ-13",
+    "ecran": null,
+    "libelle": "Méthode de fixation des prix",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
     "code": "ACQ-14.01",
     "theme": "ACQ-14",
     "ecran": "A14 · Vos prix et remises",
-    "libelle": "Part des ventes avec remise ou geste commercial",
+    "libelle": "Part des ventes avec remise ou geste commercial — déclencheur D35",
     "format": "%",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -5610,7 +6077,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -5631,8 +6099,10 @@
     "format": "%",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D35 · si vous accordez des remises",
+    "declencheurs": [
+      "D35"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -5641,7 +6111,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -5672,7 +6143,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -5693,8 +6165,10 @@
     "format": "Toujours / parfois / jamais",
     "mode": "demandee",
     "niveau": "approfondi",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D35 · si vous accordez des remises",
+    "declencheurs": [
+      "D35"
+    ],
     "periode": null,
     "profils": {
       "rdv": false,
@@ -5703,7 +6177,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -5732,7 +6207,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -5753,7 +6229,7 @@
     "code": "ACQ-15.01",
     "theme": "ACQ-15",
     "ecran": "A15 · Votre panier",
-    "libelle": "Vente complémentaire proposée à chaque client",
+    "libelle": "Vente complémentaire proposée à chaque client — déclencheur D32",
     "format": "Toujours / parfois / jamais",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -5767,7 +6243,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -5786,8 +6263,10 @@
     "format": "%",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D32 · si vous proposez un produit ou un service en plus",
+    "declencheurs": [
+      "D32"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -5796,7 +6275,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -5817,8 +6297,10 @@
     "format": "€",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D32 · si vous proposez un produit ou un service en plus",
+    "declencheurs": [
+      "D32"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,
@@ -5827,7 +6309,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Potentiel CA"
@@ -5844,7 +6327,7 @@
     "code": "ACQ-15.04",
     "theme": "ACQ-15",
     "ecran": "A15 · Votre panier",
-    "libelle": "Offre haut de gamme existante, et sa part des ventes",
+    "libelle": "Offre haut de gamme — déclencheur D34",
     "format": "Oui / non + %",
     "mode": "demandee",
     "niveau": "approfondi",
@@ -5858,7 +6341,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -5875,7 +6359,7 @@
     "ecran": "A15 · Votre panier",
     "libelle": "Articles par ticket ou par commande",
     "format": "Nombre",
-    "mode": "importee",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
@@ -5887,12 +6371,13 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
     ],
-    "calcul": "Lu dans la caisse ou la boutique en ligne",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans la caisse ou la boutique en ligne",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [],
@@ -5916,7 +6401,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -5978,7 +6464,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -6012,7 +6499,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -6028,6 +6516,184 @@
       "XA19"
     ],
     "utiliseeDansTexte": "XA19"
+  },
+  {
+    "code": "ACQ-15.09",
+    "theme": "ACQ-15",
+    "ecran": null,
+    "libelle": "Paiement en plusieurs fois proposé — déclencheur D33",
+    "format": "Oui / non",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-15.10",
+    "theme": "ACQ-15",
+    "ecran": null,
+    "libelle": "Qui gère le paiement en plusieurs fois (organisme ou échéancier direct)",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D33 · si paiement en plusieurs fois proposé",
+    "declencheurs": [
+      "D33"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-15.11",
+    "theme": "ACQ-15",
+    "ecran": null,
+    "libelle": "Montant d'achat à partir duquel le paiement en plusieurs fois est proposé",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D33 · si paiement en plusieurs fois proposé",
+    "declencheurs": [
+      "D33"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-15.12",
+    "theme": "ACQ-15",
+    "ecran": null,
+    "libelle": "Part des ventes payées en plusieurs fois",
+    "format": "%",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D33 · si paiement en plusieurs fois proposé",
+    "declencheurs": [
+      "D33"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-15.13",
+    "theme": "ACQ-15",
+    "ecran": null,
+    "libelle": "Panier moyen d'un client qui paie en plusieurs fois (comparé au panier moyen : gain du paiement en plusieurs fois)",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D33 · si paiement en plusieurs fois proposé",
+    "declencheurs": [
+      "D33"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-15.14",
+    "theme": "ACQ-15",
+    "ecran": null,
+    "libelle": "Part des ventes faites avec l'offre haut de gamme",
+    "format": "%",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D34 · si offre haut de gamme",
+    "declencheurs": [
+      "D34"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "ACQ-16.01",
@@ -6049,7 +6715,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6088,7 +6755,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6105,7 +6773,7 @@
     "code": "ACQ-16.03",
     "theme": "ACQ-16",
     "ecran": "A16 · Vos plus gros clients (tableau)",
-    "libelle": "Tendance de chacun sur 12 mois : en hausse, stable, en baisse",
+    "libelle": "CA des 5 plus gros clients sur les 12 mois précédents (évolution calculée avec ACQ-16.01, au lieu d'une tendance)",
     "format": "Choix par ligne",
     "mode": "demandee",
     "niveau": "approfondi",
@@ -6121,7 +6789,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6152,7 +6821,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6185,7 +6855,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6218,7 +6889,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6251,7 +6923,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -6274,8 +6947,8 @@
     "ecran": "A17 · Vos clients fidèles",
     "libelle": "Clients différents sur les 12 derniers mois (clients actifs)",
     "format": "Nombre ou estimation",
-    "mode": "demandee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": null,
     "declencheurs": [],
     "periode": "Période adaptée : depuis la création si moins de 12 mois",
@@ -6286,14 +6959,17 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Mesure"
     ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Somme de ACQ-01.03 (clients différents par catégorie, sur les 12 derniers mois)",
+    "entrees": [
+      "ACQ-01.03"
+    ],
+    "entreesTexte": "ACQ-01.03",
     "utiliseeDans": [
       "ACQ-17.16",
       "ACQ-17.19",
@@ -6320,7 +6996,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -6340,8 +7017,8 @@
     "ecran": "A17 · Vos clients fidèles",
     "libelle": "Achats par client et par an",
     "format": "Nombre",
-    "mode": "demandee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": null,
     "declencheurs": [],
     "periode": "Période adaptée : depuis la création si moins de 12 mois",
@@ -6352,14 +7029,18 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
     ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Ventes sur 12 mois (somme de ACQ-23.04) ÷ clients différents (ACQ-17.01)",
+    "entrees": [
+      "ACQ-23.04",
+      "ACQ-17.01"
+    ],
+    "entreesTexte": "ACQ-23.04, ACQ-17.01",
     "utiliseeDans": [
       "ACQ-17.18",
       "ACQ-17.19",
@@ -6385,7 +7066,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Risque"
@@ -6416,7 +7098,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -6445,7 +7128,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Opportunité"
@@ -6476,7 +7160,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -6505,7 +7190,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -6536,7 +7222,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -6553,8 +7240,8 @@
     "code": "ACQ-17.10",
     "theme": "ACQ-17",
     "ecran": "A17 · Vos clients fidèles",
-    "libelle": "Abonnés actifs aujourd'hui",
-    "format": "Nombre",
+    "libelle": "Clients sous contrat ou abonnés et revenu mensuel total — partagée avec FIN-05.07 : posée une seule fois",
+    "format": "Plusieurs champs : Clients sous contrat ou abonnés · Total payé par mois",
     "mode": "demandee",
     "niveau": "essentiel",
     "condition": null,
@@ -6567,7 +7254,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -6588,8 +7276,8 @@
     "ecran": "A17 · Vos clients fidèles",
     "libelle": "Revenu récurrent mensuel (somme des abonnements)",
     "format": "€",
-    "mode": "demandee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": null,
     "declencheurs": [],
     "periode": null,
@@ -6600,14 +7288,17 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Mesure"
     ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Lue dans la réponse à ACQ-17.10 (champ « Total payé par mois ») : questions fusionnées",
+    "entrees": [
+      "ACQ-17.10"
+    ],
+    "entreesTexte": "ACQ-17.10",
     "utiliseeDans": [
       "ACQ-17.23",
       "ACQ-17.27",
@@ -6633,7 +7324,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -6650,7 +7342,7 @@
     "code": "ACQ-17.13",
     "theme": "ACQ-17",
     "ecran": "A17 · Vos clients fidèles",
-    "libelle": "Résiliations par mois",
+    "libelle": "Résiliations par mois — déclencheur D38",
     "format": "Nombre",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -6664,7 +7356,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -6686,8 +7379,10 @@
     "format": "Choix",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D38 · si des clients résilient",
+    "declencheurs": [
+      "D38"
+    ],
     "periode": null,
     "profils": {
       "rdv": false,
@@ -6696,7 +7391,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -6725,7 +7421,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Opportunité"
@@ -6754,7 +7451,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Opportunité"
@@ -6789,7 +7487,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -6822,7 +7521,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -6858,7 +7558,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -6893,7 +7594,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -6928,7 +7630,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -6962,7 +7665,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -6996,7 +7700,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -7033,7 +7738,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -7066,7 +7772,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -7100,7 +7807,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -7134,7 +7842,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -7147,6 +7856,92 @@
     "entreesTexte": "ACQ-17.11, ACQ-17.12",
     "utiliseeDans": [],
     "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "ACQ-17.28",
+    "theme": "ACQ-17",
+    "ecran": null,
+    "libelle": "Programme de fidélité",
+    "format": "Oui / non",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-17.29",
+    "theme": "ACQ-17",
+    "ecran": null,
+    "libelle": "Contrat d'entretien proposé — déclencheur D39",
+    "format": "Oui / non",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-17.30",
+    "theme": "ACQ-17",
+    "ecran": null,
+    "libelle": "Clients sous contrat d'entretien aujourd'hui",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D39 · si contrat d'entretien proposé",
+    "declencheurs": [
+      "D39"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "ACQ-18.01",
@@ -7166,7 +7961,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7181,7 +7977,7 @@
     "code": "ACQ-18.02",
     "theme": "ACQ-18",
     "ecran": "A17 · Vos clients fidèles",
-    "libelle": "Programme de parrainage avec récompense, et montant de la récompense",
+    "libelle": "Programme de parrainage — déclencheur D17",
     "format": "Oui / non + €",
     "mode": "demandee",
     "niveau": "approfondi",
@@ -7195,7 +7991,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7228,7 +8025,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -7259,7 +8057,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Parcours"
@@ -7290,7 +8089,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Levier"
@@ -7304,6 +8104,64 @@
     "entreesTexte": "ACQ-18.02, ACQ-18.03, ACQ-07.11",
     "utiliseeDans": [],
     "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "ACQ-18.06",
+    "theme": "ACQ-18",
+    "ecran": null,
+    "libelle": "Mesure de la satisfaction des clients",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-18.07",
+    "theme": "ACQ-18",
+    "ecran": null,
+    "libelle": "Valeur de la récompense de parrainage par client apporté",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D17 · si programme de parrainage",
+    "declencheurs": [
+      "D17"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
   },
   {
     "code": "ACQ-19.01",
@@ -7325,7 +8183,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -7361,7 +8220,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -7394,7 +8254,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Problème"
@@ -7425,7 +8286,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -7454,7 +8316,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -7485,7 +8348,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -7519,7 +8383,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -7550,7 +8415,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -7584,7 +8450,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Risque"
@@ -7615,7 +8482,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7630,7 +8498,7 @@
     "code": "ACQ-20.02",
     "theme": "ACQ-20",
     "ecran": "A19 · Votre suivi commercial",
-    "libelle": "Fréquence à laquelle vous regardez vos chiffres, par domaine — commerciaux (demandes, ventes), financiers (trésorerie, marge), statistiques de communication : chaque jour, chaque semaine, chaque mois, chaque trimestre, rarement, jamais",
+    "libelle": "Fréquence de lecture des chiffres par domaine — la ligne financière est partagée avec FIN-34.02, la ligne communication avec COM-43.01 : chaque ligne n'est posée qu'une fois",
     "format": "Choix par ligne (3 lignes)",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -7644,7 +8512,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -7673,7 +8542,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -7705,7 +8575,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -7717,11 +8588,11 @@
     "utiliseeDansTexte": "Affichée dans le rapport"
   },
   {
-    "code": "ACQ-21.01",
-    "theme": "ACQ-21",
-    "ecran": "A20 · Votre équipe et sa capacité",
-    "libelle": "Personnes au contact des clients ou en production, en équivalent temps plein",
-    "format": "Nombre",
+    "code": "ACQ-20.05",
+    "theme": "ACQ-20",
+    "ecran": null,
+    "libelle": "Objectif commercial chiffré chaque mois, et suivi",
+    "format": "Choix",
     "mode": "demandee",
     "niveau": "essentiel",
     "condition": null,
@@ -7734,7 +8605,66 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-20.06",
+    "theme": "ACQ-20",
+    "ecran": null,
+    "libelle": "Origine de chaque nouveau client notée",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "ACQ-21.01",
+    "theme": "ACQ-21",
+    "ecran": "A20 · Votre équipe et sa capacité",
+    "libelle": "Personnes par domaine de travail, dont à temps partiel (le travail pour les clients, trouver et suivre les clients, administratif, encadrement) — partagée entre ACQ-21.01 et RH-46.01 : posée une seule fois ; l'équivalent temps plein au contact des clients se calcule avec les deux premières lignes",
+    "format": "Tableau : Personnes · Dont à temps partiel (lignes fixe: Le travail pour les clients / Trouver et suivre les clients / Administratif et gestion / Encadrement de l'équipe)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D02 · si au moins un salarié",
+    "declencheurs": [
+      "D02"
+    ],
+    "periode": null,
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -7766,7 +8696,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Mesure"
@@ -7804,7 +8735,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -7824,8 +8756,8 @@
     "code": "ACQ-21.04",
     "theme": "ACQ-21",
     "ecran": "A20 · Votre équipe et sa capacité",
-    "libelle": "Heures travaillées par mois par l'équipe de production",
-    "format": "Heures",
+    "libelle": "Heures travaillées et facturées par mois — partagée avec FIN-07.03 : posée une seule fois",
+    "format": "Plusieurs champs : Heures travaillées · Heures facturées",
     "mode": "partagee",
     "niveau": "essentiel",
     "condition": "D18 · si facturation au temps",
@@ -7840,7 +8772,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -7864,8 +8797,8 @@
     "ecran": "A20 · Votre équipe et sa capacité",
     "libelle": "Heures facturées par mois",
     "format": "Heures",
-    "mode": "demandee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": "D18 · si facturation au temps",
     "declencheurs": [
       "D18"
@@ -7878,14 +8811,17 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
     ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Lue dans la réponse à ACQ-21.04 (champ « Heures facturées ») : questions fusionnées",
+    "entrees": [
+      "ACQ-21.04"
+    ],
+    "entreesTexte": "ACQ-21.04",
     "utiliseeDans": [
       "ACQ-21.12",
       "ACQ-21.13",
@@ -7911,7 +8847,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -7931,8 +8868,8 @@
     "ecran": "A20 · Votre équipe et sa capacité",
     "libelle": "Dossiers en attente de traitement, et délai d'attente moyen",
     "format": "Nombre et jours",
-    "mode": "demandee",
-    "niveau": "approfondi",
+    "mode": "calculee",
+    "niveau": null,
     "condition": null,
     "declencheurs": [],
     "periode": null,
@@ -7943,14 +8880,18 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Reprise de ACQ-19.03 (délai avant démarrage) et ACQ-19.04 (projets en attente) : déjà demandées",
+    "entrees": [
+      "ACQ-19.03",
+      "ACQ-19.04"
+    ],
+    "entreesTexte": "ACQ-19.03, ACQ-19.04",
     "utiliseeDans": [],
     "utiliseeDansTexte": "Notée directement (couleur du thème)"
   },
@@ -7972,7 +8913,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -8004,7 +8946,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -8037,7 +8980,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Cible"
@@ -8069,7 +9013,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Cible"
@@ -8100,7 +9045,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -8134,7 +9080,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -8169,7 +9116,8 @@
       "restaurant": false,
       "chantier": true,
       "b2b": true,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -8207,7 +9155,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -8222,7 +9171,7 @@
     "code": "ACQ-22.01",
     "theme": "ACQ-22",
     "ecran": "A21 · Vos horaires et créneaux",
-    "libelle": "Jours d'ouverture (e-commerce : jours où le service client répond)",
+    "libelle": "Jours d'ouverture — déclencheur D20 (lignes des tableaux « cadrage: D20 »)",
     "format": "Choix multiple",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -8236,7 +9185,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -8269,7 +9219,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -8301,7 +9252,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -8334,7 +9286,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Opportunité"
@@ -8367,7 +9320,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -8387,8 +9341,8 @@
     "ecran": "A21 · Vos horaires et créneaux",
     "libelle": "Créneaux occupés par semaine",
     "format": "Nombre",
-    "mode": "demandee",
-    "niveau": "essentiel",
+    "mode": "calculee",
+    "niveau": null,
     "condition": "D05 · si activité sur rendez-vous",
     "declencheurs": [
       "D05"
@@ -8401,14 +9355,17 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
     ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
+    "calcul": "Rendez-vous par mois (ACQ-09.01) ÷ 4,33",
+    "entrees": [
+      "ACQ-09.01"
+    ],
+    "entreesTexte": "ACQ-09.01",
     "utiliseeDans": [
       "ACQ-22.12",
       "ACQ-22.13"
@@ -8433,7 +9390,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -8464,7 +9422,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -8483,8 +9442,8 @@
     "theme": "ACQ-22",
     "ecran": "A21 · Vos horaires et créneaux",
     "libelle": "CA par jour de la semaine",
-    "format": "€ (7 colonnes)",
-    "mode": "importee",
+    "format": "Tableau : Chiffre d'affaires moyen (lignes cadrage: D20)",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
@@ -8496,12 +9455,13 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Levier"
     ],
-    "calcul": "Lu dans la caisse ou le logiciel de réservation",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans la caisse ou le logiciel de réservation",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -8514,7 +9474,7 @@
     "code": "ACQ-22.10",
     "theme": "ACQ-22",
     "ecran": "A22 · Vos demandes perdues (tableau)",
-    "libelle": "Demandes perdues par mois, par motif : pas de créneau, manque de temps, personnel absent, manque de stock, délai trop long, prix (les demandes restées sans réponse sont déjà comptées à l'écran réactivité)",
+    "libelle": "Demandes perdues par mois faute de disponibilité, par motif (le prix est en ACQ-11.04, les demandes sans réponse en ACQ-08) — partagée avec RH-43.02",
     "format": "Tableau (motif × nombre)",
     "mode": "demandee",
     "niveau": "essentiel",
@@ -8528,7 +9488,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -8561,7 +9522,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Capacité"
@@ -8592,7 +9554,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Capacité"
@@ -8627,7 +9590,8 @@
       "restaurant": false,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -8662,7 +9626,8 @@
       "restaurant": true,
       "chantier": false,
       "b2b": false,
-      "abonnement": false
+      "abonnement": false,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -8694,7 +9659,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Potentiel CA"
@@ -8728,7 +9694,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Perte"
@@ -8761,7 +9728,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -8792,7 +9760,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": false
     },
     "sertA": [
       "Perte"
@@ -8810,9 +9779,9 @@
     "code": "ACQ-23.01",
     "theme": "ACQ-23",
     "ecran": "A23 · Vos 12 derniers mois (tableau)",
-    "libelle": "CA de chacun des 12 derniers mois (partagé avec FIN-14 et RH-11)",
-    "format": "12 montants",
-    "mode": "importee",
+    "libelle": "CA de chacun des 12 derniers mois — partagée avec FIN-14.01 et RH-11.01",
+    "format": "Tableau : Chiffre d'affaires (lignes fixe: Le mois dernier / Il y a 2 mois / Il y a 3 mois / Il y a 4 mois / Il y a 5 mois / Il y a 6 mois / Il y a 7 mois / Il y a 8 mois / Il y a 9 mois / Il y a 10 mois / Il y a 11 mois / Il y a 12 mois)",
+    "mode": "demandee",
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
@@ -8824,12 +9793,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": "Lu dans la comptabilité ou la caisse si elles sont connectées",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans la comptabilité ou la caisse si elles sont connectées",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -8865,7 +9835,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -8883,8 +9854,8 @@
     "theme": "ACQ-23",
     "ecran": "A23 · Vos 12 derniers mois (tableau)",
     "libelle": "CA des mêmes mois l'année précédente",
-    "format": "12 montants",
-    "mode": "importee",
+    "format": "Tableau : Chiffre d'affaires un an plus tôt (lignes fixe: Le mois dernier / Il y a 2 mois / Il y a 3 mois / Il y a 4 mois / Il y a 5 mois / Il y a 6 mois / Il y a 7 mois / Il y a 8 mois / Il y a 9 mois / Il y a 10 mois / Il y a 11 mois / Il y a 12 mois)",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
@@ -8896,12 +9867,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
     ],
-    "calcul": "Lu dans la comptabilité",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans la comptabilité",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -8915,8 +9887,8 @@
     "theme": "ACQ-23",
     "ecran": "A23 · Vos 12 derniers mois (tableau)",
     "libelle": "Nombre de ventes de chacun des 12 derniers mois",
-    "format": "12 nombres",
-    "mode": "importee",
+    "format": "Tableau : Nombre (lignes fixe: Le mois dernier / Il y a 2 mois / Il y a 3 mois / Il y a 4 mois / Il y a 5 mois / Il y a 6 mois / Il y a 7 mois / Il y a 8 mois / Il y a 9 mois / Il y a 10 mois / Il y a 11 mois / Il y a 12 mois)",
+    "mode": "demandee",
     "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
@@ -8928,12 +9900,13 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
     ],
-    "calcul": "Lu dans la caisse ou le logiciel de facturation",
+    "calcul": "Saisie par le dirigeant tant qu'aucune connexion n'existe. Quand la connexion existera : Lu dans la caisse ou le logiciel de facturation",
     "entrees": [],
     "entreesTexte": null,
     "utiliseeDans": [
@@ -8959,7 +9932,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -8994,7 +9968,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Mesure"
@@ -9028,7 +10003,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -9060,7 +10036,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -9095,7 +10072,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Levier"
@@ -9129,7 +10107,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Problème"
@@ -9164,7 +10143,8 @@
       "restaurant": true,
       "chantier": true,
       "b2b": true,
-      "abonnement": true
+      "abonnement": true,
+      "location": true
     },
     "sertA": [
       "Potentiel CA"

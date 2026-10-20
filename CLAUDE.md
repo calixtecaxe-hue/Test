@@ -121,8 +121,8 @@ deux dernières étapes, sur un constat déjà calculé.
   prudente ; « à trancher » = décision ouverte, l'agent reste proposé. Catégorie **Fabrication** : questionnaire
   à créer, l'audit affiche « en préparation ». Ne rien trancher de ces points seul.
 - **Routage invisible** : métier → **catégorie** (10, agriculture exclue) →
-  **profil** (7 : Rendez-vous, Commerce, E-commerce, Restaurant, Artisan /
-  chantier, B2B / cycle long, Abonnement). Le dirigeant ne voit jamais la
+  **profil** (8 : Rendez-vous, Commerce, E-commerce, Restaurant, Artisan /
+  chantier, B2B / cycle long, Abonnement, **Location** — hébergement et location de véhicules, ajouté le 20 octobre). Le dirigeant ne voit jamais la
   catégorie. Table complète dans le document, partie 3.
 - **Lexique** par profil : une question, plusieurs formulations (demande,
   nouveau client, premier achat, capacité, client fidèle), une seule règle de
@@ -148,7 +148,7 @@ deux dernières étapes, sur un constat déjà calculé.
   historique.
 - **Assemblage en 5 couches** : (1) inscription, (2) socle de l'agent, (3) module
   catégorie, (4) module métier — 5 questions maximum —, (5) filtre taille
-  (seul / 2 à 5 / 6 et plus). **Questions déclencheuses** (D01 à D27) qui ouvrent
+  (seul / 2 à 5 / 6 et plus). **Questions déclencheuses** (D01 à D65) qui ouvrent
   ou masquent des blocs. Le questionnaire est assemblé selon le profil ; seul
   l'assemblage est automatique.
 - Durée visée : **1 h à 1 h 15 par agent**. **Jamais à faire d'une traite** :
@@ -248,9 +248,9 @@ un renvoi est un **aperçu** de l'agent manquant, avec ajout en un clic.
 | Agent | Sa question | Contenu |
 |---|---|---|
 | Acquisition & CA | Quels leviers comblent l'écart à l'objectif ? | 23 thèmes en 5 étapes ; reste factuel sur la communication |
-| Finance & Rentabilité | L'objectif est-il rentable et finançable ? | 45 thèmes dont un bloc Stock de 9 ; 13 scénarios ; jamais fiscalité ni comptabilité |
-| RH & Organisation | L'organisation peut-elle porter l'objectif ? | 40 thèmes en 8 blocs ; verdict Oui / Sous conditions / Pas en l'état ; jamais droit du travail |
-| Comm & Création de contenu | La présence en ligne génère-t-elle assez de contacts ? | 54 thèmes en 8 groupes ; deux parcours (amélioration, mise en place) ; qualité notée sur une grille fixe de 6 critères ; pas proposé aux professions réglementées |
+| Finance & Rentabilité | L'objectif est-il rentable et finançable ? | 48 thèmes dont un bloc Stock de 9 ; 13 scénarios ; jamais fiscalité ni comptabilité |
+| RH & Organisation | L'organisation peut-elle porter l'objectif ? | 49 thèmes en 8 blocs ; verdict Oui / Sous conditions / Pas en l'état ; jamais droit du travail |
+| Comm & Création de contenu | La présence en ligne génère-t-elle assez de contacts ? | 61 thèmes en 8 groupes ; deux parcours (amélioration, mise en place) ; qualité notée sur une grille fixe de 6 critères ; pas proposé aux professions réglementées |
 
 Agents nommés par leur fonction, **sans prénom ni personnage**.
 
@@ -294,13 +294,13 @@ par un script de contrôle (code, nature, règle ; pas de doublon avec le socle 
 budget de questions ; au moins 2 questions par thème noté ; lexique complet).
 Secteur pilote : agence immobilière indépendante (transaction), agent
 Acquisition. Fichiers de travail : `CAXE_Themes_Chiffres_4_agents_8.xlsx`
-(version du 14 octobre : 162 thèmes, données, croisements, scénarios, déclencheurs,
+(version du 20 octobre, « 11 » : 181 thèmes, données, croisements, scénarios, déclencheurs,
 lexique des 4 agents) et `CAXE_Questionnaire_Grille_Pilote.xlsx` (**pas encore
 dans le dépôt**; il utilise encore les types A / B / C : ne pas les reprendre
 tels quels).
 
-**Fichiers de données (dossier `data/`)** : `themes.json` (162 thèmes), `donnees-*.json`
-(792 données, par agent), `croisements.json` (157), `scenarios.json` (13),
+**Fichiers de données (dossier `data/`)** : `themes.json` (181 thèmes), `donnees-*.json`
+(895 données, par agent), `croisements.json` (157), `scenarios.json` (13),
 `diagnostic-comm.json` (14 problèmes), `declencheurs.json` (27), `lexique.json`,
 `regles-affichage.json` (conditions d'affichage, masquages de thèmes et réponses attendues des
 déclencheurs, **écrit à la main** d'après le classeur ; le contrôle échoue si une condition du classeur n'y a pas
@@ -390,18 +390,26 @@ brouillon à valider ; l'IA du rapport choisit parmi ces actions pour obtenir un
 sourcé »), le calcul du montant en jeu (formules des croisements encore en texte libre), l'effet de l'ensemble par recalcul de la chaîne,
 l'affichage dans le rapport, la mise à jour périodique. Clé requise : `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt).
 
-**Banque de questions des 4 agents (20 octobre)** : `data/banque/questions.json` contient **385 questions écrites** par le propriétaire
-(Acquisition 126, Finance 104, RH 98, Comm 57), importées de la page « Banque de questions » (HTML, 519 questions) ou du classeur Excel par
-`python3 scripts/importer-banque.py <fichier> --ecarter-inconnues` (l'import contrôle chaque ligne et reporte l'onglet Lexique dans `data/lexique.json`
-pour les 7 profils ; une question dont la donnée est « partagée » se pose comme une donnée demandée). **134 questions sont mises de côté** dans
-`data/banque/en-attente.json`, avec leur raison, et reprises automatiquement dès que le classeur des 4 agents contient la donnée comme « Demandée » :
-103 données absentes du classeur (19 thèmes à créer : FIN-46 à 48, RH-41 à 49, COM-55 à 61, plus des données dans des thèmes existants, dont les
-ACQ-11.31 à 11.37 du profil location) et 31 données « Importées » (avis, fiche Google, visites du site, paniers abandonnés… : le dirigeant les saisit tant
-que rien n'est connecté). La liste exacte est dans `docs/Ajouts_au_classeur_des_4_agents.xlsx`. 14 réponses de la banque s'écartent du format du classeur
-(par exemple « Plusieurs champs » là où le classeur dit « Nombre ») : avertissement du contrôle, la banque l'emporte. Le classeur « 10 » reçu le 19 octobre
-est identique au « 8 » : **il manque toujours le classeur des 4 agents mis à jour** (thèmes, données, natures de notation, croisements des nouveaux
-thèmes ; 17 canaux de D03 ; bloc Stock et questions devis ouverts à tous ; ACQ-17.01 calculée ; lexique par métier et profil « location » : les 10 lexiques
-propres à un métier ne sont pas branchés).
+**Banque de questions des 4 agents et classeur « 11 » (20 octobre)** : `data/banque/questions.json` contient **519 questions écrites** par le propriétaire
+(page « Banque de questions », importée par `python3 scripts/importer-banque.py <fichier> --ecarter-inconnues`), toutes rattachées à une donnée « Demandée » ou
+« Partagée » du classeur : `data/banque/en-attente.json` n'existe plus. Le **classeur « 11 »** (`CAXE_Themes_Chiffres_4_agents_11.xlsx`, onglet « Modifications 20 oct. ») est
+importé : 181 thèmes (19 nouveaux : FIN-46 à 48, RH-41 à 49, COM-55 à 61), 65 déclencheurs, 157 croisements, 895 données. **La nature et l'impact des 19 thèmes nouveaux sont des
+propositions du classeur, à valider par le propriétaire.** Le lexique vient du classeur seul (`--reporter-lexique` n'est plus nécessaire) : colonne « Clé dans les questions » (champ `cle`
+de `lexique.json` quand elle diffère de la clé dérivée du mot), colonne **Location** (8e profil) et 10 lexiques par métier (champ `metiers` de `lexique.json`, **pas encore branchés au
+moteur**). Le contrôle (`npm run donnees:controle`) compare la réponse de la banque au format du classeur (avertissement, la banque l'emporte).
+
+**Règles d'affichage du classeur 11 (construit)** : une condition peut lire **la réponse à une donnée** (`ACQ-10.06`, `FIN-10.01#retours_par_mois`, `RH-32.01#demission.departs`),
+avec l'opérateur `plus_de` et des blocs imbriqués `tous` / `un` ; `D30` (« avant la première création de contenu ») vaut toujours « non » pendant l'audit (les données COM-57
+se posent à la première création de contenu, pas pendant l'audit). Une règle vaut vrai, faux ou **en attente** (réponse manquante : la question attend). **Déclencheurs dérivés** : D03, D17, D21, D22,
+D23, D24 et D26 sont la réponse à une question de la banque (forme `reponse_donnee` : D03 → ACQ-03.01, D17 → ACQ-18.02, D21 → COM-10.07, D22 → COM-10.08, D23 → COM-13.10,
+D24 → COM-15.12, D26 → COM-39.07) : on ne les pose plus au cadrage, la question se pose dans le questionnaire, et l'écran recalcule les questions à poser après sa réponse.
+Les exclusions des professions réglementées s'appliquent aux options de la donnée (ACQ-03.01 : `publicite_en_ligne`, `publicite_locale`, `prospection`, `partenaires`) ; les nouveaux canaux
+(emailing et SMS, réseaux d'affaires, annuaires, appels d'offres…) ne sont **pas tranchés** pour ces professions. FIN-05.02 reste « à préciser ». Le texte libre accepte 8 000 caractères (COM-44.04).
+**Profil location** : les métiers Hôtel, Camping, Gîte, Chambre d'hôtes et Location de véhicules sont routés vers ce seul profil (`profilsImposes` dans `routage.json`, posé par
+`scripts/ecrire-routage-metiers.py`) ; ACQ-11.31 à 11.37 ne sont posées qu'à lui. **À confirmer** : un hôtel avec restaurant garde-t-il aussi le profil Restaurant ?
+**Calculs à écrire (absents du classeur, rien n'est inventé)** : ACQ-11.38 taux d'occupation, ACQ-11.39 prix moyen d'une unité vendue, ACQ-11.40 CA perdu par mois, un croisement
+location en miroir de XA34, les couverts par mois (ACQ-11.07 × ACQ-11.09 × 4,33), les nombres par canal (ACQ-02.01 × ACQ-03.02 et ACQ-11.01 × ACQ-03.03), les calculs du funnel Comm
+(COM-58.03, COM-61.03, COM-39.06) et les formules et croisements des 19 thèmes nouveaux.
 
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),

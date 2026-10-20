@@ -9,7 +9,8 @@ import { chargerDepuisDisque } from "../src/lib/donnees/disque.ts";
 import { router } from "../src/lib/routage.ts";
 import { assemblerQuestionnaire, equivalences, type Assemblage } from "../src/lib/audit/assemblage.ts";
 import { constaterAgent } from "../src/lib/moteur/constat.ts";
-import { moisMinimumDExistence } from "../src/lib/audit/affichage.ts";
+import { cleDeDonnee, clesDeLaRegle, moisMinimumDExistence } from "../src/lib/audit/affichage.ts";
+import { proposerSpec, type ReponseSpec } from "../src/lib/donnees/reponse-spec.ts";
 import type { Reponses } from "../src/lib/audit/reponse.ts";
 import type { CodeAgent, ProfilId } from "../src/lib/donnees/schemas.ts";
 
@@ -18,15 +19,61 @@ const AGENTS: CodeAgent[] = ["ACQUISITION_CA", "FINANCE_RENTABILITE", "RH_ORGANI
 const TAILLES = ["seul", "equipe_2_5", "structure_6_plus"] as const;
 const saisie = (valeur: string | string[]) => ({ genre: "saisie" as const, valeur });
 
-// Une réponse valide pour chaque déclencheur, selon son format : « tout oui », « tout non ».
-function reponsesDeclencheurs(mode: "oui" | "non" | "vide"): Reponses {
-  if (mode === "vide") return {};
+// Réponse « oui » (valeur qui ouvre) ou « non » (valeur qui ferme) selon la forme d'une réponse.
+function valeurSelonSpec(spec: ReponseSpec | null, mode: "oui" | "non" | "autre"): { genre: "saisie"; valeur: string | string[] } | { genre: "exact"; valeur: number } | null {
+  if (!spec) return null;
+  switch (spec.type) {
+    case "nombre": return { genre: "exact", valeur: mode === "non" ? 0 : 1000 };
+    case "oui_non": return saisie(mode === "non" ? "non" : "oui");
+    // « autre » prend le deuxième choix : certaines questions ouvrent un bloc pour une réponse du milieu (« ça s'est mal passé »).
+    case "choix": return saisie(mode === "oui" ? spec.options[0].id : mode === "autre" ? spec.options[Math.min(1, spec.options.length - 1)].id : spec.options[spec.options.length - 1].id);
+    case "cases": return saisie(mode === "non" ? [] : spec.options.map((o) => o.id));
+    default: return null;
+  }
+}
+
+// Les questions de la banque dont la réponse tient lieu de déclencheur ou que les règles d'affichage lisent
+// (D03 → ACQ-03.01, « FIN-10.01#retours_par_mois »…) : répondues « oui » ou « non » comme les déclencheurs.
+function reponsesDonneesLues(mode: "oui" | "non" | "autre"): Reponses {
   const r: Reponses = {};
+  const specDe = (code: string): ReponseSpec | null => {
+    const q = reel.banque.find((x) => x.donnee === code)?.reponse;
+    if (q) return q;
+    const d = reel.donnees.find((x) => x.code === code);
+    const p = d ? proposerSpec(d.format) : null;
+    return p && p.certitude === "sure" ? p.spec : null;
+  };
+  const cles = new Set<string>();
+  for (const regle of [...Object.values(reel.reglesAffichage.conditions), ...Object.values(reel.reglesAffichage.masquages)]) clesDeLaRegle(regle).forEach((c) => cles.add(c));
+  for (const f of Object.values(reel.reglesAffichage.declencheurs)) if (f.type === "reponse_donnee") cles.add(f.donnee);
+  const valeurs = new Map<string, Record<string, number | string | boolean>>();
+  for (const cle of cles) {
+    const dn = cleDeDonnee(cle);
+    if (!dn) continue;
+    if (!dn.chemin) {
+      const v = valeurSelonSpec(specDe(dn.donnee), mode);
+      if (v) r[dn.donnee] = v;
+      continue;
+    }
+    // Un champ d'une question à plusieurs champs ou d'un tableau : on suppose un nombre (les règles testent « plus de 0 »).
+    const dejaLa = valeurs.get(dn.donnee) ?? {};
+    dejaLa[dn.chemin] = mode === "non" ? 0 : 1000;
+    valeurs.set(dn.donnee, dejaLa);
+  }
+  for (const [donnee, v] of valeurs) r[donnee] = { genre: "valeurs", valeurs: v };
+  return r;
+}
+
+// Une réponse valide pour chaque déclencheur, selon son format : « tout oui », « tout non ».
+function reponsesDeclencheurs(mode: "oui" | "non" | "autre" | "vide"): Reponses {
+  if (mode === "vide") return {};
+  const r: Reponses = reponsesDonneesLues(mode);
   for (const [code, f] of Object.entries(reel.reglesAffichage.declencheurs)) {
-    if (f.type === "oui_non") r[code] = saisie(mode);
-    else if (f.type === "cases") r[code] = saisie(mode === "oui" ? f.options.map((o) => o.id) : []);
-    else if (f.type === "choix") r[code] = saisie(mode === "oui" ? f.options[0].id : f.options[f.options.length - 1].id);
-    else for (const s of f.sousCles) r[s.cle ? `${code}.${s.cle}` : code] = saisie(mode);
+    const oui = mode !== "non";
+    if (f.type === "oui_non") r[code] = saisie(oui ? "oui" : "non");
+    else if (f.type === "cases") r[code] = saisie(oui ? f.options.map((o) => o.id) : []);
+    else if (f.type === "choix") r[code] = saisie(oui ? f.options[0].id : f.options[f.options.length - 1].id);
+    else if (f.type === "oui_non_multiple") for (const s of f.sousCles) r[s.cle ? `${code}.${s.cle}` : code] = saisie(oui ? "oui" : "non");
   }
   return r;
 }
@@ -123,7 +170,7 @@ test("balayage : chaque donnée demandée est posable pour au moins un profil, u
   for (const agent of AGENTS) {
     for (const profils of profilsPossibles.values()) {
       for (const taille of TAILLES) {
-        for (const jeu of ["oui", "non"] as const) {
+        for (const jeu of ["oui", "non", "autre"] as const) {
           const a = assemblerQuestionnaire(reel, { agent, profils, taille, niveau: "approfondi", reponses: reponsesDeclencheurs(jeu) });
           a.themes.forEach((t) => t.questions.forEach((q) => atteintes.add(q.code)));
         }
@@ -131,7 +178,8 @@ test("balayage : chaque donnée demandée est posable pour au moins un profil, u
     }
   }
   const inatteignables = reel.donnees
-    .filter((d) => (d.mode === "demandee" || d.mode === "partagee") && !atteintes.has(d.code))
+    // D30 (« avant la première création de contenu ») vaut « non » pendant l'audit : le brief de création se pose plus tard.
+    .filter((d) => (d.mode === "demandee" || d.mode === "partagee") && !atteintes.has(d.code) && !d.condition?.startsWith("D30"))
     .map((d) => d.code);
   // Les données sans niveau, ou masquées par une règle « à préciser », sont listées par la campagne ; ici on exige zéro.
   assert.deepEqual(inatteignables, [], `Données jamais posables : ${inatteignables.join(", ")}`);

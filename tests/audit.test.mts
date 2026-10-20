@@ -208,7 +208,9 @@ test("sans réponse aux déclencheurs, l'assemblage demande d'abord ceux dont d�
   const codes = a.declencheursAPoser.map((d) => d.code);
   assert.ok(codes.includes("D05"), "rendez-vous");
   assert.ok(codes.includes("D06"), "devis");
-  assert.ok(codes.includes("D03"), "canaux");
+  // D03 (canaux) est la question ACQ-03.01 elle-même : elle se pose dans le questionnaire, pas au cadrage.
+  assert.ok(!codes.includes("D03"), "les canaux sont une question de la banque");
+  assert.ok(a.themes.some((t) => t.questions.some((q) => q.code === "ACQ-03.01")), "ACQ-03.01 est posée");
   assert.ok(!codes.includes("D02"), "l'effectif vient du compte");
   assert.ok(a.enAttente > 0);
   for (const d of a.declencheursAPoser) assert.ok(d.question.length > 0);
@@ -235,7 +237,7 @@ test("seul, l'agent RH masque les thèmes d'équipe et ne pose aucune question s
 });
 
 test("« ne publie pas » masque les thèmes de performance Comm (ex. réseaux actifs)", () => {
-  const a = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { D21: saisie("non") } }));
+  const a = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "COM-10.07": saisie("non_jamais") } }));
   assert.ok(a.themesMasques.some((t) => t.code === "COM-23"));
   // COM-10 est masqué pour qui ne publie pas, mais ses questions « si vous ne publiez pas encore » restent posées.
   const com10 = a.themes.find((t) => t.theme.code === "COM-10");
@@ -314,8 +316,10 @@ test("une réponse de déclencheur doit correspondre à ce qui est posé", () =>
   assert.equal(validerReponse(reel, "D07", saisie("oui")).ok, true);
   assert.equal(validerReponse(reel, "D07", saisie("peut-être")).ok, false);
   assert.equal(validerReponse(reel, "D07", { genre: "exact", valeur: 1 }).ok, false);
-  assert.equal(validerReponse(reel, "D03", saisie(["site", "salons"])).ok, true);
-  assert.equal(validerReponse(reel, "D03", saisie(["telepathie"])).ok, false);
+  // D03 est la question ACQ-03.01 : on y répond là, pas comme à un déclencheur du cadrage.
+  assert.equal(validerReponse(reel, "D03", saisie(["site_internet"])).ok, false);
+  assert.equal(validerReponse(reel, "ACQ-03.01", saisie(["site_internet", "salons_et_evenements"])).ok, true);
+  assert.equal(validerReponse(reel, "ACQ-03.01", saisie(["telepathie"])).ok, false);
   assert.equal(validerReponse(reel, "D13", saisie("prevu")).ok, true);
   assert.equal(validerReponse(reel, "D13", saisie("oui")).ok, false);
   assert.equal(validerReponse(reel, "D08.achats", saisie("non")).ok, true);
@@ -374,7 +378,7 @@ test("pour une profession réglementée, ni publicité payante, ni prospection, 
   assert.ok(ex);
   assert.equal(exclusionsAcquisition(reel.routage, ELECTRICIEN), null);
   const tous: Reponses = Object.fromEntries(reel.declencheurs.map((d) => [d.code, saisie("oui")]));
-  tous.D03 = saisie(["bouche_a_oreille", "publicite", "prospection", "partenaires", "site"]);
+  tous["ACQ-03.01"] = saisie(["bouche_a_oreille", "publicite_en_ligne", "publicite_locale", "prospection", "partenaires", "site_internet"]);
   const base = { agent: "ACQUISITION_CA" as const, profils: ["b2b" as const], taille: "equipe_2_5" as const, niveau: "approfondi" as const, reponses: tous };
   const libre = assemblerQuestionnaire(reel, base);
   const regl = assemblerQuestionnaire(reel, { ...base, exclusions: ex });
@@ -382,11 +386,14 @@ test("pour une profession réglementée, ni publicité payante, ni prospection, 
   const codesCadrage = regl.declencheursConcernes.map((d) => d.code);
   assert.ok(!codesCadrage.includes("D04"), "pas de question sur la publicité payante");
   assert.ok(libre.declencheursConcernes.some((d) => d.code === "D04"));
-  const d03 = regl.declencheursConcernes.find((d) => d.code === "D03")!;
-  assert.ok(d03.forme.type === "cases");
-  const ids = d03.forme.type === "cases" ? d03.forme.options.map((o) => o.id) : [];
-  for (const interdit of ["publicite", "prospection", "partenaires"]) assert.ok(!ids.includes(interdit), interdit);
-  assert.ok(ids.includes("site") && ids.includes("bouche_a_oreille"));
+  // Les canaux sont la question ACQ-03.01 : les options écartées n'y figurent pas.
+  const canaux = regl.themes.flatMap((t) => t.questions).find((q) => q.code === "ACQ-03.01")!;
+  assert.ok(canaux.spec?.type === "cases");
+  const ids = canaux.spec?.type === "cases" ? canaux.spec.options.map((o) => o.id) : [];
+  for (const interdit of ["publicite_en_ligne", "publicite_locale", "prospection", "partenaires"]) assert.ok(!ids.includes(interdit), interdit);
+  assert.ok(ids.includes("site_internet") && ids.includes("bouche_a_oreille"));
+  const libreCanaux = libre.themes.flatMap((t) => t.questions).find((q) => q.code === "ACQ-03.01")!;
+  assert.ok(libreCanaux.spec?.type === "cases" && libreCanaux.spec.options.some((o) => o.id === "prospection"));
 
   const themes = regl.themes.map((t) => t.theme.code);
   assert.ok(!themes.includes("ACQ-04") && !themes.includes("ACQ-05"));
@@ -413,14 +420,14 @@ test("le serveur refuse à une profession réglementée les réponses qu'on ne l
   const ex = exclusionsAcquisition(reel.routage, AVOCAT);
   assert.ok(!validerReponse(reel, "D04", saisie("oui"), {}, ex).ok);
   assert.ok(validerReponse(reel, "D04", saisie("oui"), {}, null).ok);
-  assert.ok(!validerReponse(reel, "D03", saisie(["site", "publicite"]), {}, ex).ok);
-  assert.ok(validerReponse(reel, "D03", saisie(["site", "bouche_a_oreille"]), {}, ex).ok);
-  assert.ok(validerReponse(reel, "D03", saisie(["site", "publicite"]), {}, null).ok);
+  assert.ok(!validerReponse(reel, "ACQ-03.01", saisie(["site_internet", "publicite_en_ligne"]), {}, ex).ok);
+  assert.ok(validerReponse(reel, "ACQ-03.01", saisie(["site_internet", "bouche_a_oreille"]), {}, ex).ok);
+  assert.ok(validerReponse(reel, "ACQ-03.01", saisie(["site_internet", "publicite_en_ligne"]), {}, null).ok);
 });
 
 test("une réponse donnée avant l'exclusion (canal « publicité » coché) est ignorée à l'assemblage", () => {
   const ex = exclusionsAcquisition(reel.routage, AVOCAT);
-  const rep: Reponses = { ...Object.fromEntries(reel.declencheurs.map((d) => [d.code, saisie("oui")])), D03: saisie(["publicite", "site"]) };
+  const rep: Reponses = { ...Object.fromEntries(reel.declencheurs.map((d) => [d.code, saisie("oui")])), "ACQ-03.01": saisie(["publicite_en_ligne", "site_internet"]) };
   const a = assemblerQuestionnaire(reel, { agent: "ACQUISITION_CA", profils: ["b2b"], taille: "equipe_2_5", niveau: "approfondi", reponses: rep, exclusions: ex });
   const posees = a.themes.flatMap((t) => t.questions.map((q) => q.code));
   const dependantPub = reel.donnees.filter((d) => d.condition?.includes("D04")).map((d) => d.code);

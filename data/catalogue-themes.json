@@ -375,8 +375,8 @@
     "indicateurs": [
       {
         "id": "ACQ-14.01",
-        "libelle": "Part des ventes avec remise ou geste commercial",
-        "definition": "Part des ventes avec remise ou geste commercial",
+        "libelle": "Part des ventes avec remise ou geste commercial — déclencheur D35",
+        "definition": "Part des ventes avec remise ou geste commercial — déclencheur D35",
         "unite": "pourcent",
         "periode": "mois",
         "sens": "plus_bas_mieux",
@@ -1130,6 +1130,33 @@
     "indicateurs": []
   },
   {
+    "theme": "FIN-46",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Rémunération du dirigeant",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-47",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Cadre de l'activité",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-48",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Relation avec la banque",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
     "theme": "RH-01",
     "agent": "RH_ORGANISATION",
     "libelle": "Clarté des missions",
@@ -1529,6 +1556,87 @@
     "indicateurs": []
   },
   {
+    "theme": "RH-41",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Projet d'équipe",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-42",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Tâches à confier",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-43",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Moyens pour une première aide",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-44",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Freins",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-45",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Relais quand on est seul",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-46",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Composition de l'équipe",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-47",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Planning de l'équipe",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-48",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Objectifs individuels",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-49",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Encadrement",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
     "theme": "COM-01",
     "agent": "COMM_CREATION",
     "libelle": "Positionnement",
@@ -1675,7 +1783,7 @@
   {
     "theme": "COM-17",
     "agent": "COMM_CREATION",
-    "libelle": "Portée",
+    "libelle": "Funnel 1 · Être vu : portée",
     "nature": "coherence",
     "rechercheReference": false,
     "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
@@ -1684,7 +1792,7 @@
   {
     "theme": "COM-18",
     "agent": "COMM_CREATION",
-    "libelle": "Engagement",
+    "libelle": "Funnel 2 · Intéresser : réactions",
     "nature": "marche",
     "rechercheReference": true,
     "motif": null,
@@ -1712,7 +1820,7 @@
   {
     "theme": "COM-19",
     "agent": "COMM_CREATION",
-    "libelle": "Clic",
+    "libelle": "Funnel 4 · Passer à l'action : clics",
     "nature": "marche",
     "rechercheReference": true,
     "motif": null,
@@ -1767,7 +1875,7 @@
   {
     "theme": "COM-21",
     "agent": "COMM_CREATION",
-    "libelle": "Raison de laisser ses coordonnées",
+    "libelle": "Funnel 6 · Devenir un contact : offre gratuite",
     "nature": "pratique",
     "rechercheReference": false,
     "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
@@ -1776,7 +1884,7 @@
   {
     "theme": "COM-22",
     "agent": "COMM_CREATION",
-    "libelle": "Contacts entrants par la comm",
+    "libelle": "Funnel 6 · Devenir un contact : demandes venues des réseaux",
     "nature": "coherence",
     "rechercheReference": false,
     "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
@@ -1785,7 +1893,7 @@
   {
     "theme": "COM-23",
     "agent": "COMM_CREATION",
-    "libelle": "Réactivité aux messages",
+    "libelle": "Funnel 4 · Passer à l'action : messages privés",
     "nature": "marche",
     "rechercheReference": true,
     "motif": null,
@@ -1840,7 +1948,7 @@
   {
     "theme": "COM-27",
     "agent": "COMM_CREATION",
-    "libelle": "Répartition par intention",
+    "libelle": "Funnel 0 · Publications par étape",
     "nature": "pratique",
     "rechercheReference": false,
     "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
@@ -1949,7 +2057,7 @@
   {
     "theme": "COM-37",
     "agent": "COMM_CREATION",
-    "libelle": "Évolution de l'audience",
+    "libelle": "Funnel 1 · Être vu : évolution de l'audience",
     "nature": "coherence",
     "rechercheReference": false,
     "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
@@ -2140,6 +2248,69 @@
     "theme": "COM-54",
     "agent": "COMM_CREATION",
     "libelle": "Alignement avec la cible",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-55",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 3 · Visiter le profil : ce qu'il contient",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-56",
+    "agent": "COMM_CREATION",
+    "libelle": "Démarrage",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-57",
+    "agent": "COMM_CREATION",
+    "libelle": "Brief de création",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-58",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 0 · Le chemin prévu",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-59",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 3 · Visiter le profil",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-60",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 5 · Arriver au bon endroit",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-61",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 7 · Relancer les intéressés",
     "nature": "pratique",
     "rechercheReference": false,
     "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",

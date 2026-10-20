@@ -12,6 +12,15 @@ import { PREFIXE_AGENT, PROFILS, TAILLES } from "./schemas.ts";
 import type { CodeAgent, EnsembleDonnees } from "./schemas.ts";
 import { cleDuMot, variablesDuGabarit } from "./lexique.ts";
 import { proposerSpec } from "./reponse-spec.ts";
+import type { Regle, RegleSimple } from "./schemas.ts";
+import { cleDeDonnee } from "../audit/affichage.ts";
+
+function reglesSimples(r: Regle): RegleSimple[] {
+  if ("aPreciser" in r) return [];
+  if ("tous" in r) return r.tous.flatMap(reglesSimples);
+  if ("un" in r) return r.un.flatMap(reglesSimples);
+  return [r];
+}
 
 export type Rapport = {
   erreurs: string[];
@@ -185,8 +194,18 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     for (const t of exclut.themes) if (!themes.has(t)) erreurs.push(`Les exclusions réglementées citent un thème inconnu : ${t}.`);
     for (const [cle, ids] of Object.entries(exclut.optionsCadrage)) {
       const forme = e.reglesAffichage.declencheurs[cle];
-      if (!forme || forme.type !== "cases") erreurs.push(`Les exclusions réglementées citent des options pour ${cle}, qui n'est pas une question à cases.`);
-      else for (const id of ids) if (!forme.options.some((o) => o.id === id)) erreurs.push(`Les exclusions réglementées citent une option inconnue de ${cle} : ${id}.`);
+      // Un déclencheur qui est une question de la banque (D03 → ACQ-03.01) : les options sont celles de la donnée.
+      let options: { id: string }[] | null = null;
+      let enAttenteDeBanque = false;
+      if (forme?.type === "cases") options = forme.options;
+      else if (forme?.type === "reponse_donnee") {
+        const question = e.banque.find((q) => q.donnee === forme.donnee);
+        if (!question) enAttenteDeBanque = true;
+        else if (question.reponse?.type === "cases") options = question.reponse.options;
+      }
+      if (enAttenteDeBanque) continue;
+      if (!options) erreurs.push(`Les exclusions réglementées citent des options pour ${cle}, qui n'est pas une question à cases.`);
+      else for (const id of ids) if (!options.some((o) => o.id === id)) erreurs.push(`Les exclusions réglementées citent une option inconnue de ${cle} : ${id}.`);
     }
   }
 
@@ -236,8 +255,24 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
       avertissements.push(`Règle à préciser (« ${nom} ») : ${r.aPreciser}`);
       continue;
     }
-    for (const simple of "tous" in r ? r.tous : "un" in r ? r.un : [r]) {
-      if (!clesDeclencheurs.has(simple.cle)) erreurs.push(`La règle « ${nom} » porte sur une réponse inconnue : ${simple.cle}.`);
+    for (const simple of reglesSimples(r)) {
+      if (clesDeclencheurs.has(simple.cle) || simple.cle === "D30") continue;
+      // Réponse à une donnée (déclencheur dérivé) : la donnée existe, est posée, et le champ visé existe.
+      const dn = cleDeDonnee(simple.cle);
+      const donnee = dn ? donnees.get(dn.donnee) : undefined;
+      if (!dn || !donnee || (donnee.mode !== "demandee" && donnee.mode !== "partagee")) {
+        erreurs.push(`La règle « ${nom} » porte sur une réponse inconnue : ${simple.cle}.`);
+        continue;
+      }
+      // Tant que la question n'est pas écrite dans la banque, le champ ne peut pas être vérifié (les questions manquantes sont comptées à part).
+      const questionBanque = e.banque.find((q) => q.donnee === dn.donnee);
+      if (dn.chemin !== null && questionBanque) {
+        const spec = questionBanque.reponse;
+        const champs = new Set<string>();
+        if (spec?.type === "composite") for (const c of spec.champs) champs.add(c.id);
+        if (spec?.type === "tableau" && spec.lignes.source === "fixe") for (const l of spec.lignes.items) for (const c of spec.colonnes) champs.add(`${l.id}.${c.id}`);
+        if (!champs.has(dn.chemin)) erreurs.push(`La règle « ${nom} » vise le champ ${dn.chemin} de ${dn.donnee}, qui n'existe pas dans la banque.`);
+      }
     }
   }
 

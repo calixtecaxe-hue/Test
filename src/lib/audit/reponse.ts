@@ -28,13 +28,13 @@ export const reponseSchema = z.discriminatedUnion("genre", [
   // ne s'y appliquent pas, la valeur est gardée telle quelle.
   z.object({
     genre: z.literal("saisie"),
-    valeur: z.union([z.string().max(2000), z.boolean(), z.array(z.string().max(200)).max(50)]),
+    valeur: z.union([z.string().max(8000), z.boolean(), z.array(z.string().max(200)).max(50)]),
   }),
   // Plusieurs valeurs (plusieurs champs, ou un tableau : « ligne.colonne » → valeur).
   z.object({
     genre: z.literal("valeurs"),
     valeurs: z
-      .record(z.string().max(100), z.union([z.number().finite(), z.string().max(2000), z.boolean(), z.array(z.string().max(200)).max(50), z.null()]))
+      .record(z.string().max(100), z.union([z.number().finite(), z.string().max(8000), z.boolean(), z.array(z.string().max(200)).max(50), z.null()]))
       .refine((v) => Object.keys(v).length <= 400, { message: "Trop de valeurs." }),
   }),
 ]);

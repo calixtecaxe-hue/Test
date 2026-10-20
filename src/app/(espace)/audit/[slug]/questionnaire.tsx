@@ -93,7 +93,9 @@ export function Questionnaire({
   masques,
   manquantes,
   libellesLignes,
+  donneesLues,
 }: {
+  donneesLues: string[];
   declencheurs: DeclencheurClient[];
   themes: ThemeClient[];
   reponsesInitiales: Reponses;
@@ -125,6 +127,8 @@ export function Questionnaire({
   async function enregistrerQuestion(cle: string, r: Reponse | null, rapide = false): Promise<string | null> {
     const e = await enregistrerReponse(cle, r, rapide);
     if (!e) setReponses((x) => ({ ...x, [cle]: r ?? undefined }));
+    // Une question dont la réponse ouvre d'autres questions : l'écran recalcule ce qui reste à poser.
+    if (!e && donneesLues.includes(cle)) router.refresh();
     return e;
   }
 

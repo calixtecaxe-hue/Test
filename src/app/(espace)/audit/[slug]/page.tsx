@@ -10,7 +10,7 @@ import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { assemblerQuestionnaire, compterQuestions } from "@/lib/audit/assemblage";
 import { specDeLaDonnee } from "@/lib/audit/validation";
 import { exclusionsAcquisition } from "@/lib/routage";
-import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
+import { ancienneteEnMois, cleDeDonnee, clesDeLaRegle, donneeDuDeclencheur, tailleDepuisEffectif } from "@/lib/audit/affichage";
 import { reponsesDuCompte } from "@/lib/audit/compte";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
 import { ObjectifFormulaire } from "./objectif-formulaire";
@@ -98,6 +98,12 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
       ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()),
       exclusions: exclusionsAcquisition(ENSEMBLE.routage, utilisateur),
     });
+    // Un tableau dont les lignes viennent d'un déclencheur qui est lui-même une question (D03 → ACQ-03.01) lit la réponse à cette question.
+    const lignesDeLaDonnee = (spec: typeof a.themes[number]["questions"][number]["spec"]) => {
+      if (spec?.type !== "tableau" || spec.lignes.source !== "declencheur") return spec;
+      const donnee = donneeDuDeclencheur(ENSEMBLE.reglesAffichage, spec.lignes.cle);
+      return donnee ? { ...spec, lignes: { source: "declencheur" as const, cle: donnee } } : spec;
+    };
     const themes: ThemeClient[] = a.themes.map((t) => ({
       code: t.theme.code,
       nom: t.theme.nom,
@@ -109,7 +115,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
         aide: q.aide,
         repli: q.repli,
         format: q.format,
-        spec: q.spec,
+        spec: lignesDeLaDonnee(q.spec),
         quatreReponses: q.quatreReponses,
         dejaPosee: q.dejaPosee,
         source: q.dejaPoseeDans
@@ -122,15 +128,32 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
       })),
     }));
     // Seules les réponses utiles à cet écran partent au navigateur.
-    const cles = new Set<string>([...a.declencheursConcernes.flatMap((d) => Object.keys(reponses).filter((c) => c === d.code || c.startsWith(`${d.code}.`))), ...themes.flatMap((t) => t.questions.flatMap((q) => [q.code, ...(q.source ? [q.source.code] : []), ...(q.spec?.type === "tableau" && q.spec.lignes.source === "donnee" ? [q.spec.lignes.code] : [])]))]);
+    const cles = new Set<string>([...a.declencheursConcernes.flatMap((d) => Object.keys(reponses).filter((c) => c === d.code || c.startsWith(`${d.code}.`))), ...themes.flatMap((t) => t.questions.flatMap((q) => [q.code, ...(q.source ? [q.source.code] : []), ...(q.spec?.type === "tableau" && q.spec.lignes.source === "donnee" ? [q.spec.lignes.code] : []), ...(q.spec?.type === "tableau" && q.spec.lignes.source === "declencheur" ? [q.spec.lignes.cle] : [])]))]);
     const reponsesEcran = Object.fromEntries(Object.entries(reponses).filter(([c]) => cles.has(c)));
     // Noms des canaux, réseaux… cochés au cadrage, pour nommer les lignes des tableaux.
     const libellesLignes: Record<string, Record<string, string>> = {};
     for (const [code, f] of Object.entries(ENSEMBLE.reglesAffichage.declencheurs)) {
       if (f.type === "cases") libellesLignes[code] = Object.fromEntries(f.options.map((o) => [o.id, o.libelle]));
+      // Déclencheur qui est une question de la banque : les libellés sont ceux de ses cases, sous le code de la donnée.
+      if (f.type === "reponse_donnee") {
+        const spec = specDeLaDonnee(ENSEMBLE, f.donnee).spec;
+        if (spec?.type === "cases") libellesLignes[f.donnee] = Object.fromEntries(spec.options.map((o) => [o.id, o.libelle]));
+      }
     }
+    // Questions dont la réponse ouvre ou ferme d'autres questions (D03 → ACQ-03.01, « FIN-10.01#retours_par_mois »…) :
+    // après leur enregistrement, l'écran recalcule les questions à poser.
+    const donneesLues = new Set<string>();
+    const regles = ENSEMBLE.reglesAffichage;
+    for (const r of [...Object.values(regles.conditions), ...Object.values(regles.masquages)]) {
+      for (const c of clesDeLaRegle(r)) {
+        const dn = cleDeDonnee(c);
+        if (dn) donneesLues.add(dn.donnee);
+      }
+    }
+    for (const f of Object.values(regles.declencheurs)) if (f.type === "reponse_donnee") donneesLues.add(f.donnee);
     corps = (
       <Questionnaire
+        donneesLues={[...donneesLues]}
         declencheurs={a.declencheursConcernes.map((d) => ({ code: d.code, question: d.question, forme: d.forme }))}
         themes={themes}
         reponsesInitiales={reponsesEcran}

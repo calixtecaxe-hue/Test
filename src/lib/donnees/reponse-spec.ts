@@ -41,7 +41,7 @@ const nombre = z.object({
 });
 const ouiNon = z.object({ type: z.literal("oui_non") });
 const choix = z.object({ type: z.literal("choix"), options: z.array(option).min(2).max(20) });
-const texte = z.object({ type: z.literal("texte"), max: z.number().int().positive().max(2000).optional() });
+const texte = z.object({ type: z.literal("texte"), max: z.number().int().positive().max(8000).optional() });
 const dateMois = z.object({ type: z.literal("date_mois") });
 
 // Un champ isolé (réponse simple) ou une colonne / un champ d'une réponse composée.

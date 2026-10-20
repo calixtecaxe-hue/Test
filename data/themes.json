@@ -1088,6 +1088,54 @@
     "masquePour": "Sans stock"
   },
   {
+    "code": "FIN-46",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Marges et rentabilité",
+    "nom": "Rémunération du dirigeant",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-47",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Pilotage",
+    "nom": "Cadre de l'activité",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-48",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Financement",
+    "nom": "Relation avec la banque",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
     "code": "RH-01",
     "agent": "RH_ORGANISATION",
     "bloc": "Rôles et délégation",
@@ -1728,6 +1776,150 @@
     "masquePour": null
   },
   {
+    "code": "RH-41",
+    "agent": "RH_ORGANISATION",
+    "bloc": "S'entourer (dirigeant seul)",
+    "nom": "Projet d'équipe",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Au moins un salarié"
+  },
+  {
+    "code": "RH-42",
+    "agent": "RH_ORGANISATION",
+    "bloc": "S'entourer (dirigeant seul)",
+    "nom": "Tâches à confier",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Au moins un salarié"
+  },
+  {
+    "code": "RH-43",
+    "agent": "RH_ORGANISATION",
+    "bloc": "S'entourer (dirigeant seul)",
+    "nom": "Moyens pour une première aide",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Demandes perdues partagées avec ACQ-22 (posées une seule fois)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Au moins un salarié"
+  },
+  {
+    "code": "RH-44",
+    "agent": "RH_ORGANISATION",
+    "bloc": "S'entourer (dirigeant seul)",
+    "nom": "Freins",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Au moins un salarié"
+  },
+  {
+    "code": "RH-45",
+    "agent": "RH_ORGANISATION",
+    "bloc": "S'entourer (dirigeant seul)",
+    "nom": "Relais quand on est seul",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Au moins un salarié"
+  },
+  {
+    "code": "RH-46",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Rôles et délégation",
+    "nom": "Composition de l'équipe",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Partagé avec ACQ-21 (posé une seule fois)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-47",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Charge et planification",
+    "nom": "Planning de l'équipe",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-48",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Management",
+    "nom": "Objectifs individuels",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-49",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Management",
+    "nom": "Encadrement",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Moins de 6 personnes"
+  },
+  {
     "code": "COM-01",
     "agent": "COMM_CREATION",
     "bloc": "Identité et offre",
@@ -1987,7 +2179,7 @@
     "code": "COM-17",
     "agent": "COMM_CREATION",
     "bloc": "De la publication au contact",
-    "nom": "Portée",
+    "nom": "Funnel 1 · Être vu : portée",
     "nature": "coherence",
     "impact": {
       "type": "chiffre",
@@ -2003,7 +2195,7 @@
     "code": "COM-18",
     "agent": "COMM_CREATION",
     "bloc": "De la publication au contact",
-    "nom": "Engagement",
+    "nom": "Funnel 2 · Intéresser : réactions",
     "nature": "marche",
     "impact": {
       "type": "chiffre",
@@ -2019,7 +2211,7 @@
     "code": "COM-19",
     "agent": "COMM_CREATION",
     "bloc": "De la publication au contact",
-    "nom": "Clic",
+    "nom": "Funnel 4 · Passer à l'action : clics",
     "nature": "marche",
     "impact": {
       "type": "chiffre",
@@ -2051,7 +2243,7 @@
     "code": "COM-21",
     "agent": "COMM_CREATION",
     "bloc": "De la publication au contact",
-    "nom": "Raison de laisser ses coordonnées",
+    "nom": "Funnel 6 · Devenir un contact : offre gratuite",
     "nature": "pratique",
     "impact": {
       "type": "chiffre",
@@ -2067,7 +2259,7 @@
     "code": "COM-22",
     "agent": "COMM_CREATION",
     "bloc": "De la publication au contact",
-    "nom": "Contacts entrants par la comm",
+    "nom": "Funnel 6 · Devenir un contact : demandes venues des réseaux",
     "nature": "coherence",
     "impact": {
       "type": "chiffre",
@@ -2083,7 +2275,7 @@
     "code": "COM-23",
     "agent": "COMM_CREATION",
     "bloc": "De la publication au contact",
-    "nom": "Réactivité aux messages",
+    "nom": "Funnel 4 · Passer à l'action : messages privés",
     "nature": "marche",
     "impact": {
       "type": "chiffre",
@@ -2147,7 +2339,7 @@
     "code": "COM-27",
     "agent": "COMM_CREATION",
     "bloc": "Stratégie de contenu",
-    "nom": "Répartition par intention",
+    "nom": "Funnel 0 · Publications par étape",
     "nature": "pratique",
     "impact": {
       "type": "qualifie",
@@ -2307,7 +2499,7 @@
     "code": "COM-37",
     "agent": "COMM_CREATION",
     "bloc": "Performance",
-    "nom": "Évolution de l'audience",
+    "nom": "Funnel 1 · Être vu : évolution de l'audience",
     "nature": "coherence",
     "impact": {
       "type": "qualifie",
@@ -2587,6 +2779,118 @@
     },
     "chiffreNecessaire": "non",
     "dejaConnu": "Grille fixe appliquée aux 10 dernières publications",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-55",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 3 · Visiter le profil : ce qu'il contient",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-56",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Démarrage",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-57",
+    "agent": "COMM_CREATION",
+    "bloc": "Production",
+    "nom": "Brief de création",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-58",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 0 · Le chemin prévu",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-59",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 3 · Visiter le profil",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-60",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 5 · Arriver au bon endroit",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-61",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 7 · Relancer les intéressés",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
     "methodeVolume": null,
     "siInconnu": null,
     "masquePour": "Ne publie pas (parcours mise en place)"
