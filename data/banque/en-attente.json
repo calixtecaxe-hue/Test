@@ -1,29 +1,276 @@
 [
   {
-    "donnee": "ACQ-11.31",
-    "texte": "Sur les 12 derniers mois, combien de {unites_vendues} avez-vous au total ?",
-    "aide": "Chaque chambre, emplacement ou véhicule loué une nuit ou une journée compte pour 1. Votre logiciel de réservation donne ce chiffre.",
+    "donnee": "ACQ-06.01",
+    "texte": "Sur votre fiche Google, combien d'avis avez-vous, quelle est votre note, et combien d'avis avez-vous reçus sur les 6 derniers mois ?",
+    "aide": "Recopiez ce qui est affiché sur votre fiche.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "avis_au_total",
+          "libelle": "Avis au total",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "note_sur_5",
+          "libelle": "Note sur 5",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre",
+            "min": 0,
+            "max": 5
+          }
+        },
+        {
+          "id": "avis_recus_sur_les_6_derniers_mois",
+          "libelle": "Avis reçus sur les 6 derniers mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "ACQ-06.04",
+    "texte": "Sur les 3 derniers mois, combien de personnes ont vu votre fiche Google, et combien ont cliqué pour vous appeler, venir ou aller sur votre site ?",
+    "aide": "Google vous donne ces 4 chiffres : cherchez le nom de votre entreprise sur Google en étant connecté à votre compte, cliquez sur « Performances », choisissez les 3 derniers mois, puis notez les totaux.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "vues_de_votre_fiche",
+          "libelle": "Vues de votre fiche",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "appels",
+          "libelle": "Appels",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "demandes_d_itineraire",
+          "libelle": "Demandes d'itinéraire",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "clics_vers_votre_site",
+          "libelle": "Clics vers votre site",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "ACQ-06.12",
+    "texte": "Depuis votre fiche Google, que peut faire un client sans passer par votre site ?",
+    "aide": "Regardez votre fiche comme un client : sur votre téléphone, cherchez votre entreprise sur Google et notez les boutons qui apparaissent.",
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "vous_appeler",
+          "libelle": "Vous appeler"
+        },
+        {
+          "id": "prendre_rendez_vous_ou_reserver_en_ligne",
+          "libelle": "Prendre rendez-vous ou réserver en ligne"
+        },
+        {
+          "id": "voir_vos_services_et_vos_prix",
+          "libelle": "Voir vos services et vos prix"
+        },
+        {
+          "id": "voir_vos_produits_ou_votre_menu",
+          "libelle": "Voir vos produits ou votre menu"
+        },
+        {
+          "id": "rien_de_tout_cela",
+          "libelle": "Rien de tout cela"
+        }
+      ],
+      "minChoix": 1
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-06.13",
+    "texte": "Sur les 3 derniers mois, quels mots les gens ont-ils tapés sur Google pour trouver votre fiche ?",
+    "aide": "Dans « Performances », la partie « Recherches » donne ces mots : recopiez les 5 premiers avec leur nombre de recherches.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "libre",
+        "max": 5
+      },
+      "colonnes": [
+        {
+          "id": "nombre_de_recherches",
+          "libelle": "Nombre de recherches",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-06.07",
+    "texte": "En moyenne sur les 3 derniers mois, combien de visites votre site reçoit-il par mois ?",
+    "aide": "Votre outil de statistiques l'indique : Google Analytics ou celui de votre créateur de site.",
     "repli": null,
     "reponse": {
       "type": "nombre",
       "unite": "nombre",
       "min": 0
-    }
+    },
+    "raison": "donnee_importee"
   },
   {
-    "donnee": "ACQ-11.32",
-    "texte": "Combien de {unites_a_louer} louez-vous ?",
+    "donnee": "ACQ-06.06",
+    "texte": "Quand on cherche votre métier dans votre ville sur Google, combien d'avis ont les 2 concurrents qui sortent en premier, et quelle est leur note ?",
+    "aide": "Par exemple « plombier Nantes », sans compter votre entreprise. Avant d'appeler, un client compare vos étoiles et votre nombre d'avis aux leurs : leurs chiffres servent à fixer votre objectif d'avis.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "concurrent_1",
+            "libelle": "Concurrent 1"
+          },
+          {
+            "id": "concurrent_2",
+            "libelle": "Concurrent 2"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "nom",
+          "libelle": "Nom",
+          "spec": {
+            "type": "texte"
+          }
+        },
+        {
+          "id": "avis",
+          "libelle": "Avis",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "note_sur_5",
+          "libelle": "Note sur 5",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre",
+            "min": 0,
+            "max": 5
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "ACQ-11.15",
+    "texte": "En moyenne sur les 3 derniers mois, combien de paniers sont abandonnés chaque mois ?",
+    "aide": "Votre boutique en ligne l'indique dans ses statistiques.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "ACQ-11.17",
+    "texte": "Sur les 3 derniers mois, quelle part de vos visites s'est faite sur mobile, et quelle part de ces visites mobiles a fini par une commande ?",
     "aide": null,
     "repli": null,
     "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "visites_sur_mobile",
+          "libelle": "Visites sur mobile",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "visites_mobiles_qui_commandent",
+          "libelle": "Visites mobiles qui commandent",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "ACQ-11.31",
+    "texte": "Sur les 12 derniers mois, quel est le total de vos {unites_vendues} ?",
+    "aide": "Additionnez toutes vos locations : 3 {unites_a_louer} × 100 {jours_ouverture} de location = 300. Votre logiciel de réservation donne ce chiffre.",
+    "repli": null,
+    "reponse": {
       "type": "nombre",
       "unite": "nombre",
       "min": 0
-    }
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-11.32",
+    "texte": "Combien de {unites_a_louer} avez-vous à louer ?",
+    "aide": "Le nombre total, même si certains sont fermés une partie de l'année.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
   },
   {
     "donnee": "ACQ-11.33",
-    "texte": "Sur les 12 derniers mois, combien de {jours_ouverture} avez-vous été ouvert ?",
+    "texte": "Sur les 12 derniers mois, combien de {jours_ouverture} votre établissement a-t-il été ouvert ?",
     "aide": "365 si vous êtes ouvert toute l'année. Une saison d'avril à septembre en fait environ 180.",
     "repli": null,
     "reponse": {
@@ -31,7 +278,8 @@
       "unite": "nombre",
       "min": 0,
       "max": 366
-    }
+    },
+    "raison": "donnee_inconnue"
   },
   {
     "donnee": "ACQ-11.34",
@@ -42,40 +290,3453 @@
       "type": "nombre",
       "unite": "nombre",
       "min": 0
-    }
+    },
+    "raison": "donnee_inconnue"
   },
   {
     "donnee": "ACQ-11.35",
-    "texte": "Sur les 12 derniers mois, combien de réservations ont été annulées trop tard pour être relouées, ou pas honorées ?",
+    "texte": "Sur les 12 derniers mois, combien de réservations ont été annulées trop tard pour être relouées, ou non honorées ?",
     "aide": "Votre logiciel de réservation et vos plateformes les comptent.",
     "repli": null,
     "reponse": {
       "type": "nombre",
       "unite": "nombre",
       "min": 0
-    }
+    },
+    "raison": "donnee_inconnue"
   },
   {
     "donnee": "ACQ-11.36",
     "texte": "En moyenne, combien de {jours_ouverture} dure une réservation ?",
-    "aide": "Une estimation suffit.",
+    "aide": null,
     "repli": null,
     "reponse": {
       "type": "nombre",
       "unite": "nombre",
       "min": 0
-    }
+    },
+    "raison": "donnee_inconnue"
   },
   {
     "donnee": "ACQ-11.37",
-    "texte": "Quelle part de votre chiffre d'affaires vient d'autre chose que {hors_location} ?",
-    "aide": "Une estimation suffit.",
+    "texte": "Quelle part de votre chiffre d'affaires vient de ce que vous vendez en plus : {hors_location} ?",
+    "aide": null,
     "repli": null,
     "reponse": {
       "type": "nombre",
       "unite": "pourcent",
       "min": 0,
       "max": 100
-    }
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-13.11",
+    "texte": "Comment fixez-vous vos prix ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "a_partir_de_vos_couts_et_d_une_marge",
+          "libelle": "À partir de vos coûts et d'une marge"
+        },
+        {
+          "id": "en_regardant_les_prix_des_concurrents",
+          "libelle": "En regardant les prix des concurrents"
+        },
+        {
+          "id": "selon_ce_que_le_client_peut_payer",
+          "libelle": "Selon ce que le client peut payer"
+        },
+        {
+          "id": "a_l_experience_sans_calcul",
+          "libelle": "À l'expérience, sans calcul"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-15.14",
+    "texte": "Sur les 3 derniers mois, quelle part de votre chiffre d'affaires vient de cette offre haut de gamme ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "pourcent",
+      "min": 0,
+      "max": 100
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-15.05",
+    "texte": "En moyenne sur les 3 derniers mois, combien d'articles un client prend-il à chaque achat ?",
+    "aide": "Par ticket de caisse ou par commande en ligne. Votre caisse ou votre boutique en ligne le donne dans ses statistiques de ventes.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "ACQ-15.09",
+    "texte": "Proposez-vous le paiement en plusieurs fois à vos clients ?",
+    "aide": "Par exemple en 3 ou 4 fois, avec un organisme de paiement ou directement par vous.",
+    "repli": null,
+    "reponse": {
+      "type": "oui_non"
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-15.10",
+    "texte": "Qui gère ce paiement en plusieurs fois ?",
+    "aide": "Avec un organisme, vous êtes payé tout de suite ; avec un échéancier, vous attendez chaque versement.",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "un_organisme_alma_oney_klarna",
+          "libelle": "Un organisme : Alma, Oney, Klarna…"
+        },
+        {
+          "id": "vous_avec_un_echeancier",
+          "libelle": "Vous, avec un échéancier"
+        },
+        {
+          "id": "les_deux",
+          "libelle": "Les deux"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-15.11",
+    "texte": "À partir de quel montant le proposez-vous ?",
+    "aide": "0 si vous le proposez dès le premier euro.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-15.12",
+    "texte": "Sur les 3 derniers mois, quelle part de votre chiffre d'affaires a été payée en plusieurs fois ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "pourcent",
+      "min": 0,
+      "max": 100
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-15.13",
+    "texte": "Sur les 3 derniers mois, quel a été en moyenne le montant d'une commande ou d'une facture payée en plusieurs fois ?",
+    "aide": "Comparé à votre montant moyen habituel, ce chiffre montre ce que le paiement en plusieurs fois vous fait gagner.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-17.28",
+    "texte": "Avez-vous un programme de fidélité : carte, points ou remise après plusieurs visites ou achats ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "oui_non"
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-17.29",
+    "texte": "Proposez-vous un contrat d'entretien ou de suivi après vos travaux ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "oui_non"
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-17.30",
+    "texte": "Aujourd'hui, combien de clients ont un contrat d'entretien avec vous ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-18.07",
+    "texte": "Que gagne la personne qui vous recommande un nouveau client ?",
+    "aide": "Une remise, un cadeau ou une somme : donnez sa valeur en euros.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-18.06",
+    "texte": "Mesurez-vous la satisfaction de vos clients ?",
+    "aide": "Un questionnaire, une note à donner, un appel après la prestation…",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "a_chaque_client",
+          "libelle": "À chaque client"
+        },
+        {
+          "id": "de_temps_en_temps",
+          "libelle": "De temps en temps"
+        },
+        {
+          "id": "jamais",
+          "libelle": "Jamais"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-20.05",
+    "texte": "Vous fixez-vous chaque mois un objectif chiffré : nombre de clients ou chiffre d'affaires ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_et_je_le_suis_chaque_semaine",
+          "libelle": "Oui, et je le suis chaque semaine"
+        },
+        {
+          "id": "oui_mais_je_le_suis_peu",
+          "libelle": "Oui, mais je le suis peu"
+        },
+        {
+          "id": "non",
+          "libelle": "Non"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-20.06",
+    "texte": "Notez-vous d'où vient chaque nouveau client ?",
+    "aide": "Par exemple en lui demandant comment il vous a connu.",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "toujours",
+          "libelle": "Toujours"
+        },
+        {
+          "id": "parfois",
+          "libelle": "Parfois"
+        },
+        {
+          "id": "jamais",
+          "libelle": "Jamais"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "ACQ-22.09",
+    "texte": "Sur les 3 derniers mois, quel chiffre d'affaires avez-vous fait en moyenne chacun de vos jours d'ouverture ?",
+    "aide": "Votre caisse ou votre logiciel le donne jour par jour.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D20"
+      },
+      "colonnes": [
+        {
+          "id": "chiffre_d_affaires_moyen",
+          "libelle": "Chiffre d'affaires moyen",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "ACQ-23.01",
+    "texte": "Quel a été votre chiffre d'affaires pour chacun des 12 derniers mois ?",
+    "aide": "Votre logiciel de facturation ou de caisse, ou votre comptable, donne ce détail.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "le_mois_dernier",
+            "libelle": "Le mois dernier"
+          },
+          {
+            "id": "il_y_a_2_mois",
+            "libelle": "Il y a 2 mois"
+          },
+          {
+            "id": "il_y_a_3_mois",
+            "libelle": "Il y a 3 mois"
+          },
+          {
+            "id": "il_y_a_4_mois",
+            "libelle": "Il y a 4 mois"
+          },
+          {
+            "id": "il_y_a_5_mois",
+            "libelle": "Il y a 5 mois"
+          },
+          {
+            "id": "il_y_a_6_mois",
+            "libelle": "Il y a 6 mois"
+          },
+          {
+            "id": "il_y_a_7_mois",
+            "libelle": "Il y a 7 mois"
+          },
+          {
+            "id": "il_y_a_8_mois",
+            "libelle": "Il y a 8 mois"
+          },
+          {
+            "id": "il_y_a_9_mois",
+            "libelle": "Il y a 9 mois"
+          },
+          {
+            "id": "il_y_a_10_mois",
+            "libelle": "Il y a 10 mois"
+          },
+          {
+            "id": "il_y_a_11_mois",
+            "libelle": "Il y a 11 mois"
+          },
+          {
+            "id": "il_y_a_12_mois",
+            "libelle": "Il y a 12 mois"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "chiffre_d_affaires",
+          "libelle": "Chiffre d'affaires",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "ACQ-23.03",
+    "texte": "Pour chacun de ces 12 mois, quel était votre chiffre d'affaires un an plus tôt ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "le_mois_dernier",
+            "libelle": "Le mois dernier"
+          },
+          {
+            "id": "il_y_a_2_mois",
+            "libelle": "Il y a 2 mois"
+          },
+          {
+            "id": "il_y_a_3_mois",
+            "libelle": "Il y a 3 mois"
+          },
+          {
+            "id": "il_y_a_4_mois",
+            "libelle": "Il y a 4 mois"
+          },
+          {
+            "id": "il_y_a_5_mois",
+            "libelle": "Il y a 5 mois"
+          },
+          {
+            "id": "il_y_a_6_mois",
+            "libelle": "Il y a 6 mois"
+          },
+          {
+            "id": "il_y_a_7_mois",
+            "libelle": "Il y a 7 mois"
+          },
+          {
+            "id": "il_y_a_8_mois",
+            "libelle": "Il y a 8 mois"
+          },
+          {
+            "id": "il_y_a_9_mois",
+            "libelle": "Il y a 9 mois"
+          },
+          {
+            "id": "il_y_a_10_mois",
+            "libelle": "Il y a 10 mois"
+          },
+          {
+            "id": "il_y_a_11_mois",
+            "libelle": "Il y a 11 mois"
+          },
+          {
+            "id": "il_y_a_12_mois",
+            "libelle": "Il y a 12 mois"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "chiffre_d_affaires_un_an_plus_tot",
+          "libelle": "Chiffre d'affaires un an plus tôt",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "ACQ-23.04",
+    "texte": "Pour chacun des 12 derniers mois, quel a été votre nombre de {ventes_realisees} ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "le_mois_dernier",
+            "libelle": "Le mois dernier"
+          },
+          {
+            "id": "il_y_a_2_mois",
+            "libelle": "Il y a 2 mois"
+          },
+          {
+            "id": "il_y_a_3_mois",
+            "libelle": "Il y a 3 mois"
+          },
+          {
+            "id": "il_y_a_4_mois",
+            "libelle": "Il y a 4 mois"
+          },
+          {
+            "id": "il_y_a_5_mois",
+            "libelle": "Il y a 5 mois"
+          },
+          {
+            "id": "il_y_a_6_mois",
+            "libelle": "Il y a 6 mois"
+          },
+          {
+            "id": "il_y_a_7_mois",
+            "libelle": "Il y a 7 mois"
+          },
+          {
+            "id": "il_y_a_8_mois",
+            "libelle": "Il y a 8 mois"
+          },
+          {
+            "id": "il_y_a_9_mois",
+            "libelle": "Il y a 9 mois"
+          },
+          {
+            "id": "il_y_a_10_mois",
+            "libelle": "Il y a 10 mois"
+          },
+          {
+            "id": "il_y_a_11_mois",
+            "libelle": "Il y a 11 mois"
+          },
+          {
+            "id": "il_y_a_12_mois",
+            "libelle": "Il y a 12 mois"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "nombre",
+          "libelle": "Nombre",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "FIN-46.01",
+    "texte": "Sur les 12 derniers mois, quelle somme avez-vous retirée de l'entreprise pour vous payer ?",
+    "aide": "Au total : salaire, prélèvements ou dividendes. Si vous êtes plusieurs associés à y travailler, additionnez. 0 si vous ne vous êtes rien versé.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "FIN-46.02",
+    "texte": "Combien l'entreprise paie-t-elle chaque mois pour vos cotisations sociales personnelles ?",
+    "aide": "Si vous les payez par trimestre, divisez par 3. En micro-entreprise : les cotisations payées sur votre chiffre d'affaires. Votre comptable ou votre espace URSSAF l'indique.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "FIN-46.03",
+    "texte": "Combien voudriez-vous vous verser par mois pour que votre activité vous convienne ?",
+    "aide": "Le montant qui vous paraîtrait juste pour le travail fourni.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "FIN-09.10",
+    "texte": "Combien vous coûtent au total vos abonnements et contrats chaque mois ?",
+    "aide": "Logiciels, téléphone et internet, maintenance, location de matériel… Pour un abonnement annuel, divisez par 12. Sans les outils marketing ni les leasings, demandés à part. Vos relevés bancaires listent ces prélèvements.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "FIN-13.06",
+    "texte": "Prévoyez-vous vos rentrées et vos sorties d'argent des prochains mois, dans un plan de trésorerie ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_sur_12_mois",
+          "libelle": "Oui, sur 12 mois"
+        },
+        {
+          "id": "oui_sur_3_a_6_mois",
+          "libelle": "Oui, sur 3 à 6 mois"
+        },
+        {
+          "id": "seulement_de_tete",
+          "libelle": "Seulement de tête"
+        },
+        {
+          "id": "non",
+          "libelle": "Non"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "FIN-17.10",
+    "texte": "Comment vos clients vous paient-ils le plus souvent ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "virement",
+          "libelle": "Virement"
+        },
+        {
+          "id": "cheque",
+          "libelle": "Chèque"
+        },
+        {
+          "id": "carte_bancaire",
+          "libelle": "Carte bancaire"
+        },
+        {
+          "id": "prelevement_automatique",
+          "libelle": "Prélèvement automatique"
+        },
+        {
+          "id": "especes",
+          "libelle": "Espèces"
+        },
+        {
+          "id": "plateforme_de_paiement_en_ligne",
+          "libelle": "Plateforme de paiement en ligne"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "FIN-20.08",
+    "texte": "De combien est cette remise ?",
+    "aide": "En pourcentage du montant de la facture.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "pourcent",
+      "min": 0,
+      "max": 100
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "FIN-47.01",
+    "texte": "Sous quelle forme votre entreprise exerce-t-elle ?",
+    "aide": "Sert à lire vos chiffres correctement, par exemple le résultat de l'année.",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "micro_entreprise",
+          "libelle": "Micro-entreprise"
+        },
+        {
+          "id": "entreprise_individuelle_au_reel",
+          "libelle": "Entreprise individuelle au réel"
+        },
+        {
+          "id": "societe_sarl_eurl_sas_sasu",
+          "libelle": "Société : SARL, EURL, SAS, SASU…"
+        },
+        {
+          "id": "autre",
+          "libelle": "Autre"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "FIN-47.02",
+    "texte": "Avez-vous un compte bancaire réservé à votre activité ?",
+    "aide": "Un compte où ne passent que les recettes et les dépenses de l'entreprise.",
+    "repli": null,
+    "reponse": {
+      "type": "oui_non"
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "FIN-48.01",
+    "texte": "Quand avez-vous fait le point sur votre activité avec votre banquier pour la dernière fois ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "dans_les_6_derniers_mois",
+          "libelle": "Dans les 6 derniers mois"
+        },
+        {
+          "id": "il_y_a_7_a_12_mois",
+          "libelle": "Il y a 7 à 12 mois"
+        },
+        {
+          "id": "il_y_a_plus_d_un_an",
+          "libelle": "Il y a plus d'un an"
+        },
+        {
+          "id": "jamais",
+          "libelle": "Jamais"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-46.01",
+    "texte": "Combien de personnes travaillent dans chacun de ces domaines, vous compris ?",
+    "aide": "Chaque personne compte une seule fois, dans ce qu'elle fait le plus, vous aussi. Le travail pour les clients : {exemples_travail}.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "le_travail_pour_les_clients",
+            "libelle": "Le travail pour les clients"
+          },
+          {
+            "id": "trouver_et_suivre_les_clients",
+            "libelle": "Trouver et suivre les clients"
+          },
+          {
+            "id": "administratif_et_gestion",
+            "libelle": "Administratif et gestion"
+          },
+          {
+            "id": "encadrement_de_l_equipe",
+            "libelle": "Encadrement de l'équipe"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "personnes",
+          "libelle": "Personnes",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "dont_a_temps_partiel",
+          "libelle": "Dont à temps partiel",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-46.02",
+    "texte": "Aujourd'hui, combien de personnes avez-vous par type de contrat ?",
+    "aide": "Freelances réguliers : ceux qui travaillent pour vous chaque mois.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "cdi",
+            "libelle": "CDI"
+          },
+          {
+            "id": "cdd",
+            "libelle": "CDD"
+          },
+          {
+            "id": "apprentis_et_alternants",
+            "libelle": "Apprentis et alternants"
+          },
+          {
+            "id": "stagiaires",
+            "libelle": "Stagiaires"
+          },
+          {
+            "id": "interimaires",
+            "libelle": "Intérimaires"
+          },
+          {
+            "id": "freelances_reguliers",
+            "libelle": "Freelances réguliers"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "personnes",
+          "libelle": "Personnes",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-05.10",
+    "texte": "Combien de temps pourriez-vous vous absenter sans que vos clients subissent de retard ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "moins_d_1_jour",
+          "libelle": "Moins d'1 jour"
+        },
+        {
+          "id": "1_a_2_jours",
+          "libelle": "1 à 2 jours"
+        },
+        {
+          "id": "3_a_6_jours",
+          "libelle": "3 à 6 jours"
+        },
+        {
+          "id": "1_a_2_semaines",
+          "libelle": "1 à 2 semaines"
+        },
+        {
+          "id": "plus_de_2_semaines",
+          "libelle": "Plus de 2 semaines"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-05.11",
+    "texte": "Sur les 12 derniers mois, combien de semaines de congés avez-vous prises ?",
+    "aide": "Une semaine sans travailler du tout, même à distance. Une demi-semaine compte 0,5.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "semaines",
+      "min": 0,
+      "max": 52
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-47.01",
+    "texte": "Qui fait le planning de l'équipe, et combien d'heures cela prend-il sur une semaine habituelle ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "qui_le_fait",
+          "libelle": "Qui le fait",
+          "spec": {
+            "type": "choix",
+            "options": [
+              {
+                "id": "vous",
+                "libelle": "Vous"
+              },
+              {
+                "id": "un_responsable",
+                "libelle": "Un responsable"
+              },
+              {
+                "id": "chacun_s_organise",
+                "libelle": "Chacun s'organise"
+              },
+              {
+                "id": "il_n_y_a_pas_de_planning",
+                "libelle": "Il n'y a pas de planning"
+              }
+            ]
+          }
+        },
+        {
+          "id": "heures_par_semaine",
+          "libelle": "Heures par semaine",
+          "spec": {
+            "type": "nombre",
+            "unite": "heures"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-47.02",
+    "texte": "Combien de temps à l'avance l'équipe connaît-elle son planning ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "moins_de_2_jours",
+          "libelle": "Moins de 2 jours"
+        },
+        {
+          "id": "2_a_6_jours",
+          "libelle": "2 à 6 jours"
+        },
+        {
+          "id": "1_a_2_semaines",
+          "libelle": "1 à 2 semaines"
+        },
+        {
+          "id": "plus_de_2_semaines",
+          "libelle": "Plus de 2 semaines"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-47.03",
+    "texte": "Sur une semaine habituelle, combien de fois le planning change-t-il au dernier moment ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "0",
+          "libelle": "0"
+        },
+        {
+          "id": "1_ou_2",
+          "libelle": "1 ou 2"
+        },
+        {
+          "id": "3_a_5",
+          "libelle": "3 à 5"
+        },
+        {
+          "id": "plus_de_5",
+          "libelle": "Plus de 5"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-15.03",
+    "texte": "Sur une semaine habituelle, combien d'heures ce matériel fait-il perdre ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "heures",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-48.01",
+    "texte": "Chaque personne a-t-elle des objectifs clairs, écrits et revus avec vous ?",
+    "aide": "Par exemple : un nombre de {ventes_realisees} par mois, un délai de réponse aux clients, un chiffre d'affaires.",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "pour_tous",
+          "libelle": "Pour tous"
+        },
+        {
+          "id": "pour_une_partie",
+          "libelle": "Pour une partie"
+        },
+        {
+          "id": "pour_personne",
+          "libelle": "Pour personne"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-48.02",
+    "texte": "Une partie de la rémunération de l'équipe dépend-elle de ces objectifs ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "pour_tous",
+          "libelle": "Pour tous"
+        },
+        {
+          "id": "pour_certains_postes",
+          "libelle": "Pour certains postes"
+        },
+        {
+          "id": "non",
+          "libelle": "Non"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-49.01",
+    "texte": "Combien de responsables encadrent une partie de l'équipe, et combien de personnes chacun suit-il au plus ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "responsables_vous_non_compris",
+          "libelle": "Responsables, vous non compris",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "personnes_suivies_par_un_responsable_au_",
+          "libelle": "Personnes suivies par un responsable, au plus",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-49.02",
+    "texte": "Ces responsables ont-ils été formés pour encadrer ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "tous",
+          "libelle": "Tous"
+        },
+        {
+          "id": "certains",
+          "libelle": "Certains"
+        },
+        {
+          "id": "aucun",
+          "libelle": "Aucun"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-25.02",
+    "texte": "Utilisez-vous les financements de formation de votre opérateur de compétences (OPCO) ?",
+    "aide": "L'OPCO est l'organisme qui finance la formation des salariés de votre branche.",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_chaque_annee",
+          "libelle": "Oui, chaque année"
+        },
+        {
+          "id": "oui_une_fois",
+          "libelle": "Oui, une fois"
+        },
+        {
+          "id": "non",
+          "libelle": "Non"
+        },
+        {
+          "id": "je_ne_connais_pas_ce_financement",
+          "libelle": "Je ne connais pas ce financement"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-28.09",
+    "texte": "Par quels moyens recrutez-vous ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "bouche_a_oreille_et_cooptation",
+          "libelle": "Bouche-à-oreille et cooptation"
+        },
+        {
+          "id": "france_travail",
+          "libelle": "France Travail"
+        },
+        {
+          "id": "sites_d_emploi",
+          "libelle": "Sites d'emploi"
+        },
+        {
+          "id": "reseaux_sociaux",
+          "libelle": "Réseaux sociaux"
+        },
+        {
+          "id": "ecoles_et_alternance",
+          "libelle": "Écoles et alternance"
+        },
+        {
+          "id": "agence_d_interim_ou_cabinet",
+          "libelle": "Agence d'intérim ou cabinet"
+        },
+        {
+          "id": "candidatures_spontanees",
+          "libelle": "Candidatures spontanées"
+        }
+      ],
+      "minChoix": 1
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-28.10",
+    "texte": "Lequel de ces moyens vous a apporté vos meilleures recrues ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "bouche_a_oreille_et_cooptation",
+          "libelle": "Bouche-à-oreille et cooptation"
+        },
+        {
+          "id": "france_travail",
+          "libelle": "France Travail"
+        },
+        {
+          "id": "sites_d_emploi",
+          "libelle": "Sites d'emploi"
+        },
+        {
+          "id": "reseaux_sociaux",
+          "libelle": "Réseaux sociaux"
+        },
+        {
+          "id": "ecoles_et_alternance",
+          "libelle": "Écoles et alternance"
+        },
+        {
+          "id": "agence_d_interim_ou_cabinet",
+          "libelle": "Agence d'intérim ou cabinet"
+        },
+        {
+          "id": "candidatures_spontanees",
+          "libelle": "Candidatures spontanées"
+        },
+        {
+          "id": "aucun_pour_l_instant",
+          "libelle": "Aucun pour l'instant"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-32.06",
+    "texte": "Quand quelqu'un quitte l'entreprise, ce qu'il sait faire est-il transmis avant son départ ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "toujours",
+          "libelle": "Toujours"
+        },
+        {
+          "id": "parfois",
+          "libelle": "Parfois"
+        },
+        {
+          "id": "jamais",
+          "libelle": "Jamais"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-41.01",
+    "texte": "Aimeriez-vous être aidé dans votre travail, par un salarié, un apprenti, un freelance ou un associé ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_dans_les_6_prochains_mois",
+          "libelle": "Oui, dans les 6 prochains mois"
+        },
+        {
+          "id": "oui_dans_les_12_prochains_mois",
+          "libelle": "Oui, dans les 12 prochains mois"
+        },
+        {
+          "id": "oui_mais_plus_tard",
+          "libelle": "Oui, mais plus tard"
+        },
+        {
+          "id": "non_je_prefere_rester_seul",
+          "libelle": "Non, je préfère rester seul"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-41.02",
+    "texte": "Quelle forme d'aide envisagez-vous ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "un_salarie",
+          "libelle": "Un salarié"
+        },
+        {
+          "id": "un_apprenti_ou_un_alternant",
+          "libelle": "Un apprenti ou un alternant"
+        },
+        {
+          "id": "un_stagiaire",
+          "libelle": "Un stagiaire"
+        },
+        {
+          "id": "un_freelance_ou_un_sous_traitant_regulie",
+          "libelle": "Un freelance ou un sous-traitant régulier"
+        },
+        {
+          "id": "un_assistant_a_distance",
+          "libelle": "Un assistant à distance"
+        },
+        {
+          "id": "un_associe",
+          "libelle": "Un associé"
+        },
+        {
+          "id": "pas_encore_decide",
+          "libelle": "Pas encore décidé"
+        }
+      ],
+      "minChoix": 1
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-41.03",
+    "texte": "Pour quelle raison principale voulez-vous être aidé ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "liberer_du_temps",
+          "libelle": "Libérer du temps"
+        },
+        {
+          "id": "repondre_a_plus_de_demandes",
+          "libelle": "Répondre à plus de demandes"
+        },
+        {
+          "id": "apporter_une_competence_qui_vous_manque",
+          "libelle": "Apporter une compétence qui vous manque"
+        },
+        {
+          "id": "pouvoir_vous_absenter_sans_perdre_de_cli",
+          "libelle": "Pouvoir vous absenter sans perdre de clients"
+        },
+        {
+          "id": "lancer_une_nouvelle_activite",
+          "libelle": "Lancer une nouvelle activité"
+        },
+        {
+          "id": "ne_plus_travailler_seul",
+          "libelle": "Ne plus travailler seul"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-41.04",
+    "texte": "Sur quelle partie de votre travail cette personne vous aiderait-elle d'abord ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "le_travail_pour_les_clients",
+          "libelle": "Le travail pour les clients"
+        },
+        {
+          "id": "trouver_et_suivre_les_clients",
+          "libelle": "Trouver et suivre les clients"
+        },
+        {
+          "id": "administratif_et_gestion",
+          "libelle": "Administratif et gestion"
+        },
+        {
+          "id": "communication",
+          "libelle": "Communication"
+        },
+        {
+          "id": "un_peu_de_tout",
+          "libelle": "Un peu de tout"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-41.05",
+    "texte": "Combien d'heures par semaine voudriez-vous lui confier ?",
+    "aide": "Une estimation suffit. Un temps plein fait 35 heures.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "heures",
+      "min": 0,
+      "max": 60
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-42.01",
+    "texte": "Quelles tâches lui confieriez-vous en premier, et combien de temps vous prennent-elles ?",
+    "aide": "Nommez chaque tâche : devis, facturation, préparation, livraisons, réponses aux clients… 5 au plus.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "libre",
+        "max": 5
+      },
+      "colonnes": [
+        {
+          "id": "heures_par_semaine",
+          "libelle": "Heures par semaine",
+          "spec": {
+            "type": "nombre",
+            "unite": "heures"
+          }
+        },
+        {
+          "id": "s_apprend_en_moins_d_un_mois",
+          "libelle": "S'apprend en moins d'un mois",
+          "spec": {
+            "type": "oui_non"
+          }
+        },
+        {
+          "id": "methode_ecrite",
+          "libelle": "Méthode écrite",
+          "spec": {
+            "type": "oui_non"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-42.02",
+    "texte": "Quelles tâches ne pourriez-vous confier à personne aujourd'hui, et pourquoi ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "texte",
+      "max": 250
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-43.01",
+    "texte": "Combien pourriez-vous consacrer chaque mois à cette aide, tout compris ?",
+    "aide": "Salaire et charges, facture d'un freelance ou coût d'un apprenti. Une estimation suffit.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-43.02",
+    "texte": "En moyenne sur les 3 derniers mois, combien de clients perdez-vous par mois parce que vous ne pouvez pas les prendre, et pour quelle raison ?",
+    "aide": "Un client qui voulait faire appel à vous, mais que vous n'avez pas pu prendre. Ceux perdus à cause du prix sont demandés ailleurs. 0 pour une raison qui ne vous concerne pas.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "pas_de_creneau_assez_tot",
+            "libelle": "Pas de créneau assez tôt"
+          },
+          {
+            "id": "pas_le_temps_de_repondre_ou_de_chiffrer",
+            "libelle": "Pas le temps de répondre ou de chiffrer"
+          },
+          {
+            "id": "absence_vous_ou_un_salarie",
+            "libelle": "Absence : vous ou un salarié"
+          },
+          {
+            "id": "produit_en_rupture_de_stock",
+            "libelle": "Produit en rupture de stock"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "clients_perdus_par_mois",
+          "libelle": "Clients perdus par mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-43.03",
+    "texte": "Que faudrait-il prévoir en plus pour accueillir cette personne ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "un_vehicule",
+          "libelle": "Un véhicule"
+        },
+        {
+          "id": "de_l_outillage_ou_une_machine",
+          "libelle": "De l'outillage ou une machine"
+        },
+        {
+          "id": "un_ordinateur_et_des_logiciels",
+          "libelle": "Un ordinateur et des logiciels"
+        },
+        {
+          "id": "un_poste_de_travail_ou_un_bureau",
+          "libelle": "Un poste de travail ou un bureau"
+        },
+        {
+          "id": "rien_de_plus",
+          "libelle": "Rien de plus"
+        }
+      ],
+      "minChoix": 1
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-44.01",
+    "texte": "Qu'est-ce qui vous retient le plus de vous faire aider aujourd'hui ?",
+    "aide": "3 au plus.",
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "le_cout",
+          "libelle": "Le coût"
+        },
+        {
+          "id": "les_demarches_administratives",
+          "libelle": "Les démarches administratives"
+        },
+        {
+          "id": "la_peur_de_mal_choisir",
+          "libelle": "La peur de mal choisir"
+        },
+        {
+          "id": "le_temps_pour_former",
+          "libelle": "Le temps pour former"
+        },
+        {
+          "id": "la_difficulte_a_trouver_quelqu_un",
+          "libelle": "La difficulté à trouver quelqu'un"
+        },
+        {
+          "id": "la_peur_de_perdre_en_qualite",
+          "libelle": "La peur de perdre en qualité"
+        },
+        {
+          "id": "un_travail_pas_assez_regulier",
+          "libelle": "Un travail pas assez régulier"
+        },
+        {
+          "id": "rien_de_particulier",
+          "libelle": "Rien de particulier"
+        }
+      ],
+      "minChoix": 1,
+      "maxChoix": 3
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-44.02",
+    "texte": "Avez-vous déjà eu un salarié ou un freelance régulier ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_et_ca_s_est_bien_passe",
+          "libelle": "Oui, et ça s'est bien passé"
+        },
+        {
+          "id": "oui_mais_ca_s_est_mal_passe",
+          "libelle": "Oui, mais ça s'est mal passé"
+        },
+        {
+          "id": "non_jamais",
+          "libelle": "Non, jamais"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-44.03",
+    "texte": "Qu'est-ce qui n'a pas fonctionné ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "mauvais_choix_de_la_personne",
+          "libelle": "Mauvais choix de la personne"
+        },
+        {
+          "id": "pas_assez_de_travail_a_lui_confier",
+          "libelle": "Pas assez de travail à lui confier"
+        },
+        {
+          "id": "trop_de_temps_pour_la_former",
+          "libelle": "Trop de temps pour la former"
+        },
+        {
+          "id": "cout_trop_eleve",
+          "libelle": "Coût trop élevé"
+        },
+        {
+          "id": "qualite_insuffisante",
+          "libelle": "Qualité insuffisante"
+        },
+        {
+          "id": "mauvaise_entente",
+          "libelle": "Mauvaise entente"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-45.01",
+    "texte": "Si vous ne pouviez pas travailler pendant 2 semaines, qui pourrait s'occuper de vos clients ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "personne",
+          "libelle": "Personne"
+        },
+        {
+          "id": "un_proche",
+          "libelle": "Un proche"
+        },
+        {
+          "id": "un_confrere_ou_un_sous_traitant_de_confi",
+          "libelle": "Un confrère ou un sous-traitant de confiance"
+        },
+        {
+          "id": "un_freelance_que_vous_connaissez",
+          "libelle": "Un freelance que vous connaissez"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-45.02",
+    "texte": "Vos clients, vos accès et vos informations clés sont-ils notés quelque part, pour qu'une autre personne puisse s'en servir ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_tout_est_note",
+          "libelle": "Oui, tout est noté"
+        },
+        {
+          "id": "en_partie",
+          "libelle": "En partie"
+        },
+        {
+          "id": "non_tout_est_dans_ma_tete",
+          "libelle": "Non, tout est dans ma tête"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "RH-45.03",
+    "texte": "Faites-vous partie d'un réseau de professionnels avec qui vous échangez du travail ou des conseils ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_regulierement",
+          "libelle": "Oui, régulièrement"
+        },
+        {
+          "id": "parfois",
+          "libelle": "Parfois"
+        },
+        {
+          "id": "non",
+          "libelle": "Non"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-10.07",
+    "texte": "Publiez-vous pour votre entreprise sur les réseaux sociaux ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_au_moins_une_fois_par_mois",
+          "libelle": "Oui, au moins une fois par mois"
+        },
+        {
+          "id": "rarement_ou_plus_du_tout",
+          "libelle": "Rarement ou plus du tout"
+        },
+        {
+          "id": "non_jamais",
+          "libelle": "Non, jamais"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-10.08",
+    "texte": "Sur quels réseaux publiez-vous ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "linkedin",
+          "libelle": "LinkedIn"
+        },
+        {
+          "id": "instagram",
+          "libelle": "Instagram"
+        },
+        {
+          "id": "facebook",
+          "libelle": "Facebook"
+        },
+        {
+          "id": "tiktok",
+          "libelle": "TikTok"
+        },
+        {
+          "id": "youtube",
+          "libelle": "YouTube"
+        },
+        {
+          "id": "x",
+          "libelle": "X"
+        },
+        {
+          "id": "pinterest",
+          "libelle": "Pinterest"
+        },
+        {
+          "id": "autre",
+          "libelle": "Autre"
+        }
+      ],
+      "minChoix": 1
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-05.02",
+    "texte": "En quelques mots, que garantissez-vous exactement ?",
+    "aide": "Par exemple : « livré à la date prévue, sinon 50 € de remise par jour de retard ».",
+    "repli": null,
+    "reponse": {
+      "type": "texte",
+      "max": 200
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-09.08",
+    "texte": "Pour chacune de vos offres principales, avez-vous au moins une preuve à montrer ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "offre_1",
+            "libelle": "Offre 1"
+          },
+          {
+            "id": "offre_2",
+            "libelle": "Offre 2"
+          },
+          {
+            "id": "offre_3",
+            "libelle": "Offre 3"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "au_moins_une_preuve",
+          "libelle": "Au moins une preuve",
+          "spec": {
+            "type": "oui_non"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-56.01",
+    "texte": "Avez-vous déjà ouvert des comptes, même sans les utiliser ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "instagram",
+          "libelle": "Instagram"
+        },
+        {
+          "id": "facebook",
+          "libelle": "Facebook"
+        },
+        {
+          "id": "linkedin",
+          "libelle": "LinkedIn"
+        },
+        {
+          "id": "tiktok",
+          "libelle": "TikTok"
+        },
+        {
+          "id": "youtube",
+          "libelle": "YouTube"
+        },
+        {
+          "id": "pinterest",
+          "libelle": "Pinterest"
+        },
+        {
+          "id": "aucun",
+          "libelle": "Aucun"
+        }
+      ],
+      "minChoix": 1
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-56.02",
+    "texte": "Qu'est-ce qui vous a empêché de publier jusqu'ici ?",
+    "aide": "3 au plus.",
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "le_manque_de_temps",
+          "libelle": "Le manque de temps"
+        },
+        {
+          "id": "le_manque_d_idees",
+          "libelle": "Le manque d'idées"
+        },
+        {
+          "id": "ne_pas_savoir_quoi_montrer",
+          "libelle": "Ne pas savoir quoi montrer"
+        },
+        {
+          "id": "ne_pas_aimer_se_montrer",
+          "libelle": "Ne pas aimer se montrer"
+        },
+        {
+          "id": "ne_pas_savoir_s_y_prendre",
+          "libelle": "Ne pas savoir s'y prendre"
+        },
+        {
+          "id": "douter_que_cela_amene_des_clients",
+          "libelle": "Douter que cela amène des clients"
+        }
+      ],
+      "minChoix": 1,
+      "maxChoix": 3
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-56.03",
+    "texte": "Qui s'occuperait de vos publications ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "vous",
+          "libelle": "Vous"
+        },
+        {
+          "id": "un_salarie",
+          "libelle": "Un salarié"
+        },
+        {
+          "id": "un_prestataire",
+          "libelle": "Un prestataire"
+        },
+        {
+          "id": "pas_encore_decide",
+          "libelle": "Pas encore décidé"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-56.04",
+    "texte": "Combien pourriez-vous dépenser par mois pour lancer votre communication ?",
+    "aide": "Prestataire, publicité ou outils. 0 si vous voulez commencer sans budget.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros",
+      "min": 0
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-13.10",
+    "texte": "Avez-vous un site internet ?",
+    "aide": "Un site à votre nom, ou une page de boutique en ligne.",
+    "repli": null,
+    "reponse": {
+      "type": "oui_non"
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-13.04",
+    "texte": "D'où viennent les visites de votre site ?",
+    "aide": "Votre outil de mesure l'indique, souvent dans la partie « Acquisition » ou « Sources de trafic ».",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "recherche_google",
+            "libelle": "Recherche Google"
+          },
+          {
+            "id": "reseaux_sociaux",
+            "libelle": "Réseaux sociaux"
+          },
+          {
+            "id": "publicite",
+            "libelle": "Publicité"
+          },
+          {
+            "id": "acces_direct",
+            "libelle": "Accès direct"
+          },
+          {
+            "id": "autres_sites",
+            "libelle": "Autres sites"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "part_des_visites",
+          "libelle": "Part des visites",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ],
+      "total": {
+        "colonne": "part_des_visites",
+        "valeur": 100
+      }
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-13.05",
+    "texte": "Quelles pages de votre site sont les plus visitées ?",
+    "aide": "Les 5 premières, telles que votre outil de mesure les affiche.",
+    "repli": null,
+    "reponse": {
+      "type": "liste",
+      "max": 5
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-13.06",
+    "texte": "Il y a 6 mois, combien de visites votre site recevait-il par mois ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-15.12",
+    "texte": "Avez-vous un fichier de contacts : clients ou futurs clients, avec leur email ou leur téléphone ?",
+    "aide": "Même dans un tableur, votre logiciel de caisse ou votre messagerie.",
+    "repli": null,
+    "reponse": {
+      "type": "oui_non"
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-15.06",
+    "texte": "Sur vos 3 derniers emails envoyés à vos contacts, quels ont été en moyenne le taux d'ouverture, le taux de clic, les désinscriptions et les réponses ?",
+    "aide": "Votre outil d'envoi affiche ces chiffres pour chaque envoi. Taux d'ouverture : la part des personnes qui ont ouvert l'email.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "taux_d_ouverture",
+          "libelle": "Taux d'ouverture",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "taux_de_clic",
+          "libelle": "Taux de clic",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "desinscriptions",
+          "libelle": "Désinscriptions",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "reponses",
+          "libelle": "Réponses",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-16.01",
+    "texte": "Quand on cherche « votre métier + votre ville » sur Google, où apparaissez-vous ?",
+    "aide": "Faites la recherche en navigation privée, par exemple « plombier Nantes ».",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "dans_les_3_premiers_resultats_de_la_cart",
+          "libelle": "Dans les 3 premiers résultats de la carte"
+        },
+        {
+          "id": "sur_la_premiere_page",
+          "libelle": "Sur la première page"
+        },
+        {
+          "id": "plus_loin",
+          "libelle": "Plus loin"
+        },
+        {
+          "id": "je_n_apparais_pas",
+          "libelle": "Je n'apparais pas"
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-39.07",
+    "texte": "Avez-vous accès aux statistiques de vos publications ?",
+    "aide": "Sur Instagram et Facebook, les statistiques demandent un compte professionnel, gratuit.",
+    "repli": null,
+    "reponse": {
+      "type": "oui_non"
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-58.01",
+    "texte": "Quand quelqu'un vous découvre sur les réseaux et veut aller plus loin, que doit-il faire ?",
+    "aide": "Choisissez une seule action : celle que vous voulez voir le plus souvent. Elle sera reprise dans vos publications et sur vos profils.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "action",
+          "libelle": "Action",
+          "spec": {
+            "type": "choix",
+            "options": [
+              {
+                "id": "vous_ecrire_en_message_prive",
+                "libelle": "Vous écrire en message privé"
+              },
+              {
+                "id": "vous_appeler",
+                "libelle": "Vous appeler"
+              },
+              {
+                "id": "prendre_rendez_vous_ou_reserver_en_ligne",
+                "libelle": "Prendre rendez-vous ou réserver en ligne"
+              },
+              {
+                "id": "demander_un_devis",
+                "libelle": "Demander un devis"
+              },
+              {
+                "id": "acheter_en_ligne",
+                "libelle": "Acheter en ligne"
+              },
+              {
+                "id": "venir_sur_place",
+                "libelle": "Venir sur place"
+              },
+              {
+                "id": "laisser_ses_coordonnees_contre_une_offre",
+                "libelle": "Laisser ses coordonnées contre une offre gratuite"
+              },
+              {
+                "id": "rien_de_prevu_pour_l_instant",
+                "libelle": "Rien de prévu pour l'instant"
+              }
+            ]
+          }
+        },
+        {
+          "id": "lien_ou_numero_ou_l_envoyer",
+          "libelle": "Lien ou numéro où l'envoyer",
+          "spec": {
+            "type": "texte"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-58.02",
+    "texte": "Aujourd'hui, par quels moyens peut-on vous contacter, réserver ou acheter en ligne ?",
+    "aide": "Cochez seulement ce qui fonctionne aujourd'hui.",
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "formulaire_sur_votre_site",
+          "libelle": "Formulaire sur votre site"
+        },
+        {
+          "id": "prise_de_rendez_vous_ou_reservation_en_l",
+          "libelle": "Prise de rendez-vous ou réservation en ligne"
+        },
+        {
+          "id": "demande_de_devis_en_ligne",
+          "libelle": "Demande de devis en ligne"
+        },
+        {
+          "id": "boutique_en_ligne",
+          "libelle": "Boutique en ligne"
+        },
+        {
+          "id": "whatsapp_ou_messages_prives",
+          "libelle": "WhatsApp ou messages privés"
+        },
+        {
+          "id": "numero_qui_s_appelle_en_un_clic_depuis_v",
+          "libelle": "Numéro qui s'appelle en un clic depuis votre profil ou votre site"
+        },
+        {
+          "id": "aucun_de_ces_moyens",
+          "libelle": "Aucun de ces moyens"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-27.02",
+    "texte": "Sur les 3 derniers mois, à quoi ont servi vos publications ?",
+    "aide": "Chaque publication compte une fois, dans ce qu'elle fait le plus. Une estimation suffit, par exemple 60 %, 30 % et 10 %.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "vous_faire_connaitre_conseils_coulisses_",
+            "libelle": "Vous faire connaître : conseils, coulisses, actualité, humour"
+          },
+          {
+            "id": "montrer_que_votre_travail_est_bon_avis_r",
+            "libelle": "Montrer que votre travail est bon : avis, réalisations, avant-après, cas clients"
+          },
+          {
+            "id": "donner_envie_d_agir_offre_promotion_invi",
+            "libelle": "Donner envie d'agir : offre, promotion, invitation à vous contacter"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "part_des_publications",
+          "libelle": "Part des publications",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ],
+      "total": {
+        "colonne": "part_des_publications",
+        "valeur": 100
+      }
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-17.01",
+    "texte": "Pour chaque réseau, combien d'abonnés avez-vous, et combien de personnes vos publications touchent-elles par mois ?",
+    "aide": "Personnes touchées : la « couverture » ou la « portée » dans les statistiques du réseau.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D22"
+      },
+      "colonnes": [
+        {
+          "id": "abonnes",
+          "libelle": "Abonnés",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "personnes_touchees_par_mois_moyenne_des_",
+          "libelle": "Personnes touchées par mois (moyenne des 3 derniers mois)",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-37.01",
+    "texte": "Il y a 6 mois, combien d'abonnés aviez-vous sur chaque réseau ?",
+    "aide": "Si le compte a moins de 6 mois, le nombre d'abonnés à son ouverture.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D22"
+      },
+      "colonnes": [
+        {
+          "id": "abonnes_il_y_a_6_mois",
+          "libelle": "Abonnés il y a 6 mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-17.02",
+    "texte": "En moyenne sur les 3 derniers mois, combien de nouveaux abonnés et de désabonnements avez-vous par mois sur chaque réseau ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D22"
+      },
+      "colonnes": [
+        {
+          "id": "nouveaux_abonnes",
+          "libelle": "Nouveaux abonnés",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "desabonnements",
+          "libelle": "Désabonnements",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-17.03",
+    "texte": "Sur chaque réseau, quelle part des personnes touchées ne vous suit pas encore ?",
+    "aide": "Les statistiques du réseau séparent abonnés et non-abonnés.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D22"
+      },
+      "colonnes": [
+        {
+          "id": "part_de_non_abonnes",
+          "libelle": "Part de non-abonnés",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-18.01",
+    "texte": "En moyenne sur les 3 derniers mois, combien de réactions vos publications reçoivent-elles par mois sur chaque réseau ?",
+    "aide": "Le total sur toutes les publications du mois.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D22"
+      },
+      "colonnes": [
+        {
+          "id": "j_aime",
+          "libelle": "J'aime",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "commentaires",
+          "libelle": "Commentaires",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "partages",
+          "libelle": "Partages",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "enregistrements",
+          "libelle": "Enregistrements",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-59.01",
+    "texte": "En moyenne sur les 3 derniers mois, combien de personnes visitent votre profil par mois sur chaque réseau ?",
+    "aide": "Dans les statistiques du réseau : « visites du profil » ou « activité du profil ».",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D22"
+      },
+      "colonnes": [
+        {
+          "id": "visites_du_profil_par_mois",
+          "libelle": "Visites du profil par mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-55.01",
+    "texte": "Sur chaque réseau, que contient votre profil ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D22"
+      },
+      "colonnes": [
+        {
+          "id": "description_claire_quoi_pour_qui_ou",
+          "libelle": "Description claire : quoi, pour qui, où",
+          "spec": {
+            "type": "oui_non"
+          }
+        },
+        {
+          "id": "lien_vers_votre_site_ou_votre_prise_de_r",
+          "libelle": "Lien vers votre site ou votre prise de rendez-vous",
+          "spec": {
+            "type": "oui_non"
+          }
+        },
+        {
+          "id": "bouton_de_contact",
+          "libelle": "Bouton de contact",
+          "spec": {
+            "type": "oui_non"
+          }
+        },
+        {
+          "id": "publications_epinglees_qui_presentent_vo",
+          "libelle": "Publications épinglées qui présentent votre offre",
+          "spec": {
+            "type": "oui_non"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-19.01",
+    "texte": "En moyenne sur les 3 derniers mois, combien de clics vos publications génèrent-elles par mois sur chaque réseau, et vers où mènent-ils ?",
+    "aide": "Clics sur le lien du profil, les boutons de contact et les liens des publications.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D22"
+      },
+      "colonnes": [
+        {
+          "id": "clics_par_mois",
+          "libelle": "Clics par mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "destination_principale",
+          "libelle": "Destination principale",
+          "spec": {
+            "type": "choix",
+            "options": [
+              {
+                "id": "site",
+                "libelle": "Site"
+              },
+              {
+                "id": "fiche_google",
+                "libelle": "Fiche Google"
+              },
+              {
+                "id": "formulaire",
+                "libelle": "Formulaire"
+              },
+              {
+                "id": "prise_de_rendez_vous",
+                "libelle": "Prise de rendez-vous"
+              },
+              {
+                "id": "telephone",
+                "libelle": "Téléphone"
+              },
+              {
+                "id": "whatsapp",
+                "libelle": "WhatsApp"
+              },
+              {
+                "id": "email",
+                "libelle": "Email"
+              },
+              {
+                "id": "page_produit_ou_offre",
+                "libelle": "Page produit ou offre"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-60.01",
+    "texte": "Quand quelqu'un clique sur le lien de votre profil, sur quelle page arrive-t-il ?",
+    "aide": "Faites le test sur votre téléphone, sur le réseau qui vous amène le plus de monde.",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "une_page_faite_pour_votre_offre_principa",
+          "libelle": "Une page faite pour votre offre principale"
+        },
+        {
+          "id": "la_page_d_accueil_de_votre_site",
+          "libelle": "La page d'accueil de votre site"
+        },
+        {
+          "id": "une_page_de_prise_de_rendez_vous_ou_de_r",
+          "libelle": "Une page de prise de rendez-vous ou de réservation"
+        },
+        {
+          "id": "une_page_qui_regroupe_plusieurs_liens",
+          "libelle": "Une page qui regroupe plusieurs liens"
+        },
+        {
+          "id": "votre_boutique_en_ligne",
+          "libelle": "Votre boutique en ligne"
+        },
+        {
+          "id": "votre_fiche_google",
+          "libelle": "Votre fiche Google"
+        },
+        {
+          "id": "il_n_y_a_pas_de_lien_sur_mon_profil",
+          "libelle": "Il n'y a pas de lien sur mon profil"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-60.02",
+    "texte": "Sur cette page, que voit-on tout de suite, sans faire défiler ?",
+    "aide": "Toujours sur votre téléphone : c'est là que la plupart des gens arrivent depuis les réseaux.",
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "ce_que_vous_proposez_en_une_phrase",
+          "libelle": "Ce que vous proposez, en une phrase"
+        },
+        {
+          "id": "une_preuve_note_avis_ou_photos_de_realis",
+          "libelle": "Une preuve : note, avis ou photos de réalisations"
+        },
+        {
+          "id": "un_seul_bouton_pour_passer_a_l_action",
+          "libelle": "Un seul bouton pour passer à l'action"
+        },
+        {
+          "id": "un_formulaire_court_3_champs_au_plus",
+          "libelle": "Un formulaire court, 3 champs au plus"
+        },
+        {
+          "id": "un_prix_ou_un_prix_de_depart",
+          "libelle": "Un prix ou un prix de départ"
+        },
+        {
+          "id": "aucun_de_ces_elements",
+          "libelle": "Aucun de ces éléments"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-22.04",
+    "texte": "Parmi les clients et les demandes qui vous viennent des réseaux sociaux, quelle part vient de chaque réseau ?",
+    "aide": "Une estimation suffit. Leur nombre total est déjà demandé avec vos canaux : ici, on le répartit entre vos réseaux.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D22"
+      },
+      "colonnes": [
+        {
+          "id": "part",
+          "libelle": "Part",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ],
+      "total": {
+        "colonne": "part",
+        "valeur": 100
+      }
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-61.01",
+    "texte": "Que faites-vous des personnes qui réagissent à vos publications ou vous écrivent, sans devenir clientes ?",
+    "aide": "Par exemple, une personne qui a commenté, enregistré une publication ou demandé un prix sans donner suite.",
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "je_leur_ecris_en_message_prive",
+          "libelle": "Je leur écris en message privé"
+        },
+        {
+          "id": "je_les_ajoute_a_mon_fichier_de_contacts",
+          "libelle": "Je les ajoute à mon fichier de contacts"
+        },
+        {
+          "id": "je_leur_montre_une_publicite_qui_les_cib",
+          "libelle": "Je leur montre une publicité qui les cible"
+        },
+        {
+          "id": "je_les_relance_plus_tard_avec_une_offre",
+          "libelle": "Je les relance plus tard avec une offre"
+        },
+        {
+          "id": "rien_de_particulier",
+          "libelle": "Rien de particulier"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-61.02",
+    "texte": "En moyenne sur les 3 derniers mois, combien de ces personnes contactez-vous vous-même par mois, et combien deviennent clientes ?",
+    "aide": "Seulement des personnes qui avaient déjà réagi à vos publications ou vous avaient écrit, pas des inconnus.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "personnes_contactees_par_mois",
+          "libelle": "Personnes contactées par mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "devenues_clientes_par_mois",
+          "libelle": "Devenues clientes par mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-26.01",
+    "texte": "Sur les 3 derniers mois, combien avez-vous publié de contenus de chaque format, tous réseaux confondus ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "video_courte",
+            "libelle": "Vidéo courte"
+          },
+          {
+            "id": "video_longue",
+            "libelle": "Vidéo longue"
+          },
+          {
+            "id": "carrousel",
+            "libelle": "Carrousel"
+          },
+          {
+            "id": "photo",
+            "libelle": "Photo"
+          },
+          {
+            "id": "texte",
+            "libelle": "Texte"
+          },
+          {
+            "id": "story",
+            "libelle": "Story"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "publications",
+          "libelle": "Publications",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-33.01",
+    "texte": "Sur les 12 dernières semaines, combien de semaines avez-vous publié au moins une fois sur chaque réseau, et quelle a été votre plus longue pause ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "declencheur",
+        "cle": "D22"
+      },
+      "colonnes": [
+        {
+          "id": "semaines_avec_une_publication",
+          "libelle": "Semaines avec une publication",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre",
+            "min": 0,
+            "max": 12
+          }
+        },
+        {
+          "id": "plus_longue_pause",
+          "libelle": "Plus longue pause",
+          "spec": {
+            "type": "nombre",
+            "unite": "semaines"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-39.01",
+    "texte": "Pour vos 3 meilleures et vos 3 moins bonnes publications des 3 derniers mois, quels ont été les résultats ?",
+    "aide": "Meilleures : celles qui vous ont apporté le plus de messages ou de clics, sinon le plus de réactions. Les colonnes suivent le chemin du lecteur, de la publication vue jusqu'au message.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "meilleure_1",
+            "libelle": "Meilleure 1"
+          },
+          {
+            "id": "meilleure_2",
+            "libelle": "Meilleure 2"
+          },
+          {
+            "id": "meilleure_3",
+            "libelle": "Meilleure 3"
+          },
+          {
+            "id": "moins_bonne_1",
+            "libelle": "Moins bonne 1"
+          },
+          {
+            "id": "moins_bonne_2",
+            "libelle": "Moins bonne 2"
+          },
+          {
+            "id": "moins_bonne_3",
+            "libelle": "Moins bonne 3"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "reseau",
+          "libelle": "Réseau",
+          "spec": {
+            "type": "texte"
+          }
+        },
+        {
+          "id": "personnes_touchees",
+          "libelle": "Personnes touchées",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "reactions",
+          "libelle": "Réactions",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "visites_du_profil",
+          "libelle": "Visites du profil",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "nouveaux_abonnes",
+          "libelle": "Nouveaux abonnés",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "clics",
+          "libelle": "Clics",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "messages_ou_demandes",
+          "libelle": "Messages ou demandes",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-39.02",
+    "texte": "Pour chacune de ces 6 publications, quel est son texte et son lien ?",
+    "aide": "Copiez le texte tel quel et collez le lien de la publication, pour que son visuel puisse être regardé.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "meilleure_1",
+            "libelle": "Meilleure 1"
+          },
+          {
+            "id": "meilleure_2",
+            "libelle": "Meilleure 2"
+          },
+          {
+            "id": "meilleure_3",
+            "libelle": "Meilleure 3"
+          },
+          {
+            "id": "moins_bonne_1",
+            "libelle": "Moins bonne 1"
+          },
+          {
+            "id": "moins_bonne_2",
+            "libelle": "Moins bonne 2"
+          },
+          {
+            "id": "moins_bonne_3",
+            "libelle": "Moins bonne 3"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "texte",
+          "libelle": "Texte",
+          "spec": {
+            "type": "texte"
+          }
+        },
+        {
+          "id": "lien",
+          "libelle": "Lien",
+          "spec": {
+            "type": "texte"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-39.03",
+    "texte": "Sur vos 5 dernières vidéos, combien de vues font-elles en moyenne, combien de secondes sont regardées et quelle part est vue jusqu'au bout ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "vues_par_video",
+          "libelle": "Vues par vidéo",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "secondes_regardees_en_moyenne",
+          "libelle": "Secondes regardées en moyenne",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "part_vue_jusqu_au_bout",
+          "libelle": "Part vue jusqu'au bout",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-42.02",
+    "texte": "En moyenne sur les 3 derniers mois, combien de publications de clients vous mentionnent ou vous identifient par mois ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-43.03",
+    "texte": "Comment savez-vous quels clients viennent de vos publications ?",
+    "aide": "Un lien suivi compte les clics, par exemple avec un raccourcisseur de liens. L'origine notée pour chaque client est demandée avec votre suivi commercial.",
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "liens_suivis",
+          "libelle": "Liens suivis"
+        },
+        {
+          "id": "codes_promo_reserves_aux_reseaux",
+          "libelle": "Codes promo réservés aux réseaux"
+        },
+        {
+          "id": "numero_ou_formulaire_reserve_aux_reseaux",
+          "libelle": "Numéro ou formulaire réservé aux réseaux"
+        },
+        {
+          "id": "aucun_moyen",
+          "libelle": "Aucun moyen"
+        }
+      ],
+      "minChoix": 1
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-44.03",
+    "texte": "Combien de vos avis Google ont 5 étoiles, 4 étoiles, et 3 étoiles ou moins ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "5_etoiles",
+          "libelle": "5 étoiles",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "4_etoiles",
+          "libelle": "4 étoiles",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "3_etoiles_ou_moins",
+          "libelle": "3 étoiles ou moins",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-44.04",
+    "texte": "Que disent vos clients dans leurs 20 derniers avis ?",
+    "aide": "Copiez-collez le texte des avis, tels quels, depuis votre fiche Google, votre boutique ou votre plateforme d'avis. Leurs mots montrent ce que vos clients apprécient le plus, à mettre en avant dans vos publications, et ce qu'ils vous reprochent.",
+    "repli": null,
+    "reponse": {
+      "type": "texte",
+      "max": 8000
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-45.02",
+    "texte": "Comment demandez-vous cet avis ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "a_l_oral",
+          "libelle": "À l'oral"
+        },
+        {
+          "id": "par_un_lien_envoye",
+          "libelle": "Par un lien envoyé"
+        },
+        {
+          "id": "par_un_qr_code",
+          "libelle": "Par un QR code"
+        },
+        {
+          "id": "par_un_message_automatique",
+          "libelle": "Par un message automatique"
+        }
+      ],
+      "minChoix": 1
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-46.01",
+    "texte": "Quelle part de vos avis positifs et de vos avis négatifs a reçu une réponse, et en combien de jours en moyenne ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "avis_positifs_avec_une_reponse",
+          "libelle": "Avis positifs avec une réponse",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "avis_negatifs_avec_une_reponse",
+          "libelle": "Avis négatifs avec une réponse",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "id": "delai_moyen_de_reponse",
+          "libelle": "Délai moyen de réponse",
+          "spec": {
+            "type": "nombre",
+            "unite": "jours"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_importee"
+  },
+  {
+    "donnee": "COM-57.01",
+    "texte": "Comment décririez-vous votre client idéal, en deux ou trois phrases ?",
+    "aide": "Qui il est, ce qu'il cherche, ce qui le fait hésiter avant de vous choisir.",
+    "repli": null,
+    "reponse": {
+      "type": "texte",
+      "max": 500
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.02",
+    "texte": "Dans vos contenus, tutoyez-vous ou vouvoyez-vous vos clients ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "tutoiement",
+          "libelle": "Tutoiement"
+        },
+        {
+          "id": "vouvoiement",
+          "libelle": "Vouvoiement"
+        },
+        {
+          "id": "selon_le_reseau",
+          "libelle": "Selon le réseau"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.03",
+    "texte": "Quel ton voulez-vous donner à vos contenus ?",
+    "aide": "3 au plus.",
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "chaleureux_et_proche",
+          "libelle": "Chaleureux et proche"
+        },
+        {
+          "id": "expert_et_pedagogue",
+          "libelle": "Expert et pédagogue"
+        },
+        {
+          "id": "direct_et_concret",
+          "libelle": "Direct et concret"
+        },
+        {
+          "id": "haut_de_gamme",
+          "libelle": "Haut de gamme"
+        },
+        {
+          "id": "drole_et_leger",
+          "libelle": "Drôle et léger"
+        },
+        {
+          "id": "engage_pour_une_cause",
+          "libelle": "Engagé pour une cause"
+        }
+      ],
+      "minChoix": 1,
+      "maxChoix": 3
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.04",
+    "texte": "Quels mots voulez-vous employer dans vos contenus, et lesquels voulez-vous éviter ?",
+    "aide": "Par exemple : employer « sur mesure », « artisan » ; éviter « pas cher », les sujets politiques.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "a_employer",
+          "libelle": "À employer",
+          "spec": {
+            "type": "texte"
+          }
+        },
+        {
+          "id": "a_eviter",
+          "libelle": "À éviter",
+          "spec": {
+            "type": "texte"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.05",
+    "texte": "Êtes-vous prêt à apparaître en photo ou en vidéo dans vos contenus ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_face_camera",
+          "libelle": "Oui, face caméra"
+        },
+        {
+          "id": "en_photo_seulement",
+          "libelle": "En photo seulement"
+        },
+        {
+          "id": "non_je_prefere_montrer_mon_travail_sans_",
+          "libelle": "Non, je préfère montrer mon travail sans me montrer"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.06",
+    "texte": "Avez-vous un logo et une charte graphique, et quelles sont vos couleurs ?",
+    "aide": "Écrivez vos couleurs comme vous les connaissez, « bleu marine et orange », ou leurs codes, par exemple #1E3A5F.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "logo",
+          "libelle": "Logo",
+          "spec": {
+            "type": "oui_non"
+          }
+        },
+        {
+          "id": "charte_graphique",
+          "libelle": "Charte graphique",
+          "spec": {
+            "type": "oui_non"
+          }
+        },
+        {
+          "id": "vos_couleurs",
+          "libelle": "Vos couleurs",
+          "spec": {
+            "type": "texte"
+          }
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.07",
+    "texte": "Quels contenus voulez-vous recevoir ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "publications_pour_vos_reseaux",
+          "libelle": "Publications pour vos réseaux"
+        },
+        {
+          "id": "scripts_de_videos_courtes",
+          "libelle": "Scripts de vidéos courtes"
+        },
+        {
+          "id": "visuels_et_carrousels",
+          "libelle": "Visuels et carrousels"
+        },
+        {
+          "id": "articles_pour_votre_site",
+          "libelle": "Articles pour votre site"
+        },
+        {
+          "id": "emails_ou_newsletter",
+          "libelle": "Emails ou newsletter"
+        },
+        {
+          "id": "reponses_a_vos_avis",
+          "libelle": "Réponses à vos avis"
+        },
+        {
+          "id": "publications_pour_votre_fiche_google",
+          "libelle": "Publications pour votre fiche Google"
+        }
+      ],
+      "minChoix": 1
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.08",
+    "texte": "Voulez-vous valider chaque contenu avant qu'il soit publié ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_chaque_contenu",
+          "libelle": "Oui, chaque contenu"
+        },
+        {
+          "id": "je_valide_le_calendrier_du_mois_le_reste",
+          "libelle": "Je valide le calendrier du mois, le reste part tout seul"
+        },
+        {
+          "id": "non_publication_automatique",
+          "libelle": "Non, publication automatique"
+        }
+      ]
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.10",
+    "texte": "Quelle offre voulez-vous mettre en avant en priorité dans vos contenus ?",
+    "aide": "Une de vos offres principales, une nouveauté, ou celle sur laquelle vous gagnez le plus.",
+    "repli": null,
+    "reponse": {
+      "type": "texte",
+      "max": 200
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.11",
+    "texte": "Quelles questions vos clients vous posent-ils le plus souvent ?",
+    "aide": "Avant ou après avoir fait appel à vous. Chacune peut devenir un contenu. 5 au plus.",
+    "repli": null,
+    "reponse": {
+      "type": "liste",
+      "max": 5
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.12",
+    "texte": "Quelles hésitations entendez-vous le plus souvent avant qu'un client se décide ?",
+    "aide": "Par exemple : « c'est trop cher », « je vais réfléchir », « je peux le faire moi-même ». 5 au plus.",
+    "repli": null,
+    "reponse": {
+      "type": "liste",
+      "max": 5
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.13",
+    "texte": "Quelles dates comptent pour votre activité dans l'année ?",
+    "aide": "Saison forte, salon, fête, anniversaire de l'entreprise, lancement d'une offre… avec le mois. 6 au plus.",
+    "repli": null,
+    "reponse": {
+      "type": "liste",
+      "max": 6
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.14",
+    "texte": "Votre métier impose-t-il des règles pour communiquer, par exemple sur l'alcool, la santé, les prix ou les promotions ?",
+    "aide": "Elles seront prises en compte dans les contenus proposés. Écrivez « non » s'il n'y en a pas.",
+    "repli": null,
+    "reponse": {
+      "type": "texte",
+      "max": 300
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.15",
+    "texte": "Quels comptes ou quelles publications aimez-vous, dans votre métier ou ailleurs ?",
+    "aide": "Ceux dont vous aimeriez vous inspirer, et ce qui vous plaît chez eux.",
+    "repli": null,
+    "reponse": {
+      "type": "texte",
+      "max": 300
+    },
+    "raison": "donnee_inconnue"
+  },
+  {
+    "donnee": "COM-57.16",
+    "texte": "Dans quelles langues voulez-vous publier ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "francais",
+          "libelle": "Français"
+        },
+        {
+          "id": "anglais",
+          "libelle": "Anglais"
+        },
+        {
+          "id": "espagnol",
+          "libelle": "Espagnol"
+        },
+        {
+          "id": "allemand",
+          "libelle": "Allemand"
+        },
+        {
+          "id": "italien",
+          "libelle": "Italien"
+        },
+        {
+          "id": "autre",
+          "libelle": "Autre"
+        }
+      ],
+      "minChoix": 1
+    },
+    "raison": "donnee_inconnue"
   }
 ]

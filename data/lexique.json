@@ -15,9 +15,9 @@
     "mot": "Nouveau client",
     "formes": {
       "rdv": "Première visite",
-      "commerce": "Acheteur (ticket de caisse)",
+      "commerce": "Client venu pour la première fois",
       "ecommerce": "Commande d'un nouveau client",
-      "restaurant": "Couvert",
+      "restaurant": "Client venu pour la première fois",
       "chantier": "Devis signé",
       "b2b": "Contrat signé",
       "abonnement": "Nouveau client sous contrat"
@@ -44,7 +44,7 @@
       "restaurant": null,
       "chantier": "Visite technique ou métré",
       "b2b": "Rendez-vous de découverte",
-      "abonnement": "Rendez-vous de découverte, s'il existe"
+      "abonnement": "Rendez-vous de découverte"
     }
   },
   {
@@ -100,7 +100,7 @@
     "formes": {
       "rdv": "Client qui revient",
       "commerce": "Client avec carte de fidélité",
-      "ecommerce": "Client qui recommande",
+      "ecommerce": "Client qui commande à nouveau",
       "restaurant": "Habitué",
       "chantier": "Client qui redemande",
       "b2b": "Client qui renouvelle",
@@ -137,10 +137,10 @@
     "formes": {
       "rdv": "demandes de rendez-vous",
       "commerce": "visiteurs en boutique",
-      "ecommerce": "visites sur votre site",
+      "ecommerce": "visiteurs de votre site",
       "restaurant": "réservations ou demandes",
       "chantier": "demandes de devis",
-      "b2b": "demandes entrantes",
+      "b2b": "contacts entrants",
       "abonnement": "demandes d'information ou d'essai"
     }
   },
@@ -194,6 +194,45 @@
       "chantier": null,
       "b2b": null,
       "abonnement": null
+    }
+  },
+  {
+    "mot": "Devis (pluriel, dans une phrase)",
+    "cle": "devis_pluriel",
+    "formes": {
+      "rdv": "devis",
+      "commerce": "devis",
+      "ecommerce": "devis",
+      "restaurant": "devis traiteur ou groupe",
+      "chantier": "devis",
+      "b2b": "propositions commerciales",
+      "abonnement": "propositions ou devis"
+    }
+  },
+  {
+    "mot": "Ventes réalisées (pluriel, dans une phrase)",
+    "cle": "ventes_realisees",
+    "formes": {
+      "rdv": "prestations réalisées",
+      "commerce": "tickets de caisse",
+      "ecommerce": "commandes expédiées",
+      "restaurant": "couverts servis",
+      "chantier": "chantiers terminés",
+      "b2b": "dossiers livrés",
+      "abonnement": "clients servis"
+    }
+  },
+  {
+    "mot": "Exemples du travail fait pour les clients (dans une phrase)",
+    "cle": "exemples_travail",
+    "formes": {
+      "rdv": "les soins, les coupes, les séances ou les cours",
+      "commerce": "la vente en boutique et la mise en rayon",
+      "ecommerce": "la préparation et l'envoi des commandes",
+      "restaurant": "la cuisine et le service en salle",
+      "chantier": "les chantiers et les interventions",
+      "b2b": "les missions et les dossiers clients",
+      "abonnement": "le service rendu aux abonnés"
     }
   }
 ]

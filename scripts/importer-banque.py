@@ -3,6 +3,8 @@
 `data/banque/questions.json`.
 
 Usage :  python3 scripts/importer-banque.py CAXE_Banque_Questions.xlsx [--sortie fichier.json] [--sans-controle]
+         python3 scripts/importer-banque.py Banque_de_question_Visuel.html --ecarter-inconnues
+Le fichier peut être le classeur Excel ou la page « Banque de questions » (HTML) : même contenu, mêmes contrôles.
 
 L'import contrôle chaque ligne (type de réponse, options, champs, lignes, total), signale
 chaque erreur avec son numéro de ligne Excel, et n'écrit RIEN tant qu'il en reste. Il lance
@@ -10,9 +12,10 @@ ensuite le contrôle complet des données (npm run donnees:controle). Une ligne 
 est ignorée : la donnée reste « manquante ».
 
 Option `--ecarter-inconnues` : une question dont le code n'existe pas dans les données des
-4 agents (par exemple ajoutée au classeur de rédaction avant d'être ajoutée au classeur des
-4 agents) n'est pas importée ; elle est mise de côté dans `data/banque/en-attente.json`, avec
-un avertissement, et reprise automatiquement quand le code existera.
+4 agents, ou dont la donnée n'est pas « demandée » dans le classeur des 4 agents (par exemple
+ajoutée ou changée dans le classeur de rédaction avant de l'être dans le classeur des 4 agents),
+n'est pas importée ; elle est mise de côté dans `data/banque/en-attente.json`, avec sa raison et un
+avertissement, et reprise automatiquement quand la donnée existera.
 """
 import argparse
 import glob
@@ -101,6 +104,40 @@ def fusionner_lexique(wb, chemin, ecrire):
         print("   - " + m)
     if autres:
         print(f"   Lexiques propres à un métier non branchés ({len(autres)}) : {', '.join(autres)}.")
+
+
+def classeur_depuis_html(chemin):
+    """Page « Banque de questions » (HTML) -> classeur en mémoire, avec les mêmes feuilles « Questions » et « Lexique »
+    que le classeur Excel. Les données sont dans la constante `DATA` du script de la page."""
+    page = Path(chemin).read_text(encoding="utf-8")
+    debut = page.find("const DATA = ")
+    if debut == -1:
+        sys.exit("Page de la banque non reconnue : la constante DATA est introuvable.")
+    data, _ = json.JSONDecoder().raw_decode(page[debut + len("const DATA = "):])
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Questions"
+    ws.append([t for _k, t, _w, _r in COLONNES])
+    for r in data["rows"]:
+        ligne = {
+            "code": r.get("c"), "agent": r.get("a"), "theme": r.get("t"), "niveau": r.get("n"), "format": None,
+            "libelle": r.get("f"), "concerne": r.get("p"), "condition": r.get("h"), "question": r.get("q"), "aide": r.get("ai"),
+            "repli": None, "type": r.get("ty"), "unite": r.get("u"), "min": r.get("mi"), "max": r.get("ma"), "options": r.get("o"),
+            "champs": r.get("ch"), "lignes": r.get("li"), "total": r.get("to"), "indice": None,
+        }
+        ws.append([ligne[cle] if ligne[cle] not in ("",) else None for cle, *_r in COLONNES])
+    wl = wb.create_sheet("Lexique")
+    lex = data.get("lex", {})
+    colonnes = []
+    for mots in lex.values():
+        for k in mots:
+            if k != "Mot" and k not in colonnes:
+                colonnes.append(k)
+    ordre = [p for p in PROFILS_LEXIQUE if p in colonnes] + [c for c in colonnes if c not in PROFILS_LEXIQUE]
+    wl.append(["Mot à écrire dans la question", "Mot"] + ordre)
+    for cle, mots in lex.items():
+        wl.append([cle, mots.get("Mot")] + [mots.get(c) for c in ordre])
+    return wb
 
 
 def construire_reponse(ligne, erreur):
@@ -234,7 +271,7 @@ def main():
                     help="met de côté les questions dont la donnée n'existe pas encore (data/banque/en-attente.json)")
     args = ap.parse_args()
 
-    wb = openpyxl.load_workbook(args.classeur, data_only=True)
+    wb = classeur_depuis_html(args.classeur) if args.classeur.lower().endswith((".html", ".htm")) else openpyxl.load_workbook(args.classeur, data_only=True)
     if "Questions" not in wb.sheetnames:
         sys.exit("Feuille « Questions » introuvable : utilisez le gabarit généré par exporter-modele-banque.py.")
     ws = wb["Questions"]
@@ -279,12 +316,20 @@ def main():
 
     en_attente = []
     if args.ecarter_inconnues and not erreurs:
-        connus = set()
+        modes = {}
         for f in glob.glob(str(RACINE / "data" / "donnees-*.json")):
             for d in json.loads(Path(f).read_text(encoding="utf-8")):
-                connus.add(d["code"])
-        en_attente = [q for q in questions if q["donnee"] not in connus]
-        questions = [q for q in questions if q["donnee"] in connus]
+                modes[d["code"]] = d["mode"]
+
+        def raison(q):
+            m = modes.get(q["donnee"])
+            if m is None:
+                return "donnee_inconnue"
+            # « partagée » : posée par le premier agent qui en a besoin, comme une donnée demandée.
+            return None if m in ("demandee", "partagee") else f"donnee_{m}"
+
+        en_attente = [{**q, "raison": raison(q)} for q in questions if raison(q)]
+        questions = [q for q in questions if not raison(q)]
 
     if erreurs:
         print(f"{len(erreurs)} erreur(s) : rien n'a été écrit.", file=sys.stderr)
@@ -297,9 +342,13 @@ def main():
     fichier_attente = Path(args.sortie).with_name("en-attente.json")
     if en_attente:
         fichier_attente.write_text(json.dumps(en_attente, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        codes = ", ".join(q["donnee"] for q in en_attente)
-        print(f"ATTENTION : {len(en_attente)} question(s) mise(s) de côté dans {fichier_attente.name}, car la donnée n'existe pas "
-              f"dans les données des 4 agents : {codes}. Elles ne sont pas posées tant que le classeur des 4 agents ne les contient pas.")
+        par_raison = {}
+        for q in en_attente:
+            par_raison.setdefault(q["raison"], []).append(q["donnee"])
+        libelles = {"donnee_inconnue": "donnée absente du classeur des 4 agents", "donnee_importee": "donnée « importée » dans le classeur", "donnee_calculee": "donnée « calculée » dans le classeur", "donnee_partagee": "donnée « partagée » dans le classeur", "donnee_autre_agent": "donnée d'un autre agent dans le classeur"}
+        print(f"ATTENTION : {len(en_attente)} question(s) mise(s) de côté dans {fichier_attente.name} : elles ne sont pas posées tant que le classeur des 4 agents ne les contient pas comme données demandées.")
+        for r, cs in par_raison.items():
+            print(f"   - {libelles.get(r, r)} : {len(cs)} ({', '.join(cs[:8])}{'…' if len(cs) > 8 else ''})")
     elif args.ecarter_inconnues and fichier_attente.exists():
         fichier_attente.unlink()
 

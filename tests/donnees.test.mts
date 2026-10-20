@@ -14,7 +14,7 @@ const copie = (): EnsembleDonnees => structuredClone(reel);
 test("les fichiers du dépôt passent le contrôle sans erreur ; seules les règles à préciser sont signalées", () => {
   const r = controlerDonnees(reel);
   assert.deepEqual(r.erreurs, []);
-  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté ") && !/^(Le métier|L'activité|La catégorie|\d+ métier|\d+ indicateurs de références|Effets d'actions à valider|Sens à trancher|Aucun plafond quotidien)/.test(a));
+  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté ") && !/^(Le métier|L'activité|La catégorie|\d+ métier|\d+ indicateurs de références|Effets d'actions à valider|La réponse de |Sens à trancher|Aucun plafond quotidien)/.test(a));
   assert.deepEqual(inattendus, []);
   assert.equal(r.avertissements.filter((a) => a.startsWith("Règle à préciser")).length, 3);
 });
@@ -87,6 +87,7 @@ test("une donnée demandée sans question écrite est signalée manquante, jamai
   const r = controlerDonnees(reel);
   assert.equal(r.statistiques["questions écrites"], reel.banque.length);
   assert.equal(r.statistiques["questions manquantes"], r.statistiques["données demandées"] - reel.banque.length);
+  assert.ok(r.statistiques["questions manquantes"] >= 0);
   const sansBanque = controlerDonnees({ ...reel, banque: [] });
   assert.equal(sansBanque.statistiques["questions écrites"], 0);
   assert.equal(sansBanque.statistiques["questions manquantes"], sansBanque.statistiques["données demandées"]);

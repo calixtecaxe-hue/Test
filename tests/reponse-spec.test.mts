@@ -175,15 +175,16 @@ function avecBanque(code: string, reponse: ReponseSpec | null): EnsembleDonnees 
   e.banque = [{ donnee: code, texte: "Question de test", aide: null, repli: null, reponse }];
   return e;
 }
-// Une donnée qui n'a pas encore de question dans la banque réelle : le classeur seul décide de sa réponse.
-const sansQuestion = new Set(reel.donnees.filter((d) => !reel.banque.some((q) => q.donnee === d.code)).map((d) => d.code));
-const donneeAvecFormat = (f: string) => reel.donnees.find((d) => d.mode === "demandee" && d.format === f && sansQuestion.has(d.code))!;
+// Sans aucune question en banque : le classeur seul décide de la réponse attendue (ces tests ne dépendent pas de
+// ce que la banque réelle contient aujourd'hui).
+const vide: EnsembleDonnees = { ...reel, banque: [] };
+const donneeAvecFormat = (f: string) => vide.donnees.find((d) => d.mode === "demandee" && d.format === f)!;
 
 test("la spécification de la banque l'emporte sur celle du classeur ; sinon celle du classeur ; sinon aucune", () => {
   const nombreSimple = donneeAvecFormat("Nombre");
-  assert.equal(specDeLaDonnee(reel, nombreSimple.code).source, "classeur");
+  assert.equal(specDeLaDonnee(vide, nombreSimple.code).source, "classeur");
   const choixLibre = donneeAvecFormat("Choix");
-  assert.deepEqual(specDeLaDonnee(reel, choixLibre.code), { spec: null, source: null });
+  assert.deepEqual(specDeLaDonnee(vide, choixLibre.code), { spec: null, source: null });
   const e = avecBanque(choixLibre.code, { type: "choix", options: [{ id: "a", libelle: "A" }, { id: "b", libelle: "B" }] });
   assert.equal(specDeLaDonnee(e, choixLibre.code).source, "banque");
 });
@@ -196,8 +197,8 @@ test("le serveur refuse une réponse qui ne correspond pas à la spécification,
   assert.ok(!validerReponse(e, choixLibre.code, { genre: "exact", valeur: 3 }).ok);
   assert.ok(validerReponse(e, choixLibre.code, { genre: "inconnu" }).ok);
   // Sans spécification, un texte libre reste permis mais pas un chiffre ni des valeurs.
-  assert.ok(validerReponse(reel, choixLibre.code, { genre: "saisie", valeur: "texte libre" }).ok);
-  assert.ok(!validerReponse(reel, choixLibre.code, { genre: "valeurs", valeurs: { a: 1 } }).ok);
+  assert.ok(validerReponse(vide, choixLibre.code, { genre: "saisie", valeur: "texte libre" }).ok);
+  assert.ok(!validerReponse(vide, choixLibre.code, { genre: "valeurs", valeurs: { a: 1 } }).ok);
 });
 
 test("le serveur contrôle les lignes d'un tableau avec les réponses déjà données au cadrage", () => {
@@ -213,8 +214,8 @@ test("l'assemblage transmet la spécification et en précise l'origine", () => {
   const choixLibre = donneeAvecFormat("Choix");
   const spec: ReponseSpec = { type: "choix", options: [{ id: "a", libelle: "A" }, { id: "b", libelle: "B" }] };
   const e = avecBanque(choixLibre.code, spec);
-  const rep = Object.fromEntries(reel.declencheurs.map((d) => [d.code, saisie("oui")]));
-  const agent = reel.themes.find((t) => t.code === choixLibre.theme)!.agent;
+  const rep = Object.fromEntries(vide.declencheurs.map((d) => [d.code, saisie("oui")]));
+  const agent = vide.themes.find((t) => t.code === choixLibre.theme)!.agent;
   const a = assemblerQuestionnaire(e, { agent, profils: ["chantier"], taille: "equipe_2_5", niveau: "approfondi", reponses: rep });
   const toutes = a.themes.flatMap((t) => t.questions);
   const q = toutes.find((x) => x.code === choixLibre.code);
@@ -236,10 +237,10 @@ test("le contrôle signale une réponse de banque qui s'écarte du format du cla
 });
 
 test("les chiffres du contrôle : ce que le classeur permet de déduire et ce que la banque doit définir", () => {
-  const r = controlerDonnees(reel);
+  const r = controlerDonnees(vide);
   const deduit = r.statistiques["données posées dont la réponse se déduit du format"];
   const adefinir = r.statistiques["données posées dont la réponse reste à définir dans la banque"];
-  assert.equal(deduit + adefinir, reel.donnees.filter((d) => d.mode === "demandee" || d.mode === "partagee").length);
+  assert.equal(deduit + adefinir, vide.donnees.filter((d) => d.mode === "demandee" || d.mode === "partagee").length);
   assert.ok(deduit > 150 && adefinir > 150);
 });
 

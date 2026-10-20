@@ -323,7 +323,7 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
   for (const q of e.banque) {
     const d = donnees.get(q.donnee);
     if (!d) erreurs.push(`Une question référence une donnée inconnue : ${q.donnee}.`);
-    else if (d.mode !== "demandee") erreurs.push(`La question de ${q.donnee} porte sur une donnée non demandée (${d.mode}).`);
+    else if (d.mode !== "demandee" && d.mode !== "partagee") erreurs.push(`La question de ${q.donnee} porte sur une donnée non demandée (${d.mode}).`);
     questions.set(q.donnee, (questions.get(q.donnee) ?? 0) + 1);
   }
   for (const [code, n] of questions) if (n > 1) erreurs.push(`La donnée ${code} a ${n} questions dans la banque.`);
@@ -357,7 +357,8 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
   const banqueParDonnee = new Map(e.banque.map((q) => [q.donnee, q]));
   const sansSpec = posees.filter((d) => !banqueParDonnee.get(d.code)?.reponse && proposerSpec(d.format).certitude !== "sure");
 
-  const demandees = e.donnees.filter((d) => d.mode === "demandee");
+  // Une donnée « partagée » se pose comme une donnée demandée (par le premier agent qui en a besoin).
+  const demandees = posees;
   const parAgent = (a: CodeAgent) => e.themes.filter((t) => t.agent === a).length;
 
   return {
@@ -374,7 +375,7 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
       "questions écrites": e.banque.length,
       "données posées dont la réponse se déduit du format": posees.length - sansSpec.length,
       "données posées dont la réponse reste à définir dans la banque": sansSpec.length,
-      "questions manquantes": demandees.length - questions.size,
+      "questions manquantes": demandees.filter((d) => !questions.has(d.code)).length,
       croisements: e.croisements.length,
       scénarios: e.scenarios.length,
       déclencheurs: e.declencheurs.length,

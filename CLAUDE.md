@@ -390,7 +390,18 @@ brouillon à valider ; l'IA du rapport choisit parmi ces actions pour obtenir un
 sourcé »), le calcul du montant en jeu (formules des croisements encore en texte libre), l'effet de l'ensemble par recalcul de la chaîne,
 l'affichage dans le rapport, la mise à jour périodique. Clé requise : `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt).
 
-**Banque de questions de l'agent Acquisition (19 octobre)** : `data/banque/questions.json` contient **37 questions écrites** par le propriétaire (classeur `CAXE_Banque_Questions_3.xlsx`, importé par `python3 scripts/importer-banque.py <classeur> --ecarter-inconnues`). Les 7 questions du profil location (ACQ-11.31 à 11.37) sont dans `data/banque/en-attente.json` : leurs données n'existent pas encore dans le classeur des 4 agents. L'import reporte aussi l'onglet Lexique du classeur dans `data/lexique.json` pour les 7 profils (mots `demandes`, `unites_vendues`, `unites_a_louer`, `jours_ouverture`, `hors_location` ; clé explicite `cle` quand elle ne se déduit pas du libellé) ; le contrôle refuse un mot de lexique inconnu dans une question. **Note « Modifications du 19 octobre » du classeur, pas encore reportée** (elle demande le classeur des 4 agents mis à jour, que je n'ai pas) : lexique par métier (10 lexiques propres à un métier, onglet Routage), profil « location », bloc Stock ouvert à tous les profils, questions devis ouvertes à tous, 17 canaux (D03), données ACQ-11.31 à 11.40 et croisement du profil location, doublons supprimés (ACQ-17.01 calculée).
+**Banque de questions des 4 agents (20 octobre)** : `data/banque/questions.json` contient **385 questions écrites** par le propriétaire
+(Acquisition 126, Finance 104, RH 98, Comm 57), importées de la page « Banque de questions » (HTML, 519 questions) ou du classeur Excel par
+`python3 scripts/importer-banque.py <fichier> --ecarter-inconnues` (l'import contrôle chaque ligne et reporte l'onglet Lexique dans `data/lexique.json`
+pour les 7 profils ; une question dont la donnée est « partagée » se pose comme une donnée demandée). **134 questions sont mises de côté** dans
+`data/banque/en-attente.json`, avec leur raison, et reprises automatiquement dès que le classeur des 4 agents contient la donnée comme « Demandée » :
+103 données absentes du classeur (19 thèmes à créer : FIN-46 à 48, RH-41 à 49, COM-55 à 61, plus des données dans des thèmes existants, dont les
+ACQ-11.31 à 11.37 du profil location) et 31 données « Importées » (avis, fiche Google, visites du site, paniers abandonnés… : le dirigeant les saisit tant
+que rien n'est connecté). La liste exacte est dans `docs/Ajouts_au_classeur_des_4_agents.xlsx`. 14 réponses de la banque s'écartent du format du classeur
+(par exemple « Plusieurs champs » là où le classeur dit « Nombre ») : avertissement du contrôle, la banque l'emporte. Le classeur « 10 » reçu le 19 octobre
+est identique au « 8 » : **il manque toujours le classeur des 4 agents mis à jour** (thèmes, données, natures de notation, croisements des nouveaux
+thèmes ; 17 canaux de D03 ; bloc Stock et questions devis ouverts à tous ; ACQ-17.01 calculée ; lexique par métier et profil « location » : les 10 lexiques
+propres à un métier ne sont pas branchés).
 
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),

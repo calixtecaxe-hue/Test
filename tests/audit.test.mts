@@ -328,16 +328,17 @@ test("une réponse de déclencheur doit correspondre à ce qui est posé", () =>
 });
 
 test("une réponse de donnée : seul un chiffre admet exact et estimation, tout admet « je ne sais pas »", () => {
-  const scalaire = reel.donnees.find((d) => d.mode === "demandee" && d.format === "€")!;
-  const ecrites = new Set(reel.banque.map((q) => q.donnee));
-  const tableau = reel.donnees.find((d) => d.mode === "demandee" && d.format?.startsWith("Tableau") && !ecrites.has(d.code))!;
-  const v = validerReponse(reel, scalaire.code, { genre: "estimation", min: 10, max: 20 });
+  // Sans banque : le format du classeur décide (la banque réelle peut définir une autre réponse).
+  const sansBanque: EnsembleDonnees = { ...reel, banque: [] };
+  const scalaire = sansBanque.donnees.find((d) => d.mode === "demandee" && d.format === "€")!;
+  const tableau = sansBanque.donnees.find((d) => d.mode === "demandee" && d.format?.startsWith("Tableau"))!;
+  const v = validerReponse(sansBanque, scalaire.code, { genre: "estimation", min: 10, max: 20 });
   assert.equal(v.ok, true);
   assert.equal(v.ok && v.agent, reel.themes.find((t) => t.code === scalaire.theme)!.agent);
-  assert.equal(validerReponse(reel, tableau.code, { genre: "exact", valeur: 3 }).ok, false);
-  assert.equal(validerReponse(reel, tableau.code, { genre: "inconnu" }).ok, true);
-  assert.equal(validerReponse(reel, tableau.code, { genre: "non_suivi" }).ok, true);
-  assert.equal(validerReponse(reel, tableau.code, saisie("texte libre")).ok, true);
+  assert.equal(validerReponse(sansBanque, tableau.code, { genre: "exact", valeur: 3 }).ok, false);
+  assert.equal(validerReponse(sansBanque, tableau.code, { genre: "inconnu" }).ok, true);
+  assert.equal(validerReponse(sansBanque, tableau.code, { genre: "non_suivi" }).ok, true);
+  assert.equal(validerReponse(sansBanque, tableau.code, saisie("texte libre")).ok, true);
 });
 
 test("on ne répond pas à une donnée calculée ni à une donnée qui n'existe pas", () => {
