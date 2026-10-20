@@ -230,6 +230,37 @@
       ]
     },
     {
+      "id": "hotel",
+      "libelle": "Hôtel",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "restauration",
+      "stock": "non",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "hebergement-chambres",
+          "libelle": "Hébergement (chambres)",
+          "categorie": "restauration",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true,
+          "profilsImposes": [
+            "location"
+          ]
+        },
+        {
+          "id": "restaurant-de-l-hotel",
+          "libelle": "Restaurant de l'hôtel",
+          "categorie": "restauration",
+          "stock": "oui",
+          "agentComm": "oui",
+          "profilsImposes": [
+            "restaurant"
+          ]
+        }
+      ]
+    },
+    {
       "id": "paysagiste",
       "libelle": "Paysagiste",
       "secteur": "Métiers à sous-parties",
@@ -1458,17 +1489,6 @@
       "categorie": "restauration",
       "stock": "oui",
       "agentComm": "a_trancher"
-    },
-    {
-      "id": "hotel",
-      "libelle": "Hôtel",
-      "secteur": "Hôtellerie-restauration",
-      "categorie": "restauration",
-      "stock": "a_demander",
-      "agentComm": "oui",
-      "profilsImposes": [
-        "location"
-      ]
     },
     {
       "id": "camping",

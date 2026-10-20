@@ -304,7 +304,7 @@ tels quels).
 `diagnostic-comm.json` (14 problèmes), `declencheurs.json` (27), `lexique.json`,
 `regles-affichage.json` (conditions d'affichage, masquages de thèmes et réponses attendues des
 déclencheurs, **écrit à la main** d'après le classeur ; le contrôle échoue si une condition du classeur n'y a pas
-de règle ; trois règles sont « à préciser »), `routage.json` (11 catégories, 7 profils, 149 métiers et 52 activités tirés du document « CAXE — Liste des métiers » du 15 octobre, avec synonymes de recherche, stock oui / non / à demander et agent Comm oui / non / à trancher),
+de règle ; trois règles sont « à préciser »), `routage.json` (11 catégories, 7 profils, 149 métiers et 54 activités tirés du document « CAXE — Liste des métiers » du 15 octobre, avec synonymes de recherche, stock oui / non / à demander et agent Comm oui / non / à trancher),
 `inscription.json` (questions du dossier d'inscription, avec mots du lexique) et
 `banque/questions.json` (vide). Les huit premiers viennent du classeur par
 `python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` et `inscription.json` sont écrits
@@ -405,8 +405,9 @@ D23, D24 et D26 sont la réponse à une question de la banque (forme `reponse_do
 D24 → COM-15.12, D26 → COM-39.07) : on ne les pose plus au cadrage, la question se pose dans le questionnaire, et l'écran recalcule les questions à poser après sa réponse.
 Les exclusions des professions réglementées s'appliquent aux options de la donnée (ACQ-03.01 : `publicite_en_ligne`, `publicite_locale`, `prospection`, `partenaires`) ; les nouveaux canaux
 (emailing et SMS, réseaux d'affaires, annuaires, appels d'offres…) ne sont **pas tranchés** pour ces professions. FIN-05.02 reste « à préciser ». Le texte libre accepte 8 000 caractères (COM-44.04).
-**Profil location** : les métiers Hôtel, Camping, Gîte, Chambre d'hôtes et Location de véhicules sont routés vers ce seul profil (`profilsImposes` dans `routage.json`, posé par
-`scripts/ecrire-routage-metiers.py`) ; ACQ-11.31 à 11.37 ne sont posées qu'à lui. **À confirmer** : un hôtel avec restaurant garde-t-il aussi le profil Restaurant ?
+**Profil location** : Camping, Gîte, Chambre d'hôtes et Location de véhicules sont routés vers ce seul profil (`profilsImposes` du métier dans `routage.json`, posé par
+`scripts/ecrire-routage-metiers.py`) ; ACQ-11.31 à 11.37 ne sont posées qu'à lui. **Hôtel** (décision du propriétaire, 20 octobre) : cases à cocher comme les autres métiers à plusieurs activités,
+« Hébergement (chambres) » (profil location, par défaut) et « Restaurant de l'hôtel » (profil restaurant, stock oui) ; les deux cochées donnent les deux profils (`profilsImposes` de l'activité).
 **Calculs à écrire (absents du classeur, rien n'est inventé)** : ACQ-11.38 taux d'occupation, ACQ-11.39 prix moyen d'une unité vendue, ACQ-11.40 CA perdu par mois, un croisement
 location en miroir de XA34, les couverts par mois (ACQ-11.07 × ACQ-11.09 × 4,33), les nombres par canal (ACQ-02.01 × ACQ-03.02 et ACQ-11.01 × ACQ-03.03), les calculs du funnel Comm
 (COM-58.03, COM-61.03, COM-39.06) et les formules et croisements des 19 thèmes nouveaux.

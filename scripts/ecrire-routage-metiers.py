@@ -57,6 +57,10 @@ LISTE1 = [
         ("Conciergerie saisonnière", "Abonnement", "Non", "Oui", False),
         ("Immobilier d'entreprise (bureaux, locaux commerciaux)", "Cycle long", "Non", "Oui", False),
     ]),
+    ("Hôtel", [], [
+        ("Hébergement (chambres)", "Hôtellerie-restauration", "Non", "Oui", True),
+        ("Restaurant de l'hôtel", "Hôtellerie-restauration", "Oui", "Oui", False),
+    ]),
     ("Paysagiste", [], [
         ("Création", "Chantier", "Non", "Oui", True),
         ("Entretien régulier", "Abonnement", "Non", "Oui", False),
@@ -159,7 +163,6 @@ LISTE2 = [
     ("Transport et logistique", ["Livraison du dernier kilomètre", "transport de marchandises", "déménagement", "VTC et taxi", "autocariste", "coursier", "entreposage", "location de véhicules"], "Transport", "Non", "Oui"),
     ("Hôtellerie-restauration", ["Restaurant", "brasserie (restaurant)", "pizzeria", "restauration rapide", "salon de thé", "food truck", "cuisine en livraison seule"], "Hôtellerie-restauration", "Oui", "Oui"),
     ("Hôtellerie-restauration", ["Café-bar"], "Hôtellerie-restauration", "Oui", "À trancher"),
-    ("Hôtellerie-restauration", ["Hôtel"], "Hôtellerie-restauration", "À demander", "Oui"),
     ("Hôtellerie-restauration", ["Camping", "gîte", "chambre d'hôtes"], "Hôtellerie-restauration", "Non", "Oui"),
     ("Beauté", ["Coiffeur", "barbier", "esthéticienne", "onglerie"], "Rendez-vous", "À demander", "Oui"),
     ("Beauté", ["Tatoueur"], "Rendez-vous", "Non", "Oui"),
@@ -193,9 +196,10 @@ PROFILS_REGLEMENTES = {
 
 
 # Métiers d'hébergement et de location de véhicules : leur profil d'entreprise est « location »
-# (ACQ-11.31 à 11.37 ne sont posées qu'à ce profil). Le classeur ne dit pas si un hôtel avec restaurant
-# garde aussi le profil restaurant : à confirmer par le propriétaire.
-METIERS_LOCATION = {"hotel", "camping", "gite", "chambre-d-hotes", "location-de-vehicules"}
+# (ACQ-11.31 à 11.37 ne sont posées qu'à ce profil).
+METIERS_LOCATION = {"camping", "gite", "chambre-d-hotes", "location-de-vehicules"}
+# Hôtel : une activité par case (Hébergement, Restaurant de l'hôtel) ; cochées ensemble, le client a les deux profils.
+PROFILS_IMPOSES_ACTIVITE = {("hotel", "hebergement-chambres"): ["location"], ("hotel", "restaurant-de-l-hotel"): ["restaurant"]}
 
 
 def main():
@@ -259,6 +263,9 @@ def main():
     for m in metiers:
         if m["id"] in METIERS_LOCATION:
             m["profilsImposes"] = ["location"]
+        for v in m.get("sousVariantes", []):
+            if (m["id"], v["id"]) in PROFILS_IMPOSES_ACTIVITE:
+                v["profilsImposes"] = PROFILS_IMPOSES_ACTIVITE[(m["id"], v["id"])]
 
     r["metiers"] = metiers
     r["source"] = "Document « CAXE — Règles de fonctionnement » (15 octobre 2026), partie 3, et document « CAXE — Liste des métiers » (15 octobre 2026)."

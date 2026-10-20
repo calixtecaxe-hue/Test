@@ -239,6 +239,8 @@ const sousPartie = z.object({
   agentComm: agentCommMetier,
   // Profil propre à l'activité quand la catégorie n'en donne pas (réglementé).
   profils: z.array(profilId).optional(),
+  // Profils qui remplacent ceux de la catégorie pour cette activité (hôtel : hébergement → location, restaurant → restaurant).
+  profilsImposes: z.array(profilId).optional(),
   aConfirmer: z.string().optional(),
 });
 

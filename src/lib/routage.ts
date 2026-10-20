@@ -69,6 +69,7 @@ type Partie = {
   stock: StockMetier;
   agentComm: AgentCommMetier;
   profils?: ProfilId[];
+  profilsImposes?: ProfilId[];
 };
 
 function fusionnerStock(parts: Partie[]): StockMetier {
@@ -151,7 +152,8 @@ function resultat(
   // réglementées), ceux de l'activité ou du métier.
   const retenus = new Set<ProfilId>();
   parts.forEach((p, i) => {
-    const base = profilsImposes.length > 0 ? profilsImposes : cats[i].profils.length > 0 ? cats[i].profils : p.profils ?? profilsDuMetier;
+    const imposes = p.profilsImposes ?? profilsImposes;
+    const base = imposes.length > 0 ? imposes : cats[i].profils.length > 0 ? cats[i].profils : p.profils ?? profilsDuMetier;
     base.forEach((x) => retenus.add(x));
   });
   const profils = PROFILS.filter((p) => retenus.has(p));

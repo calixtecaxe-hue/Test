@@ -20,11 +20,11 @@ function profils(metier: string, variantes: string[] = [], options: { autre?: bo
   return r.ok ? r.routage : (undefined as never);
 }
 
-test("la liste du document : 149 métiers dont 15 à sous-parties (52 sous-parties), 11 catégories", () => {
+test("la liste du document : 149 métiers dont 16 à sous-parties (54 sous-parties), 11 catégories", () => {
   assert.equal(routage.metiers.length, 149);
   const avecParts = routage.metiers.filter((m) => m.sousVariantes);
-  assert.equal(avecParts.length, 15);
-  assert.equal(avecParts.reduce((n, m) => n + (m.sousVariantes?.length ?? 0), 0), 52);
+  assert.equal(avecParts.length, 16);
+  assert.equal(avecParts.reduce((n, m) => n + (m.sousVariantes?.length ?? 0), 0), 54);
   assert.equal(routage.categories.length, 11);
   assert.equal(new Set(routage.metiers.map((m) => m.id)).size, 149, "identifiants uniques");
 });
@@ -98,7 +98,8 @@ test("le stock : oui, non, ou une question à l'inscription ; plusieurs activit�
   assert.equal(profils("cuisiniste").stock, "oui");
   assert.equal(profils("garage-et-mecanicien").stock, "a_demander");
   assert.equal(profils("coiffeur").stock, "a_demander");
-  assert.equal(profils("hotel").stock, "a_demander");
+  assert.equal(profils("hotel", ["hebergement-chambres"]).stock, "non");
+  assert.equal(profils("hotel", ["hebergement-chambres", "restaurant-de-l-hotel"]).stock, "oui");
   assert.equal(profils("fleuriste", ["boutique"]).stock, "oui");
   assert.equal(profils("traiteur", ["mariages-et-evenements"]).stock, "oui");
   assert.equal(profils("evenementiel", ["dj-et-animation", "lieu-de-reception-et-location-de-salles"]).stock, "non");
@@ -353,13 +354,29 @@ test("le stock « à demander » impose une réponse ; un métier au stock connu
   assert.deepEqual(erreurs({ ...valide, metierPrecis: "electricien", sousVariantes: [] }), []);
 });
 
-test("les métiers d'hébergement et la location de véhicules ont le profil location, et eux seuls", () => {
-  for (const id of ["hotel", "camping", "gite", "chambre-d-hotes", "location-de-vehicules"]) {
+test("camping, gîte, chambre d'hôtes et location de véhicules ont le profil location, et eux seuls", () => {
+  for (const id of ["camping", "gite", "chambre-d-hotes", "location-de-vehicules"]) {
     const r = router(routage, id, []);
     assert.ok(r.ok, id);
     if (r.ok) assert.deepEqual(r.routage.profils, ["location"], id);
   }
   const restaurant = router(routage, "restaurant", []);
   assert.ok(restaurant.ok && restaurant.routage.profils.includes("restaurant") && !restaurant.routage.profils.includes("location"));
-  assert.deepEqual(routage.metiers.filter((m) => m.profilsImposes?.includes("location")).map((m) => m.id).sort(), ["camping", "chambre-d-hotes", "gite", "hotel", "location-de-vehicules"]);
+  assert.deepEqual(routage.metiers.filter((m) => m.profilsImposes?.includes("location")).map((m) => m.id).sort(), ["camping", "chambre-d-hotes", "gite", "location-de-vehicules"]);
+});
+
+test("hôtel : une case par activité, hébergement → location, restaurant → restaurant, les deux cochées → les deux profils", () => {
+  const profils = (cases: string[], options = {}) => {
+    const r = router(routage, "hotel", cases, options);
+    assert.ok(r.ok, cases.join("+"));
+    return r.ok ? r.routage : null;
+  };
+  assert.deepEqual(profils(["hebergement-chambres"])?.profils, ["location"]);
+  assert.deepEqual(profils(["restaurant-de-l-hotel"])?.profils, ["restaurant"]);
+  const les2 = profils(["hebergement-chambres", "restaurant-de-l-hotel"]);
+  assert.deepEqual([...(les2?.profils ?? [])].sort(), ["location", "restaurant"]);
+  assert.equal(les2?.stock, "oui", "le restaurant a du stock");
+  assert.equal(profils(["hebergement-chambres"])?.stock, "non");
+  assert.deepEqual(profils([], { autre: true })?.profils, ["location"], "« Autre » seule : l'hébergement, activité par défaut");
+  assert.ok(!router(routage, "hotel", []).ok, "il faut cocher au moins une activité");
 });
