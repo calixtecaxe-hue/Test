@@ -136,6 +136,15 @@ deux dernières étapes, sur un constat déjà calculé.
   (**décision du 21 octobre : au moindre risque, le canal est retiré** ; l'IA n'est pas assez précise pour être laissée
   juge en profession réglementée), pas de thèmes Prospection active ni Partenaires. Liste dans `data/routage.json` (`reglementees.acquisitionExclut`), appliquée à
   l'assemblage et refusée côté serveur.
+- **Rapport des professions réglementées (décision du 21 octobre, à construire et à faire valider par l'avocat)** : deux zones nettes.
+  **Zone interdite** : publicité sous toute forme, démarchage, prospection, apporteurs d'affaires, partenaires, emailing et SMS vers des
+  inconnus, tout canal hors de la **liste fermée** transmise par le moteur (bouche-à-oreille, fiche Google, site internet, passage, appels
+  d'offres, réseau ou enseigne). Si le sujet est touché, par l'analyse, par une réponse ou par un champ libre, l'IA n'écrit rien dessus et le
+  rapport affiche un **message fixe**, écrit à l'avance, jamais généré, sous un intertitre identique. **Zone libre** : tout le reste du
+  périmètre de l'agent, sans autocensure. Un doute classe le sujet en zone interdite. **Garde côté code** (l'IA seule ne suffit pas) : le code
+  vérifie le rapport produit et remplace par le message fixe toute section qui contient un terme de la liste interdite ; la liste des termes
+  est un filet, pas une garantie, et se valide avec l'avocat. **Le texte du message fixe est à rédiger par le propriétaire avec l'avocat.**
+  La règle est écrite dans `docs/prompt-agent-acquisition.md` (bloc 4) ; le prompt n'est pas encore branché.
 
 ## 6. Audit d'un agent
 
