@@ -167,34 +167,106 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
   };
   const api = cp.request;
 
-  // 2. Métier
+  // 2. Métier : la liste, puis, pour chaque métier à activités, l'écran des activités ; la question du stock ; « mon métier n'est pas dans la liste »
+  const routage = JSON.parse((await import("node:fs")).readFileSync("data/routage.json", "utf8"));
+  const categories = Object.fromEntries(routage.categories.map((c) => [c.id, c]));
+  const TABLE = {};
+  for (const m of routage.metiers) {
+    TABLE[m.libelle] = {
+      id: m.id, regl: !!categories[m.categorie]?.reglementee, stock: m.stock,
+      act: (m.sousVariantes ?? []).map((v) => ({ id: v.id, regl: !!categories[v.categorie]?.reglementee, stock: v.stock, defaut: !!v.defaut })),
+    };
+  }
   await p.goto(B + "/inscription/metier", { waitUntil: "networkidle" });
-  await capturer("metier.html", "Votre métier — CAXE");
+  const marquerMetier = () => p.evaluate(() => document.querySelector("form").parentElement.setAttribute("data-metier-racine", ""));
+  await marquerMetier();
+  const racineM = p.locator("[data-metier-racine]");
+  const saisirMetier = async (libelle) => { await p.fill('input[role="combobox"]', libelle); await p.getByRole("option", { name: libelle, exact: true }).first().click(); };
+  const retour = async () => { await p.locator('form button:has-text("Retour")').click(); await p.waitForTimeout(300); };
+  let modelesMetier = "";
+  for (const [libelle, m] of Object.entries(TABLE)) {
+    if (m.act.length === 0) continue;
+    await saisirMetier(libelle);
+    await p.click('form button[type="submit"]'); await p.waitForTimeout(400);
+    modelesMetier += modele(`activites-${m.id}`, await racineM.evaluate((e) => e.innerHTML));
+    if (libelle === "Paysagiste") {
+      await p.locator('input[value="__autre"]').check(); await p.waitForTimeout(200);
+      modelesMetier += modele("autre-texte", await p.locator("#autreTexte").evaluate((e) => e.parentElement.outerHTML));
+    }
+    await retour();
+  }
+  const sansActivite = Object.entries(TABLE).find(([, m]) => m.act.length === 0 && m.stock === "a_demander");
+  await saisirMetier(sansActivite[0]);
+  await p.click('form button[type="submit"]'); await p.waitForTimeout(400);
+  modelesMetier += modele("stock", await racineM.evaluate((e) => e.innerHTML));
+  await retour();
+  await p.locator("[data-metier-absent]").click(); await p.waitForTimeout(300);
+  modelesMetier += modele("absent", await racineM.evaluate((e) => e.innerHTML));
+  await p.reload({ waitUntil: "networkidle" });
+  await marquerMetier();
+  await capturer("metier.html", "Votre métier — CAXE", modelesMetier + `<script type="application/json" id="metiers-donnees">${JSON.stringify(TABLE)}</script>`);
   await api.put(B + "/api/compte/metier", { data: { metierPrecis: "electricien", sousVariantes: [], autre: false } });
 
-  // 3. Formule : grille mensuelle et annuelle, puis le panneau des agents pour chacune des trois formules
+  // 3. Formule : grille mensuelle et annuelle, puis le panneau des agents pour chacune des formules
+  const marquerFormule = (page) => page.evaluate(() => { document.querySelector("div.grid.items-stretch").setAttribute("data-formule-grille", ""); document.querySelector("div.mt-12.scroll-mt-6").setAttribute("data-formule-panneau", ""); });
+  const modelesFormule = async (page, prefixe) => {
+    const grille = page.locator("div.grid.items-stretch");
+    const panneau = page.locator("div.mt-12.scroll-mt-6");
+    await marquerFormule(page);
+    let out = modele(`${prefixe}grille-mensuel`, await grille.evaluate((e) => e.innerHTML)) + modele(`${prefixe}panneau-0`, await panneau.evaluate((e) => e.innerHTML));
+    await page.locator('[role="radio"]').nth(1).click(); await page.waitForTimeout(400);
+    out += modele(`${prefixe}grille-annuel`, await grille.evaluate((e) => e.innerHTML));
+    await page.locator('[role="radio"]').nth(0).click(); await page.waitForTimeout(300);
+    const nb = await page.locator(".carte-offre > button").count();
+    for (let i = 0; i < nb; i++) {
+      await page.locator(".carte-offre > button").nth(i).click(); await page.waitForTimeout(500);
+      out += modele(`${prefixe}panneau-${i + 2}`, await panneau.evaluate((e) => e.innerHTML));
+    }
+    return out;
+  };
   await p.goto(B + "/formule", { waitUntil: "networkidle" });
-  const grille = p.locator("div.grid.items-stretch");
-  const panneau = p.locator("div.mt-12.scroll-mt-6");
-  await p.evaluate(() => { document.querySelector("div.grid.items-stretch").setAttribute("data-formule-grille", ""); document.querySelector("div.mt-12.scroll-mt-6").setAttribute("data-formule-panneau", ""); });
-  const grilleMensuelle = await grille.evaluate((e) => e.innerHTML);
-  const panneauVide = await panneau.evaluate((e) => e.innerHTML);
-  await p.locator('[role="radio"]').nth(1).click(); await p.waitForTimeout(400);
-  const grilleAnnuelle = await grille.evaluate((e) => e.innerHTML);
-  await p.locator('[role="radio"]').nth(0).click(); await p.waitForTimeout(300);
-  let modeles = modele("grille-mensuel", grilleMensuelle) + modele("grille-annuel", grilleAnnuelle) + modele("panneau-0", panneauVide);
-  for (const [i, n] of [[0, 2], [1, 3], [2, 4]]) {
-    await p.locator(".carte-offre > button").nth(i).click(); await p.waitForTimeout(500);
-    modeles += modele(`panneau-${n}`, await panneau.evaluate((e) => e.innerHTML));
-  }
+  let modeles = await modelesFormule(p, "");
   await p.reload({ waitUntil: "networkidle" });
-  await p.evaluate(() => { document.querySelector("div.grid.items-stretch").setAttribute("data-formule-grille", ""); document.querySelector("div.mt-12.scroll-mt-6").setAttribute("data-formule-panneau", ""); });
+  await marquerFormule(p);
+
+  // Formule d'un métier réglementé (commissaire de justice) : deux formules seulement, pas d'agent Comm.
+  {
+    const email3 = `miroir3${Date.now()}@example.com`;
+    EMAILS_TEST.push(email3);
+    await post("/api/inscription", { email: email3, motDePasse });
+    const cp3 = await b.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "no-preference" });
+    const r = await cp3.newPage();
+    await r.goto(B + "/connexion", { waitUntil: "networkidle" });
+    await r.fill("#email", email3); await r.fill("#motDePasse", motDePasse); await r.click('button[type="submit"]');
+    await r.waitForURL(/inscription\/metier|tableau-de-bord/, { timeout: 20000 });
+    await cp3.request.put(B + "/api/compte/metier", { data: { metierPrecis: "commissaire-de-justice", sousVariantes: [], autre: false } });
+    await r.goto(B + "/formule", { waitUntil: "networkidle" });
+    modeles += await modelesFormule(r, "reg-");
+    modeles += modele("reg-note", await r.locator('[role="note"]').evaluate((e) => e.outerHTML));
+    const classeReg = await r.locator("div.grid.items-stretch").getAttribute("class");
+    await p.evaluate((c) => document.querySelector("[data-formule-grille]").setAttribute("data-classe-reg", c), classeReg);
+    await cp3.close();
+  }
   await capturer("formule.html", "Choisir votre formule — CAXE", modeles);
 
-  // 4. Paiement : trois agents, facturation annuelle
-  await api.post(B + "/api/abonnement", { data: { nombreAgents: 3, periode: "annuel", agents: ["ACQUISITION_CA", "FINANCE_RENTABILITE", "RH_ORGANISATION"] } });
+  // 4. Paiement : les agents et le prix de chaque formule, mensuel et annuel
+  const AGENTS_CODES = ["ACQUISITION_CA", "FINANCE_RENTABILITE", "RH_ORGANISATION", "COMM_CREATION"];
+  let modelesPaiement = "";
+  for (const n of [2, 3, 4]) {
+    for (const periode of ["mensuel", "annuel"]) {
+      await api.post(B + "/api/abonnement", { data: { nombreAgents: n, periode, agents: AGENTS_CODES.slice(0, n) } });
+      await p.goto(B + "/paiement", { waitUntil: "networkidle" });
+      modelesPaiement += modele(`prix-${n}-${periode}`, await p.locator('section[aria-labelledby="total"] .font-titre').evaluate((e) => e.parentElement.innerHTML));
+      if (n === 4 && periode === "annuel") modelesPaiement += modele("agents", await p.locator('section[aria-labelledby="recap"] ul').evaluate((e) => [...e.children].map((li) => `<li data-nom="${li.querySelector("span.block")?.textContent.trim()}">${li.innerHTML}</li>`).join("")));
+    }
+  }
+  await api.post(B + "/api/abonnement", { data: { nombreAgents: 3, periode: "annuel", agents: AGENTS_CODES.slice(0, 3) } });
   await p.goto(B + "/paiement", { waitUntil: "networkidle" });
-  await capturer("paiement.html", "Paiement — CAXE");
+  await p.evaluate(() => {
+    document.querySelector('section[aria-labelledby="total"] .font-titre').parentElement.setAttribute("data-prix", "");
+    document.querySelector('section[aria-labelledby="recap"] ul').setAttribute("data-agents", "");
+  });
+  await capturer("paiement.html", "Paiement — CAXE", modelesPaiement);
 
   // 5. Dossier d'entreprise : l'abonnement est activé (mode démonstration), cinq questions
   await api.post(B + "/api/paiement/demonstration");
@@ -292,9 +364,21 @@ const SCRIPT_PARCOURS = String.raw`
 (function(){
   function modele(k){ var t=document.querySelector('template[data-etat="'+k+'"]'); return t ? t.innerHTML : ''; }
   function norm(t){ return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+  function stocke(k, v){ try { if (v === null) sessionStorage.removeItem(k); else sessionStorage.setItem(k, v); } catch (e) {} }
+  function lit(k){ try { return sessionStorage.getItem(k); } catch (e) { return null; } }
+
+  // Cases à cocher et boutons radio : la rangée choisie et sa coche suivent l'état de la case, comme dans l'application.
+  var COCHE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+  function synchroCases(){
+    document.querySelectorAll('.case-option').forEach(function(l){
+      var i=l.querySelector('input'); if(!i) return;
+      l.classList.toggle('choisie', i.checked);
+      var m=l.querySelector('.case-marque'); if(m) m.innerHTML = i.checked ? (i.type==='checkbox' ? COCHE : '<span class="case-point"></span>') : '';
+    });
+  }
+  document.addEventListener('change', function(e){ if (e.target.classList && e.target.classList.contains('case-entree')) synchroCases(); });
 
   // Étape 1 : le compte, puis le métier.
-  var motsDePasse = document.querySelectorAll('input[type=password]');
   document.querySelectorAll('button[aria-pressed]').forEach(function(b){
     if (b.textContent.trim()!=='Afficher' && b.textContent.trim()!=='Masquer') return;
     b.addEventListener('click', function(){
@@ -302,36 +386,117 @@ const SCRIPT_PARCOURS = String.raw`
       champ.type=visible?'text':'password'; b.setAttribute('aria-pressed', visible); b.textContent=visible?'Masquer':'Afficher';
     });
   });
-  void motsDePasse;
-  var formCompte=document.querySelector('form input#motDePasse'); 
+  var formCompte=document.querySelector('form input#motDePasse');
   if (formCompte) { formCompte.form.addEventListener('submit', function(e){ e.preventDefault(); location.href='metier.html'; }); }
 
-  // Étape 2 : la liste des métiers se réduit en tapant ; un clic choisit.
-  var champMetier=document.querySelector('input[role=combobox]');
-  if (champMetier) {
-    var options=[].slice.call(document.querySelectorAll('ul[role=listbox] li[role=option]'));
-    var libelles=options.map(function(o){ return o.textContent.trim(); });
-    champMetier.addEventListener('input', function(){
-      var q=norm(champMetier.value.trim());
-      options.forEach(function(o,i){ o.style.display = norm(libelles[i]).indexOf(q)>=0 ? '' : 'none'; });
+  // Étape 2 : le métier, ses activités, la question du stock, « mon métier n'est pas dans la liste ».
+  var racineM=document.querySelector('[data-metier-racine]');
+  var jsonMetiers=document.getElementById('metiers-donnees');
+  if (racineM && jsonMetiers) {
+    var DONNEES=JSON.parse(jsonMetiers.textContent);
+    var initial=racineM.innerHTML;
+    var etat={ m:null, absent:false, coches:[], etape:'liste', hist:[], libelle:'' };
+    var stockNecessaire=function(){
+      if (etat.absent) return true;
+      var m=etat.m; if(!m) return false;
+      if (!m.act.length) return m.stock==='a_demander';
+      var ids=etat.coches.length ? etat.coches : m.act.filter(function(a){return a.defaut;}).map(function(a){return a.id;});
+      var parts=m.act.filter(function(a){ return ids.indexOf(a.id)>=0; });
+      if (parts.some(function(a){return a.stock==='oui';})) return false;
+      return parts.some(function(a){return a.stock==='a_demander';});
+    };
+    var total=function(){ return 1 + (etat.absent?1:0) + ((etat.m && etat.m.act.length)?1:0) + (stockNecessaire()?1:0); };
+    var afficher=function(k){
+      racineM.innerHTML = k==='liste' ? initial : modele(k==='activites' ? 'activites-'+etat.m.id : k);
+      etat.etape=k;
+      var n=total(), i=etat.hist.length+1;
+      var t=racineM.querySelector('p[aria-live]'); if(t) t.textContent='Question '+i+' sur '+n;
+      var barre=racineM.querySelector('.inscription-progres > div'); if(barre) barre.style.width=(i/n*100)+'%';
+      var bouton=racineM.querySelector('form button[type=submit]'); if(bouton) bouton.textContent = i>=n ? 'Choisir ma formule' : 'Continuer';
+      if (k==='liste' && etat.libelle) {
+        var champ=racineM.querySelector('input[role=combobox]'); champ.value=etat.libelle;
+        [].slice.call(racineM.querySelectorAll('li[role=option]')).forEach(function(o){ o.setAttribute('aria-selected', o.textContent.trim()===etat.libelle ? 'true':'false'); });
+      }
+      if (k==='activites') {
+        etat.coches.forEach(function(v){ var c=racineM.querySelector('input[value="'+v+'"]'); if(c) c.checked=true; });
+        synchroCases();
+      }
+    };
+    var avancer=function(suite){ if(suite===null){ finir(); return; } etat.hist.push(etat.etape); afficher(suite); };
+    var finir=function(){
+      var reg=false;
+      if (!etat.absent && etat.m) {
+        if (!etat.m.act.length) reg=etat.m.regl;
+        else { var ids=etat.coches.length ? etat.coches : etat.m.act.filter(function(a){return a.defaut;}).map(function(a){return a.id;}); reg=etat.m.act.some(function(a){ return ids.indexOf(a.id)>=0 && a.regl; }); }
+      }
+      stocke('caxe-reg', reg ? '1' : '0');
+      location.href='formule.html';
+    };
+    racineM.addEventListener('input', function(e){
+      var champ=e.target; if(!champ.matches('input[role=combobox]')) return;
+      var q=norm(champ.value.trim());
+      [].slice.call(racineM.querySelectorAll('li[role=option]')).forEach(function(o){ o.style.display = norm(o.textContent).indexOf(q)>=0 ? '' : 'none'; });
     });
-    options.forEach(function(o,i){ o.addEventListener('click', function(){
-      champMetier.value=libelles[i]; options.forEach(function(x){ x.setAttribute('aria-selected', x===o ? 'true':'false'); });
-    }); });
-    champMetier.form.addEventListener('submit', function(e){ e.preventDefault(); location.href='formule.html'; });
+    racineM.addEventListener('click', function(e){
+      var o=e.target.closest('li[role=option]');
+      if (o) {
+        var champ=racineM.querySelector('input[role=combobox]'); champ.value=o.textContent.trim();
+        [].slice.call(racineM.querySelectorAll('li[role=option]')).forEach(function(x){ x.setAttribute('aria-selected', x===o ? 'true':'false'); });
+        // Le nombre de questions dépend du métier choisi : le bouton et la progression le disent tout de suite.
+        var choisi=DONNEES[champ.value]; var plus = choisi && (choisi.act.length || choisi.stock==='a_demander') ? 1 : 0;
+        var tt=racineM.querySelector('p[aria-live]'); if(tt) tt.textContent='Question 1 sur '+(1+plus);
+        var bb=racineM.querySelector('.inscription-progres > div'); if(bb) bb.style.width=(100/(1+plus))+'%';
+        var bt=racineM.querySelector('form button[type=submit]'); if(bt) bt.textContent = plus ? 'Continuer' : 'Choisir ma formule';
+        return;
+      }
+      var b=e.target.closest('button'); if(!b) return;
+      if (b.hasAttribute('data-metier-absent')) { etat.absent=true; etat.m=null; etat.libelle=''; etat.hist.push('liste'); afficher('absent'); return; }
+      if (b.type==='button' && b.textContent.trim()==='Retour') {
+        var prec=etat.hist.pop(); if(!prec) return;
+        if (etat.etape==='absent') etat.absent=false;
+        afficher(prec);
+      }
+    });
+    racineM.addEventListener('change', function(e){
+      if (e.target.value!=='__autre') return;
+      var zone=racineM.querySelector('[data-autre-texte]');
+      if (e.target.checked && !zone) racineM.querySelector('fieldset.cases-groupe').insertAdjacentHTML('afterend', modele('autre-texte'));
+      if (!e.target.checked && zone) zone.remove();
+    });
+    racineM.addEventListener('submit', function(e){
+      e.preventDefault();
+      var k=etat.etape;
+      if (k==='liste') {
+        var libelle=racineM.querySelector('input[role=combobox]').value.trim(); var m=DONNEES[libelle]; if(!m) return;
+        etat.m=m; etat.libelle=libelle; etat.absent=false; etat.coches=[];
+        avancer(m.act.length ? 'activites' : (stockNecessaire() ? 'stock' : null));
+      } else if (k==='activites') {
+        var cochees=[].slice.call(racineM.querySelectorAll('input[name=sousVariantes]:checked')).map(function(c){return c.value;});
+        if (!cochees.length) return;
+        etat.coches=cochees.filter(function(v){return v!=='__autre';});
+        avancer(stockNecessaire() ? 'stock' : null);
+      } else if (k==='absent') { avancer('stock'); }
+      else { avancer(null); }
+    });
   }
 
-  // Étape 3 : la formule (mensuelle ou annuelle) et les agents.
+  // Étape 3 : la formule (mensuelle ou annuelle) et les agents. Un métier réglementé n'a que deux formules.
   var grille=document.querySelector('[data-formule-grille]');
   var panneau=document.querySelector('[data-formule-panneau]');
   if (grille && panneau) {
-    var periode='mensuel', n=0;
-    var NOMBRES=[2,3,4];
+    var reg = lit('caxe-reg')==='1';
+    var pre = reg ? 'reg-' : '';
+    var NOMBRES = reg ? [2,3] : [2,3,4];
+    var periode = lit('caxe-periode')==='mensuel' ? 'mensuel' : (lit('caxe-periode')==='annuel' ? 'annuel' : 'mensuel');
+    var n=0;
+    if (reg) {
+      var classeReg=grille.getAttribute('data-classe-reg'); if (classeReg) grille.className=classeReg;
+      grille.insertAdjacentHTML('beforebegin', modele('reg-note'));
+    }
     var rendre=function(){
-      grille.innerHTML=modele('grille-'+periode);
+      grille.innerHTML=modele(pre+'grille-'+periode);
       if (n) {
-        var cartes=grille.querySelectorAll('.carte-offre');
-        var carte=cartes[NOMBRES.indexOf(n)];
+        var carte=grille.querySelectorAll('.carte-offre')[NOMBRES.indexOf(n)];
         carte.classList.add('ring-2','ring-[var(--blue-1)]');
         var bouton=carte.querySelector(':scope > button'); bouton.setAttribute('aria-pressed','true'); bouton.textContent='Formule choisie';
       }
@@ -340,8 +505,12 @@ const SCRIPT_PARCOURS = String.raw`
       var tuiles=[].slice.call(panneau.querySelectorAll('[role=checkbox]'));
       var bouton=[].slice.call(panneau.querySelectorAll('button')).filter(function(b){ return b.textContent.indexOf('Continuer vers le paiement')>=0; })[0];
       var message=panneau.querySelector('[aria-live]');
-      if (bouton) bouton.addEventListener('click', function(){ if(!bouton.disabled) location.href='paiement.html'; });
-      if (!n || n===4) return;
+      var enregistrer=function(){
+        var noms=tuiles.filter(function(t){ return t.classList.contains('choisi') || t.getAttribute('aria-checked')==='true'; }).map(function(t){ return t.querySelector('.choix-nom').textContent.trim(); });
+        stocke('caxe-agents', JSON.stringify(noms)); stocke('caxe-n', String(n)); stocke('caxe-periode', periode);
+      };
+      if (bouton) bouton.addEventListener('click', function(){ if(!bouton.disabled){ enregistrer(); location.href='paiement.html'; } });
+      if (!n || tuiles.every(function(t){ return t.getAttribute('aria-disabled')==='true' && t.classList.contains('choisi'); })) return;
       var maj=function(){
         var choisis=tuiles.filter(function(t){ return t.classList.contains('choisi'); }).length;
         tuiles.forEach(function(t){ var bloque=!t.classList.contains('choisi') && choisis>=n; t.classList.toggle('grise', bloque); t.setAttribute('aria-disabled', bloque ? 'true':'false'); });
@@ -360,17 +529,34 @@ const SCRIPT_PARCOURS = String.raw`
       var b=e.target.closest('.carte-offre > button'); if(!b || b.disabled) return;
       var cartes=[].slice.call(grille.querySelectorAll('.carte-offre'));
       n=NOMBRES[cartes.indexOf(b.parentElement)];
-      rendre(); panneau.innerHTML=modele('panneau-'+n); lierPanneau();
+      rendre(); panneau.innerHTML=modele(pre+'panneau-'+n); lierPanneau();
       panneau.scrollIntoView({behavior:'smooth', block:'nearest'});
     });
-    document.querySelectorAll('.bascule-periode [role=radio]').forEach(function(r,i){ r.addEventListener('click', function(){
-      periode=i===0?'mensuel':'annuel';
-      document.querySelectorAll('.bascule-periode [role=radio]').forEach(function(x,j){ x.setAttribute('aria-checked', j===i ? 'true':'false'); });
-      rendre();
-    }); });
+    var radios=document.querySelectorAll('.bascule-periode [role=radio]');
+    var marquerPeriode=function(){ radios.forEach(function(x,j){ x.setAttribute('aria-checked', (j===0)===(periode==='mensuel') ? 'true':'false'); }); };
+    radios.forEach(function(r,i){ r.addEventListener('click', function(){ periode=i===0?'mensuel':'annuel'; stocke('caxe-periode', periode); marquerPeriode(); rendre(); }); });
+    marquerPeriode(); rendre();
   }
 
-  // Étape 4 : les conditions générales de vente se cochent avant de payer.
+  // Étape 4 : mensuel ou annuel jusqu'au dernier moment ; les conditions générales de vente se cochent avant de payer.
+  var prix=document.querySelector('[data-prix]');
+  if (prix) {
+    var nPaiement = lit('caxe-n') || '3';
+    var periodePaiement = lit('caxe-periode')==='mensuel' ? 'mensuel' : 'annuel';
+    var radiosPaiement=document.querySelectorAll('section[aria-labelledby=total] [role=radio]');
+    var appliquer=function(){
+      radiosPaiement.forEach(function(x,j){ x.setAttribute('aria-checked', (j===0)===(periodePaiement==='mensuel') ? 'true':'false'); });
+      prix.innerHTML=modele('prix-'+nPaiement+'-'+periodePaiement);
+    };
+    radiosPaiement.forEach(function(r,i){ r.addEventListener('click', function(){ periodePaiement=i===0?'mensuel':'annuel'; stocke('caxe-periode', periodePaiement); appliquer(); }); });
+    var liste=document.querySelector('[data-agents]');
+    var noms=null; try { noms=JSON.parse(lit('caxe-agents')); } catch (e) {}
+    if (liste && noms && noms.length) {
+      var t=document.createElement('ul'); t.innerHTML=modele('agents');
+      liste.innerHTML=''; [].slice.call(t.children).forEach(function(li){ if (noms.indexOf(li.getAttribute('data-nom'))>=0) liste.appendChild(li); });
+    }
+    appliquer();
+  }
   var cgv=document.querySelector('main input[type=checkbox]');
   var payer=cgv && document.querySelector('main button.bouton-eclat');
   if (cgv && payer) {
@@ -381,17 +567,17 @@ const SCRIPT_PARCOURS = String.raw`
   // Étape 5 : les cinq questions du dossier d'entreprise, une à une.
   var dossier=document.querySelector('[data-dossier]');
   if (dossier) {
-    var etat=0;
+    var etatD=0;
+    var initialD=dossier.innerHTML;
     dossier.addEventListener('submit', function(e){
-      e.preventDefault(); etat+=1;
-      if (etat>4) { location.href='tableau-de-bord.html'; return; }
-      dossier.innerHTML=modele('dossier-'+etat);
+      e.preventDefault(); etatD+=1;
+      if (etatD>4) { location.href='tableau-de-bord.html'; return; }
+      dossier.innerHTML=modele('dossier-'+etatD);
     });
     dossier.addEventListener('click', function(e){
-      var b=e.target.closest('button'); if(!b || b.type!=='button' || b.textContent.trim()!=='Retour' || etat===0) return;
-      etat-=1; dossier.innerHTML = etat===0 ? initial : modele('dossier-'+etat);
+      var b=e.target.closest('button'); if(!b || b.type!=='button' || b.textContent.trim()!=='Retour' || etatD===0) return;
+      etatD-=1; dossier.innerHTML = etatD===0 ? initialD : modele('dossier-'+etatD);
     });
-    var initial=dossier.innerHTML;
   }
 })();`;
 
