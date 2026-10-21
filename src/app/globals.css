@@ -241,8 +241,9 @@ h3,
        résout pas contre un conteneur dont la hauteur vient seulement
        de `min-height`. */
     height: 760px;
-    /* La dernière carte, plus longue, dépasse du cadre vers le bas. */
-    margin-bottom: 80px;
+    /* La dernière carte, plus longue, dépasse du cadre vers le bas (d'environ 120 px) : la marge garde le bouton qui suit
+       en dessous d'elle, quelle que soit la largeur de l'écran. */
+    margin-bottom: 190px;
   }
 
   .chemin::before {
