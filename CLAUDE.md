@@ -311,12 +311,12 @@ tels quels).
 
 **Fichiers de données (dossier `data/`)** : `themes.json` (181 thèmes), `donnees-*.json`
 (895 données, par agent), `croisements.json` (157), `scenarios.json` (13),
-`diagnostic-comm.json` (14 problèmes), `declencheurs.json` (27), `lexique.json`,
+`diagnostic-comm.json` (14 problèmes), `declencheurs.json` (65), `lexique.json`,
 `regles-affichage.json` (conditions d'affichage, masquages de thèmes et réponses attendues des
 déclencheurs, **écrit à la main** d'après le classeur ; le contrôle échoue si une condition du classeur n'y a pas
-de règle ; trois règles sont « à préciser »), `routage.json` (11 catégories, 7 profils, 149 métiers et 54 activités tirés du document « CAXE — Liste des métiers » du 15 octobre, avec synonymes de recherche, stock oui / non / à demander et agent Comm oui / non / à trancher),
+de règle ; trois règles sont « à préciser »), `routage.json` (11 catégories, 8 profils, 149 métiers et 54 activités tirés du document « CAXE — Liste des métiers » du 15 octobre, avec synonymes de recherche, stock oui / non / à demander et agent Comm oui / non / à trancher),
 `inscription.json` (questions du dossier d'inscription, avec mots du lexique) et
-`banque/questions.json` (vide). Les huit premiers viennent du classeur par
+`banque/questions.json` (519 questions écrites). Les huit premiers viennent du classeur par
 `python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` et `inscription.json` sont écrits
 d'après le document de règles et la liste des métiers (`python3 scripts/ecrire-routage-metiers.py` réécrit `routage.json` ; les profils des professions réglementées ajoutées sont déduits et marqués `aConfirmer`). Schémas : `src/lib/donnees/schemas.ts` ; routage : `src/lib/routage.ts` ;
 lexique : `src/lib/donnees/lexique.ts` (un mot du lexique s'écrit `{demande}`,
@@ -413,7 +413,7 @@ avec l'opérateur `plus_de` et des blocs imbriqués `tous` / `un` ; `D30` (« av
 se posent à la première création de contenu, pas pendant l'audit). Une règle vaut vrai, faux ou **en attente** (réponse manquante : la question attend). **Déclencheurs dérivés** : D03, D17, D21, D22,
 D23, D24 et D26 sont la réponse à une question de la banque (forme `reponse_donnee` : D03 → ACQ-03.01, D17 → ACQ-18.02, D21 → COM-10.07, D22 → COM-10.08, D23 → COM-13.10,
 D24 → COM-15.12, D26 → COM-39.07) : on ne les pose plus au cadrage, la question se pose dans le questionnaire, et l'écran recalcule les questions à poser après sa réponse.
-Les exclusions des professions réglementées s'appliquent aux options de la donnée (ACQ-03.01 : `publicite_en_ligne`, `publicite_locale`, `prospection`, `partenaires`) ; pour ces professions, tous les canaux à risque sont retirés (réseaux sociaux, publicité en ligne et locale, plateformes, annuaires, partenaires, prospection, emailing et SMS, salons et événements, réseaux d'affaires : décision du 21 octobre). FIN-05.02 reste « à préciser ». Le texte libre accepte 8 000 caractères (COM-44.04).
+Les exclusions des professions réglementées s'appliquent aux options de la donnée (ACQ-03.01 : `publicite_en_ligne`, `publicite_locale`, `prospection`, `partenaires`) ; pour ces professions, tous les canaux à risque sont retirés (réseaux sociaux, publicité en ligne et locale, plateformes, annuaires, partenaires, prospection, emailing et SMS, salons et événements, réseaux d'affaires : décision du 21 octobre). FIN-05.02 reste « à préciser » (condition « Pas posée si les agents Acquisition et Comm sont faits : calculée » ; **en attente de la condition exacte du propriétaire** ; d'ici là la question reste affichée). Deux autres règles sont aussi « à préciser » : « Vente immédiate (commerce) » et « Sans travaux en cours ». Le texte libre accepte 8 000 caractères (COM-44.04).
 **Profil location** : Camping, Gîte, Chambre d'hôtes et Location de véhicules sont routés vers ce seul profil (`profilsImposes` du métier dans `routage.json`, posé par
 `scripts/ecrire-routage-metiers.py`) ; ACQ-11.31 à 11.37 ne sont posées qu'à lui. **Hôtel** (décision du propriétaire, 20 octobre) : cases à cocher comme les autres métiers à plusieurs activités,
 « Hébergement (chambres) » (profil location, par défaut) et « Restaurant de l'hôtel » (profil restaurant, stock oui) ; les deux cochées donnent les deux profils (`profilsImposes` de l'activité).
@@ -481,7 +481,7 @@ il reçoit le taux sourcé et le potentiel calculés par le moteur ; champ « Im
 ou « pas de chiffre sourcé » ; exemple 1 ; question « 10 points ou +10 % » sans objet) ; les brouillons Finance, RH et Comm sont dans le document « Prompts — Finance, RH et Comm : parties
 propres à l'agent (brouillons) » (Claude Docs) ; les couleurs vert / orange / rouge sont gardées pour la phase
 d'essai (à supprimer sur demande) ; **la publicité des professions réglementées est le dernier point à trancher
-avant la publication du site** (avocat spécialisé).
+avant la publication du site** (avocat spécialisé ; le propriétaire revient avec le retour de l'avocat : message fixe, liste des canaux, liste des termes interdits).
 
 Seuils « à valider » (test sur 5 à 10 cas réels) ; mini-questionnaire anonyme RH
 aux salariés ; connexion Meta pour l'agent Comm ; seuil d'heures par jour
