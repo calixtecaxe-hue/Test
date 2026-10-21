@@ -204,7 +204,7 @@
   {
     "donnee": "ACQ-02.01",
     "texte": "En moyenne sur les 3 derniers mois, combien de {demandes} avez-vous par mois ?",
-    "aide": "Comptez-les toutes, même celles qui n'ont rien donné.",
+    "aide": "Comptez-les toutes, même celles qui n'ont rien donné. Sans compteur : comptez-les sur 2 journées habituelles, puis multipliez par vos jours d'ouverture du mois.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -388,7 +388,7 @@
   {
     "donnee": "ACQ-03.03",
     "texte": "Quelle part de vos nouveaux clients vient de chaque canal ?",
-    "aide": "Par exemple : 60 % bouche-à-oreille, 40 % fiche Google. Un client compte dans le canal par lequel il est arrivé la première fois.",
+    "aide": "Par exemple : 60 % bouche-à-oreille, 40 % fiche Google. Un client compte dans le canal par lequel il est arrivé la première fois. Sans suivi, pensez à vos 20 derniers nouveaux clients : comment vous ont-ils connu ?",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -942,8 +942,8 @@
   },
   {
     "donnee": "ACQ-07.02",
-    "texte": "Quel pourcentage chaque plateforme prélève-t-elle sur le chiffre d'affaires qu'elle vous apporte ?",
-    "aide": "Nommez la plateforme (TheFork, Uber Eats, Booking…). Le taux figure sur ses factures ou ses relevés.",
+    "texte": "Pour chaque plateforme, quelle part de votre chiffre d'affaires vous apporte-t-elle, et quel pourcentage prélève-t-elle ?",
+    "aide": "Nommez chaque plateforme : TheFork, Booking, Uber Eats, Doctolib, Malt… Ses relevés donnent le chiffre d'affaires apporté et le taux de commission.",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -952,6 +952,16 @@
         "max": 5
       },
       "colonnes": [
+        {
+          "id": "part_de_votre_chiffre_d_affaires",
+          "libelle": "Part de votre chiffre d'affaires",
+          "spec": {
+            "type": "nombre",
+            "unite": "pourcent",
+            "min": 0,
+            "max": 100
+          }
+        },
         {
           "id": "commission",
           "libelle": "Commission",
@@ -3092,8 +3102,8 @@
   },
   {
     "donnee": "ACQ-22.07",
-    "texte": "Pour chaque jour d'ouverture, quels moments sont les plus demandés ?",
-    "aide": null,
+    "texte": "Pour chaque jour d'ouverture, comment se remplissent le matin, le midi, l'après-midi et le soir ?",
+    "aide": "Plein : vous refusez du monde, ou presque. Creux : vous pourriez recevoir beaucoup plus.",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -3106,71 +3116,100 @@
           "id": "matin",
           "libelle": "Matin",
           "spec": {
-            "type": "oui_non"
+            "type": "choix",
+            "options": [
+              {
+                "id": "plein",
+                "libelle": "Plein"
+              },
+              {
+                "id": "normal",
+                "libelle": "Normal"
+              },
+              {
+                "id": "creux",
+                "libelle": "Creux"
+              },
+              {
+                "id": "ferme",
+                "libelle": "Fermé"
+              }
+            ]
           }
         },
         {
           "id": "midi",
           "libelle": "Midi",
           "spec": {
-            "type": "oui_non"
+            "type": "choix",
+            "options": [
+              {
+                "id": "plein",
+                "libelle": "Plein"
+              },
+              {
+                "id": "normal",
+                "libelle": "Normal"
+              },
+              {
+                "id": "creux",
+                "libelle": "Creux"
+              },
+              {
+                "id": "ferme",
+                "libelle": "Fermé"
+              }
+            ]
           }
         },
         {
           "id": "apres_midi",
           "libelle": "Après-midi",
           "spec": {
-            "type": "oui_non"
+            "type": "choix",
+            "options": [
+              {
+                "id": "plein",
+                "libelle": "Plein"
+              },
+              {
+                "id": "normal",
+                "libelle": "Normal"
+              },
+              {
+                "id": "creux",
+                "libelle": "Creux"
+              },
+              {
+                "id": "ferme",
+                "libelle": "Fermé"
+              }
+            ]
           }
         },
         {
           "id": "soir",
           "libelle": "Soir",
           "spec": {
-            "type": "oui_non"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "donnee": "ACQ-22.08",
-    "texte": "Pour chaque jour d'ouverture, quels moments sont les moins remplis ?",
-    "aide": null,
-    "repli": null,
-    "reponse": {
-      "type": "tableau",
-      "lignes": {
-        "source": "declencheur",
-        "cle": "D20"
-      },
-      "colonnes": [
-        {
-          "id": "matin",
-          "libelle": "Matin",
-          "spec": {
-            "type": "oui_non"
-          }
-        },
-        {
-          "id": "midi",
-          "libelle": "Midi",
-          "spec": {
-            "type": "oui_non"
-          }
-        },
-        {
-          "id": "apres_midi",
-          "libelle": "Après-midi",
-          "spec": {
-            "type": "oui_non"
-          }
-        },
-        {
-          "id": "soir",
-          "libelle": "Soir",
-          "spec": {
-            "type": "oui_non"
+            "type": "choix",
+            "options": [
+              {
+                "id": "plein",
+                "libelle": "Plein"
+              },
+              {
+                "id": "normal",
+                "libelle": "Normal"
+              },
+              {
+                "id": "creux",
+                "libelle": "Creux"
+              },
+              {
+                "id": "ferme",
+                "libelle": "Fermé"
+              }
+            ]
           }
         }
       ]

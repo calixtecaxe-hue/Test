@@ -331,7 +331,7 @@ tels quels).
 déclencheurs, **écrit à la main** d'après le classeur ; le contrôle échoue si une condition du classeur n'y a pas
 de règle ; trois règles sont « à préciser »), `routage.json` (11 catégories, 8 profils, 149 métiers et 54 activités tirés du document « CAXE — Liste des métiers » du 15 octobre, avec synonymes de recherche, stock oui / non / à demander et agent Comm oui / non / à trancher),
 `inscription.json` (questions du dossier d'inscription, avec mots du lexique) et
-`banque/questions.json` (519 questions écrites). Les huit premiers viennent du classeur par
+`banque/questions.json` (518 questions écrites ; 47 autres en attente dans `banque/en-attente.json`). Les huit premiers viennent du classeur par
 `python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` et `inscription.json` sont écrits
 d'après le document de règles et la liste des métiers (`python3 scripts/ecrire-routage-metiers.py` réécrit `routage.json` ; les profils des professions réglementées ajoutées sont déduits et marqués `aConfirmer`). Schémas : `src/lib/donnees/schemas.ts` ; routage : `src/lib/routage.ts` ;
 lexique : `src/lib/donnees/lexique.ts` (un mot du lexique s'écrit `{demande}`,
@@ -415,9 +415,12 @@ brouillon à valider ; l'IA du rapport choisit parmi ces actions pour obtenir un
 sourcé »), le calcul du montant en jeu (formules des croisements encore en texte libre), l'effet de l'ensemble par recalcul de la chaîne,
 l'affichage dans le rapport, la mise à jour périodique. Clé requise : `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt).
 
-**Banque de questions des 4 agents et classeur « 11 » (20 octobre)** : `data/banque/questions.json` contient **519 questions écrites** par le propriétaire
-(page « Banque de questions », importée par `python3 scripts/importer-banque.py <fichier> --ecarter-inconnues`), toutes rattachées à une donnée « Demandée » ou
-« Partagée » du classeur : `data/banque/en-attente.json` n'existe plus. Le **classeur « 11 »** (`CAXE_Themes_Chiffres_4_agents_11.xlsx`, onglet « Modifications 20 oct. ») est
+**Banque de questions des 4 agents et classeur « 11 » (20 et 21 octobre)** : `data/banque/questions.json` contient **518 questions écrites** par le propriétaire
+(page « Banque de questions » du 21 octobre, importée par `python3 scripts/importer-banque.py <fichier> --ecarter-inconnues`), rattachées à une donnée « Demandée » ou
+« Partagée » du classeur. **47 questions sont mises de côté** dans `data/banque/en-attente.json` (donnée absente du classeur 11 : thèmes ACQ-24 à ACQ-30, COM-62 « Référencement (SEO) » et
+COM-63 « Annonces Google (SEA) », plus ACQ-07.15, ACQ-11.38, ACQ-11.39, ACQ-13.12 à 13.14, COM-13.11) ; elles reviennent seules dès que le classeur des 4 agents les contient comme « Demandée » (liste dans
+`docs/Ajouts_au_classeur_des_4_agents.xlsx`). **ACQ-22.08** n'a plus de question (fusionnée dans ACQ-22.07) mais reste dans le classeur : elle s'affiche « question à rédiger » jusqu'à sa suppression au classeur.
+La version Excel de la banque (« partie technique », 519 lignes) est **en retard** sur la page HTML : sans les 47 nouvelles questions, avec des tranches qui se chevauchent encore (« 3 à 6 h » puis « 6 à 10 h »). **La page HTML fait foi.** Le **classeur « 11 »** (`CAXE_Themes_Chiffres_4_agents_11.xlsx`, onglet « Modifications 20 oct. ») est
 importé : 181 thèmes (19 nouveaux : FIN-46 à 48, RH-41 à 49, COM-55 à 61), 65 déclencheurs, 157 croisements, 895 données. **La nature et l'impact des 19 thèmes nouveaux sont des
 propositions du classeur, à valider par le propriétaire.** Le lexique vient du classeur seul (`--reporter-lexique` n'est plus nécessaire) : colonne « Clé dans les questions » (champ `cle`
 de `lexique.json` quand elle diffère de la clé dérivée du mot), colonne **Location** (8e profil) et 10 lexiques par métier (champ `metiers` de `lexique.json`, **pas encore branchés au
