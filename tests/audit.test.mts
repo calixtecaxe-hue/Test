@@ -390,8 +390,8 @@ test("pour une profession réglementée, ni publicité payante, ni prospection, 
   const canaux = regl.themes.flatMap((t) => t.questions).find((q) => q.code === "ACQ-03.01")!;
   assert.ok(canaux.spec?.type === "cases");
   const ids = canaux.spec?.type === "cases" ? canaux.spec.options.map((o) => o.id) : [];
-  for (const interdit of ["publicite_en_ligne", "publicite_locale", "prospection", "partenaires"]) assert.ok(!ids.includes(interdit), interdit);
-  assert.ok(ids.includes("site_internet") && ids.includes("bouche_a_oreille"));
+  for (const interdit of ["reseaux_sociaux", "publicite_en_ligne", "publicite_locale", "plateformes", "annuaires", "partenaires", "prospection", "emailing_et_sms", "salons_et_evenements", "reseaux_d_affaires"]) assert.ok(!ids.includes(interdit), interdit);
+  assert.deepEqual(ids.filter((id) => id !== "autre").sort(), ["appels_d_offres", "bouche_a_oreille", "fiche_google", "passage", "reseau_ou_enseigne", "site_internet"], "seuls restent les canaux sans risque");
   const libreCanaux = libre.themes.flatMap((t) => t.questions).find((q) => q.code === "ACQ-03.01")!;
   assert.ok(libreCanaux.spec?.type === "cases" && libreCanaux.spec.options.some((o) => o.id === "prospection"));
 

@@ -1923,17 +1923,23 @@
       ],
       "optionsCadrage": {
         "D03": [
+          "reseaux_sociaux",
           "publicite_en_ligne",
           "publicite_locale",
+          "plateformes",
+          "annuaires",
+          "partenaires",
           "prospection",
-          "partenaires"
+          "emailing_et_sms",
+          "salons_et_evenements",
+          "reseaux_d_affaires"
         ]
       },
       "themes": [
         "ACQ-04",
         "ACQ-05"
       ],
-      "note": "Pas de publicité payante (D04), de prospection ni de partenaires dans les canaux (D03), donc ni le thème Prospection active ni le thème Partenaires. Les questions ne sont pas posées : l'agent ne peut pas recommander ce qu'il ne mesure pas."
+      "note": "Pas de publicité payante (D04), et dans les canaux (D03) aucun de ceux qui relèvent de la publicité, du démarchage, de l'apport d'affaires ou du référencement : réseaux sociaux, publicité en ligne, publicité locale, plateformes, annuaires, partenaires, prospection, emailing et SMS, salons et événements, réseaux d'affaires. Restent bouche-à-oreille, fiche Google, site internet, passage, appels d'offres, réseau ou enseigne, autre. Donc ni le thème Prospection active ni le thème Partenaires. Les questions ne sont pas posées : l'agent ne peut pas recommander ce qu'il ne mesure pas. Décision du propriétaire (21 octobre) : au moindre risque, le canal est retiré."
     }
   }
 }

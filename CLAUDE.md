@@ -131,9 +131,10 @@ deux dernières étapes, sur un constat déjà calculé.
   d'agent Comm** (3 agents au maximum). L'agent Acquisition ne leur recommande
   ni publicité payante, ni démarchage, ni apporteurs d'affaires rémunérés, et
   n'affiche pas le renvoi vers Comm. **L'audit Acquisition ne leur pose pas non plus** les
-  questions correspondantes : pas de question sur la publicité payante (D04), pas de canaux
-  « publicité », « prospection » ni « partenaires » (D03), pas de thèmes Prospection active ni
-  Partenaires. Liste dans `data/routage.json` (`reglementees.acquisitionExclut`), appliquée à
+  questions correspondantes : pas de question sur la publicité payante (D04), et dans les canaux (D03)
+  seuls restent bouche-à-oreille, fiche Google, site internet, passage, appels d'offres, réseau ou enseigne et autre
+  (**décision du 21 octobre : au moindre risque, le canal est retiré** ; l'IA n'est pas assez précise pour être laissée
+  juge en profession réglementée), pas de thèmes Prospection active ni Partenaires. Liste dans `data/routage.json` (`reglementees.acquisitionExclut`), appliquée à
   l'assemblage et refusée côté serveur.
 
 ## 6. Audit d'un agent
@@ -403,8 +404,7 @@ avec l'opérateur `plus_de` et des blocs imbriqués `tous` / `un` ; `D30` (« av
 se posent à la première création de contenu, pas pendant l'audit). Une règle vaut vrai, faux ou **en attente** (réponse manquante : la question attend). **Déclencheurs dérivés** : D03, D17, D21, D22,
 D23, D24 et D26 sont la réponse à une question de la banque (forme `reponse_donnee` : D03 → ACQ-03.01, D17 → ACQ-18.02, D21 → COM-10.07, D22 → COM-10.08, D23 → COM-13.10,
 D24 → COM-15.12, D26 → COM-39.07) : on ne les pose plus au cadrage, la question se pose dans le questionnaire, et l'écran recalcule les questions à poser après sa réponse.
-Les exclusions des professions réglementées s'appliquent aux options de la donnée (ACQ-03.01 : `publicite_en_ligne`, `publicite_locale`, `prospection`, `partenaires`) ; les nouveaux canaux
-(emailing et SMS, réseaux d'affaires, annuaires, appels d'offres…) ne sont **pas tranchés** pour ces professions. FIN-05.02 reste « à préciser ». Le texte libre accepte 8 000 caractères (COM-44.04).
+Les exclusions des professions réglementées s'appliquent aux options de la donnée (ACQ-03.01 : `publicite_en_ligne`, `publicite_locale`, `prospection`, `partenaires`) ; pour ces professions, tous les canaux à risque sont retirés (réseaux sociaux, publicité en ligne et locale, plateformes, annuaires, partenaires, prospection, emailing et SMS, salons et événements, réseaux d'affaires : décision du 21 octobre). FIN-05.02 reste « à préciser ». Le texte libre accepte 8 000 caractères (COM-44.04).
 **Profil location** : Camping, Gîte, Chambre d'hôtes et Location de véhicules sont routés vers ce seul profil (`profilsImposes` du métier dans `routage.json`, posé par
 `scripts/ecrire-routage-metiers.py`) ; ACQ-11.31 à 11.37 ne sont posées qu'à lui. **Hôtel** (décision du propriétaire, 20 octobre) : cases à cocher comme les autres métiers à plusieurs activités,
 « Hébergement (chambres) » (profil location, par défaut) et « Restaurant de l'hôtel » (profil restaurant, stock oui) ; les deux cochées donnent les deux profils (`profilsImposes` de l'activité).
