@@ -32,9 +32,10 @@ export function FormuleChoix({
   const route = useRouter();
   const proposes = AGENTS.filter((a) => !agentsExclus.includes(a.code));
   const permis = (o: Offre) => o.nombreAgents <= proposes.length && (nombreMax === null || o.nombreAgents <= nombreMax);
+  const formules = OFFRES.filter(permis);
 
   const [periode, setPeriode] = useState<Periode>(initial.periode);
-  const [nombre, setNombre] = useState<Offre["nombreAgents"] | null>(initial.nombreAgents && OFFRES.some((o) => o.nombreAgents === initial.nombreAgents && permis(o)) ? initial.nombreAgents : null);
+  const [nombre, setNombre] = useState<Offre["nombreAgents"] | null>(initial.nombreAgents && formules.some((o) => o.nombreAgents === initial.nombreAgents) ? initial.nombreAgents : null);
   const [choisis, setChoisis] = useState<Agent["code"][]>(initial.agents.filter((c) => proposes.some((a) => a.code === c)));
   const [enCours, setEnCours] = useState(false);
   const [erreur, setErreur] = useState<string | null>(null);
@@ -101,15 +102,15 @@ export function FormuleChoix({
         </p>
       ) : null}
 
-      <div className="mt-10 grid items-stretch gap-6 lg:grid-cols-3">
-        {OFFRES.map((offre) => {
+      {/* Seules les formules permises pour ce métier s'affichent : une profession réglementée n'a que deux formules (pas d'agent Comm). */}
+      <div className={`mt-10 grid items-stretch gap-6 ${formules.length === 3 ? "lg:grid-cols-3" : "lg:mx-auto lg:max-w-3xl lg:grid-cols-2"}`}>
+        {formules.map((offre) => {
           const vedette = offre.nombreAgents === 3;
           const mensuel = offre.prixMensuelCentimesHT;
           const total = annuel ? prixAnnuelCentimesHT(mensuel) : mensuel;
-          const ouverte = permis(offre);
           const active = nombre === offre.nombreAgents;
           return (
-            <div key={offre.nombreAgents} className={`carte-offre ${vedette ? "carte-offre-vedette" : ""} ${active ? "ring-2 ring-[var(--blue-1)]" : ""} ${ouverte ? "" : "opacity-50"}`}>
+            <div key={offre.nombreAgents} className={`carte-offre ${vedette ? "carte-offre-vedette" : ""} ${active ? "ring-2 ring-[var(--blue-1)]" : ""}`}>
               {vedette ? <span className="carte-badge">Recommandé</span> : null}
               <h2 className="text-2xl">{offre.nombreAgents} agents</h2>
               <p className="mt-2 text-sm text-[var(--text-muted)]">
@@ -126,12 +127,11 @@ export function FormuleChoix({
               </div>
               <button
                 type="button"
-                disabled={!ouverte}
                 aria-pressed={active}
                 onClick={() => choisirFormule(offre)}
                 className="bouton-eclat mt-4 inline-flex items-center justify-center rounded-[4px] border border-transparent bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-6 py-3 text-sm font-medium text-[var(--bg)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {ouverte ? (active ? "Formule choisie" : "Choisir cette formule") : "Non disponible pour votre activité"}
+                {active ? "Formule choisie" : "Choisir cette formule"}
               </button>
               <ul className="mt-6 space-y-3 border-t border-[var(--line)] pt-5 text-sm text-[var(--text-muted)]">
                 {elementsInclus(offre).map((element) => (

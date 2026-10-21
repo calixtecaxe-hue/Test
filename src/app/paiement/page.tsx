@@ -8,6 +8,8 @@ import { AgentAvatar } from "@/components/marketing/agent-avatar";
 import { GrillePoints } from "@/components/marketing/grille-points";
 import { formaterEuros, OFFRES, prixMensuelEquivalentAnnuelCentimesHT } from "@/lib/offres";
 import { accesOuvert, modePaiement, montantCentimesHT } from "@/lib/paiement/etat";
+import { LienRetour } from "@/components/parcours/lien-retour";
+import { ChoixPeriode } from "./choix-periode";
 import { PaiementBouton } from "./paiement-bouton";
 
 export const metadata: Metadata = { title: "Paiement — CAXE" };
@@ -39,7 +41,8 @@ export default async function PaiementPage({ searchParams }: { searchParams: Pro
     <main className="relative flex-1 overflow-hidden px-6 pb-20 pt-6">
       <GrillePoints position="centre" />
       <div className="relative z-10 mx-auto flex w-full max-w-[960px] flex-col gap-8">
-        <div>
+        <div className="flex flex-col gap-4">
+          <LienRetour href={`/formule?agents=${abonnement.nombreAgents}&periode=${periode}`} />
           <h1 className="text-3xl sm:text-4xl">Finalisez votre abonnement</h1>
           <p className="mt-3 max-w-[56ch] text-[var(--text-muted)]">Vérifiez votre formule. Dès le paiement, vos agents s&apos;ouvrent. Il vous reste ensuite cinq questions sur votre entreprise, puis vous définissez votre objectif.</p>
         </div>
@@ -77,6 +80,7 @@ export default async function PaiementPage({ searchParams }: { searchParams: Pro
             <h2 id="total" className="text-xl">
               Total
             </h2>
+            <ChoixPeriode periode={periode} nombreAgents={abonnement.nombreAgents} agents={agents.map((a) => a.code)} />
             <div>
               <p className="font-titre text-4xl">
                 {formaterEuros(montant)}

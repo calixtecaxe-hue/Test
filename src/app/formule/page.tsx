@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
@@ -10,6 +9,7 @@ import { contrainteDuCompte } from "@/lib/abonnement";
 import { compteRoutable } from "@/lib/compte";
 import { accesOuvert } from "@/lib/paiement/etat";
 import { lirePreselection } from "@/lib/formule-url";
+import { LienRetour } from "@/components/parcours/lien-retour";
 import { FormuleChoix } from "./formule-choix";
 
 export const metadata: Metadata = { title: "Choisir votre formule — CAXE" };
@@ -43,14 +43,11 @@ export default async function FormulePage({ searchParams }: { searchParams: Prom
       <main className="relative flex-1 overflow-hidden px-6 pb-20 pt-4 lg:px-10">
         <GrillePoints position="centre" />
         <div className="relative z-10 mx-auto w-full max-w-6xl">
-          <div className="mx-auto max-w-2xl text-center">
+          <LienRetour href="/inscription/metier" />
+          <div className="mx-auto mt-2 max-w-2xl text-center">
             <h1 className="text-3xl sm:text-4xl">Choisissez votre formule</h1>
             <p className="mt-3 text-[var(--text-muted)]">
-              Un abonnement par paliers, selon le nombre d&apos;agents. Prix hors taxes. Vous pouvez changer de métier avant de payer :{" "}
-              <Link href="/inscription/metier" className="text-[var(--blue-1)] hover:underline">
-                modifier mon métier
-              </Link>
-              .
+              Un abonnement par paliers, selon le nombre d&apos;agents. Prix hors taxes. Vous pouvez changer de métier avant de payer.
             </p>
           </div>
           <div className="mt-10">
