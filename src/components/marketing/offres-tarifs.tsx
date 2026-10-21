@@ -55,7 +55,9 @@ function Coche() {
   );
 }
 
-export function OffresTarifs() {
+// `etapeSuivante` : où mène « Choisir cette offre » — la création du compte pour un visiteur, le choix de la formule
+// pour un compte déjà créé. La formule regardée suit le parcours comme préférence.
+export function OffresTarifs({ etapeSuivante = "/inscription" }: { etapeSuivante?: "/inscription" | "/formule" }) {
   const [periode, setPeriode] = useState<Periode>("mensuel");
   const annuel = periode === "annuel";
 
@@ -139,7 +141,7 @@ export function OffresTarifs() {
                 </div>
 
                 <Link
-                  href={`/activation?agents=${offre.nombreAgents}&periode=${periode}`}
+                  href={`${etapeSuivante}?agents=${offre.nombreAgents}&periode=${periode}`}
                   className="bouton-eclat mt-6 inline-flex items-center justify-center rounded-[4px] border border-transparent bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-6 py-3 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"
                 >
                   Choisir cette offre

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { auth } from "@/auth";
 import Link from "next/link";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
@@ -13,7 +14,8 @@ export const metadata: Metadata = {
   title: "Nos offres — CAXE",
 };
 
-export default function OffresPage() {
+export default async function OffresPage() {
+  const session = await auth();
   return (
     <>
       <SiteHeader />
@@ -35,7 +37,7 @@ export default function OffresPage() {
         </section>
 
         <section className="mx-auto max-w-6xl px-6 py-12 lg:px-10">
-          <OffresTarifs />
+          <OffresTarifs etapeSuivante={session?.user?.id ? "/formule" : "/inscription"} />
 
           <Reveal>
             <div className="mt-16 flex flex-col items-center text-center">
@@ -63,7 +65,7 @@ export default function OffresPage() {
             <div className="mx-auto mt-16 flex max-w-3xl flex-col items-center rounded-xl border border-[var(--line)] bg-[var(--panel)] px-6 py-12 text-center">
               <h2 className="text-2xl">Commencer votre audit</h2>
               <p className="mt-4 max-w-md text-[var(--text-muted)]">
-                Créez un compte, choisissez un agent, fixez votre objectif et
+                Créez un compte, choisissez votre formule, fixez votre objectif et
                 recevez les leviers qui vous en séparent.
               </p>
               <Link

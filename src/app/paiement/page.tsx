@@ -18,15 +18,17 @@ export default async function PaiementPage({ searchParams }: { searchParams: Pro
   if (!session?.user?.id) redirect("/connexion?depuis=/paiement");
   const userId = session.user.id;
 
+  const compte = await prisma.user.findUnique({ where: { id: userId }, select: { metierPrecis: true, categorie: true } });
+  if (!compte?.metierPrecis) redirect("/inscription/metier");
   const abonnement = await prisma.abonnement.findUnique({ where: { userId } });
-  if (!abonnement) redirect("/offres");
+  if (!abonnement) redirect("/formule");
   if (accesOuvert(abonnement, new Date())) redirect("/tableau-de-bord");
 
   const periode = abonnement.periode === "ANNUEL" ? "annuel" : "mensuel";
   const acces = await prisma.agentAccess.findMany({ where: { userId, actif: true }, select: { agent: true } });
   const agents = AGENTS.filter((a) => acces.some((x) => x.agent === a.code));
   // Formule sans les agents choisis : on retourne les choisir avant de payer.
-  if (agents.length !== abonnement.nombreAgents) redirect(`/activation?agents=${abonnement.nombreAgents}&periode=${periode}`);
+  if (agents.length !== abonnement.nombreAgents) redirect(`/formule?agents=${abonnement.nombreAgents}&periode=${periode}`);
 
   const utilisateur = await prisma.user.findUnique({ where: { id: userId }, select: { raisonSociale: true, numeroTva: true } });
   const montant = montantCentimesHT(abonnement.nombreAgents, periode)!;
@@ -39,7 +41,7 @@ export default async function PaiementPage({ searchParams }: { searchParams: Pro
       <div className="relative z-10 mx-auto flex w-full max-w-[960px] flex-col gap-8">
         <div>
           <h1 className="text-3xl sm:text-4xl">Finalisez votre abonnement</h1>
-          <p className="mt-3 max-w-[56ch] text-[var(--text-muted)]">Vérifiez votre formule. Dès le paiement, vos agents s&apos;ouvrent et vous commencez par définir votre objectif.</p>
+          <p className="mt-3 max-w-[56ch] text-[var(--text-muted)]">Vérifiez votre formule. Dès le paiement, vos agents s&apos;ouvrent. Il vous reste ensuite cinq questions sur votre entreprise, puis vous définissez votre objectif.</p>
         </div>
 
         {annule ? (
@@ -66,7 +68,7 @@ export default async function PaiementPage({ searchParams }: { searchParams: Pro
                 </li>
               ))}
             </ul>
-            <Link href={`/activation?agents=${abonnement.nombreAgents}&periode=${periode}`} className="w-fit text-sm text-[var(--blue-1)] hover:underline">
+            <Link href={`/formule?agents=${abonnement.nombreAgents}&periode=${periode}`} className="w-fit text-sm text-[var(--blue-1)] hover:underline">
               Modifier mes agents ou ma formule
             </Link>
           </section>

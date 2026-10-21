@@ -30,8 +30,10 @@ enum AgentCode {
   COMM_CREATION
 }
 
-// Compte dirigeant. Les sept champs d'inscription (CLAUDE.md section 6)
-// sont collectés une seule fois, hors questionnaire.
+// Compte dirigeant. Parcours du 21 octobre : le compte naît avec son e-mail et son mot de passe ; le métier
+// (et ses activités) est donné avant le choix de la formule ; le dossier d'entreprise (CA, effectif,
+// ancienneté, zone, ville) est complété dans l'application après le paiement. Les champs du métier et du
+// dossier sont donc vides tant que l'étape n'est pas faite.
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -39,26 +41,30 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  // Les sept champs d'inscription.
-  metierPrecis           String
+  // Métier et activités (étape « votre métier », avant la formule).
+  metierPrecis           String?
   // Activités cochées pour les métiers qui en regroupent plusieurs (plusieurs
   // choix possibles) ; vide pour les autres métiers.
-  sousVariantes          String[]
+  sousVariantes          String[] @default([])
   // Routage invisible (CLAUDE.md section 5), recalculé côté serveur à partir de
   // data/routage.json : catégorie (id) et profils d'entreprise retenus.
-  categorie              String
-  profils                String[]
+  categorie              String?
+  profils                String[] @default([])
   // Texte saisi avec « Autre (précisez) » (toujours gardé, pour repérer les activités qui
   // manquent à la liste), métier écrit par un client qui ne trouve pas le sien, et réponse à
   // « vendez-vous aussi des produits ? » pour les métiers dont le stock en dépend.
   autreActiviteTexte     String?
   metierAbsentTexte      String?
   vendProduits           Boolean?
-  chiffreAffairesMensuel Decimal  @db.Decimal(12, 2)
-  nombreCollaborateurs   Int
-  dateCreationEntreprise DateTime
-  typeZone               TypeZone
-  ville                  String
+  // Dossier d'entreprise, complété après le paiement.
+  chiffreAffairesMensuel Decimal?  @db.Decimal(12, 2)
+  nombreCollaborateurs   Int?
+  dateCreationEntreprise DateTime?
+  typeZone               TypeZone?
+  ville                  String?
+
+  // Moment où le dirigeant a accepté les conditions générales de vente, au paiement.
+  cgvAccepteesLe DateTime?
 
   // Niveau des questionnaires (essentiel ou approfondi), choisi une fois et valable
   // pour tous les agents (CLAUDE.md section 6). Vide tant qu'il n'a pas été choisi.

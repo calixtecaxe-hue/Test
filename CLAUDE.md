@@ -91,15 +91,18 @@ clients) et voit son entonnoir étape par étape avant de créer un compte, sans
 
 ## 4. Parcours d'un dirigeant (6 étapes)
 
-Inscription → choix de l'agent et objectif → questionnaire assemblé → moteur
-(constat, priorité) → rapport et plan par l'IA → suivi. L'IA n'intervient qu'aux
-deux dernières étapes, sur un constat déjà calculé.
+Compte (e-mail, mot de passe) → métier et activités → formule et agents → paiement → dossier d'entreprise
+dans l'application → choix de l'agent et objectif → questionnaire assemblé → moteur (constat, priorité) →
+rapport et plan par l'IA → suivi (**parcours décidé le 21 octobre**, voir sections 5 et 10). L'IA n'intervient
+qu'aux deux dernières étapes, sur un constat déjà calculé.
 
 ## 5. Inscription et profil
 
-- **Questions une à une.** Le métier est demandé en premier ; chaque question
-  suivante s'affiche déjà formulée avec les mots et l'unité de ce métier
-  (lexique). Transition sobre, réduction des animations respectée.
+- **Questions une à une, en deux temps (décision du 21 octobre).** Le compte naît avec l'e-mail et le mot de
+  passe seulement. **Le métier et ses activités** se demandent ensuite, **avant la formule** (les agents proposés en
+  dépendent : une profession réglementée n'a pas l'agent Comm). **Le reste du dossier** (CA, effectif, ancienneté,
+  zone, ville) se demande **dans l'application, après le paiement**. Chaque question s'affiche déjà formulée avec les
+  mots et l'unité du métier (lexique). Transition sobre, réduction des animations respectée.
 - Champs : **métier précis**, **sous-variante** (conditionnelle), **CA mensuel**
   (déclaré, jamais estimé), **nombre de collaborateurs**, **ancienneté**, **type
   de zone** (urbaine dense / périurbaine / rurale), **ville**.
@@ -287,11 +290,23 @@ offert par défaut. À fournir par le propriétaire : compte Stripe (clés, secr
 générales de vente. **Facturation professionnelle** : au paiement et dans `/compte`, nom de l'entreprise et numéro de TVA intracommunautaire (facultatifs ; un numéro exige le nom), contrôlés par `src/lib/paiement/tva.ts` (forme par pays de l'UE, clé de contrôle française), enregistrés sur le compte (`User.raisonSociale`, `numeroTva`) et transmis à Stripe (client, type `eu_vat`) pour la facture ; Stripe collecte aussi l'adresse de facturation. Le contrôle ne vérifie pas l'existence du numéro au registre VIES. Le changement de formule en cours d'abonnement n'est pas ouvert. **Espace abonné** : groupe de routes
 `src/app/(espace)/` (en-tête, `/tableau-de-bord` « Mes agents », `/audit/[slug]` avec parcours Objectif → Niveau et cadrage →
 Questionnaire → Résultats, `/compte`) ; l'objectif reste toujours demandé avant les questions.
-**Parcours** : la formule choisie avant l'inscription voyage dans l'adresse
-(`/inscription?agents=3&periode=annuel&choix=…`, `src/lib/formule-url.ts`) et est enregistrée avec le compte à la
-création (`POST /api/inscription`, revérifiée comme `/api/abonnement` ; si elle ne convient pas au métier, le compte
-est créé sans formule et le dirigeant est renvoyé vers `/activation`). Le niveau du questionnaire se change depuis
+**Parcours (construit le 21 octobre ; décisions du propriétaire : paiement immédiat, e-mail et mot de passe seulement,
+métier avant la formule)** : `/inscription` (deux champs, plus la confirmation et « Afficher » ; pas de connexion Google) →
+`/inscription/metier` (`PUT /api/compte/metier` : métier, activités, stock ; une formule déjà choisie qui ne convient plus
+au métier est retirée) → `/formule` (trois cartes côte à côte, mensuel ou annuel, palier 3 « Recommandé », puis choix des agents
+sous les cartes, aucun coché d'avance, agents exclus selon le métier ; `POST /api/abonnement`) → `/paiement` (récapitulatif,
+facturation professionnelle facultative, **case des conditions générales de vente obligatoire**, enregistrée avec sa date dans
+`User.cgvAccepteesLe` ; la route de session la refuse sans elle) → Stripe ou `/paiement/demonstration` → `/paiement/succes`
+(« Confirmation en cours », rafraîchie seule) → `/bienvenue` (« Accès CAXE activé », les cinq questions du dossier ;
+`PUT /api/compte/dossier`) → `/tableau-de-bord`. Le compte peut donc exister sans métier ni dossier (colonnes vides en base,
+`src/lib/compte.ts`) : `exigerEspaceAbonne` ramène à l'étape qui manque (métier → formule → paiement → dossier), et la
+connexion reprend le parcours là où il s'est arrêté. Une formule regardée sur `/offres` suit le parcours comme simple
+préférence (`?agents=3&periode=annuel`, `src/lib/formule-url.ts`) ; la page `/offres` mène à `/inscription` pour un visiteur et à
+`/formule` pour un compte connecté ; `/activation` redirige vers `/formule`. Le niveau du questionnaire se change depuis
 l'audit ; une donnée partagée déjà posée pour un autre agent se modifie depuis n'importe lequel des agents ouverts.
+**À fournir ou à construire** : le texte des conditions générales de vente (`/conditions-generales` n'a qu'une page d'attente,
+à remplacer avant l'ouverture du paiement réel), la réinitialisation du mot de passe, la vérification de l'adresse e-mail et
+les e-mails (rappel d'un dossier non terminé, reçu).
 Pas encore construits : « formule suggérée à l'inscription » et « essai d'un agent
 non souscrit » (le document ne les détaille pas). **Cookies, politique de confidentialité et mentions RGPD : rédigés par le
 propriétaire du produit, à intégrer tels quels ; ne rien écrire à sa place.**

@@ -19,6 +19,7 @@ import { NiveauChoix } from "./niveau-choix";
 import { NiveauReglage } from "./niveau-reglage";
 import { Questionnaire, type ThemeClient } from "./questionnaire";
 import { TeteAgent, type EtapeParcours } from "./tete-agent";
+import { estComplet } from "@/lib/compte";
 
 export const metadata: Metadata = {
   title: "Votre audit — CAXE",
@@ -63,10 +64,12 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
   }
 
   const [utilisateur, objectifs] = await Promise.all([
-    prisma.user.findUnique({ where: { id: userId }, select: { profils: true, categorie: true, metierPrecis: true, sousVariantes: true, nombreCollaborateurs: true, niveauAudit: true, dateCreationEntreprise: true } }),
+    prisma.user.findUnique({ where: { id: userId } }),
     prisma.objectif.findMany({ where: { userId, agent: agent.code }, orderBy: { creeLe: "desc" }, take: 10 }),
   ]);
   if (!utilisateur) redirect("/connexion");
+  // Le dossier d'entreprise se complète après le paiement : tant qu'il manque, on y ramène le dirigeant.
+  if (!estComplet(utilisateur)) redirect("/bienvenue");
 
   const actif = objectifs.find((o) => o.statut === "ACTIF") ?? null;
   const historique = objectifs.filter((o) => o.statut !== "ACTIF");

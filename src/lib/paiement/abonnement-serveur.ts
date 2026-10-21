@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { aSonMetier, estComplet, type UtilisateurComplet } from "@/lib/compte";
 import { accesOuvert, type CibleEvenement, type MiseAJourAbonnement } from "./etat";
 
 export async function abonnementDuCompte(userId: string) {
@@ -15,16 +16,19 @@ export async function abonnementOuvert(userId: string): Promise<boolean> {
   return a !== null && accesOuvert(a, new Date());
 }
 
-// Espace abonné : connecté, avec une formule choisie et payée. Sinon on emmène le dirigeant là où
-// il peut régler la situation, au lieu d'afficher une erreur.
-export async function exigerEspaceAbonne(depuis: string) {
+// Espace abonné : connecté, avec son métier, une formule choisie et payée, et son dossier d'entreprise. Sinon
+// on emmène le dirigeant à l'étape du parcours qui lui manque, au lieu d'afficher une erreur :
+// métier → formule → paiement → dossier d'entreprise (après le paiement, dans l'application).
+export async function exigerEspaceAbonne(depuis: string): Promise<{ userId: string; utilisateur: UtilisateurComplet; abonnement: NonNullable<Awaited<ReturnType<typeof abonnementDuCompte>>> }> {
   const session = await auth();
   if (!session?.user?.id) redirect(`/connexion?depuis=${encodeURIComponent(depuis)}`);
   const userId = session.user.id;
   const [utilisateur, abonnement] = await Promise.all([prisma.user.findUnique({ where: { id: userId } }), abonnementDuCompte(userId)]);
   if (!utilisateur) redirect("/connexion");
-  if (!abonnement) redirect("/offres");
+  if (!aSonMetier(utilisateur)) redirect("/inscription/metier");
+  if (!abonnement) redirect("/formule");
   if (!accesOuvert(abonnement, new Date())) redirect("/paiement");
+  if (!estComplet(utilisateur)) redirect("/bienvenue");
   return { userId, utilisateur, abonnement };
 }
 

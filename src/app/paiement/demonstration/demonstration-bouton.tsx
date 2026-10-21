@@ -14,7 +14,7 @@ export function DemonstrationBouton() {
     try {
       const r = await fetch("/api/paiement/demonstration", { method: "POST" });
       if (r.ok) {
-        routeur.push("/tableau-de-bord?bienvenue=1");
+        routeur.push("/bienvenue");
         return;
       }
       const d = (await r.json()) as { erreur?: string };

@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { appliquerMiseAJour } from "@/lib/paiement/abonnement-serveur";
 import { modePaiement } from "@/lib/paiement/etat";
 import { lireSession } from "@/lib/paiement/stripe";
+import { ActualisationAuto } from "./actualisation-auto";
 
 export const metadata: Metadata = { title: "Paiement reçu — CAXE" };
 
@@ -25,18 +26,22 @@ export default async function SuccesPage({ searchParams }: { searchParams: Promi
   } catch {
     verifie = false;
   }
-  if (verifie) redirect("/tableau-de-bord?bienvenue=1");
+  if (verifie) redirect("/bienvenue");
 
+  // Paiement pas encore confirmé (3D Secure, prélèvement…) : la page se rafraîchit seule, puis propose de reprendre le paiement.
   return (
     <main className="mx-auto flex w-full max-w-[560px] flex-1 flex-col gap-5 px-6 py-16">
-      <h1 className="text-3xl">Nous vérifions votre paiement</h1>
-      <p className="text-[var(--text-muted)]">Nous n&apos;avons pas encore reçu la confirmation. Cela peut prendre quelques instants. Actualisez cette page, ou revenez à votre espace.</p>
+      <ActualisationAuto sessionId={sessionId} />
+      <h1 className="text-3xl">Confirmation en cours</h1>
+      <p className="text-[var(--text-muted)]">
+        Nous attendons la confirmation de votre paiement par la banque. Cela prend en général quelques instants : cette page se met à jour seule. Vous n&apos;avez rien à refaire.
+      </p>
       <div className="flex flex-wrap gap-4 text-sm">
         <Link href={`/paiement/succes?session_id=${encodeURIComponent(sessionId)}`} className="rounded-[4px] border border-[var(--line)] px-4 py-2.5 hover:border-[var(--blue-1)]">
           Actualiser
         </Link>
-        <Link href="/tableau-de-bord" className="px-1 py-2.5 text-[var(--blue-1)] hover:underline">
-          Mon espace
+        <Link href="/paiement" className="px-1 py-2.5 text-[var(--blue-1)] hover:underline">
+          Corriger ou changer le moyen de paiement
         </Link>
       </div>
     </main>

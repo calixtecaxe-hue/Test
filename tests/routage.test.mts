@@ -8,7 +8,7 @@ import { chargerDepuisDisque } from "../src/lib/donnees/disque.ts";
 import { controlerDonnees } from "../src/lib/donnees/controle.ts";
 import { cleLexique, formuler, libelleQuestion } from "../src/lib/donnees/lexique.ts";
 import { contrainteDepuisCompte, exclusionsAcquisition, metiersTries, routageDuCompte, router } from "../src/lib/routage.ts";
-import { creerSchemaInscription } from "../src/lib/validation/inscription-schema.ts";
+import { creerSchemaMetier, schemaDossier, schemaIdentifiants } from "../src/lib/validation/inscription-schema.ts";
 
 const dossier = join(fileURLToPath(new URL("..", import.meta.url)), "data");
 const donnees = chargerDepuisDisque(dossier);
@@ -255,9 +255,18 @@ test("un mot du lexique peut porter une clé explicite, qui l'emporte sur celle 
   assert.deepEqual(formuler("Ouvert {nuits_ou_jours} ?", ["b2b"], lex), { ok: false, motsAbsents: ["nuits_ou_jours"] });
 });
 
-// Validation de l'inscription
+// Validation du parcours d'inscription : identifiants, métier et dossier d'entreprise sont trois schémas ; ces
+// tests les passent ensemble sur un même corps pour garder les cas d'avant le découpage.
 
-const schema = creerSchemaInscription(routage);
+const schemaMetier = creerSchemaMetier(routage);
+const schema = {
+  safeParse(corps: unknown) {
+    const resultats = [schemaIdentifiants.safeParse(corps), schemaMetier.safeParse(corps), schemaDossier.safeParse(corps)];
+    const issues = resultats.flatMap((r) => (r.success ? [] : r.error.issues));
+    if (issues.length > 0) return { success: false as const, error: { issues } };
+    return { success: true as const, data: Object.assign({}, ...resultats.map((r) => (r.success ? r.data : {}))) as Record<string, unknown> & { email: string; chiffreAffairesMensuel: number; nombreCollaborateurs: number; autreTexte?: string } };
+  },
+};
 const valide = {
   email: "Dirigeant@Exemple.fr",
   motDePasse: "motdepasse-long",

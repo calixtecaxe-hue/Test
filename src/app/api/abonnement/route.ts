@@ -3,6 +3,7 @@ import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { ROUTAGE } from "@/lib/routage-donnees";
+import { compteRoutable } from "@/lib/compte";
 import { accesOuvert } from "@/lib/paiement/etat";
 import { contrainteDuCompte, TOUS_LES_AGENTS, validerChoix } from "@/lib/abonnement";
 
@@ -39,8 +40,11 @@ export async function POST(request: Request) {
     select: { categorie: true, metierPrecis: true, sousVariantes: true },
   });
   if (!utilisateur) return NextResponse.json({ erreur: "Connexion requise." }, { status: 401 });
+  // Les agents proposés dépendent du métier : il est demandé avant la formule.
+  const routable = compteRoutable(utilisateur);
+  if (!routable) return NextResponse.json({ erreur: "Indiquez d'abord votre métier.", champ: "metier" }, { status: 409 });
 
-  const verdict = validerChoix(parsed.data as Parameters<typeof validerChoix>[0], contrainteDuCompte(ROUTAGE, utilisateur));
+  const verdict = validerChoix(parsed.data as Parameters<typeof validerChoix>[0], contrainteDuCompte(ROUTAGE, routable));
   if (!verdict.ok) {
     return NextResponse.json({ erreur: verdict.erreur.message, champ: verdict.erreur.champ }, { status: 400 });
   }
