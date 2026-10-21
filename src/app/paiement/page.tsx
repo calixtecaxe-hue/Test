@@ -45,7 +45,7 @@ export default async function PaiementPage({ searchParams }: { searchParams: Pro
         </div>
 
         {annule ? (
-          <p role="status" className="rounded-xl border border-[rgba(255,209,102,0.5)] px-5 py-4 text-sm">
+          <p role="status" className="rounded-xl border border-[rgb(var(--amber-rgb)/0.5)] px-5 py-4 text-sm">
             Le paiement a été interrompu. Votre formule est conservée : vous pouvez reprendre quand vous voulez.
           </p>
         ) : null}

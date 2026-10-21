@@ -41,7 +41,7 @@ export function FacturationFormulaire({ initial }: { initial: ValeursFacturation
           {etat === "envoi" ? "Enregistrement…" : "Enregistrer ma facturation"}
         </button>
         {message ? (
-          <p role="status" className={`text-sm ${etat === "ok" ? "text-[#7BD0A0]" : "text-[var(--red-1)]"}`}>
+          <p role="status" className={`text-sm ${etat === "ok" ? "text-[var(--green-1)]" : "text-[var(--red-1)]"}`}>
             {message}
           </p>
         ) : null}

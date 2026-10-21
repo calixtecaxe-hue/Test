@@ -45,7 +45,7 @@ export function TeteAgent({ agent, etape }: { agent: Agent; etape: EtapeParcours
               className={`flex items-center gap-3 rounded-[4px] border px-3 py-2.5 text-sm ${courant ? "border-[var(--blue-1)] text-[var(--text)]" : "border-[var(--line)] text-[var(--text-muted)]"}`}
             >
               <span
-                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs font-semibold ${fait ? "border-[rgba(123,208,160,0.7)] text-[#7BD0A0]" : courant ? "border-[var(--blue-1)] text-[var(--blue-1)]" : "border-[var(--line)]"}`}
+                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs font-semibold ${fait ? "border-[rgb(var(--green-rgb)/0.7)] text-[var(--green-1)]" : courant ? "border-[var(--blue-1)] text-[var(--blue-1)]" : "border-[var(--line)]"}`}
               >
                 {fait ? <Coche /> : e.n}
               </span>

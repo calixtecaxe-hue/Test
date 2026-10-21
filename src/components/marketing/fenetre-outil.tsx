@@ -1234,7 +1234,7 @@ export function FenetreOutil({ agentCode }: { agentCode?: string }) {
   return (
     <figure className="m-0">
       <div
-        className={`fenetre ${fondu ? "fondu" : ""}`}
+        className={`fenetre surface-sombre ${fondu ? "fondu" : ""}`}
         ref={fenetreRef}
         data-focus={focus ?? undefined}
       >

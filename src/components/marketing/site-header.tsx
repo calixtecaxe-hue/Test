@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
-import logo from "../../../public/logo-caxe-complet.png";
+import { Logo } from "@/components/logo";
+import { BasculeTheme } from "@/components/bascule-theme";
 import { MenuAgents } from "@/components/marketing/menu-agents";
 
 export function SiteHeader() {
@@ -8,13 +8,11 @@ export function SiteHeader() {
     <header className="relative z-20 mx-auto w-full max-w-[1320px] px-6 py-6 lg:px-10">
       <div className="flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <Image
-            src={logo}
-            alt="CAXE — Un acte, un destin"
-            priority
-            className="h-12 w-auto sm:h-16"
-          />
+          <Logo priority className="h-12 w-auto sm:h-16" />
         </Link>
+        <div className="sm:hidden">
+          <BasculeTheme />
+        </div>
 
         <nav className="hidden items-center gap-8 text-sm text-[var(--text-muted)] sm:flex">
           <Link
@@ -35,6 +33,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-3 sm:flex">
+          <BasculeTheme />
           <Link
             href="/inscription"
             className="bouton-eclat bouton-appel rounded-[4px] bg-[linear-gradient(100deg,var(--blue-1),var(--blue-2))] px-4 py-2 text-sm font-medium text-[var(--bg)] transition hover:brightness-110"

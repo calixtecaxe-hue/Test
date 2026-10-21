@@ -32,7 +32,7 @@ export default async function BienvenuePage() {
       <main className="relative flex-1 overflow-hidden px-6 pb-20 pt-4">
         <GrillePoints position="centre" />
         <div className="relative z-10 mx-auto w-full max-w-xl">
-          <p role="status" className="w-fit rounded-[3px] border border-[rgba(123,208,160,0.45)] px-2 py-1 text-xs font-semibold uppercase tracking-[0.1em]">
+          <p role="status" className="w-fit rounded-[3px] border border-[rgb(var(--green-rgb)/0.45)] px-2 py-1 text-xs font-semibold uppercase tracking-[0.1em]">
             Accès CAXE activé
           </p>
           <h1 className="mt-4 text-3xl">Bienvenue</h1>

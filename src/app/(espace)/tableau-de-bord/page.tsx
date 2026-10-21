@@ -84,7 +84,7 @@ function CarteAgent({ agent, p }: { agent: Agent; p: ProgressionAgent }) {
               </span>
             </div>
             <div
-              className="mt-2 h-2 overflow-hidden rounded-full bg-[rgba(244,236,216,0.1)]"
+              className="mt-2 h-2 overflow-hidden rounded-full bg-[rgb(var(--ink)/0.1)]"
               role="progressbar"
               aria-valuemin={0}
               aria-valuemax={p.questions}
@@ -150,7 +150,7 @@ export default async function TableauDeBord({ searchParams }: { searchParams: Pr
       </header>
 
       {bienvenue ? (
-        <p className="rounded-xl border border-[rgba(123,208,160,0.45)] px-5 py-4 text-sm" role="status">
+        <p className="rounded-xl border border-[rgb(var(--green-rgb)/0.45)] px-5 py-4 text-sm" role="status">
           Votre abonnement est actif. Choisissez un agent pour commencer : chaque audit débute par votre objectif.
         </p>
       ) : null}

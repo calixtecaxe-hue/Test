@@ -42,12 +42,12 @@ export default async function ComptePage() {
       </header>
 
       {abonnement.statut === "IMPAYE" ? (
-        <p role="alert" className="rounded-xl border border-[rgba(242,104,107,0.55)] px-5 py-4 text-sm">
+        <p role="alert" className="rounded-xl border border-[rgb(var(--red-rgb)/0.55)] px-5 py-4 text-sm">
           Votre dernier paiement n&apos;a pas abouti. Mettez à jour votre moyen de paiement pour garder l&apos;accès à vos agents.
         </p>
       ) : null}
       {abonnement.statut === "RESILIE" && abonnement.finPeriodeLe ? (
-        <p role="status" className="rounded-xl border border-[rgba(255,209,102,0.5)] px-5 py-4 text-sm">
+        <p role="status" className="rounded-xl border border-[rgb(var(--amber-rgb)/0.5)] px-5 py-4 text-sm">
           Votre abonnement est arrêté. Vos agents restent ouverts jusqu&apos;au {date(abonnement.finPeriodeLe)}.
         </p>
       ) : null}

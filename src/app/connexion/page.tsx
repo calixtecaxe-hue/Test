@@ -4,9 +4,9 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import Image from "next/image";
 import { Champ, classeChamp } from "@/components/champ";
-import logo from "../../../public/logo-caxe.png";
+import { Logo } from "@/components/logo";
+import { BasculeTheme } from "@/components/bascule-theme";
 
 function FormulaireConnexion() {
   const router = useRouter();
@@ -86,9 +86,12 @@ function FormulaireConnexion() {
 export default function Connexion() {
   return (
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col px-6 py-16">
-      <Link href="/" className="w-fit">
-        <Image src={logo} alt="CAXE" className="h-5 w-auto" />
-      </Link>
+      <div className="flex items-center justify-between">
+        <Link href="/" className="w-fit">
+          <Logo variante="simple" className="h-5 w-auto" />
+        </Link>
+        <BasculeTheme />
+      </div>
       <h1 className="mt-8 text-2xl">Se connecter</h1>
       <Suspense fallback={null}>
         <FormulaireConnexion />

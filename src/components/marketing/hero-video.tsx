@@ -133,7 +133,7 @@ export function HeroVideo() {
   }
 
   return (
-    <figure ref={figure} className={`hero-video m-0 ${pleinEcran ? "hero-video-plein" : ""}`}>
+    <figure ref={figure} className={`hero-video surface-sombre m-0 ${pleinEcran ? "hero-video-plein" : ""}`}>
       <video
         ref={lecteur}
         className="hero-video-lecteur"

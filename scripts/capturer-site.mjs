@@ -263,8 +263,20 @@ site += `
 `;
 writeFileSync(`${OUT}/site.css`, site);
 
+const SCRIPT_THEME_TETE = `try{if(localStorage.getItem("caxe-theme")==="clair")document.documentElement.dataset.theme="clair"}catch(e){}`;
+
 const SCRIPT = `
 (function(){
+  // Mode jour / nuit : le bouton soleil / lune bascule le thème et le garde dans le navigateur.
+  var boutons = document.querySelectorAll('.bascule-theme button');
+  function marquer(){ var clair = document.documentElement.dataset.theme === 'clair'; boutons.forEach(function(b){ var jour = b.getAttribute('aria-label') === 'Mode jour'; b.setAttribute('aria-pressed', jour === clair ? 'true' : 'false'); }); }
+  boutons.forEach(function(b){ b.addEventListener('click', function(){
+    var jour = b.getAttribute('aria-label') === 'Mode jour';
+    if (jour) document.documentElement.dataset.theme = 'clair'; else delete document.documentElement.dataset.theme;
+    try { localStorage.setItem('caxe-theme', jour ? 'clair' : 'sombre'); } catch (e) {}
+    marquer();
+  }); });
+  marquer();
   document.querySelectorAll('[data-onglet]').forEach(function(t){ t.addEventListener('click', function(){
     var i = t.getAttribute('data-onglet');
     document.querySelectorAll('[data-onglet]').forEach(function(o){ var a=o===t; o.classList.toggle('actif',a); o.setAttribute('aria-selected',a); });
@@ -392,12 +404,12 @@ for (const page of PAGES) {
     const loc = await telecharger(abs.replace(/&amp;/g, "&"));
     if (loc) corps = corps.split(r).join(loc);
   }
-  const entete = `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${page.titre}</title><link rel="stylesheet" href="site.css">`;
+  const entete = `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${page.titre}</title><link rel="stylesheet" href="site.css"><script>${SCRIPT_THEME_TETE}</script>`;
   const doc = `<!doctype html><html lang="${page.dom.lang}" class="${page.dom.classeHtml}"><head>${entete}</head><body class="${page.dom.classeCorps}">${corps}<script>${SCRIPT}</script><script>${SCRIPT_PARCOURS}</script></body></html>`;
   writeFileSync(`${OUT}/${page.fichier}`, doc);
   if (page.fichier === "accueil.html") {
     // Page principale : fragment (le service d'artefacts fournit l'enveloppe) ; les classes du html passent sur un conteneur.
-    const frag = `<title>${page.titre}</title><link rel="stylesheet" href="site.css"><div class="${page.dom.classeHtml}"><div class="${page.dom.classeCorps}">${corps}</div></div><script>${SCRIPT}</script>`;
+    const frag = `<title>${page.titre}</title><link rel="stylesheet" href="site.css"><script>${SCRIPT_THEME_TETE}</script><div class="${page.dom.classeHtml}"><div class="${page.dom.classeCorps}">${corps}</div></div><script>${SCRIPT}</script>`;
     writeFileSync(`${OUT}/index.html`, frag);
   }
 }

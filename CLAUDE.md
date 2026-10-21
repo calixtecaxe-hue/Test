@@ -464,6 +464,16 @@ aux jauges et barres de progression**, pas aux formulaires. Rayons : 3 à 4 px
 sur les petits éléments, 12 px sur les cartes. À proscrire : l'or #C9A961,
 Cormorant Garamond, Playfair Display.
 
+**Mode jour / nuit (demandé par le propriétaire le 21 octobre)** : le thème sombre ci-dessus est la direction artistique
+d'origine et reste le thème par défaut ; un thème clair existe, choisi par le bouton soleil / lune présent dans tous les
+en-têtes (`src/components/bascule-theme.tsx`). Le choix est gardé dans le navigateur (`localStorage`, clé `caxe-theme`,
+`src/lib/theme.ts`) et rétabli avant l'affichage par un petit script du layout, sans éclair. Les couleurs sont des jetons
+(`:root` pour le sombre, `:root[data-theme="clair"]` pour le clair, dans `globals.css`) : **ne jamais écrire une couleur en dur,
+utiliser les jetons ou leurs canaux** (`rgb(var(--ink) / 0.2)`, `--blue-rgb`, `--red-rgb`, `--green-rgb`, `--amber-rgb`, `--ombre`).
+Thème clair : fond `#F7F2E6`, cartes `#FFFDF8`, encre `#07111B` ; bleus, rouges, verts et ambre assombris pour rester lisibles ;
+l'agent « blanc » prend l'encre. Le logo existe en deux encres (`Logo`, `public/logo-caxe*-sombre.png`). Les surfaces qui montrent
+le produit ou une vidéo (aperçu de l'outil, lecteur vidéo) gardent le thème sombre dans les deux thèmes (`.surface-sombre`).
+
 Ton : **vouvoiement, français de France, sobre et factuel, sans superlatif, sans
 point d'exclamation ni émoji.** Le mot « fiable » est accepté (décision du 19 octobre, à propos du prompt de l'agent Acquisition). Un bouton dit ce qui va
 se passer. Un écran vide est une invitation à agir. Une erreur explique et
