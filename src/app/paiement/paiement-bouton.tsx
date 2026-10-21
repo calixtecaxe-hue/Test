@@ -6,7 +6,7 @@ import { erreursDeFacturation, FacturationChamps, type ErreursFacturation, type 
 
 // Facturation professionnelle (facultative) puis démarrage du paiement : le serveur renvoie l'adresse où
 // continuer (page du fournisseur, ou écran de démonstration). Aucun montant ne part du navigateur.
-export function PaiementBouton({ libelle, desactive, initial }: { libelle: string; desactive: boolean; initial: ValeursFacturation }) {
+export function PaiementBouton({ libelle, desactive, initial, retour }: { libelle: string; desactive: boolean; initial: ValeursFacturation; retour: string }) {
   const [valeurs, setValeurs] = useState<ValeursFacturation>(initial);
   const [erreursChamps, setErreursChamps] = useState<ErreursFacturation>({});
   const [enCours, setEnCours] = useState(false);
@@ -69,6 +69,12 @@ export function PaiementBouton({ libelle, desactive, initial }: { libelle: strin
         >
           {enCours ? "Ouverture du paiement…" : libelle}
         </button>
+        <Link
+          href={retour}
+          className="w-full rounded-[4px] border border-[var(--line)] px-6 py-3 text-center text-sm font-medium text-[var(--text)] transition hover:border-[var(--blue-1)]"
+        >
+          Modifier ma formule
+        </Link>
         {erreur ? (
           <p role="alert" className="text-sm text-[var(--red-1)]">
             {erreur}

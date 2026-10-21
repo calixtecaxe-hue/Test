@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { AGENTS } from "@/lib/agents";
 import { AgentAvatar } from "@/components/marketing/agent-avatar";
 import { GrillePoints } from "@/components/marketing/grille-points";
-import { formaterEuros, OFFRES, prixMensuelEquivalentAnnuelCentimesHT } from "@/lib/offres";
+import { formaterEuros, OFFRES, prixMensuelEquivalentAnnuelCentimesHT, TAUX_TVA_ESTIME_POURCENT, tvaEstimeeCentimes } from "@/lib/offres";
 import { accesOuvert, modePaiement, montantCentimesHT } from "@/lib/paiement/etat";
 import { LienRetour } from "@/components/parcours/lien-retour";
 import { ChoixPeriode } from "./choix-periode";
@@ -34,6 +34,7 @@ export default async function PaiementPage({ searchParams }: { searchParams: Pro
 
   const utilisateur = await prisma.user.findUnique({ where: { id: userId }, select: { raisonSociale: true, numeroTva: true } });
   const montant = montantCentimesHT(abonnement.nombreAgents, periode)!;
+  const tva = tvaEstimeeCentimes(montant);
   const offre = OFFRES.find((o) => o.nombreAgents === abonnement.nombreAgents)!;
   const mode = modePaiement(process.env);
 
@@ -78,27 +79,38 @@ export default async function PaiementPage({ searchParams }: { searchParams: Pro
 
           <section aria-labelledby="total" className="flex flex-col gap-5 rounded-xl border border-[var(--line)] bg-[var(--panel)] p-6">
             <h2 id="total" className="text-xl">
-              Total
+              Récapitulatif de l&apos;achat
             </h2>
             <ChoixPeriode periode={periode} nombreAgents={abonnement.nombreAgents} agents={agents.map((a) => a.code)} />
-            <div>
-              <p className="font-titre text-4xl">
-                {formaterEuros(montant)}
-                <span className="ml-2 text-base font-normal text-[var(--text-muted)]">HT {periode === "annuel" ? "par an" : "par mois"}</span>
-              </p>
-              <p className="mt-2 text-sm text-[var(--text-muted)]">
-                {abonnement.nombreAgents} agents, facturation {periode === "annuel" ? "annuelle" : "mensuelle"}.
-              </p>
+            <div data-recap className="flex flex-col gap-3">
+              <div className="flex items-baseline justify-between gap-4">
+                <span className="text-[var(--text-muted)]">
+                  Abonnement, {abonnement.nombreAgents} agents, {periode === "annuel" ? "à l'année" : "au mois"}
+                </span>
+                <span>{formaterEuros(montant)} HT</span>
+              </div>
               {periode === "annuel" ? (
-                <p className="mt-1 text-sm text-[var(--text-muted)]">
+                <p className="text-sm text-[var(--text-muted)]">
                   Soit {formaterEuros(prixMensuelEquivalentAnnuelCentimesHT(offre.prixMensuelCentimesHT))} HT / mois, au lieu de {formaterEuros(offre.prixMensuelCentimesHT)} HT / mois en facturation mensuelle.
                 </p>
               ) : null}
+              <div className="flex items-baseline justify-between gap-4">
+                <span className="text-[var(--text-muted)]">TVA estimée ({TAUX_TVA_ESTIME_POURCENT} %)</span>
+                <span>{formaterEuros(tva)}</span>
+              </div>
+              <div className="mt-1 flex items-baseline justify-between gap-4 border-t border-[var(--line)] pt-4">
+                <span>Total dû{periode === "annuel" ? " par an" : " par mois"}</span>
+                <span className="font-titre text-3xl">{formaterEuros(montant + tva)}</span>
+              </div>
+              <p className="text-xs text-[var(--text-muted)]">
+                La TVA est une estimation au taux français. Le montant définitif se calcule au paiement, selon votre pays et votre numéro de TVA.
+              </p>
             </div>
             <PaiementBouton
               initial={{ raisonSociale: utilisateur?.raisonSociale ?? "", numeroTva: utilisateur?.numeroTva ?? "" }}
               desactive={mode === "indisponible"}
-              libelle={mode === "stripe" ? `Payer ${formaterEuros(montant)} HT` : mode === "demonstration" ? "Continuer vers le paiement de démonstration" : "Paiement indisponible"}
+              retour={`/formule?agents=${abonnement.nombreAgents}&periode=${periode}`}
+              libelle={mode === "stripe" ? "Payer l'abonnement" : mode === "demonstration" ? "Continuer vers le paiement de démonstration" : "Paiement indisponible"}
             />
             <p className="text-xs text-[var(--text-muted)]">
               {mode === "stripe"

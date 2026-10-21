@@ -2,6 +2,7 @@
 // l'état de l'abonnement et traduction des événements du fournisseur. Lancer : npm test
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { TAUX_TVA_ESTIME_POURCENT, tvaEstimeeCentimes } from "../src/lib/offres.ts";
 import { accesOuvert, intervalleFacturation, miseAJourDepuisEvenement, modePaiement, montantCentimesHT } from "../src/lib/paiement/etat.ts";
 
 const MAINTENANT = new Date("2026-10-15T10:00:00Z");
@@ -131,4 +132,13 @@ test("la facturation est facultative ; un numéro de TVA exige le nom de l'entre
   const mauvais = verifierFacturation({ raisonSociale: "Dupont", numeroTva: "FR00000000000" });
   assert.equal(!mauvais.ok && mauvais.champ, "numeroTva");
   assert.equal(verifierFacturation({ raisonSociale: "x".repeat(121) }).ok, false);
+});
+
+test("la TVA affichée au paiement est une estimation de 20 % arrondie au centime, jamais ajoutée au montant facturé", () => {
+  assert.equal(TAUX_TVA_ESTIME_POURCENT, 20);
+  assert.equal(tvaEstimeeCentimes(7999), 1600);
+  assert.equal(tvaEstimeeCentimes(5999), 1200);
+  assert.equal(tvaEstimeeCentimes(81590), 16318);
+  // Le montant facturé reste hors taxes : la TVA s'ajoute chez le prestataire, pas ici.
+  assert.equal(montantCentimesHT(3, "mensuel"), 7999);
 });

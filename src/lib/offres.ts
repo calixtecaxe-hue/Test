@@ -30,6 +30,14 @@ export function prixMensuelEquivalentAnnuelCentimesHT(
   );
 }
 
+// Taux de TVA de l'estimation affichée au paiement (taux normal français). Ce n'est qu'une estimation : le montant définitif
+// dépend du pays et du numéro de TVA du client, et se calcule chez le prestataire de paiement (Stripe Tax).
+export const TAUX_TVA_ESTIME_POURCENT = 20;
+
+export function tvaEstimeeCentimes(montantHT: number): number {
+  return Math.round((montantHT * TAUX_TVA_ESTIME_POURCENT) / 100);
+}
+
 export function formaterEuros(centimes: number): string {
   return new Intl.NumberFormat("fr-FR", {
     style: "currency",

@@ -256,14 +256,14 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
     for (const periode of ["mensuel", "annuel"]) {
       await api.post(B + "/api/abonnement", { data: { nombreAgents: n, periode, agents: AGENTS_CODES.slice(0, n) } });
       await p.goto(B + "/paiement", { waitUntil: "networkidle" });
-      modelesPaiement += modele(`prix-${n}-${periode}`, await p.locator('section[aria-labelledby="total"] .font-titre').evaluate((e) => e.parentElement.innerHTML));
+      modelesPaiement += modele(`prix-${n}-${periode}`, await p.locator("[data-recap]").evaluate((e) => e.innerHTML));
       if (n === 4 && periode === "annuel") modelesPaiement += modele("agents", await p.locator('section[aria-labelledby="recap"] ul').evaluate((e) => [...e.children].map((li) => `<li data-nom="${li.querySelector("span.block")?.textContent.trim()}">${li.innerHTML}</li>`).join("")));
     }
   }
   await api.post(B + "/api/abonnement", { data: { nombreAgents: 3, periode: "annuel", agents: AGENTS_CODES.slice(0, 3) } });
   await p.goto(B + "/paiement", { waitUntil: "networkidle" });
   await p.evaluate(() => {
-    document.querySelector('section[aria-labelledby="total"] .font-titre').parentElement.setAttribute("data-prix", "");
+    document.querySelector("[data-recap]").setAttribute("data-prix", "");
     document.querySelector('section[aria-labelledby="recap"] ul').setAttribute("data-agents", "");
   });
   await capturer("paiement.html", "Paiement — CAXE", modelesPaiement);
@@ -357,6 +357,57 @@ const SCRIPT = `
   function bascule(){ document.querySelectorAll('[data-vue]').forEach(function(v){ v.querySelectorAll('[role=radio]').forEach(function(r,i){ r.addEventListener('click', function(){ var cible=i===0?'mensuel':'annuel'; document.querySelectorAll('[data-vue]').forEach(function(x){ if(x.getAttribute('data-vue')===cible) x.removeAttribute('hidden'); else x.setAttribute('hidden',''); }); }); }); }); }
   bascule();
   document.querySelectorAll('.menu-agents-wrap > button').forEach(function(b){ b.addEventListener('click', function(){ b.parentElement.classList.toggle('ouvert'); }); });
+
+  // Vidéo du héros : lecture, son, position et plein écran, rejoués pour le miroir (l'application les gère avec React).
+  var fig = document.querySelector('figure.hero-video');
+  if (fig) {
+    var v = fig.querySelector('video');
+    var bts = fig.querySelectorAll('.hero-video-bouton');
+    var bLecture = bts[0], bSon = bts[1], bPlein = bts[2];
+    var range = fig.querySelector('.hero-video-position');
+    var horloge = fig.querySelector('.hero-video-temps');
+    var invite = fig.querySelector('.hero-video-son');
+    var svg = function(contenu){ return '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + contenu + '</svg>'; };
+    var HP = svg('<rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/>');
+    var LP = svg('<path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z" fill="currentColor"/>');
+    var MU = svg('<path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor"/><path d="m16 9 5 6M21 9l-5 6"/>');
+    var SO = svg('<path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>');
+    var temps = function(t){ t = Math.max(0, Math.floor(isFinite(t) ? t : 0)); return Math.floor(t/60) + ':' + ('0' + (t%60)).slice(-2); };
+    var pause = false;
+
+    // Le fichier est chargé en entier : le curseur de position marche partout, même si le serveur ne gère pas les plages d'octets.
+    var source = v.getAttribute('src');
+    if (window.fetch && /^https?:/.test(location.protocol)) {
+      fetch(source).then(function(r){ return r.blob(); }).then(function(b){
+        var t = v.currentTime, enPause = v.paused;
+        v.src = URL.createObjectURL(b);
+        v.addEventListener('loadedmetadata', function restaurer(){ v.removeEventListener('loadedmetadata', restaurer); v.currentTime = t; if (!enPause) v.play().catch(function(){}); });
+      }).catch(function(){});
+    }
+
+    var majLecture = function(){ bLecture.innerHTML = v.paused ? LP : HP; bLecture.setAttribute('aria-label', v.paused ? 'Lancer la vidéo' : 'Mettre la vidéo en pause'); };
+    var majSon = function(){
+      bSon.innerHTML = v.muted ? MU : SO; bSon.setAttribute('aria-pressed', v.muted ? 'false' : 'true'); bSon.setAttribute('aria-label', v.muted ? 'Activer le son' : 'Couper le son');
+      if (invite) invite.style.display = v.muted ? '' : 'none';
+    };
+    var majPosition = function(){
+      var d = v.duration || 0;
+      if (range && document.activeElement !== range) { range.max = d; range.value = v.currentTime; range.style.setProperty('--p', d ? (v.currentTime / d * 100) + '%' : '0%'); }
+      if (horloge) horloge.textContent = temps(v.currentTime) + ' / ' + temps(d);
+    };
+    var basculerLecture = function(){ if (v.paused) { pause = false; v.play().catch(function(){}); } else { pause = true; v.pause(); } };
+    var basculerSon = function(){ v.muted = !v.muted; if (!v.muted && v.paused && !pause) v.play().catch(function(){}); majSon(); };
+    bLecture.addEventListener('click', basculerLecture);
+    v.addEventListener('click', basculerLecture);
+    bSon.addEventListener('click', basculerSon);
+    if (invite) invite.addEventListener('click', basculerSon);
+    if (range) range.addEventListener('input', function(){ v.currentTime = Number(range.value); majPosition(); });
+    if (bPlein) bPlein.addEventListener('click', function(){ if (document.fullscreenElement) document.exitFullscreen(); else if (fig.requestFullscreen) fig.requestFullscreen(); });
+    document.addEventListener('fullscreenchange', function(){ fig.classList.toggle('hero-video-plein', document.fullscreenElement === fig); });
+    v.addEventListener('play', majLecture); v.addEventListener('pause', majLecture);
+    v.addEventListener('timeupdate', majPosition); v.addEventListener('loadedmetadata', majPosition); v.addEventListener('durationchange', majPosition);
+    majLecture(); majSon(); majPosition();
+  }
 })();`;
 
 // Parcours d'abonnement : ce que React fait dans l'application, rejoué en quelques lignes pour le miroir.

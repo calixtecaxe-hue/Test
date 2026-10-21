@@ -28,7 +28,8 @@ type VideoIos = HTMLVideoElement & { webkitEnterFullscreen?: () => void };
 // Vidéo du hero de l'accueil. Lecture automatique sans son (les navigateurs
 // n'autorisent pas autrement), en boucle, en pause hors de l'écran. Barre de
 // commandes sous l'image, pour ne pas couvrir les sous-titres de la vidéo :
-// lecture, curseur de position, son, plein écran. Sans lecture automatique
+// lecture, curseur de position, son, plein écran. Tant que le son est coupé, un bouton « Activer le son » le dit en haut
+// de l'image (le navigateur interdit de démarrer avec le son sans un geste du visiteur). Sans lecture automatique
 // quand les animations sont réduites.
 export function HeroVideo() {
   const reduit = useMouvementReduit();
@@ -111,6 +112,8 @@ export function HeroVideo() {
     const video = lecteur.current;
     if (!video) return;
     video.muted = !video.muted;
+    // Le clic est un geste du visiteur : si la lecture n'a pas démarré, elle peut partir avec le son.
+    if (!video.muted && video.paused && !pauseVolontaire.current) void video.play().catch(() => {});
   }
 
   function aller(valeur: string) {
@@ -150,6 +153,15 @@ export function HeroVideo() {
         onVolumeChange={(e) => setMuet(e.currentTarget.muted)}
         aria-label="Présentation de CAXE : des agents IA qui auditent votre entreprise et construisent votre stratégie"
       />
+      {muet ? (
+        <button type="button" onClick={basculerSon} className="hero-video-son">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor" />
+            <path d="m16 9 5 6M21 9l-5 6" />
+          </svg>
+          Activer le son
+        </button>
+      ) : null}
       <div className="hero-video-barre">
         <button
           type="button"

@@ -298,7 +298,7 @@ sous les cartes, aucun coché d'avance, agents exclus selon le métier ; `POST /
 facturation professionnelle facultative, **case des conditions générales de vente obligatoire**, enregistrée avec sa date dans
 `User.cgvAccepteesLe` ; la route de session la refuse sans elle) → Stripe ou `/paiement/demonstration` → `/paiement/succes`
 (« Confirmation en cours », rafraîchie seule) → `/bienvenue` (« Accès CAXE activé », les cinq questions du dossier ;
-`PUT /api/compte/dossier`) → `/tableau-de-bord`. Le compte peut donc exister sans métier ni dossier (colonnes vides en base,
+`PUT /api/compte/dossier`) → `/tableau-de-bord`. **Écran de paiement (21 octobre)** : « Récapitulatif de l'achat » en lignes : abonnement HT, **TVA estimée (20 %, taux français, `TAUX_TVA_ESTIME_POURCENT` dans `offres.ts`)**, total dû ; la TVA affichée n'est qu'une estimation (le montant définitif vient de Stripe Tax, selon le pays et le numéro de TVA du client ; `STRIPE_TAX_AUTOMATIQUE=1` l'active) ; mensuel ou annuel modifiable sur place ; bouton secondaire « Modifier ma formule ». **À confirmer par le propriétaire** : l'affichage d'une TVA estimée. Le compte peut donc exister sans métier ni dossier (colonnes vides en base,
 `src/lib/compte.ts`) : `exigerEspaceAbonne` ramène à l'étape qui manque (métier → formule → paiement → dossier), et la
 connexion reprend le parcours là où il s'est arrêté. Une formule regardée sur `/offres` suit le parcours comme simple
 préférence (`?agents=3&periode=annuel`, `src/lib/formule-url.ts`) ; la page `/offres` mène à `/inscription` pour un visiteur et à
