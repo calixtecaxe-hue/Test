@@ -16,7 +16,7 @@ test("les fichiers du dépôt passent le contrôle sans erreur ; seules les règ
   assert.deepEqual(r.erreurs, []);
   const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté ") && !/^(Le métier|L'activité|La catégorie|\d+ métier|\d+ indicateurs de références|Effets d'actions à valider|La réponse de |Sens à trancher|Aucun plafond quotidien)/.test(a));
   assert.deepEqual(inattendus, []);
-  assert.equal(r.avertissements.filter((a) => a.startsWith("Règle à préciser")).length, 3);
+  assert.equal(r.avertissements.filter((a) => a.startsWith("Règle à préciser")).length, 2);
 });
 
 test("une condition ou un masquage du classeur sans règle d'affichage est une erreur", () => {

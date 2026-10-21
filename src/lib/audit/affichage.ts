@@ -116,7 +116,8 @@ function lireDonnee(reponses: Reponses, donnee: string, chemin: string | null): 
       if (chemin) return undefined;
       return typeof r.valeur === "boolean" ? (r.valeur ? "oui" : "non") : r.valeur;
     case "valeurs": {
-      if (!chemin) return undefined;
+      // Une question à plusieurs champs ou un tableau lue en entier : « répondue » dès qu'une case est remplie.
+      if (!chemin) return Object.values(r.valeurs).some((v) => v !== undefined && v !== null && v !== "") ? "reponse" : undefined;
       const v = r.valeurs[chemin];
       if (v === undefined || v === null) return undefined;
       return typeof v === "boolean" ? (v ? "oui" : "non") : v;

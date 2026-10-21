@@ -308,6 +308,23 @@ test("un thème sans donnée pour ce profil n'apparaît pas", () => {
   assert.ok(concernees.size <= reel.themes.filter((t) => t.agent === "FINANCE_RENTABILITE").length);
 });
 
+test("le budget marketing et communication (FIN-05.02) est demandé une seule fois : posé tant que le détail des deux agents manque, calculé sinon", () => {
+  const poseeEn = (reponses: Reponses) =>
+    assemblerQuestionnaire(reel, ctx("FINANCE_RENTABILITE", { profils: ["rdv"], taille: "equipe_2_5", niveau: "approfondi", reponses }))
+      .themes.some((t) => t.questions.some((q) => q.code === "FIN-05.02"));
+  const detail: Reponses = {
+    "ACQ-07.03": { genre: "exact", valeur: 200 },
+    "ACQ-07.04": { genre: "exact", valeur: 80 },
+    "COM-32.02": { genre: "valeurs", valeurs: { "community_manager.montant": 300 } },
+  };
+  assert.equal(poseeEn({}), true, "sans le détail, la question est posée");
+  assert.equal(poseeEn(detail), false, "détail complet : le total se calcule, la question n'est pas posée");
+  assert.equal(poseeEn({ ...detail, "ACQ-07.04": { genre: "inconnu" } }), true, "« je ne sais pas » ne permet pas de calculer : la question revient");
+  const { "COM-32.02": _sansComm, ...sansComm } = detail;
+  void _sansComm;
+  assert.equal(poseeEn(sansComm), true, "agent Comm pas fait : la question est posée");
+});
+
 // --- Validation des réponses reçues ------------------------------------------------
 
 import { validerReponse } from "../src/lib/audit/validation.ts";

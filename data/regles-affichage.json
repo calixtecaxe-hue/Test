@@ -381,7 +381,20 @@
       "valeur": "oui"
     },
     "Pas posée si les agents Acquisition et Comm sont faits : calculée": {
-      "aPreciser": "Le classeur ne dit pas à quel moment un agent est « fait » (toutes ses questions répondues ? une partie ?). Tant que ce n'est pas tranché, FIN-05.02 reste posée."
+      "un": [
+        {
+          "cle": "ACQ-07.03",
+          "op": "vide"
+        },
+        {
+          "cle": "ACQ-07.04",
+          "op": "vide"
+        },
+        {
+          "cle": "COM-32.02",
+          "op": "vide"
+        }
+      ]
     },
     "D31 · sauf micro-entreprise": {
       "cle": "FIN-47.01",
