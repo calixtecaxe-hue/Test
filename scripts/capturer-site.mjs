@@ -332,7 +332,7 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
   // Exemples de réponses dont dépendent les lignes des tableaux (catégories de clients, canaux, jours, réseaux) :
   // sans elles, les tableaux affichent « Répondez d'abord… » et l'aperçu, qui ne recalcule rien, ne permet pas d'écrire.
   for (const [cle, valeur] of [
-    ["ACQ-01.01", ["Particuliers", "Entreprises"]],
+    ["ACQ-01.01", ["Particuliers"]],
     ["ACQ-03.01", ["bouche_a_oreille", "fiche_google", "site_internet"]],
     ["COM-10.08", ["linkedin", "instagram"]],
     ["D20", ["lundi", "mardi", "mercredi", "jeudi", "vendredi"]],
