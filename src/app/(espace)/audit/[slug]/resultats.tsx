@@ -44,8 +44,6 @@ function Theme({ t }: { t: LigneTheme }) {
             </li>
           ))}
         </ul>
-      ) : t.message ? (
-        <p className="mt-1 text-sm text-[var(--text-muted)]">{t.message}</p>
       ) : null}
     </li>
   );
