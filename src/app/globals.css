@@ -3985,7 +3985,7 @@ h3,
 }
 
 .audit-entree {
-  animation: audit-entree 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: audit-entree 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   animation-delay: var(--d, 0ms);
 }
 @keyframes audit-entree {
@@ -4103,6 +4103,30 @@ h3,
   .audit-etape:hover,
   .audit-carte:hover:not(:disabled),
   .audit-carte:active:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* Tableau de bord : portrait cerclé de la couleur de l'agent, bouton discret pour un audit terminé. */
+.dash-portrait {
+  border: 2px solid var(--agent);
+  box-shadow: 0 0 26px -10px var(--agent);
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+.carte-agent:hover .dash-portrait {
+  box-shadow: 0 0 0 6px rgb(var(--agent-rgb) / 0.14), 0 0 30px -6px var(--agent);
+  transform: scale(1.04);
+}
+.dash-bouton-discret {
+  border: 1px solid var(--line);
+  color: var(--text);
+  transition: border-color 0.2s ease;
+}
+.dash-bouton-discret:hover {
+  border-color: var(--agent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .carte-agent:hover .dash-portrait {
     transform: none;
   }
 }
