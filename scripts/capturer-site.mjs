@@ -62,6 +62,7 @@ if (APERCU === "application") {
     LIENS[`/audit/${slug}?etape=2`] = `audit-niveau-${court}.html`;
     LIENS[`/audit/${slug}?etape=3`] = `audit-questionnaire-${court}.html`;
     LIENS[`/audit/${slug}?etape=4`] = `audit-resultats-${court}.html`;
+    LIENS[`/audit/exemple-${court}`] = `audit-exemple-${court}.html`;
   }
   PAGES.length = 0;
 }
@@ -372,12 +373,34 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
     if (!r.ok()) throw new Error("réponse " + cle + " " + r.status() + " " + (await r.text()));
   }
   for (const a of AGENTS_APP) await ecran(a, "questionnaire");
-  // Étape 4 : maquette du compte rendu (le serveur doit être lancé avec RESULTATS_MAQUETTE=1).
+  // Étape 4 : le compte rendu réel (constat du moteur) sur des réponses de démonstration du compte de test,
+  // puis la maquette à chiffres fictifs (serveur lancé avec RESULTATS_MAQUETTE=1).
+  const { reponsesDemonstration } = await import("./reponses-demonstration.mts");
+  for (const a of AGENTS_APP) {
+    let ok = 0;
+    for (const [cle, reponse] of Object.entries(reponsesDemonstration(a.code, ["chantier"]))) {
+      const r = await api.put(B + "/api/audit/reponses", { data: { cle, reponse } });
+      if (r.ok()) ok++;
+    }
+    console.log("réponses de démonstration", a.code, ok);
+  }
   for (const a of AGENTS_APP) {
     await p.goto(B + "/audit/" + a.slug + "?etape=4", { waitUntil: "networkidle" });
-    if ((await p.locator("#res-o1").count()) === 0) throw new Error("maquette du compte rendu absente : lancer le serveur avec RESULTATS_MAQUETTE=1");
+    if ((await p.locator("#res-o1").count()) === 0) throw new Error("compte rendu absent");
+    // Dans l'aperçu seulement : un lien vers la maquette à chiffres fictifs.
+    await p.evaluate((court) => {
+      const t = document.querySelector("#resultats");
+      const lien = document.createElement("p");
+      lien.className = "mt-2 text-sm";
+      lien.innerHTML = `<a class="audit-kicker hover:underline" href="/audit/exemple-${court}">Voir un exemple avec des chiffres fictifs</a>`;
+      t.nextElementSibling.insertAdjacentElement("afterend", lien);
+    }, a.court);
     await marquerAgent(a);
     await capturer(`audit-resultats-${a.court}.html`, "Votre audit — CAXE");
+    await p.goto(B + "/audit/" + a.slug + "?etape=4&exemple=1", { waitUntil: "networkidle" });
+    if ((await p.locator(".res-exemple").count()) === 0) throw new Error("maquette absente : lancer le serveur avec RESULTATS_MAQUETTE=1");
+    await marquerAgent(a);
+    await capturer(`audit-exemple-${a.court}.html`, "Votre audit — CAXE");
   }
   await p.goto(B + "/compte", { waitUntil: "networkidle" });
   await capturer("compte.html", "Mon compte — CAXE");

@@ -19,6 +19,8 @@ import { ObjectifChoix } from "./objectif-choix";
 import { NiveauChoix } from "./niveau-choix";
 import { NiveauReglage } from "./niveau-reglage";
 import { ResultatsMaquette } from "./resultats-maquette";
+import { Resultats } from "./resultats";
+import { compteRenduDuCompte } from "@/lib/audit/constat-compte";
 import { Questionnaire, type ThemeClient } from "./questionnaire";
 import { TeteAgent, type EtapeParcours } from "./tete-agent";
 import { estComplet } from "@/lib/compte";
@@ -41,9 +43,9 @@ function formaterDate(date: Date): string {
 // Un audit commence par l'objectif du dirigeant pour cet agent, en trois champs. Vient
 // ensuite le questionnaire, assemblé selon son profil, sa taille et ses réponses ; il
 // se sauvegarde au fil des réponses et se reprend à tout moment.
-export default async function AuditPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ etape?: string }> }) {
+export default async function AuditPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ etape?: string; exemple?: string }> }) {
   const { slug } = await params;
-  const { etape: etapeDemandee } = await searchParams;
+  const { etape: etapeDemandee, exemple: exempleDemande } = await searchParams;
   const agent = AGENTS.find((a) => a.slug === slug);
   if (!agent) notFound();
 
@@ -178,11 +180,14 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   // L'étape atteinte, et l'étape affichée : une étape déjà atteinte se rouvre avec ?etape=1 ou ?etape=2.
   const etapeParcours: EtapeParcours = !actif ? 1 : !utilisateur.niveauAudit ? 2 : 3;
   const demandee = Number(etapeDemandee);
-  // Maquette du compte rendu (étape 4) : ouverte seulement quand RESULTATS_MAQUETTE=1, une fois le niveau choisi.
-  const resultatsOuverts = process.env.RESULTATS_MAQUETTE === "1" && etapeParcours === 3;
+  // Compte rendu (étape 4) : ouvert dès que le niveau est choisi. Avec RESULTATS_MAQUETTE=1, « ?exemple=1 » montre la
+  // maquette à chiffres fictifs (voir resultats-exemple.ts) à la place du constat réel.
+  const resultatsOuverts = etapeParcours === 3;
   const vue: EtapeParcours = resultatsOuverts && demandee === 4 ? 4 : demandee === 1 || demandee === 2 ? (Math.min(demandee, etapeParcours) as EtapeParcours) : etapeParcours;
   const rouvre = vue < etapeParcours;
   const retourAudit = `/audit/${agent.slug}`;
+  const exemple = process.env.RESULTATS_MAQUETTE === "1" && exempleDemande === "1";
+  const vueCompteRendu = vue === 4 && actif && !exemple ? await compteRenduDuCompte(utilisateur, agent.code) : null;
   const nCompte = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
 
   return (
@@ -196,7 +201,11 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       ) : null}
 
       {vue === 4 && actif ? (
-        <ResultatsMaquette agent={agent} objectif={actif.texteBrut} echeance={formaterDate(actif.echeance)} reussite={structure?.reussite ?? null} />
+        exemple ? (
+          <ResultatsMaquette agent={agent} objectif={actif.texteBrut} echeance={formaterDate(actif.echeance)} reussite={structure?.reussite ?? null} />
+        ) : (
+          <Resultats agent={agent} vue={vueCompteRendu!} objectif={actif.texteBrut} echeance={formaterDate(actif.echeance)} reussite={structure?.reussite ?? null} questionnaire={retourAudit} />
+        )
       ) : rouvre && vue === 1 ? (
         <ObjectifEdition agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} propositions={propositions} retour={retourAudit} />
       ) : rouvre && vue === 2 && actif && structure ? (

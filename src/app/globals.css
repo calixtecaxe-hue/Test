@@ -4464,3 +4464,17 @@ h3,
     transform: none;
   }
 }
+
+/* Compte rendu réel : liste de thèmes. */
+.res-themes {
+  margin-top: 0.75rem;
+  display: grid;
+}
+.res-theme {
+  border-top: 1px solid var(--line);
+  padding: 0.75rem 0;
+}
+.res-aval {
+  font-weight: 400;
+  color: var(--text-muted);
+}
