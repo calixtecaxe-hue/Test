@@ -693,8 +693,50 @@ const SCRIPT_PARCOURS = String.raw`
       e.preventDefault();
       var vide=[].slice.call(formObjectif.querySelectorAll('input[type=text], input:not([type])')).filter(function(i){ return !i.value.trim(); })[0];
       if (vide) { vide.focus(); return; }
+      var saisi=objetDepuisFormulaire(formObjectif);
+      if (!saisi) { vide=formObjectif.querySelectorAll('input[type=text], input:not([type])')[1]; vide.focus(); return; }
+      stocke('caxe-objectif-'+suf, JSON.stringify(saisi));
       location.href='audit-niveau-'+suf+'.html';
     });
+  }
+  // L'objectif écrit sur l'écran « Votre objectif » se retrouve sur les écrans suivants, avec la même rédaction que l'application.
+  var nfMiroir=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2});
+  var lireNb=function(t){ var n=parseFloat(String(t).replace(/\s/g,'').replace(',','.')); return isFinite(n) ? n : null; };
+  var phraseMiroir=function(quoi, valeur, unite, mois){
+    var u=unite==='pourcent' ? ' %' : unite==='euros' ? ' €' : '';
+    var delai=mois===1 ? 'le mois prochain' : 'les '+mois+' prochains mois';
+    return quoi.replace(/[.\s]+$/,'')+' de '+nfMiroir.format(valeur)+u+' sur '+delai;
+  };
+  var echeanceMiroir=function(mois){
+    var d=new Date(); var m=d.getMonth()+mois; var fin=new Date(d.getFullYear(), m+1, 0).getDate();
+    return new Date(d.getFullYear(), m, Math.min(d.getDate(), fin)).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+  };
+  var objetDepuisFormulaire=function(f){
+    var champs=f.querySelectorAll('input[type=text], input:not([type])');
+    var quoi=champs[0].value.trim(), valeur=lireNb(champs[1].value), mois=lireNb(champs[2].value);
+    var radio=f.querySelector('input[type=radio]:checked'); var unite=radio ? radio.value : 'pourcent';
+    if (quoi.length<3 || valeur===null || valeur<=0 || mois===null || mois%1!==0 || mois<1) return null;
+    return { phrase: phraseMiroir(quoi, valeur, unite, mois), mois: mois };
+  };
+  if (formObjectif) {
+    var apercuObjectif=formObjectif.querySelector('p[aria-live]');
+    var exempleObjectif=apercuObjectif ? apercuObjectif.innerHTML : '';
+    var majApercuObjectif=function(){
+      if (!apercuObjectif) return;
+      var o=objetDepuisFormulaire(formObjectif);
+      if (o) { apercuObjectif.innerHTML='Votre objectif : <span class="text-[var(--text)]"></span>'; apercuObjectif.querySelector('span').textContent=o.phrase; }
+      else apercuObjectif.innerHTML=exempleObjectif;
+    };
+    formObjectif.addEventListener('input', majApercuObjectif);
+    formObjectif.addEventListener('change', majApercuObjectif);
+  }
+  var carteObjectif=document.querySelector('.audit-objectif-actif');
+  if (carteObjectif) {
+    var enregistre=null; try { enregistre=JSON.parse(lit('caxe-objectif-'+suf)); } catch (e) {}
+    var lignesCarte=carteObjectif.querySelectorAll('p');
+    if (enregistre && lignesCarte.length>=3) { lignesCarte[1].textContent=enregistre.phrase; lignesCarte[2].textContent='Échéance : '+echeanceMiroir(enregistre.mois); }
+    var changer=carteObjectif.querySelector('button');
+    if (changer) changer.addEventListener('click', function(){ location.href='audit-objectif-'+suf+'.html'; });
   }
   document.querySelectorAll('section[aria-labelledby=niveau] button').forEach(function(b){ b.addEventListener('click', function(){ location.href='audit-questionnaire-'+suf+'.html'; }); });
   var ESTIM='<div class="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2"><div class="champ-groupe"><label class="champ-etiquette">Entre</label><input type="text" inputmode="decimal" class="champ-saisie"></div><div class="champ-groupe"><label class="champ-etiquette">Et</label><input type="text" inputmode="decimal" class="champ-saisie"></div><p class="champ-aide sm:col-span-2">Nous retenons le milieu de la fourchette, signalé comme estimé.</p></div>';
