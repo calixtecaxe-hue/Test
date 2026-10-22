@@ -274,7 +274,9 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
       if (n === 4 && periode === "annuel") modelesPaiement += modele("agents", await p.locator('section[aria-labelledby="recap"] ul').evaluate((e) => [...e.children].map((li) => `<li data-nom="${li.querySelector("span.block")?.textContent.trim()}">${li.innerHTML}</li>`).join("")));
     }
   }
-  await api.post(B + "/api/abonnement", { data: { nombreAgents: 3, periode: "annuel", agents: AGENTS_CODES.slice(0, 3) } });
+  // L'aperçu de l'application montre un compte qui a les quatre agents ; celui du site garde la formule à trois agents.
+  const nFinal = APERCU === "application" ? 4 : 3;
+  await api.post(B + "/api/abonnement", { data: { nombreAgents: nFinal, periode: "annuel", agents: AGENTS_CODES.slice(0, nFinal) } });
   await p.goto(B + "/paiement", { waitUntil: "networkidle" });
   await p.evaluate(() => {
     document.querySelector("[data-recap]").setAttribute("data-prix", "");
