@@ -329,6 +329,17 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
   for (const a of AGENTS_APP) await ecran(a, "niveau");
   const niv = await api.put(B + "/api/audit/niveau", { data: { niveau: "ESSENTIEL" } });
   if (!niv.ok()) throw new Error("niveau " + niv.status());
+  // Exemples de réponses dont dépendent les lignes des tableaux (catégories de clients, canaux, jours, réseaux) :
+  // sans elles, les tableaux affichent « Répondez d'abord… » et l'aperçu, qui ne recalcule rien, ne permet pas d'écrire.
+  for (const [cle, valeur] of [
+    ["ACQ-01.01", ["Particuliers", "Entreprises"]],
+    ["ACQ-03.01", ["bouche_a_oreille", "fiche_google", "site_internet"]],
+    ["COM-10.08", ["linkedin", "instagram"]],
+    ["D20", ["lundi", "mardi", "mercredi", "jeudi", "vendredi"]],
+  ]) {
+    const r = await api.put(B + "/api/audit/reponses", { data: { cle, reponse: { genre: "saisie", valeur } } });
+    if (!r.ok()) throw new Error("réponse " + cle + " " + r.status() + " " + (await r.text()));
+  }
   for (const a of AGENTS_APP) await ecran(a, "questionnaire");
   await p.goto(B + "/compte", { waitUntil: "networkidle" });
   await capturer("compte.html", "Mon compte — CAXE");
@@ -712,6 +723,35 @@ const SCRIPT_PARCOURS = String.raw`
       }); });
     }
   });
+
+  // Liste des catégories de clients : les lignes des tableaux qui en dépendent suivent ce qui est écrit.
+  var LIGNES_LISTE=['ACQ-01.02','ACQ-01.03','ACQ-01.04','ACQ-01.05','COM-02.01','COM-09.03'];
+  var srcListe=document.querySelector('li[data-question="ACQ-01.01"]');
+  if (srcListe) {
+    var champsListe=function(){ return [].slice.call(srcListe.querySelectorAll('input[type=text]')); };
+    var synchroTableaux=function(){
+      var noms=champsListe().map(function(i){ return i.value.trim(); }).filter(function(v){ return v; });
+      LIGNES_LISTE.forEach(function(code){
+        var li=document.querySelector('li[data-question="'+code+'"]'); if(!li) return;
+        var corpsT=li.querySelector('tbody'); if(!corpsT) return;
+        var lignes=[].slice.call(corpsT.querySelectorAll('tr'));
+        while (lignes.length < noms.length) { var c=lignes[lignes.length-1].cloneNode(true); c.querySelectorAll('input').forEach(function(i){ i.value=''; }); corpsT.appendChild(c); lignes.push(c); }
+        lignes.forEach(function(tr,i){
+          tr.style.display = i < noms.length ? '' : 'none';
+          var th=tr.querySelector('th'); if (th && i < noms.length) th.textContent=noms[i];
+        });
+      });
+    };
+    srcListe.addEventListener('input', synchroTableaux);
+    var ajout=[].slice.call(srcListe.querySelectorAll('button')).filter(function(b){ return b.textContent.trim()==='Ajouter un élément'; })[0];
+    if (ajout) ajout.addEventListener('click', function(){
+      var champs=champsListe(); if (champs.length>=4) { ajout.style.display='none'; return; }
+      var groupe=champs[champs.length-1].parentElement; var neuf=groupe.cloneNode(true);
+      var champ=neuf.querySelector('input'); champ.value=''; champ.placeholder='Élément '+(champs.length+1);
+      groupe.insertAdjacentElement('afterend', neuf); champ.focus();
+      if (champs.length+1>=4) ajout.style.display='none';
+    });
+  }
 })();`;
 
 
