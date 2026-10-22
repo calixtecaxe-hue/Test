@@ -62,6 +62,7 @@ function combiner(resultats: Tri[], tous: boolean): Tri {
 // reste affichée).
 export function evaluer(regle: Regle, lire: Lecteur): Tri | "a_preciser" {
   if ("aPreciser" in regle) return "a_preciser";
+  if ("toujours" in regle) return true;
   const sous = (liste: Regle[]): Tri[] => liste.map((r) => {
     const t = evaluer(r, lire);
     return t === "a_preciser" ? null : t;
@@ -73,7 +74,7 @@ export function evaluer(regle: Regle, lire: Lecteur): Tri | "a_preciser" {
 
 // Les clés de réponse d'une règle (« D08.achats »), pour savoir quels déclencheurs poser.
 export function clesDeLaRegle(regle: Regle): string[] {
-  if ("aPreciser" in regle) return [];
+  if ("aPreciser" in regle || "toujours" in regle) return [];
   if ("tous" in regle) return regle.tous.flatMap(clesDeLaRegle);
   if ("un" in regle) return regle.un.flatMap(clesDeLaRegle);
   return [regle.cle];

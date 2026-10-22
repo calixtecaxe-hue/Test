@@ -17,6 +17,8 @@ export type QuestionClient = {
   spec: ReponseSpec | null;
   quatreReponses: boolean;
   dejaPosee: boolean;
+  // Total calculé d'après le détail déjà donné à d'autres agents : la question s'affiche déjà remplie.
+  prereponse: { total: number; detail: string } | null;
   // Réponse donnée pour un autre agent : où elle est enregistrée, et comment elle se modifie.
   source: { code: string; spec: ReponseSpec | null; agent: string } | null;
 };
@@ -314,7 +316,12 @@ export function QuestionCarte({
   const id = useId();
   const spec = q.spec;
   const [mode, setMode] = useState<Mode>(reponse?.genre === "inconnu" ? "inconnu" : reponse?.genre === "non_suivi" ? "non_suivi" : "reponse");
-  const [saisie, setSaisie] = useState<Saisie>(() => saisieInitiale(spec, reponse as never));
+  // Question pré-remplie d'après des réponses déjà données : le chiffre est enregistré tel quel
+  // à l'affichage, le dirigeant le corrige s'il le souhaite.
+  const [prerempli, setPrerempli] = useState<boolean>(() => q.prereponse !== null && reponse === undefined && spec?.type === "nombre");
+  const [saisie, setSaisie] = useState<Saisie>(() =>
+    saisieInitiale(spec, (prerempli && q.prereponse ? { genre: "exact", valeur: q.prereponse.total } : reponse) as never)
+  );
   const [lignesLibres, setLignesLibres] = useState<number>(() => {
     if (spec?.type !== "tableau" || spec.lignes.source !== "libre" || reponse?.genre !== "valeurs") return 1;
     const n = Object.keys(reponse.valeurs).map((k) => Number(k.split(".")[0])).filter((x) => Number.isInteger(x));
@@ -328,6 +335,12 @@ export function QuestionCarte({
   const attente = useRef<Reponse | null | undefined>(undefined);
   const enregistrerRef = useRef(enregistrer);
   useEffect(() => { enregistrerRef.current = enregistrer; });
+
+  useEffect(() => {
+    if (prerempli && q.prereponse) void envoyer({ genre: "exact", valeur: q.prereponse.total });
+    // Une seule fois, à l'affichage.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const lignesDeclencheur = (cle: string): string[] => {
     const r = cadrage[cle];
@@ -379,6 +392,7 @@ export function QuestionCarte({
 
   // Une saisie change : on la contrôle tout de suite ; si elle est valide, elle part après une courte pause.
   function surSaisie(nouvelle: Saisie) {
+    setPrerempli(false);
     setSaisie(nouvelle);
     setMode("reponse");
     const { reponse: r, erreur: e } = construireReponse(spec, nouvelle, ctx);
@@ -394,6 +408,7 @@ export function QuestionCarte({
   }
 
   function choisirMode(m: Mode) {
+    setPrerempli(false);
     if (minuteur.current) clearTimeout(minuteur.current);
     attente.current = undefined;
     if (m === mode) {
@@ -415,6 +430,7 @@ export function QuestionCarte({
     setMode("reponse");
     setSaisie(saisieInitiale(spec, undefined));
     setLignesLibres(1);
+    setPrerempli(false);
     setErreur(null);
     void envoyer(null);
   }
@@ -434,6 +450,9 @@ export function QuestionCarte({
         <p className="mt-3 text-sm text-[var(--text-muted)]">Déjà renseigné avec un autre agent : repris ici, vous n&apos;avez pas à le saisir de nouveau.</p>
       ) : (
         <>
+          {prerempli && q.prereponse && reponseDonnee ? (
+            <p className="mt-3 text-sm text-[var(--text-muted)]">Rempli d&apos;après vos réponses précédentes ({q.prereponse.detail}). Corrigez le montant si besoin.</p>
+          ) : null}
           {reponseDonnee ? <CorpsReponse q={q} id={id} spec={spec} saisie={saisie} surSaisie={surSaisie} setSaisie={setSaisie} poser={poser} vider={vider} lignesDeclencheur={lignesDeclencheur} elementsDeListe={elementsDeListe} libellesLignes={libellesLignes} lignesLibres={lignesLibres} setLignesLibres={setLignesLibres} /> : null}
           <div role="group" aria-label="Autres réponses" className="reponse-choix mt-4">
             <button type="button" aria-pressed={mode === "inconnu"} onClick={() => choisirMode("inconnu")} className={`reponse-bouton${mode === "inconnu" ? " actif" : ""}`}>Je ne sais pas</button>

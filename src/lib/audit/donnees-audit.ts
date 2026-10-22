@@ -14,6 +14,7 @@ import inscription from "../../../data/inscription.json";
 import reglesAffichage from "../../../data/regles-affichage.json";
 import seuils from "../../../data/seuils.json";
 import limitesObjectif from "../../../data/objectif-limites.json";
+import prereponses from "../../../data/prereponses.json";
 import catalogue from "../../../data/catalogue-themes.json";
 import catalogueEffets from "../../../data/catalogue-effets.json";
 import parametresReferences from "../../../data/parametres-references.json";
@@ -33,6 +34,7 @@ export const ENSEMBLE: EnsembleDonnees = {
   inscription: schemaFichiers.inscription.parse(inscription),
   reglesAffichage: schemaFichiers.reglesAffichage.parse(reglesAffichage),
   seuils: schemaFichiers.seuils.parse(seuils),
+  prereponses: schemaFichiers.prereponses.parse(prereponses),
   catalogue: schemaFichiers.catalogue.parse(catalogue),
   catalogueEffets: schemaFichiers.catalogueEffets.parse(catalogueEffets),
   parametresReferences: schemaFichiers.parametresReferences.parse(parametresReferences),

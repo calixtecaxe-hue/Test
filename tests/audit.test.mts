@@ -308,21 +308,26 @@ test("un thème sans donnée pour ce profil n'apparaît pas", () => {
   assert.ok(concernees.size <= reel.themes.filter((t) => t.agent === "FINANCE_RENTABILITE").length);
 });
 
-test("le budget marketing et communication (FIN-05.02) est demandé une seule fois : posé tant que le détail des deux agents manque, calculé sinon", () => {
-  const poseeEn = (reponses: Reponses) =>
+test("le budget marketing et communication (FIN-05.02) est toujours posé, déjà rempli avec le total du détail donné aux autres agents", () => {
+  const question = (reponses: Reponses) =>
     assemblerQuestionnaire(reel, ctx("FINANCE_RENTABILITE", { profils: ["rdv"], taille: "equipe_2_5", niveau: "approfondi", reponses }))
-      .themes.some((t) => t.questions.some((q) => q.code === "FIN-05.02"));
+      .themes.flatMap((t) => t.questions)
+      .find((q) => q.code === "FIN-05.02");
   const detail: Reponses = {
+    "ACQ-03.05": { genre: "valeurs", valeurs: { "site_internet.depense_par_mois": 50 } },
+    "ACQ-07.01": { genre: "exact", valeur: 100 },
     "ACQ-07.03": { genre: "exact", valeur: 200 },
     "ACQ-07.04": { genre: "exact", valeur: 80 },
-    "COM-32.02": { genre: "valeurs", valeurs: { "community_manager.montant": 300 } },
+    "COM-32.02": { genre: "valeurs", valeurs: { "community_manager.par_mois": 300 } },
   };
-  assert.equal(poseeEn({}), true, "sans le détail, la question est posée");
-  assert.equal(poseeEn(detail), false, "détail complet : le total se calcule, la question n'est pas posée");
-  assert.equal(poseeEn({ ...detail, "ACQ-07.04": { genre: "inconnu" } }), true, "« je ne sais pas » ne permet pas de calculer : la question revient");
+  assert.ok(question({}), "sans détail, la question est posée");
+  assert.equal(question({})?.prereponse, null, "sans détail, rien n'est pré-rempli");
+  assert.equal(question(detail)?.prereponse?.total, 730, "le détail complet donne le total, publicité et agence comprises");
+  assert.equal(question({ ...detail, "ACQ-07.04": { genre: "inconnu" } })?.prereponse, null, "« je ne sais pas » : pas de total");
   const { "COM-32.02": _sansComm, ...sansComm } = detail;
   void _sansComm;
-  assert.equal(poseeEn(sansComm), true, "agent Comm pas fait : la question est posée");
+  assert.equal(question(sansComm)?.prereponse, null, "agent Comm pas fait : pas de total");
+  assert.equal(question({ ...detail, "FIN-05.02": { genre: "exact", valeur: 900 } })?.prereponse, null, "déjà répondue : la réponse du dirigeant l'emporte");
 });
 
 // --- Validation des réponses reçues ------------------------------------------------
@@ -511,4 +516,18 @@ test("sans sens reconnu, on retient la lecture la plus indulgente (hausse)", () 
 test("un objectif en euros ou en nombre n'est pas comparé : aucune valeur de départ", () => {
   assert.equal(verifierVraisemblance(obj("augmenter mon chiffre d'affaires", 5000000, 1, "euros"), F).ok, true);
   assert.equal(verifierVraisemblance(obj("gagner des clients", 500, 1, "unites"), F).ok, true);
+});
+
+// --- Pré-réponses ------------------------------------------------------------------
+
+import { prereponseDe } from "../src/lib/audit/prereponse.ts";
+
+test("le total proposé additionne les chiffres donnés, estimation au milieu, et se tait s'il manque un chiffre exigé", () => {
+  const regles = { source: "test", regles: [{ donnee: "FIN-05.02", somme: ["ACQ-07.01", "ACQ-07.03"], exige: ["ACQ-07.03"], detail: "d" }] };
+  assert.equal(prereponseDe(regles, "FIN-05.02", { "ACQ-07.03": { genre: "exact", valeur: 10 } })?.total, 10, "une ligne facultative absente compte pour rien");
+  assert.equal(prereponseDe(regles, "FIN-05.02", { "ACQ-07.01": { genre: "estimation", min: 10, max: 30 }, "ACQ-07.03": { genre: "exact", valeur: 5 } })?.total, 25);
+  assert.equal(prereponseDe(regles, "FIN-05.02", { "ACQ-07.03": { genre: "non_suivi" } }), null);
+  assert.equal(prereponseDe(regles, "FIN-05.02", { "ACQ-07.01": { genre: "exact", valeur: 10 } }), null);
+  assert.equal(prereponseDe(regles, "AUTRE", {}), null);
+  assert.equal(prereponseDe(regles, "FIN-05.02", { "ACQ-07.03": { genre: "exact", valeur: 0 } })?.total, 0, "0 est un chiffre, pas une absence");
 });

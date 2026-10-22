@@ -25,6 +25,7 @@ import {
   type TailleId,
 } from "./affichage.ts";
 import { accepteLesQuatreReponses, type Reponses } from "./reponse.ts";
+import { prereponseDe, type Prereponse } from "./prereponse.ts";
 import { proposerSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
 import type { ReglesAffichage, Routage } from "../donnees/schemas.ts";
 
@@ -66,6 +67,9 @@ export type QuestionAssemblee = {
   dejaPosee: boolean;
   // Code de la donnée qui porte la réponse quand elle a été donnée pour un autre agent.
   dejaPoseeDans: string | null;
+  // Total calculé d'après le détail déjà donné à d'autres agents, proposé comme réponse (le
+  // dirigeant le garde ou le corrige) ; null s'il n'y a rien à proposer.
+  prereponse: Prereponse | null;
 };
 
 export type DeclencheurAPoser = { code: string; question: string; forme: FormeDeclencheur };
@@ -236,6 +240,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
         specSource,
         dejaPosee: deja && ctx.reponses[d.code] === undefined,
         dejaPoseeDans: ctx.reponses[d.code] === undefined ? equivalents.find((c) => ctx.reponses[c] !== undefined) ?? null : null,
+        prereponse: spec?.type === "nombre" && ctx.reponses[d.code] === undefined ? prereponseDe(e.prereponses, d.code, ctx.reponses) : null,
       });
     }
     if (questions.length > 0) themes.push({ theme, questions });

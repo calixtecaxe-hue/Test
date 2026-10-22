@@ -180,7 +180,7 @@ const regleSimple = z.object({
   valeur: z.union([z.string(), z.number(), z.array(z.string())]).optional(),
 });
 export type RegleSimple = z.infer<typeof regleSimple>;
-export type Regle = RegleSimple | { tous: Regle[] } | { un: Regle[] } | { aPreciser: string };
+export type Regle = RegleSimple | { tous: Regle[] } | { un: Regle[] } | { aPreciser: string } | { toujours: true };
 export const regle: z.ZodType<Regle> = z.lazy(() =>
   z.union([
     regleSimple,
@@ -188,6 +188,8 @@ export const regle: z.ZodType<Regle> = z.lazy(() =>
     z.object({ un: z.array(regle).min(1) }),
     // Règle que le classeur ne permet pas de trancher : la question reste affichée.
     z.object({ aPreciser: z.string().min(1) }),
+    // Question toujours posée (le total pré-rempli se propose, il ne remplace pas la question).
+    z.object({ toujours: z.literal(true) }),
   ])
 );
 
@@ -452,6 +454,22 @@ export const limitesObjectif = z.object({
 });
 export type LimitesObjectif = z.infer<typeof limitesObjectif>;
 
+// --- Pré-réponses ---------------------------------------------------------------------
+
+// Une donnée dont la réponse se propose d'après le détail déjà donné (voir src/lib/audit/prereponse.ts).
+export const prereponses = z.object({
+  source: z.string(),
+  regles: z.array(
+    z.object({
+      donnee: codeDonnee,
+      somme: z.array(codeDonnee).min(1),
+      exige: z.array(codeDonnee),
+      detail: z.string().min(1),
+    })
+  ),
+});
+export type Prereponses = z.infer<typeof prereponses>;
+
 // --- Banque de questions (pas encore écrite) ---------------------------------
 
 // Contrat minimal : une question écrite pour une donnée « demandée ». Le texte
@@ -484,6 +502,7 @@ export type EnsembleDonnees = {
   reglesAffichage: ReglesAffichage;
   seuils: z.infer<typeof seuilDonnee>[];
   limitesObjectif: LimitesObjectif;
+  prereponses: Prereponses;
   catalogue: FicheTheme[];
   catalogueEffets: EffetCatalogue[];
   parametresReferences: ParametresReferences;
@@ -504,6 +523,7 @@ export const schemaFichiers = {
   reglesAffichage,
   seuils: z.array(seuilDonnee),
   limitesObjectif,
+  prereponses,
   catalogue: z.array(ficheTheme),
   catalogueEffets: z.array(effetCatalogue),
   parametresReferences,

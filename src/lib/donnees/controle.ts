@@ -16,7 +16,7 @@ import type { Regle, RegleSimple } from "./schemas.ts";
 import { cleDeDonnee } from "../audit/affichage.ts";
 
 function reglesSimples(r: Regle): RegleSimple[] {
-  if ("aPreciser" in r) return [];
+  if ("aPreciser" in r || "toujours" in r) return [];
   if ("tous" in r) return r.tous.flatMap(reglesSimples);
   if ("un" in r) return r.un.flatMap(reglesSimples);
   return [r];
@@ -390,6 +390,18 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
   }
   const posees = e.donnees.filter((d) => d.mode === "demandee" || d.mode === "partagee");
   const banqueParDonnee = new Map(e.banque.map((q) => [q.donnee, q]));
+
+  // Pré-réponses : les codes existent et la donnée visée se répond par un nombre.
+  for (const p of e.prereponses.regles) {
+    for (const code of [p.donnee, ...p.somme, ...p.exige]) {
+      if (!donnees.has(code)) erreurs.push(`La pré-réponse de ${p.donnee} cite une donnée inconnue : ${code}.`);
+    }
+    for (const code of p.exige) {
+      if (!p.somme.includes(code)) erreurs.push(`La pré-réponse de ${p.donnee} exige ${code}, qui ne fait pas partie de la somme.`);
+    }
+    const spec = banqueParDonnee.get(p.donnee)?.reponse;
+    if (spec && spec.type !== "nombre") erreurs.push(`La pré-réponse de ${p.donnee} suppose une réponse en nombre, la banque en définit une autre (${spec.type}).`);
+  }
   const sansSpec = posees.filter((d) => !banqueParDonnee.get(d.code)?.reponse && proposerSpec(d.format).certitude !== "sure");
 
   // Une donnée « partagée » se pose comme une donnée demandée (par le premier agent qui en a besoin).

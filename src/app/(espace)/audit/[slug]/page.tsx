@@ -121,6 +121,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
         spec: lignesDeLaDonnee(q.spec),
         quatreReponses: q.quatreReponses,
         dejaPosee: q.dejaPosee,
+        prereponse: q.prereponse,
         source: q.dejaPoseeDans
           ? {
               code: q.dejaPoseeDans,

@@ -381,20 +381,7 @@
       "valeur": "oui"
     },
     "Pas posée si les agents Acquisition et Comm sont faits : calculée": {
-      "un": [
-        {
-          "cle": "ACQ-07.03",
-          "op": "vide"
-        },
-        {
-          "cle": "ACQ-07.04",
-          "op": "vide"
-        },
-        {
-          "cle": "COM-32.02",
-          "op": "vide"
-        }
-      ]
+      "toujours": true
     },
     "D31 · sauf micro-entreprise": {
       "cle": "FIN-47.01",
