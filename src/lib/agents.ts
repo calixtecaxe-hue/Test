@@ -14,6 +14,9 @@ export type Agent = {
   neFaitJamais: string | null;
   couleur: "bleu" | "blanc" | "rouge";
   disponible: boolean;
+  // Exemple d'objectif montré sous les champs de l'écran « Votre objectif » : une proposition de rédaction,
+  // en rapport avec ce que l'agent traite, à valider par le propriétaire.
+  exempleObjectif: { quoi: string; valeur: number; unite: "pourcent" | "euros" | "unites"; delaiMois: number };
 };
 
 export const AGENTS: Agent[] = [
@@ -27,6 +30,7 @@ export const AGENTS: Agent[] = [
     neFaitJamais: "Jugement de qualité créative d'un contenu.",
     couleur: "bleu",
     disponible: true,
+    exempleObjectif: { quoi: "augmenter mon chiffre d'affaires", valeur: 10, unite: "pourcent", delaiMois: 6 },
   },
   {
     code: "FINANCE_RENTABILITE",
@@ -40,6 +44,7 @@ export const AGENTS: Agent[] = [
       "Fiscalité, comptabilité, conformité — c'est le métier de l'expert-comptable.",
     couleur: "blanc",
     disponible: true,
+    exempleObjectif: { quoi: "améliorer ma marge", valeur: 5, unite: "pourcent", delaiMois: 6 },
   },
   {
     code: "RH_ORGANISATION",
@@ -51,6 +56,7 @@ export const AGENTS: Agent[] = [
     neFaitJamais: "Droit du travail, contrats, médiation de conflit.",
     couleur: "rouge",
     disponible: true,
+    exempleObjectif: { quoi: "baisser le turnover", valeur: 5, unite: "pourcent", delaiMois: 3 },
   },
   {
     code: "COMM_CREATION",
@@ -63,24 +69,28 @@ export const AGENTS: Agent[] = [
     neFaitJamais: null,
     couleur: "blanc",
     disponible: true,
+    exempleObjectif: { quoi: "augmenter les contacts venus d'internet", valeur: 20, unite: "pourcent", delaiMois: 6 },
   },
 ];
 
 export const couleurAgent: Record<
   Agent["couleur"],
-  { texte: string; halo: string; barre: string }
+  { texte: string; halo: string; barre: string; canal: string }
 > = {
   bleu: {
+    canal: "var(--blue-rgb)",
     texte: "var(--blue-1)",
     halo: "var(--blue-1)",
     barre: "linear-gradient(90deg, var(--blue-1), var(--blue-2))",
   },
   blanc: {
+    canal: "var(--ink)",
     texte: "var(--white-1)",
     halo: "var(--white-2)",
     barre: "linear-gradient(90deg, var(--white-2), var(--white-1))",
   },
   rouge: {
+    canal: "var(--red-rgb)",
     texte: "var(--red-1)",
     halo: "var(--red-1)",
     barre: "linear-gradient(90deg, var(--red-2), var(--red-1))",

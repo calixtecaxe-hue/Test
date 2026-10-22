@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ChoixCases } from "@/components/choix-cases";
 import { DELAI_MAX_MOIS, phraseObjectif, verifierVraisemblance, type UniteAmpleur } from "@/lib/audit/objectif";
 import { lireNombre } from "@/lib/audit/nombre";
+import { AGENTS } from "@/lib/agents";
 
 const UNITES = [
   { valeur: "pourcent", libelle: "En pourcentage (%)" },
@@ -17,6 +18,9 @@ const UNITES = [
 export function ObjectifFormulaire({ agent, facteurAnnuelMax, annulable, onAnnuler, onEnregistre }: { agent: string; facteurAnnuelMax: number; annulable?: boolean; onAnnuler?: () => void; onEnregistre?: () => void }) {
   const router = useRouter();
   const id = useId();
+  // Exemple en rapport avec l'agent : même rédaction que celle qui s'affiche une fois les champs remplis.
+  const exemple = AGENTS.find((a) => a.code === agent)?.exempleObjectif;
+  const phraseExemple = exemple ? phraseObjectif({ quoi: exemple.quoi, ampleur: { valeur: exemple.valeur, unite: exemple.unite }, delaiMois: exemple.delaiMois }) : null;
   const [quoi, setQuoi] = useState("");
   const [combien, setCombien] = useState("");
   const [unite, setUnite] = useState<UniteAmpleur>("pourcent");
@@ -40,7 +44,7 @@ export function ObjectifFormulaire({ agent, facteurAnnuelMax, annulable, onAnnul
     const manques: Record<string, string> = {};
     if (quoi.trim().length < 3) manques.quoi = "Dites ce que vous voulez changer, par exemple « baisser le turnover ».";
     if (valeur === null || valeur <= 0) manques.ampleur = "Indiquez de combien, avec un nombre supérieur à zéro.";
-    if (mois === null || !Number.isInteger(mois) || mois < 1) manques.delaiMois = "Indiquez en combien de mois, avec un nombre entier.";
+    if (mois === null || !Number.isInteger(mois) || mois < 1) manques.delaiMois = "Indiquez en combien de temps, exprimé en mois, avec un nombre entier.";
     else if (mois > DELAI_MAX_MOIS) manques.delaiMois = `Le délai ne dépasse pas ${DELAI_MAX_MOIS} mois (10 ans).`;
     // Un objectif impossible sur ce délai est expliqué tout de suite, avec ce qui serait accepté.
     if (Object.keys(manques).length === 0 && valeur !== null && mois !== null) {
@@ -78,7 +82,7 @@ export function ObjectifFormulaire({ agent, facteurAnnuelMax, annulable, onAnnul
           type="text"
           value={quoi}
           onChange={(e) => { setQuoi(e.target.value); effacerErreur("quoi"); }}
-          placeholder="Ex. : baisser le turnover"
+          placeholder={exemple ? `Ex. : ${exemple.quoi}` : undefined}
           maxLength={160}
           className={classeChamp}
           aria-invalid={erreurs.quoi ? true : undefined}
@@ -97,7 +101,7 @@ export function ObjectifFormulaire({ agent, facteurAnnuelMax, annulable, onAnnul
             inputMode="decimal"
             value={combien}
             onChange={(e) => { setCombien(e.target.value); effacerErreur("ampleur"); }}
-            placeholder="Ex. : 5"
+            placeholder={exemple ? `Ex. : ${exemple.valeur}` : undefined}
             className={classeChamp}
             aria-invalid={erreurs.ampleur ? true : undefined}
           />
@@ -105,7 +109,7 @@ export function ObjectifFormulaire({ agent, facteurAnnuelMax, annulable, onAnnul
         </div>
         <div className="champ-groupe">
           <label htmlFor={`${id}-delai`} className="champ-etiquette">
-            En combien de mois
+            En combien de temps <span className="font-normal text-[var(--text-muted)]">(temps exprimé en mois)</span>
           </label>
           <input
             id={`${id}-delai`}
@@ -113,7 +117,7 @@ export function ObjectifFormulaire({ agent, facteurAnnuelMax, annulable, onAnnul
             inputMode="numeric"
             value={delai}
             onChange={(e) => { setDelai(e.target.value); effacerErreur("delaiMois"); }}
-            placeholder="Ex. : 3"
+            placeholder={exemple ? `Ex. : ${exemple.delaiMois}` : undefined}
             className={classeChamp}
             aria-invalid={erreurs.delaiMois ? true : undefined}
           />
@@ -132,7 +136,7 @@ export function ObjectifFormulaire({ agent, facteurAnnuelMax, annulable, onAnnul
             Votre objectif : <span className="text-[var(--text)]">{apercu}</span>
           </>
         ) : (
-          <>Exemple : baisser le turnover de 5&nbsp;% sur les 3 prochains mois.</>
+          <>{phraseExemple ? <>Exemple : {phraseExemple.replace(" %", "\u00a0%")}.</> : null}</>
         )}
       </p>
 
@@ -142,7 +146,7 @@ export function ObjectifFormulaire({ agent, facteurAnnuelMax, annulable, onAnnul
         <button
           type="submit"
           disabled={envoi}
-          className="rounded-[4px] bg-[var(--blue-1)] px-5 py-2.5 font-medium text-[var(--bg)] transition hover:bg-[var(--blue-2)] hover:text-[var(--text)] disabled:opacity-60"
+          className="audit-bouton bouton-eclat rounded-[4px] px-5 py-2.5 font-medium transition disabled:opacity-60"
         >
           {envoi ? "Enregistrement…" : "Enregistrer mon objectif"}
         </button>

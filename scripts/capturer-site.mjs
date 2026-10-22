@@ -51,10 +51,10 @@ if (APERCU === "application") {
   Object.assign(LIENS, {
     "/": "tableau-de-bord.html",
     "/compte": "compte.html",
-    "/audit/acquisition-chiffre-affaires": "audit-objectif.html",
-    "/audit/finance-rentabilite": "audit-objectif.html",
-    "/audit/rh-organisation": "audit-objectif.html",
-    "/audit/comm-creation-contenu": "audit-objectif.html",
+    "/audit/acquisition-chiffre-affaires": "audit-objectif-acq.html",
+    "/audit/finance-rentabilite": "audit-objectif-fin.html",
+    "/audit/rh-organisation": "audit-objectif-rh.html",
+    "/audit/comm-creation-contenu": "audit-objectif-com.html",
   });
   PAGES.length = 0;
 }
@@ -309,17 +309,27 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
 
   // 6. Application : l'audit d'un agent (objectif, niveau, questionnaire) et le compte, avec le même compte de test.
   if (APERCU === "application") {
-  const SLUG = "/audit/acquisition-chiffre-affaires";
-  await p.goto(B + SLUG, { waitUntil: "networkidle" });
-  await capturer("audit-objectif.html", "Votre audit — CAXE");
-  const obj = await api.post(B + "/api/audit/objectif", { data: { agent: "ACQUISITION_CA", objectif: { quoi: "augmenter mon chiffre d'affaires", ampleur: { valeur: 15, unite: "pourcent" }, delaiMois: 6 } } });
-  if (!obj.ok()) throw new Error("objectif " + obj.status() + " " + (await obj.text()));
-  await p.goto(B + SLUG, { waitUntil: "networkidle" });
-  await capturer("audit-niveau.html", "Votre audit — CAXE");
+  // Les quatre agents, chacun avec ses trois écrans (objectif, niveau, questionnaire) dans sa couleur.
+  const AGENTS_APP = [
+    { court: "acq", code: "ACQUISITION_CA", slug: "acquisition-chiffre-affaires", objectif: { quoi: "augmenter mon chiffre d'affaires", ampleur: { valeur: 10, unite: "pourcent" }, delaiMois: 6 } },
+    { court: "fin", code: "FINANCE_RENTABILITE", slug: "finance-rentabilite", objectif: { quoi: "améliorer ma marge", ampleur: { valeur: 5, unite: "pourcent" }, delaiMois: 6 } },
+    { court: "rh", code: "RH_ORGANISATION", slug: "rh-organisation", objectif: { quoi: "baisser le turnover", ampleur: { valeur: 5, unite: "pourcent" }, delaiMois: 3 } },
+    { court: "com", code: "COMM_CREATION", slug: "comm-creation-contenu", objectif: { quoi: "augmenter les contacts venus d'internet", ampleur: { valeur: 20, unite: "pourcent" }, delaiMois: 6 } },
+  ];
+  const ecran = async (a, nom) => {
+    await p.goto(B + "/audit/" + a.slug, { waitUntil: "networkidle" });
+    await p.evaluate((c) => document.querySelector("main[data-couleur]").setAttribute("data-mirroir-agent", c), a.court);
+    await capturer(`audit-${nom}-${a.court}.html`, "Votre audit — CAXE");
+  };
+  for (const a of AGENTS_APP) await ecran(a, "objectif");
+  for (const a of AGENTS_APP) {
+    const r = await api.post(B + "/api/audit/objectif", { data: { agent: a.code, objectif: a.objectif } });
+    if (!r.ok()) throw new Error("objectif " + a.code + " " + r.status() + " " + (await r.text()));
+  }
+  for (const a of AGENTS_APP) await ecran(a, "niveau");
   const niv = await api.put(B + "/api/audit/niveau", { data: { niveau: "ESSENTIEL" } });
   if (!niv.ok()) throw new Error("niveau " + niv.status());
-  await p.goto(B + SLUG, { waitUntil: "networkidle" });
-  await capturer("audit-questionnaire.html", "Votre audit — CAXE");
+  for (const a of AGENTS_APP) await ecran(a, "questionnaire");
   await p.goto(B + "/compte", { waitUntil: "networkidle" });
   await capturer("compte.html", "Mon compte — CAXE");
   }
@@ -665,16 +675,17 @@ const SCRIPT_PARCOURS = String.raw`
   }
 
   // Application : l'audit d'un agent. Objectif, puis niveau, puis questionnaire ; les réponses se remplissent sur place.
+  var mAgent=document.querySelector('[data-mirroir-agent]'); var suf=mAgent ? mAgent.getAttribute('data-mirroir-agent') : 'acq';
   var formObjectif=document.querySelector('section[aria-labelledby=objectif] form');
   if (formObjectif) {
     formObjectif.addEventListener('submit', function(e){
       e.preventDefault();
       var vide=[].slice.call(formObjectif.querySelectorAll('input[type=text], input:not([type])')).filter(function(i){ return !i.value.trim(); })[0];
       if (vide) { vide.focus(); return; }
-      location.href='audit-niveau.html';
+      location.href='audit-niveau-'+suf+'.html';
     });
   }
-  document.querySelectorAll('section[aria-labelledby=niveau] button').forEach(function(b){ b.addEventListener('click', function(){ location.href='audit-questionnaire.html'; }); });
+  document.querySelectorAll('section[aria-labelledby=niveau] button').forEach(function(b){ b.addEventListener('click', function(){ location.href='audit-questionnaire-'+suf+'.html'; }); });
   var ESTIM='<div class="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2"><div class="champ-groupe"><label class="champ-etiquette">Entre</label><input type="text" inputmode="decimal" class="champ-saisie"></div><div class="champ-groupe"><label class="champ-etiquette">Et</label><input type="text" inputmode="decimal" class="champ-saisie"></div><p class="champ-aide sm:col-span-2">Nous retenons le milieu de la fourchette, signalé comme estimé.</p></div>';
   document.querySelectorAll('li[data-question]').forEach(function(li){
     var corps=function(){ return [].slice.call(li.children).filter(function(c){ return c.tagName==='DIV' && c.getAttribute('aria-label')!=='Autres réponses' && !c.classList.contains('flex'); }); };

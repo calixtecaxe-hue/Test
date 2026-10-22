@@ -25,9 +25,9 @@ export function NiveauChoix({ essentielles, approfondies }: { essentielles: numb
     setEnvoi(null);
   }
 
-  const carte = "flex flex-col gap-1 rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5 text-left transition hover:border-[var(--blue-1)] disabled:opacity-60";
+  const carte = "audit-carte flex flex-col gap-1 rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5 text-left disabled:opacity-60";
   return (
-    <section className="mt-10" aria-labelledby="niveau">
+    <section className="audit-entree mt-10" style={{ "--d": "480ms" } as React.CSSProperties} aria-labelledby="niveau">
       <h2 id="niveau" className="text-xl">
         Jusqu&apos;où voulez-vous aller ?
       </h2>

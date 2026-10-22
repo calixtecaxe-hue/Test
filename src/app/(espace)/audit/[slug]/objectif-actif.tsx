@@ -17,7 +17,7 @@ export function ObjectifActif({ agent, facteurAnnuelMax, phrase, echeance, indic
     );
   }
   return (
-    <section className="mt-6 rounded-xl border border-[var(--line)] bg-[var(--panel)] p-6" aria-labelledby="objectif-actif">
+    <section className="audit-entree audit-objectif-actif mt-6 rounded-xl border border-[var(--line)] bg-[var(--panel)] p-6" style={{ "--d": "480ms" } as React.CSSProperties} aria-labelledby="objectif-actif">
       <p id="objectif-actif" className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">
         Votre objectif
       </p>
@@ -26,7 +26,7 @@ export function ObjectifActif({ agent, facteurAnnuelMax, phrase, echeance, indic
         Échéance : {echeance}
         {indicateur ? <> · Indicateur suivi : {indicateur}</> : null}
       </p>
-      <button type="button" onClick={() => setEdition(true)} className="mt-4 text-sm text-[var(--blue-1)] hover:underline">
+      <button type="button" onClick={() => setEdition(true)} className="audit-kicker mt-4 text-sm hover:underline">
         Changer d&apos;objectif
       </button>
     </section>

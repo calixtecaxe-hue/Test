@@ -136,7 +136,7 @@ export function Questionnaire({
   const a = declencheurs.length > 0;
 
   return (
-    <div className="mt-10 flex flex-col gap-12">
+    <div className="audit-entree mt-10 flex flex-col gap-12" style={{ "--d": "480ms" } as React.CSSProperties}>
       {a ? (
         <section aria-labelledby="cadrage">
           <h2 id="cadrage" className="text-xl">Quelques questions pour cadrer votre audit</h2>

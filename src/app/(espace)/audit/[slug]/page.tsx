@@ -173,7 +173,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
   const etapeParcours: EtapeParcours = !actif ? 1 : !utilisateur.niveauAudit ? 2 : 3;
 
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-2 px-6 py-10">
+    <main data-couleur={agent.couleur} className="audit-agent mx-auto flex w-full max-w-3xl flex-1 flex-col gap-2 px-6 py-10">
       <TeteAgent agent={agent} etape={etapeParcours} />
 
       {actif && structure ? (
@@ -183,7 +183,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
           {corps}
         </>
       ) : (
-        <section aria-labelledby="objectif" className="mt-8">
+        <section aria-labelledby="objectif" className="audit-entree mt-8" style={{ "--d": "480ms" } as React.CSSProperties}>
           <h2 id="objectif" className="text-2xl">
             Votre objectif
           </h2>
