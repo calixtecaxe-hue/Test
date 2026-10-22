@@ -60,6 +60,8 @@ if (APERCU === "application") {
   for (const [slug, court] of [["acquisition-chiffre-affaires", "acq"], ["finance-rentabilite", "fin"], ["rh-organisation", "rh"], ["comm-creation-contenu", "com"]]) {
     LIENS[`/audit/${slug}?etape=1`] = `audit-objectif-${court}.html`;
     LIENS[`/audit/${slug}?etape=2`] = `audit-niveau-${court}.html`;
+    LIENS[`/audit/${slug}?etape=3`] = `audit-questionnaire-${court}.html`;
+    LIENS[`/audit/${slug}?etape=4`] = `audit-resultats-${court}.html`;
   }
   PAGES.length = 0;
 }
@@ -370,6 +372,13 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
     if (!r.ok()) throw new Error("réponse " + cle + " " + r.status() + " " + (await r.text()));
   }
   for (const a of AGENTS_APP) await ecran(a, "questionnaire");
+  // Étape 4 : maquette du compte rendu (le serveur doit être lancé avec RESULTATS_MAQUETTE=1).
+  for (const a of AGENTS_APP) {
+    await p.goto(B + "/audit/" + a.slug + "?etape=4", { waitUntil: "networkidle" });
+    if ((await p.locator("#res-o1").count()) === 0) throw new Error("maquette du compte rendu absente : lancer le serveur avec RESULTATS_MAQUETTE=1");
+    await marquerAgent(a);
+    await capturer(`audit-resultats-${a.court}.html`, "Votre audit — CAXE");
+  }
   await p.goto(B + "/compte", { waitUntil: "networkidle" });
   await capturer("compte.html", "Mon compte — CAXE");
   }

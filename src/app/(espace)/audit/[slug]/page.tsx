@@ -18,6 +18,7 @@ import { ObjectifActif, ObjectifEdition } from "./objectif-actif";
 import { ObjectifChoix } from "./objectif-choix";
 import { NiveauChoix } from "./niveau-choix";
 import { NiveauReglage } from "./niveau-reglage";
+import { ResultatsMaquette } from "./resultats-maquette";
 import { Questionnaire, type ThemeClient } from "./questionnaire";
 import { TeteAgent, type EtapeParcours } from "./tete-agent";
 import { estComplet } from "@/lib/compte";
@@ -177,14 +178,16 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   // L'étape atteinte, et l'étape affichée : une étape déjà atteinte se rouvre avec ?etape=1 ou ?etape=2.
   const etapeParcours: EtapeParcours = !actif ? 1 : !utilisateur.niveauAudit ? 2 : 3;
   const demandee = Number(etapeDemandee);
-  const vue: EtapeParcours = demandee === 1 || demandee === 2 ? (Math.min(demandee, etapeParcours) as EtapeParcours) : etapeParcours;
+  // Maquette du compte rendu (étape 4) : ouverte seulement quand RESULTATS_MAQUETTE=1, une fois le niveau choisi.
+  const resultatsOuverts = process.env.RESULTATS_MAQUETTE === "1" && etapeParcours === 3;
+  const vue: EtapeParcours = resultatsOuverts && demandee === 4 ? 4 : demandee === 1 || demandee === 2 ? (Math.min(demandee, etapeParcours) as EtapeParcours) : etapeParcours;
   const rouvre = vue < etapeParcours;
   const retourAudit = `/audit/${agent.slug}`;
   const nCompte = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
 
   return (
     <main data-couleur={agent.couleur} className="audit-agent mx-auto flex w-full max-w-3xl flex-1 flex-col gap-2 px-6 py-10">
-      <TeteAgent agent={agent} etape={vue} max={etapeParcours} />
+      <TeteAgent agent={agent} etape={vue} max={etapeParcours} resultats={resultatsOuverts} />
 
       {vue >= 2 ? (
         <Link href={`${retourAudit}?etape=${vue - 1}`} className="audit-retour">
@@ -192,7 +195,9 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
         </Link>
       ) : null}
 
-      {rouvre && vue === 1 ? (
+      {vue === 4 && actif ? (
+        <ResultatsMaquette agent={agent} objectif={actif.texteBrut} echeance={formaterDate(actif.echeance)} reussite={structure?.reussite ?? null} />
+      ) : rouvre && vue === 1 ? (
         <ObjectifEdition agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} propositions={propositions} retour={retourAudit} />
       ) : rouvre && vue === 2 && actif && structure ? (
         <>

@@ -3,12 +3,13 @@ import { AgentAvatar } from "@/components/marketing/agent-avatar";
 import { couleurAgent, type Agent } from "@/lib/agents";
 
 // 1 : objectif à définir. 2 : niveau et cadrage. 3 : questionnaire. 4 : résultats (pas encore ouverts).
-export type EtapeParcours = 1 | 2 | 3;
+export type EtapeParcours = 1 | 2 | 3 | 4;
 
 const ETAPES = [
   { n: 1, libelle: "Objectif" },
   { n: 2, libelle: "Niveau et cadrage" },
   { n: 3, libelle: "Questionnaire" },
+  { n: 4, libelle: "Résultats" },
 ] as const;
 
 function Coche() {
@@ -22,7 +23,8 @@ function Coche() {
 // En-tête de la page d'un agent : qui il est, la question à laquelle il répond, et où en est le
 // dirigeant dans le parcours. L'objectif vient toujours en premier.
 // `etape` : l'étape affichée ; `max` : la dernière étape atteinte. Une étape déjà atteinte se rouvre en cliquant dessus.
-export function TeteAgent({ agent, etape, max = etape }: { agent: Agent; etape: EtapeParcours; max?: EtapeParcours }) {
+// `resultats` : l'étape 4 est ouverte (maquette du compte rendu) ; sinon elle reste annoncée « Bientôt ».
+export function TeteAgent({ agent, etape, max = etape, resultats = false }: { agent: Agent; etape: EtapeParcours; max?: EtapeParcours; resultats?: boolean }) {
   return (
     <header className="flex flex-col gap-7">
       <div className="audit-entree flex items-center gap-5">
@@ -37,10 +39,10 @@ export function TeteAgent({ agent, etape, max = etape }: { agent: Agent; etape: 
       </div>
 
       <ol className="grid grid-cols-2 gap-2 sm:grid-cols-4" aria-label="Votre parcours avec cet agent">
-        {ETAPES.map((e, i) => {
+        {ETAPES.filter((e) => e.n < 4 || resultats).map((e, i) => {
           const fait = e.n < max;
           const courant = e.n === etape;
-          const atteignable = e.n <= max && !courant;
+          const atteignable = (e.n <= max || (resultats && e.n === 4)) && !courant;
           const classes = `audit-etape flex items-center gap-3 rounded-[4px] border px-3 py-2.5 text-sm ${courant ? "courante text-[var(--text)]" : "border-[var(--line)] text-[var(--text-muted)]"}${atteignable ? " audit-etape-lien" : ""}`;
           const contenu = (
             <>
@@ -52,7 +54,7 @@ export function TeteAgent({ agent, etape, max = etape }: { agent: Agent; etape: 
               <span>
                 {e.libelle}
                 {fait ? <span className="sr-only"> (terminé)</span> : null}
-                {atteignable ? <span className="sr-only"> : revenir à cette étape</span> : null}
+                {atteignable ? <span className="sr-only"> : {e.n > max ? "ouvrir" : "revenir à"} cette étape</span> : null}
               </span>
             </>
           );
@@ -70,12 +72,12 @@ export function TeteAgent({ agent, etape, max = etape }: { agent: Agent; etape: 
             </li>
           );
         })}
-        <li style={{ "--d": "390ms" } as React.CSSProperties} className="audit-entree flex items-center gap-3 rounded-[4px] border border-dashed border-[var(--line)] px-3 py-2.5 text-sm text-[var(--text-muted)]">
+        {resultats ? null : <li style={{ "--d": "390ms" } as React.CSSProperties} className="audit-entree flex items-center gap-3 rounded-[4px] border border-dashed border-[var(--line)] px-3 py-2.5 text-sm text-[var(--text-muted)]">
           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[var(--line)] text-xs font-semibold">4</span>
           <span>
             Résultats <span className="block text-xs text-[var(--amber-1)]">Bientôt</span>
           </span>
-        </li>
+        </li>}
       </ol>
       <div className="audit-progres" role="presentation">
         <div style={{ width: `${(etape / 4) * 100}%`, background: couleurAgent[agent.couleur].barre }} />

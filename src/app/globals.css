@@ -4214,3 +4214,253 @@ h3,
     transform: none;
   }
 }
+
+/* Compte rendu d'un audit (étape 4, maquette) : trois onglets sans JavaScript, boutons radio et :checked. */
+.res-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.res-exemple {
+  margin-top: 0.75rem;
+  border: 1px dashed rgb(var(--amber-rgb) / 0.6);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+.res-exemple strong {
+  color: var(--amber-1);
+  font-weight: 600;
+}
+.res-barre {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+}
+.res-barre label {
+  flex: 0 0 auto;
+  cursor: pointer;
+  padding: 0.7rem 1rem;
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.res-barre label:hover {
+  color: var(--text);
+}
+#res-o1:checked ~ .res-barre label[for="res-o1"],
+#res-o2:checked ~ .res-barre label[for="res-o2"],
+#res-o3:checked ~ .res-barre label[for="res-o3"] {
+  color: var(--text);
+  border-bottom-color: var(--agent);
+}
+#res-o1:focus-visible ~ .res-barre label[for="res-o1"],
+#res-o2:focus-visible ~ .res-barre label[for="res-o2"],
+#res-o3:focus-visible ~ .res-barre label[for="res-o3"] {
+  outline: 2px solid var(--agent);
+  outline-offset: -2px;
+}
+.res-panneau {
+  display: none;
+  margin-top: 1.5rem;
+  animation: audit-entree 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+#res-o1:checked ~ .res-panneaux .res-p1,
+#res-o2:checked ~ .res-panneaux .res-p2,
+#res-o3:checked ~ .res-panneaux .res-p3 {
+  display: block;
+}
+.res-bloc {
+  margin-top: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  padding: 1.25rem 1.5rem;
+}
+.res-origine {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.res-verdict {
+  margin-top: 0.75rem;
+  width: fit-content;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.res-verdict-realiste {
+  color: var(--green-1);
+}
+.res-verdict-conditions {
+  color: var(--amber-1);
+}
+.res-verdict-pas_en_l_etat {
+  color: var(--red-1);
+}
+.res-chiffres {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.6rem;
+}
+.res-chiffres > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.6rem;
+  font-size: 0.9375rem;
+}
+.res-chiffres dt {
+  color: var(--text-muted);
+}
+.res-chiffres dd {
+  color: var(--text);
+  font-weight: 600;
+}
+.res-liste {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+.res-priorite,
+.res-action {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  padding: 1.25rem 1.5rem;
+  transition: border-color 0.25s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.res-priorite:hover,
+.res-action:hover {
+  border-color: rgb(var(--agent-rgb) / 0.6);
+  transform: translateY(-2px);
+}
+.res-action {
+  display: flex;
+  gap: 1rem;
+}
+.res-rang {
+  flex: 0 0 auto;
+  display: inline-flex;
+  height: 1.75rem;
+  width: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--agent);
+  border-radius: 50%;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--agent);
+}
+.res-corps {
+  margin-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.9rem;
+}
+.res-statut {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.res-point {
+  height: 0.6rem;
+  width: 0.6rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+.res-statut-rouge {
+  color: var(--red-1);
+}
+.res-statut-orange {
+  color: var(--amber-1);
+}
+.res-statut-vert {
+  color: var(--green-1);
+}
+.res-impact {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.15rem;
+  border-left: 3px solid var(--agent);
+  border-radius: 0 4px 4px 0;
+  background: rgb(var(--agent-rgb) / 0.08);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.875rem;
+}
+.res-impact strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.res-impact span {
+  color: var(--text-muted);
+}
+.res-impact-montant {
+  border-left-color: var(--amber-1);
+  background: rgb(var(--amber-rgb) / 0.08);
+}
+.res-impact-qualifie {
+  border-left-color: var(--line);
+  background: rgb(var(--ink) / 0.05);
+}
+.res-meta {
+  margin-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+}
+.res-meta li {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.2rem 0.55rem;
+  color: var(--text-muted);
+}
+.res-meta .res-libere {
+  border-color: rgb(var(--green-rgb) / 0.6);
+  color: var(--green-1);
+}
+.res-meta .res-attente {
+  border-color: rgb(var(--amber-rgb) / 0.6);
+  color: var(--amber-1);
+}
+.res-renvoi {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+}
+.res-renvoi-bouton {
+  border: 1px solid var(--agent);
+  border-radius: 4px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.875rem;
+  color: var(--agent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .res-panneau {
+    animation: none;
+  }
+  .res-priorite:hover,
+  .res-action:hover {
+    transform: none;
+  }
+}
