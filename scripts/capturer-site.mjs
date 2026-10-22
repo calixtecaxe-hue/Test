@@ -15,6 +15,9 @@ import { createHash } from "node:crypto";
 
 const B = "http://localhost:3100";
 const OUT = process.env.SORTIE ?? "site-miroir";
+// APERCU=site (par défaut) : le site et le parcours d'abonnement. APERCU=application : l'espace abonné seul
+// (mes agents, audit, compte), publié à part pour être travaillé puis rattaché au site.
+const APERCU = process.env.APERCU ?? "site";
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(`${OUT}/assets`, { recursive: true });
 
@@ -38,17 +41,23 @@ const LIENS = {
   "/paiement": "paiement.html",
   "/bienvenue": "bienvenue.html",
   "/tableau-de-bord": "tableau-de-bord.html",
-  "/compte": "compte.html",
-  "/audit/acquisition-chiffre-affaires": "audit-objectif.html",
-  "/audit/finance-rentabilite": "audit-objectif.html",
-  "/audit/rh-organisation": "audit-objectif.html",
-  "/audit/comm-creation-contenu": "audit-objectif.html",
   "/#agents-selecteur": "accueil.html#agents-selecteur",
   "/agents/acquisition-chiffre-affaires": "agent-acquisition-chiffre-affaires.html",
   "/agents/finance-rentabilite": "agent-finance-rentabilite.html",
   "/agents/rh-organisation": "agent-rh-organisation.html",
   "/agents/comm-creation-contenu": "agent-comm-creation-contenu.html",
 };
+if (APERCU === "application") {
+  Object.assign(LIENS, {
+    "/": "tableau-de-bord.html",
+    "/compte": "compte.html",
+    "/audit/acquisition-chiffre-affaires": "audit-objectif.html",
+    "/audit/finance-rentabilite": "audit-objectif.html",
+    "/audit/rh-organisation": "audit-objectif.html",
+    "/audit/comm-creation-contenu": "audit-objectif.html",
+  });
+  PAGES.length = 0;
+}
 
 
 const css = new Map(); // href -> texte
@@ -297,6 +306,7 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
   await capturer("tableau-de-bord.html", "Mes agents — CAXE");
 
   // 6. Application : l'audit d'un agent (objectif, niveau, questionnaire) et le compte, avec le même compte de test.
+  if (APERCU === "application") {
   const SLUG = "/audit/acquisition-chiffre-affaires";
   await p.goto(B + SLUG, { waitUntil: "networkidle" });
   await capturer("audit-objectif.html", "Votre audit — CAXE");
@@ -310,6 +320,7 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
   await capturer("audit-questionnaire.html", "Votre audit — CAXE");
   await p.goto(B + "/compte", { waitUntil: "networkidle" });
   await capturer("compte.html", "Mon compte — CAXE");
+  }
   // Retour à l'écran de bienvenue avec un second compte, pour avoir sa page entière (en-tête, titre) dans son premier état.
   const email2 = `miroir2${Date.now()}@example.com`;
   EMAILS_TEST.push(email2);
@@ -332,7 +343,7 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
   await cp.close();
 }
 
-for (const f of PARCOURS) PAGES.push(f);
+for (const f of PARCOURS) if (APERCU === "site" ? true : /^(tableau-de-bord|audit-|compte)/.test(f.fichier)) PAGES.push(f);
 await b.close();
 
 // CSS : concaténation + polices locales
@@ -703,7 +714,7 @@ for (const page of PAGES) {
   const entete = `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${page.titre}</title><link rel="stylesheet" href="site.css"><script>${SCRIPT_THEME_TETE}</script>`;
   const doc = `<!doctype html><html lang="${page.dom.lang}" class="${page.dom.classeHtml}"><head>${entete}</head><body class="${page.dom.classeCorps}">${corps}<script>${SCRIPT}</script><script>${SCRIPT_PARCOURS}</script></body></html>`;
   writeFileSync(`${OUT}/${page.fichier}`, doc);
-  if (page.fichier === "accueil.html") {
+  if (page.fichier === (APERCU === "site" ? "accueil.html" : "tableau-de-bord.html")) {
     // Page principale : fragment (le service d'artefacts fournit l'enveloppe) ; les classes du html passent sur un conteneur.
     const frag = `<title>${page.titre}</title><link rel="stylesheet" href="site.css"><script>${SCRIPT_THEME_TETE}</script><div class="${page.dom.classeHtml}"><div class="${page.dom.classeCorps}">${corps}</div></div><script>${SCRIPT}</script>`;
     writeFileSync(`${OUT}/index.html`, frag);
