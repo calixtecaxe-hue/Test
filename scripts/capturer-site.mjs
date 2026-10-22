@@ -56,6 +56,11 @@ if (APERCU === "application") {
     "/audit/rh-organisation": "audit-objectif-rh.html",
     "/audit/comm-creation-contenu": "audit-objectif-com.html",
   });
+  // Étapes du parcours d'un audit : revenir à l'objectif (?etape=1) ou au niveau (?etape=2).
+  for (const [slug, court] of [["acquisition-chiffre-affaires", "acq"], ["finance-rentabilite", "fin"], ["rh-organisation", "rh"], ["comm-creation-contenu", "com"]]) {
+    LIENS[`/audit/${slug}?etape=1`] = `audit-objectif-${court}.html`;
+    LIENS[`/audit/${slug}?etape=2`] = `audit-niveau-${court}.html`;
+  }
   PAGES.length = 0;
 }
 

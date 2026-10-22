@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AgentAvatar } from "@/components/marketing/agent-avatar";
 import { couleurAgent, type Agent } from "@/lib/agents";
 
@@ -20,7 +21,8 @@ function Coche() {
 
 // En-tête de la page d'un agent : qui il est, la question à laquelle il répond, et où en est le
 // dirigeant dans le parcours. L'objectif vient toujours en premier.
-export function TeteAgent({ agent, etape }: { agent: Agent; etape: EtapeParcours }) {
+// `etape` : l'étape affichée ; `max` : la dernière étape atteinte. Une étape déjà atteinte se rouvre en cliquant dessus.
+export function TeteAgent({ agent, etape, max = etape }: { agent: Agent; etape: EtapeParcours; max?: EtapeParcours }) {
   return (
     <header className="flex flex-col gap-7">
       <div className="audit-entree flex items-center gap-5">
@@ -36,15 +38,12 @@ export function TeteAgent({ agent, etape }: { agent: Agent; etape: EtapeParcours
 
       <ol className="grid grid-cols-2 gap-2 sm:grid-cols-4" aria-label="Votre parcours avec cet agent">
         {ETAPES.map((e, i) => {
-          const fait = e.n < etape;
+          const fait = e.n < max;
           const courant = e.n === etape;
-          return (
-            <li
-              key={e.n}
-              aria-current={courant ? "step" : undefined}
-              style={{ "--d": `${120 + i * 90}ms` } as React.CSSProperties}
-              className={`audit-entree audit-etape flex items-center gap-3 rounded-[4px] border px-3 py-2.5 text-sm ${courant ? "courante text-[var(--text)]" : "border-[var(--line)] text-[var(--text-muted)]"}`}
-            >
+          const atteignable = e.n <= max && !courant;
+          const classes = `audit-etape flex items-center gap-3 rounded-[4px] border px-3 py-2.5 text-sm ${courant ? "courante text-[var(--text)]" : "border-[var(--line)] text-[var(--text-muted)]"}${atteignable ? " audit-etape-lien" : ""}`;
+          const contenu = (
+            <>
               <span
                 className={`audit-etape-numero flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs font-semibold ${fait ? "border-[rgb(var(--green-rgb)/0.7)] text-[var(--green-1)]" : courant ? "" : "border-[var(--line)]"}`}
               >
@@ -53,7 +52,21 @@ export function TeteAgent({ agent, etape }: { agent: Agent; etape: EtapeParcours
               <span>
                 {e.libelle}
                 {fait ? <span className="sr-only"> (terminé)</span> : null}
+                {atteignable ? <span className="sr-only"> : revenir à cette étape</span> : null}
               </span>
+            </>
+          );
+          return (
+            <li key={e.n} style={{ "--d": `${120 + i * 90}ms` } as React.CSSProperties} className="audit-entree flex">
+              {atteignable ? (
+                <Link href={`/audit/${agent.slug}?etape=${e.n}`} className={`${classes} w-full`}>
+                  {contenu}
+                </Link>
+              ) : (
+                <div aria-current={courant ? "step" : undefined} className={`${classes} w-full`}>
+                  {contenu}
+                </div>
+              )}
             </li>
           );
         })}

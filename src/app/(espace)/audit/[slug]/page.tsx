@@ -14,7 +14,7 @@ import { ancienneteEnMois, cleDeDonnee, clesDeLaRegle, donneeDuDeclencheur, tail
 import { reponsesDuCompte } from "@/lib/audit/compte";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
 import { ObjectifFormulaire } from "./objectif-formulaire";
-import { ObjectifActif } from "./objectif-actif";
+import { ObjectifActif, ObjectifEdition } from "./objectif-actif";
 import { ObjectifChoix } from "./objectif-choix";
 import { NiveauChoix } from "./niveau-choix";
 import { NiveauReglage } from "./niveau-reglage";
@@ -40,8 +40,9 @@ function formaterDate(date: Date): string {
 // Un audit commence par l'objectif du dirigeant pour cet agent, en trois champs. Vient
 // ensuite le questionnaire, assemblé selon son profil, sa taille et ses réponses ; il
 // se sauvegarde au fil des réponses et se reprend à tout moment.
-export default async function AuditPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function AuditPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ etape?: string }> }) {
   const { slug } = await params;
+  const { etape: etapeDemandee } = await searchParams;
   const agent = AGENTS.find((a) => a.slug === slug);
   if (!agent) notFound();
 
@@ -173,13 +174,32 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
 
   const structure = actif ? (actif.structure as unknown as ObjectifEnregistre) : null;
 
+  // L'étape atteinte, et l'étape affichée : une étape déjà atteinte se rouvre avec ?etape=1 ou ?etape=2.
   const etapeParcours: EtapeParcours = !actif ? 1 : !utilisateur.niveauAudit ? 2 : 3;
+  const demandee = Number(etapeDemandee);
+  const vue: EtapeParcours = demandee === 1 || demandee === 2 ? (Math.min(demandee, etapeParcours) as EtapeParcours) : etapeParcours;
+  const rouvre = vue < etapeParcours;
+  const retourAudit = `/audit/${agent.slug}`;
+  const nCompte = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
 
   return (
     <main data-couleur={agent.couleur} className="audit-agent mx-auto flex w-full max-w-3xl flex-1 flex-col gap-2 px-6 py-10">
-      <TeteAgent agent={agent} etape={etapeParcours} />
+      <TeteAgent agent={agent} etape={vue} max={etapeParcours} />
 
-      {actif && structure ? (
+      {vue >= 2 ? (
+        <Link href={`${retourAudit}?etape=${vue - 1}`} className="audit-retour">
+          <span aria-hidden="true">←</span> Revenir à l&apos;étape précédente
+        </Link>
+      ) : null}
+
+      {rouvre && vue === 1 ? (
+        <ObjectifEdition agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} propositions={propositions} retour={retourAudit} />
+      ) : rouvre && vue === 2 && actif && structure ? (
+        <>
+          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} reussite={structure.reussite ?? null} propositions={propositions} />
+          <NiveauChoix essentielles={nCompte.essentielles} approfondies={nCompte.total} actuel={utilisateur.niveauAudit} retour={retourAudit} />
+        </>
+      ) : actif && structure ? (
         <>
           <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} reussite={structure.reussite ?? null} propositions={propositions} />
           {reglageNiveau}

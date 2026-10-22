@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 // Niveau des questionnaires, choisi une fois pour tous les agents du compte.
-export function NiveauChoix({ essentielles, approfondies }: { essentielles: number; approfondies: number }) {
+export function NiveauChoix({ essentielles, approfondies, actuel = null, retour }: { essentielles: number; approfondies: number; actuel?: "ESSENTIEL" | "APPROFONDI" | null; retour?: string }) {
   const router = useRouter();
   const [envoi, setEnvoi] = useState<string | null>(null);
   const [erreur, setErreur] = useState<string | null>(null);
@@ -18,7 +18,9 @@ export function NiveauChoix({ essentielles, approfondies }: { essentielles: numb
       body: JSON.stringify({ niveau }),
     }).catch(() => null);
     if (r?.ok) {
-      router.refresh();
+      // Retour à l'étape quittée : le questionnaire, avec le niveau choisi.
+      if (retour) router.push(retour);
+      else router.refresh();
       return;
     }
     setErreur("Votre choix n'a pas pu être enregistré. Réessayez.");
@@ -36,11 +38,11 @@ export function NiveauChoix({ essentielles, approfondies }: { essentielles: numb
       </p>
       <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <button type="button" className={carte} disabled={envoi !== null} onClick={() => choisir("ESSENTIEL")}>
-          <span className="font-semibold text-[var(--text)]">Essentiel</span>
+          <span className="font-semibold text-[var(--text)]">Essentiel{actuel === "ESSENTIEL" ? <span className="ml-2 text-xs font-medium text-[var(--agent)]">Choix actuel</span> : null}</span>
           <span className="text-sm text-[var(--text-muted)]">Les données qui comptent le plus : environ {essentielles} questions pour cet agent.</span>
         </button>
         <button type="button" className={carte} disabled={envoi !== null} onClick={() => choisir("APPROFONDI")}>
-          <span className="font-semibold text-[var(--text)]">Approfondi</span>
+          <span className="font-semibold text-[var(--text)]">Approfondi{actuel === "APPROFONDI" ? <span className="ml-2 text-xs font-medium text-[var(--agent)]">Choix actuel</span> : null}</span>
           <span className="text-sm text-[var(--text-muted)]">L&apos;essentiel et le détail : environ {approfondies} questions pour cet agent.</span>
         </button>
       </div>
