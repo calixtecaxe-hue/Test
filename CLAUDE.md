@@ -392,7 +392,7 @@ réponse** (`src/lib/donnees/reponse-spec.ts`) : nombre (unité, bornes), oui / 
 texte, mois et année, plusieurs champs, tableau (lignes fixes, issues d'une question de cadrage, d'une liste,
 ou libres ; total imposé). Elle vient de la banque (`question.reponse`) ou, à défaut, de ce que le format du
 classeur permet de déduire sans ambiguïté (`proposerSpec` : 178 données sur 395) ; les 217 autres (« Choix » sans
-liste, plusieurs champs, tableaux) **doivent être définies dans la banque**, sinon saisie libre. Le serveur
+liste, plusieurs champs, tableaux) **doivent être définies dans la banque**, sinon saisie libre (au 22 octobre, les 518 questions de la banque portent toutes leur spécification). Le serveur
 refuse toute réponse non conforme (`validerReponse`), le navigateur contrôle le même code
 (`src/lib/audit/saisie.ts`). **La banque s'écrit dans Excel** : `python3 scripts/exporter-modele-banque.py`
 produit `CAXE_Banque_Questions.xlsx` (une ligne par donnée posée, prérempli), `python3 scripts/importer-banque.py
