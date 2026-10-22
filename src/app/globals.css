@@ -4059,13 +4059,6 @@ h3,
   }
 }
 
-.audit-bouton {
-  background: var(--agent);
-  color: var(--bg);
-}
-.audit-bouton:hover:not(:disabled) {
-  box-shadow: 0 12px 28px -12px var(--agent);
-}
 
 .audit-carte {
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.35s ease;
@@ -4128,5 +4121,67 @@ h3,
 @media (prefers-reduced-motion: reduce) {
   .carte-agent:hover .dash-portrait {
     transform: none;
+  }
+}
+
+/* Bouton principal, le même partout (accueil, offres, parcours, paiement, application) : dégradé clair, liseré
+   lumineux, halo coloré, léger soulèvement et éclat qui balaie au survol. La taille reste celle de chaque bouton.
+   Dans l'application, la couleur est celle de l'agent (--agent, --agent-rgb). */
+.bouton-eclat {
+  --btn-a: color-mix(in srgb, var(--blue-1) 72%, white);
+  --btn-b: var(--blue-1);
+  --btn-glow: var(--blue-rgb);
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.24), rgb(255 255 255 / 0) 55%),
+    linear-gradient(100deg, var(--btn-a), var(--btn-b) 60%, var(--btn-a));
+  background-size: 100% 100%, 200% 100%;
+  background-position: 0 0, 0% 0;
+  color: var(--bg);
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4), 0 12px 28px -14px rgb(var(--btn-glow) / 0.85);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-position 0.6s ease, filter 0.25s ease;
+}
+:root[data-theme="clair"] .bouton-eclat {
+  --btn-a: color-mix(in srgb, var(--blue-1) 90%, white);
+  border-color: rgb(255 255 255 / 0.18);
+}
+.bouton-eclat.audit-bouton {
+  --btn-a: color-mix(in srgb, var(--agent) 72%, white);
+  --btn-b: var(--agent);
+  --btn-glow: var(--agent-rgb);
+}
+:root[data-theme="clair"] .bouton-eclat.audit-bouton {
+  --btn-a: color-mix(in srgb, var(--agent) 90%, white);
+}
+.bouton-eclat:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background-position: 0 0, 100% 0;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 20px 38px -14px rgb(var(--btn-glow) / 1);
+}
+.bouton-eclat:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.3), 0 6px 16px -10px rgb(var(--btn-glow) / 0.8);
+}
+.bouton-eclat:focus-visible {
+  outline: 2px solid var(--btn-b);
+  outline-offset: 3px;
+}
+.bouton-eclat:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: saturate(0.7);
+}
+
+/* Le halo qui respire garde le relief du bouton. */
+@keyframes appel-halo {
+  0% {
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4), 0 12px 28px -14px rgb(var(--btn-glow) / 0.85), 0 0 0 0 rgb(var(--btn-glow) / 0.55);
+  }
+  70%,
+  100% {
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4), 0 12px 28px -14px rgb(var(--btn-glow) / 0.85), 0 0 0 14px rgb(var(--btn-glow) / 0);
   }
 }
