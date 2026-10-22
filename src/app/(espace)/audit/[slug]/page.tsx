@@ -15,6 +15,7 @@ import { reponsesDuCompte } from "@/lib/audit/compte";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
 import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifActif } from "./objectif-actif";
+import { ObjectifChoix } from "./objectif-choix";
 import { NiveauChoix } from "./niveau-choix";
 import { NiveauReglage } from "./niveau-reglage";
 import { Questionnaire, type ThemeClient } from "./questionnaire";
@@ -72,6 +73,8 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
   if (!estComplet(utilisateur)) redirect("/bienvenue");
 
   const actif = objectifs.find((o) => o.statut === "ACTIF") ?? null;
+  // RH et Comm : l'objectif se choisit dans une liste écrite à l'avance, avec ou sans chiffre.
+  const propositions = ENSEMBLE.objectifsAgents.agents[agent.code] ?? null;
   const historique = objectifs.filter((o) => o.statut !== "ACTIF");
   const profils = utilisateur.profils.filter((p): p is ProfilId => (PROFILS as readonly string[]).includes(p));
   const taille = tailleDepuisEffectif(utilisateur.nombreCollaborateurs);
@@ -178,7 +181,7 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
 
       {actif && structure ? (
         <>
-          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} />
+          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} reussite={structure.reussite ?? null} propositions={propositions} />
           {reglageNiveau}
           {corps}
         </>
@@ -188,9 +191,15 @@ export default async function AuditPage({ params }: { params: Promise<{ slug: st
             Votre objectif
           </h2>
           <p className="mt-2 text-[var(--text-muted)]">
-            Avant toute question, dites ce que vous voulez obtenir avec cet agent : ce que vous voulez changer, de combien, et en combien de temps. Toute l&apos;analyse part de là.
+            {propositions
+              ? "Avant toute question, dites ce que vous voulez obtenir avec cet agent. Toute l'analyse part de là."
+              : "Avant toute question, dites ce que vous voulez obtenir avec cet agent : ce que vous voulez changer, de combien, et en combien de temps. Toute l'analyse part de là."}
           </p>
-          <ObjectifFormulaire agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} />
+          {propositions ? (
+            <ObjectifChoix agent={agent.code} propositions={propositions} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} />
+          ) : (
+            <ObjectifFormulaire agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} />
+          )}
         </section>
       )}
 

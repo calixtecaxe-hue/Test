@@ -15,6 +15,7 @@ import reglesAffichage from "../../../data/regles-affichage.json";
 import seuils from "../../../data/seuils.json";
 import limitesObjectif from "../../../data/objectif-limites.json";
 import prereponses from "../../../data/prereponses.json";
+import objectifsAgents from "../../../data/objectifs-agents.json";
 import catalogue from "../../../data/catalogue-themes.json";
 import catalogueEffets from "../../../data/catalogue-effets.json";
 import parametresReferences from "../../../data/parametres-references.json";
@@ -35,6 +36,7 @@ export const ENSEMBLE: EnsembleDonnees = {
   reglesAffichage: schemaFichiers.reglesAffichage.parse(reglesAffichage),
   seuils: schemaFichiers.seuils.parse(seuils),
   prereponses: schemaFichiers.prereponses.parse(prereponses),
+  objectifsAgents: schemaFichiers.objectifsAgents.parse(objectifsAgents),
   catalogue: schemaFichiers.catalogue.parse(catalogue),
   catalogueEffets: schemaFichiers.catalogueEffets.parse(catalogueEffets),
   parametresReferences: schemaFichiers.parametresReferences.parse(parametresReferences),

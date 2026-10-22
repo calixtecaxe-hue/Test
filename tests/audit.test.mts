@@ -531,3 +531,47 @@ test("le total proposé additionne les chiffres donnés, estimation au milieu, e
   assert.equal(prereponseDe(regles, "AUTRE", {}), null);
   assert.equal(prereponseDe(regles, "FIN-05.02", { "ACQ-07.03": { genre: "exact", valeur: 0 } })?.total, 0, "0 est un chiffre, pas une absence");
 });
+
+// --- Objectif sans chiffre (RH, Comm) -----------------------------------------------
+
+test("un objectif sans chiffre se décrit par une phrase de réussite, et un des deux est obligatoire", () => {
+  const sansChiffre = { quoi: "clarifier les rôles et les responsabilités", reussite: "chacun sait ce qu'il doit faire sans me solliciter", delaiMois: 3 };
+  const o = objectifSaisieSchema.parse(sansChiffre);
+  assert.equal(phraseObjectif(o), "clarifier les rôles et les responsabilités en 3 mois");
+  assert.equal(o.ampleur, undefined);
+  // Ni chiffre ni phrase de réussite : refusé, avec le message sur la phrase.
+  const vide = objectifSaisieSchema.safeParse({ quoi: "clarifier les rôles", delaiMois: 3 });
+  assert.equal(vide.success, false);
+  assert.deepEqual(vide.success ? [] : vide.error.issues[0].path, ["reussite"]);
+  assert.equal(objectifSaisieSchema.safeParse({ ...sansChiffre, reussite: "ok" }).success, false, "une réussite trop courte n'est pas une description");
+  // Le chiffre seul reste valable, comme avant.
+  assert.equal(objectifSaisieSchema.safeParse({ quoi: "baisser le turnover", ampleur: { valeur: 5, unite: "pourcent" }, delaiMois: 3 }).success, true);
+});
+
+test("un objectif sans chiffre n'est pas comparé aux limites de vraisemblance", () => {
+  const o = objectifSaisieSchema.parse({ quoi: "recruter", reussite: "une personne formée et autonome", delaiMois: 1 });
+  assert.equal(verifierVraisemblance(o, F).ok, true);
+});
+
+test("un objectif choisi dans la liste de l'agent prend le premier thème de l'objectif pour indicateur", () => {
+  const liste = reel.objectifsAgents.agents["RH_ORGANISATION"].objectifs;
+  const roles = liste.find((x) => x.id === "rh-roles")!;
+  const o = objectifSaisieSchema.parse({ quoi: "clarifier les rôles et les responsabilités", reussite: "chacun sait ce qu'il doit faire", delaiMois: 3, choix: roles.id });
+  const e = enregistrerObjectif(o, reel.themes.filter((t) => t.agent === "RH_ORGANISATION"), new Date("2026-10-15T08:00:00Z"), roles.themes);
+  assert.equal(e.indicateur?.code, "RH-01");
+  assert.equal(e.choix, "rh-roles");
+});
+
+test("les objectifs proposés par agent existent pour la RH et la Comm, avec un exemple et des thèmes de l'agent", () => {
+  for (const agent of ["RH_ORGANISATION", "COMM_CREATION"]) {
+    const def = reel.objectifsAgents.agents[agent];
+    assert.ok(def && def.objectifs.length >= 5, agent);
+    for (const o of def.objectifs) {
+      assert.ok(o.themes.every((c) => reel.themes.find((t) => t.code === c)?.agent === agent), `${o.id} : thèmes de l'agent`);
+      assert.ok(o.mesure === "chiffre" ? !!o.unite && !!o.exemple.valeur : !!o.exemple.reussite, `${o.id} : exemple`);
+    }
+  }
+  // Les deux parcours de la Comm (CLAUDE.md section 9) : améliorer l'existant, mettre en place.
+  const groupes = new Set(reel.objectifsAgents.agents["COMM_CREATION"].objectifs.map((o) => o.groupe));
+  assert.equal(groupes.size, 2);
+});

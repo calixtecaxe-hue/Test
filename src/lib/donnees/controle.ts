@@ -402,6 +402,21 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     const spec = banqueParDonnee.get(p.donnee)?.reponse;
     if (spec && spec.type !== "nombre") erreurs.push(`La pré-réponse de ${p.donnee} suppose une réponse en nombre, la banque en définit une autre (${spec.type}).`);
   }
+  // Objectifs proposés : l'agent existe, les identifiants sont uniques, les thèmes existent et sont ceux de l'agent.
+  for (const [agent, def] of Object.entries(e.objectifsAgents.agents)) {
+    if (!e.themes.some((t) => t.agent === agent)) erreurs.push(`Objectifs proposés : l'agent ${agent} n'existe pas.`);
+    for (const d of doublons(def.objectifs.map((o) => o.id))) erreurs.push(`Objectifs proposés (${agent}) : identifiant en double ${d}.`);
+    for (const o of def.objectifs) {
+      for (const code of o.themes) {
+        const t = themesParCode.get(code);
+        if (!t) erreurs.push(`Objectif ${o.id} : le thème ${code} n'existe pas.`);
+        else if (t.agent !== agent) erreurs.push(`Objectif ${o.id} : le thème ${code} n'est pas un thème de l'agent ${agent}.`);
+      }
+      if (o.mesure === "chiffre" && !(o.unite && o.exemple.valeur)) erreurs.push(`Objectif ${o.id} : un objectif chiffré a une unité et une valeur d'exemple.`);
+      if (o.mesure === "phrase" && !o.exemple.reussite) erreurs.push(`Objectif ${o.id} : un objectif sans chiffre a une phrase de réussite en exemple.`);
+    }
+  }
+  if (e.objectifsAgents.aValider) avertissements.push("Objectifs proposés par agent (RH, Comm) : brouillon à valider par le propriétaire.");
   const sansSpec = posees.filter((d) => !banqueParDonnee.get(d.code)?.reponse && proposerSpec(d.format).certitude !== "sure");
 
   // Une donnée « partagée » se pose comme une donnée demandée (par le premier agent qui en a besoin).

@@ -159,6 +159,16 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   sinon l'objectif est gardé tel quel et l'avancement se mesure à ce qu'il
   déclare aux points d'étape. **Un objectif par agent**, conservé avec son
   historique.
+  **Objectif sans chiffre (décision du propriétaire, 22 octobre : option 3, RH et Comm)** : pour ces deux
+  agents, le dirigeant **choisit dans une liste d'objectifs écrite à l'avance** (ou « Autre (précisez) »), puis donne
+  **un chiffre s'il en a un, ou décrit ce qu'il veut constater** (« Comment saurez-vous que c'est atteint ? »), plus le
+  délai en mois. Pour la Comm, la liste suit les deux parcours : « Améliorer ce que j'ai déjà » (objectifs chiffrés,
+  ex. taux de conversion) et « Mettre en place ma présence en ligne » (sans chiffre : ouvrir les comptes, identité
+  visuelle, parcours de conversion, régularité). Liste dans `data/objectifs-agents.json` (**brouillon à valider par le
+  propriétaire** : libellés, exemples, thèmes rattachés ; contrôlée par `npm run donnees:controle`) ; formulaire
+  `objectif-choix.tsx` ; l'objectif enregistré garde `choix`, `reussite` et un chiffre facultatif. Le moteur ne juge
+  pas le réalisme d'un objectif sans chiffre (rien à comparer) ; l'avancement se mesure à ce que le dirigeant déclare.
+  Acquisition et Finance gardent les trois champs chiffrés.
 - **Assemblage en 5 couches** : (1) inscription, (2) socle de l'agent, (3) module
   catégorie, (4) module métier — 5 questions maximum —, (5) filtre taille
   (seul / 2 à 5 / 6 et plus). **Questions déclencheuses** (D01 à D65) qui ouvrent

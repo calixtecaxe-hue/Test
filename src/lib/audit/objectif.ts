@@ -17,25 +17,34 @@ export type UniteAmpleur = (typeof UNITES_AMPLEUR)[number];
 
 export const DELAI_MAX_MOIS = 120;
 
-export const objectifSaisieSchema = z.object({
+export const objectifSaisieSchema = z
+  .object({
   quoi: z
     .string()
     .trim()
     .min(3, "Dites ce que vous voulez changer, par exemple « baisser le turnover ».")
     .max(160, "Résumez en quelques mots ce que vous voulez changer."),
-  ampleur: z.object({
-    valeur: z
-      .number({ message: "Indiquez de combien." })
-      .finite("Indiquez de combien.")
-      .positive("Indiquez un nombre supérieur à zéro."),
-    unite: z.enum(UNITES_AMPLEUR, { message: "Choisissez l'unité." }),
-  }),
+  // Facultatif pour les agents dont l'objectif n'a pas forcément de chiffre (RH, Comm) : alors la phrase de réussite le remplace.
+  ampleur: z
+    .object({
+      valeur: z
+        .number({ message: "Indiquez de combien." })
+        .finite("Indiquez de combien.")
+        .positive("Indiquez un nombre supérieur à zéro."),
+      unite: z.enum(UNITES_AMPLEUR, { message: "Choisissez l'unité." }),
+    })
+    .optional(),
+  // Ce que le dirigeant veut constater quand c'est atteint (objectif sans chiffre).
+  reussite: z.string().trim().min(3, "Décrivez ce que vous voulez constater.").max(200, "Résumez en une phrase.").optional(),
+  // Objectif choisi dans la liste proposée pour l'agent (data/objectifs-agents.json) ; absent pour « Autre » ou un objectif libre.
+  choix: z.string().regex(/^[a-z0-9-]+$/).max(60).optional(),
   delaiMois: z
     .number({ message: "Indiquez en combien de temps." })
     .int("Indiquez un nombre entier de mois.")
     .min(1, "Le délai est d'au moins 1 mois.")
     .max(DELAI_MAX_MOIS, `Le délai ne dépasse pas ${DELAI_MAX_MOIS} mois.`),
-});
+  })
+  .refine((o) => o.ampleur !== undefined || o.reussite !== undefined, { message: "Indiquez un chiffre, ou décrivez ce que vous voulez constater.", path: ["reussite"] });
 export type ObjectifSaisie = z.infer<typeof objectifSaisieSchema>;
 
 // Ce qui est enregistré : la saisie, l'indicateur rattaché (ou rien) et l'échéance.
@@ -52,6 +61,8 @@ function formaterNombre(n: number): string {
 
 // « baisser le turnover de 5 % sur les 3 prochains mois ».
 export function phraseObjectif(o: ObjectifSaisie): string {
+  // Sans chiffre : « clarifier les rôles et les responsabilités en 3 mois » ; ce que le dirigeant veut constater se garde à part.
+  if (!o.ampleur) return `${o.quoi.replace(/[.\s]+$/, "")} en ${o.delaiMois} mois`;
   const unite = LIBELLE_UNITE[o.ampleur.unite];
   const ampleur = `${formaterNombre(o.ampleur.valeur)}${unite ? ` ${unite}` : ""}`;
   const delai = o.delaiMois === 1 ? "le mois prochain" : `les ${o.delaiMois} prochains mois`;
@@ -110,14 +121,17 @@ export function rattacherIndicateur(quoi: string, themesDeLAgent: Pick<Theme, "c
   return { code: meilleurs[0].t.code, nom: meilleurs[0].t.nom };
 }
 
+// `themesChoisis` : les thèmes de l'objectif choisi dans la liste de l'agent ; le premier sert d'indicateur.
 export function enregistrerObjectif(
   saisie: ObjectifSaisie,
   themesDeLAgent: Pick<Theme, "code" | "nom">[],
-  maintenant: Date
+  maintenant: Date,
+  themesChoisis: string[] = []
 ): ObjectifEnregistre {
+  const choisi = themesChoisis.length > 0 ? themesDeLAgent.find((t) => t.code === themesChoisis[0]) : undefined;
   return {
     ...saisie,
-    indicateur: rattacherIndicateur(saisie.quoi, themesDeLAgent),
+    indicateur: choisi ? { code: choisi.code, nom: choisi.nom } : rattacherIndicateur(saisie.quoi, themesDeLAgent),
     echeance: calculerEcheance(maintenant, saisie.delaiMois),
   };
 }
@@ -153,7 +167,8 @@ function entier(n: number): string {
 }
 
 export function verifierVraisemblance(o: ObjectifSaisie, facteurAnnuelMax: number): Vraisemblance {
-  if (o.ampleur.unite !== "pourcent") return { ok: true };
+  // Sans chiffre, ou en euros ou en nombre : rien à comparer.
+  if (!o.ampleur || o.ampleur.unite !== "pourcent") return { ok: true };
   const p = o.ampleur.valeur / 100;
   const baisse = sensDeLObjectif(o.quoi) === "baisse";
   if (baisse && p >= 1) {

@@ -32,11 +32,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ erreur: premier?.message ?? "Objectif invalide.", champ: premier?.path[0] }, { status: 400 });
   }
 
+  // Un objectif choisi dans la liste de l'agent doit exister pour cet agent.
+  const liste = ENSEMBLE.objectifsAgents.agents[agent]?.objectifs ?? [];
+  const choisi = saisie.data.choix ? liste.find((o) => o.id === saisie.data.choix) : undefined;
+  if (saisie.data.choix && !choisi) return NextResponse.json({ erreur: "Cet objectif n'est pas proposé pour cet agent.", champ: "choix" }, { status: 400 });
+
   const vraisemblance = verifierVraisemblance(saisie.data, ENSEMBLE.limitesObjectif.facteurAnnuelMax);
   if (!vraisemblance.ok) return NextResponse.json({ erreur: vraisemblance.message, champ: vraisemblance.champ }, { status: 400 });
 
   const maintenant = new Date();
-  const objectif = enregistrerObjectif(saisie.data, ENSEMBLE.themes.filter((t) => t.agent === agent), maintenant);
+  const objectif = enregistrerObjectif(saisie.data, ENSEMBLE.themes.filter((t) => t.agent === agent), maintenant, choisi?.themes);
   const cree = await prisma.$transaction(async (tx) => {
     await tx.objectif.updateMany({ where: { userId, agent, statut: "ACTIF" }, data: { statut: "REMPLACE", clotureLe: maintenant } });
     return tx.objectif.create({

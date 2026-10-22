@@ -470,6 +470,28 @@ export const prereponses = z.object({
 });
 export type Prereponses = z.infer<typeof prereponses>;
 
+// --- Objectifs proposés par agent ---------------------------------------------------------
+
+// Pour les agents dont l'objectif n'a pas forcément de chiffre (RH, Comm) : une liste d'objectifs écrits à
+// l'avance, rattachés à des thèmes de l'agent, plus « Autre ». Un objectif « chiffre » se mesure (unité), un
+// objectif « phrase » se décrit par ce que le dirigeant veut constater.
+export const objectifAgent = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  libelle: z.string().min(3),
+  groupe: z.string().optional(),
+  mesure: z.enum(["chiffre", "phrase"]),
+  unite: z.enum(["pourcent", "euros", "unites"]).optional(),
+  themes: z.array(z.string()).min(1),
+  exemple: z.object({ valeur: z.number().positive().optional(), reussite: z.string().optional(), delaiMois: z.number().int().min(1) }),
+});
+export type ObjectifAgent = z.infer<typeof objectifAgent>;
+export const objectifsAgents = z.object({
+  source: z.string(),
+  aValider: z.boolean(),
+  agents: z.record(z.string(), z.object({ intro: z.string().optional(), objectifs: z.array(objectifAgent).min(1) })),
+});
+export type ObjectifsAgents = z.infer<typeof objectifsAgents>;
+
 // --- Banque de questions (pas encore écrite) ---------------------------------
 
 // Contrat minimal : une question écrite pour une donnée « demandée ». Le texte
@@ -503,6 +525,7 @@ export type EnsembleDonnees = {
   seuils: z.infer<typeof seuilDonnee>[];
   limitesObjectif: LimitesObjectif;
   prereponses: Prereponses;
+  objectifsAgents: ObjectifsAgents;
   catalogue: FicheTheme[];
   catalogueEffets: EffetCatalogue[];
   parametresReferences: ParametresReferences;
@@ -524,6 +547,7 @@ export const schemaFichiers = {
   seuils: z.array(seuilDonnee),
   limitesObjectif,
   prereponses,
+  objectifsAgents,
   catalogue: z.array(ficheTheme),
   catalogueEffets: z.array(effetCatalogue),
   parametresReferences,

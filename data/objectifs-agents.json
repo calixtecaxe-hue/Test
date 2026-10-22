@@ -1,0 +1,33 @@
+{
+  "source": "Proposition de rédaction du 22 octobre, d'après les thèmes réels de chaque agent (themes.json) et les exemples du propriétaire pour la Comm (taux de conversion, création des comptes, identité visuelle, tunnel de conversion). BROUILLON À VALIDER par le propriétaire : libellés, exemples et rattachements aux thèmes. Un objectif chiffré a une unité ; un objectif sans chiffre se décrit par une phrase de réussite.",
+  "aValider": true,
+  "agents": {
+    "RH_ORGANISATION": {
+      "intro": "Choisissez ce que vous voulez améliorer dans votre organisation. Un chiffre n'est pas nécessaire : décrivez ce que vous voulez constater.",
+      "objectifs": [
+        { "id": "rh-turnover", "libelle": "Baisser le turnover", "mesure": "chiffre", "unite": "pourcent", "themes": ["RH-32"], "exemple": { "valeur": 5, "delaiMois": 3 } },
+        { "id": "rh-absences", "libelle": "Réduire les absences", "mesure": "chiffre", "unite": "pourcent", "themes": ["RH-34"], "exemple": { "valeur": 10, "delaiMois": 6 } },
+        { "id": "rh-recruter", "libelle": "Recruter et intégrer de nouvelles personnes", "mesure": "chiffre", "unite": "unites", "themes": ["RH-28", "RH-29"], "exemple": { "valeur": 2, "delaiMois": 6 } },
+        { "id": "rh-roles", "libelle": "Clarifier les rôles et les responsabilités", "mesure": "phrase", "themes": ["RH-01", "RH-02"], "exemple": { "reussite": "chacun sait ce qu'il doit faire sans me solliciter", "delaiMois": 3 } },
+        { "id": "rh-deleguer", "libelle": "Déléguer davantage", "mesure": "phrase", "themes": ["RH-04", "RH-05"], "exemple": { "reussite": "je n'ai plus à reprendre les tâches que je confie", "delaiMois": 6 } },
+        { "id": "rh-charge", "libelle": "Alléger la charge de l'équipe", "mesure": "phrase", "themes": ["RH-06", "RH-08"], "exemple": { "reussite": "personne ne travaille régulièrement au-delà de ses horaires", "delaiMois": 6 } },
+        { "id": "rh-information", "libelle": "Mieux faire circuler l'information", "mesure": "phrase", "themes": ["RH-14", "RH-19"], "exemple": { "reussite": "l'équipe trouve seule les informations dont elle a besoin", "delaiMois": 3 } },
+        { "id": "rh-competences", "libelle": "Développer les compétences de l'équipe", "mesure": "phrase", "themes": ["RH-23", "RH-24"], "exemple": { "reussite": "chaque savoir-faire clé est maîtrisé par au moins deux personnes", "delaiMois": 12 } },
+        { "id": "rh-absence-dirigeant", "libelle": "Pouvoir m'absenter sans que l'activité s'arrête", "mesure": "phrase", "themes": ["RH-37", "RH-38"], "exemple": { "reussite": "je pars une semaine sans être sollicité", "delaiMois": 6 } }
+      ]
+    },
+    "COMM_CREATION": {
+      "intro": "Choisissez ce que vous voulez faire. Si vous suivez déjà vos chiffres, indiquez un objectif chiffré. Si vous démarrez, décrivez ce que vous voulez mettre en place : nous le construirons avec vous.",
+      "objectifs": [
+        { "id": "com-conversion", "libelle": "Augmenter mon taux de conversion", "groupe": "Améliorer ce que j'ai déjà", "mesure": "chiffre", "unite": "pourcent", "themes": ["COM-19", "COM-22"], "exemple": { "valeur": 5, "delaiMois": 3 } },
+        { "id": "com-demandes", "libelle": "Augmenter les demandes venues des réseaux et d'internet", "groupe": "Améliorer ce que j'ai déjà", "mesure": "chiffre", "unite": "pourcent", "themes": ["COM-22", "COM-23"], "exemple": { "valeur": 20, "delaiMois": 6 } },
+        { "id": "com-audience", "libelle": "Augmenter mon audience", "groupe": "Améliorer ce que j'ai déjà", "mesure": "chiffre", "unite": "pourcent", "themes": ["COM-37"], "exemple": { "valeur": 15, "delaiMois": 6 } },
+        { "id": "com-engagement", "libelle": "Améliorer l'engagement sur mes publications", "groupe": "Améliorer ce que j'ai déjà", "mesure": "chiffre", "unite": "pourcent", "themes": ["COM-36"], "exemple": { "valeur": 10, "delaiMois": 3 } },
+        { "id": "com-comptes", "libelle": "Ouvrir et configurer mes comptes sur les réseaux", "groupe": "Mettre en place ma présence en ligne", "mesure": "phrase", "themes": ["COM-10", "COM-56"], "exemple": { "reussite": "mes comptes sont ouverts, complets et à jour", "delaiMois": 1 } },
+        { "id": "com-identite", "libelle": "Définir mon identité visuelle : logo, couleurs, ton", "groupe": "Mettre en place ma présence en ligne", "mesure": "phrase", "themes": ["COM-06", "COM-07"], "exemple": { "reussite": "mes publications se reconnaissent au premier coup d'œil", "delaiMois": 2 } },
+        { "id": "com-parcours", "libelle": "Construire un parcours qui transforme les visiteurs en clients", "groupe": "Mettre en place ma présence en ligne", "mesure": "phrase", "themes": ["COM-19", "COM-20", "COM-21"], "exemple": { "reussite": "depuis chaque publication, un visiteur peut me contacter en deux clics", "delaiMois": 3 } },
+        { "id": "com-regularite", "libelle": "Publier régulièrement sans y passer mes soirées", "groupe": "Mettre en place ma présence en ligne", "mesure": "phrase", "themes": ["COM-28", "COM-33"], "exemple": { "reussite": "je publie deux fois par semaine, planifié à l'avance", "delaiMois": 3 } }
+      ]
+    }
+  }
+}
