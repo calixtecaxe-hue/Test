@@ -169,6 +169,14 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   `objectif-choix.tsx` ; l'objectif enregistré garde `choix`, `reussite` et un chiffre facultatif. Le moteur ne juge
   pas le réalisme d'un objectif sans chiffre (rien à comparer) ; l'avancement se mesure à ce que le dirigeant déclare.
   Acquisition et Finance gardent les trois champs chiffrés.
+- **Compte rendu (étape 4, maquette du 22 octobre, décisions du propriétaire : trois sections, en onglets)** : onglets « Objectif »
+  (objectif, avancement déclaré, réalisme calculé par le moteur, réponse de l'agent à sa question), « Priorités » (thèmes du plus au moins
+  pesant, avec situation, repère de marché sourcé s'il existe, impact chiffré, montant en jeu ou qualifié, lecture rédigée par l'IA) et
+  « Plan d'action » (actions classées selon le temps du dirigeant, point d'étape de chacune). Chaque bloc indique s'il est « Calculé par le
+  moteur » ou « Rédigé par l'IA ». **Maquette seulement** : `resultats-maquette.tsx` et `src/lib/audit/resultats-exemple.ts` (chiffres fictifs,
+  marqués « Exemple de présentation »), ouverte uniquement avec `RESULTATS_MAQUETTE=1` ; sans cela l'étape 4 reste « Bientôt ». Le vrai
+  compte rendu exige des seuils (`data/seuils.json` vide), les règles de notation Pratique et Cohérence et le prompt de l'agent. Libellés de
+  réalisme (Réaliste / Réaliste sous conditions / Pas réaliste en l'état) : propositions à valider ; pas de verdict pour un objectif sans chiffre.
 - **Assemblage en 5 couches** : (1) inscription, (2) socle de l'agent, (3) module
   catégorie, (4) module métier — 5 questions maximum —, (5) filtre taille
   (seul / 2 à 5 / 6 et plus). **Questions déclencheuses** (D01 à D65) qui ouvrent
