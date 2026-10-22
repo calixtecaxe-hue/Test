@@ -313,13 +313,37 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
   const AGENTS_APP = [
     { court: "acq", code: "ACQUISITION_CA", slug: "acquisition-chiffre-affaires", objectif: { quoi: "augmenter mon chiffre d'affaires", ampleur: { valeur: 10, unite: "pourcent" }, delaiMois: 6 } },
     { court: "fin", code: "FINANCE_RENTABILITE", slug: "finance-rentabilite", objectif: { quoi: "améliorer ma marge", ampleur: { valeur: 5, unite: "pourcent" }, delaiMois: 6 } },
-    { court: "rh", code: "RH_ORGANISATION", slug: "rh-organisation", objectif: { quoi: "baisser le turnover", ampleur: { valeur: 5, unite: "pourcent" }, delaiMois: 3 } },
-    { court: "com", code: "COMM_CREATION", slug: "comm-creation-contenu", objectif: { quoi: "augmenter les contacts venus d'internet", ampleur: { valeur: 20, unite: "pourcent" }, delaiMois: 6 } },
+    { court: "rh", code: "RH_ORGANISATION", slug: "rh-organisation", objectif: { quoi: "clarifier les rôles et les responsabilités", reussite: "chacun sait ce qu'il doit faire sans me solliciter", delaiMois: 3, choix: "rh-roles" } },
+    { court: "com", code: "COMM_CREATION", slug: "comm-creation-contenu", objectif: { quoi: "augmenter mon taux de conversion", ampleur: { valeur: 5, unite: "pourcent" }, delaiMois: 3, choix: "com-conversion" } },
   ];
+  // RH et Comm : l'objectif se choisit dans une liste ; chaque choix, avec et sans chiffre, est capturé pour l'aperçu.
+  const PROP = JSON.parse((await import("node:fs")).readFileSync("data/objectifs-agents.json", "utf8")).agents;
+  const marquerAgent = (a) => p.evaluate((c) => document.querySelector("main[data-couleur]").setAttribute("data-mirroir-agent", c), a.court);
   const ecran = async (a, nom) => {
     await p.goto(B + "/audit/" + a.slug, { waitUntil: "networkidle" });
-    await p.evaluate((c) => document.querySelector("main[data-couleur]").setAttribute("data-mirroir-agent", c), a.court);
-    await capturer(`audit-${nom}-${a.court}.html`, "Votre audit — CAXE");
+    let extra = "";
+    if (nom === "objectif" && PROP[a.code]) {
+      const modes = {};
+      const liste = [...PROP[a.code].objectifs.map((o) => ({ id: o.id, libelle: o.libelle })), { id: "autre", libelle: "Autre (précisez)" }];
+      for (const o of liste) {
+        await p.locator(`input[type=radio][value="${o.id}"]`).check({ force: true });
+        await p.waitForTimeout(300);
+        const det = p.locator("[data-detail]");
+        const chiffre = (await p.locator("[data-sans-chiffre]").count()) > 0;
+        modes[o.id] = { libelle: o.libelle, defaut: chiffre ? "chiffre" : "phrase" };
+        extra += modele(`det-${o.id}-${chiffre ? "chiffre" : "phrase"}`, await det.innerHTML());
+        const bascule = p.locator(chiffre ? "[data-sans-chiffre]" : "[data-avec-chiffre]");
+        if (await bascule.count()) {
+          await bascule.click();
+          await p.waitForTimeout(300);
+          extra += modele(`det-${o.id}-${chiffre ? "phrase" : "chiffre"}`, await det.innerHTML());
+        }
+      }
+      extra += `<script type="application/json" id="objectif-modes">${JSON.stringify(modes)}</script>`;
+      await p.goto(B + "/audit/" + a.slug, { waitUntil: "networkidle" });
+    }
+    await marquerAgent(a);
+    await capturer(`audit-${nom}-${a.court}.html`, "Votre audit — CAXE", extra);
   };
   for (const a of AGENTS_APP) await ecran(a, "objectif");
   for (const a of AGENTS_APP) {
@@ -687,7 +711,7 @@ const SCRIPT_PARCOURS = String.raw`
 
   // Application : l'audit d'un agent. Objectif, puis niveau, puis questionnaire ; les réponses se remplissent sur place.
   var mAgent=document.querySelector('[data-mirroir-agent]'); var suf=mAgent ? mAgent.getAttribute('data-mirroir-agent') : 'acq';
-  var formObjectif=document.querySelector('section[aria-labelledby=objectif] form');
+  var formObjectif=document.querySelector('section[aria-labelledby=objectif] form:not([data-objectif-choix])');
   if (formObjectif) {
     formObjectif.addEventListener('submit', function(e){
       e.preventDefault();
@@ -733,10 +757,75 @@ const SCRIPT_PARCOURS = String.raw`
   var carteObjectif=document.querySelector('.audit-objectif-actif');
   if (carteObjectif) {
     var enregistre=null; try { enregistre=JSON.parse(lit('caxe-objectif-'+suf)); } catch (e) {}
-    var lignesCarte=carteObjectif.querySelectorAll('p');
-    if (enregistre && lignesCarte.length>=3) { lignesCarte[1].textContent=enregistre.phrase; lignesCarte[2].textContent='Échéance : '+echeanceMiroir(enregistre.mois); }
+    if (enregistre) {
+      var ps=[].slice.call(carteObjectif.querySelectorAll('p'));
+      var pPhrase=ps[1];
+      var pEch=ps.filter(function(x){ return x.textContent.indexOf('\u00c9ch\u00e9ance')===0; })[0];
+      var pReu=ps.filter(function(x){ return x.textContent.indexOf('R\u00e9ussite')===0; })[0];
+      pPhrase.textContent=enregistre.phrase;
+      if (pEch) pEch.textContent='\u00c9ch\u00e9ance : '+echeanceMiroir(enregistre.mois);
+      if (enregistre.reussite) {
+        if (!pReu) { pReu=document.createElement('p'); pReu.className=pPhrase.className.replace('text-lg','text-sm'); pPhrase.insertAdjacentElement('afterend', pReu); }
+        pReu.textContent='R\u00e9ussite : '+enregistre.reussite;
+      } else if (pReu) pReu.remove();
+    }
     var changer=carteObjectif.querySelector('button');
     if (changer) changer.addEventListener('click', function(){ location.href='audit-objectif-'+suf+'.html'; });
+  }
+  // Objectif à choix (RH, Comm) : le détail suit l'objectif choisi, avec un chiffre ou une phrase de réussite.
+  var formChoix=document.querySelector('form[data-objectif-choix]');
+  var jsonModes=document.getElementById('objectif-modes');
+  if (formChoix && jsonModes) {
+    var MODES=JSON.parse(jsonModes.textContent);
+    var zoneDetail=document.createElement('div'); zoneDetail.className='audit-entree flex flex-col gap-6';
+    formChoix.children[0].insertAdjacentElement('afterend', zoneDetail);
+    var courant={ id:null, mode:null };
+    var champC=function(s){ return zoneDetail.querySelector('input[id$="-'+s+'"]'); };
+    var lireChoix=function(){
+      if (!courant.id) return null;
+      var q;
+      if (courant.id==='autre') { var iq=champC('quoi'); q=iq ? iq.value.trim() : ''; }
+      else { var l=MODES[courant.id].libelle; q=l.charAt(0).toLowerCase()+l.slice(1); }
+      var mois=lireNb(champC('delai').value);
+      if (q.length<3 || mois===null || mois%1!==0 || mois<1) return null;
+      if (courant.mode==='chiffre') {
+        var v=lireNb(champC('combien').value); if (v===null || v<=0) return null;
+        var r=zoneDetail.querySelector('input[type=radio]:checked');
+        return { phrase: phraseMiroir(q, v, r ? r.value : 'pourcent', mois), mois: mois };
+      }
+      var reu=champC('reussite').value.trim(); if (reu.length<3) return null;
+      return { phrase: q.replace(/[.\s]+$/,'')+' en '+mois+' mois', mois: mois, reussite: reu };
+    };
+    var majChoix=function(){
+      var ap=zoneDetail.querySelector('p[aria-live]'); if (!ap) return;
+      var o=lireChoix();
+      if (!o) { ap.textContent=''; return; }
+      ap.innerHTML='Votre objectif : <span class="text-[var(--text)]"></span>'+(o.reussite ? ' Réussite : <span class="text-[var(--text)]"></span>' : '');
+      var sp=ap.querySelectorAll('span'); sp[0].textContent=o.phrase; if (o.reussite) sp[1].textContent=o.reussite;
+    };
+    var afficherChoix=function(id, mode){
+      courant.id=id; courant.mode=mode;
+      zoneDetail.innerHTML=modele('det-'+id+'-'+mode);
+      var envoi=formChoix.querySelector('button[type=submit]'); if (envoi) envoi.disabled=false;
+      synchroCases(); majChoix();
+    };
+    formChoix.addEventListener('change', function(e){
+      var t=e.target;
+      if (t.type==='radio' && !zoneDetail.contains(t)) afficherChoix(t.value, MODES[t.value].defaut); else majChoix();
+    });
+    formChoix.addEventListener('input', majChoix);
+    zoneDetail.addEventListener('click', function(e){
+      var b=e.target.closest('button'); if (!b) return;
+      if (b.hasAttribute('data-sans-chiffre')) afficherChoix(courant.id, 'phrase');
+      else if (b.hasAttribute('data-avec-chiffre')) afficherChoix(courant.id, 'chiffre');
+    });
+    formChoix.addEventListener('submit', function(e){
+      e.preventDefault();
+      var o=lireChoix();
+      if (!o) { var vide=[].slice.call(zoneDetail.querySelectorAll('input[type=text]')).filter(function(i){ return !i.value.trim(); })[0]; if (vide) vide.focus(); return; }
+      stocke('caxe-objectif-'+suf, JSON.stringify(o));
+      location.href='audit-niveau-'+suf+'.html';
+    });
   }
   document.querySelectorAll('section[aria-labelledby=niveau] button').forEach(function(b){ b.addEventListener('click', function(){ location.href='audit-questionnaire-'+suf+'.html'; }); });
   var ESTIM='<div class="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2"><div class="champ-groupe"><label class="champ-etiquette">Entre</label><input type="text" inputmode="decimal" class="champ-saisie"></div><div class="champ-groupe"><label class="champ-etiquette">Et</label><input type="text" inputmode="decimal" class="champ-saisie"></div><p class="champ-aide sm:col-span-2">Nous retenons le milieu de la fourchette, signalé comme estimé.</p></div>';
