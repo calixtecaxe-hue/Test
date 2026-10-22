@@ -138,7 +138,7 @@ export default function Accueil() {
             <div className="flex flex-col items-center text-center">
               <span className="badge-dispo">Disponible 24h/24, 7j/7</span>
               <h2 className="accent-degrade mt-5 text-2xl sm:text-3xl">
-                Les agents
+                Nos différents agents
               </h2>
             </div>
           </Reveal>
