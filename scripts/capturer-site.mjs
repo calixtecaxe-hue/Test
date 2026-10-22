@@ -38,6 +38,11 @@ const LIENS = {
   "/paiement": "paiement.html",
   "/bienvenue": "bienvenue.html",
   "/tableau-de-bord": "tableau-de-bord.html",
+  "/compte": "compte.html",
+  "/audit/acquisition-chiffre-affaires": "audit-objectif.html",
+  "/audit/finance-rentabilite": "audit-objectif.html",
+  "/audit/rh-organisation": "audit-objectif.html",
+  "/audit/comm-creation-contenu": "audit-objectif.html",
   "/#agents-selecteur": "accueil.html#agents-selecteur",
   "/agents/acquisition-chiffre-affaires": "agent-acquisition-chiffre-affaires.html",
   "/agents/finance-rentabilite": "agent-finance-rentabilite.html",
@@ -290,6 +295,21 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
   await p.waitForURL(/tableau-de-bord/, { timeout: 20000 });
   await p.goto(B + "/tableau-de-bord?bienvenue=1", { waitUntil: "networkidle" });
   await capturer("tableau-de-bord.html", "Mes agents — CAXE");
+
+  // 6. Application : l'audit d'un agent (objectif, niveau, questionnaire) et le compte, avec le même compte de test.
+  const SLUG = "/audit/acquisition-chiffre-affaires";
+  await p.goto(B + SLUG, { waitUntil: "networkidle" });
+  await capturer("audit-objectif.html", "Votre audit — CAXE");
+  const obj = await api.post(B + "/api/audit/objectif", { data: { agent: "ACQUISITION_CA", objectif: { quoi: "augmenter mon chiffre d'affaires", ampleur: { valeur: 15, unite: "pourcent" }, delaiMois: 6 } } });
+  if (!obj.ok()) throw new Error("objectif " + obj.status() + " " + (await obj.text()));
+  await p.goto(B + SLUG, { waitUntil: "networkidle" });
+  await capturer("audit-niveau.html", "Votre audit — CAXE");
+  const niv = await api.put(B + "/api/audit/niveau", { data: { niveau: "ESSENTIEL" } });
+  if (!niv.ok()) throw new Error("niveau " + niv.status());
+  await p.goto(B + SLUG, { waitUntil: "networkidle" });
+  await capturer("audit-questionnaire.html", "Votre audit — CAXE");
+  await p.goto(B + "/compte", { waitUntil: "networkidle" });
+  await capturer("compte.html", "Mon compte — CAXE");
   // Retour à l'écran de bienvenue avec un second compte, pour avoir sa page entière (en-tête, titre) dans son premier état.
   const email2 = `miroir2${Date.now()}@example.com`;
   EMAILS_TEST.push(email2);
@@ -630,7 +650,46 @@ const SCRIPT_PARCOURS = String.raw`
       etatD-=1; dossier.innerHTML = etatD===0 ? initialD : modele('dossier-'+etatD);
     });
   }
+
+  // Application : l'audit d'un agent. Objectif, puis niveau, puis questionnaire ; les réponses se remplissent sur place.
+  var formObjectif=document.querySelector('section[aria-labelledby=objectif] form');
+  if (formObjectif) {
+    formObjectif.addEventListener('submit', function(e){
+      e.preventDefault();
+      var vide=[].slice.call(formObjectif.querySelectorAll('input[type=text], input:not([type])')).filter(function(i){ return !i.value.trim(); })[0];
+      if (vide) { vide.focus(); return; }
+      location.href='audit-niveau.html';
+    });
+  }
+  document.querySelectorAll('section[aria-labelledby=niveau] button').forEach(function(b){ b.addEventListener('click', function(){ location.href='audit-questionnaire.html'; }); });
+  var ESTIM='<div class="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2"><div class="champ-groupe"><label class="champ-etiquette">Entre</label><input type="text" inputmode="decimal" class="champ-saisie"></div><div class="champ-groupe"><label class="champ-etiquette">Et</label><input type="text" inputmode="decimal" class="champ-saisie"></div><p class="champ-aide sm:col-span-2">Nous retenons le milieu de la fourchette, signalé comme estimé.</p></div>';
+  document.querySelectorAll('li[data-question]').forEach(function(li){
+    var corps=function(){ return [].slice.call(li.children).filter(function(c){ return c.tagName==='DIV' && c.getAttribute('aria-label')!=='Autres réponses' && !c.classList.contains('flex'); }); };
+    var autres=li.querySelector('[aria-label="Autres réponses"]');
+    var facon=li.querySelector('[aria-label="Façon de répondre"]');
+    var note=document.createElement('p'); note.className='mt-3 text-sm text-[var(--text-muted)]'; note.style.display='none'; if (autres) autres.insertAdjacentElement('afterend', note);
+    var exact=facon ? facon.nextElementSibling : null; var exactHtml=exact ? exact.outerHTML : '';
+    if (facon) {
+      var bs=facon.querySelectorAll('button');
+      bs.forEach(function(b,i){ b.addEventListener('click', function(){
+        bs.forEach(function(x,j){ x.classList.toggle('actif', i===j); x.setAttribute('aria-pressed', i===j ? 'true':'false'); });
+        var cur=facon.nextElementSibling; var t=document.createElement('div'); t.innerHTML=i===0 ? exactHtml : ESTIM; cur.replaceWith(t.firstElementChild);
+      }); });
+    }
+    if (autres) {
+      var bAutres=autres.querySelectorAll('button');
+      bAutres.forEach(function(b,i){ b.addEventListener('click', function(){
+        var actif=b.classList.contains('actif');
+        bAutres.forEach(function(x){ x.classList.remove('actif'); x.setAttribute('aria-pressed','false'); });
+        if (!actif) { b.classList.add('actif'); b.setAttribute('aria-pressed','true'); }
+        corps().forEach(function(c){ c.style.display = actif ? '' : 'none'; });
+        note.style.display = actif ? 'none' : '';
+        note.textContent = i===0 ? 'Pas de souci : vous pourrez compléter cette donnée plus tard, elle n’entre pas dans le calcul pour l’instant.' : 'Noté : cette donnée n’est pas suivie dans votre entreprise. Le rapport vous dira comment commencer à la suivre.';
+      }); });
+    }
+  });
 })();`;
+
 
 for (const page of PAGES) {
   let corps = page.dom.corps + (page.modeles ?? "");
