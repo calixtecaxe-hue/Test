@@ -9,7 +9,8 @@ let client: Stripe | null = null;
 export function stripe(): Stripe {
   const cle = process.env.STRIPE_SECRET_KEY;
   if (!cle) throw new Error("STRIPE_SECRET_KEY n'est pas définie.");
-  client ??= new Stripe(cle);
+  // Client HTTP « fetch » : il passe par un éventuel relais réseau (NODE_USE_ENV_PROXY) et marche partout.
+  client ??= new Stripe(cle, { httpClient: Stripe.createFetchHttpClient() });
   return client;
 }
 
@@ -75,6 +76,9 @@ export async function creerSessionPaiement(o: { userId: string; nombreAgents: nu
       },
     ],
     automatic_tax: { enabled: process.env.STRIPE_TAX_AUTOMATIQUE === "1" },
+    // « Managed Payments » (Stripe vendeur officiel, TVA gérée par Stripe) est actif par défaut sur le compte :
+    // décision du propriétaire en attente. D'ici là, CAXE facture elle-même, comme le reste du parcours le suppose.
+    managed_payments: { enabled: false },
     subscription_data: { metadata: { userId: o.userId } },
     success_url: `${site}/paiement/succes?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${site}/paiement?annule=1`,
