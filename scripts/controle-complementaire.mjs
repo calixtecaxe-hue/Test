@@ -184,8 +184,9 @@ async function parcoursMetier(secteur, libelle, { viewport = { width: 1280, heig
     await option.click();
     await p.click('form button[type="submit"]');
   }
-  for (let etape = 0; etape < 5 && !/\/formule/.test(p.url()); etape++) {
-    await p.waitForTimeout(500);
+  for (let etape = 0; etape < 5; etape++) {
+    await p.waitForTimeout(900);
+    if (/\/formule/.test(p.url())) break;
     const titre = (await p.locator("form h2").first().innerText().catch(() => "")) || "?";
     const r = await p.evaluate(pageEvaluee);
     if (r.debordement > 1) noter("erreur", secteur, `métier : ${titre}`, `déborde de ${r.debordement}px`);
@@ -201,7 +202,7 @@ async function parcoursMetier(secteur, libelle, { viewport = { width: 1280, heig
     } else if ((await radios.count()) > 0) {
       await radios.first().check({ force: true });
     }
-    await p.click('form button[type="submit"]');
+    await p.click('form button[type="submit"]', { timeout: 8000 }).catch(() => noter("erreur", secteur, `métier : ${titre}`, "pas de bouton pour continuer"));
   }
   try { await p.waitForURL(/\/formule/, { timeout: 15000 }); } catch { noter("erreur", secteur, "métier", `le parcours ne mène pas à la formule (page : ${p.url().replace(B, "")})`); await c.contexte.close(); return null; }
   compteurs.comptes += 0;
