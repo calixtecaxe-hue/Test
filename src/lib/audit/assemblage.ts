@@ -15,6 +15,7 @@
 import type { Donnee, EnsembleDonnees, ProfilId, Question, Theme, CodeAgent, FormeDeclencheur } from "../donnees/schemas.ts";
 import { formuler } from "../donnees/lexique.ts";
 import {
+  cleDeDonnee,
   clesDeLaRegle,
   declencheurDeLaCle,
   declencheurRepondu,
@@ -83,6 +84,9 @@ export type Assemblage = {
   // le dirigeant peut modifier ses réponses.
   declencheursConcernes: DeclencheurAPoser[];
   themes: ThemeAssemble[];
+  // Questions d'un autre agent dont dépendent des questions de celui-ci (types de clients, canaux) : posées ici par le
+  // premier agent qui en a besoin, avec leur réponse si elle existe déjà (CLAUDE.md section 6).
+  prealables: QuestionAssemblee[];
   // Thèmes qui ne s'appliquent pas à cette entreprise : masqués, pas « non évalués ».
   themesMasques: Theme[];
   // Données qui attendent la réponse à un déclencheur.
@@ -114,6 +118,17 @@ export function equivalences(donnees: Donnee[]): Map<string, Set<string>> {
 function concerne(d: Donnee, profils: ProfilId[], taille: TailleId): boolean {
   if ("tailles" in d) return d.tailles[taille];
   return profils.some((p) => d.profils[p]);
+}
+
+// Donnée dont la réponse porte une clé de règle (« D03 » → ACQ-03.01, « COM-23.01#tiktok.messages » → COM-23.01), ou null
+// quand la clé est un vrai déclencheur de cadrage.
+function donneeSource(cle: string, regles: ReglesAffichage): string | null {
+  return cleDeDonnee(cle)?.donnee ?? donneeDuDeclencheur(regles, cle.split(".")[0]);
+}
+
+// Agent d'une donnée d'après le préfixe de son code.
+function agentDeLaDonnee(e: EnsembleDonnees, code: string): CodeAgent | undefined {
+  return e.themes.find((t) => t.code === code.slice(0, code.indexOf(".")))?.agent;
 }
 
 // Les questions de cadrage exclues valent « non » ; les options exclues d'une question à cases
@@ -149,8 +164,69 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
   let dejaPosees = 0;
   let essentielles = 0;
 
+  // Données dont la réponse décide de l'affichage d'autres questions (conditions, masquages, lignes de tableaux).
+  const sources = new Set<string>();
   const pointer = (cles: string[]) => {
-    for (const c of cles) concernes.add(declencheurDeLaCle(c));
+    for (const c of cles) {
+      concernes.add(declencheurDeLaCle(c));
+      const source = donneeSource(c, regles);
+      if (source) sources.add(source);
+    }
+  };
+
+  // Une donnée devient une question : texte de la banque avec les mots du métier, type de réponse, réponse déjà donnée.
+  // « attente » : sa condition attend la réponse à une autre question.
+  const construire = (d: Donnee, themeCode: string): QuestionAssemblee | "attente" | null => {
+    const condition = d.condition ? regles.conditions[d.condition] : undefined;
+    const minimum = moisMinimumDExistence(d.periode);
+    if (minimum !== null && ctx.ancienneteMois !== undefined && ctx.ancienneteMois < minimum) return null;
+    if (condition) pointer(clesDeLaRegle(condition));
+    const visible = condition ? evaluer(condition, lire) : true;
+    if (visible === false) return null;
+    if (visible === null && condition) return "attente";
+
+    const q = banque.get(d.code);
+    let texte: string | null = null;
+    if (q) {
+      const f = formuler(q.texte, ctx.profils, e.lexique);
+      // Un mot du lexique absent pour ce profil : la question ne s'applique pas.
+      if (!f.ok) return null;
+      texte = f.texte;
+    }
+    const proposee = proposerSpec(d.format);
+    let spec = q?.reponse ?? (proposee.certitude === "sure" ? proposee.spec : null);
+    // Question qui tient lieu de déclencheur : les options exclues pour ce compte (publicité…) ne sont pas proposées.
+    if (spec?.type === "cases" && ex) {
+      const retirees = Object.entries(ex.optionsCadrage).filter(([cle]) => donneeDuDeclencheur(regles, cle) === d.code).flatMap(([, ids]) => ids);
+      if (retirees.length > 0) spec = { ...spec, options: spec.options.filter((o) => !retirees.includes(o.id)) };
+    }
+    const specSource = q?.reponse ? "banque" : spec ? "classeur" : null;
+    const equivalents = [...(equiv.get(d.code) ?? [])];
+    const deja = ctx.reponses[d.code] !== undefined || equivalents.some((c) => ctx.reponses[c] !== undefined);
+    if (deja) dejaPosees++;
+    if (d.niveau === "essentiel") essentielles++;
+    // Les mots du lexique valent aussi dans l'aide et la question de repli.
+    const mots = (t: string | null | undefined): string | null => {
+      if (!t) return null;
+      const f = formuler(t, ctx.profils, e.lexique);
+      return f.ok ? f.texte : t.replace(/\{[a-z0-9_]+\}/g, "").replace(/\s+([.,;:])/g, "$1");
+    };
+    return {
+      code: d.code,
+      themeCode,
+      libelle: d.libelle,
+      format: d.format,
+      niveau: d.niveau as Niveau,
+      texte,
+      aide: mots(q?.aide),
+      repli: mots(q?.repli),
+      quatreReponses: spec ? spec.type === "nombre" : accepteLesQuatreReponses(d.format),
+      spec,
+      specSource,
+      dejaPosee: deja && ctx.reponses[d.code] === undefined,
+      dejaPoseeDans: ctx.reponses[d.code] === undefined ? equivalents.find((c) => ctx.reponses[c] !== undefined) ?? null : null,
+      prereponse: spec?.type === "nombre" && ctx.reponses[d.code] === undefined ? prereponseDe(e.prereponses, d.code, ctx.reponses) : null,
+    };
   };
 
   for (const theme of themesAgent) {
@@ -182,68 +258,56 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
       const c = d.condition ? regles.conditions[d.condition] : undefined;
       return c !== undefined && evaluer(c, lire) === true;
     };
-    const candidatesTheme = masque === true ? candidates.filter(conditionVraie) : candidates;
-    if (masque === true && candidatesTheme.length === 0) {
+    // La question dont la réponse décide du masquage reste toujours posée : sans elle, le thème attendrait
+    // une réponse qu'il est seul à pouvoir demander (COM-10.07 « publiez-vous régulièrement ? » décide du masquage de COM-10).
+    const sourcesMasquage = new Set(masquage ? clesDeLaRegle(masquage).map((c) => donneeSource(c, regles)).filter((c): c is string => c !== null) : []);
+    const decideDuMasquage = (d: Donnee) => sourcesMasquage.has(d.code);
+    let aPoser = masque === true ? candidates.filter((d) => conditionVraie(d) || decideDuMasquage(d)) : candidates;
+    if (masque === true && aPoser.length === 0) {
       themesMasques.push(theme);
       continue;
     }
     if (candidates.length === 0) continue;
     if (masque === null && masquage) {
-      enAttente += candidates.length;
-      continue;
+      aPoser = candidates.filter(decideDuMasquage);
+      enAttente += candidates.length - aPoser.length;
+      if (aPoser.length === 0) continue;
     }
 
     const questions: QuestionAssemblee[] = [];
-    for (const d of candidatesTheme) {
-      const condition = d.condition ? regles.conditions[d.condition] : undefined;
-      const minimum = moisMinimumDExistence(d.periode);
-      if (minimum !== null && ctx.ancienneteMois !== undefined && ctx.ancienneteMois < minimum) continue;
-      if (condition) pointer(clesDeLaRegle(condition));
-      const visible = condition ? evaluer(condition, lire) : true;
-      if (visible === false) continue;
-      if (visible === null && condition) {
-        enAttente++;
-        continue;
-      }
-
-      const q = banque.get(d.code);
-      let texte: string | null = null;
-      if (q) {
-        const f = formuler(q.texte, ctx.profils, e.lexique);
-        // Un mot du lexique absent pour ce profil : la question ne s'applique pas.
-        if (!f.ok) continue;
-        texte = f.texte;
-      }
-      const proposee = proposerSpec(d.format);
-      let spec = q?.reponse ?? (proposee.certitude === "sure" ? proposee.spec : null);
-      // Question qui tient lieu de déclencheur : les options exclues pour ce compte (publicité…) ne sont pas proposées.
-      if (spec?.type === "cases" && ex) {
-        const retirees = Object.entries(ex.optionsCadrage).filter(([cle]) => donneeDuDeclencheur(regles, cle) === d.code).flatMap(([, ids]) => ids);
-        if (retirees.length > 0) spec = { ...spec, options: spec.options.filter((o) => !retirees.includes(o.id)) };
-      }
-      const specSource = q?.reponse ? "banque" : spec ? "classeur" : null;
-      const equivalents = [...(equiv.get(d.code) ?? [])];
-      const deja = ctx.reponses[d.code] !== undefined || equivalents.some((c) => ctx.reponses[c] !== undefined);
-      if (deja) dejaPosees++;
-      if (d.niveau === "essentiel") essentielles++;
-      questions.push({
-        code: d.code,
-        themeCode: theme.code,
-        libelle: d.libelle,
-        format: d.format,
-        niveau: d.niveau as Niveau,
-        texte,
-        aide: q?.aide ?? null,
-        repli: q?.repli ?? null,
-        quatreReponses: spec ? spec.type === "nombre" : accepteLesQuatreReponses(d.format),
-        spec,
-        specSource,
-        dejaPosee: deja && ctx.reponses[d.code] === undefined,
-        dejaPoseeDans: ctx.reponses[d.code] === undefined ? equivalents.find((c) => ctx.reponses[c] !== undefined) ?? null : null,
-        prereponse: spec?.type === "nombre" && ctx.reponses[d.code] === undefined ? prereponseDe(e.prereponses, d.code, ctx.reponses) : null,
-      });
+    for (const d of aPoser) {
+      const r = construire(d, theme.code);
+      if (r === "attente") enAttente++;
+      else if (r) questions.push(r);
+    }
+    // Un tableau dont les lignes viennent d'une question de cadrage ou d'une liste : cette question doit être posée.
+    for (const q of questions) {
+      if (q.spec?.type !== "tableau") continue;
+      if (q.spec.lignes.source === "declencheur") pointer([q.spec.lignes.cle]);
+      if (q.spec.lignes.source === "donnee") sources.add(q.spec.lignes.code);
     }
     if (questions.length > 0) themes.push({ theme, questions });
+  }
+
+  // Questions d'un autre agent dont dépendent celles-ci : le premier agent qui en a besoin les pose (avec leur réponse si elle existe).
+  const posees = new Set(themes.flatMap((t) => t.questions.map((q) => q.code)));
+  const prealables: QuestionAssemblee[] = [];
+  const traitees = new Set<string>();
+  for (let tour = 0; tour < 4; tour++) {
+    const aTraiter = [...sources].filter((c) => !traitees.has(c)).sort();
+    if (aTraiter.length === 0) break;
+    for (const code of aTraiter) {
+      traitees.add(code);
+      const d = e.donnees.find((x) => x.code === code);
+      if (!d || (d.mode !== "demandee" && d.mode !== "partagee") || d.niveau === null) continue;
+      if (posees.has(code) || agentDeLaDonnee(e, code) === ctx.agent) continue;
+      const equivalents = [...(equiv.get(code) ?? [])];
+      // Déjà répondue sous un autre code (donnée partagée) : rien à poser. Répondue sous son propre code : elle reste listée,
+      // avec sa réponse, pour que celui qui n'a pas l'agent propriétaire puisse la corriger.
+      if (equivalents.some((c) => ctx.reponses[c] !== undefined)) continue;
+      const r = construire(d, d.theme);
+      if (r && r !== "attente") prealables.push(r);
+    }
   }
 
   const declencheursConcernes: DeclencheurAPoser[] = [...concernes]
@@ -260,12 +324,13 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
     });
   const declencheursAPoser = declencheursConcernes.filter((d) => !declencheurRepondu(d.code, ctx.reponses, regles));
 
-  const toutes = themes.flatMap((t) => t.questions).filter((q) => !q.dejaPosee);
+  const toutes = [...prealables, ...themes.flatMap((t) => t.questions)].filter((q) => !q.dejaPosee);
   const ecrites = toutes.filter((q) => q.texte !== null).length;
   return {
     declencheursAPoser,
     declencheursConcernes,
     themes,
+    prealables,
     themesMasques,
     enAttente,
     dejaPosees,
@@ -281,4 +346,30 @@ export function compterQuestions(e: EnsembleDonnees, agent: CodeAgent, profils: 
     (d) => themes.has(d.theme) && (d.mode === "demandee" || d.mode === "partagee") && d.niveau !== null && concerne(d, profils, taille)
   );
   return { essentielles: concernees.filter((d) => d.niveau === "essentiel").length, total: concernees.length };
+}
+
+// Codes des données d'autres agents qu'un agent peut poser en préalable : sert à autoriser leur enregistrement à qui n'a
+// pas l'agent propriétaire (écriture de la réponse), sans connaître encore les réponses.
+export function codesPrealables(e: EnsembleDonnees, agent: CodeAgent): Set<string> {
+  const regles = e.reglesAffichage;
+  const themes = new Set(e.themes.filter((t) => t.agent === agent).map((t) => t.code));
+  const sources = new Set<string>();
+  const lire = (cles: string[]) => cles.forEach((c) => { const s = donneeSource(c, regles); if (s) sources.add(s); });
+  for (const t of e.themes) {
+    if (!themes.has(t.code)) continue;
+    const m = t.masquePour ? regles.masquages[t.masquePour] : undefined;
+    if (m) lire(clesDeLaRegle(m));
+  }
+  const banque = new Map(e.banque.map((q) => [q.donnee, q]));
+  for (const d of e.donnees) {
+    if (!themes.has(d.theme)) continue;
+    const c = d.condition ? regles.conditions[d.condition] : undefined;
+    if (c) lire(clesDeLaRegle(c));
+    const spec = banque.get(d.code)?.reponse;
+    if (spec?.type === "tableau") {
+      if (spec.lignes.source === "donnee") sources.add(spec.lignes.code);
+      if (spec.lignes.source === "declencheur") lire([spec.lignes.cle]);
+    }
+  }
+  return new Set([...sources].filter((c) => agentDeLaDonnee(e, c) !== undefined && agentDeLaDonnee(e, c) !== agent));
 }

@@ -9,7 +9,7 @@ import { enregistrerReponse } from "./enregistrer";
 import { CartePartagee, QuestionCarte, type LibellesLignes, type QuestionClient } from "./question-carte";
 export type { QuestionClient };
 
-export type ThemeClient = { code: string; nom: string; bloc: string; questions: QuestionClient[] };
+export type ThemeClient = { code: string; nom: string; bloc: string; intro?: string; questions: QuestionClient[] };
 export type DeclencheurClient = { code: string; question: string; forme: FormeDeclencheur };
 
 function brut(r: Reponse | undefined): string | string[] | undefined {
@@ -166,6 +166,7 @@ export function Questionnaire({
             <div key={t.code}>
               <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">{t.bloc}</p>
               <h3 className="mt-1 text-lg">{t.nom}</h3>
+              {t.intro ? <p className="mt-1 text-sm text-[var(--text-muted)]">{t.intro}</p> : null}
               <ul className="mt-4 flex flex-col gap-3">
                 {t.questions.map((q) => {
                   if (q.dejaPosee && q.source) {

@@ -8,7 +8,7 @@ import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { validerReponse } from "@/lib/audit/validation";
 import { agentsActifs, reponsesDuCompte } from "@/lib/audit/compte";
 import { exclusionsAcquisition } from "@/lib/routage";
-import { equivalences } from "@/lib/audit/assemblage";
+import { codesPrealables, equivalences } from "@/lib/audit/assemblage";
 import type { AgentCode } from "@prisma/client";
 
 const corps = z.object({
@@ -46,7 +46,9 @@ export async function PUT(request: Request) {
     const a = ENSEMBLE.themes.find((t) => t.code === autre.slice(0, autre.indexOf(".")))?.agent;
     if (a) agentsDeLaDonnee.add(a);
   }
-  const autorise = verdict.agent ? actifs.some((a: AgentCode) => agentsDeLaDonnee.has(a)) : actifs.length > 0;
+  // Une donnée d'un autre agent qu'un agent ouvert pose en préalable (types de clients, canaux) s'enregistre aussi.
+  const prealable = actifs.some((a: AgentCode) => codesPrealables(ENSEMBLE, a).has(cle));
+  const autorise = verdict.agent ? actifs.some((a: AgentCode) => agentsDeLaDonnee.has(a)) || prealable : actifs.length > 0;
   if (!autorise) return NextResponse.json({ erreur: "Cet agent n'est pas inclus dans votre formule." }, { status: 403 });
 
   await prisma.reponseAudit.upsert({

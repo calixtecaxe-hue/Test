@@ -114,30 +114,45 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       const donnee = donneeDuDeclencheur(ENSEMBLE.reglesAffichage, spec.lignes.cle);
       return donnee ? { ...spec, lignes: { source: "declencheur" as const, cle: donnee } } : spec;
     };
-    const themes: ThemeClient[] = a.themes.map((t) => ({
-      code: t.theme.code,
-      nom: t.theme.nom,
-      bloc: t.theme.bloc,
-      questions: t.questions.map((q) => ({
-        code: q.code,
-        libelle: q.libelle,
-        texte: q.texte,
-        aide: q.aide,
-        repli: q.repli,
-        format: q.format,
-        spec: lignesDeLaDonnee(q.spec),
-        quatreReponses: q.quatreReponses,
-        dejaPosee: q.dejaPosee,
-        prereponse: q.prereponse,
-        source: q.dejaPoseeDans
-          ? {
-              code: q.dejaPoseeDans,
-              spec: specDeLaDonnee(ENSEMBLE, q.dejaPoseeDans).spec,
-              agent: AGENTS.find((a) => a.code === ENSEMBLE.themes.find((t) => t.code === q.dejaPoseeDans!.slice(0, q.dejaPoseeDans!.indexOf(".")))?.agent)?.nom ?? "un autre agent",
-            }
-          : null,
+    const questionClient = (q: typeof a.themes[number]["questions"][number]) => ({
+      code: q.code,
+      libelle: q.libelle,
+      texte: q.texte,
+      aide: q.aide,
+      repli: q.repli,
+      format: q.format,
+      spec: lignesDeLaDonnee(q.spec),
+      quatreReponses: q.quatreReponses,
+      dejaPosee: q.dejaPosee,
+      prereponse: q.prereponse,
+      source: q.dejaPoseeDans
+        ? {
+            code: q.dejaPoseeDans,
+            spec: specDeLaDonnee(ENSEMBLE, q.dejaPoseeDans).spec,
+            agent: AGENTS.find((a) => a.code === ENSEMBLE.themes.find((t) => t.code === q.dejaPoseeDans!.slice(0, q.dejaPoseeDans!.indexOf(".")))?.agent)?.nom ?? "un autre agent",
+          }
+        : null,
+    });
+    const themes: ThemeClient[] = [
+      // Questions d'un autre agent dont dépendent celles-ci : posées ici une seule fois, jamais redemandées ensuite.
+      ...(a.prealables.length > 0
+        ? [
+            {
+              code: "PREALABLES",
+              nom: "Pour commencer",
+              bloc: "Questions qui servent aussi à d'autres agents",
+              intro: "Ces réponses décident des questions suivantes. Elles sont partagées avec les autres agents : vous ne les saisissez qu'une fois.",
+              questions: a.prealables.map(questionClient),
+            },
+          ]
+        : []),
+      ...a.themes.map((t) => ({
+        code: t.theme.code,
+        nom: t.theme.nom,
+        bloc: t.theme.bloc,
+        questions: t.questions.map(questionClient),
       })),
-    }));
+    ];
     // Seules les réponses utiles à cet écran partent au navigateur.
     const cles = new Set<string>([...a.declencheursConcernes.flatMap((d) => Object.keys(reponses).filter((c) => c === d.code || c.startsWith(`${d.code}.`))), ...themes.flatMap((t) => t.questions.flatMap((q) => [q.code, ...(q.source ? [q.source.code] : []), ...(q.spec?.type === "tableau" && q.spec.lignes.source === "donnee" ? [q.spec.lignes.code] : []), ...(q.spec?.type === "tableau" && q.spec.lignes.source === "declencheur" ? [q.spec.lignes.cle] : [])]))]);
     const reponsesEcran = Object.fromEntries(Object.entries(reponses).filter(([c]) => cles.has(c)));

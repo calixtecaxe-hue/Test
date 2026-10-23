@@ -241,7 +241,38 @@ test("« ne publie pas » masque les thèmes de performance Comm (ex. réseaux a
   assert.ok(a.themesMasques.some((t) => t.code === "COM-23"));
   // COM-10 est masqué pour qui ne publie pas, mais ses questions « si vous ne publiez pas encore » restent posées.
   const com10 = a.themes.find((t) => t.theme.code === "COM-10");
-  assert.deepEqual(com10?.questions.map((q) => q.code), ["COM-10.03", "COM-10.04", "COM-10.05"]);
+  // La question qui décide du masquage (COM-10.07) reste posée : sans elle, la réponse ne peut plus être corrigée.
+  assert.deepEqual(com10?.questions.map((q) => q.code), ["COM-10.03", "COM-10.04", "COM-10.05", "COM-10.07"]);
+});
+
+test("COM-10.07 décide du masquage de son propre thème : sans réponse, elle est posée et le reste attend (pas d'impasse)", () => {
+  const a = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: {} }));
+  const com10 = a.themes.find((t) => t.theme.code === "COM-10");
+  assert.deepEqual(com10?.questions.map((q) => q.code), ["COM-10.07"]);
+  assert.ok(a.enAttente > 0);
+  assert.equal(a.themesMasques.length, 0);
+});
+
+test("une question d'un autre agent dont dépend le questionnaire est posée en préalable, une seule fois", () => {
+  const comm = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: {} }));
+  const codes = comm.prealables.map((q) => q.code);
+  // Types de clients (ACQ-01.01) alimente les tableaux COM-02.01 et COM-09.03 ; les canaux (ACQ-03.01) ouvrent des questions Comm.
+  assert.ok(codes.includes("ACQ-01.01"));
+  assert.ok(codes.includes("ACQ-03.01"));
+  assert.ok(comm.prealables.every((q) => q.texte !== null && q.spec !== null));
+  // Une fois répondues, elles restent listées (corrigibles par qui n'a pas l'agent Acquisition) et les questions en attente s'ouvrent.
+  const repondu = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "ACQ-01.01": saisie(["Particuliers"]), "ACQ-03.01": saisie(["site_internet"]) } }));
+  assert.ok(repondu.prealables.map((q) => q.code).includes("ACQ-01.01"));
+  assert.ok(repondu.enAttente < comm.enAttente);
+  // L'agent propriétaire de ces données les pose lui-même, sans préalable.
+  const acq = assemblerQuestionnaire(reel, ctx("ACQUISITION_CA", { reponses: {} }));
+  assert.ok(!acq.prealables.some((q) => q.code === "ACQ-01.01"));
+});
+
+test("un tableau dont les lignes viennent d'un cadrage fait poser ce cadrage (jours d'ouverture, e-commerce)", () => {
+  const a = assemblerQuestionnaire(reel, { ...ctx("ACQUISITION_CA", { reponses: {} }), profils: ["ecommerce"] });
+  const tableau = a.themes.flatMap((t) => t.questions).find((q) => q.code === "ACQ-22.02");
+  if (tableau) assert.ok(a.declencheursConcernes.some((d) => d.code === "D20"));
 });
 
 test("le niveau approfondi pose plus de questions que le niveau essentiel", () => {
