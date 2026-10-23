@@ -1,478 +1,566 @@
 # CAXE — instructions projet
 
-Ce fichier est le contexte permanent du projet. Lis-le en entier avant toute
-modification. Si une demande contredit ce fichier, signale-le avant d'exécuter.
+> **Le document « CAXE — Règles de fonctionnement » (version du 15 octobre 2026)
+> fait foi.** Copie dans le dépôt : `docs/regles-de-fonctionnement.md`. En cas de
+> contradiction entre ce document, ce fichier, le code existant ou tes habitudes,
+> le document a raison. Ce fichier n'en est qu'un résumé de travail.
+
+Lis ce fichier en entier avant toute modification. Si une demande contredit les
+règles, signale-le avant d'exécuter.
 
 ---
 
 ## 1. Ce qu'est CAXE
 
-CAXE est une plateforme web d'auto-audit d'entreprise par abonnement.
+Plateforme web d'auto-audit pour dirigeants de TPE/PME, par abonnement, avec
+quatre agents IA : **Acquisition & Chiffre d'affaires**, **Finance &
+Rentabilité**, **RH & Organisation**, **Comm & Création de contenu**.
 
-Un dirigeant de PME s'inscrit, répond à un questionnaire conçu pour son métier,
-et reçoit un score sur 100 accompagné d'un plan d'action concret. Il revient
-ensuite au rythme de ses actions : **la fréquence de retour n'est pas fixe, elle
-dépend de la nature de chaque action.** Une action rapide déclenche un retour
-sous quelques jours, une action longue ou qui demande d'être testée déclenche un
-retour sous une ou plusieurs semaines. Le produit ne fonctionne donc pas par
-rendez-vous mensuel, mais par échéance propre à chaque action.
+Signature : « Un acte, un destin ». Le concurrent réel est le consultant ou le
+coach externe : conseil de vraie qualité à prix accessible, perçu comme sérieux
+et premium, jamais comme un gadget.
 
-Signature de marque : **« Un acte, un destin »**
-Accroche de campagne : « L'auto-audit d'entreprise, enfin accessible à tous les dirigeants. »
+**Règle fondatrice : le moteur diagnostique, l'IA prescrit.**
 
-**Le concurrent réel n'est pas « aucun outil »**, c'est le consultant ou le coach
-externe, souvent cher et de qualité inégale. CAXE doit donner accès à du conseil
-stratégique de vraie qualité à un prix accessible. Le produit doit être perçu
-comme sérieux et premium, jamais comme un gadget.
+**Marketing de CAXE (19 octobre)** : le dossier « Client idéal & stratégie de contenu organique » (octobre 2026) définit
+le dirigeant à convaincre (2 à 30 salariés, 300 k€ à 5 M€ de CA, qui sait que son entreprise pourrait mieux fonctionner sans savoir
+quoi traiter en premier) et la stratégie de contenu de CAXE. Il sert **uniquement à la promotion de CAXE** : ne jamais l'intégrer aux
+fichiers de données, au moteur, aux questionnaires ni aux prompts des agents, qui concernent les clients et leurs entreprises. Sur la
+page d'accueil, **la direction artistique et le contenu ne changent pas** : seuls des boutons de conversion ont été ajoutés
+(`Commencer mon audit` dans l'en-tête, `Fixer mon objectif` après « Comment ça marche », quatre portes d'entrée dites avec les mots du
+dirigeant dans `src/components/marketing/portes-entree.tsx`, `Voir les offres` à côté de `Créer un compte`). **Tous les boutons d'appel
+mènent à la création du compte (`/inscription`) et portent un halo qui respire et un éclat qui traverse (classe `bouton-appel`, arrêtés
+au survol et sous `prefers-reduced-motion`), sauf « Voir les offres ». Dans le héros, « Venez les essayer » est le seul bouton : il
+clignote et mène à `/inscription` (le bouton « Créer un compte » du héros a été supprimé à la demande du propriétaire).** Idée gardée
+pour plus tard, pas encore construite : une page « Audit Express » où le visiteur saisit ses propres chiffres (CA, prospects, rendez-vous,
+clients) et voit son entonnoir étape par étape avant de créer un compte, sans jugement « bon » ou « mauvais » tant qu'aucune référence n'existe.
 
-**Modèle tarifaire : abonnement mensuel par paliers, selon le nombre d'agents
-souscrits.** Un agent coûte un prix, deux agents un autre, et ainsi de suite. Le
-dirigeant choisit les agents qui l'intéressent plutôt que de payer un forfait
-unique. Les montants ne sont pas figés.
+## 2. Les trois réflexes (à tout moment)
 
-**Conséquence sur l'architecture, à prévoir dès le départ :** l'accès aux agents
-est un droit attaché au compte. Un dirigeant abonné au seul agent Acquisition ne
-doit voir ni ouvrir les trois autres. Prévois une table des agents souscrits par
-compte et un contrôle d'accès à chaque entrée d'agent, même si un seul agent
-existe aujourd'hui. Rétrofitter ça plus tard serait coûteux.
+1. Si une demande revient à faire calculer ou juger quelque chose par l'IA,
+   **signale-le avant d'exécuter**.
+2. S'il manque un seuil, une question ou une donnée, **ne l'invente pas** : marque-le
+   comme manquant et signale-le.
+3. Si une décision engage le produit (pondération, champ d'inscription,
+   périmètre d'un agent, tarif), **demande avant**.
 
----
+## 3. Architecture : trois couches
 
-## 2. Le principe le plus important — ne jamais le casser
-
-C'est la règle qui distingue CAXE d'un chatbot généraliste. Toute l'architecture
-en découle.
-
-**Le diagnostic se déroule en trois couches strictement séparées :**
-
-1. **Questionnaire pré-écrit et figé.** Les questions sont rédigées à l'avance,
-   métier par métier, et stockées comme données. Une IA ne génère JAMAIS de
-   question au moment où l'utilisateur répond.
-
-2. **Moteur de scoring déterministe, écrit en code.** Il compare les réponses à
-   des seuils fixes et produit un statut rouge, orange ou vert par indicateur,
-   puis des scores agrégés. Aucune IA n'intervient ici. Deux dirigeants qui
-   répondent la même chose obtiennent exactement le même score.
-
-3. **Rédaction du compte rendu par IA générative, et uniquement la rédaction.**
-   L'IA reçoit des scores déjà calculés et les met en forme dans un texte lisible
-   et personnalisé. Elle ne calcule rien, ne juge rien, n'invente aucun chiffre.
-
-**Pourquoi c'est non négociable :** si les questions ou les calculs varient, le
-benchmark sectoriel, le suivi dans le temps et la comparaison entre agences
-s'effondrent. C'est exactement le reproche fait aux IA généralistes, et c'est ce
-que CAXE existe pour éviter.
-
-**Concrètement, ne propose jamais :** de faire noter les réponses par un modèle,
-de générer les questions à la volée, de laisser l'IA choisir les seuils.
-
----
-
-## 3. Les quatre agents
-
-Trois agents de diagnostic et un agent génératif. Chaque périmètre est étanche,
-pour qu'aucun agent n'empiète sur un autre.
-
-| Agent | Nature | Ce qu'il couvre | Ce qu'il ne fait jamais |
+| Couche | Qui | Rôle | Ne fait jamais |
 |---|---|---|---|
-| **Acquisition & Chiffre d'affaires** | diagnostic | Génération de contacts, conversion, chiffre d'affaires, honoraires | Jugement de qualité créative d'un contenu |
-| **Finance & Rentabilité** | diagnostic | Santé opérationnelle via ratios déclarés : marge, trésorerie, structure de coûts | Fiscalité, comptabilité, conformité — c'est le métier de l'expert-comptable |
-| **RH & Organisation** | diagnostic | Signaux organisationnels : turnover, charge, clarté des rôles | Droit du travail, contrats, médiation de conflit |
-| **Comm & Création de contenu** | génératif | Analyse des publications existantes et indicateurs chiffrés de performance ; génère des propositions de contenu | — |
-
-**Le juridique, le fiscal et le médical sont explicitement hors périmètre de
-tout agent.**
-
-**Pont entre l'agent 1 et l'agent 4 :** l'agent Acquisition reste purement
-factuel sur la communication (fréquence de publication, canaux actifs). Quand il
-détecte un signal faible, le rapport affiche un bouton « Voir des propositions de
-contenu » qui déclenche l'agent 4 **à la demande**, jamais automatiquement. Le
-rapport doit rester épuré.
-
-Deux agents ont été envisagés puis écartés : Croissance & Stratégie (trop de
-chevauchement) et Digital & Outils (trop transversal).
-
-**Priorité actuelle : seul l'agent Acquisition & CA est à construire.** Les
-autres viendront après. Mais l'architecture doit prévoir plusieurs agents dès le
-départ.
-
----
-
-## 4. Le premier métier : agence immobilière indépendante
-
-Le secteur pilote est l'agence immobilière indépendante, activité transaction
-(vente et achat de biens). C'est le seul métier à construire pour l'instant.
-
-Le questionnaire compte environ 86 questions réparties en 17 parties, couvrant
-symétriquement le tunnel vendeur et le tunnel acheteur.
-
-**Ce questionnaire et sa grille de seuils arriveront sous forme de données,
-fournis séparément.** Ne les invente pas. Si on te demande de construire une
-partie du produit avant de les avoir reçus, utilise un jeu de données réduit
-clairement marqué comme provisoire.
-
----
-
-## 5. Le routage métier
-
-Sept catégories de modèle économique déterminent la structure du questionnaire.
-Le dirigeant choisit son métier précis à l'inscription (« électricien »,
-« boulanger »), et le système le rattache en coulisse à sa catégorie. Le
-dirigeant ne voit jamais la notion de catégorie.
-
-1. Commerce avec stock physique
-2. Services à l'affaire ou au chantier
-3. Services récurrents ou par abonnement
-4. Transactions à forte valeur et cycle long — *c'est ici que tombe l'immobilier*
-5. Transport et logistique
-6. Professions libérales réglementées
-7. Services sur rendez-vous non réglementés
-
-*(La restauration est pressentie comme huitième catégorie.)*
-
-**Trois métiers demandent une sous-question à l'inscription** pour choisir la
-bonne variante de questionnaire :
-
-- Agences immobilières : transaction / gestion locative / syndic / conciergerie saisonnière
-- Paysagistes : création / entretien / les deux
-- Agences de voyage : clientèle individuelle / groupes B2B
-
----
-
-## 6. Les champs d'inscription
-
-Collectés une seule fois. Ils ne sont pas dans le questionnaire, et ils servent à
-choisir les bons seuils de comparaison.
-
-| Champ | Usage |
-|---|---|
-| Métier précis | Détermine la catégorie et le questionnaire |
-| Sous-variante | Pour les trois métiers concernés |
-| Chiffre d'affaires mensuel | Base des indicateurs exprimés en pourcentage du CA |
-| Nombre de collaborateurs | Segmente les seuils de productivité |
-| Ancienneté de l'entreprise | Une agence de 2 ans n'a pas le portefeuille d'une agence de 15 ans |
-| Type de zone | Urbaine dense / périurbaine / rurale — segmente les seuils de volume |
-| Ville | Compare certains indicateurs au marché local réel |
-
----
-
-## 7. Comment fonctionne le scoring
-
-Ces règles sont génériques : elles doivent marcher pour n'importe quel métier,
-pas seulement l'immobilier.
-
-### Trois types de questions
-
-- **Type A** — indicateur noté. Produit un statut rouge, orange ou vert.
-- **Type B** — volume brut ou dénominateur. Sert à calculer un ratio ailleurs,
-  n'a pas de seuil propre.
-- **Type C** — informatif. Nourrit le texte du rapport, jamais le score.
-
-### Règles de conception
-
-**Une question n'est notée que si le résultat dépend principalement de
-l'entreprise.** Si le résultat dépend surtout du client ou du marché, elle reste
-en type C. Exemple : qu'une première visite débouche sur une seconde dépend
-d'abord du coup de cœur de l'acheteur, pas du travail de l'agence.
-
-**Pour un seuil appuyé sur une donnée de marché, la moyenne du marché se place en
-ORANGE, pas en vert.** Le vert est réservé à une performance nettement au-dessus.
-Objectif : le plan d'action a toujours quelque chose à proposer, même à une
-entreprise dans la norme.
-
-**Indicateur à deux sens.** Certains indicateurs sont mauvais des deux côtés,
-trop bas comme trop haut. Pour ceux-là, la fourchette de marché est notée VERT,
-orange juste à côté, rouge au-delà. Exemple : un taux d'honoraires trop bas perd
-de la marge, trop haut perd des mandats.
-
-**Privilégier ce que l'entreprise pilote.** Quand le sens de notation est
-ambigu, récompenser l'acquisition maîtrisée plutôt que celle qui dépend du
-hasard. Exemple : une forte part de mandats venant du bouche-à-oreille est notée
-ROUGE, parce qu'elle signale une dépendance à la chance.
-
-### Trois cas par question
-
-Le moteur doit gérer les trois, sans exception :
-
-1. **Chiffre exact** — calcul normal.
-2. **Estimation ou fourchette** (« environ 15 », « entre 10 et 20 ») — le moteur
-   prend la médiane. Une note en tête de questionnaire encourage explicitement
-   l'estimation.
-3. **Question passée sans réponse** — l'indicateur est **exclu du calcul**. Jamais
-   compté zéro, ce qui fausserait le score.
-
-**Aucune question n'est obligatoire.** Le dirigeant peut toujours passer.
-
-### Deux couches de données
-
-- Les réponses fermées et chiffrées alimentent le score.
-- Les réponses libres facultatives (« selon vous, pourquoi ? ») n'entrent **jamais**
-  dans le score, mais sont transmises à l'IA de rédaction pour personnaliser le
-  compte rendu.
-
-### Seuils segmentés
-
-Certains seuils ne peuvent pas être universels. Le moteur choisit la bonne table
-selon le profil d'inscription. Exemple pour le volume de contacts vendeurs
-mensuels : zone urbaine rouge sous 8, orange de 8 à 20, vert au-delà ; zone
-rurale rouge sous 3, orange de 3 à 8, vert au-delà.
-
-Pour un indicateur comparé au marché local, la référence est la valeur de la
-ville déclarée, pas une moyenne nationale.
-
-### Agrégation
-
-Chaque indicateur vaut 0 si rouge, 50 si orange, 100 si vert. Le score d'une
-partie est la moyenne de ses indicateurs notés. Le score global est la moyenne
-des indicateurs notés.
-
-**Point ouvert, à ne pas trancher seul :** tous les indicateurs pèsent
-actuellement pareil. Une pondération est envisagée. Demande avant d'en ajouter
-une.
-
----
-
-## 8. Modèle de données attendu
-
-Le questionnaire et ses seuils doivent être **des données, pas du code**. Il doit
-être possible d'ajouter un métier entier sans toucher au moteur.
-
-```jsonc
-// Un questionnaire
-{
-  "metier": "agence-immobiliere",
-  "variante": "transaction",
-  "version": 1,                  // versionné : un client garde la version sur laquelle il a répondu
-  "parties": [
-    {
-      "titre": "Génération de contacts vendeurs",
-      "intro": "Un contact vendeur : toute personne ayant manifesté…",
-      "questions": [
-        {
-          "id": "q1",
-          "libelle": "Combien de nouveaux contacts vendeurs recevez-vous par mois ?",
-          "aide": "",               // texte secondaire optionnel
-          "type": "nombre",         // nombre | pourcentage | liste | oui-non | texte
-          "unite": "par mois",
-          "groupe": null,           // identifiant de groupe pour les répartitions en %
-          "options": []             // pour type "liste"
-        }
-      ]
-    }
-  ]
-}
-```
-
-```jsonc
-// Un indicateur de la grille de scoring
-{
-  "id": "presence-rdv-vendeur",
-  "partie": 2,
-  "nom": "Rendez-vous vendeurs honorés",
-  "type": "A",                          // A noté | B dénominateur | C informatif
-  "source": { "question": "q11" },      // ou une formule dérivée, voir plus bas
-  "regle": "plus-haut-mieux",           // plus-haut-mieux | plus-bas-mieux | fourchette
-                                        // | correspondance | concentration | alignement
-  "seuils": { "bas": 75, "haut": 90 },  // <75 rouge, 75-90 orange, >90 vert
-  "segmentation": null,                 // "zone" | "taille-equipe" | "ville" | "tranche-prix"
-  "sourcé": true,                       // seuil appuyé sur une donnée de marché publiée
-  "reference": "Moyenne de marché 70 à 85 %",
-  "explication": "Le marché se situe entre 70 et 85 %.",
-  "action": "Confirmer chaque rendez-vous la veille par message."
-}
-```
-
-**Règles de calcul à implémenter :**
-
-| Règle | Comportement |
-|---|---|
-| `plus-haut-mieux` | rouge sous `bas`, orange entre `bas` et `haut`, vert au-dessus |
-| `plus-bas-mieux` | rouge au-dessus de `haut`, orange entre, vert en dessous de `bas` |
-| `fourchette` | vert dans la fourchette, orange à moins de `tolerance` à côté, rouge au-delà |
-| `correspondance` | table qui associe chaque réponse d'une liste à une couleur |
-| `concentration` | sur un groupe de pourcentages : calcule la part du plus gros et la note |
-| `alignement` | croise une répartition de budget avec le canal déclaré le plus rentable : plus grosse part = vert, part intermédiaire = orange, plus petite part = rouge |
-| dérivé | l'indicateur vient d'un calcul entre plusieurs questions, pas d'une seule |
-
-Les indicateurs dérivés doivent pouvoir exprimer un ratio entre deux questions,
-un ratio rapporté au nombre de collaborateurs, ou un croisement à deux entrées.
-
----
-
-## 9. Ce qui est à construire, dans l'ordre
-
-### Maintenant
-
-1. **Inscription et compte** — les sept champs de profil, authentification,
-   persistance.
-2. **Questionnaire** — découpé partie par partie, pas une page unique de 86
-   questions. Barre de progression, réponses sauvegardées au fur et à mesure,
-   possibilité de reprendre plus tard, possibilité de passer toute question.
-   Pour les répartitions en pourcentage, afficher un total en direct qui alerte
-   si on s'éloigne de 100.
-3. **Moteur de scoring** — en code, testable unitairement. Il doit être possible
-   de lui donner un jeu de réponses et de vérifier le résultat attendu.
-4. **Rapport** — score global, score par partie, indicateurs classés en rouge,
-   orange et vert, indicateurs calculés. Le texte de restitution sera rédigé par
-   appel à un modèle, à partir des scores déjà calculés.
-5. **Plan d'action** — les actions issues des indicateurs faibles, avec un statut
-   modifiable par le dirigeant (à faire, en cours, fait).
-
-### Plus tard, ne pas construire maintenant
-
-- Point d'étape de 5 ou 6 questions ciblées sur les actions en cours, déclenché
-  à l'échéance propre de chaque action et non à date fixe. Chaque action porte
-  donc son propre délai de retour, défini avec elle.
-- Relances automatiques quand une action stagne, et boucle d'ajustement : si le
-  dirigeant signale qu'une action testée n'a pas fonctionné, la recommandation
-  suivante en tient compte.
-- Ré-audit complet trimestriel montrant la progression
-- Classement sectoriel, une fois qu'il y aura assez d'utilisateurs par métier
-- Couche ludique discrète : jauges par agent, paliers, série de connexions,
-  classement, actions présentées comme des objectifs. **Sobre et professionnel :
-  pas d'avatar, pas de son, pas d'animation tape-à-l'œil.**
-
----
-
-## 10. Comment arrivent les questionnaires
-
-C'est le point de coordination à respecter.
-
-Les questionnaires et leurs grilles de seuils sont construits en dehors du code,
-métier par métier, avec recherche de données de marché réelles pour caler chaque
-seuil. Ils sont ensuite validés, puis transmis pour intégration.
-
-**Ce que ça implique pour l'architecture :** intégrer un nouveau métier doit
-consister à déposer un fichier de données et rien d'autre. Si intégrer un métier
-demande de modifier le moteur, l'architecture est à revoir.
-
-Chaque questionnaire est **versionné**. Quand une question ou un seuil évolue, on
-passe à la version suivante ; les nouveaux répondants reçoivent la nouvelle
-version, et les anciens gardent la leur pour que leur historique reste
-comparable.
-
----
-
-## 11. Charte graphique
-
-À appliquer telle quelle. Elle vient des supports de communication déjà publiés.
+| 1. Questionnaire | Écrit à l'avance, dans une banque de questions | Collecter des données fermées et chiffrées | Être généré par l'IA |
+| 2. Moteur | Code déterministe, testé | Couleurs, écarts, impacts, priorités | Appeler l'IA |
+| 3. IA | Modèle génératif | Rédiger l'analyse, **prescrire** les recommandations | Recalculer ou réécrire un chiffre |
+
+- **L'IA ne produit aucune question, aucune couleur, aucun chiffre qui ne soit vérifié par le code dans une source citée** (voir « Effet d'une action » ci-dessous). Elle ne
+  traite que les indicateurs signalés par le moteur (jamais un « vert » qu'elle
+  jugerait problématique) et reste dans le périmètre de son agent : jamais de
+  conseil juridique, fiscal, comptable, médical ni de droit du travail.
+- Chaque indicateur porte une `reference_marche` et une `explication`.
+  **Aucun champ « action »** : les recommandations sont générées par l'IA à
+  partir de la situation complète (indicateurs faibles et forts avec leur écart
+  chiffré, profil, objectif de l'agent, réponses libres, ce qui a déjà été
+  tenté, historique).
+- Dynamique permis : le choix, parmi des questions écrites, de celles d'un point
+  d'étape ; la rédaction du rapport et des relances ; une légère adaptation du ton
+  d'une question. Jamais la substance ni la structure.
+- **Chiffre de marché** (décision du 15 octobre) : un chiffre de marché est **un extrait vérifié par le
+  code dans une source citée**, jamais produit ni recalculé par l'IA. Un agent de recherche, séparé de l'IA
+  qui rédige le rapport, le trouve ; le code le contrôle ; il est enregistré en base et réutilisé par tous
+  les clients du même profil. Le moteur ne lit que ces références, il n'appelle jamais l'IA. Sans référence,
+  le thème s'affiche avec les chiffres du client et sans comparaison au marché ; un rapport n'est jamais
+  bloqué.
+- **Effet d'une action (décision du 19 octobre)** : le rapport dit comment atteindre l'objectif et ce que chaque
+  action peut rapporter, avec recul. Le taux d'effet d'une action **dépend du métier** (ce qui vaut pour un secteur
+  ne vaut pas pour un autre). Un agent de recherche, séparé de l'IA qui rédige le rapport, le cherche **une seule
+  fois par action et par métier** (jamais à chaque rapport : coût inutile), propose une fourchette prudente avec sa
+  source (extrait, page, date) ; **le code relit la page et vérifie que le chiffre y figure**, sinon aucun chiffre
+  n'est affiché et l'effet est décrit en mots. Le résultat est enregistré en base et réutilisé par tous les clients
+  du même métier (même cascade que les chiffres de marché : métier, puis famille, puis national si permis ; mêmes
+  plafonds de budget ; mise à jour périodique). Le **moteur** applique le taux aux volumes du client et calcule
+  l'effet de l'ensemble en recalculant la chaîne : on n'additionne jamais les effets de plusieurs actions (6 % +
+  4 % + 5 % n'est pas 15 %), et si le plan ne suffit pas pour l'objectif, le rapport le dit. Le potentiel est
+  toujours présenté comme un potentiel, jamais comme une promesse. Un rapport n'est jamais bloqué : sans taux
+  sourcé, « pas de chiffre sourcé » et l'effet en mots. Pas encore construit.
+- Deux couches de données : réponses fermées et chiffrées → calcul ; réponses
+  ouvertes (facultatives) → contexte pour l'IA, **jamais dans le calcul**.
+- **Aucune question codée en dur.** Questions, seuils, croisements, lexique,
+  déclencheurs, routage : tout vit dans des **fichiers de données**.
+  **Ajouter un métier = déposer un fichier de données, sans toucher au moteur.**
+  Si ce n'est pas possible, l'architecture est à revoir.
+
+## 4. Parcours d'un dirigeant (6 étapes)
+
+Compte (e-mail, mot de passe) → métier et activités → formule et agents → paiement → dossier d'entreprise
+dans l'application → choix de l'agent et objectif → questionnaire assemblé → moteur (constat, priorité) →
+rapport et plan par l'IA → suivi (**parcours décidé le 21 octobre**, voir sections 5 et 10). L'IA n'intervient
+qu'aux deux dernières étapes, sur un constat déjà calculé.
+
+## 5. Inscription et profil
+
+- **Questions une à une, en deux temps (décision du 21 octobre).** Le compte naît avec l'e-mail et le mot de
+  passe seulement. **Le métier et ses activités** se demandent ensuite, **avant la formule** (les agents proposés en
+  dépendent : une profession réglementée n'a pas l'agent Comm). **Le reste du dossier** (CA, effectif, ancienneté,
+  zone, ville) se demande **dans l'application, après le paiement**. Chaque question s'affiche déjà formulée avec les
+  mots et l'unité du métier (lexique). Transition sobre, réduction des animations respectée.
+- Champs : **métier précis**, **sous-variante** (conditionnelle), **CA mensuel**
+  (déclaré, jamais estimé), **nombre de collaborateurs**, **ancienneté**, **type
+  de zone** (urbaine dense / périurbaine / rurale), **ville**.
+  **L'objectif n'est plus demandé à l'inscription.** Le nombre de ventes et les
+  jours d'ouverture non plus : ce sont des données partagées posées par le
+  premier agent qui en a besoin.
+- **Sous-variante** : n'apparaît **qu'après le choix du métier**, et seulement si
+  ce métier regroupe plusieurs activités (agence immobilière : transaction /
+  gestion locative / syndic / conciergerie saisonnière ; paysagiste : création /
+  entretien régulier ; agence de voyage : particuliers / entreprises ou groupes ;
+  agence web, com ou marketing : projets ponctuels / contrats mensuels).
+  **Cases à cocher, plusieurs choix possibles.** Une case → la variante ; plusieurs
+  → le socle une fois plus le bloc de chaque spécialité, sans doublon.
+- **Liste des métiers (15 octobre)** : recherche par synonymes ; métiers à plusieurs activités = cases à
+  cocher plus **« Autre (précisez) »** (seule, elle applique l'activité par défaut du métier ; le texte est
+  gardé sur le compte). **« Mon métier n'est pas dans la liste »** : le dirigeant décrit son activité et
+  choisit la catégorie qui y ressemble le plus (jamais une profession réglementée). Stock : si le métier ne le
+  tranche pas, une question oui / non à l'inscription. Agent Comm : plusieurs activités = règle la plus
+  prudente ; « à trancher » = décision ouverte, l'agent reste proposé (13 métiers ou activités au 23 octobre : finance et assurance, formation CPF,
+  caviste, pharmacie, bureau de tabac, négoce et gros de boissons, brasserie artisanale, café-bar : secteurs où la communication est encadrée,
+  à traiter avec l'avocat). **Décisions du 23 octobre** : le photographe a l'agent Comm ; l'agence de communication et de marketing ne l'a pas (elle
+  maîtrise sa propre communication). Catégorie **Fabrication** : questionnaire
+  à créer, l'audit affiche « en préparation ». Ne rien trancher de ces points seul.
+- **Routage invisible** : métier → **catégorie** (10, agriculture exclue) →
+  **profil** (8 : Rendez-vous, Commerce, E-commerce, Restaurant, Artisan /
+  chantier, B2B / cycle long, Abonnement, **Location** — hébergement et location de véhicules, ajouté le 20 octobre). Le dirigeant ne voit jamais la
+  catégorie. Table complète dans le document, partie 3.
+- **Lexique** par profil : une question, plusieurs formulations (demande,
+  nouveau client, premier achat, capacité, client fidèle), une seule règle de
+  notation.
+- **Professions réglementées** : socle seulement, aucun module métier, **pas
+  d'agent Comm** (3 agents au maximum). L'agent Acquisition ne leur recommande
+  ni publicité payante, ni démarchage, ni apporteurs d'affaires rémunérés, et
+  n'affiche pas le renvoi vers Comm. **L'audit Acquisition ne leur pose pas non plus** les
+  questions correspondantes : pas de question sur la publicité payante (D04), et dans les canaux (D03)
+  seuls restent bouche-à-oreille, fiche Google, site internet, passage, appels d'offres, réseau ou enseigne et autre
+  (**décision du 21 octobre : au moindre risque, le canal est retiré** ; l'IA n'est pas assez précise pour être laissée
+  juge en profession réglementée), pas de thèmes Prospection active ni Partenaires. Liste dans `data/routage.json` (`reglementees.acquisitionExclut`), appliquée à
+  l'assemblage et refusée côté serveur.
+- **Rapport des professions réglementées (décision du 21 octobre, à construire et à faire valider par l'avocat)** : deux zones nettes.
+  **Zone interdite** : publicité sous toute forme, démarchage, prospection, apporteurs d'affaires, partenaires, emailing et SMS vers des
+  inconnus, tout canal hors de la **liste fermée** transmise par le moteur (bouche-à-oreille, fiche Google, site internet, passage, appels
+  d'offres, réseau ou enseigne). Si le sujet est touché, par l'analyse, par une réponse ou par un champ libre, l'IA n'écrit rien dessus et le
+  rapport affiche un **message fixe**, écrit à l'avance, jamais généré, sous un intertitre identique. **Zone libre** : tout le reste du
+  périmètre de l'agent, sans autocensure. Un doute classe le sujet en zone interdite. **Garde côté code** (l'IA seule ne suffit pas) : le code
+  vérifie le rapport produit et remplace par le message fixe toute section qui contient un terme de la liste interdite ; la liste des termes
+  est un filet, pas une garantie, et se valide avec l'avocat. **Le texte du message fixe est à rédiger par le propriétaire avec l'avocat.**
+  La règle est écrite dans `docs/prompt-agent-acquisition.md` (bloc 4) ; le prompt n'est pas encore branché.
+
+## 6. Audit d'un agent
+
+- Le dirigeant choisit l'agent qu'il audite. **Première question : son objectif
+  pour cet agent**, en **trois champs courts** : ce qu'il veut changer, de
+  combien, en combien de temps (exemple affiché : « baisser le turnover de 5 %
+  sur les 3 prochains mois »). Chiffre et délai sont utilisés directement. Ce
+  qu'il veut changer est rattaché à un indicateur de l'agent quand c'est possible ;
+  sinon l'objectif est gardé tel quel et l'avancement se mesure à ce qu'il
+  déclare aux points d'étape. **Un objectif par agent**, conservé avec son
+  historique.
+  **Objectif sans chiffre (décision du propriétaire, 22 octobre : option 3, RH et Comm)** : pour ces deux
+  agents, le dirigeant **choisit dans une liste d'objectifs écrite à l'avance** (ou « Autre (précisez) »), puis donne
+  **un chiffre s'il en a un, ou décrit ce qu'il veut constater** (« Comment saurez-vous que c'est atteint ? »), plus le
+  délai en mois. Pour la Comm, la liste suit les deux parcours : « Améliorer ce que j'ai déjà » (objectifs chiffrés,
+  ex. taux de conversion) et « Mettre en place ma présence en ligne » (sans chiffre : ouvrir les comptes, identité
+  visuelle, parcours de conversion, régularité). Liste dans `data/objectifs-agents.json` (**brouillon à valider par le
+  propriétaire** : libellés, exemples, thèmes rattachés ; contrôlée par `npm run donnees:controle`) ; formulaire
+  `objectif-choix.tsx` ; l'objectif enregistré garde `choix`, `reussite` et un chiffre facultatif. Le moteur ne juge
+  pas le réalisme d'un objectif sans chiffre (rien à comparer) ; l'avancement se mesure à ce que le dirigeant déclare.
+  Acquisition et Finance gardent les trois champs chiffrés.
+- **Compte rendu (étape 4, décisions du propriétaire du 22 octobre : trois onglets, objectif / priorités / plan d'action)** :
+  **branché sur le vrai moteur** pour ce qui existe. `src/lib/audit/constat-compte.ts` assemble le questionnaire du compte, charge les
+  références de marché actives en base et appelle `constaterAgent` ; `compte-rendu.ts` classe les constats (thèmes notés du rouge au vert,
+  avec repère de marché sourcé, analysés avec les seuls chiffres du dirigeant, à compléter, comptes des thèmes masqués et de contexte) ;
+  `resultats.tsx` les affiche. Ouvert dès que le niveau est choisi (case « 4 Résultats » cliquable). **Rien n'est inventé** : tant que
+  `data/seuils.json` est vide et que les règles de notation Pratique et Cohérence ne sont pas écrites, aucun thème n'est noté (« sans
+  repère de marché ») ; le réalisme de l'objectif, la réponse de l'agent, l'ordre de priorité, l'impact et le plan d'action (IA, clé
+  `ANTHROPIC_API_KEY` non branchée) disent « pas encore » au lieu d'un chiffre. Avancement : 0 % tant qu'aucun point d'étape n'existe. **Maquette à
+  chiffres fictifs** gardée pour valider la forme finale : `resultats-maquette.tsx` et `src/lib/audit/resultats-exemple.ts`, visible
+  seulement avec `RESULTATS_MAQUETTE=1` et `?exemple=1` (bannière « Exemple de présentation »). Libellés de réalisme de la maquette
+  (Réaliste / Réaliste sous conditions / Pas réaliste en l'état) : propositions à valider ; pas de verdict pour un objectif sans chiffre.
+  L'aperçu de l'application remplit un compte de test avec `scripts/reponses-demonstration.mts` (réponses neutres, jamais de vrais clients).
+- **Relecture complète du 23 octobre (balayage de tous les secteurs)** : `node scripts/balayage-secteurs.mts` assemble et remplit le
+  questionnaire de chaque métier, activité, taille, niveau et agent (229 scénarios, 7 704 questionnaires) et contrôle textes, lexique,
+  tableaux, règles en attente, exclusions des professions réglementées et constat ; `node scripts/controle-parcours-secteurs.mjs` et
+  `scripts/controle-complementaire.mjs` rejouent les parcours dans un navigateur (serveur lancé sur le port 3100). **À relancer après toute
+  correction de la banque, du classeur ou des règles.** Trois corrections en sont issues : (1) la question qui décide du masquage de son
+  propre thème (COM-10.07 pour COM-10) reste posée, sinon une cinquantaine de questions Comm n'arrivaient jamais ; (2) une question d'un autre
+  agent dont dépendent des tableaux ou des conditions (types de clients ACQ-01.01, canaux ACQ-03.01) est posée en **préalable**
+  (« Pour commencer », champ `prealables` de l'assemblage, `codesPrealables` pour l'autorisation d'écriture) par le premier agent qui en a
+  besoin, avec sa réponse si elle existe ; (3) un tableau dont les lignes viennent d'un cadrage (D20 jours d'ouverture) fait poser ce cadrage.
+  Les mots du lexique sont aussi remplacés dans l'aide et la question de repli. Un tableau à total imposé (19 questions) ne s'enregistre comme réponse que
+  si le total est juste ; la saisie partielle est gardée en **brouillon sur le compte** (table `BrouillonReponse`, `PUT /api/audit/brouillon`, décision
+  du propriétaire du 23 octobre) : elle suit le dirigeant d'un appareil à l'autre, le calcul l'ignore, et elle est supprimée dès que la réponse complète
+  est enregistrée. Le nombre de questions
+  annoncé au choix du niveau est un maximum (« jusqu'à N questions, selon vos réponses »).
+- **Assemblage en 5 couches** : (1) inscription, (2) socle de l'agent, (3) module
+  catégorie, (4) module métier — 5 questions maximum —, (5) filtre taille
+  (seul / 2 à 5 / 6 et plus). **Questions déclencheuses** (D01 à D65) qui ouvrent
+  ou masquent des blocs. Le questionnaire est assemblé selon le profil ; seul
+  l'assemblage est automatique.
+- Durée visée : **1 h à 1 h 15 par agent**. **Jamais à faire d'une traite** :
+  sauvegarde continue, reprise possible à tout moment.
+- **Quatre réponses pour un chiffre** : exact ; estimation ou fourchette (le
+  moteur prend le milieu, marqué « estimé ») ; « je ne sais pas » (retiré du
+  calcul, question de repli, complétable plus tard) ; « je ne suis pas cette
+  donnée » (retiré du calcul, enregistré comme absence de suivi, conseil pour
+  commencer à la suivre). **0, inconnu et non applicable sont distincts.**
+  **Aucune question obligatoire.**
+- Au-delà d'**un quart des données essentielles** « je ne suis pas cette donnée »,
+  conseil général de pilotage ajouté, **sans remplacer** les autres.
+- **Données partagées enregistrées sur le compte dès qu'elles sont posées, quel
+  que soit l'agent**, jamais redemandées, modifiables par le dirigeant :
+  mini-bloc « temps du dirigeant », nombre de ventes et jours d'ouverture,
+  objectif de croissance du CA, masse salariale, budget marketing, abonnés,
+  canaux. Même niveau (essentiel / approfondi) chez tous les agents qui les
+  utilisent. Pas de double comptage.
+- **Jamais deux périodes mélangées dans un calcul.** CA au mois ; ventes dans
+  l'unité du métier, ramenées au mois par le moteur avec les jours d'ouverture
+  (par jour × jours ouverts par semaine × 4,3). Le nombre de ventes compte les
+  achats, pas les articles.
+- **Pas d'écran de récapitulatif** ni de confirmation des chiffres avant le rapport.
+- Règles de rédaction : pas de question rhétorique, pas de réponse glissée dans
+  la question, langage simple, question conditionnelle en deux temps.
+
+## 7. Moteur
+
+**Étage 1 — le constat.** Chaque thème est noté vert / orange / rouge selon
+**une seule** nature : **Marché** (chiffre face au secteur, référence sourcée),
+**Pratique** (absente / partielle / en place), **Cohérence** (les réponses
+tiennent ensemble), **Contexte** (non noté, sert à l'IA).
+
+**Étage 2 — la priorité.** Impact **chiffré** quand le thème est sur une vraie
+chaîne de calcul vers l'objectif (surtout Acquisition, une partie de Finance) ;
+sinon impact **qualifié** (Bloquant / Frein / Secondaire) par règles fixes. **Le
+moteur n'invente jamais un pourcentage.** Les impacts chiffrés sont calculés sur
+les volumes du client, jamais sur une moyenne générique.
+
+**Plusieurs leviers : on recalcule toute la chaîne, on n'additionne jamais les
+gains.** Deux leviers d'étapes différentes se multiplient ; deux leviers sur la
+même étape se partagent les mêmes clients. La capacité plafonne le gain
+immédiat : quand elle bloque, deux chiffres (gain immédiat, gain une fois la
+capacité augmentée).
+
+**Seuils** : la moyenne du marché est **orange**, le vert est au-dessus ;
+indicateur à deux sens : fourchette verte, orange à moins d'un point, rouge au-delà ;
+noté seulement si le résultat dépend surtout de l'entreprise (sinon Contexte) ;
+préférer l'acquisition maîtrisable au hasard ; seuils segmentés par zone et
+taille ; **sans source, « à valider »** ; hypothèse extérieure sourcée ou valeur
+basse annoncée ; indicateur croisé dépense / résultat plutôt qu'une dépense seule.
+
+**Robustesse** : question sautée retirée du calcul (jamais zéro) ; **thème noté
+seulement si au moins 50 % de réponses**, sinon « non évalué » (« je ne sais pas »
+et « je ne suis pas cette donnée » comptent comme sans réponse) ; thème qui ne
+s'applique pas à la taille **masqué**, pas « non évalué ».
+
+**Croisements et scénarios** : calculs combinant plusieurs réponses, avec codes de
+données, profils concernés, hypothèse éventuelle et phrase de rapport.
+
+Le moteur est **couvert par des tests**.
+
+## 8. Objectif, plan d'action, suivi
+
+- Le chiffre principal est **l'avancement vers l'objectif** fixé pour chaque
+  agent. Le vert / orange / rouge par thème reste, pour montrer les leviers.
+  **Aucun score global sur 100.** Le moteur vérifie si l'objectif est réaliste ;
+  le rapport le dit honnêtement.
+- **Un bloquant change l'ordre du plan, jamais son contenu** : l'IA donne toutes
+  ses recommandations.
+- **Le plan suit le temps réellement disponible du dirigeant** (heures par jour
+  travaillé). Les actions qui libèrent du temps passent en premier ; les autres
+  sont programmées après (« à lancer une fois 6 h libérées »). Augmenter la
+  capacité ne se résume jamais à « libérez du temps » : tâches à déléguer,
+  automatiser ou supprimer, puis recrutement.
+- **Tour « ce que vous avez déjà tenté »**, après le premier calcul, sur les 5 ou
+  6 axes faibles seulement (rien / en place et ça marche / sans résultat / pas
+  tenu dans la durée) ; ces réponses n'entrent jamais dans le calcul.
+- **Effet attendu et avancement réel (décision du 19 octobre)** : l'IA ne choisit jamais un pourcentage ni un
+  montant. L'effet potentiel d'une action vient d'un taux sourcé et vérifié par le code (section 3, « Effet
+  d'une action ») appliqué par le moteur aux volumes du client ; sans taux sourcé, l'effet est écrit en mots.
+  L'**avancement** vers l'objectif, lui, se calcule uniquement sur ce que le dirigeant **déclare** au point
+  d'étape (exemple du propriétaire : il relance ses devis et signe 3 devis de plus → 3 % de l'objectif atteints,
+  parce que c'est réellement arrivé). Le moteur classe les leviers par impact calculé sur les volumes du client.
+  Six croisements portent une « part récupérable prudente, à sourcer » (XA17, XA19, XA24, XA35, XC33, XR15) :
+  ils se brancheront sur ces taux sourcés ; tant qu'un taux n'est pas disponible, ils affichent le montant en
+  jeu (les devis sans réponse × leur montant moyen) et jamais un gain.
+- Suivi : point d'étape à l'**échéance propre de chaque action**, boucle
+  d'ajustement, alertes, ré-audit trimestriel, classement sectoriel, historique.
+  Gamification discrète. À construire plus tard, dans cet ordre.
+
+## 9. Les quatre agents
+
+Périmètres étanches ; chaque agent donne un **conseil complet avant tout renvoi** ;
+un renvoi est un **aperçu** de l'agent manquant, avec ajout en un clic.
+
+| Agent | Sa question | Contenu |
+|---|---|---|
+| Acquisition & CA | Quels leviers comblent l'écart à l'objectif ? | 23 thèmes en 5 étapes ; reste factuel sur la communication |
+| Finance & Rentabilité | L'objectif est-il rentable et finançable ? | 48 thèmes dont un bloc Stock de 9 ; 13 scénarios ; jamais fiscalité ni comptabilité |
+| RH & Organisation | L'organisation peut-elle porter l'objectif ? | 49 thèmes en 8 blocs ; verdict Oui / Sous conditions / Pas en l'état ; jamais droit du travail |
+| Comm & Création de contenu | La présence en ligne génère-t-elle assez de contacts ? | 61 thèmes en 8 groupes ; deux parcours (amélioration, mise en place) ; qualité notée sur une grille fixe de 6 critères ; pas proposé aux professions réglementées |
+
+Agents nommés par leur fonction, **sans prénom ni personnage**.
+
+## 10. Abonnement
+
+Paliers mensuels **2 agents 59,99 € HT, 3 agents 79,99 € HT, 4 agents 99,99 € HT.
+Pas d'offre à 1 agent.** (Le document de règles du 15 octobre indique 109,99 € pour
+4 agents : c'est une erreur, le prix retenu est 99,99 €, confirmé par le
+propriétaire du produit. À corriger dans le document.) Badge « Recommandé » sur le palier 3, formule suggérée à
+l'inscription, essai d'un agent non souscrit, mais **aucun agent coché d'avance**.
+L'accès aux agents est **un droit attaché au compte**, contrôlé à chaque entrée
+d'agent (page comme API).
+Le texte annuel compare des montants du même rythme : « Soit 50,99 € HT / mois, au
+lieu de 59,99 € HT / mois en facturation mensuelle » (le prix principal est le
+montant à l'année). Implémentation : `src/lib/abonnement.ts` (paliers, droits,
+professions réglementées), `POST /api/abonnement`, modèles `Abonnement` et
+`AgentAccess`. **Paiement (construit)** : Stripe Checkout en abonnement (`src/lib/paiement/` : `etat.ts` montants, mode, accès et
+traduction des événements, `stripe.ts`, `abonnement-serveur.ts`), `POST /api/paiement/{session,webhook,portail,demonstration}`,
+pages `/paiement`, `/paiement/succes`, `/paiement/demonstration`. `Abonnement.statut` : EN_ATTENTE_PAIEMENT, ACTIF, IMPAYE, RESILIE ;
+**l'accès aux agents exige un abonnement en cours** (ouvert jusqu'à la fin de la période payée après un impayé ou une résiliation) :
+`aAccesAgent`, `agentsActifs` et les routes `/api/audit/*` le vérifient. Le prix est toujours recalculé côté serveur. Sans clé Stripe :
+mode **démonstration** (aucun paiement, dit clairement à l'écran) en développement, « indisponible » en production, jamais d'accès
+offert par défaut. À fournir par le propriétaire : compte Stripe (clés, secret du webhook, portail client), TVA / Stripe Tax, conditions
+générales de vente. **Facturation professionnelle** : au paiement et dans `/compte`, nom de l'entreprise et numéro de TVA intracommunautaire (facultatifs ; un numéro exige le nom), contrôlés par `src/lib/paiement/tva.ts` (forme par pays de l'UE, clé de contrôle française), enregistrés sur le compte (`User.raisonSociale`, `numeroTva`) et transmis à Stripe (client, type `eu_vat`) pour la facture ; Stripe collecte aussi l'adresse de facturation. Le contrôle ne vérifie pas l'existence du numéro au registre VIES. Le changement de formule en cours d'abonnement n'est pas ouvert. **Espace abonné** : groupe de routes
+`src/app/(espace)/` (en-tête, `/tableau-de-bord` « Mes agents », `/audit/[slug]` avec parcours Objectif → Niveau et contexte →
+Questionnaire → Résultats, `/compte`) ; l'objectif reste toujours demandé avant les questions.
+**Parcours (construit le 21 octobre ; décisions du propriétaire : paiement immédiat, e-mail et mot de passe seulement,
+métier avant la formule)** : `/inscription` (deux champs, plus la confirmation et « Afficher » ; pas de connexion Google) →
+`/inscription/metier` (`PUT /api/compte/metier` : métier, activités, stock ; une formule déjà choisie qui ne convient plus
+au métier est retirée) → `/formule` (trois cartes côte à côte, mensuel ou annuel, palier 3 « Recommandé », puis choix des agents
+sous les cartes, aucun coché d'avance, agents exclus selon le métier ; `POST /api/abonnement`) → `/paiement` (récapitulatif,
+facturation professionnelle facultative, **case des conditions générales de vente obligatoire**, enregistrée avec sa date dans
+`User.cgvAccepteesLe` ; la route de session la refuse sans elle) → Stripe ou `/paiement/demonstration` → `/paiement/succes`
+(« Confirmation en cours », rafraîchie seule) → `/bienvenue` (« Accès CAXE activé », les cinq questions du dossier ;
+`PUT /api/compte/dossier`) → `/tableau-de-bord`. **Écran de paiement (21 octobre)** : « Récapitulatif de l'achat » en lignes : abonnement HT, **TVA estimée (20 %, taux français, `TAUX_TVA_ESTIME_POURCENT` dans `offres.ts`)**, total dû ; la TVA affichée n'est qu'une estimation (le montant définitif vient de Stripe Tax, selon le pays et le numéro de TVA du client ; `STRIPE_TAX_AUTOMATIQUE=1` l'active) ; mensuel ou annuel modifiable sur place ; bouton secondaire « Modifier ma formule ». **À confirmer par le propriétaire** : l'affichage d'une TVA estimée. Le compte peut donc exister sans métier ni dossier (colonnes vides en base,
+`src/lib/compte.ts`) : `exigerEspaceAbonne` ramène à l'étape qui manque (métier → formule → paiement → dossier), et la
+connexion reprend le parcours là où il s'est arrêté. Une formule regardée sur `/offres` suit le parcours comme simple
+préférence (`?agents=3&periode=annuel`, `src/lib/formule-url.ts`) ; la page `/offres` mène à `/inscription` pour un visiteur et à
+`/formule` pour un compte connecté ; `/activation` redirige vers `/formule`. Le niveau du questionnaire se change depuis
+l'audit ; une donnée partagée déjà posée pour un autre agent se modifie depuis n'importe lequel des agents ouverts.
+**À fournir ou à construire** : le texte des conditions générales de vente (`/conditions-generales` n'a qu'une page d'attente,
+à remplacer avant l'ouverture du paiement réel), la réinitialisation du mot de passe, la vérification de l'adresse e-mail et
+les e-mails (rappel d'un dossier non terminé, reçu).
+Pas encore construits : « formule suggérée à l'inscription » et « essai d'un agent
+non souscrit » (le document ne les détaille pas). **Cookies, politique de confidentialité et mentions RGPD : rédigés par le
+propriétaire du produit, à intégrer tels quels ; ne rien écrire à sa place.**
+
+## 11. Données et pilote
+
+Les questionnaires, seuils, croisements, lexique et déclencheurs sont construits
+hors du code, métier par métier, puis déposés comme fichiers de données, validés
+par un script de contrôle (code, nature, règle ; pas de doublon avec le socle ;
+budget de questions ; au moins 2 questions par thème noté ; lexique complet).
+Secteur pilote : agence immobilière indépendante (transaction), agent
+Acquisition. Fichiers de travail : `CAXE_Themes_Chiffres_4_agents_8.xlsx`
+(version du 20 octobre, « 11 » : 181 thèmes, données, croisements, scénarios, déclencheurs,
+lexique des 4 agents) et `CAXE_Questionnaire_Grille_Pilote.xlsx` (**pas encore
+dans le dépôt**; il utilise encore les types A / B / C : ne pas les reprendre
+tels quels).
+
+**Fichiers de données (dossier `data/`)** : `themes.json` (181 thèmes), `donnees-*.json`
+(895 données, par agent), `croisements.json` (157), `scenarios.json` (13),
+`diagnostic-comm.json` (14 problèmes), `declencheurs.json` (65), `lexique.json`,
+`regles-affichage.json` (conditions d'affichage, masquages de thèmes et réponses attendues des
+déclencheurs, **écrit à la main** d'après le classeur ; le contrôle échoue si une condition du classeur n'y a pas
+de règle ; deux règles sont « à préciser » ; une règle `toujours` pour FIN-05.02), `routage.json` (11 catégories, 8 profils, 149 métiers et 54 activités tirés du document « CAXE — Liste des métiers » du 15 octobre, avec synonymes de recherche, stock oui / non / à demander et agent Comm oui / non / à trancher),
+`inscription.json` (questions du dossier d'inscription, avec mots du lexique) et
+`banque/questions.json` (518 questions écrites ; 47 autres en attente dans `banque/en-attente.json`). Les huit premiers viennent du classeur par
+`python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` et `inscription.json` sont écrits
+d'après le document de règles et la liste des métiers (`python3 scripts/ecrire-routage-metiers.py` réécrit `routage.json` ; les profils des professions réglementées ajoutées sont déduits et marqués `aConfirmer`). Schémas : `src/lib/donnees/schemas.ts` ; routage : `src/lib/routage.ts` ;
+lexique : `src/lib/donnees/lexique.ts` (un mot du lexique s'écrit `{demande}`,
+`{nouveau_client}` dans un gabarit ; les formes sont au singulier). Contrôle :
+`npm run donnees:controle` (et `npm test`). **Le classeur reste l'outil d'écriture :
+on le modifie, on relance l'import, on ne modifie pas les JSON à la main.**
+
+**Décisions du 15 octobre** : prix du palier 4 = 99,99 € HT ; remise annuelle de
+15 % conservée (pour engager à l'année) ; portraits illustrés des agents conservés
+(l'interdiction de « personnage » vise les prénoms) ; objectif en trois champs.
+
+**Audit d'un agent (étape 4, construit)** : `src/lib/audit/` : `reponse.ts` (les quatre
+réponses, règle des 50 %, règle du quart), `objectif.ts` (objectif en trois champs, échéance,
+rattachement à un indicateur), `affichage.ts` (règles d'affichage, effectif → taille),
+`assemblage.ts` (assemblage par profil, taille, niveau, déclencheurs ; données partagées déjà posées),
+`validation.ts` (contrôle serveur des réponses). Tables `ReponseAudit` (réponses du compte, tous agents
+confondus) et `User.niveauAudit`. Routes `PUT /api/audit/reponses`, `POST /api/audit/objectif`,
+`PUT /api/audit/niveau`. Écran `/audit/[slug]`. Le classeur ne distingue pas encore le socle, le module
+catégorie et le module métier : ces trois couches sont assemblées ensemble (par profil). Les données
+« importées » (connexions comptabilité, caisse, réseaux) ne sont pas posées : aucune connexion n'existe.
+Tant que la banque est vide, l'écran affiche le libellé du classeur, marqué « question à rédiger ».
+
+**Moteur (étape 5, construit)** : `src/lib/moteur/` : `notation.ts` (vert / orange / rouge : la moyenne
+du marché est orange, deux sens avec tolérance d'un point, pratique absente / partielle / en place ; choix
+du seuil le plus précis par zone et taille), `chaine.ts` (leviers multipliés, jamais additionnés ; deux
+leviers sur la même étape = règle à préciser, aucun chiffre ; plafond de capacité à deux chiffres ; période
+commune : par jour × jours ouverts × 4,3), `constat.ts` (par thème : masqué, non évalué, contexte, règle
+manquante, noté ; seuil sans source = « à valider »). Les seuils vivent dans `data/seuils.json`, **vide** :
+aucun seuil de marché n'est écrit dans le classeur ni dans le document, donc tous les thèmes notés sortent
+« règle manquante ». Pas encore écrits : impacts chiffrés par thème (formules des croisements, en texte libre
+dans le classeur), impact qualifié Bloquant / Frein / Secondaire (« règles fixes » non fournies), règle
+d'agrégation quand un thème porte plusieurs indicateurs. Rapport des tests : `docs/rapport-tests-etape-5.md`.
+
+**Réponses typées et banque de questions (construit)** : chaque question a une **spécification de
+réponse** (`src/lib/donnees/reponse-spec.ts`) : nombre (unité, bornes), oui / non, choix, cases, liste libre,
+texte, mois et année, plusieurs champs, tableau (lignes fixes, issues d'une question de cadrage, d'une liste,
+ou libres ; total imposé). Elle vient de la banque (`question.reponse`) ou, à défaut, de ce que le format du
+classeur permet de déduire sans ambiguïté (`proposerSpec` : 178 données sur 395) ; les 217 autres (« Choix » sans
+liste, plusieurs champs, tableaux) **doivent être définies dans la banque**, sinon saisie libre (au 22 octobre, les 518 questions de la banque portent toutes leur spécification). Le serveur
+refuse toute réponse non conforme (`validerReponse`), le navigateur contrôle le même code
+(`src/lib/audit/saisie.ts`). **La banque s'écrit dans Excel** : `python3 scripts/exporter-modele-banque.py`
+produit `CAXE_Banque_Questions.xlsx` (une ligne par donnée posée, prérempli), `python3 scripts/importer-banque.py
+<classeur>` le convertit en `data/banque/questions.json` (contrôle chaque ligne, n'écrit rien s'il reste une
+erreur). Les croisements ne sont pas encore exécutables : leurs formules sont en texte libre dans le classeur ;
+elles se brancheront sur les réponses typées une fois la banque écrite.
+
+**Références de marché (chantier du 15 octobre, étapes a et b construites)** : seuls les **22 thèmes de nature
+Marché** se comparent à un chiffre de marché (les 140 autres n'ont jamais de recherche). `data/catalogue-themes.json`
+(écrit par `python3 scripts/ecrire-catalogue-themes.py`) : une fiche par thème, avec pour les thèmes de nature Marché les
+indicateurs comparables (36, **validés par le propriétaire le 15 octobre** ; FIN-37, volume absolu, ne se compare pas ; un
+indicateur en brouillon n'est jamais cherché). `data/parametres-references.json` : paramètres réglables (tolérance
+±10 %, recoupement 20 %, âge des sources 3 / 5 ans, 4 recherches maximum par couple, **mise à jour tous les 3 mois par défaut,
+réglable par catégorie de métier**, plafond mensuel de 20 € pour le pilote). Base : `ReferenceMarche` (versions, jamais
+supprimées) et `RechercheReference` (journal, verrou, coût). Code : `src/lib/references/` (`types.ts` forme d'une référence,
+`cascade.ts` choix de la plus précise : métier + activité + zone + taille, puis métier, puis famille = catégorie, puis
+national seulement si l'indicateur l'autorise ; décision de lancer une recherche ; échéances, `contexte.ts` contexte d'un
+compte, `depot.ts` lecture en base). Le constat (`moteur/constat.ts`) distingue `aucune_reference`, `reference_disponible`,
+`sans_comparaison` et `regle_manquante` (pratique et cohérence : leur règle de notation n'est **pas écrite non plus**) ;
+`moteur/affichage-constat.ts` ne montre jamais au client un mot technique. Règle provisoire à confirmer : pour un compte
+à plusieurs activités, l'activité par défaut du métier sert de repère. **Étape b (agent de recherche et garde-fous)** : `references/recherche.ts` (demande : métier, indicateur et type de zone
+seulement, jamais une donnée du client), `client-anthropic.ts` (API Claude, recherche web côté serveur, modèle réglable dans
+`parametresReferences.agentRecherche`), `proposition.ts` (sortie JSON validée), `verification-page.ts` (le serveur relit la page
+ciblée : https seulement, pas d'adresse interne, extrait et chiffre retrouvés), `pdf.ts`, `garde-fous.ts` (qualité de source,
+exactitude, recoupement, confiance ; le niveau 1 n'est accordé que pour un domaine de `data/sources-reconnues.json`),
+`orchestrer.ts` (un couple de bout en bout : plafonds de budget, verrou, journal), `depot-prisma.ts`. Lancer :
+`node scripts/references-traiter.mts --indicateur ACQ-10.13 --metier electricien [--dry-run]` (clé `ANTHROPIC_API_KEY`
+requise sans `--dry-run`). **Aucune recherche réelle n'a encore été lancée.** **Pas encore construits** : position du client
+face au marché et gel par audit (c), mises à jour (d), file de revue et suivi (e).
+La valeur du client pour un indicateur calculé n'est pas calculable tant que les formules des croisements sont en texte libre.
+
+**Effets d'actions (19 octobre, partie code construite, aucune recherche réelle lancée)** : `data/catalogue-effets.json` (écrit par
+`python3 scripts/ecrire-catalogue-effets.py`) liste six actions **en brouillon**, une par croisement à « part récupérable prudente »
+(EFF-ACQ-01 relance des devis XA24, EFF-ACQ-02 complément XA19, EFF-ACQ-03 anciens clients XA17, EFF-ACQ-04 paniers abandonnés XA35,
+EFF-COM-01 réseau existant XC33, EFF-RH-01 automatisation XR15) ; aucune ne part en recherche avant validation par le propriétaire. Un effet a la
+forme d'un indicateur (période « effet », unité %, bornes 0 à 100) : la chaîne de `src/lib/references/` sert telle quelle (variante de
+demande `genre: "effet"` dans `recherche.ts`, enregistrement dans `ReferenceMarche` sous le code EFF-…, même cascade métier puis famille,
+jamais national, mêmes plafonds de budget). Lancer : `node scripts/references-traiter.mts --effet EFF-ACQ-01 --metier electricien
+[--dry-run]`. `src/lib/effets/potentiel.ts` : le moteur applique le taux sourcé au montant en jeu du client (fourchette), ou, sans taux,
+renvoie le seul montant en jeu ; jamais d'addition d'effets. **Pas encore construits** : la liste complète des actions (le catalogue est un
+brouillon à valider ; l'IA du rapport choisit parmi ces actions pour obtenir un chiffre, toute autre action reste « sans chiffre
+sourcé »), le calcul du montant en jeu (formules des croisements encore en texte libre), l'effet de l'ensemble par recalcul de la chaîne,
+l'affichage dans le rapport, la mise à jour périodique. Clé requise : `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt).
+
+**Banque de questions des 4 agents et classeur « 11 » (20 et 21 octobre)** : `data/banque/questions.json` contient **518 questions écrites** par le propriétaire
+(page « Banque de questions » du 21 octobre, importée par `python3 scripts/importer-banque.py <fichier> --ecarter-inconnues`), rattachées à une donnée « Demandée » ou
+« Partagée » du classeur. **47 questions sont mises de côté** dans `data/banque/en-attente.json` (donnée absente du classeur 11 : thèmes ACQ-24 à ACQ-30, COM-62 « Référencement (SEO) » et
+COM-63 « Annonces Google (SEA) », plus ACQ-07.15, ACQ-11.38, ACQ-11.39, ACQ-13.12 à 13.14, COM-13.11) ; elles reviennent seules dès que le classeur des 4 agents les contient comme « Demandée » (liste dans
+`docs/Ajouts_au_classeur_des_4_agents.xlsx`). **ACQ-22.08** n'a plus de question (fusionnée dans ACQ-22.07) mais reste dans le classeur : elle s'affiche « question à rédiger » jusqu'à sa suppression au classeur.
+La version Excel de la banque (« partie technique », 519 lignes) est **en retard** sur la page HTML : sans les 47 nouvelles questions, avec des tranches qui se chevauchent encore (« 3 à 6 h » puis « 6 à 10 h »). **La page HTML fait foi.** Le **classeur « 11 »** (`CAXE_Themes_Chiffres_4_agents_11.xlsx`, onglet « Modifications 20 oct. ») est
+importé : 181 thèmes (19 nouveaux : FIN-46 à 48, RH-41 à 49, COM-55 à 61), 65 déclencheurs, 157 croisements, 895 données. **La nature et l'impact des 19 thèmes nouveaux sont des
+propositions du classeur, à valider par le propriétaire.** Le lexique vient du classeur seul (`--reporter-lexique` n'est plus nécessaire) : colonne « Clé dans les questions » (champ `cle`
+de `lexique.json` quand elle diffère de la clé dérivée du mot), colonne **Location** (8e profil) et 10 lexiques par métier (champ `metiers` de `lexique.json`, **pas encore branchés au
+moteur**). Le contrôle (`npm run donnees:controle`) compare la réponse de la banque au format du classeur (avertissement, la banque l'emporte).
+
+**Règles d'affichage du classeur 11 (construit)** : une condition peut lire **la réponse à une donnée** (`ACQ-10.06`, `FIN-10.01#retours_par_mois`, `RH-32.01#demission.departs`),
+avec l'opérateur `plus_de` et des blocs imbriqués `tous` / `un` ; `D30` (« avant la première création de contenu ») vaut toujours « non » pendant l'audit (les données COM-57
+se posent à la première création de contenu, pas pendant l'audit). Une règle vaut vrai, faux ou **en attente** (réponse manquante : la question attend). **Déclencheurs dérivés** : D03, D17, D21, D22,
+D23, D24 et D26 sont la réponse à une question de la banque (forme `reponse_donnee` : D03 → ACQ-03.01, D17 → ACQ-18.02, D21 → COM-10.07, D22 → COM-10.08, D23 → COM-13.10,
+D24 → COM-15.12, D26 → COM-39.07) : on ne les pose plus au cadrage, la question se pose dans le questionnaire, et l'écran recalcule les questions à poser après sa réponse.
+Les exclusions des professions réglementées s'appliquent aux options de la donnée (ACQ-03.01 : `publicite_en_ligne`, `publicite_locale`, `prospection`, `partenaires`) ; pour ces professions, tous les canaux à risque sont retirés (réseaux sociaux, publicité en ligne et locale, plateformes, annuaires, partenaires, prospection, emailing et SMS, salons et événements, réseaux d'affaires : décision du 21 octobre). **FIN-05.02** (budget marketing et communication par mois) **n'est plus demandée deux fois** (décision du propriétaire, onglet Modifications Y1 du 20 octobre, appliquée le 21) : le détail se demande dans l'Acquisition (ACQ-03.05, 07.01, 07.03, 07.04) et la Comm (COM-32.01, 32.02), la Finance n'a besoin que du total. Règle (décision du propriétaire, 22 octobre) : FIN-05.02 est **toujours posée, mais déjà remplie** quand le détail est connu : si ACQ-07.03, ACQ-07.04 et COM-32.02 ont un chiffre (« je ne sais pas » et « je ne suis pas cette donnée » n'en sont pas), le champ s'affiche avec le total de ACQ-03.05 + ACQ-07.01 + ACQ-07.03 + ACQ-07.04 + COM-32.02 (COM-32.01 reprend les mêmes lignes qu'ACQ : exclue pour ne pas compter deux fois), enregistré tel quel à l'affichage, avec la mention « Rempli d'après vos réponses précédentes » ; le dirigeant le corrige, sa réponse l'emporte. Sans détail complet, le champ est vide. Définition dans `data/prereponses.json`, calcul dans `src/lib/audit/prereponse.ts` (additionne des chiffres donnés, rien d'inventé), contrôlé par `npm run donnees:controle`. **Limite** : le total n'est pas mis à jour si le détail change après coup. À écrire aussi dans le classeur (colonne « Posée si » : toujours ; pré-remplie par la somme du détail). Deux autres règles sont « à préciser » : « Vente immédiate (commerce) » et « Sans travaux en cours ». Le texte libre accepte 8 000 caractères (COM-44.04).
+**Profil location** : Camping, Gîte, Chambre d'hôtes et Location de véhicules sont routés vers ce seul profil (`profilsImposes` du métier dans `routage.json`, posé par
+`scripts/ecrire-routage-metiers.py`) ; ACQ-11.31 à 11.37 ne sont posées qu'à lui. **Hôtel** (décision du propriétaire, 20 octobre) : cases à cocher comme les autres métiers à plusieurs activités,
+« Hébergement (chambres) » (profil location, par défaut) et « Restaurant de l'hôtel » (profil restaurant, stock oui) ; les deux cochées donnent les deux profils (`profilsImposes` de l'activité).
+**Calculs à écrire (absents du classeur, rien n'est inventé)** : ACQ-11.38 taux d'occupation, ACQ-11.39 prix moyen d'une unité vendue, ACQ-11.40 CA perdu par mois, un croisement
+location en miroir de XA34, les couverts par mois (ACQ-11.07 × ACQ-11.09 × 4,33), les nombres par canal (ACQ-02.01 × ACQ-03.02 et ACQ-11.01 × ACQ-03.03), les calculs du funnel Comm
+(COM-58.03, COM-61.03, COM-39.06) et les formules et croisements des 19 thèmes nouveaux.
+
+**Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
+moteur), puis la **banque de questions** (rédaction finale de chaque question),
+puis la connexion des deux. Tant que la banque n'existe pas, rien n'est inventé :
+les questions sont marquées manquantes.
+
+## 12. Charte et ton
 
 ```css
 :root {
-  /* Fonds et texte */
-  --bg:         #07111B;                 /* navy, fond principal */
-  --panel:      #0B1622;                 /* fond de carte */
-  --text:       #F4ECD8;                 /* beige, texte principal */
+  --bg: #07111B;            /* navy */
+  --panel: #0B1622;
+  --text: #F4ECD8;          /* beige */
   --text-muted: rgba(244,236,216,0.58);
   --text-faint: rgba(244,236,216,0.34);
-  --line:       rgba(244,236,216,0.14);
-
-  /* Accent tricolore */
-  --blue-1:  #5B9FEC;  --blue-2:  #1E4E96;
-  --white-1: #FFFFFF;  --white-2: #CDD3DA;
-  --red-1:   #F2686B;  --red-2:   #B71C2B;
-
-  /* Secondaires */
-  --amber-1: #FFD166;  --amber-2: #C77D22;
-  --neutral-1: rgba(244,236,216,0.5);
-  --neutral-2: rgba(244,236,216,0.18);
-
-  --titre: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --corps: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --line: rgba(244,236,216,0.14);
+  --blue-1: #5B9FEC; --blue-2: #1E4E96;
+  --white-1: #FFFFFF; --white-2: #CDD3DA;
+  --red-1: #F2686B;  --red-2: #B71C2B;
+  --amber-1: #FFD166; --amber-2: #C77D22;
 }
 ```
 
-Import des polices :
+Titres en **Bricolage Grotesque** (700 à 800, `letter-spacing: 0.02em`), texte en
+**Inter**. Accent tricolore bleu / blanc / rouge. **Les dégradés sont réservés
+aux jauges et barres de progression**, pas aux formulaires. Rayons : 3 à 4 px
+sur les petits éléments, 12 px sur les cartes. À proscrire : l'or #C9A961,
+Cormorant Garamond, Playfair Display.
 
-```html
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-```
+**Mode jour / nuit (demandé par le propriétaire le 21 octobre)** : le thème sombre ci-dessus est la direction artistique
+d'origine et reste le thème par défaut ; un thème clair existe, choisi par le bouton soleil / lune présent dans tous les
+en-têtes (`src/components/bascule-theme.tsx`). Le choix est gardé dans le navigateur (`localStorage`, clé `caxe-theme`,
+`src/lib/theme.ts`) et rétabli avant l'affichage par un petit script du layout, sans éclair. Les couleurs sont des jetons
+(`:root` pour le sombre, `:root[data-theme="clair"]` pour le clair, dans `globals.css`) : **ne jamais écrire une couleur en dur,
+utiliser les jetons ou leurs canaux** (`rgb(var(--ink) / 0.2)`, `--blue-rgb`, `--red-rgb`, `--green-rgb`, `--amber-rgb`, `--ombre`).
+Thème clair : fond `#F7F2E6`, cartes `#FFFDF8`, encre `#07111B` ; bleus, rouges, verts et ambre assombris pour rester lisibles ;
+l'agent « blanc » prend l'encre. Le logo existe en deux encres (`Logo`, `public/logo-caxe*-sombre.png`). Les surfaces qui montrent
+le produit ou une vidéo (aperçu de l'outil, lecteur vidéo) gardent le thème sombre dans les deux thèmes (`.surface-sombre`).
 
-**Typographie.** Bricolage Grotesque pour les titres et les grands chiffres, en
-poids 700 à 800, `letter-spacing: 0.02em`. Inter pour tout le reste, en 400, 500
-et 600.
+Ton : **vouvoiement, français de France, sobre et factuel, sans superlatif, sans
+point d'exclamation ni émoji.** Le mot « fiable » est accepté (décision du 19 octobre, à propos du prompt de l'agent Acquisition). Un bouton dit ce qui va
+se passer. Un écran vide est une invitation à agir. Une erreur explique et
+corrige.
 
-**Les trois usages du dégradé :**
+## 13. Qualité
 
-```css
-/* Accent de texte */
-background: linear-gradient(100deg, var(--blue-1), var(--white-1) 60%, var(--red-1));
--webkit-background-clip: text; background-clip: text; color: transparent;
+Mobile d'abord ; focus clavier visible ; contrastes lisibles ;
+`prefers-reduced-motion` respecté ; moteur couvert par des tests ; réponses
+sauvegardées en continu (perdre des réponses est un échec produit).
 
-/* Barres de score et icônes */
-background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+## 14. Règles abandonnées — ne jamais les réintroduire
 
-/* Halo derrière un grand chiffre */
-background: radial-gradient(circle at 50% 45%, var(--blue-1) 0%, transparent 65%);
+| Ancienne règle | Remplacée par |
+|---|---|
+| Score global sur 100 | Avancement vers l'objectif fixé pour chaque agent |
+| Types de questions A / B / C | 4 natures de notation (Marché, Pratique, Cohérence, Contexte) |
+| Un questionnaire complet par secteur | Banque unique de questions assemblée selon le profil |
+| Actions pré-écrites par indicateur | Recommandations générées par l'IA |
+| Point d'étape mensuel à date fixe | Point d'étape à l'échéance propre de chaque action |
+| Forfait unique / offre à 1 agent | Paliers de 2 à 4 agents |
+| Objectif demandé à l'inscription | Objectif demandé au début de chaque agent |
+| Agents personnifiés | Noms fonctionnels |
 
-/* Bordure dégradée */
-background: linear-gradient(var(--bg), var(--bg)),
-            linear-gradient(100deg, var(--blue-1), var(--white-1), var(--red-1));
-background-origin: border-box;
-background-clip: padding-box, border-box;
-border: 1px solid transparent;
-```
+## 15. Points encore ouverts (ne pas trancher seul)
 
-**Une couleur par agent :** Acquisition & CA en bleu, Finance & Rentabilité en
-blanc, RH & Organisation en rouge, Comm & Création en blanc.
+Prompts des agents (décisions du 19 octobre) : le prompt Acquisition (`docs/prompt-agent-acquisition.md`) doit être
+mis à jour pour la règle « effet d'une action » (étape « Filtrer et chiffrer » : l'agent ne pose plus d'hypothèse,
+il reçoit le taux sourcé et le potentiel calculés par le moteur ; champ « Impact estimé » rempli par le moteur,
+ou « pas de chiffre sourcé » ; exemple 1 ; question « 10 points ou +10 % » sans objet) ; les brouillons Finance, RH et Comm sont dans le document « Prompts — Finance, RH et Comm : parties
+propres à l'agent (brouillons) » (Claude Docs) ; les couleurs vert / orange / rouge sont gardées pour la phase
+d'essai (à supprimer sur demande) ; **la publicité des professions réglementées est le dernier point à trancher
+avant la publication du site** (avocat spécialisé ; le propriétaire revient avec le retour de l'avocat : message fixe, liste des canaux, liste des termes interdits).
 
-**Rayons :** 3 à 4 px sur les petits éléments, 12 px sur les cartes, 50 % sur les
-pastilles.
+Seuils « à valider » (test sur 5 à 10 cas réels) ; mini-questionnaire anonyme RH
+aux salariés ; connexion Meta pour l'agent Comm ; seuil d'heures par jour
+travaillé qui fait passer « dépendance au dirigeant » en Bloquant ; publicité des
+professions réglementées (à rouvrir avec un avocat spécialisé).
 
-**Réserve importante.** Cette charte a été conçue pour des supports de
-communication, où les dégradés servent à attirer l'œil. Dans une application
-utilisée longuement, ils fatiguent. **Réserve les dégradés au score et aux barres
-de progression. Les écrans de saisie restent sobres :** navy, beige, filets fins.
+<!-- BEGIN:nextjs-agent-rules -->
 
-**Direction générale :** minimalisme stratégique premium. Ni startup, ni agence.
-Beaucoup de blanc tournant, hiérarchie par le poids typographique et l'espace
-plutôt que par la couleur.
+# This is NOT the Next.js you know
 
-**À proscrire :** l'accent doré #C9A961 (abandonné), les polices Cormorant
-Garamond et Playfair Display (jugées trop identifiables comme générées),
-les cartes arrondies identiques partout avec la même ombre grise.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
----
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-## 12. Ton et écriture de l'interface
-
-Le ton est **sobre et factuel, sans superlatif marketing**. Le dirigeant est un
-professionnel, pas une cible publicitaire.
-
-- Phrases courtes, voix active, sentence case. Pas de capitales sur les libellés.
-- Un bouton dit ce qui va se passer : « Voir mon résultat », pas « Valider ».
-- Le même mot désigne la même chose partout dans le produit.
-- Pas de superlatifs, pas de point d'exclamation, pas d'émoji.
-- Une erreur explique ce qui s'est passé et comment le corriger. Elle ne
-  s'excuse pas et ne reste pas vague.
-- Un écran vide est une invitation à agir, pas une illustration triste.
-
-**Un mot à ne pas utiliser : « fiable ».** Le revendiquer sous-entend que le
-reste ne l'est pas. La fiabilité se démontre par la méthode, elle ne s'affirme
-pas.
-
-Vouvoiement du dirigeant. Français de France.
-
----
-
-## 13. Qualité attendue
-
-- Responsive jusqu'au mobile. Beaucoup de dirigeants répondront au téléphone.
-- Focus clavier visible, contrastes lisibles, `prefers-reduced-motion` respecté.
-- Le moteur de scoring est couvert par des tests. C'est la pièce où une erreur
-  silencieuse fait le plus de dégâts.
-- Les réponses du dirigeant sont sauvegardées en continu. Perdre 86 réponses est
-  un échec produit, pas un incident technique.
-
----
-
-## 14. En cas de doute
-
-Trois réflexes :
-
-1. **Si une demande revient à faire calculer ou juger quelque chose par l'IA**,
-   signale-le avant d'exécuter. C'est la ligne à ne pas franchir.
-2. **Si un seuil ou une question manque**, ne l'invente pas. Marque-le comme
-   manquant et signale-le.
-3. **Si une décision engage le produit** (pondération des scores, ajout d'un
-   champ d'inscription, changement de périmètre d'un agent), demande avant.
+<!-- END:nextjs-agent-rules -->

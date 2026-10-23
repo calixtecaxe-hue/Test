@@ -1,0 +1,11 @@
+{
+  "source": "Décision du propriétaire, 21 octobre : une question dont le détail a déjà été donné à un autre agent est posée avec un total pré-rempli, que le dirigeant garde ou corrige. Le total est une somme des cellules chiffrées des réponses listées dans « somme » ; il n'est proposé que si chaque donnée de « exige » a reçu un chiffre.",
+  "regles": [
+    {
+      "donnee": "FIN-05.02",
+      "somme": ["ACQ-03.05", "ACQ-07.01", "ACQ-07.03", "ACQ-07.04", "COM-32.02"],
+      "exige": ["ACQ-07.03", "ACQ-07.04", "COM-32.02"],
+      "detail": "publicité, agence, contenu, outils et autres frais de communication"
+    }
+  ]
+}

@@ -1,0 +1,1945 @@
+{
+  "source": "Document « CAXE — Règles de fonctionnement » (15 octobre 2026), partie 3, et document « CAXE — Liste des métiers » (15 octobre 2026).",
+  "note": "La liste des métiers reprend les exemples du document ; elle est à compléter métier par métier (rien n'est inventé). Agriculture : supprimée du produit.",
+  "profils": [
+    {
+      "id": "rdv",
+      "libelle": "Rendez-vous"
+    },
+    {
+      "id": "commerce",
+      "libelle": "Commerce"
+    },
+    {
+      "id": "ecommerce",
+      "libelle": "E-commerce"
+    },
+    {
+      "id": "restaurant",
+      "libelle": "Restaurant"
+    },
+    {
+      "id": "chantier",
+      "libelle": "Artisan / chantier"
+    },
+    {
+      "id": "b2b",
+      "libelle": "B2B / cycle long"
+    },
+    {
+      "id": "abonnement",
+      "libelle": "Abonnement"
+    },
+    {
+      "id": "location",
+      "libelle": "Location"
+    }
+  ],
+  "categories": [
+    {
+      "numero": 1,
+      "id": "commerce-stock",
+      "libelle": "Commerce avec stock physique",
+      "profils": [
+        "commerce"
+      ],
+      "profilsConditionnels": [
+        {
+          "profil": "ecommerce",
+          "condition": "vend en ligne"
+        }
+      ],
+      "reglementee": false,
+      "notes": "Bloc Stock de Finance affiché."
+    },
+    {
+      "numero": 2,
+      "id": "prestation-chantier",
+      "libelle": "Prestation sur chantier ou projet",
+      "profils": [
+        "chantier"
+      ],
+      "profilsConditionnels": [],
+      "reglementee": false,
+      "notes": "Paysagiste « entretien » → Abonnement."
+    },
+    {
+      "numero": 3,
+      "id": "prestation-recurrente",
+      "libelle": "Prestation récurrente ou abonnement",
+      "profils": [
+        "abonnement"
+      ],
+      "profilsConditionnels": [],
+      "reglementee": false,
+      "notes": "SaaS : lexique propre à écrire."
+    },
+    {
+      "numero": 4,
+      "id": "transaction-cycle-long",
+      "libelle": "Transaction de forte valeur, cycle long",
+      "profils": [
+        "b2b"
+      ],
+      "profilsConditionnels": [],
+      "reglementee": false,
+      "notes": "Immobilier « gestion locative » → Abonnement ; secteur pilote."
+    },
+    {
+      "numero": 5,
+      "id": "transport-logistique",
+      "libelle": "Transport et logistique",
+      "profils": [
+        "b2b"
+      ],
+      "profilsConditionnels": [
+        {
+          "profil": "abonnement",
+          "condition": "contrats réguliers"
+        }
+      ],
+      "reglementee": false,
+      "notes": null
+    },
+    {
+      "numero": 6,
+      "id": "professions-reglementees",
+      "libelle": "Professions libérales réglementées",
+      "profils": [],
+      "profilsConditionnels": [],
+      "reglementee": true,
+      "notes": "Profil selon le métier. Socle seulement, aucun module métier ; pas d'agent Comm ni de conseil publicitaire."
+    },
+    {
+      "numero": 7,
+      "id": "rendez-vous-non-reglemente",
+      "libelle": "Rendez-vous non réglementé",
+      "profils": [
+        "rdv"
+      ],
+      "profilsConditionnels": [],
+      "reglementee": false,
+      "notes": "Module métier de 5 questions maximum."
+    },
+    {
+      "numero": 8,
+      "id": "restauration",
+      "libelle": "Restauration",
+      "profils": [
+        "restaurant"
+      ],
+      "profilsConditionnels": [
+        {
+          "profil": "ecommerce",
+          "condition": "vente en ligne"
+        }
+      ],
+      "reglementee": false,
+      "notes": "Lexique propre (couverts, services)."
+    },
+    {
+      "numero": 9,
+      "id": "commerce-en-ligne",
+      "libelle": "Commerce en ligne",
+      "profils": [
+        "ecommerce"
+      ],
+      "profilsConditionnels": [],
+      "reglementee": false,
+      "notes": "Données locales masquées si l'activité est 100 % en ligne."
+    },
+    {
+      "numero": 10,
+      "id": "agences-services-entreprises",
+      "libelle": "Agences et services aux entreprises",
+      "profils": [
+        "b2b"
+      ],
+      "profilsConditionnels": [
+        {
+          "profil": "abonnement",
+          "condition": "contrats mensuels"
+        }
+      ],
+      "reglementee": false,
+      "notes": "Sous-question : projets ponctuels, contrats mensuels."
+    },
+    {
+      "numero": 11,
+      "id": "fabrication",
+      "libelle": "Fabrication",
+      "profils": [],
+      "profilsConditionnels": [],
+      "reglementee": false,
+      "aCreer": true,
+      "notes": "Nouvelle catégorie pour l'industrie : le seul ajout qui demande un nouveau questionnaire (document « Liste des métiers »). Tant qu'il n'existe pas, aucun profil n'est rattaché."
+    }
+  ],
+  "metiers": [
+    {
+      "id": "agence-immobiliere",
+      "libelle": "Agence immobilière",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "transaction-cycle-long",
+      "stock": "non",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "transaction",
+          "libelle": "Transaction",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "location-recherche-de-locataires",
+          "libelle": "Location (recherche de locataires)",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "gestion-locative",
+          "libelle": "Gestion locative",
+          "categorie": "prestation-recurrente",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "syndic",
+          "libelle": "Syndic",
+          "categorie": "prestation-recurrente",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "conciergerie-saisonniere",
+          "libelle": "Conciergerie saisonnière",
+          "categorie": "prestation-recurrente",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "immobilier-d-entreprise-bureaux-locaux-commerciaux",
+          "libelle": "Immobilier d'entreprise (bureaux, locaux commerciaux)",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "hotel",
+      "libelle": "Hôtel",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "restauration",
+      "stock": "non",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "hebergement-chambres",
+          "libelle": "Hébergement (chambres)",
+          "categorie": "restauration",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true,
+          "profilsImposes": [
+            "location"
+          ]
+        },
+        {
+          "id": "restaurant-de-l-hotel",
+          "libelle": "Restaurant de l'hôtel",
+          "categorie": "restauration",
+          "stock": "oui",
+          "agentComm": "oui",
+          "profilsImposes": [
+            "restaurant"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paysagiste",
+      "libelle": "Paysagiste",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "creation",
+          "libelle": "Création",
+          "categorie": "prestation-chantier",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "entretien-regulier",
+          "libelle": "Entretien régulier",
+          "categorie": "prestation-recurrente",
+          "stock": "non",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "fleuriste",
+      "libelle": "Fleuriste",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "boutique",
+          "libelle": "Boutique",
+          "categorie": "commerce-stock",
+          "stock": "oui",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "decoration-florale-de-mariages-et-d-evenements",
+          "libelle": "Décoration florale de mariages et d'événements",
+          "categorie": "transaction-cycle-long",
+          "stock": "oui",
+          "agentComm": "oui"
+        },
+        {
+          "id": "abonnements-floraux-pour-entreprises-hotels-bureaux",
+          "libelle": "Abonnements floraux pour entreprises (hôtels, bureaux)",
+          "categorie": "prestation-recurrente",
+          "stock": "oui",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "agence-de-voyage",
+      "libelle": "Agence de voyage",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "transaction-cycle-long",
+      "stock": "non",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "particuliers",
+          "libelle": "Particuliers",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "entreprises-et-groupes",
+          "libelle": "Entreprises et groupes",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "vente-de-vehicules",
+      "libelle": "Vente de véhicules",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "generaliste",
+          "libelle": "Généraliste",
+          "categorie": "transaction-cycle-long",
+          "stock": "oui",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "premium",
+          "libelle": "Premium",
+          "categorie": "transaction-cycle-long",
+          "stock": "oui",
+          "agentComm": "oui"
+        },
+        {
+          "id": "prestige-sport-et-collection",
+          "libelle": "Prestige, sport et collection",
+          "categorie": "transaction-cycle-long",
+          "stock": "oui",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "communication-et-marketing",
+      "libelle": "Communication et marketing",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "agences-services-entreprises",
+      "stock": "non",
+      "agentComm": "non",
+      "synonymes": [
+        "Agence web",
+        "Agence de communication",
+        "Agence marketing et publicité",
+        "Studio de design et graphiste",
+        "Community manager",
+        "Vidéaste",
+        "Rédacteur",
+        "Consultant marketing"
+      ],
+      "sousVariantes": [
+        {
+          "id": "projets-ponctuels",
+          "libelle": "Projets ponctuels",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "non",
+          "defaut": true
+        },
+        {
+          "id": "contrats-mensuels",
+          "libelle": "Contrats mensuels",
+          "categorie": "prestation-recurrente",
+          "stock": "non",
+          "agentComm": "non"
+        }
+      ]
+    },
+    {
+      "id": "numerique-et-tech",
+      "libelle": "Numérique et tech",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "agences-services-entreprises",
+      "stock": "non",
+      "agentComm": "oui",
+      "synonymes": [
+        "Consultant IT"
+      ],
+      "sousVariantes": [
+        {
+          "id": "esn-et-regie-de-consultants",
+          "libelle": "ESN et régie de consultants",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "developpement-d-applications-et-de-logiciels-sur-mesure",
+          "libelle": "Développement d'applications et de logiciels sur mesure",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "conseil-informatique-et-transformation-numerique",
+          "libelle": "Conseil informatique et transformation numérique",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "infogerance-et-maintenance-informatique",
+          "libelle": "Infogérance et maintenance informatique",
+          "categorie": "prestation-recurrente",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "editeur-de-logiciel-en-abonnement-saas",
+          "libelle": "Éditeur de logiciel en abonnement (SaaS)",
+          "categorie": "prestation-recurrente",
+          "stock": "non",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "recrutement-et-rh",
+      "libelle": "Recrutement et RH",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "agences-services-entreprises",
+      "stock": "non",
+      "agentComm": "oui",
+      "synonymes": [
+        "Consultant RH"
+      ],
+      "sousVariantes": [
+        {
+          "id": "cabinet-de-recrutement",
+          "libelle": "Cabinet de recrutement",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "agence-d-interim",
+          "libelle": "Agence d'intérim",
+          "categorie": "prestation-recurrente",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "conseil-rh",
+          "libelle": "Conseil RH",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "finance-et-assurance",
+      "libelle": "Finance et assurance",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "transaction-cycle-long",
+      "stock": "non",
+      "agentComm": "a_trancher",
+      "synonymes": [
+        "Conseiller en patrimoine"
+      ],
+      "sousVariantes": [
+        {
+          "id": "conseiller-en-gestion-de-patrimoine",
+          "libelle": "Conseiller en gestion de patrimoine",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "a_trancher"
+        },
+        {
+          "id": "courtier-en-credit",
+          "libelle": "Courtier en crédit",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "a_trancher"
+        },
+        {
+          "id": "courtier-en-assurance",
+          "libelle": "Courtier en assurance",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "a_trancher",
+          "defaut": true
+        },
+        {
+          "id": "agent-general-d-assurance",
+          "libelle": "Agent général d'assurance",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "a_trancher"
+        }
+      ]
+    },
+    {
+      "id": "consultant",
+      "libelle": "Consultant",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "agences-services-entreprises",
+      "stock": "non",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "strategie-management-et-organisation",
+          "libelle": "Stratégie, management et organisation",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "developpement-commercial",
+          "libelle": "Développement commercial",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "qualite-securite-environnement-qse-rse",
+          "libelle": "Qualité, sécurité, environnement (QSE, RSE)",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "conseil-juridique",
+          "libelle": "Conseil juridique",
+          "categorie": "professions-reglementees",
+          "stock": "non",
+          "agentComm": "non",
+          "profils": [
+            "b2b"
+          ],
+          "aConfirmer": "profil d'entreprise non précisé par le document : rapproché d'avocat (B2B)"
+        }
+      ]
+    },
+    {
+      "id": "coach",
+      "libelle": "Coach",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "sportif",
+          "libelle": "Sportif",
+          "categorie": "rendez-vous-non-reglemente",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "professionnel-et-dirigeants",
+          "libelle": "Professionnel et dirigeants",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "personnel-vie-parentalite",
+          "libelle": "Personnel (vie, parentalité)",
+          "categorie": "rendez-vous-non-reglemente",
+          "stock": "non",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "enseignement-et-formation",
+      "libelle": "Enseignement et formation",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "agences-services-entreprises",
+      "stock": "non",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "formation-pour-les-entreprises",
+          "libelle": "Formation pour les entreprises",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "formation-financee-par-le-cpf",
+          "libelle": "Formation financée par le CPF",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "a_trancher"
+        },
+        {
+          "id": "ecole-privee",
+          "libelle": "École privée",
+          "categorie": "prestation-recurrente",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "cours-a-l-annee-musique-danse-langues",
+          "libelle": "Cours à l'année (musique, danse, langues)",
+          "categorie": "prestation-recurrente",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "soutien-scolaire-et-cours-particuliers",
+          "libelle": "Soutien scolaire et cours particuliers",
+          "categorie": "rendez-vous-non-reglemente",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "auto-ecole",
+          "libelle": "Auto-école",
+          "categorie": "rendez-vous-non-reglemente",
+          "stock": "non",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "traiteur",
+      "libelle": "Traiteur",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "restauration",
+      "stock": "oui",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "boutique-et-plats-a-emporter",
+          "libelle": "Boutique et plats à emporter",
+          "categorie": "restauration",
+          "stock": "oui",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "mariages-et-evenements",
+          "libelle": "Mariages et événements",
+          "categorie": "transaction-cycle-long",
+          "stock": "oui",
+          "agentComm": "oui"
+        },
+        {
+          "id": "entreprises-plateaux-repas-seminaires",
+          "libelle": "Entreprises (plateaux-repas, séminaires)",
+          "categorie": "prestation-recurrente",
+          "stock": "oui",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "evenementiel",
+      "libelle": "Événementiel",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "transaction-cycle-long",
+      "stock": "non",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "organisation-de-mariages-et-fetes-privees",
+          "libelle": "Organisation de mariages et fêtes privées",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "organisation-d-evenements-d-entreprise",
+          "libelle": "Organisation d'événements d'entreprise",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "lieu-de-reception-et-location-de-salles",
+          "libelle": "Lieu de réception et location de salles",
+          "categorie": "transaction-cycle-long",
+          "stock": "non",
+          "agentComm": "oui"
+        },
+        {
+          "id": "dj-et-animation",
+          "libelle": "DJ et animation",
+          "categorie": "rendez-vous-non-reglemente",
+          "stock": "non",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "photographe",
+      "libelle": "Photographe",
+      "secteur": "Métiers à sous-parties",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui",
+      "sousVariantes": [
+        {
+          "id": "particuliers-mariages-et-portraits",
+          "libelle": "Particuliers, mariages et portraits",
+          "categorie": "rendez-vous-non-reglemente",
+          "stock": "non",
+          "agentComm": "oui",
+          "defaut": true
+        },
+        {
+          "id": "entreprises-produits-corporate",
+          "libelle": "Entreprises (produits, corporate)",
+          "categorie": "agences-services-entreprises",
+          "stock": "non",
+          "agentComm": "oui"
+        }
+      ]
+    },
+    {
+      "id": "boulanger-patissier",
+      "libelle": "Boulanger-pâtissier",
+      "secteur": "Commerce alimentaire",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "boucher-charcutier",
+      "libelle": "Boucher-charcutier",
+      "secteur": "Commerce alimentaire",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "poissonnier",
+      "libelle": "Poissonnier",
+      "secteur": "Commerce alimentaire",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "fromager",
+      "libelle": "Fromager",
+      "secteur": "Commerce alimentaire",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "primeur",
+      "libelle": "Primeur",
+      "secteur": "Commerce alimentaire",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "epicerie",
+      "libelle": "Épicerie",
+      "secteur": "Commerce alimentaire",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "epicerie-fine",
+      "libelle": "Épicerie fine",
+      "secteur": "Commerce alimentaire",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "chocolatier",
+      "libelle": "Chocolatier",
+      "secteur": "Commerce alimentaire",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "caviste",
+      "libelle": "Caviste",
+      "secteur": "Commerce alimentaire",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "a_trancher"
+    },
+    {
+      "id": "opticien",
+      "libelle": "Opticien",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "vetements",
+      "libelle": "Vêtements",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "chaussures",
+      "libelle": "Chaussures",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "bijouterie",
+      "libelle": "Bijouterie",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "librairie-papeterie",
+      "libelle": "Librairie-papeterie",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "jouets",
+      "libelle": "Jouets",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "articles-de-sport",
+      "libelle": "Articles de sport",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "decoration",
+      "libelle": "Décoration",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "animalerie",
+      "libelle": "Animalerie",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "jardinerie",
+      "libelle": "Jardinerie",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "quincaillerie",
+      "libelle": "Quincaillerie",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "telephonie",
+      "libelle": "Téléphonie",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "pharmacie",
+      "libelle": "Pharmacie",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "a_trancher"
+    },
+    {
+      "id": "bureau-de-tabac",
+      "libelle": "Bureau de tabac",
+      "secteur": "Commerce spécialisé",
+      "categorie": "commerce-stock",
+      "stock": "oui",
+      "agentComm": "a_trancher"
+    },
+    {
+      "id": "e-commercant",
+      "libelle": "E-commerçant",
+      "secteur": "E-commerce",
+      "categorie": "commerce-en-ligne",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "grossiste-alimentaire",
+      "libelle": "Grossiste alimentaire",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "grossiste-en-fruits-et-legumes",
+      "libelle": "Grossiste en fruits et légumes",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "negoce-de-materiaux-de-construction",
+      "libelle": "Négoce de matériaux de construction",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "negoce-de-bois",
+      "libelle": "Négoce de bois",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "distributeur-de-materiel-electrique",
+      "libelle": "Distributeur de matériel électrique",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "distributeur-de-plomberie-et-sanitaire",
+      "libelle": "Distributeur de plomberie et sanitaire",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "distributeur-de-fournitures-industrielles",
+      "libelle": "Distributeur de fournitures industrielles",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "grossiste-en-pieces-automobiles",
+      "libelle": "Grossiste en pièces automobiles",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "grossiste-en-textile",
+      "libelle": "Grossiste en textile",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "grossiste-en-produits-de-beaute-pour-salons",
+      "libelle": "Grossiste en produits de beauté pour salons",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "distributeur-d-equipements-de-cuisine-professionnelle",
+      "libelle": "Distributeur d'équipements de cuisine professionnelle",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "grossiste-en-fournitures-de-bureau",
+      "libelle": "Grossiste en fournitures de bureau",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "grossiste-en-emballages",
+      "libelle": "Grossiste en emballages",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "grossiste-en-produits-d-entretien-et-d-hygiene",
+      "libelle": "Grossiste en produits d'entretien et d'hygiène",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "import-export",
+      "libelle": "Import-export",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "negoce-de-vins-et-spiritueux",
+      "libelle": "Négoce de vins et spiritueux",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "a_trancher"
+    },
+    {
+      "id": "grossiste-en-boissons-pour-cafes-et-restaurants",
+      "libelle": "Grossiste en boissons pour cafés et restaurants",
+      "secteur": "Négoce et commerce de gros",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "a_trancher"
+    },
+    {
+      "id": "atelier-de-production",
+      "libelle": "Atelier de production",
+      "secteur": "Industrie et fabrication",
+      "categorie": "fabrication",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "sous-traitance-industrielle",
+      "libelle": "Sous-traitance industrielle",
+      "secteur": "Industrie et fabrication",
+      "categorie": "fabrication",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "mecanique-de-precision",
+      "libelle": "Mécanique de précision",
+      "secteur": "Industrie et fabrication",
+      "categorie": "fabrication",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "chaudronnerie",
+      "libelle": "Chaudronnerie",
+      "secteur": "Industrie et fabrication",
+      "categorie": "fabrication",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "imprimerie",
+      "libelle": "Imprimerie",
+      "secteur": "Industrie et fabrication",
+      "categorie": "fabrication",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "menuiserie-de-fabrication",
+      "libelle": "Menuiserie de fabrication",
+      "secteur": "Industrie et fabrication",
+      "categorie": "fabrication",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "biscuiterie",
+      "libelle": "Biscuiterie",
+      "secteur": "Industrie et fabrication",
+      "categorie": "fabrication",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "brasserie-artisanale-fabrication-de-biere",
+      "libelle": "Brasserie artisanale (fabrication de bière)",
+      "secteur": "Industrie et fabrication",
+      "categorie": "fabrication",
+      "stock": "oui",
+      "agentComm": "a_trancher"
+    },
+    {
+      "id": "electricien",
+      "libelle": "Électricien",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "plombier-chauffagiste",
+      "libelle": "Plombier-chauffagiste",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "macon",
+      "libelle": "Maçon",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "peintre",
+      "libelle": "Peintre",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "plaquiste",
+      "libelle": "Plaquiste",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "carreleur",
+      "libelle": "Carreleur",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "menuisier-poseur",
+      "libelle": "Menuisier poseur",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "charpentier",
+      "libelle": "Charpentier",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "couvreur",
+      "libelle": "Couvreur",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "serrurier",
+      "libelle": "Serrurier",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "vitrier",
+      "libelle": "Vitrier",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "facadier",
+      "libelle": "Façadier",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "terrassier",
+      "libelle": "Terrassier",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "climaticien",
+      "libelle": "Climaticien",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "installateur-solaire-ou-pompe-a-chaleur",
+      "libelle": "Installateur solaire ou pompe à chaleur",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "pisciniste",
+      "libelle": "Pisciniste",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "entreprise-generale-de-batiment",
+      "libelle": "Entreprise générale de bâtiment",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "architecte-d-interieur",
+      "libelle": "Architecte d'intérieur",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "cuisiniste",
+      "libelle": "Cuisiniste",
+      "secteur": "BTP et artisanat",
+      "categorie": "prestation-chantier",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "constructeur-de-maisons-individuelles",
+      "libelle": "Constructeur de maisons individuelles",
+      "secteur": "Immobilier",
+      "categorie": "transaction-cycle-long",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "promoteur-immobilier",
+      "libelle": "Promoteur immobilier",
+      "secteur": "Immobilier",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "marchand-de-biens",
+      "libelle": "Marchand de biens",
+      "secteur": "Immobilier",
+      "categorie": "transaction-cycle-long",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "diagnostiqueur-immobilier",
+      "libelle": "Diagnostiqueur immobilier",
+      "secteur": "Immobilier",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "garage-et-mecanicien",
+      "libelle": "Garage et mécanicien",
+      "secteur": "Automobile",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "a_demander",
+      "agentComm": "oui"
+    },
+    {
+      "id": "carrossier",
+      "libelle": "Carrossier",
+      "secteur": "Automobile",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "a_demander",
+      "agentComm": "oui"
+    },
+    {
+      "id": "controle-technique",
+      "libelle": "Contrôle technique",
+      "secteur": "Automobile",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "livraison-du-dernier-kilometre",
+      "libelle": "Livraison du dernier kilomètre",
+      "secteur": "Transport et logistique",
+      "categorie": "transport-logistique",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "transport-de-marchandises",
+      "libelle": "Transport de marchandises",
+      "secteur": "Transport et logistique",
+      "categorie": "transport-logistique",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "demenagement",
+      "libelle": "Déménagement",
+      "secteur": "Transport et logistique",
+      "categorie": "transport-logistique",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "vtc-et-taxi",
+      "libelle": "VTC et taxi",
+      "secteur": "Transport et logistique",
+      "categorie": "transport-logistique",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "autocariste",
+      "libelle": "Autocariste",
+      "secteur": "Transport et logistique",
+      "categorie": "transport-logistique",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "coursier",
+      "libelle": "Coursier",
+      "secteur": "Transport et logistique",
+      "categorie": "transport-logistique",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "entreposage",
+      "libelle": "Entreposage",
+      "secteur": "Transport et logistique",
+      "categorie": "transport-logistique",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "location-de-vehicules",
+      "libelle": "Location de véhicules",
+      "secteur": "Transport et logistique",
+      "categorie": "transport-logistique",
+      "stock": "non",
+      "agentComm": "oui",
+      "profilsImposes": [
+        "location"
+      ]
+    },
+    {
+      "id": "restaurant",
+      "libelle": "Restaurant",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "brasserie-restaurant",
+      "libelle": "Brasserie (restaurant)",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "pizzeria",
+      "libelle": "Pizzeria",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "restauration-rapide",
+      "libelle": "Restauration rapide",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "salon-de-the",
+      "libelle": "Salon de thé",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "food-truck",
+      "libelle": "Food truck",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "cuisine-en-livraison-seule",
+      "libelle": "Cuisine en livraison seule",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "oui",
+      "agentComm": "oui"
+    },
+    {
+      "id": "cafe-bar",
+      "libelle": "Café-bar",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "oui",
+      "agentComm": "a_trancher"
+    },
+    {
+      "id": "camping",
+      "libelle": "Camping",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "non",
+      "agentComm": "oui",
+      "profilsImposes": [
+        "location"
+      ]
+    },
+    {
+      "id": "gite",
+      "libelle": "Gîte",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "non",
+      "agentComm": "oui",
+      "profilsImposes": [
+        "location"
+      ]
+    },
+    {
+      "id": "chambre-d-hotes",
+      "libelle": "Chambre d'hôtes",
+      "secteur": "Hôtellerie-restauration",
+      "categorie": "restauration",
+      "stock": "non",
+      "agentComm": "oui",
+      "profilsImposes": [
+        "location"
+      ]
+    },
+    {
+      "id": "coiffeur",
+      "libelle": "Coiffeur",
+      "secteur": "Beauté",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "a_demander",
+      "agentComm": "oui"
+    },
+    {
+      "id": "barbier",
+      "libelle": "Barbier",
+      "secteur": "Beauté",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "a_demander",
+      "agentComm": "oui"
+    },
+    {
+      "id": "estheticienne",
+      "libelle": "Esthéticienne",
+      "secteur": "Beauté",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "a_demander",
+      "agentComm": "oui"
+    },
+    {
+      "id": "onglerie",
+      "libelle": "Onglerie",
+      "secteur": "Beauté",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "a_demander",
+      "agentComm": "oui"
+    },
+    {
+      "id": "tatoueur",
+      "libelle": "Tatoueur",
+      "secteur": "Beauté",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "salle-de-sport",
+      "libelle": "Salle de sport",
+      "secteur": "Sport et loisirs",
+      "categorie": "prestation-recurrente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "professeur-de-yoga-ou-de-pilates",
+      "libelle": "Professeur de yoga ou de pilates",
+      "secteur": "Sport et loisirs",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "escape-game",
+      "libelle": "Escape game",
+      "secteur": "Sport et loisirs",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "bowling",
+      "libelle": "Bowling",
+      "secteur": "Sport et loisirs",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "parc-de-loisirs",
+      "libelle": "Parc de loisirs",
+      "secteur": "Sport et loisirs",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "aide-a-domicile",
+      "libelle": "Aide à domicile",
+      "secteur": "Services aux particuliers",
+      "categorie": "prestation-recurrente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "menage",
+      "libelle": "Ménage",
+      "secteur": "Services aux particuliers",
+      "categorie": "prestation-recurrente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "garde-d-enfants",
+      "libelle": "Garde d'enfants",
+      "secteur": "Services aux particuliers",
+      "categorie": "prestation-recurrente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "creche-et-micro-creche",
+      "libelle": "Crèche et micro-crèche",
+      "secteur": "Services aux particuliers",
+      "categorie": "prestation-recurrente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "toiletteur",
+      "libelle": "Toiletteur",
+      "secteur": "Services aux particuliers",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "cordonnier",
+      "libelle": "Cordonnier",
+      "secteur": "Services aux particuliers",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "pressing",
+      "libelle": "Pressing",
+      "secteur": "Services aux particuliers",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "reparation-de-telephones",
+      "libelle": "Réparation de téléphones",
+      "secteur": "Services aux particuliers",
+      "categorie": "rendez-vous-non-reglemente",
+      "stock": "a_demander",
+      "agentComm": "oui"
+    },
+    {
+      "id": "nettoyage-de-locaux",
+      "libelle": "Nettoyage de locaux",
+      "secteur": "Services aux entreprises",
+      "categorie": "prestation-recurrente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "gardiennage-et-securite",
+      "libelle": "Gardiennage et sécurité",
+      "secteur": "Services aux entreprises",
+      "categorie": "prestation-recurrente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "deratisation",
+      "libelle": "Dératisation",
+      "secteur": "Services aux entreprises",
+      "categorie": "prestation-recurrente",
+      "stock": "non",
+      "agentComm": "oui"
+    },
+    {
+      "id": "avocat",
+      "libelle": "Avocat",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "b2b"
+      ]
+    },
+    {
+      "id": "notaire",
+      "libelle": "Notaire",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "b2b"
+      ]
+    },
+    {
+      "id": "commissaire-de-justice",
+      "libelle": "Commissaire de justice",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "b2b"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché d'avocat et de notaire"
+    },
+    {
+      "id": "expert-comptable",
+      "libelle": "Expert-comptable",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "abonnement"
+      ]
+    },
+    {
+      "id": "commissaire-aux-comptes",
+      "libelle": "Commissaire aux comptes",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "b2b"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché d'expert-comptable (mission) ; à confirmer"
+    },
+    {
+      "id": "architecte",
+      "libelle": "Architecte",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "b2b"
+      ]
+    },
+    {
+      "id": "geometre-expert",
+      "libelle": "Géomètre-expert",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "b2b"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché d'architecte"
+    },
+    {
+      "id": "medecin",
+      "libelle": "Médecin",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ]
+    },
+    {
+      "id": "dentiste",
+      "libelle": "Dentiste",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin"
+    },
+    {
+      "id": "kine",
+      "libelle": "Kiné",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ]
+    },
+    {
+      "id": "infirmier-liberal",
+      "libelle": "Infirmier libéral",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin"
+    },
+    {
+      "id": "sage-femme",
+      "libelle": "Sage-femme",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin"
+    },
+    {
+      "id": "orthophoniste",
+      "libelle": "Orthophoniste",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin"
+    },
+    {
+      "id": "veterinaire",
+      "libelle": "Vétérinaire",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin"
+    },
+    {
+      "id": "psychologue",
+      "libelle": "Psychologue",
+      "secteur": "Professions réglementées",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin"
+    },
+    {
+      "id": "osteopathe",
+      "libelle": "Ostéopathe",
+      "secteur": "Bien-être à visée santé",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de kiné",
+      "notes": "Réglementé par prudence (document « Liste des métiers »)."
+    },
+    {
+      "id": "naturopathe",
+      "libelle": "Naturopathe",
+      "secteur": "Bien-être à visée santé",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de kiné",
+      "notes": "Réglementé par prudence (document « Liste des métiers »)."
+    },
+    {
+      "id": "sophrologue",
+      "libelle": "Sophrologue",
+      "secteur": "Bien-être à visée santé",
+      "categorie": "professions-reglementees",
+      "stock": "non",
+      "agentComm": "non",
+      "profils": [
+        "rdv"
+      ],
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de kiné",
+      "notes": "Réglementé par prudence (document « Liste des métiers »)."
+    }
+  ],
+  "reglementees": {
+    "agentsExclus": [
+      "COMM_CREATION"
+    ],
+    "nombreMaxAgents": 3,
+    "moduleMetier": false,
+    "acquisitionNeRecommandePas": [
+      "publicité payante",
+      "démarchage",
+      "apporteurs d'affaires rémunérés",
+      "renvoi vers l'agent Comm"
+    ],
+    "acquisitionExclut": {
+      "declencheurs": [
+        "D04"
+      ],
+      "optionsCadrage": {
+        "D03": [
+          "reseaux_sociaux",
+          "publicite_en_ligne",
+          "publicite_locale",
+          "plateformes",
+          "annuaires",
+          "partenaires",
+          "prospection",
+          "emailing_et_sms",
+          "salons_et_evenements",
+          "reseaux_d_affaires"
+        ]
+      },
+      "themes": [
+        "ACQ-04",
+        "ACQ-05"
+      ],
+      "note": "Pas de publicité payante (D04), et dans les canaux (D03) aucun de ceux qui relèvent de la publicité, du démarchage, de l'apport d'affaires ou du référencement : réseaux sociaux, publicité en ligne, publicité locale, plateformes, annuaires, partenaires, prospection, emailing et SMS, salons et événements, réseaux d'affaires. Restent bouche-à-oreille, fiche Google, site internet, passage, appels d'offres, réseau ou enseigne, autre. Donc ni le thème Prospection active ni le thème Partenaires. Les questions ne sont pas posées : l'agent ne peut pas recommander ce qu'il ne mesure pas. Décision du propriétaire (21 octobre) : au moindre risque, le canal est retiré."
+    }
+  }
+}

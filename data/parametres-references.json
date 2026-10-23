@@ -1,0 +1,41 @@
+{
+  "source": "Valeurs de travail du chantier « références de marché » (cahier du 15 octobre), réglables ici sans toucher au code. Fréquence de mise à jour : tous les 3 mois par défaut, à ajuster par secteur (décision du propriétaire du produit) ; aucun réglage par secteur n'est encore fourni. Tarifs et taux de change : valeurs de travail à vérifier avant le premier lancement réel ; l'écart aux autres métiers d'une même famille (50 %) est aussi une valeur de travail.",
+  "tolerancePourcent": 10,
+  "recoupementEcartMaxPourcent": 20,
+  "ageSourceMaxAns": {
+    "solide": 3,
+    "indicatif": 5
+  },
+  "echantillonMinSolide": 30,
+  "sautDeValeurRevuePourcent": 25,
+  "rechercheMaxParCouple": 4,
+  "aucuneReferenceNouvelleTentativeJours": 90,
+  "miseAJour": {
+    "moisParDefaut": 3,
+    "moisParCategorie": {}
+  },
+  "plafondsBudget": {
+    "mensuelEuros": 20,
+    "quotidienEuros": null
+  },
+  "derive": {
+    "clientsMin": 30,
+    "partMemeCote": 0.8
+  },
+  "ecartAuxPairsRevuePourcent": 50,
+  "agentRecherche": {
+    "modele": "claude-opus-5-5",
+    "effort": "medium",
+    "maxTokens": 16000,
+    "recherchesWebMax": 8,
+    "reprisesMax": 4,
+    "delaiPageSecondes": 15,
+    "taillePageMaxOctets": 5000000
+  },
+  "tarifs": {
+    "entreeUsdParMillionTokens": 4,
+    "sortieUsdParMillionTokens": 20,
+    "rechercheWebUsdPourMille": 10,
+    "usdVersEur": 0.92
+  }
+}

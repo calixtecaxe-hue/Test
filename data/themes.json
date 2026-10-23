@@ -1,0 +1,2898 @@
+[
+  {
+    "code": "ACQ-01",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Attirer",
+    "nom": "Cible",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Métier et zone (inscription)",
+    "methodeVolume": "70 % du CA vient d'un type de client non ciblé → recentrer la cible sur lui. CA éparpillé sur 5 types → choisir un segment prioritaire.",
+    "siInconnu": "Classer ses types de clients du plus au moins rentable, sans chiffre.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-02",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Attirer",
+    "nom": "Volume de contacts",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec COM-13 (posé une seule fois)",
+    "methodeVolume": "Peu de contacts mais bonne transformation → travailler l'apport de contacts. Beaucoup de contacts mal transformés → travailler la conversion d'abord.",
+    "siInconnu": "Première action : compter les demandes pendant 4 semaines.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-03",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Attirer",
+    "nom": "Canaux",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec COM-12 (posé une seule fois)",
+    "methodeVolume": "Un canal = 80 % des contacts → ouvrir un 2e canal. 5 canaux à 5 contacts chacun → concentrer l'effort sur le meilleur.",
+    "siInconnu": "Classer ses canaux du plus au moins efficace.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-04",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Attirer",
+    "nom": "Prospection active",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Aucune action → installer une routine minimale. 50 appels pour 0 rendez-vous → revoir le message, pas le volume.",
+    "siInconnu": "Noter ses actions de prospection pendant 2 semaines.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-05",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Attirer",
+    "nom": "Partenaires",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Aucun partenaire → identifier 3 prescripteurs naturels du métier. 10 partenaires dont un seul apporte → l'entretenir et réactiver les autres.",
+    "siInconnu": "Citer les partenaires qui ont apporté au moins un client cette année.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-06",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Attirer",
+    "nom": "Présence en ligne",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec COM-13, COM-14 et COM-44 (posé une seule fois) ; lu sur la fiche Google si connectée",
+    "methodeVolume": "5 avis → campagne de sollicitation. 200 avis à 4,8 → maintenir, le levier est ailleurs. Analyse du contenu → renvoi Comm.",
+    "siInconnu": "Lu directement sur la fiche Google.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-07",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Attirer",
+    "nom": "Budget et coût d'acquisition",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec FIN-05 et COM-32 (posé une seule fois) ; CA mensuel (inscription) ; clients signés (ACQ-11)",
+    "methodeVolume": "Coût d'un client supérieur à son panier → couper le canal le plus cher. Budget nul et peu de clients → tester un petit budget sur le meilleur canal.",
+    "siInconnu": "Additionner les dépenses marketing des 3 derniers relevés bancaires.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-08",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Convertir",
+    "nom": "Réactivité",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Demandes par mois (ACQ-02)",
+    "methodeVolume": "5 demandes par mois → réponse personnelle dans l'heure. 100 par mois → accusé de réception automatique et créneau de rappel.",
+    "siInconnu": "Noter l'heure de réception et de réponse des 10 prochaines demandes.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-09",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Convertir",
+    "nom": "Rendez-vous",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Demandes par mois (ACQ-02)",
+    "methodeVolume": "Absences fréquentes sur gros volume → rappel automatique la veille. Petit volume → appel de confirmation personnel.",
+    "siInconnu": "Compter les rendez-vous du mois dernier dans l'agenda.",
+    "masquePour": "Métiers sans rendez-vous"
+  },
+  {
+    "code": "ACQ-10",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Convertir",
+    "nom": "Devis et relances",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "5 devis par mois → relance à la main sous 3 jours. 150 par mois → séquence de relance automatique.",
+    "siInconnu": "Compter les devis du dernier mois dans le logiciel ou la boîte mail.",
+    "masquePour": "Métiers sans devis"
+  },
+  {
+    "code": "ACQ-11",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Convertir",
+    "nom": "Transformation",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec FIN-06 (posé une seule fois) ; Rendez-vous (ACQ-09)",
+    "methodeVolume": "Peu de rendez-vous mal transformés → mieux préparer chaque rendez-vous. Beaucoup de rendez-vous mal transformés → mieux qualifier avant le rendez-vous.",
+    "siInconnu": "Compter les clients signés le mois dernier.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-12",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Convertir",
+    "nom": "Durée du cycle de vente",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Cycle long sur peu de dossiers → suivi individuel de chaque dossier. Cycle long sur gros volume → étapes et relances standardisées.",
+    "siInconnu": "Prendre les 5 dernières ventes et noter leurs deux dates.",
+    "masquePour": "Vente immédiate (commerce)"
+  },
+  {
+    "code": "ACQ-13",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Chiffre d'affaires",
+    "nom": "Prix et honoraires",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec FIN-01, FIN-04 et FIN-07 (posé une seule fois) ; Carnet de commandes (ACQ-19)",
+    "methodeVolume": "Prix sous le marché et carnet plein → augmenter. Prix au marché et peu de demandes → ne pas toucher au prix, travailler l'apport de contacts.",
+    "siInconnu": "Donner le prix de ses 3 prestations principales.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-14",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Chiffre d'affaires",
+    "nom": "Négociation",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Remise sur 10 % des ventes → traiter au cas par cas. Remise sur 80 % des ventes → règle de remise écrite, avec contrepartie.",
+    "siInconnu": "Comparer prix annoncé et encaissé sur les 5 dernières ventes.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-15",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Chiffre d'affaires",
+    "nom": "Panier moyen",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Panier calculé : CA mensuel (inscription) ÷ clients signés (ACQ-11)",
+    "methodeVolume": "Vente complémentaire jamais proposée → la proposer à chaque client. Déjà proposée à tous → créer une offre supérieure.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-16",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Chiffre d'affaires",
+    "nom": "Répartition du CA",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec FIN-29 (posé une seule fois)",
+    "methodeVolume": "Un client = 40 % du CA → diversification prioritaire. Aucun client au-dessus de 10 % → pas d'action.",
+    "siInconnu": "Lister les 3 plus grosses factures clients de l'année.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-17",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Fidéliser",
+    "nom": "Clients récurrents",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec FIN-05 (posé une seule fois)",
+    "methodeVolume": "Métier à achat unique → miser sur la recommandation plutôt que le retour. Métier récurrent avec 10 % de retour → relance systématique après prestation.",
+    "siInconnu": "Compter les clients de l'an dernier revenus cette année.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-18",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Fidéliser",
+    "nom": "Recommandation",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Canaux (ACQ-03)",
+    "methodeVolume": "Peu de recommandations malgré des clients satisfaits → la demander au bon moment. Déjà 50 % des clients → structurer un parrainage, sans en dépendre.",
+    "siInconnu": "Demander « comment nous avez-vous connus ? » aux 10 prochains clients.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-19",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Fidéliser",
+    "nom": "Carnet de commandes",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Capacité (ACQ-22)",
+    "methodeVolume": "Moins de 2 semaines → prospection urgente. Plus de 3 mois → hausse de prix ou renfort (renvoi Finance et RH).",
+    "siInconnu": "Additionner les commandes signées non encore réalisées.",
+    "masquePour": "Commerce sans commande"
+  },
+  {
+    "code": "ACQ-20",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Piloter",
+    "nom": "Suivi commercial",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Partagé avec FIN-34 et COM-43 (posé une seule fois) ; Calculé sur tout le questionnaire",
+    "methodeVolume": "Peu de chiffres connus → un tableau de 3 indicateurs. Tous connus → passer à un outil de suivi des contacts.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-21",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Piloter",
+    "nom": "Productivité",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec FIN-06, FIN-07, RH-05, RH-06 et RH-07 (posé une seule fois) ; CA mensuel et effectif (inscription)",
+    "methodeVolume": "Productivité faible en petite équipe → regarder le temps administratif. En équipe structurée → écarts entre collaborateurs (renvoi RH).",
+    "siInconnu": "Compter les dossiers clôturés le mois dernier.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-22",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Piloter",
+    "nom": "Capacité commerciale",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "CA mensuel (inscription) ; motif « stock » → renvoi vers les ruptures (FIN-41)",
+    "methodeVolume": "Demandes perdues faute de temps et supérieures aux créneaux vides → étudier un créneau supplémentaire (coût → Finance). L'inverse → regrouper les jours d'ouverture. Perdues faute de stock → renvoi Finance, bloc Stock.",
+    "siInconnu": "Noter pendant 2 semaines les demandes refusées faute de temps.",
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-23",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Piloter",
+    "nom": "Saisonnalité",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec FIN-14 et RH-11 (posé une seule fois)",
+    "methodeVolume": "Écart faible → pas d'action. Creux de 50 % → lancer la prospection 2 mois avant le creux.",
+    "siInconnu": "Citer les mois forts et faibles, sans chiffre.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-01",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Marges et rentabilité",
+    "nom": "Marge par offre",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "marge"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec ACQ-13 (posé une seule fois)",
+    "methodeVolume": "L'offre la moins rentable fait 50 % du CA → revoir son prix. Elle fait 5 % du CA → envisager de l'arrêter.",
+    "siInconnu": "Classer ses offres de la plus à la moins rentable, sans chiffre.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-02",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Marges et rentabilité",
+    "nom": "Marge par client",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "marge"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Répartition du CA (ACQ-16)",
+    "methodeVolume": "1 client non rentable sur 50 → revoir ses conditions. 30 % des clients non rentables → revoir la grille de prix.",
+    "siInconnu": "Citer les clients qui prennent le plus de temps pour le moins de CA.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-03",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Marges et rentabilité",
+    "nom": "Coût de revient",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": null,
+    "methodeVolume": "Coût inconnu sur l'offre phare → le calculer sur elle seule d'abord. Inconnu sur 20 offres → méthode simple par familles.",
+    "siInconnu": "Première action : chiffrer une prestation type de bout en bout.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-04",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Marges et rentabilité",
+    "nom": "Érosion des marges",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "marge"
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Prix (ACQ-13) — partagé, posé une seule fois",
+    "methodeVolume": "Coûts +8 % et prix inchangés → répercussion urgente. Écart d'un point → ajustement à la prochaine révision annuelle.",
+    "siInconnu": "Comparer les 2 dernières factures du principal fournisseur.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-05",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Marges et rentabilité",
+    "nom": "Seuil de rentabilité",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "marge"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec ACQ-07, ACQ-17 et COM-32 (posé une seule fois) ; CA mensuel (inscription)",
+    "methodeVolume": "CA à 105 % du seuil → sécuriser les charges fixes en priorité. À 150 % → marge de manœuvre pour investir.",
+    "siInconnu": "Additionner les charges fixes du dernier relevé bancaire.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-06",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Structure de coûts",
+    "nom": "Charges fixes et variables",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec ACQ-11 et ACQ-21 (posé une seule fois) ; Charges fixes (FIN-05)",
+    "methodeVolume": "70 % de charges fixes avec une activité saisonnière → transformer des fixes en variables. 30 % → pas prioritaire.",
+    "siInconnu": "Séparer les dépenses du dernier mois en « tous les mois » et « selon l'activité ».",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-07",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Structure de coûts",
+    "nom": "Coût de l'équipe",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "marge"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec ACQ-13, ACQ-21 et RH-06 (posé une seule fois) ; CA mensuel et effectif (inscription)",
+    "methodeVolume": "Poids élevé et carnet plein → hausse de prix. Poids élevé et carnet vide → renvoi RH (charge) et Acquisition (volume).",
+    "siInconnu": "Total des salaires et charges du dernier mois.",
+    "masquePour": "Seul"
+  },
+  {
+    "code": "FIN-08",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Structure de coûts",
+    "nom": "Achats et sous-traitance",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "marge"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Un fournisseur = 60 % des achats → renégocier ou mettre en concurrence. 30 petits fournisseurs → regrouper les achats.",
+    "siInconnu": "Total des factures fournisseurs du dernier mois.",
+    "masquePour": "Sans achats (services purs)"
+  },
+  {
+    "code": "FIN-09",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Structure de coûts",
+    "nom": "Dépenses récurrentes",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "marge"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "5 abonnements → revue en 30 minutes. 40 → inventaire complet sur les relevés.",
+    "siInconnu": "Lister les prélèvements du dernier relevé bancaire.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-10",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Structure de coûts",
+    "nom": "Coût des erreurs",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "marge"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Nombre de reprises partagé avec RH-16 (posé une seule fois) ; pertes de marchandises comptées en FIN-40",
+    "methodeVolume": "2 reprises par mois → traiter au cas par cas. 20 → chercher la cause commune (renvoi RH).",
+    "siInconnu": "Noter les reprises et gestes du mois en cours.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-11",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Trésorerie",
+    "nom": "Trésorerie disponible",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Charges fixes (FIN-05) → nombre de mois couverts calculé",
+    "methodeVolume": "Moins d'un mois couvert → plan de trésorerie semaine par semaine. Plus de 6 mois → réfléchir à l'usage de l'excédent.",
+    "siInconnu": "Lu sur le compte bancaire.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-12",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Trésorerie",
+    "nom": "Flux",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Un mois négatif par an → l'anticiper. Un mois sur deux → problème de fond (marges ou délais).",
+    "siInconnu": "Lu sur les 3 derniers relevés.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-13",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Trésorerie",
+    "nom": "Échéances à venir",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Trésorerie (FIN-11)",
+    "methodeVolume": "Une grosse échéance → la provisionner. Plusieurs en même temps → étaler ou négocier.",
+    "siInconnu": "Lister les échéances connues (impôts, emprunts, achats prévus).",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-14",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Trésorerie",
+    "nom": "Saisonnalité",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Mois forts et faibles (ACQ-23) — partagé, posé une seule fois",
+    "methodeVolume": "Creux d'un mois → constituer une réserve. Creux de 4 mois → acomptes ou financement saisonnier.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-15",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Trésorerie",
+    "nom": "Marge de sécurité",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Trésorerie (FIN-11)",
+    "methodeVolume": "Aucune réserve → mettre de côté un montant fixe chaque mois. Réserve existante → ne pas l'utiliser pour l'activité courante.",
+    "siInconnu": "Estimer la plus grosse dépense imprévue payable demain.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-16",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Encaissements et décaissements",
+    "nom": "Délai de facturation",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "5 factures par mois → facturer le jour même à la main. 200 → facturation automatique à la clôture du dossier.",
+    "siInconnu": "Comparer les dates sur les 5 dernières factures.",
+    "masquePour": "Encaissement immédiat (commerce)"
+  },
+  {
+    "code": "FIN-17",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Encaissements et décaissements",
+    "nom": "Délai de paiement",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "CA mensuel (inscription) → trésorerie libérée calculée",
+    "methodeVolume": "Peu de clients → relance personnelle. Beaucoup → relances automatiques datées. Gain affiché = jours gagnés × CA d'une journée.",
+    "siInconnu": "Comparer dates de facture et de paiement sur les 10 dernières.",
+    "masquePour": "Encaissement immédiat (commerce)"
+  },
+  {
+    "code": "FIN-18",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Encaissements et décaissements",
+    "nom": "Impayés",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "3 clients en retard → un appel direct. 40 → procédure écrite et acomptes.",
+    "siInconnu": "Lister les factures non payées à la date du jour.",
+    "masquePour": "Encaissement immédiat (commerce)"
+  },
+  {
+    "code": "FIN-19",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Encaissements et décaissements",
+    "nom": "Acomptes",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Panier moyen (ACQ-15)",
+    "methodeVolume": "Ventes de 50 € → acompte inutile. Ventes de 5 000 € sans acompte → acompte systématique.",
+    "siInconnu": null,
+    "masquePour": "Encaissement immédiat (commerce)"
+  },
+  {
+    "code": "FIN-20",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Encaissements et décaissements",
+    "nom": "Paiements fournisseurs",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Délai client (FIN-17)",
+    "methodeVolume": "Payé à 60 jours mais paie à 15 → négocier les délais fournisseurs. Délais équilibrés → pas d'action.",
+    "siInconnu": "Comparer dates de facture et de paiement des 5 dernières factures fournisseurs.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-21",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Encaissements et décaissements",
+    "nom": "Argent immobilisé",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "CA mensuel (inscription) → jours de CA immobilisés calculés ; délai de facturation (FIN-16)",
+    "methodeVolume": "Quelques jours de CA en attente → normal. Plusieurs semaines → facturer par étapes au fil du chantier.",
+    "siInconnu": "Additionner les travaux terminés ou avancés non encore facturés.",
+    "masquePour": "Sans travaux en cours"
+  },
+  {
+    "code": "FIN-22",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Financement",
+    "nom": "Poids des remboursements",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Sorties mensuelles (FIN-12)",
+    "methodeVolume": "Mensualités lourdes → rééchelonnement à étudier avec la banque. Faibles → capacité d'emprunt disponible pour investir.",
+    "siInconnu": "Lu sur le relevé bancaire.",
+    "masquePour": "Sans emprunt"
+  },
+  {
+    "code": "FIN-23",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Financement",
+    "nom": "Couverture des besoins",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Investissements (FIN-25)",
+    "methodeVolume": "Investissement payé sur la trésorerie courante → prévoir un financement long la prochaine fois. Déjà financé à long terme → pas d'action.",
+    "siInconnu": null,
+    "masquePour": "Sans investissement prévu ni récent"
+  },
+  {
+    "code": "FIN-24",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Financement",
+    "nom": "Dépendance au court terme",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "2 jours par mois → décaler une échéance. 20 jours par mois → problème de fond (marges, délais de paiement).",
+    "siInconnu": "Compter les jours en négatif sur le dernier relevé.",
+    "masquePour": null
+  },
+  {
+    "code": "FIN-25",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Investissements",
+    "nom": "Objectif économique",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Petit achat → décision simple. Gros investissement → objectif chiffré écrit avant d'engager.",
+    "siInconnu": null,
+    "masquePour": "Sans investissement prévu ni récent"
+  },
+  {
+    "code": "FIN-26",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Investissements",
+    "nom": "Coût total",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Montant (FIN-25)",
+    "methodeVolume": "Gros montant aux coûts annexes ignorés → les chiffrer avant de décider. Achat courant → pas nécessaire.",
+    "siInconnu": null,
+    "masquePour": "Sans investissement prévu ni récent"
+  },
+  {
+    "code": "FIN-27",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Investissements",
+    "nom": "Retour attendu",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "marge"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Coût total (FIN-26) → délai de remboursement calculé",
+    "methodeVolume": "Remboursé en 6 mois → avancer vite. En 8 ans → revoir le projet ou louer plutôt qu'acheter.",
+    "siInconnu": "Estimer le gain mensuel en fourchette.",
+    "masquePour": "Sans investissement prévu ni récent"
+  },
+  {
+    "code": "FIN-28",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Investissements",
+    "nom": "Résultats constatés",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Gain attendu (FIN-27)",
+    "methodeVolume": "Écart fort entre prévu et obtenu → comprendre avant le prochain investissement. Conforme → reproduire la méthode.",
+    "siInconnu": null,
+    "masquePour": "Sans investissement récent"
+  },
+  {
+    "code": "FIN-29",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Dépendances",
+    "nom": "Concentration des payeurs",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Part des 3 plus gros clients (ACQ-16) — partagé, posé une seule fois",
+    "methodeVolume": "Un client = 40 % du CA → bloquant pour la sécurité de l'entreprise. Sous 10 % → pas d'action.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-30",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Dépendances",
+    "nom": "Fournisseurs majeurs",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Part du 1er fournisseur (FIN-08)",
+    "methodeVolume": "Fournisseur unique sur un élément clé → trouver une alternative. Plusieurs fournisseurs → pas d'action.",
+    "siInconnu": null,
+    "masquePour": "Sans achats (services purs)"
+  },
+  {
+    "code": "FIN-31",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Dépendances",
+    "nom": "Scénario défavorable",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "ACQ-16, FIN-05, FIN-11",
+    "methodeVolume": "Moins de 2 mois tenables → réserve et diversification prioritaires. Plus de 6 mois → pas d'action.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-32",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Dépendances",
+    "nom": "Besoin lié à la croissance",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Objectif (inscription), FIN-17, FIN-20, FIN-21",
+    "methodeVolume": "Besoin couvert par la trésorerie → l'objectif est finançable. Non couvert → étaler l'objectif ou prévoir un financement.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-33",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Pilotage",
+    "nom": "Qualité des données",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Calculé sur le questionnaire",
+    "methodeVolume": "Peu de chiffres connus → 3 chiffres à relever chaque mois. Tous connus → passer au budget prévisionnel.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-34",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Pilotage",
+    "nom": "Tableau de suivi",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec ACQ-20 (posé une seule fois)",
+    "methodeVolume": "Aucun indicateur → 3 indicateurs à regarder chaque mois. 20 indicateurs jamais regardés → réduire à 3.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-35",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Pilotage",
+    "nom": "Budgets et écarts",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-36",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Pilotage",
+    "nom": "Décisions de dépenses",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-37",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Stock (si l'entreprise en a)",
+    "nom": "Valeur du stock",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "CA mensuel (inscription) → jours de ventes en stock calculés",
+    "methodeVolume": "Stock = 1 mois de ventes → courant pour beaucoup de commerces. 6 mois → libérer de la trésorerie en écoulant le stock dormant (FIN-39).",
+    "siInconnu": "Valeur du dernier inventaire ou du dernier bilan.",
+    "masquePour": "Sans stock"
+  },
+  {
+    "code": "FIN-38",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Stock (si l'entreprise en a)",
+    "nom": "Rotation",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Valeur du stock (FIN-37) ; achats (FIN-08)",
+    "methodeVolume": "Rotation lente sur tout le stock → commander moins à chaque fois. Lente sur une seule famille → traiter cette famille seulement (FIN-43).",
+    "siInconnu": null,
+    "masquePour": "Sans stock"
+  },
+  {
+    "code": "FIN-39",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Stock (si l'entreprise en a)",
+    "nom": "Stock dormant",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Valeur du stock (FIN-37)",
+    "methodeVolume": "5 % du stock dormant → déstockage ponctuel. 30 % → arrêter de racheter ces références et organiser une vente dédiée.",
+    "siInconnu": "Lister les produits sans vente depuis 6 mois dans le logiciel de caisse.",
+    "masquePour": "Sans stock"
+  },
+  {
+    "code": "FIN-40",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Stock (si l'entreprise en a)",
+    "nom": "Pertes et invendus",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "marge"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Les pertes de marchandises sont comptées ici, pas dans FIN-10",
+    "methodeVolume": "100 € par mois → surveillance simple. 2 000 € par mois → identifier la cause principale (péremption, casse ou vol) et la traiter en premier.",
+    "siInconnu": "Noter pendant un mois tout ce qui est jeté, cassé ou bradé.",
+    "masquePour": "Sans stock"
+  },
+  {
+    "code": "FIN-41",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Stock (si l'entreprise en a)",
+    "nom": "Ruptures",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "ca"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Demandes perdues (ACQ-22) : quand le motif est le stock, l'agent Acquisition renvoie ici ; panier moyen (ACQ-15) → CA perdu calculé",
+    "methodeVolume": "Ruptures rares sur des produits secondaires → pas d'action. Ruptures fréquentes sur les meilleures ventes → stock minimum fixé sur ces références.",
+    "siInconnu": "Noter pendant un mois chaque client reparti sans le produit.",
+    "masquePour": "Sans stock"
+  },
+  {
+    "code": "FIN-42",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Stock (si l'entreprise en a)",
+    "nom": "Réapprovisionnement",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "4 commandes par mois → seuil de recommande noté à la main. 60 → recommande automatique depuis le logiciel.",
+    "siInconnu": "Compter les bons de commande du dernier mois.",
+    "masquePour": "Sans stock"
+  },
+  {
+    "code": "FIN-43",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Stock (si l'entreprise en a)",
+    "nom": "Références clés",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Marge par offre (FIN-01)",
+    "methodeVolume": "50 références → suivre chacune. 2 000 → suivre de près celles qui font l'essentiel du CA et simplifier le reste.",
+    "siInconnu": "Exporter les ventes par produit depuis la caisse.",
+    "masquePour": "Sans stock"
+  },
+  {
+    "code": "FIN-44",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Stock (si l'entreprise en a)",
+    "nom": "Conditions d'achat",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "tresorerie"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Achats (FIN-08) ; fournisseur principal (FIN-30)",
+    "methodeVolume": "Minimum imposé par un petit fournisseur → négocier ou grouper avec d'autres acheteurs. Par le fournisseur principal → comparer la remise obtenue à la trésorerie immobilisée.",
+    "siInconnu": null,
+    "masquePour": "Sans stock"
+  },
+  {
+    "code": "FIN-45",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Stock (si l'entreprise en a)",
+    "nom": "Suivi du stock",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "50 références → inventaire tournant chaque mois, à la main. 2 000 → logiciel de stock relié à la caisse.",
+    "siInconnu": null,
+    "masquePour": "Sans stock"
+  },
+  {
+    "code": "FIN-46",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Marges et rentabilité",
+    "nom": "Rémunération du dirigeant",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-47",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Pilotage",
+    "nom": "Cadre de l'activité",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "FIN-48",
+    "agent": "FINANCE_RENTABILITE",
+    "bloc": "Financement",
+    "nom": "Relation avec la banque",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "RH-01",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Rôles et délégation",
+    "nom": "Clarté des missions",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Effectif (inscription)",
+    "methodeVolume": "3 personnes → une phrase de mission par personne. 20 → une fiche par fonction.",
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-02",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Rôles et délégation",
+    "nom": "Répartition des responsabilités",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Effectif (inscription)",
+    "methodeVolume": "2 personnes → une liste « qui décide quoi ». 15 → un tableau par domaine.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "RH-03",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Rôles et délégation",
+    "nom": "Autonomie",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Effectif (inscription)",
+    "methodeVolume": "5 par jour → règles écrites pour les cas fréquents. 40 par jour → déléguer un niveau de décision.",
+    "siInconnu": "Compter les sollicitations sur une journée type.",
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-04",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Rôles et délégation",
+    "nom": "Délégation réelle",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Peu de tâches confiées → commencer par une tâche récurrente simple. Beaucoup confiées mais reprises → le problème est le suivi, pas la délégation.",
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-05",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Rôles et délégation",
+    "nom": "Temps du dirigeant",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "heures"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec ACQ-21 (posé une seule fois)",
+    "methodeVolume": "5 h déléguables → réorganiser les tâches. 20 h → envisager un renfort ou un prestataire (coût → Finance).",
+    "siInconnu": "Noter son temps pendant une semaine type.",
+    "masquePour": null
+  },
+  {
+    "code": "RH-06",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Charge et planification",
+    "nom": "Volume de travail",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec ACQ-21 et FIN-07 (posé une seule fois) ; Effectif (inscription)",
+    "methodeVolume": "Surcharge ponctuelle → mieux planifier. Surcharge permanente → bloquant pour l'objectif.",
+    "siInconnu": "Estimer une semaine type, en fourchette.",
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-07",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Charge et planification",
+    "nom": "Capacité disponible",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "heures"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec ACQ-21 (posé une seule fois) ; Objectif (inscription) ; capacité commerciale (ACQ-22)",
+    "methodeVolume": "Objectif +15 % et aucune heure disponible → bloquant. 20 % de marge → l'objectif est absorbable sans renfort.",
+    "siInconnu": "Estimer en fourchette.",
+    "masquePour": null
+  },
+  {
+    "code": "RH-08",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Charge et planification",
+    "nom": "Répartition de la charge",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Moyenne (RH-06)",
+    "methodeVolume": "Une personne à 55 h quand les autres sont à 35 h → rééquilibrer. Charge homogène → pas d'action.",
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-09",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Charge et planification",
+    "nom": "Urgences",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "heures"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Urgences surtout imprévisibles → organiser une permanence. Surtout anticipables → planifier et écrire les procédures des activités en cause.",
+    "siInconnu": "Tranches proposées, « je ne sais pas » accepté.",
+    "masquePour": null
+  },
+  {
+    "code": "RH-10",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Charge et planification",
+    "nom": "Interruptions",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "heures"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "3 interruptions par jour → pas d'action. 15 par jour, surtout des validations → règles de décision écrites et créneaux d'échange regroupés.",
+    "siInconnu": "Tranches proposées, « je ne sais pas » accepté.",
+    "masquePour": null
+  },
+  {
+    "code": "RH-11",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Charge et planification",
+    "nom": "Pics et creux",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Mois forts et faibles (ACQ-23) — partagé, posé une seule fois",
+    "methodeVolume": "Pic d'un mois → heures supplémentaires planifiées. Pic de 4 mois → renfort saisonnier anticipé.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "RH-12",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Processus et outils",
+    "nom": "Méthodes reproductibles",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "3 tâches clés → les écrire soi-même en une heure. 30 → commencer par les 3 plus fréquentes.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "RH-13",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Processus et outils",
+    "nom": "Passage de relais",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-14",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Processus et outils",
+    "nom": "Accès à l'information",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "RH-15",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Processus et outils",
+    "nom": "Outils",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "RH-16",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Processus et outils",
+    "nom": "Erreurs et reprises",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "heures"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec FIN-10 (posé une seule fois)",
+    "methodeVolume": "2 par mois → traiter au cas par cas. 20 par mois → chercher la cause commune et écrire la méthode.",
+    "siInconnu": "Noter les reprises du mois en cours.",
+    "masquePour": null
+  },
+  {
+    "code": "RH-17",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Processus et outils",
+    "nom": "Tâches répétitives",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "heures"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "2 h par semaine → simplifier. 15 h → outil d'automatisation.",
+    "siInconnu": "Lister les tâches faites chaque jour à l'identique.",
+    "masquePour": null
+  },
+  {
+    "code": "RH-18",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Management",
+    "nom": "Priorités",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-19",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Management",
+    "nom": "Échanges individuels et collectifs",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Effectif (inscription)",
+    "methodeVolume": "3 personnes → un point hebdomadaire de 15 minutes. 15 → réunions par équipe et entretiens individuels.",
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-20",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Management",
+    "nom": "Retours sur le travail",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-21",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Management",
+    "nom": "Disponibilité du responsable",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Temps du dirigeant (RH-05)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-22",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Management",
+    "nom": "Remontées de terrain",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Moins de 6 personnes"
+  },
+  {
+    "code": "RH-23",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Compétences",
+    "nom": "Couverture des savoir-faire",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Effectif (inscription)",
+    "methodeVolume": "Seul : compétence manquante → sous-traiter. En équipe → former ou recruter.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "RH-24",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Compétences",
+    "nom": "Besoins de développement",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Moins de 6 personnes"
+  },
+  {
+    "code": "RH-25",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Compétences",
+    "nom": "Apprentissage",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-26",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Compétences",
+    "nom": "Application",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": "Non noté : sert à l'IA pour expliquer le diagnostic.",
+    "siInconnu": null,
+    "masquePour": "Moins de 6 personnes"
+  },
+  {
+    "code": "RH-27",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Compétences",
+    "nom": "Polyvalence",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Tâches clés (RH-12)",
+    "methodeVolume": "1 tâche → former un binôme. 8 tâches → plan de transmission par priorité.",
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-28",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Recrutement et intégration",
+    "nom": "Besoin",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Objectif (inscription)",
+    "methodeVolume": "1 recrutement par an → le préparer 3 mois avant. 10 par an → vivier de candidats permanent.",
+    "siInconnu": null,
+    "masquePour": "Aucun recrutement en 12 mois ni prévu"
+  },
+  {
+    "code": "RH-29",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Recrutement et intégration",
+    "nom": "Préparation de l'accueil",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Aucun recrutement en 12 mois ni prévu"
+  },
+  {
+    "code": "RH-30",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Recrutement et intégration",
+    "nom": "Accompagnement",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Aucun recrutement en 12 mois ni prévu"
+  },
+  {
+    "code": "RH-31",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Recrutement et intégration",
+    "nom": "Progression vers l'autonomie",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Échéance de l'objectif (inscription)",
+    "methodeVolume": "Autonomie en 6 mois pour un objectif à 12 mois → recruter tout de suite ou revoir l'échéance.",
+    "siInconnu": null,
+    "masquePour": "Aucun recrutement en 12 mois ni prévu"
+  },
+  {
+    "code": "RH-32",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Stabilité",
+    "nom": "Mouvements d'équipe",
+    "nature": "marche",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Effectif (inscription)",
+    "methodeVolume": "Sous 10 personnes, un seul départ fausse le taux → lu comme contexte. Au-delà → comparé au taux du secteur.",
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-33",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Stabilité",
+    "nom": "Départs précoces",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Recrutements (RH-28)",
+    "methodeVolume": "Un départ précoce isolé → contexte. Plusieurs → revoir l'accueil (RH-29, RH-30).",
+    "siInconnu": null,
+    "masquePour": "Moins de 6 personnes"
+  },
+  {
+    "code": "RH-34",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Stabilité",
+    "nom": "Absences",
+    "nature": "marche",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Effectif (inscription)",
+    "methodeVolume": "Sous 10 personnes, une longue absence fausse le taux → lu comme contexte. Au-delà → comparé au taux du secteur.",
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-35",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Stabilité",
+    "nom": "Retours sur les conditions de travail",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Moins de 6 personnes"
+  },
+  {
+    "code": "RH-36",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Stabilité",
+    "nom": "Reconnaissance",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": "Non noté : sert à l'IA pour expliquer le diagnostic.",
+    "siInconnu": null,
+    "masquePour": "Moins de 6 personnes"
+  },
+  {
+    "code": "RH-37",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Continuité",
+    "nom": "Dépendance aux personnes clés",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Polyvalence (RH-27)",
+    "methodeVolume": "Une personne clé → binôme et méthode écrite. Plusieurs → plan de transmission sur 6 mois.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "RH-38",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Continuité",
+    "nom": "Absence du dirigeant",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": null,
+    "methodeVolume": "Aucun jour tenable → bloquant, premier chantier. Une semaine tenable → formaliser pour aller à deux.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "RH-39",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Continuité",
+    "nom": "Changements d'organisation",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Moins de 6 personnes"
+  },
+  {
+    "code": "RH-40",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Continuité",
+    "nom": "Indicateurs de suivi",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "RH-41",
+    "agent": "RH_ORGANISATION",
+    "bloc": "S'entourer (dirigeant seul)",
+    "nom": "Projet d'équipe",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Au moins un salarié"
+  },
+  {
+    "code": "RH-42",
+    "agent": "RH_ORGANISATION",
+    "bloc": "S'entourer (dirigeant seul)",
+    "nom": "Tâches à confier",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Au moins un salarié"
+  },
+  {
+    "code": "RH-43",
+    "agent": "RH_ORGANISATION",
+    "bloc": "S'entourer (dirigeant seul)",
+    "nom": "Moyens pour une première aide",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Demandes perdues partagées avec ACQ-22 (posées une seule fois)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Au moins un salarié"
+  },
+  {
+    "code": "RH-44",
+    "agent": "RH_ORGANISATION",
+    "bloc": "S'entourer (dirigeant seul)",
+    "nom": "Freins",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Au moins un salarié"
+  },
+  {
+    "code": "RH-45",
+    "agent": "RH_ORGANISATION",
+    "bloc": "S'entourer (dirigeant seul)",
+    "nom": "Relais quand on est seul",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Au moins un salarié"
+  },
+  {
+    "code": "RH-46",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Rôles et délégation",
+    "nom": "Composition de l'équipe",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Partagé avec ACQ-21 (posé une seule fois)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-47",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Charge et planification",
+    "nom": "Planning de l'équipe",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-48",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Management",
+    "nom": "Objectifs individuels",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Seul"
+  },
+  {
+    "code": "RH-49",
+    "agent": "RH_ORGANISATION",
+    "bloc": "Management",
+    "nom": "Encadrement",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Moins de 6 personnes"
+  },
+  {
+    "code": "COM-01",
+    "agent": "COMM_CREATION",
+    "bloc": "Identité et offre",
+    "nom": "Positionnement",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-02",
+    "agent": "COMM_CREATION",
+    "bloc": "Identité et offre",
+    "nom": "Cible",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Cible (ACQ-01)",
+    "methodeVolume": "Cible déclarée différente des clients qui rapportent → aligner la communication sur les clients réels.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-03",
+    "agent": "COMM_CREATION",
+    "bloc": "Identité et offre",
+    "nom": "Promesse",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-04",
+    "agent": "COMM_CREATION",
+    "bloc": "Identité et offre",
+    "nom": "Force de l'offre",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-05",
+    "agent": "COMM_CREATION",
+    "bloc": "Identité et offre",
+    "nom": "Garantie",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-06",
+    "agent": "COMM_CREATION",
+    "bloc": "Identité et offre",
+    "nom": "Ton",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-07",
+    "agent": "COMM_CREATION",
+    "bloc": "Identité et offre",
+    "nom": "Cohérence de marque",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-08",
+    "agent": "COMM_CREATION",
+    "bloc": "Identité et offre",
+    "nom": "Réassurance",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Avis (COM-44) ; ancienneté (inscription)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-09",
+    "agent": "COMM_CREATION",
+    "bloc": "Identité et offre",
+    "nom": "Preuve et expertise",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Aucun cas → en collecter 3. 50 réalisations → sélectionner les 5 meilleures.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-10",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Réseaux actifs",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "3 réseaux à 1 publication par mois → n'en garder qu'un. 1 réseau bien tenu → l'amplifier avant d'en ouvrir un autre.",
+    "siInconnu": "Lu sur les profils.",
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-11",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Adéquation canal-cible",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Cible (COM-02) ; réseaux (COM-10)",
+    "methodeVolume": "Réseau où la cible n'est pas → déplacer l'effort. Bon réseau → pas d'action.",
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-12",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Les quatre canaux d'acquisition",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Contacts par canal (ACQ-03) — partagé, posé une seule fois",
+    "methodeVolume": "Un seul canal utilisé sur 4 → en tester un second. Les 4 utilisés mais dispersés → concentrer sur le plus rentable.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-13",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Site web",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec ACQ-02 et ACQ-06 (posé une seule fois)",
+    "methodeVolume": "Peu de visites → liens depuis la fiche Google et les réseaux. Beaucoup de visites et peu de demandes → revoir l'appel à l'action du site.",
+    "siInconnu": "Lu dans les statistiques du site, sinon ignoré.",
+    "masquePour": null
+  },
+  {
+    "code": "COM-14",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Fiche Google",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Partagé avec ACQ-06 (posé une seule fois) ; Lue sur la fiche si connectée",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-15",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Canaux possédés",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Aucun contact → commencer à collecter. 2 000 contacts jamais sollicités → première campagne email.",
+    "siInconnu": "Exporter le fichier clients du logiciel de facturation.",
+    "masquePour": null
+  },
+  {
+    "code": "COM-16",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Référencement local",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Constaté par une recherche test « métier + ville »",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-17",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 1 · Être vu : portée",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Statistiques Google ou Meta si connectées",
+    "methodeVolume": "Faible portée et peu d'abonnés → activer le réseau existant. Bonne portée et peu de contacts → le blocage est plus loin dans le parcours.",
+    "siInconnu": "Lu dans les statistiques de la plateforme.",
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-18",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 2 · Intéresser : réactions",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Portée (COM-17)",
+    "methodeVolume": "Engagement faible sur peu de publications → tester les formats. Sur beaucoup → revoir accroche et angle (grille COM-49 à COM-54).",
+    "siInconnu": "Lu dans les statistiques de la plateforme.",
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-19",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 4 · Passer à l'action : clics",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Portée (COM-17)",
+    "methodeVolume": "Peu de clics et pas de lien → ajouter un lien. Lien présent et peu de clics → revoir l'appel à l'action.",
+    "siInconnu": "Lu dans les statistiques de la plateforme.",
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-20",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Appel à l'action",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Grille de qualité (COM-53)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-21",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 6 · Devenir un contact : offre gratuite",
+    "nature": "pratique",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Aucune offre d'appel → en créer une. Offre existante qui récolte peu → revoir sa promesse.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-22",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 6 · Devenir un contact : demandes venues des réseaux",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Contacts par canal (ACQ-03)",
+    "methodeVolume": "Beaucoup de portée et peu de contacts → travailler le passage au contact. Peu des deux → travailler la portée.",
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-23",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 4 · Passer à l'action : messages privés",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "10 messages par mois → réponse personnelle dans la journée. 200 → réponses types et notifications.",
+    "siInconnu": "Noter le délai sur les 10 prochains messages.",
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-24",
+    "agent": "COMM_CREATION",
+    "bloc": "Stratégie de contenu",
+    "nom": "Objectif",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Objectif (inscription)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-25",
+    "agent": "COMM_CREATION",
+    "bloc": "Stratégie de contenu",
+    "nom": "Lignes éditoriales",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-26",
+    "agent": "COMM_CREATION",
+    "bloc": "Stratégie de contenu",
+    "nom": "Équilibre des formats",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Lue sur les publications si connectées",
+    "methodeVolume": "Un seul format qui marche → le garder et le décliner. Formats variés sans résultat → revenir au plus performant (COM-39).",
+    "siInconnu": "Lu sur les profils.",
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-27",
+    "agent": "COMM_CREATION",
+    "bloc": "Stratégie de contenu",
+    "nom": "Funnel 0 · Publications par étape",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Lue sur les publications",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-28",
+    "agent": "COMM_CREATION",
+    "bloc": "Stratégie de contenu",
+    "nom": "Planification",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-29",
+    "agent": "COMM_CREATION",
+    "bloc": "Stratégie de contenu",
+    "nom": "Veille concurrentielle",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-30",
+    "agent": "COMM_CREATION",
+    "bloc": "Production",
+    "nom": "Qui produit",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": "Non noté : sert à l'IA pour expliquer le diagnostic.",
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-31",
+    "agent": "COMM_CREATION",
+    "bloc": "Production",
+    "nom": "Temps consacré",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "heures"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Coût d'une heure (FIN-07) pour valoriser ce temps",
+    "methodeVolume": "1 h par semaine → un format simple, décliné partout. 10 h sans contact généré → revoir la stratégie avant de produire plus.",
+    "siInconnu": "Estimer une semaine type.",
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-32",
+    "agent": "COMM_CREATION",
+    "bloc": "Production",
+    "nom": "Moyens",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec FIN-05 (posé une seule fois) ; Création de contenu, agence, outils (ACQ-07) — partagé, posé une seule fois",
+    "methodeVolume": "Budget élevé et peu de demandes → couper le poste le plus cher par demande. Budget nul et contenu qui convertit → un petit budget sur ce contenu.",
+    "siInconnu": "Additionner les factures de prestataires et outils du dernier mois.",
+    "masquePour": null
+  },
+  {
+    "code": "COM-33",
+    "agent": "COMM_CREATION",
+    "bloc": "Production",
+    "nom": "Rythme réel",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Lu sur les profils si connectés",
+    "methodeVolume": "Publications irrégulières → un rythme plus bas mais tenu. Rythme tenu → pas d'action.",
+    "siInconnu": "Lu sur les profils.",
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-34",
+    "agent": "COMM_CREATION",
+    "bloc": "Production",
+    "nom": "Réemploi du contenu",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-35",
+    "agent": "COMM_CREATION",
+    "bloc": "Production",
+    "nom": "Réserve d'avance",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Rythme (COM-33)",
+    "methodeVolume": "Aucune réserve et rythme irrégulier → préparer 4 contenus d'avance. Réserve existante → pas d'action.",
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-36",
+    "agent": "COMM_CREATION",
+    "bloc": "Performance",
+    "nom": "Taux d'engagement",
+    "nature": "marche",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Réactions (COM-18) ÷ portée (COM-17)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-37",
+    "agent": "COMM_CREATION",
+    "bloc": "Performance",
+    "nom": "Funnel 1 · Être vu : évolution de l'audience",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Abonnés actuels (COM-17)",
+    "methodeVolume": "Érosion → retravailler les contenus. Croissance sans contacts → le blocage est le passage au contact.",
+    "siInconnu": "Lu dans les statistiques de la plateforme.",
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-38",
+    "agent": "COMM_CREATION",
+    "bloc": "Performance",
+    "nom": "Rendement de l'audience",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Contacts (COM-22) ÷ abonnés (COM-17)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-39",
+    "agent": "COMM_CREATION",
+    "bloc": "Performance",
+    "nom": "Contenus les plus performants",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Lues si connectées",
+    "methodeVolume": null,
+    "siInconnu": "Saisir les chiffres des 10 dernières publications.",
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-40",
+    "agent": "COMM_CREATION",
+    "bloc": "Performance",
+    "nom": "Écart entre ce qui marche et ce qui est publié",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "COM-39 comparé à COM-26",
+    "methodeVolume": "Écart fort → publier plus de ce qui marche (amplifier avant de diversifier).",
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-41",
+    "agent": "COMM_CREATION",
+    "bloc": "Performance",
+    "nom": "Contenus les moins performants",
+    "nature": "coherence",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Statistiques (COM-39)",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-42",
+    "agent": "COMM_CREATION",
+    "bloc": "Performance",
+    "nom": "Notoriété",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": "Non noté : sert à l'IA pour expliquer le diagnostic.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-43",
+    "agent": "COMM_CREATION",
+    "bloc": "Performance",
+    "nom": "Suivi des chiffres",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "calcule",
+    "dejaConnu": "Partagé avec ACQ-20 (posé une seule fois) ; Calculé sur le questionnaire",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-44",
+    "agent": "COMM_CREATION",
+    "bloc": "Vitrines et relation",
+    "nom": "Avis clients",
+    "nature": "marche",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Partagé avec ACQ-06 (posé une seule fois)",
+    "methodeVolume": "5 avis → campagne de sollicitation. 200 avis à 4,8 → maintenir.",
+    "siInconnu": "Lu sur la fiche Google.",
+    "masquePour": null
+  },
+  {
+    "code": "COM-45",
+    "agent": "COMM_CREATION",
+    "bloc": "Vitrines et relation",
+    "nom": "Sollicitation d'avis",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Clients signés (ACQ-11) → part des clients qui laissent un avis",
+    "methodeVolume": "20 clients par mois → demande en main propre. 500 → envoi automatique après prestation.",
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-46",
+    "agent": "COMM_CREATION",
+    "bloc": "Vitrines et relation",
+    "nom": "Réponse aux avis",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": "Avis (COM-44)",
+    "methodeVolume": "10 avis → réponse personnelle à chacun. 300 → réponses types personnalisées.",
+    "siInconnu": "Lu sur la fiche Google.",
+    "masquePour": null
+  },
+  {
+    "code": "COM-47",
+    "agent": "COMM_CREATION",
+    "bloc": "Vitrines et relation",
+    "nom": "Relation avec la communauté",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-48",
+    "agent": "COMM_CREATION",
+    "bloc": "Vitrines et relation",
+    "nom": "Partenaires et relais",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-49",
+    "agent": "COMM_CREATION",
+    "bloc": "Qualité des publications",
+    "nom": "Accroche",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Grille fixe appliquée aux 10 dernières publications",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-50",
+    "agent": "COMM_CREATION",
+    "bloc": "Qualité des publications",
+    "nom": "Angle client",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Grille fixe appliquée aux 10 dernières publications",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-51",
+    "agent": "COMM_CREATION",
+    "bloc": "Qualité des publications",
+    "nom": "Bénéfice explicite",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Grille fixe appliquée aux 10 dernières publications",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-52",
+    "agent": "COMM_CREATION",
+    "bloc": "Qualité des publications",
+    "nom": "Preuve",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Grille fixe appliquée aux 10 dernières publications",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-53",
+    "agent": "COMM_CREATION",
+    "bloc": "Qualité des publications",
+    "nom": "Appel à l'action",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Grille fixe appliquée aux 10 dernières publications",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-54",
+    "agent": "COMM_CREATION",
+    "bloc": "Qualité des publications",
+    "nom": "Alignement avec la cible",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": "Grille fixe appliquée aux 10 dernières publications",
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-55",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 3 · Visiter le profil : ce qu'il contient",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-56",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Démarrage",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-57",
+    "agent": "COMM_CREATION",
+    "bloc": "Production",
+    "nom": "Brief de création",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-58",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 0 · Le chemin prévu",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-59",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 3 · Visiter le profil",
+    "nature": "coherence",
+    "impact": {
+      "type": "chiffre",
+      "sur": "contacts"
+    },
+    "chiffreNecessaire": "oui",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-60",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 5 · Arriver au bon endroit",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-61",
+    "agent": "COMM_CREATION",
+    "bloc": "De la publication au contact",
+    "nom": "Funnel 7 · Relancer les intéressés",
+    "nature": "pratique",
+    "impact": {
+      "type": "qualifie",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": "Ne publie pas (parcours mise en place)"
+  }
+]
