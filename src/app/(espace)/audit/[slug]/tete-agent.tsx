@@ -7,7 +7,7 @@ export type EtapeParcours = 1 | 2 | 3 | 4;
 
 const ETAPES = [
   { n: 1, libelle: "Objectif" },
-  { n: 2, libelle: "Niveau et cadrage" },
+  { n: 2, libelle: "Niveau et contexte" },
   { n: 3, libelle: "Questionnaire" },
   { n: 4, libelle: "Résultats" },
 ] as const;
