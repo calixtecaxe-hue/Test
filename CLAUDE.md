@@ -121,7 +121,10 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   gardé sur le compte). **« Mon métier n'est pas dans la liste »** : le dirigeant décrit son activité et
   choisit la catégorie qui y ressemble le plus (jamais une profession réglementée). Stock : si le métier ne le
   tranche pas, une question oui / non à l'inscription. Agent Comm : plusieurs activités = règle la plus
-  prudente ; « à trancher » = décision ouverte, l'agent reste proposé. Catégorie **Fabrication** : questionnaire
+  prudente ; « à trancher » = décision ouverte, l'agent reste proposé (13 métiers ou activités au 23 octobre : finance et assurance, formation CPF,
+  caviste, pharmacie, bureau de tabac, négoce et gros de boissons, brasserie artisanale, café-bar : secteurs où la communication est encadrée,
+  à traiter avec l'avocat). **Décisions du 23 octobre** : le photographe a l'agent Comm ; l'agence de communication et de marketing ne l'a pas (elle
+  maîtrise sa propre communication). Catégorie **Fabrication** : questionnaire
   à créer, l'audit affiche « en préparation ». Ne rien trancher de ces points seul.
 - **Routage invisible** : métier → **catégorie** (10, agriculture exclue) →
   **profil** (8 : Rendez-vous, Commerce, E-commerce, Restaurant, Artisan /

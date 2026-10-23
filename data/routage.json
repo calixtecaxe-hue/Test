@@ -740,14 +740,14 @@
       "secteur": "Métiers à sous-parties",
       "categorie": "rendez-vous-non-reglemente",
       "stock": "non",
-      "agentComm": "a_trancher",
+      "agentComm": "oui",
       "sousVariantes": [
         {
           "id": "particuliers-mariages-et-portraits",
           "libelle": "Particuliers, mariages et portraits",
           "categorie": "rendez-vous-non-reglemente",
           "stock": "non",
-          "agentComm": "a_trancher",
+          "agentComm": "oui",
           "defaut": true
         },
         {
@@ -755,7 +755,7 @@
           "libelle": "Entreprises (produits, corporate)",
           "categorie": "agences-services-entreprises",
           "stock": "non",
-          "agentComm": "a_trancher"
+          "agentComm": "oui"
         }
       ]
     },

@@ -135,8 +135,8 @@ LISTE1 = [
         ("DJ et animation", "Rendez-vous", "Non", "Oui", False),
     ]),
     ("Photographe", [], [
-        ("Particuliers, mariages et portraits", "Rendez-vous", "Non", "À trancher", True),
-        ("Entreprises (produits, corporate)", "Services B2B", "Non", "À trancher", False),
+        ("Particuliers, mariages et portraits", "Rendez-vous", "Non", "Oui", True),
+        ("Entreprises (produits, corporate)", "Services B2B", "Non", "Oui", False),
     ]),
 ]
 

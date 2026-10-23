@@ -120,8 +120,13 @@ test("agent Comm : la règle la plus prudente l'emporte quand plusieurs activit�
   assert.deepEqual(pharmacie.agentsExclus, []);
   const patrimoine = profils("finance-et-assurance", ["conseiller-en-gestion-de-patrimoine", "courtier-en-credit"]);
   assert.equal(patrimoine.agentComm, "a_trancher");
-  const mixteTrancher = profils("photographe", ["particuliers-mariages-et-portraits"]);
-  assert.equal(mixteTrancher.agentComm, "a_trancher");
+  // Photographe : l'agent Comm est proposé (décision du propriétaire, 23 octobre).
+  assert.equal(profils("photographe", ["particuliers-mariages-et-portraits"]).agentComm, "oui");
+  assert.equal(profils("photographe", ["entreprises-produits-corporate"]).agentComm, "oui");
+  // Agence de communication : pas d'agent Comm (décision du propriétaire, 23 octobre : elle est censée maîtriser sa propre communication).
+  assert.equal(profils("communication-et-marketing", ["projets-ponctuels"]).agentComm, "non");
+  const caviste = profils("caviste");
+  assert.equal(caviste.agentComm, "a_trancher");
 });
 
 test("professions réglementées : profil du métier, pas d'agent Comm, 3 agents au maximum", () => {
