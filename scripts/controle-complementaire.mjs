@@ -212,6 +212,7 @@ async function parcoursMetier(secteur, libelle, { viewport = { width: 1280, heig
   return c;
 }
 
+const parties = process.env.PARTIES ?? "ABCDE";
 const casMetier = [
   ["Électricien", "Électricien"],
   ["Hôtel (toutes activités)", "Hôtel", { activites: "toutes" }],
@@ -224,7 +225,7 @@ const casMetier = [
 ];
 const stockQuestion = e.routage.metiers.find((m) => m.stock === "a_demander" && !(m.sousVariantes?.length));
 if (stockQuestion) casMetier.push([`${stockQuestion.libelle} (question du stock)`, stockQuestion.libelle]);
-for (const [secteur, libelle, options] of casMetier) {
+for (const [secteur, libelle, options] of parties.includes("A") ? casMetier : []) {
   console.log(`\n== Inscription : ${secteur}`);
   const c = await parcoursMetier(secteur, libelle, options ?? {});
   if (c) {
@@ -236,11 +237,11 @@ for (const [secteur, libelle, options] of casMetier) {
 
 // --- B. Écrans étroits, tablette, niveau approfondi ---------------------------------------------
 
-for (const [secteur, params] of [
+for (const [secteur, params] of parties.includes("B") ? [
   ["Électricien", { metier: "electricien", effectif: 3 }],
   ["Hôtel (toutes activités)", { metier: "hotel", sousVariantes: ["hebergement-chambres", "restaurant-de-l-hotel"], effectif: 12 }],
   ["Avocat", { metier: "avocat", effectif: 1 }],
-]) {
+] : []) {
   console.log(`\n== Écrans : ${secteur}`);
   const c = await nouveauCompte(params);
   await remplirCompte(c, "approfondi");
@@ -262,7 +263,7 @@ for (const [secteur, params] of [
 // --- C. Saisie réelle ----------------------------------------------------------------------------
 
 console.log("\n== Saisie réelle");
-{
+if (parties.includes("C")) {
   const c = await nouveauCompte({ metier: "electricien", effectif: 3 });
   await c.api.put(B + "/api/audit/niveau", { data: { niveau: "ESSENTIEL" } });
   const p = c.page;
@@ -309,11 +310,11 @@ console.log("\n== Saisie réelle");
 // --- E. Textes très longs saisis sans espace ----------------------------------------------------
 
 console.log("\n== Textes très longs");
-{
+if (parties.includes("E")) {
   const c = await nouveauCompte({ metier: "electricien", effectif: 3, extreme: true });
   await c.api.put(B + "/api/audit/niveau", { data: { niveau: "ESSENTIEL" } });
   // Une liste dont les éléments sont des mots interminables : types de clients (ACQ-01.01) puis les tableaux qui en dépendent.
-  const long = ["Particuliersparticuliersparticuliersparticuliersparticuliersparticuliers1234567890", "Entreprisesentreprisesentreprisesentreprisesentreprisesentreprises1234567890"];
+  const long = ["Particuliers".repeat(6) + "12345", "Entreprises".repeat(6) + "12345678"];
   const r = await c.api.put(B + "/api/audit/reponses", { data: { cle: "ACQ-01.01", reponse: { genre: "saisie", valeur: long } } });
   if (!r.ok()) noter("erreur", "Textes longs", "ACQ-01.01", `refusé (${r.status()}) ${(await r.text()).slice(0, 100)}`);
   for (const largeur of [320, 390, 1280]) {
@@ -330,7 +331,7 @@ console.log("\n== Textes très longs");
 // --- D. L'agent RH d'une catégorie sans questionnaire ------------------------------------------
 
 console.log("\n== Fabrication : agent RH");
-{
+if (parties.includes("D")) {
   const c = await nouveauCompte({ metier: "atelier-de-production", effectif: 6 });
   await c.api.put(B + "/api/audit/niveau", { data: { niveau: "ESSENTIEL" } });
   const rh = c.agents.find((a) => a.code === "RH_ORGANISATION");
