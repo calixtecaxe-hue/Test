@@ -193,8 +193,10 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   agent dont dépendent des tableaux ou des conditions (types de clients ACQ-01.01, canaux ACQ-03.01) est posée en **préalable**
   (« Pour commencer », champ `prealables` de l'assemblage, `codesPrealables` pour l'autorisation d'écriture) par le premier agent qui en a
   besoin, avec sa réponse si elle existe ; (3) un tableau dont les lignes viennent d'un cadrage (D20 jours d'ouverture) fait poser ce cadrage.
-  Les mots du lexique sont aussi remplacés dans l'aide et la question de repli. Un tableau à total imposé (19 questions) ne s'enregistre que
-  si le total est juste ; la saisie partielle est gardée en brouillon sur l'appareil (effacée à la déconnexion). Le nombre de questions
+  Les mots du lexique sont aussi remplacés dans l'aide et la question de repli. Un tableau à total imposé (19 questions) ne s'enregistre comme réponse que
+  si le total est juste ; la saisie partielle est gardée en **brouillon sur le compte** (table `BrouillonReponse`, `PUT /api/audit/brouillon`, décision
+  du propriétaire du 23 octobre) : elle suit le dirigeant d'un appareil à l'autre, le calcul l'ignore, et elle est supprimée dès que la réponse complète
+  est enregistrée. Le nombre de questions
   annoncé au choix du niveau est un maximum (« jusqu'à N questions, selon vos réponses »).
 - **Assemblage en 5 couches** : (1) inscription, (2) socle de l'agent, (3) module
   catégorie, (4) module métier — 5 questions maximum —, (5) filtre taille

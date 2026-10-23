@@ -79,6 +79,7 @@ model User {
   objectifs   Objectif[]
   abonnement  Abonnement?
   reponses    ReponseAudit[]
+  brouillons  BrouillonReponse[]
 
   @@index([metierPrecis])
 }
@@ -196,6 +197,20 @@ enum NiveauAudit {
 // partagée n'est jamais redemandée (CLAUDE.md section 6). `cle` est le code de la
 // donnée (ACQ-02.01) ou la clé d'une réponse de déclencheur (D07, D08.achats).
 // `reponse` : voir src/lib/audit/reponse.ts (les quatre réponses, ou une saisie).
+// Saisie d'un tableau à total imposé (« 100 % ») tant que le total n'est pas juste : gardée sur le compte pour suivre le
+// dirigeant d'un appareil à l'autre, ignorée par le calcul. Supprimée dès que la réponse complète est enregistrée.
+model BrouillonReponse {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cle       String
+  // « ligne.colonne » → texte tapé, tel que dans l'écran.
+  saisie    Json
+  modifieLe DateTime @updatedAt
+
+  @@unique([userId, cle])
+}
+
 model ReponseAudit {
   id        String   @id @default(cuid())
   userId    String

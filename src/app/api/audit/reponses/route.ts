@@ -6,10 +6,9 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { validerReponse } from "@/lib/audit/validation";
-import { agentsActifs, reponsesDuCompte } from "@/lib/audit/compte";
+import { reponsesDuCompte } from "@/lib/audit/compte";
 import { exclusionsAcquisition } from "@/lib/routage";
-import { codesPrealables, equivalences } from "@/lib/audit/assemblage";
-import type { AgentCode } from "@prisma/client";
+import { peutEcrireDonnee } from "@/lib/audit/acces-donnee";
 
 const corps = z.object({
   cle: z.string().min(1).max(40),
@@ -29,32 +28,25 @@ export async function PUT(request: Request) {
   if (!parsed.success) return NextResponse.json({ erreur: "Requête invalide." }, { status: 400 });
   const { cle, reponse } = parsed.data;
 
-  const actifs = await agentsActifs(userId);
   if (reponse === null) {
-    await prisma.reponseAudit.deleteMany({ where: { userId, cle } });
+    // Effacer une réponse efface aussi son brouillon éventuel.
+    await prisma.$transaction([prisma.reponseAudit.deleteMany({ where: { userId, cle } }), prisma.brouillonReponse.deleteMany({ where: { userId, cle } })]);
     return NextResponse.json({ ok: true });
   }
 
   const compte = await prisma.user.findUnique({ where: { id: userId }, select: { categorie: true, metierPrecis: true, sousVariantes: true } });
   const verdict = validerReponse(ENSEMBLE, cle, reponse, await reponsesDuCompte(userId), (compte && compteRoutable(compte)) ? exclusionsAcquisition(ENSEMBLE.routage, compteRoutable(compte)!) : null);
   if (!verdict.ok) return NextResponse.json({ erreur: verdict.message }, { status: 400 });
-  // Une réponse de cadrage sert à tous les agents : il suffit d'en avoir un.
-  // Une donnée partagée se modifie depuis n'importe lequel des agents qui la posent : il suffit
-  // d'avoir accès à l'un d'eux.
-  const agentsDeLaDonnee = new Set<string>(verdict.agent ? [verdict.agent] : []);
-  for (const autre of equivalences(ENSEMBLE.donnees).get(cle) ?? []) {
-    const a = ENSEMBLE.themes.find((t) => t.code === autre.slice(0, autre.indexOf(".")))?.agent;
-    if (a) agentsDeLaDonnee.add(a);
-  }
-  // Une donnée d'un autre agent qu'un agent ouvert pose en préalable (types de clients, canaux) s'enregistre aussi.
-  const prealable = actifs.some((a: AgentCode) => codesPrealables(ENSEMBLE, a).has(cle));
-  const autorise = verdict.agent ? actifs.some((a: AgentCode) => agentsDeLaDonnee.has(a)) || prealable : actifs.length > 0;
-  if (!autorise) return NextResponse.json({ erreur: "Cet agent n'est pas inclus dans votre formule." }, { status: 403 });
+  if (!(await peutEcrireDonnee(userId, cle, verdict.agent ?? null))) return NextResponse.json({ erreur: "Cet agent n'est pas inclus dans votre formule." }, { status: 403 });
 
-  await prisma.reponseAudit.upsert({
-    where: { userId_cle: { userId, cle } },
-    update: { reponse: verdict.reponse as Prisma.InputJsonValue },
-    create: { userId, cle, reponse: verdict.reponse as Prisma.InputJsonValue },
-  });
+  // La réponse complète remplace le brouillon de ce tableau.
+  await prisma.$transaction([
+    prisma.reponseAudit.upsert({
+      where: { userId_cle: { userId, cle } },
+      update: { reponse: verdict.reponse as Prisma.InputJsonValue },
+      create: { userId, cle, reponse: verdict.reponse as Prisma.InputJsonValue },
+    }),
+    prisma.brouillonReponse.deleteMany({ where: { userId, cle } }),
+  ]);
   return NextResponse.json({ ok: true });
 }

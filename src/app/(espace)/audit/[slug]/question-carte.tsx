@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { ChoixCases } from "@/components/choix-cases";
+import { enregistrerBrouillon } from "./enregistrer";
 import { formaterNombre, lireNombre } from "@/lib/audit/nombre";
 import type { Reponse, Reponses } from "@/lib/audit/reponse";
 import { construireReponse, saisieInitiale, type Saisie } from "@/lib/audit/saisie";
@@ -21,6 +22,8 @@ export type QuestionClient = {
   prereponse: { total: number; detail: string } | null;
   // Réponse donnée pour un autre agent : où elle est enregistrée, et comment elle se modifie.
   source: { code: string; spec: ReponseSpec | null; agent: string } | null;
+  // Tableau à total imposé : saisie partielle gardée sur le compte, restée sans réponse faute d'un total juste.
+  brouillon?: Record<string, string> | null;
 };
 
 type Etat = "repos" | "enregistrement" | "enregistre" | "erreur";
@@ -296,26 +299,17 @@ export function CartePartagee({ q, reponse, onModifier }: { q: QuestionClient; r
   );
 }
 
-// Un tableau dont le total est imposé (« 100 % ») ne s'enregistre que lorsque le total est juste. En attendant, la saisie est
-// gardée sur cet appareil pour que quitter la page ne la perde pas ; elle est effacée à la déconnexion (voir DeconnexionBouton).
-const PREFIXE_BROUILLON = "caxe-brouillon:";
-function lireBrouillon(code: string): Saisie | null {
-  try {
-    const t = window.localStorage.getItem(PREFIXE_BROUILLON + code);
-    return t ? (JSON.parse(t) as Saisie) : null;
-  } catch {
-    return null;
-  }
+// Un tableau dont le total est imposé (« 100 % ») ne s'enregistre comme réponse que lorsque le total est juste. En attendant, la saisie
+// est gardée en brouillon sur le compte : elle suit le dirigeant d'un appareil à l'autre, et le calcul l'ignore.
+const NOTE_BROUILLON = " Votre saisie est enregistrée sur votre compte : vous la retrouverez ici, sur cet appareil ou un autre, et elle sera prise en compte dès que le total sera juste.";
+
+function contexteLignes(cadrage: Reponses) {
+  const liste = (cle: string): string[] => {
+    const r = cadrage[cle];
+    return r?.genre === "saisie" && Array.isArray(r.valeur) ? r.valeur : [];
+  };
+  return { lignesDeclencheur: liste, elementsDeListe: liste };
 }
-function ecrireBrouillon(code: string, s: Saisie | null) {
-  try {
-    if (s) window.localStorage.setItem(PREFIXE_BROUILLON + code, JSON.stringify(s));
-    else window.localStorage.removeItem(PREFIXE_BROUILLON + code);
-  } catch {
-    // Stockage indisponible (navigation privée) : la saisie reste à l'écran, sans copie locale.
-  }
-}
-const NOTE_BROUILLON = " Votre saisie est gardée sur cet appareil et sera enregistrée dès que le total sera juste.";
 
 export function QuestionCarte({
   q,
@@ -340,8 +334,10 @@ export function QuestionCarte({
   // Question pré-remplie d'après des réponses déjà données : le chiffre est enregistré tel quel
   // à l'affichage, le dirigeant le corrige s'il le souhaite.
   const [prerempli, setPrerempli] = useState<boolean>(() => q.prereponse !== null && reponse === undefined && spec?.type === "nombre");
+  // Brouillon repris à l'affichage : seulement tant que le tableau n'a pas de réponse complète.
+  const brouillonRepris = reponse === undefined && spec?.type === "tableau" && spec.total !== undefined && q.brouillon ? q.brouillon : null;
   const [saisie, setSaisie] = useState<Saisie>(() =>
-    saisieInitiale(spec, (prerempli && q.prereponse ? { genre: "exact", valeur: q.prereponse.total } : reponse) as never)
+    brouillonRepris ? { champs: brouillonRepris } : saisieInitiale(spec, (prerempli && q.prereponse ? { genre: "exact", valeur: q.prereponse.total } : reponse) as never)
   );
   const [lignesLibres, setLignesLibres] = useState<number>(() => {
     if (spec?.type !== "tableau" || spec.lignes.source !== "libre" || reponse?.genre !== "valeurs") return 1;
@@ -349,8 +345,16 @@ export function QuestionCarte({
     return Math.max(1, ...n);
   });
   const [etat, setEtat] = useState<Etat>("repos");
-  const [erreur, setErreur] = useState<string | null>(null);
+  const [erreur, setErreur] = useState<string | null>(() => {
+    if (!brouillonRepris) return null;
+    const { erreur: e } = construireReponse(spec, { champs: brouillonRepris }, contexteLignes(cadrage));
+    return e ? e + NOTE_BROUILLON : null;
+  });
   const minuteur = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Brouillon en attente d'envoi (undefined : rien) et indicateur « un brouillon existe sur le compte ».
+  const minuteurBrouillon = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const attenteBrouillon = useRef<Record<string, string> | undefined>(undefined);
+  const brouillonSurLeCompte = useRef<boolean>(brouillonRepris !== null);
   // Saisie en attente d'envoi (undefined : rien). Elle part dès que le champ perd le focus,
   // que l'onglet se cache ou que la question disparaît : rien n'est perdu en quittant la page.
   const attente = useRef<Reponse | null | undefined>(undefined);
@@ -374,21 +378,14 @@ export function QuestionCarte({
   const ctx = { lignesDeclencheur, elementsDeListe };
   const totalImpose = spec?.type === "tableau" && spec.total !== undefined;
 
-  // Reprise d'une saisie de tableau à total imposé, restée en brouillon faute d'un total juste.
-  useEffect(() => {
-    if (!totalImpose || reponse !== undefined) return;
-    const brouillon = lireBrouillon(q.code);
-    if (!brouillon) return;
-    // Le brouillon vient du navigateur : il ne peut être lu qu'après l'affichage (sinon la page serveur et la page client diffèrent).
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSaisie(brouillon);
-    const { erreur: e } = construireReponse(spec, brouillon, ctx);
-    if (e) setErreur(e + NOTE_BROUILLON);
-    // Une seule fois, à l'affichage.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   function vider() {
+    // Le brouillon part aussi en quittant la page.
+    if (attenteBrouillon.current !== undefined) {
+      if (minuteurBrouillon.current) clearTimeout(minuteurBrouillon.current);
+      const b = attenteBrouillon.current;
+      attenteBrouillon.current = undefined;
+      void enregistrerBrouillon(q.code, b, true);
+    }
     if (attente.current === undefined) return;
     if (minuteur.current) clearTimeout(minuteur.current);
     const r = attente.current;
@@ -420,6 +417,16 @@ export function QuestionCarte({
     }
   }
 
+  function programmerBrouillon(champs: Record<string, string>) {
+    if (minuteurBrouillon.current) clearTimeout(minuteurBrouillon.current);
+    attenteBrouillon.current = champs;
+    brouillonSurLeCompte.current = true;
+    minuteurBrouillon.current = setTimeout(() => {
+      attenteBrouillon.current = undefined;
+      void enregistrerBrouillon(q.code, champs);
+    }, 600);
+  }
+
   function programmer(r: Reponse | null) {
     if (minuteur.current) clearTimeout(minuteur.current);
     attente.current = r;
@@ -437,12 +444,18 @@ export function QuestionCarte({
       if (minuteur.current) clearTimeout(minuteur.current);
       attente.current = undefined;
       if (totalImpose) {
-        ecrireBrouillon(q.code, nouvelle);
+        programmerBrouillon(nouvelle.champs ?? {});
         setErreur(e + NOTE_BROUILLON);
       } else setErreur(e);
       return;
     }
-    if (totalImpose) ecrireBrouillon(q.code, null);
+    // Saisie valide : la réponse part, et le brouillon devient inutile.
+    if (minuteurBrouillon.current) clearTimeout(minuteurBrouillon.current);
+    attenteBrouillon.current = undefined;
+    if (brouillonSurLeCompte.current) {
+      brouillonSurLeCompte.current = false;
+      void enregistrerBrouillon(q.code, null);
+    }
     setErreur(null);
     programmer(r as Reponse | null);
   }

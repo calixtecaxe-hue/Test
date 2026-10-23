@@ -212,7 +212,7 @@ async function parcoursMetier(secteur, libelle, { viewport = { width: 1280, heig
   return c;
 }
 
-const parties = process.env.PARTIES ?? "ABCDE";
+const parties = process.env.PARTIES ?? "ABCDEF";
 const casMetier = [
   ["Électricien", "Électricien"],
   ["Hôtel (toutes activités)", "Hôtel", { activites: "toutes" }],
@@ -325,6 +325,60 @@ if (parties.includes("E")) {
     }
     await ctx.close();
   }
+  await c.contexte.close();
+}
+
+// --- F. Brouillon de tableau gardé sur le compte --------------------------------------------------
+
+console.log("\n== Brouillon sur le compte");
+if (parties.includes("F")) {
+  const { readFileSync } = await import("node:fs");
+  for (const ligne of readFileSync(join(process.cwd(), ".env"), "utf8").split("\n")) {
+    const m = /^([A-Z_]+)=(.*)$/.exec(ligne.trim());
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^"|"$/g, "");
+  }
+  const { PrismaClient } = require("@prisma/client");
+  const prisma = new PrismaClient();
+  const c = await nouveauCompte({ metier: "electricien", effectif: 3 });
+  await c.api.put(B + "/api/audit/niveau", { data: { niveau: "ESSENTIEL" } });
+  const user = await prisma.user.findUnique({ where: { email: c.email } });
+  const cle = "ACQ-01.06";
+  const slug = c.agents[0].slug;
+  const champsTableau = (page) => page.locator(`li[data-question="${cle}"] table input`);
+  await c.page.goto(B + `/audit/${slug}`, { waitUntil: "networkidle" });
+  const champs = champsTableau(c.page);
+  const n = await champs.count();
+  if (n < 2) noter("erreur", "Brouillon", cle, `tableau introuvable (${n} champ(s))`);
+  else {
+    await champs.nth(0).fill("60");
+    await champs.nth(0).blur();
+    await c.page.waitForTimeout(1500);
+    const brouillon = await prisma.brouillonReponse.findFirst({ where: { userId: user.id, cle } });
+    const reponse = await prisma.reponseAudit.findFirst({ where: { userId: user.id, cle } });
+    if (!brouillon) noter("erreur", "Brouillon", cle, "le brouillon n'est pas enregistré sur le compte");
+    if (reponse) noter("erreur", "Brouillon", cle, "un total faux est devenu une réponse (le calcul le lirait)");
+    // Autre appareil : nouveau navigateur, aucune donnée locale, même compte.
+    const ctx2 = await navigateur.newContext({ viewport: { width: 390, height: 800 }, storageState: await c.contexte.storageState() });
+    const p2 = await ctx2.newPage();
+    await p2.goto(B + `/audit/${slug}`, { waitUntil: "networkidle" });
+    const valeur = await champsTableau(p2).nth(0).inputValue();
+    const note = await p2.locator(`li[data-question="${cle}"]`).innerText();
+    if (valeur !== "60") noter("erreur", "Brouillon", cle, `sur un autre appareil, la saisie n'est pas retrouvée (« ${valeur} »)`);
+    else console.log("  60 retrouvé sur un autre appareil");
+    if (!/enregistrée sur votre compte/.test(note)) noter("erreur", "Brouillon", cle, "la phrase qui explique le brouillon n'apparaît pas");
+    // On complète le total : la réponse devient réelle, le brouillon disparaît.
+    await champsTableau(p2).nth(1).fill("40");
+    await champsTableau(p2).nth(1).blur();
+    await p2.waitForTimeout(1800);
+    const reponse2 = await prisma.reponseAudit.findFirst({ where: { userId: user.id, cle } });
+    const brouillon2 = await prisma.brouillonReponse.findFirst({ where: { userId: user.id, cle } });
+    if (!reponse2) noter("erreur", "Brouillon", cle, "le total juste n'est pas enregistré comme réponse");
+    else console.log("  total juste enregistré comme réponse");
+    if (brouillon2) noter("erreur", "Brouillon", cle, "le brouillon reste après l'enregistrement de la réponse complète");
+    else console.log("  brouillon supprimé");
+    await ctx2.close();
+  }
+  await prisma.$disconnect();
   await c.contexte.close();
 }
 

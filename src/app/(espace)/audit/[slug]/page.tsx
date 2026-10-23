@@ -99,6 +99,8 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
     const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
     reglageNiveau = <NiveauReglage niveau={utilisateur.niveauAudit} essentielles={n.essentielles} total={n.total} />;
     const reponses = await reponsesDuCompte(userId);
+    // Saisies partielles de tableaux à total imposé, gardées sur le compte (jamais utilisées par le calcul).
+    const brouillons = new Map((await prisma.brouillonReponse.findMany({ where: { userId } })).map((b) => [b.cle, b.saisie as Record<string, string>]));
     const a = assemblerQuestionnaire(ENSEMBLE, {
       agent: agent.code,
       profils,
@@ -125,6 +127,7 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       quatreReponses: q.quatreReponses,
       dejaPosee: q.dejaPosee,
       prereponse: q.prereponse,
+      brouillon: reponses[q.code] === undefined ? brouillons.get(q.code) ?? null : null,
       source: q.dejaPoseeDans
         ? {
             code: q.dejaPoseeDans,

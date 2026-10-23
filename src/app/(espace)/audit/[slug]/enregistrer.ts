@@ -18,3 +18,17 @@ export async function enregistrerReponse(cle: string, reponse: Reponse | null, r
     return "Connexion impossible : votre réponse n'a pas été enregistrée. Réessayez.";
   }
 }
+
+// Brouillon d'un tableau à total imposé : la saisie partielle est gardée sur le compte, sans entrer dans le calcul.
+export async function enregistrerBrouillon(cle: string, saisie: Record<string, string> | null, rapide = false): Promise<void> {
+  try {
+    await fetch("/api/audit/brouillon", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cle, saisie }),
+      keepalive: rapide,
+    });
+  } catch {
+    // Connexion coupée : la saisie reste à l'écran ; le brouillon est un filet, pas une réponse.
+  }
+}
