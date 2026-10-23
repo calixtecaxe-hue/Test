@@ -296,6 +296,27 @@ export function CartePartagee({ q, reponse, onModifier }: { q: QuestionClient; r
   );
 }
 
+// Un tableau dont le total est imposé (« 100 % ») ne s'enregistre que lorsque le total est juste. En attendant, la saisie est
+// gardée sur cet appareil pour que quitter la page ne la perde pas ; elle est effacée à la déconnexion (voir DeconnexionBouton).
+const PREFIXE_BROUILLON = "caxe-brouillon:";
+function lireBrouillon(code: string): Saisie | null {
+  try {
+    const t = window.localStorage.getItem(PREFIXE_BROUILLON + code);
+    return t ? (JSON.parse(t) as Saisie) : null;
+  } catch {
+    return null;
+  }
+}
+function ecrireBrouillon(code: string, s: Saisie | null) {
+  try {
+    if (s) window.localStorage.setItem(PREFIXE_BROUILLON + code, JSON.stringify(s));
+    else window.localStorage.removeItem(PREFIXE_BROUILLON + code);
+  } catch {
+    // Stockage indisponible (navigation privée) : la saisie reste à l'écran, sans copie locale.
+  }
+}
+const NOTE_BROUILLON = " Votre saisie est gardée sur cet appareil et sera enregistrée dès que le total sera juste.";
+
 export function QuestionCarte({
   q,
   reponse,
@@ -351,6 +372,21 @@ export function QuestionCarte({
     return r?.genre === "saisie" && Array.isArray(r.valeur) ? r.valeur : [];
   };
   const ctx = { lignesDeclencheur, elementsDeListe };
+  const totalImpose = spec?.type === "tableau" && spec.total !== undefined;
+
+  // Reprise d'une saisie de tableau à total imposé, restée en brouillon faute d'un total juste.
+  useEffect(() => {
+    if (!totalImpose || reponse !== undefined) return;
+    const brouillon = lireBrouillon(q.code);
+    if (!brouillon) return;
+    // Le brouillon vient du navigateur : il ne peut être lu qu'après l'affichage (sinon la page serveur et la page client diffèrent).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSaisie(brouillon);
+    const { erreur: e } = construireReponse(spec, brouillon, ctx);
+    if (e) setErreur(e + NOTE_BROUILLON);
+    // Une seule fois, à l'affichage.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function vider() {
     if (attente.current === undefined) return;
@@ -400,9 +436,13 @@ export function QuestionCarte({
       // Illisible ou hors bornes : on n'écrase pas la réponse déjà enregistrée, on l'explique.
       if (minuteur.current) clearTimeout(minuteur.current);
       attente.current = undefined;
-      setErreur(e);
+      if (totalImpose) {
+        ecrireBrouillon(q.code, nouvelle);
+        setErreur(e + NOTE_BROUILLON);
+      } else setErreur(e);
       return;
     }
+    if (totalImpose) ecrireBrouillon(q.code, null);
     setErreur(null);
     programmer(r as Reponse | null);
   }

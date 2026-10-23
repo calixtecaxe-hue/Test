@@ -117,8 +117,9 @@ async function visiter(page, secteur, ou, url, { attendu = null, rempli = false 
 // --- Comptes de test par l'API (comme le contrôle par secteur) --------------------------------
 
 let nCompte = 0;
-async function nouveauCompte({ metier, sousVariantes = [], autre = false, categorieAbsente = null, effectif = 3, viewport = { width: 1280, height: 900 }, theme = null, sansMetier = false }) {
-  const email = `complement${Date.now()}${nCompte++}@example.com`;
+async function nouveauCompte({ metier, sousVariantes = [], autre = false, categorieAbsente = null, effectif = 3, viewport = { width: 1280, height: 900 }, theme = null, sansMetier = false, extreme = false }) {
+  // Textes saisis sans espace, aussi longs que la saisie le permet : ils ne doivent pas élargir la page.
+  const email = extreme ? `${"prenom.nom.entreprise.service.".repeat(2)}${Date.now()}${nCompte++}@sous-domaine-tres-long.example.com` : `complement${Date.now()}${nCompte++}@example.com`;
   const motDePasse = "motdepasse-controle-1234";
   const contexte = await navigateur.newContext({ viewport, reducedMotion: "reduce" });
   if (theme) await contexte.addInitScript((t) => { try { localStorage.setItem("caxe-theme", t); } catch {} }, theme);
@@ -143,10 +144,11 @@ async function nouveauCompte({ metier, sousVariantes = [], autre = false, catego
   const ab = await api.post(B + "/api/abonnement", { data: { nombreAgents: Math.max(2, agents.length), periode: "mensuel", agents: agents.map((a) => a.code) } });
   if (!ab.ok()) throw new Error("abonnement " + ab.status() + " " + (await ab.text()));
   await api.post(B + "/api/paiement/demonstration", { data: {} });
-  const d = await api.put(B + "/api/compte/dossier", { data: { chiffreAffairesMensuel: 60000, nombreCollaborateurs: effectif, dateCreationEntreprise: "2019-03-01", typeZone: "PERIURBAINE", ville: "Lyon" } });
+  const d = await api.put(B + "/api/compte/dossier", { data: { chiffreAffairesMensuel: 60000, nombreCollaborateurs: effectif, dateCreationEntreprise: "2019-03-01", typeZone: "PERIURBAINE", ville: extreme ? "Saint-Remy-lès-Chevreuse-sur-Marne-et-Loire-en-Haute-Provence-Alpes-Maritimes-Cote-d-Azur-Saint-Georges".slice(0, 100) : "Lyon" } });
   if (!d.ok()) throw new Error("dossier " + d.status());
   for (const a of agents) {
-    const o = await api.post(B + "/api/audit/objectif", { data: { agent: a.code, objectif: a.objectif } });
+    const objectif = extreme && !a.objectif.choix ? { ...a.objectif, quoi: "augmenter-" + "chiffre-d-affaires-".repeat(4) } : a.objectif;
+    const o = await api.post(B + "/api/audit/objectif", { data: { agent: a.code, objectif } });
     if (!o.ok()) throw new Error("objectif " + a.code + " " + o.status() + " " + (await o.text()));
   }
   return compte;
@@ -301,6 +303,27 @@ console.log("\n== Saisie réelle");
     if (apres <= avant) noter("erreur", "Saisie", "niveau", `le passage en approfondi n'ajoute aucune question (${avant} → ${apres})`);
     else console.log(`  essentiel → approfondi : ${avant} → ${apres} questions`);
   } else noter("attention", "Saisie", "niveau", "bouton « Passer en approfondi » introuvable");
+  await c.contexte.close();
+}
+
+// --- E. Textes très longs saisis sans espace ----------------------------------------------------
+
+console.log("\n== Textes très longs");
+{
+  const c = await nouveauCompte({ metier: "electricien", effectif: 3, extreme: true });
+  await c.api.put(B + "/api/audit/niveau", { data: { niveau: "ESSENTIEL" } });
+  // Une liste dont les éléments sont des mots interminables : types de clients (ACQ-01.01) puis les tableaux qui en dépendent.
+  const long = ["Particuliersparticuliersparticuliersparticuliersparticuliersparticuliers1234567890", "Entreprisesentreprisesentreprisesentreprisesentreprisesentreprises1234567890"];
+  const r = await c.api.put(B + "/api/audit/reponses", { data: { cle: "ACQ-01.01", reponse: { genre: "saisie", valeur: long } } });
+  if (!r.ok()) noter("erreur", "Textes longs", "ACQ-01.01", `refusé (${r.status()}) ${(await r.text()).slice(0, 100)}`);
+  for (const largeur of [320, 390, 1280]) {
+    const ctx = await navigateur.newContext({ viewport: { width: largeur, height: 800 }, reducedMotion: "reduce", storageState: await c.contexte.storageState() });
+    const p = await ctx.newPage();
+    for (const [nom, url] of [["tableau de bord", "/tableau-de-bord"], ["compte", "/compte"], ["ACQ questionnaire", `/audit/${c.agents[0].slug}`], ["ACQ résultats", `/audit/${c.agents[0].slug}?etape=4`], ["FIN questionnaire", `/audit/${c.agents[1].slug}`]]) {
+      await visiter(p, "Textes longs", `${largeur}px · ${nom}`, url);
+    }
+    await ctx.close();
+  }
   await c.contexte.close();
 }
 
