@@ -27,9 +27,9 @@ export function NiveauReglage({ niveau, essentielles, total }: { niveau: "ESSENT
 
   return (
     <p className="mt-4 text-sm text-[var(--text-muted)]" data-niveau-reglage>
-      Niveau du questionnaire : <span className="text-[var(--text)]">{approfondi ? "approfondi" : "essentiel"}</span> (environ {approfondi ? total : essentielles} questions pour cet agent).{" "}
+      Niveau du questionnaire : <span className="text-[var(--text)]">{approfondi ? "approfondi" : "essentiel"}</span> (jusqu&apos;à {approfondi ? total : essentielles} questions, selon vos réponses).{" "}
       <button type="button" onClick={changer} disabled={envoi} className="audit-lien text-[var(--blue-1)] hover:underline disabled:opacity-60">
-        {envoi ? "Enregistrement…" : approfondi ? "Passer en essentiel" : `Passer en approfondi (environ ${total} questions)`}
+        {envoi ? "Enregistrement…" : approfondi ? "Passer en essentiel" : `Passer en approfondi (jusqu'à ${total} questions)`}
       </button>
       {erreur ? <span className="ml-2 text-[var(--red-1)]">{erreur}</span> : null}
     </p>

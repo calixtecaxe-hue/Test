@@ -5,7 +5,7 @@ import type { LigneTheme, VueCompteRendu } from "@/lib/audit/compte-rendu";
 const MOT_COULEUR = { rouge: "Rouge", orange: "Orange", vert: "Vert" } as const;
 
 function Origine() {
-  return <span className="res-origine">Calculé par le moteur</span>;
+  return <span className="res-origine">Calculé à partir de vos réponses</span>;
 }
 
 function pluriel(n: number, un: string, plusieurs: string): string {

@@ -4,7 +4,7 @@ import { EXEMPLES, VERDICTS, type CouleurConstat } from "@/lib/audit/resultats-e
 const MOT_COULEUR: Record<CouleurConstat, string> = { rouge: "Rouge", orange: "Orange", vert: "Vert" };
 
 function Origine({ de }: { de: "moteur" | "ia" }) {
-  return <span className="res-origine">{de === "moteur" ? "Calculé par le moteur" : "Rédigé par l’IA"}</span>;
+  return <span className="res-origine">{de === "moteur" ? "Calculé à partir de vos réponses" : "Rédigé par l’IA"}</span>;
 }
 
 // MAQUETTE du compte rendu : trois onglets (objectif, priorités, plan d'action), sans JavaScript (boutons radio
@@ -69,7 +69,7 @@ export function ResultatsMaquette({ agent, objectif, echeance, reussite }: { age
                 <p className="mt-3 text-sm text-[var(--text-muted)]">{ex.realisme.phrase}</p>
               </>
             ) : (
-              <p className="mt-3 text-sm text-[var(--text-muted)]">Pas de verdict de réalisme : votre objectif n&apos;a pas de chiffre à comparer. Le moteur ne juge pas ce qu&apos;il ne peut pas mesurer.</p>
+              <p className="mt-3 text-sm text-[var(--text-muted)]">Pas de verdict de réalisme : votre objectif n&apos;a pas de chiffre à comparer. CAXE ne juge pas ce qu&apos;il ne peut pas mesurer.</p>
             )}
           </div>
 

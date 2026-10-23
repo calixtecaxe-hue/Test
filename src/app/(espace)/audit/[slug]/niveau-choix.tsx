@@ -39,11 +39,11 @@ export function NiveauChoix({ essentielles, approfondies, actuel = null, retour 
       <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <button type="button" className={carte} disabled={envoi !== null} onClick={() => choisir("ESSENTIEL")}>
           <span className="font-semibold text-[var(--text)]">Essentiel{actuel === "ESSENTIEL" ? <span className="ml-2 text-xs font-medium text-[var(--agent)]">Choix actuel</span> : null}</span>
-          <span className="text-sm text-[var(--text-muted)]">Les données qui comptent le plus : environ {essentielles} questions pour cet agent.</span>
+          <span className="text-sm text-[var(--text-muted)]">Les données qui comptent le plus : jusqu&apos;à {essentielles} questions, selon vos réponses.</span>
         </button>
         <button type="button" className={carte} disabled={envoi !== null} onClick={() => choisir("APPROFONDI")}>
           <span className="font-semibold text-[var(--text)]">Approfondi{actuel === "APPROFONDI" ? <span className="ml-2 text-xs font-medium text-[var(--agent)]">Choix actuel</span> : null}</span>
-          <span className="text-sm text-[var(--text-muted)]">L&apos;essentiel et le détail : environ {approfondies} questions pour cet agent.</span>
+          <span className="text-sm text-[var(--text-muted)]">L&apos;essentiel et le détail : jusqu&apos;à {approfondies} questions, selon vos réponses.</span>
         </button>
       </div>
       {erreur ? <p className="mt-3 text-sm text-[var(--red-1)]">{erreur}</p> : null}
