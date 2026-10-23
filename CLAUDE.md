@@ -181,6 +181,18 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   seulement avec `RESULTATS_MAQUETTE=1` et `?exemple=1` (bannière « Exemple de présentation »). Libellés de réalisme de la maquette
   (Réaliste / Réaliste sous conditions / Pas réaliste en l'état) : propositions à valider ; pas de verdict pour un objectif sans chiffre.
   L'aperçu de l'application remplit un compte de test avec `scripts/reponses-demonstration.mts` (réponses neutres, jamais de vrais clients).
+- **Relecture complète du 23 octobre (balayage de tous les secteurs)** : `node scripts/balayage-secteurs.mts` assemble et remplit le
+  questionnaire de chaque métier, activité, taille, niveau et agent (229 scénarios, 7 704 questionnaires) et contrôle textes, lexique,
+  tableaux, règles en attente, exclusions des professions réglementées et constat ; `node scripts/controle-parcours-secteurs.mjs` et
+  `scripts/controle-complementaire.mjs` rejouent les parcours dans un navigateur (serveur lancé sur le port 3100). **À relancer après toute
+  correction de la banque, du classeur ou des règles.** Trois corrections en sont issues : (1) la question qui décide du masquage de son
+  propre thème (COM-10.07 pour COM-10) reste posée, sinon une cinquantaine de questions Comm n'arrivaient jamais ; (2) une question d'un autre
+  agent dont dépendent des tableaux ou des conditions (types de clients ACQ-01.01, canaux ACQ-03.01) est posée en **préalable**
+  (« Pour commencer », champ `prealables` de l'assemblage, `codesPrealables` pour l'autorisation d'écriture) par le premier agent qui en a
+  besoin, avec sa réponse si elle existe ; (3) un tableau dont les lignes viennent d'un cadrage (D20 jours d'ouverture) fait poser ce cadrage.
+  Les mots du lexique sont aussi remplacés dans l'aide et la question de repli. Un tableau à total imposé (19 questions) ne s'enregistre que
+  si le total est juste ; la saisie partielle est gardée en brouillon sur l'appareil (effacée à la déconnexion). Le nombre de questions
+  annoncé au choix du niveau est un maximum (« jusqu'à N questions, selon vos réponses »).
 - **Assemblage en 5 couches** : (1) inscription, (2) socle de l'agent, (3) module
   catégorie, (4) module métier — 5 questions maximum —, (5) filtre taille
   (seul / 2 à 5 / 6 et plus). **Questions déclencheuses** (D01 à D65) qui ouvrent
