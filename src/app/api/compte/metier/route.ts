@@ -26,7 +26,7 @@ export async function PUT(request: Request) {
     return NextResponse.json({ erreur: "Formulaire invalide.", champs: { [routage.erreur.champ]: [routage.erreur.message] } }, { status: 400 });
   }
 
-  const existant = await prisma.abonnement.findUnique({ where: { userId }, select: { statut: true, finPeriodeLe: true, nombreAgents: true, periode: true } });
+  const existant = await prisma.abonnement.findUnique({ where: { userId }, select: { statut: true, finPeriodeLe: true, resiliationProgrammee: true, nombreAgents: true, periode: true } });
   if (existant && accesOuvert(existant, new Date())) {
     return NextResponse.json({ erreur: "Votre abonnement est en cours : le métier ne se change pas ici." }, { status: 409 });
   }

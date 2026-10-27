@@ -8,7 +8,7 @@ import { accesOuvert } from "@/lib/paiement/etat";
 export async function aAccesAgent(userId: string, agent: AgentCode): Promise<boolean> {
   const [acces, abonnement] = await Promise.all([
     prisma.agentAccess.findUnique({ where: { userId_agent: { userId, agent } }, select: { actif: true } }),
-    prisma.abonnement.findUnique({ where: { userId }, select: { statut: true, finPeriodeLe: true } }),
+    prisma.abonnement.findUnique({ where: { userId }, select: { statut: true, finPeriodeLe: true, resiliationProgrammee: true } }),
   ]);
   return acces?.actif === true && abonnement !== null && accesOuvert(abonnement, new Date());
 }

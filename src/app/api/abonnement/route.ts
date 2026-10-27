@@ -50,10 +50,11 @@ export async function POST(request: Request) {
   }
 
   const userId = session.user.id;
-  // Un abonnement en cours ne change pas de formule sans passer par la facturation (non ouvert).
-  const existant = await prisma.abonnement.findUnique({ where: { userId }, select: { statut: true, finPeriodeLe: true } });
+  // Un abonnement en cours se change depuis « Mon compte » (PUT /api/abonnement/formule) ; ici on ne crée ou ne
+  // refait la formule que d'un compte sans accès ouvert (en attente de paiement, ou abonnement terminé).
+  const existant = await prisma.abonnement.findUnique({ where: { userId }, select: { statut: true, finPeriodeLe: true, resiliationProgrammee: true } });
   if (existant && accesOuvert(existant, new Date())) {
-    return NextResponse.json({ erreur: "Le changement de formule en cours d'abonnement n'est pas encore ouvert." }, { status: 409 });
+    return NextResponse.json({ erreur: "Votre abonnement est en cours : changez de formule depuis « Mon compte »." }, { status: 409 });
   }
   const periode = parsed.data.periode === "annuel" ? "ANNUEL" : "MENSUEL";
   await prisma.$transaction([

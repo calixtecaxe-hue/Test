@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { TAUX_TVA_ESTIME_POURCENT, tvaEstimeeCentimes } from "../src/lib/offres.ts";
-import { accesOuvert, intervalleFacturation, miseAJourDepuisEvenement, modePaiement, montantCentimesHT } from "../src/lib/paiement/etat.ts";
+import { accesOuvert, finPeriodeDemonstration, intervalleFacturation, miseAJourDepuisEvenement, modePaiement, montantCentimesHT, nomProduit } from "../src/lib/paiement/etat.ts";
 
 const MAINTENANT = new Date("2026-10-15T10:00:00Z");
 
@@ -42,13 +42,41 @@ test("l'accès aux agents suit l'abonnement : ouvert tant qu'il est actif, puis 
   assert.equal(accesOuvert({ statut: "RESILIE", finPeriodeLe: passe }, MAINTENANT), false);
 });
 
+test("une résiliation programmée garde l'accès jusqu'à la fin de la période payée, puis le ferme", () => {
+  const futur = new Date("2026-11-01T00:00:00Z");
+  const passe = new Date("2026-10-01T00:00:00Z");
+  assert.equal(accesOuvert({ statut: "ACTIF", finPeriodeLe: futur, resiliationProgrammee: true }, MAINTENANT), true);
+  // Le fournisseur n'a pas encore prévenu que l'abonnement est terminé : la date suffit.
+  assert.equal(accesOuvert({ statut: "ACTIF", finPeriodeLe: passe, resiliationProgrammee: true }, MAINTENANT), false);
+  // Sans date de fin connue, on ne coupe rien.
+  assert.equal(accesOuvert({ statut: "ACTIF", finPeriodeLe: null, resiliationProgrammee: true }, MAINTENANT), true);
+  assert.equal(accesOuvert({ statut: "ACTIF", finPeriodeLe: passe, resiliationProgrammee: false }, MAINTENANT), true);
+});
+
+test("l'arrêt demandé chez le fournisseur est repris, et annulé s'il est retiré", () => {
+  const sub = (extra: object) => miseAJourDepuisEvenement(evt("customer.subscription.updated", { id: "sub_1", status: "active", items: { data: [{ current_period_end: 1_800_000_000 }] }, ...extra }));
+  assert.equal(sub({ cancel_at_period_end: true })?.maj.resiliationProgrammee, true);
+  assert.equal(sub({ cancel_at: 1_800_000_000 })?.maj.resiliationProgrammee, true);
+  assert.equal(sub({ cancel_at_period_end: false, cancel_at: null })?.maj.resiliationProgrammee, false);
+  // Un nouveau paiement réussi repart d'un abonnement sans arrêt programmé.
+  const fait = miseAJourDepuisEvenement(evt("checkout.session.completed", { mode: "subscription", payment_status: "paid", client_reference_id: "u1", customer: "cus_1", subscription: "sub_2" }));
+  assert.equal(fait?.maj.resiliationProgrammee, false);
+});
+
+test("le nom du produit et la fin de période de démonstration sont déterministes", () => {
+  assert.equal(nomProduit(3, "annuel"), "CAXE, 3 agents, facturation annuelle");
+  assert.equal(nomProduit(2, "mensuel"), "CAXE, 2 agents, facturation mensuelle");
+  assert.equal(finPeriodeDemonstration("mensuel", new Date("2026-10-27T00:00:00Z")).toISOString().slice(0, 10), "2026-11-27");
+  assert.equal(finPeriodeDemonstration("annuel", new Date("2026-10-27T00:00:00Z")).toISOString().slice(0, 10), "2027-10-27");
+});
+
 const evt = (type: string, objet: unknown) => ({ type, data: { object: objet } });
 
 test("un paiement terminé active l'abonnement du compte désigné par nous, jamais un autre", () => {
   const r = miseAJourDepuisEvenement(
     evt("checkout.session.completed", { mode: "subscription", payment_status: "paid", client_reference_id: "user-1", customer: "cus_1", subscription: "sub_1" })
   );
-  assert.deepEqual(r, { cible: { userId: "user-1" }, maj: { statut: "ACTIF", stripeCustomerId: "cus_1", stripeSubscriptionId: "sub_1" } });
+  assert.deepEqual(r, { cible: { userId: "user-1" }, maj: { statut: "ACTIF", stripeCustomerId: "cus_1", stripeSubscriptionId: "sub_1", resiliationProgrammee: false } });
   // Identifiant du compte posé dans les métadonnées.
   assert.equal(miseAJourDepuisEvenement(evt("checkout.session.completed", { mode: "subscription", payment_status: "paid", metadata: { userId: "user-2" }, customer: { id: "cus_2" }, subscription: { id: "sub_2" } }))?.cible.userId, "user-2");
 });

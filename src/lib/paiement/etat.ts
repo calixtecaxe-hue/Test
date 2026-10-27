@@ -13,6 +13,17 @@ export function montantCentimesHT(nombreAgents: number, periode: Periode): numbe
   return periode === "annuel" ? prixAnnuelCentimesHT(offre.prixMensuelCentimesHT) : offre.prixMensuelCentimesHT;
 }
 
+export function nomProduit(nombreAgents: number, periode: Periode): string {
+  return `CAXE, ${nombreAgents} agents, facturation ${periode === "annuel" ? "annuelle" : "mensuelle"}`;
+}
+
+// Fin de la période payée quand aucun fournisseur ne la fixe (mode démonstration) : un mois ou un an après `depuis`.
+export function finPeriodeDemonstration(periode: Periode, depuis: Date): Date {
+  const d = new Date(depuis.getTime());
+  d.setUTCMonth(d.getUTCMonth() + (periode === "annuel" ? 12 : 1));
+  return d;
+}
+
 export function intervalleFacturation(periode: Periode): "month" | "year" {
   return periode === "annuel" ? "year" : "month";
 }
@@ -34,7 +45,9 @@ export function modePaiement(env: { STRIPE_SECRET_KEY?: string; PAIEMENT_MODE?: 
 
 // L'accès aux agents suit l'abonnement : ouvert tant qu'il est actif, et, après un impayé ou une
 // résiliation, jusqu'à la fin de la période déjà payée.
-export function accesOuvert(a: { statut: StatutAbonnement; finPeriodeLe: Date | null }, maintenant: Date): boolean {
+export function accesOuvert(a: { statut: StatutAbonnement; finPeriodeLe: Date | null; resiliationProgrammee?: boolean }, maintenant: Date): boolean {
+  // Résiliation demandée : l'accès s'arrête à la fin de la période payée, même si le fournisseur n'a pas encore prévenu.
+  if (a.statut === "ACTIF" && a.resiliationProgrammee && a.finPeriodeLe !== null) return a.finPeriodeLe.getTime() > maintenant.getTime();
   if (a.statut === "ACTIF") return true;
   if (a.statut === "EN_ATTENTE_PAIEMENT") return false;
   return a.finPeriodeLe !== null && a.finPeriodeLe.getTime() > maintenant.getTime();
@@ -48,6 +61,7 @@ export type MiseAJourAbonnement = {
   stripeSubscriptionId?: string;
   finPeriodeLe?: Date;
   activeLe?: Date;
+  resiliationProgrammee?: boolean;
 };
 
 // Comment retrouver l'abonnement concerné : par son identifiant chez le fournisseur, ou, au premier
@@ -80,7 +94,7 @@ export function miseAJourDepuisEvenement(evenement: { type: string; data: { obje
       if (o.mode !== "subscription" || !paye || !userId) return null;
       return {
         cible: { userId },
-        maj: { statut: "ACTIF", stripeCustomerId: identifiant(o.customer), stripeSubscriptionId: identifiant(o.subscription) },
+        maj: { statut: "ACTIF", stripeCustomerId: identifiant(o.customer), stripeSubscriptionId: identifiant(o.subscription), resiliationProgrammee: false },
       };
     }
     case "invoice.paid":
@@ -101,7 +115,9 @@ export function miseAJourDepuisEvenement(evenement: { type: string; data: { obje
       const fin = Array.isArray(items) ? dateDepuisSecondes(objet(items[0]).current_period_end) : undefined;
       const statut = evenement.type === "customer.subscription.deleted" ? "RESILIE" : STATUTS_FOURNISSEUR[String(o.status)];
       if (!statut) return null;
-      return { cible: { stripeSubscriptionId: id }, maj: { statut, ...(fin ? { finPeriodeLe: fin } : {}) } };
+      // Résiliation demandée depuis l'espace de facturation du fournisseur ou depuis CAXE : annulée à la fin de la période.
+      const programmee = evenement.type === "customer.subscription.updated" && (o.cancel_at_period_end === true || typeof o.cancel_at === "number");
+      return { cible: { stripeSubscriptionId: id }, maj: { statut, ...(fin ? { finPeriodeLe: fin } : {}), ...(evenement.type === "customer.subscription.updated" ? { resiliationProgrammee: programmee } : {}) } };
     }
     default:
       return null;

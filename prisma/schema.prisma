@@ -45,11 +45,11 @@ model User {
   metierPrecis           String?
   // Activités cochées pour les métiers qui en regroupent plusieurs (plusieurs
   // choix possibles) ; vide pour les autres métiers.
-  sousVariantes          String[] @default([])
+  sousVariantes          String[]  @default([])
   // Routage invisible (CLAUDE.md section 5), recalculé côté serveur à partir de
   // data/routage.json : catégorie (id) et profils d'entreprise retenus.
   categorie              String?
-  profils                String[] @default([])
+  profils                String[]  @default([])
   // Texte saisi avec « Autre (précisez) » (toujours gardé, pour repérer les activités qui
   // manquent à la liste), métier écrit par un client qui ne trouve pas le sien, et réponse à
   // « vendez-vous aussi des produits ? » pour les métiers dont le stock en dépend.
@@ -162,21 +162,23 @@ enum StatutAbonnement {
 }
 
 model Abonnement {
-  id                   String             @id @default(cuid())
-  userId               String             @unique
-  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  nombreAgents         Int
-  periode              PeriodeFacturation
-  statut               StatutAbonnement   @default(EN_ATTENTE_PAIEMENT)
+  id                    String             @id @default(cuid())
+  userId                String             @unique
+  user                  User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nombreAgents          Int
+  periode               PeriodeFacturation
+  statut                StatutAbonnement   @default(EN_ATTENTE_PAIEMENT)
   // « stripe » ou « demonstration » (aucun paiement réel).
-  fournisseur          String?
-  stripeCustomerId     String?
-  stripeSubscriptionId String?            @unique
+  fournisseur           String?
+  stripeCustomerId      String?
+  stripeSubscriptionId  String?            @unique
   // Fin de la période déjà payée : l'accès reste ouvert jusqu'à cette date.
-  finPeriodeLe         DateTime?
-  activeLe             DateTime?
-  debutLe              DateTime           @default(now())
-  modifieLe            DateTime           @updatedAt
+  finPeriodeLe          DateTime?
+  // Résiliation demandée par le dirigeant : l'accès reste ouvert jusqu'à la fin de la période payée.
+  resiliationProgrammee Boolean            @default(false)
+  activeLe              DateTime?
+  debutLe               DateTime           @default(now())
+  modifieLe             DateTime           @updatedAt
 }
 
 // Événements de paiement déjà traités (identifiant de l'événement du fournisseur) : un même

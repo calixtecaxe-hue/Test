@@ -2,7 +2,7 @@
 // toujours recalculé ici d'après l'abonnement enregistré, jamais lu dans la requête du navigateur.
 
 import Stripe from "stripe";
-import { intervalleFacturation, montantCentimesHT, type Periode } from "./etat.ts";
+import { intervalleFacturation, montantCentimesHT, nomProduit, type Periode } from "./etat.ts";
 import type { Facturation } from "./tva.ts";
 
 let client: Stripe | null = null;
@@ -71,7 +71,7 @@ export async function creerSessionPaiement(o: { userId: string; nombreAgents: nu
           // Prix hors taxes : la TVA s'ajoute si le calcul automatique de Stripe est activé.
           tax_behavior: "exclusive",
           recurring: { interval: intervalleFacturation(o.periode) },
-          product_data: { name: `CAXE, ${o.nombreAgents} agents, facturation ${o.periode === "annuel" ? "annuelle" : "mensuelle"}` },
+          product_data: { name: nomProduit(o.nombreAgents, o.periode) },
         },
       },
     ],
@@ -101,4 +101,31 @@ export async function lireSession(sessionId: string) {
 export async function creerSessionPortail(clientStripe: string): Promise<string> {
   const s = await stripe().billingPortal.sessions.create({ customer: clientStripe, return_url: `${adresseSite()}/compte` });
   return s.url;
+}
+
+// Change la formule d'un abonnement en cours : le nouveau prix remplace l'ancien, le prorata est facturé ou crédité
+// tout de suite. Renvoie la fin de la période payée selon Stripe. Le montant est recalculé ici, jamais lu dans la requête.
+export async function changerFormuleStripe(o: { subscriptionId: string; nombreAgents: number; periode: Periode }): Promise<Date | null> {
+  const montant = montantCentimesHT(o.nombreAgents, o.periode);
+  if (montant === null) throw new Error("Formule inconnue.");
+  const abonnement = await stripe().subscriptions.retrieve(o.subscriptionId);
+  const ligne = abonnement.items.data[0];
+  if (!ligne) throw new Error("Abonnement sans ligne de facturation.");
+  const produit = typeof ligne.price.product === "string" ? ligne.price.product : ligne.price.product.id;
+  await stripe().products.update(produit, { name: nomProduit(o.nombreAgents, o.periode) });
+  const maj = await stripe().subscriptions.update(o.subscriptionId, {
+    items: [{ id: ligne.id, price_data: { currency: "eur", product: produit, unit_amount: montant, tax_behavior: "exclusive", recurring: { interval: intervalleFacturation(o.periode) } } }],
+    proration_behavior: "create_prorations",
+    // Si le prélèvement échoue, rien ne change : on ne laisse pas une formule à moitié appliquée.
+    payment_behavior: "error_if_incomplete",
+  });
+  const fin = maj.items.data[0]?.current_period_end;
+  return typeof fin === "number" ? new Date(fin * 1000) : null;
+}
+
+// Programme ou annule l'arrêt de l'abonnement à la fin de la période payée.
+export async function programmerResiliationStripe(subscriptionId: string, resilier: boolean): Promise<Date | null> {
+  const maj = await stripe().subscriptions.update(subscriptionId, { cancel_at_period_end: resilier });
+  const fin = maj.items.data[0]?.current_period_end;
+  return typeof fin === "number" ? new Date(fin * 1000) : null;
 }
