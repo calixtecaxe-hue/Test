@@ -6,6 +6,7 @@
 #
 #   bash scripts/verification/tout.sh            # tout (environ deux heures, dont une pour controle-boutons)
 #   bash scripts/verification/tout.sh rapide     # sans les contrôles navigateur longs (boutons, secteurs)
+#   SAUTER="canaux dependances" bash scripts/verification/tout.sh   # reprise : ces contrôles gardent leur ligne de synthèse
 #
 # Chaque contrôle écrit son journal dans resultats/journaux/<nom>.log ; la synthèse (code de sortie et dernière ligne de chaque
 # contrôle) est dans resultats/synthese.txt. Un code différent de 0 signale un écart ou un échec : lire le journal.
@@ -14,10 +15,18 @@ R=docs/verification/resultats
 J=$R/journaux
 mkdir -p "$J"
 SYNTHESE=$R/synthese.txt
-echo "Vérification du questionnaire : contrôles lancés le $(date -u +%Y-%m-%dT%H:%MZ)" > "$SYNTHESE"
+if [ -n "$SAUTER" ] && [ -f "$SYNTHESE" ]; then
+  # Reprise : on garde les lignes des contrôles sautés, on rejoue les autres.
+  grep -E "^($(echo $SAUTER | tr ' ' '|')) " "$SYNTHESE" > "$SYNTHESE.garde"
+  { echo "Vérification du questionnaire : contrôles lancés le $(date -u +%Y-%m-%dT%H:%MZ) (reprise ; repris de l'exécution précédente : $SAUTER)"; cat "$SYNTHESE.garde"; } > "$SYNTHESE"
+  rm -f "$SYNTHESE.garde"
+else
+  echo "Vérification du questionnaire : contrôles lancés le $(date -u +%Y-%m-%dT%H:%MZ)" > "$SYNTHESE"
+fi
 
 lancer() {
   local nom=$1; shift
+  if [[ " $SAUTER " == *" $nom "* ]]; then echo "→ $nom (repris)"; return; fi
   echo "→ $nom"
   "$@" > "$J/$nom.log" 2>&1
   local code=$?
@@ -42,6 +51,7 @@ lancer dependances node scripts/verification/dependances.mjs --sortie $R
 lancer resultats node scripts/verification/resultats.mjs --sortie $R
 lancer separation node scripts/verification/separation.mjs --sortie $R
 lancer retours node scripts/verification/retours.mjs --sortie $R
+lancer rapides node scripts/verification/rapides.mjs --sortie $R
 lancer prereponse node scripts/controle-prereponse.mjs
 lancer autre node scripts/controle-autre.mjs
 lancer compte node scripts/controle-compte.mjs
@@ -57,5 +67,6 @@ if [ "$1" != "rapide" ]; then
   lancer boutons-rh node scripts/controle-boutons.mjs --agents RH
   lancer boutons-com node scripts/controle-boutons.mjs --agents COM
 fi
+node scripts/verification/chiffres.mjs > "$J/chiffres.log" 2>&1
 echo "fin $(date -u +%H:%MZ)" >> "$SYNTHESE"
 cat "$SYNTHESE"
