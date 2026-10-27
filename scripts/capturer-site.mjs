@@ -407,7 +407,6 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
   // vrai (changer d'offre, confirmation d'arrêt, arrêt programmé), puis on les remet dans la page, cachés, avec un
   // petit script qui les montre au clic (SCRIPT_PARCOURS). Rien n'est enregistré : le compte est remis dans son état.
   const etats = {};
-  const parent = (nom) => p.getByRole("button", { name: nom, exact: true }).locator("xpath=..");
   await p.getByRole("button", { name: "Changer d'offre", exact: true }).click();
   etats.offre = await p.locator("section[aria-labelledby=abo] .rounded-xl.border.p-4").first().evaluate((n) => n.parentElement.innerHTML);
   await p.getByRole("button", { name: "Annuler", exact: true }).click();

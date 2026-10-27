@@ -11,7 +11,7 @@ import { assemblerQuestionnaire, compterQuestions } from "@/lib/audit/assemblage
 import { specDeLaDonnee } from "@/lib/audit/validation";
 import { exclusionsAcquisition } from "@/lib/routage";
 import { ancienneteEnMois, cleDeDonnee, clesDeLaRegle, donneeDuDeclencheur, tailleDepuisEffectif } from "@/lib/audit/affichage";
-import { reponsesDuCompte } from "@/lib/audit/compte";
+import { reponsesDuCompte, reponsesPreremplies } from "@/lib/audit/compte";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
 import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifActif, ObjectifEdition } from "./objectif-actif";
@@ -99,6 +99,7 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
     const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
     reglageNiveau = <NiveauReglage niveau={utilisateur.niveauAudit} essentielles={n.essentielles} total={n.total} />;
     const reponses = await reponsesDuCompte(userId);
+    const preremplies = await reponsesPreremplies(userId);
     // Saisies partielles de tableaux à total imposé, gardées sur le compte (jamais utilisées par le calcul).
     const brouillons = new Map((await prisma.brouillonReponse.findMany({ where: { userId } })).map((b) => [b.cle, b.saisie as Record<string, string>]));
     const a = assemblerQuestionnaire(ENSEMBLE, {
@@ -127,6 +128,7 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       quatreReponses: q.quatreReponses,
       dejaPosee: q.dejaPosee,
       prereponse: q.prereponse,
+      preremplie: preremplies.get(q.code) ?? null,
       brouillon: reponses[q.code] === undefined ? brouillons.get(q.code) ?? null : null,
       source: q.dejaPoseeDans
         ? {

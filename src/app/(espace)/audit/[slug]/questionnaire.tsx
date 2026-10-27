@@ -124,8 +124,8 @@ export function Questionnaire({
     const e = await enregistrerReponse(cle, r);
     if (!e) router.refresh();
   }
-  async function enregistrerQuestion(cle: string, r: Reponse | null, rapide = false): Promise<string | null> {
-    const e = await enregistrerReponse(cle, r, rapide);
+  async function enregistrerQuestion(cle: string, r: Reponse | null, rapide = false, preremplie = false): Promise<string | null> {
+    const e = await enregistrerReponse(cle, r, rapide, preremplie);
     if (!e) setReponses((x) => ({ ...x, [cle]: r ?? undefined }));
     // Une question dont la réponse ouvre d'autres questions : l'écran recalcule ce qui reste à poser.
     if (!e && donneesLues.includes(cle)) router.refresh();

@@ -27,6 +27,7 @@ import {
 } from "./affichage.ts";
 import { accepteLesQuatreReponses, type Reponses } from "./reponse.ts";
 import { prereponseDe, type Prereponse } from "./prereponse.ts";
+import type { Prereponses } from "../donnees/schemas.ts";
 import { proposerSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
 import type { ReglesAffichage, Routage } from "../donnees/schemas.ts";
 
@@ -99,7 +100,14 @@ export type Assemblage = {
 // Données équivalentes : une donnée « partagée » est posée une seule fois, par le
 // premier agent qui en a besoin ; elle renvoie vers les données de l'autre agent
 // qu'elle remplace (colonne « Données utilisées » du classeur).
-export function equivalences(donnees: Donnee[]): Map<string, Set<string>> {
+// Données qui s'affichent toujours, déjà remplies d'après un détail (data/prereponses.json) : elles n'ont pas d'équivalent.
+// Le budget marketing de la Finance reste posé même quand le détail (Comm, Acquisition) est connu, avec le total calculé ;
+// le détail lui-même reste demandé : une réponse totale ne dispense pas du détail, ni l'inverse.
+export function donneesPrerepondues(prereponses: Prereponses): Set<string> {
+  return new Set(prereponses.regles.map((r) => r.donnee));
+}
+
+export function equivalences(donnees: Donnee[], exclues: ReadonlySet<string> = new Set()): Map<string, Set<string>> {
   const index = new Map<string, Set<string>>();
   const lier = (a: string, b: string) => {
     if (!index.has(a)) index.set(a, new Set());
@@ -109,8 +117,8 @@ export function equivalences(donnees: Donnee[]): Map<string, Set<string>> {
   };
   const posables = new Set(donnees.filter((d) => d.mode === "demandee" || d.mode === "partagee").map((d) => d.code));
   for (const d of donnees) {
-    if (d.mode !== "partagee") continue;
-    for (const e of d.entrees) if (posables.has(e)) lier(d.code, e);
+    if (d.mode !== "partagee" || exclues.has(d.code)) continue;
+    for (const e of d.entrees) if (posables.has(e) && !exclues.has(e)) lier(d.code, e);
   }
   return index;
 }
@@ -173,7 +181,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
   const ctx: ContexteAssemblage = { ...entree, reponses: { ...reponsesBrutes, ...implicites.reponses } };
   const lire = lecteurDeclencheurs(ctx.reponses, ctx.taille, regles);
   const banque = new Map<string, Question>(e.banque.map((q) => [q.donnee, q]));
-  const equiv = equivalences(e.donnees);
+  const equiv = equivalences(e.donnees, donneesPrerepondues(e.prereponses));
   const declencheursParCode = new Map(e.declencheurs.map((d) => [d.code, d]));
   const themesAgent = e.themes.filter((t) => t.agent === ctx.agent && !(ex?.themes ?? []).includes(t.code));
 

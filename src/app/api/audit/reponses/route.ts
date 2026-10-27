@@ -9,11 +9,14 @@ import { validerReponse } from "@/lib/audit/validation";
 import { reponsesDuCompte } from "@/lib/audit/compte";
 import { exclusionsAcquisition } from "@/lib/routage";
 import { peutEcrireDonnee } from "@/lib/audit/acces-donnee";
+import { prereponseDe } from "@/lib/audit/prereponse";
 
 const corps = z.object({
   cle: z.string().min(1).max(40),
   // null : le dirigeant efface sa réponse.
   reponse: z.unknown(),
+  // Chiffre proposé par CAXE d'après le détail déjà donné, enregistré tel quel à l'affichage.
+  preremplie: z.boolean().optional(),
 });
 
 // Enregistre une réponse dès qu'elle est donnée (sauvegarde continue). Le code et la
@@ -35,16 +38,23 @@ export async function PUT(request: Request) {
   }
 
   const compte = await prisma.user.findUnique({ where: { id: userId }, select: { categorie: true, metierPrecis: true, sousVariantes: true } });
-  const verdict = validerReponse(ENSEMBLE, cle, reponse, await reponsesDuCompte(userId), (compte && compteRoutable(compte)) ? exclusionsAcquisition(ENSEMBLE.routage, compteRoutable(compte)!) : null);
+  const reponsesActuelles = await reponsesDuCompte(userId);
+  const verdict = validerReponse(ENSEMBLE, cle, reponse, reponsesActuelles, (compte && compteRoutable(compte)) ? exclusionsAcquisition(ENSEMBLE.routage, compteRoutable(compte)!) : null);
   if (!verdict.ok) return NextResponse.json({ erreur: verdict.message }, { status: 400 });
   if (!(await peutEcrireDonnee(userId, cle, verdict.agent ?? null))) return NextResponse.json({ erreur: "Cet agent n'est pas inclus dans votre formule." }, { status: 403 });
+
+  // « Préremplie » n'est accepté que si le chiffre envoyé est bien celui que le détail du compte donne : le serveur
+  // le recalcule, il ne croit pas le navigateur.
+  const propose = parsed.data.preremplie === true ? prereponseDe(ENSEMBLE.prereponses, cle, reponsesActuelles) : null;
+  const rep = verdict.reponse as { genre?: string; valeur?: number };
+  const preremplie = propose !== null && rep.genre === "exact" && rep.valeur === propose.total;
 
   // La réponse complète remplace le brouillon de ce tableau.
   await prisma.$transaction([
     prisma.reponseAudit.upsert({
       where: { userId_cle: { userId, cle } },
-      update: { reponse: verdict.reponse as Prisma.InputJsonValue },
-      create: { userId, cle, reponse: verdict.reponse as Prisma.InputJsonValue },
+      update: { reponse: verdict.reponse as Prisma.InputJsonValue, preremplie },
+      create: { userId, cle, reponse: verdict.reponse as Prisma.InputJsonValue, preremplie },
     }),
     prisma.brouillonReponse.deleteMany({ where: { userId, cle } }),
   ]);

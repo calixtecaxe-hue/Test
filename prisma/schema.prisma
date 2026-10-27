@@ -214,13 +214,16 @@ model BrouillonReponse {
 }
 
 model ReponseAudit {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  cle       String
-  reponse   Json
-  creeLe    DateTime @default(now())
-  modifieLe DateTime @updatedAt
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cle        String
+  reponse    Json
+  // Chiffre proposé par CAXE d'après le détail déjà donné (data/prereponses.json) et gardé tel quel : il se met à jour
+  // si le détail change. Faux dès que le dirigeant donne lui-même un chiffre : sa réponse l'emporte.
+  preremplie Boolean  @default(false)
+  creeLe     DateTime @default(now())
+  modifieLe  DateTime @updatedAt
 
   @@unique([userId, cle])
 }

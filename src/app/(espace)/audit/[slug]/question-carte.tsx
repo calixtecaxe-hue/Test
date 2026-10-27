@@ -20,6 +20,8 @@ export type QuestionClient = {
   dejaPosee: boolean;
   // Total calculé d'après le détail déjà donné à d'autres agents : la question s'affiche déjà remplie.
   prereponse: { total: number; detail: string } | null;
+  // Chiffre déjà enregistré d'après ce détail : il se met à jour si le détail change, tant que le dirigeant ne le corrige pas.
+  preremplie?: string | null;
   // Réponse donnée pour un autre agent : où elle est enregistrée, et comment elle se modifie.
   source: { code: string; spec: ReponseSpec | null; agent: string } | null;
   // Tableau à total imposé : saisie partielle gardée sur le compte, restée sans réponse faute d'un total juste.
@@ -326,14 +328,16 @@ export function QuestionCarte({
   reponse: Reponse | undefined;
   cadrage: Reponses;
   libellesLignes: LibellesLignes;
-  enregistrer: (cle: string, r: Reponse | null, rapide?: boolean) => Promise<string | null>;
+  enregistrer: (cle: string, r: Reponse | null, rapide?: boolean, preremplie?: boolean) => Promise<string | null>;
 }) {
   const id = useId();
   const spec = q.spec;
   const [mode, setMode] = useState<Mode>(reponse?.genre === "inconnu" ? "inconnu" : reponse?.genre === "non_suivi" ? "non_suivi" : "reponse");
   // Question pré-remplie d'après des réponses déjà données : le chiffre est enregistré tel quel
   // à l'affichage, le dirigeant le corrige s'il le souhaite.
-  const [prerempli, setPrerempli] = useState<boolean>(() => q.prereponse !== null && reponse === undefined && spec?.type === "nombre");
+  const [prerempli, setPrerempli] = useState<boolean>(() => (q.prereponse !== null && reponse === undefined && spec?.type === "nombre") || (!!q.preremplie && reponse?.genre === "exact"));
+  // Phrase qui dit d'où vient le chiffre (détail déjà donné).
+  const detailPrerempli = q.prereponse?.detail ?? q.preremplie ?? null;
   // Brouillon repris à l'affichage : seulement tant que le tableau n'a pas de réponse complète.
   const brouillonRepris = reponse === undefined && spec?.type === "tableau" && spec.total !== undefined && q.brouillon ? q.brouillon : null;
   const [saisie, setSaisie] = useState<Saisie>(() =>
@@ -362,7 +366,7 @@ export function QuestionCarte({
   useEffect(() => { enregistrerRef.current = enregistrer; });
 
   useEffect(() => {
-    if (prerempli && q.prereponse) void envoyer({ genre: "exact", valeur: q.prereponse.total });
+    if (prerempli && q.prereponse) void envoyer({ genre: "exact", valeur: q.prereponse.total }, true);
     // Une seule fois, à l'affichage.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -404,11 +408,11 @@ export function QuestionCarte({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function envoyer(r: Reponse | null) {
+  async function envoyer(r: Reponse | null, preremplie = false) {
     attente.current = undefined;
     setEtat("enregistrement");
     setErreur(null);
-    const e = await enregistrer(q.code, r);
+    const e = await enregistrer(q.code, r, false, preremplie);
     if (e) {
       setEtat("erreur");
       setErreur(e);
@@ -503,8 +507,8 @@ export function QuestionCarte({
         <p className="mt-3 text-sm text-[var(--text-muted)]">Déjà renseigné avec un autre agent : repris ici, vous n&apos;avez pas à le saisir de nouveau.</p>
       ) : (
         <>
-          {prerempli && q.prereponse && reponseDonnee ? (
-            <p className="mt-3 text-sm text-[var(--text-muted)]">Rempli d&apos;après vos réponses précédentes ({q.prereponse.detail}). Corrigez le montant si besoin.</p>
+          {prerempli && detailPrerempli && reponseDonnee ? (
+            <p className="mt-3 text-sm text-[var(--text-muted)]">Rempli d&apos;après vos réponses précédentes ({detailPrerempli}). Il se met à jour si ce détail change ; corrigez le montant pour le garder tel quel.</p>
           ) : null}
           {reponseDonnee ? <CorpsReponse q={q} id={id} spec={spec} saisie={saisie} surSaisie={surSaisie} setSaisie={setSaisie} poser={poser} vider={vider} lignesDeclencheur={lignesDeclencheur} elementsDeListe={elementsDeListe} libellesLignes={libellesLignes} lignesLibres={lignesLibres} setLignesLibres={setLignesLibres} /> : null}
           <div role="group" aria-label="Autres réponses" className="reponse-choix mt-4">

@@ -14,7 +14,7 @@
 // Ce fichier n'importe que des types et des fonctions pures : il se teste avec Node.
 
 import type { EnsembleDonnees } from "../donnees/schemas.ts";
-import { equivalences, type Assemblage } from "../audit/assemblage.ts";
+import { donneesPrerepondues, equivalences, type Assemblage } from "../audit/assemblage.ts";
 import { couvertureTheme, valeurRetenue, type CouvertureTheme, type Reponse, type Reponses } from "../audit/reponse.ts";
 import { choisirSeuil, noter, type Couleur, type NiveauPratique, type Seuil } from "./notation.ts";
 import { choisirReference, type ContexteReference } from "../references/cascade.ts";
@@ -80,7 +80,7 @@ function valeurNotable(r: Reponse | undefined): { valeur: number | NiveauPratiqu
 }
 
 export function constaterAgent(e: EnsembleDonnees, seuils: Seuil[], a: Assemblage, reponses: Reponses, ctx: ContexteConstat): Constat[] {
-  const equiv = equivalences(e.donnees);
+  const equiv = equivalences(e.donnees, donneesPrerepondues(e.prereponses));
   // Une donnée posée par un autre agent compte ici : on lit la réponse de son équivalent.
   const effective = (code: string): Reponse | undefined => {
     const direct = reponses[code];

@@ -27,7 +27,7 @@ import {
   enregistrerObjectif,
 } from "../src/lib/audit/objectif.ts";
 import { evaluer, tailleDepuisEffectif, lecteurDeclencheurs } from "../src/lib/audit/affichage.ts";
-import { assemblerQuestionnaire, compterQuestions, equivalences } from "../src/lib/audit/assemblage.ts";
+import { assemblerQuestionnaire, compterQuestions, donneesPrerepondues, equivalences } from "../src/lib/audit/assemblage.ts";
 
 const dossier = join(fileURLToPath(new URL("..", import.meta.url)), "data");
 const reel = chargerDepuisDisque(dossier);
@@ -359,6 +359,15 @@ test("le budget marketing et communication (FIN-05.02) est toujours posé, déj�
   void _sansComm;
   assert.equal(question(sansComm)?.prereponse, null, "agent Comm pas fait : pas de total");
   assert.equal(question({ ...detail, "FIN-05.02": { genre: "exact", valeur: 900 } })?.prereponse, null, "déjà répondue : la réponse du dirigeant l'emporte");
+  // Le détail donné à la Comm ne dispense pas de la question : elle reste posée, déjà remplie, jamais « déjà renseignée ».
+  assert.equal(question(detail)?.dejaPosee, false, "le détail de la Comm ne rend pas le budget marketing « déjà renseigné »");
+  assert.equal(question(detail)?.dejaPoseeDans, null);
+});
+
+test("le budget marketing n'est lié à aucun autre : le détail Comm reste demandé même si le total est connu", () => {
+  const eq = equivalences(reel.donnees, donneesPrerepondues(reel.prereponses));
+  assert.equal(eq.get("FIN-05.02")?.size ?? 0, 0);
+  assert.equal([...(eq.get("COM-32.02") ?? [])].includes("FIN-05.02"), false);
 });
 
 // --- Validation des réponses reçues ------------------------------------------------
