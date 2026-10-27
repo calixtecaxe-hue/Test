@@ -187,3 +187,123 @@ conforme  D-034-d   D43 · si remise pour paiement rapide [FIN-20.03 = « oui »
 conforme  D-034-d2  D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : la réponse gardée à FIN-20.08 compte de nouveau
 conforme  D-034-e   D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : après actualisation, même état
 conforme  D-035-a   D10 · si crédit ou leasing en cours [D10 (cadrage) = « oui »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-035-b   D10 · si crédit ou leasing en cours [D10 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-035-d   D10 · si crédit ou leasing en cours [D10 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-035-e   D10 · si crédit ou leasing en cours [D10 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-036-a   D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : règle vraie, 4 question(s) affichée(s)
+conforme  D-036-b   D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-036-c   D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : la réponse à FIN-25.02 ne compte plus et reste gardée
+conforme  D-036-d   D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-036-d2  D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : la réponse gardée à FIN-25.02 compte de nouveau
+conforme  D-036-e   D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-037-a   D11 · si découvert sur la période [D11 (cadrage) = « oui »] : règle vraie, 5 question(s) affichée(s)
+conforme  D-037-b   D11 · si découvert sur la période [D11 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-037-c   D11 · si découvert sur la période [D11 (cadrage) = « oui »] : la réponse à FIN-24.01 ne compte plus et reste gardée
+conforme  D-037-d   D11 · si découvert sur la période [D11 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-037-d2  D11 · si découvert sur la période [D11 (cadrage) = « oui »] : la réponse gardée à FIN-24.01 compte de nouveau
+conforme  D-037-e   D11 · si découvert sur la période [D11 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-038-a   D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-038-b   D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-038-c   D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : la réponse à FIN-28.02 ne compte plus et reste gardée
+conforme  D-038-d   D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-038-d2  D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : la réponse gardée à FIN-28.02 compte de nouveau
+conforme  D-038-e   D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : après actualisation, même état
+conforme  D-039-a   D42 · si vous avez des ruptures [FIN-41.01 [ruptures_par_mois] > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-039-b   D42 · si vous avez des ruptures [FIN-41.01 [ruptures_par_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-039-d   D42 · si vous avez des ruptures [FIN-41.01 [ruptures_par_mois] > 0] : retour au premier choix, les questions reviennent
+conforme  D-039-e   D42 · si vous avez des ruptures [FIN-41.01 [ruptures_par_mois] > 0] : après actualisation, même état
+conforme  D-040-a   D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-040-b   D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-040-c   D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : la réponse à FIN-47.02 ne compte plus et reste gardée
+conforme  D-040-d   D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : retour au premier choix, les questions reviennent
+conforme  D-040-d2  D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : la réponse gardée à FIN-47.02 compte de nouveau
+conforme  D-040-e   D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : après actualisation, même état
+conforme  D-041-a   D44 · si vous avez confié des tâches [RH-04.01 > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-041-b   D44 · si vous avez confié des tâches [RH-04.01 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-041-c   D44 · si vous avez confié des tâches [RH-04.01 > 0] : la réponse à RH-04.02 ne compte plus et reste gardée
+conforme  D-041-d   D44 · si vous avez confié des tâches [RH-04.01 > 0] : retour au premier choix, les questions reviennent
+conforme  D-041-d2  D44 · si vous avez confié des tâches [RH-04.01 > 0] : la réponse gardée à RH-04.02 compte de nouveau
+conforme  D-041-e   D44 · si vous avez confié des tâches [RH-04.01 > 0] : après actualisation, même état
+conforme  D-042-a   D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : règle vraie, 3 question(s) affichée(s)
+conforme  D-042-b   D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-042-c   D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : la réponse à RH-04.03 ne compte plus et reste gardée
+conforme  D-042-d   D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : retour au premier choix, les questions reviennent
+conforme  D-042-d2  D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : la réponse gardée à RH-04.03 compte de nouveau
+conforme  D-042-e   D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : après actualisation, même état
+conforme  D-043-a   D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-043-b   D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-043-c   D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : la réponse à RH-06.06 ne compte plus et reste gardée
+conforme  D-043-d   D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : retour au premier choix, les questions reviennent
+conforme  D-043-d2  D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : la réponse gardée à RH-06.06 compte de nouveau
+conforme  D-043-e   D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : après actualisation, même état
+conforme  D-044-a   D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-044-b   D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-044-c   D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : la réponse à RH-08.02 ne compte plus et reste gardée
+conforme  D-044-d   D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : retour au premier choix, les questions reviennent
+conforme  D-044-d2  D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : la réponse gardée à RH-08.02 compte de nouveau
+conforme  D-044-e   D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : après actualisation, même état
+conforme  D-045-a   D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-045-b   D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-045-c   D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : la réponse à RH-15.03 ne compte plus et reste gardée
+conforme  D-045-d   D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-045-d2  D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : la réponse gardée à RH-15.03 compte de nouveau
+conforme  D-045-e   D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : après actualisation, même état
+conforme  D-046-a   D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : règle vraie, 2 question(s) affichée(s)
+conforme  D-046-b   D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-046-c   D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : la réponse à RH-16.02 ne compte plus et reste gardée
+conforme  D-046-d   D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : retour au premier choix, les questions reviennent
+conforme  D-046-d2  D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : la réponse gardée à RH-16.02 compte de nouveau
+conforme  D-046-e   D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : après actualisation, même état
+conforme  D-047-a   D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : règle vraie, 2 question(s) affichée(s)
+conforme  D-047-b   D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-047-c   D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : la réponse à RH-19.02 ne compte plus et reste gardée
+conforme  D-047-d   D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : retour au premier choix, les questions reviennent
+conforme  D-047-d2  D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : la réponse gardée à RH-19.02 compte de nouveau
+conforme  D-047-e   D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : après actualisation, même état
+conforme  D-048-a   D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-048-b   D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-048-c   D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : la réponse à RH-26.01 ne compte plus et reste gardée
+conforme  D-048-d   D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : retour au premier choix, les questions reviennent
+conforme  D-048-d2  D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : la réponse gardée à RH-26.01 compte de nouveau
+conforme  D-048-e   D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : après actualisation, même état
+conforme  D-049-a   D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : règle vraie, 9 question(s) affichée(s)
+conforme  D-049-b   D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-049-c   D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : la réponse à RH-28.03 ne compte plus et reste gardée
+conforme  D-049-d   D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : retour au premier choix, les questions reviennent
+conforme  D-049-d2  D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : la réponse gardée à RH-28.03 compte de nouveau
+conforme  D-049-e   D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : après actualisation, même état
+conforme  D-050-a   D13 · si recrutement sur la période [RH-28.01 (D13) parmi « J'ai recruté », « Les deux »] : règle vraie, 3 question(s) affichée(s)
+conforme  D-050-b   D13 · si recrutement sur la période [RH-28.01 (D13) parmi « J'ai recruté », « Les deux »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-050-d   D13 · si recrutement sur la période [RH-28.01 (D13) parmi « J'ai recruté », « Les deux »] : retour au premier choix, les questions reviennent
+conforme  D-050-e   D13 · si recrutement sur la période [RH-28.01 (D13) parmi « J'ai recruté », « Les deux »] : après actualisation, même état
+conforme  D-051-a   D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : règle vraie, 2 question(s) affichée(s)
+conforme  D-051-b   D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-051-c   D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : la réponse à RH-32.03 ne compte plus et reste gardée
+conforme  D-051-d   D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : retour au premier choix, les questions reviennent
+conforme  D-051-d2  D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : la réponse gardée à RH-32.03 compte de nouveau
+conforme  D-051-e   D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : après actualisation, même état
+conforme  D-052-a   D55 · s'il y a eu des absences [RH-34.01 > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-052-b   D55 · s'il y a eu des absences [RH-34.01 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-052-c   D55 · s'il y a eu des absences [RH-34.01 > 0] : la réponse à RH-34.03 ne compte plus et reste gardée
+conforme  D-052-d   D55 · s'il y a eu des absences [RH-34.01 > 0] : retour au premier choix, les questions reviennent
+conforme  D-052-d2  D55 · s'il y a eu des absences [RH-34.01 > 0] : la réponse gardée à RH-34.03 compte de nouveau
+conforme  D-052-e   D55 · s'il y a eu des absences [RH-34.01 > 0] : après actualisation, même état
+conforme  D-053-a   D57 · s'il y a une personne clé [(RH-37.01 [personne_1.poste] répondue OU RH-37.01 [personne_2.poste] répondue OU RH-37.01 [personne_3.poste] répondue)] : règle vraie, 3 question(s) affichée(s)
+conforme  D-053-b   D57 · s'il y a une personne clé [(RH-37.01 [personne_1.poste] répondue OU RH-37.01 [personne_2.poste] répondue OU RH-37.01 [personne_3.poste] répondue)] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-053-d   D57 · s'il y a une personne clé [(RH-37.01 [personne_1.poste] répondue OU RH-37.01 [personne_2.poste] répondue OU RH-37.01 [personne_3.poste] répondue)] : retour au premier choix, les questions reviennent
+conforme  D-053-e   D57 · s'il y a une personne clé [(RH-37.01 [personne_1.poste] répondue OU RH-37.01 [personne_2.poste] répondue OU RH-37.01 [personne_3.poste] répondue)] : après actualisation, même état
+conforme  D-054-a   D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : règle vraie, 9 question(s) affichée(s)
+conforme  D-054-b   D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-054-c   D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : la réponse à RH-41.03 ne compte plus et reste gardée
+conforme  D-054-d   D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : retour au premier choix, les questions reviennent
+conforme  D-054-d2  D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : la réponse gardée à RH-41.03 compte de nouveau
+conforme  D-054-e   D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : après actualisation, même état
+conforme  D-055-a   D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-055-b   D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-055-c   D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : la réponse à RH-44.03 ne compte plus et reste gardée
+conforme  D-055-d   D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : retour au premier choix, les questions reviennent
+conforme  D-055-d2  D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : la réponse gardée à RH-44.03 compte de nouveau
+conforme  D-055-e   D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : après actualisation, même état
+conforme  D-056-a   D51 · si des objectifs existent [RH-48.01 ≠ « Pour personne »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-056-b   D51 · si des objectifs existent [RH-48.01 ≠ « Pour personne »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-056-c   D51 · si des objectifs existent [RH-48.01 ≠ « Pour personne »] : la réponse à RH-48.02 ne compte plus et reste gardée
