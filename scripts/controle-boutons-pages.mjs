@@ -83,7 +83,7 @@ for (const cle of CHOIX) {
   await page.goto(`${B}/audit/${A.slug}`, { waitUntil: "networkidle" });
 
   // --- 1. Objectif -----------------------------------------------------------------------------------------------------------------
-  const envoyer = page.getByRole("button", { name: "Enregistrer mon objectif" });
+  const envoyer = page.getByRole("button", { name: /^Enregistrer (mon objectif|mes objectifs)$/ });
   if (A.chiffre) {
     await envoyer.click();
     const e1 = await texteErreurs(page);

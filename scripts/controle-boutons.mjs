@@ -249,6 +249,21 @@ async function exercer(page, agent, T, code, completPour) {
   const dejaPosee = (await carte.getByText("Déjà renseigné avec un autre agent").count()) > 0;
   if (dejaPosee) return "deja";
   await carte.scrollIntoViewIfNeeded();
+  // Tableau qui montre la question d'où viennent ses lignes (liste ou cases d'une autre partie de la page) : on y répond sur
+  // place, le tableau doit s'afficher, puis « Terminer » referme la question.
+  const imbriquee = carte.locator("[data-question-imbriquee]");
+  if (await imbriquee.count()) {
+    const source = await imbriquee.getAttribute("data-question-imbriquee");
+    const liste = imbriquee.locator('input[type="text"]');
+    if (await liste.count()) { await liste.first().fill("Catégorie en ligne"); await liste.first().blur(); }
+    else { const o = imbriquee.locator("label.case-option").first(); if (!(await o.locator("input").isChecked())) await o.click(); }
+    await pause(page, 1500);
+    verifier(agent, code, `question ${source} répondue dans le tableau : les lignes s'affichent`, (await carte.locator("tbody tr").count()) > 0);
+    const fin = imbriquee.getByRole("button", { name: "Terminer" });
+    if (await fin.count()) await fin.click();
+    await pause(page, 300);
+    verifier(agent, code, `« Terminer » referme la question ${source}`, (await carte.locator("[data-question-imbriquee]").count()) === 0);
+  }
   let type = "?";
   let complet = true;
 

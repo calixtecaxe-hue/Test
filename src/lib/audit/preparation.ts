@@ -124,6 +124,18 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
       questions: t.questions.map(questionClient),
     })),
   ];
+  // La question d'où viennent les lignes ne se répond dans un tableau que si elle est loin (autre thème, « Pour commencer ») et
+  // dans le premier tableau qui en dépend : juste au-dessus, ou déjà proposée plus haut, un renvoi suffit (pas de répétition).
+  const themeDe = new Map(themes.flatMap((t) => t.questions.map((q) => [q.code, t.code] as const)));
+  const dejaEnLigne = new Set<string>();
+  for (const t of themes) {
+    for (const q of t.questions) {
+      const r = q.renvoiLignes;
+      if (!r?.question) continue;
+      if (themeDe.get(r.code) === t.code || dejaEnLigne.has(r.code)) q.renvoiLignes = { ...r, question: undefined };
+      else dejaEnLigne.add(r.code);
+    }
+  }
   // Seules les réponses utiles à cet écran partent au navigateur.
   const cles = new Set<string>([
     ...a.declencheursConcernes.flatMap((d) => Object.keys(reponses).filter((c) => c === d.code || c.startsWith(`${d.code}.`))),
