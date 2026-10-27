@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChoixCases } from "@/components/choix-cases";
+import { MenuDeroulant } from "@/components/menu-deroulant";
 import { DELAI_MAX_MOIS, phraseObjectif, verifierVraisemblance, type UniteAmpleur } from "@/lib/audit/objectif";
 import { lireNombre } from "@/lib/audit/nombre";
 import type { ObjectifAgent } from "@/lib/donnees/schemas";
@@ -131,19 +132,32 @@ export function ObjectifChoix({
         <span className="champ-etiquette">Ce que vous voulez améliorer</span>
         {propositions.intro ? <p className="text-sm text-[var(--text-muted)]">{propositions.intro}</p> : null}
         <div className="mt-3 flex flex-col gap-6">
-          {groupes.map((g, i) => (
-            <div key={g || "tous"}>
-              {g ? <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--text-muted)]">{g}</p> : null}
-              <ChoixCases
-                nom={`${id}-choix`}
-                type="radio"
-                legende={g || "Objectifs proposés"}
-                options={[...objectifsDu(g).map((o) => ({ valeur: o.id, libelle: o.libelle })), { valeur: `${AUTRE}${i}`, libelle: "Autre (précisez)" }]}
-                valeurs={[choixId]}
-                onChange={(v) => choisir(v[0])}
-              />
-            </div>
-          ))}
+          {/* Une partie = un menu déroulant de ses objectifs, puis « Autre (précisez) » toujours visible. */}
+          {groupes.map((g, i) => {
+            const menu = `${id}-menu-${i}`;
+            const dansLaPartie = objectifsDu(g).some((o) => o.id === choixId);
+            return (
+              <div key={g || "tous"} className="flex flex-col gap-3">
+                {g ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--text-muted)]">{g}</p> : null}
+                <label htmlFor={menu} className="sr-only">{g ? `Objectifs proposés : ${g}` : "Objectifs proposés"}</label>
+                <MenuDeroulant
+                  id={menu}
+                  name={`${id}-objectif-${i}`}
+                  options={[{ valeur: "", libelle: "Choisissez un objectif" }, ...objectifsDu(g).map((o) => ({ valeur: o.id, libelle: o.libelle }))]}
+                  valeur={dansLaPartie ? choixId : ""}
+                  onChange={(v) => { if (v) choisir(v); }}
+                />
+                <ChoixCases
+                  nom={`${id}-choix`}
+                  type="radio"
+                  legende={g ? `Un autre objectif : ${g}` : "Un autre objectif"}
+                  options={[{ valeur: `${AUTRE}${i}`, libelle: "Autre (précisez)" }]}
+                  valeurs={[choixId]}
+                  onChange={(v) => choisir(v[0])}
+                />
+              </div>
+            );
+          })}
         </div>
         {erreurs.choix ? <p className="text-xs text-[var(--red-1)]">{erreurs.choix}</p> : null}
       </div>

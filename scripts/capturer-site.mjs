@@ -336,8 +336,13 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
       const groupes = [...new Set(PROP[a.code].objectifs.map((o) => o.groupe ?? ""))];
       const liste = [...PROP[a.code].objectifs.map((o) => ({ id: o.id, libelle: o.libelle })), ...groupes.map((_, i) => ({ id: `autre-${i}`, libelle: "Autre (précisez)" }))];
       for (const o of liste) {
-        // Clic direct sur la case : avec une longue liste, le défilement vers le détail déplacerait la page pendant un clic à la souris.
-        await p.locator(`input[type=radio][value="${o.id}"]`).evaluate((e) => e.click());
+        // « Autre » : la case de sa partie ; un objectif de la liste : le menu déroulant de sa partie.
+        if (o.id.startsWith("autre-")) await p.locator(`input[type=radio][value="${o.id}"]`).evaluate((e) => e.click());
+        else {
+          const gi = groupes.indexOf(PROP[a.code].objectifs.find((x) => x.id === o.id).groupe ?? "");
+          await p.locator("[data-objectif-choix] .menu-declencheur").nth(gi).click();
+          await p.locator(`[role="option"]:has-text("${o.libelle.replace(/"/g, '\\"')}")`).first().click();
+        }
         await p.waitForTimeout(300);
         const det = p.locator("[data-detail]");
         const chiffre = (await p.locator("[data-sans-chiffre]").count()) > 0;
@@ -389,7 +394,7 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
     ["ACQ-01.01", ["Particuliers"]],
     ["ACQ-03.01", ["bouche_a_oreille", "fiche_google", "site_internet"]],
     ["COM-10.08", ["linkedin", "instagram"]],
-    ["D20", ["lundi", "mardi", "mercredi", "jeudi", "vendredi"]],
+    ["ACQ-22.01", ["lundi", "mardi", "mercredi", "jeudi", "vendredi"]],
   ]) {
     const r = await api.put(B + "/api/audit/reponses", { data: { cle, reponse: { genre: "saisie", valeur } } });
     if (!r.ok()) throw new Error("réponse " + cle + " " + r.status() + " " + (await r.text()));
@@ -922,9 +927,36 @@ const SCRIPT_PARCOURS = String.raw`
       var envoi=formChoix.querySelector('button[type=submit]'); if (envoi) envoi.disabled=false;
       synchroCases(); majChoix();
     };
+    // Menus déroulants des objectifs (un par partie) : rejoués sans React, d'après leur liste (data-menu-options).
+    var menus=[].slice.call(formChoix.querySelectorAll('.menu-champ[data-menu-options]'));
+    var menuVide=function(m){ var o=JSON.parse(m.getAttribute('data-menu-options')); var sp=m.querySelector('.menu-declencheur span'); sp.textContent=o[0].libelle; sp.className='text-[var(--text-faint)]'; var h=m.querySelector('input[type=hidden]'); if (h) h.value=''; };
+    var fermerMenus=function(){ menus.forEach(function(m){ var l=m.querySelector('.menu-liste'); if (l) l.remove(); var b=m.querySelector('.menu-declencheur'); if (b) b.setAttribute('aria-expanded','false'); }); };
+    menus.forEach(function(m){
+      var bouton=m.querySelector('.menu-declencheur');
+      bouton.addEventListener('click', function(e){
+        e.preventDefault();
+        var ouvert=m.querySelector('.menu-liste'); fermerMenus(); if (ouvert) return;
+        var ul=document.createElement('ul'); ul.className='menu-liste'; ul.setAttribute('role','listbox');
+        JSON.parse(m.getAttribute('data-menu-options')).forEach(function(o){
+          if (!o.valeur) return;
+          var li=document.createElement('li'); li.className='menu-option'; li.setAttribute('role','option'); li.textContent=o.libelle;
+          li.addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+          li.addEventListener('click', function(){
+            menus.forEach(function(x){ if (x!==m) menuVide(x); });
+            var sp=bouton.querySelector('span'); sp.textContent=o.libelle; sp.className='';
+            var h=m.querySelector('input[type=hidden]'); if (h) h.value=o.valeur;
+            formChoix.querySelectorAll('input[type=radio]').forEach(function(r){ if (!zoneDetail.contains(r)) r.checked=false; });
+            fermerMenus(); synchroCases(); afficherChoix(o.valeur, MODES[o.valeur].defaut);
+          });
+          ul.appendChild(li);
+        });
+        m.appendChild(ul); bouton.setAttribute('aria-expanded','true');
+      });
+    });
+    document.addEventListener('mousedown', function(e){ if (!e.target.closest('.menu-champ')) fermerMenus(); });
     formChoix.addEventListener('change', function(e){
       var t=e.target;
-      if (t.type==='radio' && !zoneDetail.contains(t)) afficherChoix(t.value, MODES[t.value].defaut); else majChoix();
+      if (t.type==='radio' && !zoneDetail.contains(t)) { menus.forEach(menuVide); afficherChoix(t.value, MODES[t.value].defaut); } else majChoix();
     });
     formChoix.addEventListener('input', majChoix);
     zoneDetail.addEventListener('click', function(e){

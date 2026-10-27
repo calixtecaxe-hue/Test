@@ -30,6 +30,8 @@ export function MenuDeroulant({
     0,
     options.findIndex((o) => o.valeur === courant),
   );
+  // Une première option de valeur vide est une invitation (« Choisissez… ») : affichée dans le champ fermé, jamais dans la liste.
+  const premier = options[0]?.valeur === "" ? 1 : 0;
   const [ouvert, setOuvert] = useState(false);
   const [actif, setActif] = useState(indexCourant);
   const racine = useRef<HTMLDivElement>(null);
@@ -52,7 +54,7 @@ export function MenuDeroulant({
   }, [ouvert, actif]);
 
   function ouvrir() {
-    setActif(indexCourant);
+    setActif(Math.max(indexCourant, premier));
     setOuvert(true);
   }
 
@@ -79,11 +81,11 @@ export function MenuDeroulant({
         break;
       case "ArrowUp":
         event.preventDefault();
-        setActif((a) => Math.max(a - 1, 0));
+        setActif((a) => Math.max(a - 1, premier));
         break;
       case "Home":
         event.preventDefault();
-        setActif(0);
+        setActif(premier);
         break;
       case "End":
         event.preventDefault();
@@ -105,7 +107,8 @@ export function MenuDeroulant({
   }
 
   return (
-    <div ref={racine} className="menu-champ">
+    // data-menu-options : la liste, lisible par la copie de l'application (aperçu), qui rejoue le menu sans React.
+    <div ref={racine} className="menu-champ" data-menu-options={JSON.stringify(options)}>
       <input type="hidden" name={name} value={courant} />
       <button
         id={id}
@@ -119,7 +122,8 @@ export function MenuDeroulant({
         onClick={() => (ouvert ? setOuvert(false) : ouvrir())}
         onKeyDown={surTouche}
       >
-        <span>{options[indexCourant]?.libelle}</span>
+        {/* Valeur vide : le libellé d'invitation (« Choisissez… ») reste discret. */}
+        <span className={courant === "" ? "text-[var(--text-faint)]" : undefined}>{options[indexCourant]?.libelle}</span>
         <svg
           viewBox="0 0 24 24"
           className="menu-chevron"
@@ -135,7 +139,7 @@ export function MenuDeroulant({
       </button>
       {ouvert ? (
         <ul id={idListe} role="listbox" className="menu-liste">
-          {options.map((option, index) => (
+          {options.map((option, index) => index < premier ? null : (
             <li
               key={option.valeur}
               id={`${idListe}-${index}`}

@@ -55,6 +55,12 @@ const objectifs = (email, agent) => sql(`select o.statut||'|'||o."texteBrut" fro
 const niveauDb = (email) => sql(`select coalesce("niveauAudit"::text,'') from "User" where email='${email}'`);
 const texteErreurs = (page) => page.locator(".text-\\[var\\(--red-1\\)\\]").allInnerTexts();
 const nbQuestions = (page) => page.locator("li[data-question]").count();
+// Objectif de la liste (RH, Comm) : chaque partie a son menu déroulant ; on ouvre celui de la partie de l'objectif et on le choisit.
+async function choisirObjectif(page, code, o) {
+  const groupes = [...new Set(PROP[code].objectifs.map((x) => x.groupe ?? ""))];
+  await page.locator("[data-objectif-choix] .menu-declencheur").nth(groupes.indexOf(o.groupe ?? "")).click();
+  await page.getByRole("option", { name: o.libelle, exact: true }).click();
+}
 
 for (const cle of CHOIX) {
   const A = AGENTS[cle];
@@ -97,7 +103,7 @@ for (const cle of CHOIX) {
     await envoyer.click().catch(() => {});
     verifier(cle, "objectif (liste) : bouton inactif tant qu'aucun objectif n'est choisi", await envoyer.isDisabled());
     for (const o of liste.slice(0, 2)) {
-      await page.locator(`label.case-option:has-text("${o.libelle.slice(0, 40).replace(/"/g, '\\"')}")`).first().click();
+      await choisirObjectif(page, A.code, o);
       await page.waitForTimeout(300);
       verifier(cle, `objectif (liste) : choisir « ${o.libelle.slice(0, 30)} » ouvre le détail`, (await page.locator("[data-detail]").count()) === 1);
     }
@@ -112,7 +118,7 @@ for (const cle of CHOIX) {
     if (await avec.count()) { await avec.click(); await page.waitForTimeout(200); verifier(cle, "objectif : « avec chiffre » ramène le champ « De combien »", (await page.getByLabel("De combien").count()) === 1); }
     // Un objectif de la liste, sans chiffre, valide.
     const premier = liste[0];
-    await page.locator(`label.case-option:has-text("${premier.libelle.slice(0, 40).replace(/"/g, '\\"')}")`).first().click();
+    await choisirObjectif(page, A.code, premier);
     await page.waitForTimeout(300);
     if (await page.locator("[data-sans-chiffre]").count()) await page.locator("[data-sans-chiffre]").click();
     await page.waitForTimeout(200);
@@ -172,7 +178,7 @@ for (const cle of CHOIX) {
     await formulaire.getByLabel(/En combien de temps/).fill("4");
   } else {
     const liste = PROP[A.code].objectifs;
-    await page.locator(`label.case-option:has-text("${liste[1].libelle.slice(0, 40).replace(/"/g, '\\"')}")`).first().click();
+    await choisirObjectif(page, A.code, liste[1]);
     await page.waitForTimeout(300);
     if (await page.locator("[data-sans-chiffre]").count()) await page.locator("[data-sans-chiffre]").click();
     await page.waitForTimeout(200);

@@ -269,10 +269,24 @@ test("une question d'un autre agent dont dépend le questionnaire est posée en 
   assert.ok(!acq.prealables.some((q) => q.code === "ACQ-01.01"));
 });
 
-test("un tableau dont les lignes viennent d'un cadrage fait poser ce cadrage (jours d'ouverture, e-commerce)", () => {
+test("un tableau dont les lignes viennent des jours d'ouverture fait poser la question des jours (D20 = ACQ-22.01), jamais un cadrage en double", () => {
   const a = assemblerQuestionnaire(reel, { ...ctx("ACQUISITION_CA", { reponses: {} }), profils: ["ecommerce"] });
-  const tableau = a.themes.flatMap((t) => t.questions).find((q) => q.code === "ACQ-22.02");
-  if (tableau) assert.ok(a.declencheursConcernes.some((d) => d.code === "D20"));
+  const codes = new Set([...a.prealables, ...a.themes.flatMap((t) => t.questions)].map((q) => q.code));
+  assert.ok(codes.has("ACQ-22.01"), "la question des jours est posée");
+  assert.ok(!a.declencheursConcernes.some((d) => d.code === "D20"), "pas de question de cadrage « Jours d'ouverture » en plus");
+  // Les jours cochés donnent les lignes du tableau des horaires.
+  const b = assemblerQuestionnaire(reel, { ...ctx("ACQUISITION_CA", { reponses: { "ACQ-22.01": saisie(["lundi", "mardi"]) } }), profils: ["ecommerce"] });
+  assert.ok(b.themes.flatMap((t) => t.questions).some((q) => q.code === "ACQ-22.02"));
+});
+
+test("l'offre d'appel se demande une seule fois (D25 = COM-21.01) : « Non, rien » masque la suite", () => {
+  const sans = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: {} }));
+  assert.ok(!sans.declencheursConcernes.some((d) => d.code === "D25"));
+  const codes = (x: ReturnType<typeof assemblerQuestionnaire>) => new Set(x.themes.flatMap((t) => t.questions).map((q) => q.code));
+  const non = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "COM-21.01": saisie("non_rien") } }));
+  const guide = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "COM-21.01": saisie("guide_ou_liste_de_conseils") } }));
+  assert.ok(!codes(non).has("COM-21.02"));
+  assert.ok(codes(guide).has("COM-21.02"));
 });
 
 test("le niveau approfondi pose plus de questions que le niveau essentiel", () => {

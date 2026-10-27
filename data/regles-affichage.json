@@ -91,37 +91,8 @@
       "type": "oui_non"
     },
     "D20": {
-      "type": "cases",
-      "options": [
-        {
-          "id": "lundi",
-          "libelle": "Lundi"
-        },
-        {
-          "id": "mardi",
-          "libelle": "Mardi"
-        },
-        {
-          "id": "mercredi",
-          "libelle": "Mercredi"
-        },
-        {
-          "id": "jeudi",
-          "libelle": "Jeudi"
-        },
-        {
-          "id": "vendredi",
-          "libelle": "Vendredi"
-        },
-        {
-          "id": "samedi",
-          "libelle": "Samedi"
-        },
-        {
-          "id": "dimanche",
-          "libelle": "Dimanche"
-        }
-      ]
+      "type": "reponse_donnee",
+      "donnee": "ACQ-22.01"
     },
     "D21": {
       "type": "reponse_donnee",
@@ -140,7 +111,8 @@
       "donnee": "COM-15.12"
     },
     "D25": {
-      "type": "oui_non"
+      "type": "reponse_donnee",
+      "donnee": "COM-21.01"
     },
     "D26": {
       "type": "reponse_donnee",
@@ -342,8 +314,8 @@
     },
     "D25 · si offre d'appel": {
       "cle": "D25",
-      "op": "egal",
-      "valeur": "oui"
+      "op": "different",
+      "valeur": "non_rien"
     },
     "D27 · si ce n'est pas vous (sinon RH-05)": {
       "cle": "D27",
