@@ -2,17 +2,13 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import type { OptionMenu } from "@/components/menu-deroulant";
+import { rechercherMetiers } from "@/lib/recherche-metier";
 
 // Liste de choix avec recherche : la liste des métiers est affichée sous le
-// champ, on tape quelques lettres pour la réduire. Motif « combobox » (flèches,
-// Entrée). La valeur choisie part dans le formulaire par un champ caché ; tant
-// qu'aucun choix n'est fait, il reste vide.
-
-const normaliser = (t: string) =>
-  t
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "");
+// champ, on tape quelques lettres pour la réduire (règles de rapprochement des
+// mots dans src/lib/recherche-metier.ts). Motif « combobox » (flèches, Entrée).
+// La valeur choisie part dans le formulaire par un champ caché ; tant qu'aucun
+// choix n'est fait, il reste vide.
 
 export function ChampRecherche({
   id,
@@ -37,11 +33,8 @@ export function ChampRecherche({
 
   // La liste est toujours visible, sous le champ : le dirigeant voit les métiers
   // proposés avant même de taper, et la liste se réduit pendant qu'il tape.
-  const recherche = normaliser(texte.trim());
-  const filtrees =
-    choisie && texte === choisie.libelle
-      ? options
-      : options.filter((o) => normaliser(o.libelle).includes(recherche) || (o.mots ?? []).some((m) => normaliser(m).includes(recherche)));
+  const trouvees = choisie && texte === choisie.libelle ? options.map((option) => ({ option, indice: undefined })) : rechercherMetiers(options, texte);
+  const filtrees = trouvees.map((t) => t.option);
 
   useEffect(() => {
     racine.current?.querySelector(`[data-index="${actif}"]`)?.scrollIntoView({ block: "nearest" });
@@ -94,7 +87,7 @@ export function ChampRecherche({
             <span>Aucun métier ne correspond. Essayez un autre mot.</span>
           </li>
         ) : (
-          filtrees.map((option, index) => (
+          trouvees.map(({ option, indice }, index) => (
             <li
               key={option.valeur}
               id={`${idListe}-${index}`}
@@ -109,9 +102,7 @@ export function ChampRecherche({
             >
               <span>
                 {option.libelle}
-                {recherche && !normaliser(option.libelle).includes(recherche) ? (
-                  <span className="ml-2 text-xs text-[var(--text-muted)]">{(option.mots ?? []).find((m) => normaliser(m).includes(recherche))}</span>
-                ) : null}
+                {indice ? <span className="ml-2 text-xs text-[var(--text-muted)]">{indice}</span> : null}
               </span>
               {option.valeur === valeur ? (
                 <svg

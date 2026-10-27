@@ -22,12 +22,17 @@ function estUneDateReelle(v: string): boolean {
   return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === v;
 }
 
+export const schemaEmail = z.string().trim().toLowerCase().max(254, "Adresse email invalide.").email("Adresse email invalide.");
+
+// Même règle à la création du compte et au choix d'un nouveau mot de passe (« Mot de passe oublié »).
+export const schemaMotDePasse = z
+  .string()
+  .min(10, "Le mot de passe doit contenir au moins 10 caractères.")
+  .refine((v) => new TextEncoder().encode(v).length <= MOT_DE_PASSE_MAX_OCTETS, "Le mot de passe est trop long : 72 octets au maximum (environ 60 caractères).");
+
 export const schemaIdentifiants = z.object({
-  email: z.string().trim().toLowerCase().max(254, "Adresse email invalide.").email("Adresse email invalide."),
-  motDePasse: z
-    .string()
-    .min(10, "Le mot de passe doit contenir au moins 10 caractères.")
-    .refine((v) => new TextEncoder().encode(v).length <= MOT_DE_PASSE_MAX_OCTETS, "Le mot de passe est trop long : 72 octets au maximum (environ 60 caractères)."),
+  email: schemaEmail,
+  motDePasse: schemaMotDePasse,
 });
 
 export function creerSchemaMetier(routage: Routage) {
@@ -67,7 +72,7 @@ export function creerSchemaMetier(routage: Routage) {
 export const schemaDossier = z.object({
   chiffreAffairesMensuel: z.coerce
     .number({ message: "Indiquez un chiffre d'affaires mensuel." })
-    .nonnegative("Le chiffre d'affaires ne peut pas être négatif.")
+    .nonnegative("Le chiffre d'affaires ne peut pas être négatif : indiquez le montant encaissé sur un mois, sans le signe moins.")
     .max(CA_MENSUEL_MAX, "Ce chiffre d'affaires mensuel est trop élevé : vérifiez le montant."),
   nombreCollaborateurs: z.coerce
     .number({ message: "Indiquez le nombre de personnes qui travaillent dans l'entreprise." })

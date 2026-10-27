@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { ChoixCases } from "@/components/choix-cases";
-import { enregistrerBrouillon } from "./enregistrer";
+import { HORS_LIGNE, enregistrerBrouillon, suivreRenvois } from "./enregistrer";
 import { formaterNombre, lireNombre } from "@/lib/audit/nombre";
 import type { Reponse, Reponses } from "@/lib/audit/reponse";
 import { construireReponse, saisieInitiale, type Saisie } from "@/lib/audit/saisie";
@@ -41,7 +41,8 @@ export type LignesVenues = {
   suiviPar?: { code: string; suit: string[] }[];
 };
 
-type Etat = "repos" | "enregistrement" | "enregistre" | "erreur";
+// attente : coupure du réseau, la réponse est gardée et repartira seule (enregistrer.ts).
+type Etat = "repos" | "enregistrement" | "enregistre" | "erreur" | "attente";
 type Mode = "reponse" | "inconnu" | "non_suivi";
 
 // Libellés des options cochées au cadrage (D03, D22…), pour nommer les lignes d'un tableau.
@@ -569,13 +570,25 @@ export function QuestionCarte({
     setEtat("enregistrement");
     setErreur(null);
     const e = await enregistrer(q.code, r, false, preremplie);
-    if (e) {
+    if (e === HORS_LIGNE) {
+      setEtat("attente");
+    } else if (e) {
       setEtat("erreur");
       setErreur(e);
     } else {
       setEtat("enregistre");
     }
   }
+  // Réponse gardée pendant une coupure, partie (ou refusée) au retour du réseau.
+  useEffect(
+    () =>
+      suivreRenvois((cle, e) => {
+        if (cle !== q.code) return;
+        setEtat(e ? "erreur" : "enregistre");
+        setErreur(e);
+      }),
+    [q.code],
+  );
 
   function programmerBrouillon(champs: Record<string, string>) {
     if (minuteurBrouillon.current) clearTimeout(minuteurBrouillon.current);
@@ -713,6 +726,7 @@ export function QuestionCarte({
 
           <div className="mt-3 flex flex-wrap items-center gap-4 text-xs" aria-live="polite">
             {etat === "enregistrement" ? <span className="text-[var(--text-muted)]">Enregistrement…</span> : null}
+            {etat === "attente" && !erreur ? <span className="etat-attente" role="status">{HORS_LIGNE}</span> : null}
             {/* Une confirmation, pas un bouton : la coche dit que la réponse est gardée sur le compte. */}
             {etat === "enregistre" && !erreur ? (
               <span className="etat-enregistre" role="status">

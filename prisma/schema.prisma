@@ -75,13 +75,33 @@ model User {
   raisonSociale String?
   numeroTva     String?
 
+  // Dernier changement du mot de passe (réinitialisation) : une session ouverte avant cette date est
+  // fermée, pour qu'un tiers qui aurait eu l'ancien mot de passe perde l'accès.
+  motDePasseModifieLe DateTime?
+
   agentAccess AgentAccess[]
   objectifs   Objectif[]
   abonnement  Abonnement?
   reponses    ReponseAudit[]
   brouillons  BrouillonReponse[]
+  reinitialisations ReinitialisationMotDePasse[]
 
   @@index([metierPrecis])
+}
+
+// Demande de réinitialisation du mot de passe (« Mot de passe oublié »). Seule l'empreinte SHA-256 du
+// jeton est gardée : le jeton lui-même n'existe que dans le lien envoyé par e-mail. Valable une heure,
+// utilisable une seule fois ; un nouveau mot de passe annule les autres demandes du compte.
+model ReinitialisationMotDePasse {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  empreinte  String    @unique
+  expireLe   DateTime
+  utiliseeLe DateTime?
+  creeeLe    DateTime  @default(now())
+
+  @@index([userId, creeeLe])
 }
 
 // Droit d'accès à un agent, attaché au compte (CLAUDE.md section 1).

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Champ, classeChamp } from "@/components/champ";
 import { ChampDate } from "@/components/champ-date";
 import { ChampNombre } from "@/components/champ-nombre";
+import { erreurChiffreAffaires } from "@/lib/saisie-nombre";
 import { ChoixCases } from "@/components/choix-cases";
 import { libelleQuestion } from "@/lib/donnees/lexique";
 import type { ProfilId } from "@/lib/donnees/schemas";
@@ -43,7 +44,8 @@ export function EntrepriseFormulaire({ initial, profils }: { initial: ValeursEnt
       ville: lire("ville").trim(),
     };
     const manques: Record<string, string> = {};
-    if (corps.chiffreAffairesMensuel === "" || Number.isNaN(Number(corps.chiffreAffairesMensuel))) manques.chiffreAffairesMensuel = "Indiquez un chiffre d'affaires mensuel, même approximatif.";
+    const erreurCa = erreurChiffreAffaires(corps.chiffreAffairesMensuel);
+    if (erreurCa) manques.chiffreAffairesMensuel = erreurCa;
     if (corps.nombreCollaborateurs === "" || Number(corps.nombreCollaborateurs) < 1) manques.nombreCollaborateurs = "Indiquez au moins une personne : vous.";
     if (corps.dateCreationEntreprise === "") manques.dateCreationEntreprise = "Indiquez un mois passé, au format mm/aaaa.";
     if (!corps.typeZone) manques.typeZone = "Choisissez le type de zone.";

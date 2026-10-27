@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Champ, classeChamp } from "@/components/champ";
 import { ChampDate } from "@/components/champ-date";
 import { ChampNombre } from "@/components/champ-nombre";
+import { erreurChiffreAffaires } from "@/lib/saisie-nombre";
 import { ChampRecherche } from "@/components/champ-recherche";
 import { ChoixCases } from "@/components/choix-cases";
 import { libelleQuestion } from "@/lib/donnees/lexique";
@@ -57,7 +58,12 @@ const ETAPE_DU_CHAMP: Record<string, IdEtape> = {
   ville: "ville",
 };
 
-const METIERS = metiersTries(ROUTAGE_CLIENT).map((m) => ({ valeur: m.id, libelle: m.libelle, mots: m.synonymes }));
+// Mots de recherche d'un métier : ses synonymes, ses autres mots courants et le nom de ses activités.
+const METIERS = metiersTries(ROUTAGE_CLIENT).map((m) => ({
+  valeur: m.id,
+  libelle: m.libelle,
+  mots: [...(m.synonymes ?? []), ...(m.motsRecherche ?? []), ...(m.sousVariantes ?? []).map((v) => v.libelle)],
+}));
 // Valeur de la case « Autre (précisez) » dans la liste des activités.
 const CASE_AUTRE = "__autre";
 // Catégories proposées à qui ne trouve pas son métier (hors professions réglementées, à choisir dans la liste).
@@ -132,7 +138,8 @@ export function QuestionsProfil(props: Props) {
         return valeurs.vendProduits ? { erreur: null } : { erreur: "Répondez par oui ou par non." };
       case "chiffreAffairesMensuel": {
         const v = lire("chiffreAffairesMensuel");
-        return v === "" || Number.isNaN(Number(v)) ? { erreur: "Indiquez un chiffre d'affaires mensuel, même approximatif." } : { erreur: null, suite: { chiffreAffairesMensuel: v } };
+        const erreur = erreurChiffreAffaires(v);
+        return erreur ? { erreur } : { erreur: null, suite: { chiffreAffairesMensuel: v } };
       }
       case "nombreCollaborateurs": {
         const v = lire("nombreCollaborateurs");

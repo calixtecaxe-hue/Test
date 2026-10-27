@@ -3908,6 +3908,10 @@ h3,
   width: 14px;
   height: 14px;
 }
+/* Coupure du réseau : la réponse attend, elle repartira seule. */
+.etat-attente {
+  color: rgb(var(--amber-rgb));
+}
 
 /* En-tête d'une ligne : son libellé (« Offre 2 »), le nom repris du tableau suivi, et « Retirer ». */
 .ligne-entete {

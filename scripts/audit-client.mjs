@@ -3,13 +3,15 @@
 // dit ce que le client doit obtenir ; un « ÉCART » est un défaut constaté, encore à corriger. Rien n'est modifié dans
 // l'application : le script crée seulement des comptes de test.
 //
-//   (serveur lancé : AUTH_TRUST_HOST=true PAIEMENT_MODE=demonstration npx next start -p 3100)
+//   (serveur lancé : AUTH_TRUST_HOST=true PAIEMENT_MODE=demonstration EMAIL_MODE=demonstration npx next start -p 3100 ;
+//    EMAIL_MODE=demonstration écrit les e-mails dans .emails-demonstration/ au lieu de les envoyer : le script y lit le lien
+//    « Mot de passe oublié »)
 //   node scripts/audit-client.mjs [--sortie dossier]      → résumé à l'écran, détail dans <dossier>/audit-client.json
 //
 // Code de sortie : 0 si tout est conforme, 1 s'il reste un écart.
 import { createRequire } from "node:module";
 import { execFileSync } from "node:child_process";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 
 const require = createRequire(import.meta.url);
 const { chromium } = require("/opt/node22/lib/node_modules/playwright/index.js");
@@ -89,6 +91,10 @@ const email = `audit.client.${Date.now()}@example.com`;
     const retenu = await page.locator('input[type=hidden][name="chiffreAffairesMensuel"]').inputValue().catch(() => "?");
     controle("D-01", "Dossier", `« ${tape} » est refusé avec une explication, ou lu tel que le dirigeant l'entend`, attendu(retenu), `${defaut} (retenu : ${retenu})`);
   }
+  await ca.fill(""); await ca.type("-5000");
+  await page.getByRole("button", { name: /^Continuer$/ }).click(); await page.waitForTimeout(300);
+  const refus = await rouges(page.locator("main"));
+  controle("D-01", "Dossier", "« -5000 » : Continuer explique que le chiffre d'affaires ne peut pas être négatif", refus.some((t) => /négatif/.test(t)), JSON.stringify(refus));
   await ca.fill("60000");
   const avancer = () => page.getByRole("button", { name: /^(Continuer|Ouvrir mes agents)$/ }).click();
   await avancer(); await page.waitForTimeout(400);
@@ -124,7 +130,7 @@ const email = `audit.client.${Date.now()}@example.com`;
   await page.route("**/api/audit/reponses", (r) => r.abort("internetdisconnected"));
   await q2.locator('input[id$="-exact"]').fill("25"); await q2.locator('input[id$="-exact"]').blur();
   await page.waitForTimeout(2000);
-  controle("Q-02a", "Questionnaire", "une coupure du réseau est signalée sur la question", (await q2.getByText(/Connexion impossible/).count()) === 1, (await q2.innerText()).slice(-160));
+  controle("Q-02a", "Questionnaire", "une coupure du réseau est signalée sur la question", (await q2.getByText(/Pas de connexion/).count()) === 1, (await q2.innerText()).slice(-160));
   await page.unroute("**/api/audit/reponses");
   await page.waitForTimeout(4000);
   controle("Q-02b", "Questionnaire", "au retour du réseau, la réponse saisie part sans que le dirigeant la retape", /"valeur": 25/.test(ligne("ACQ-02.04")), "rien n'est renvoyé tant que le champ n'est pas modifié");
@@ -166,6 +172,52 @@ const email = `audit.client.${Date.now()}@example.com`;
   await page.fill("#email", email); await page.fill("#motDePasse", "pas-le-bon-mot-de-passe"); await page.click('button[type="submit"]');
   await page.waitForTimeout(1500);
   controle("L-02", "Connexion", "un mauvais mot de passe est expliqué", (await rouges(page.locator("main"))).some((t) => /incorrect/.test(t)), JSON.stringify(await rouges(page.locator("main"))));
+  // Mot de passe oublié, de bout en bout : demande, e-mail, lien, nouveau mot de passe, anciennes sessions fermées.
+  const ancienne = await (await nouveau()).newPage();
+  await ancienne.goto(B + "/connexion"); await ancienne.fill("#email", email); await ancienne.fill("#motDePasse", MDP); await ancienne.click('button[type="submit"]');
+  await ancienne.waitForURL(/tableau-de-bord/, { timeout: 15000 }).catch(() => {});
+  const dossierEmails = ".emails-demonstration";
+  const emailsAvant = existsSync(dossierEmails) ? readdirSync(dossierEmails).length : 0;
+  const oubli = await (await nouveau()).newPage();
+  await oubli.goto(B + "/connexion", { waitUntil: "networkidle" });
+  await oubli.getByRole("link", { name: "Mot de passe oublié ?" }).click();
+  await oubli.waitForURL(/mot-de-passe-oublie/);
+  await oubli.getByLabel("Adresse email").fill(email);
+  await oubli.getByRole("button", { name: "Recevoir le lien" }).click();
+  const confirme = await oubli.getByText(/un email vient de lui être envoyé/).waitFor({ timeout: 10000 }).then(() => true, () => false);
+  controle("L-04", "Mot de passe oublié", "la demande est confirmée sans dire si l'adresse a un compte", confirme, await oubli.locator("main").innerText());
+  const inconnu = await page.request.post(B + "/api/mot-de-passe/demande", { data: { email: `inconnu.${Date.now()}@example.com` } });
+  const invalide = await page.request.post(B + "/api/mot-de-passe/demande", { data: { email: "pas-une-adresse" } });
+  controle("L-05", "Mot de passe oublié", "une adresse sans compte reçoit la même réponse ; une adresse mal écrite est expliquée", inconnu.status() === 200 && invalide.status() === 400, `${inconnu.status()} / ${invalide.status()}`);
+  let lien = null;
+  for (let i = 0; i < 20 && !lien; i++) {
+    await oubli.waitForTimeout(250);
+    const fichiers = existsSync(dossierEmails) ? readdirSync(dossierEmails).filter((f) => f.includes(email.replace(/[^a-z0-9]+/gi, "_"))).sort() : [];
+    const dernier = fichiers.at(-1);
+    if (dernier && readdirSync(dossierEmails).length > emailsAvant) lien = JSON.parse(readFileSync(`${dossierEmails}/${dernier}`, "utf8")).texte.match(/https?:\/\/\S+nouveau-mot-de-passe\?jeton=\S+/)?.[0] ?? null;
+  }
+  controle("L-06", "Mot de passe oublié", "un e-mail part avec un lien de réinitialisation", lien !== null, lien ? "" : `aucun e-mail dans ${dossierEmails}/ (serveur lancé avec EMAIL_MODE=demonstration ?)`);
+  if (lien) {
+    const chemin = new URL(lien);
+    const NOUVEAU = "nouveau-mot-de-passe-2026";
+    await oubli.goto(B + chemin.pathname + chemin.search, { waitUntil: "networkidle" });
+    await oubli.getByLabel("Nouveau mot de passe").fill(NOUVEAU);
+    await oubli.getByLabel("Confirmer le mot de passe").fill(NOUVEAU);
+    await oubli.getByRole("button", { name: "Enregistrer mon nouveau mot de passe" }).click();
+    await oubli.waitForURL(/tableau-de-bord/, { timeout: 15000 }).catch(() => {});
+    controle("L-07", "Mot de passe oublié", "le nouveau mot de passe est enregistré et le dirigeant retrouve ses agents", /tableau-de-bord/.test(oubli.url()), oubli.url());
+    await ancienne.goto(B + "/tableau-de-bord", { waitUntil: "networkidle" });
+    controle("L-08", "Mot de passe oublié", "une session ouverte avant le changement est fermée", /connexion/.test(ancienne.url()), ancienne.url());
+    const relu = await (await nouveau()).newPage();
+    await relu.goto(B + chemin.pathname + chemin.search, { waitUntil: "networkidle" });
+    controle("L-09", "Mot de passe oublié", "le lien ne sert qu'une fois", /déjà servi/.test(await relu.locator("main").innerText()), (await relu.locator("main").innerText()).slice(0, 120));
+    await relu.goto(B + "/connexion"); await relu.fill("#email", email); await relu.fill("#motDePasse", MDP); await relu.click('button[type="submit"]');
+    await relu.waitForTimeout(1500);
+    const ancienRefuse = /connexion/.test(relu.url());
+    await relu.fill("#motDePasse", NOUVEAU); await relu.click('button[type="submit"]');
+    await relu.waitForURL(/tableau-de-bord/, { timeout: 15000 }).catch(() => {});
+    controle("L-10", "Mot de passe oublié", "l'ancien mot de passe est refusé, le nouveau ouvre le compte", ancienRefuse && /tableau-de-bord/.test(relu.url()), relu.url());
+  }
   const r = await page.goto(B + "/page-qui-n-existe-pas", { waitUntil: "networkidle" });
   const t = await page.locator("body").innerText();
   controle("L-03", "Page introuvable", "la page 404 parle français et propose un chemin de retour", r.status() === 404 && !/could not be found/.test(t) && (await page.locator("a").count()) > 0, t.slice(0, 80));

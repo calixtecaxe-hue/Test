@@ -227,6 +227,10 @@
           "stock": "non",
           "agentComm": "oui"
         }
+      ],
+      "motsRecherche": [
+        "agent immobilier",
+        "immobilier"
       ]
     },
     {
@@ -258,6 +262,9 @@
             "restaurant"
           ]
         }
+      ],
+      "motsRecherche": [
+        "hôtellerie"
       ]
     },
     {
@@ -283,6 +290,11 @@
           "stock": "non",
           "agentComm": "oui"
         }
+      ],
+      "motsRecherche": [
+        "jardinier paysagiste",
+        "espaces verts",
+        "entretien de jardins"
       ]
     },
     {
@@ -340,6 +352,10 @@
           "stock": "non",
           "agentComm": "oui"
         }
+      ],
+      "motsRecherche": [
+        "voyagiste",
+        "tour-opérateur"
       ]
     },
     {
@@ -456,6 +472,11 @@
           "stock": "non",
           "agentComm": "oui"
         }
+      ],
+      "motsRecherche": [
+        "informatique",
+        "développeur",
+        "logiciel"
       ]
     },
     {
@@ -732,6 +753,10 @@
           "stock": "non",
           "agentComm": "oui"
         }
+      ],
+      "motsRecherche": [
+        "organisateur de mariages",
+        "wedding planner"
       ]
     },
     {
@@ -797,7 +822,10 @@
       "secteur": "Commerce alimentaire",
       "categorie": "commerce-stock",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "fruits et légumes"
+      ]
     },
     {
       "id": "epicerie",
@@ -805,7 +833,11 @@
       "secteur": "Commerce alimentaire",
       "categorie": "commerce-stock",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "supérette",
+        "alimentation générale"
+      ]
     },
     {
       "id": "epicerie-fine",
@@ -829,7 +861,10 @@
       "secteur": "Commerce alimentaire",
       "categorie": "commerce-stock",
       "stock": "oui",
-      "agentComm": "a_trancher"
+      "agentComm": "a_trancher",
+      "motsRecherche": [
+        "cave à vin"
+      ]
     },
     {
       "id": "opticien",
@@ -837,7 +872,11 @@
       "secteur": "Commerce spécialisé",
       "categorie": "commerce-stock",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "lunetterie",
+        "optique"
+      ]
     },
     {
       "id": "vetements",
@@ -845,7 +884,12 @@
       "secteur": "Commerce spécialisé",
       "categorie": "commerce-stock",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "prêt-à-porter",
+        "habillement",
+        "magasin de vêtements"
+      ]
     },
     {
       "id": "chaussures",
@@ -861,7 +905,11 @@
       "secteur": "Commerce spécialisé",
       "categorie": "commerce-stock",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "joaillerie",
+        "horlogerie"
+      ]
     },
     {
       "id": "librairie-papeterie",
@@ -869,7 +917,11 @@
       "secteur": "Commerce spécialisé",
       "categorie": "commerce-stock",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "libraire",
+        "papeterie"
+      ]
     },
     {
       "id": "jouets",
@@ -901,7 +953,10 @@
       "secteur": "Commerce spécialisé",
       "categorie": "commerce-stock",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "animaux"
+      ]
     },
     {
       "id": "jardinerie",
@@ -917,7 +972,10 @@
       "secteur": "Commerce spécialisé",
       "categorie": "commerce-stock",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "bricolage"
+      ]
     },
     {
       "id": "telephonie",
@@ -941,7 +999,11 @@
       "secteur": "Commerce spécialisé",
       "categorie": "commerce-stock",
       "stock": "oui",
-      "agentComm": "a_trancher"
+      "agentComm": "a_trancher",
+      "motsRecherche": [
+        "buraliste",
+        "tabac-presse"
+      ]
     },
     {
       "id": "e-commercant",
@@ -949,7 +1011,13 @@
       "secteur": "E-commerce",
       "categorie": "commerce-en-ligne",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "e-commerce",
+        "ecommerce",
+        "vente en ligne",
+        "boutique en ligne"
+      ]
     },
     {
       "id": "grossiste-alimentaire",
@@ -1181,7 +1249,11 @@
       "secteur": "BTP et artisanat",
       "categorie": "prestation-chantier",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "peinture",
+        "peintre en bâtiment"
+      ]
     },
     {
       "id": "plaquiste",
@@ -1189,7 +1261,11 @@
       "secteur": "BTP et artisanat",
       "categorie": "prestation-chantier",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "plâtrier",
+        "placo"
+      ]
     },
     {
       "id": "carreleur",
@@ -1221,7 +1297,12 @@
       "secteur": "BTP et artisanat",
       "categorie": "prestation-chantier",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "toiture",
+        "couverture",
+        "zingueur"
+      ]
     },
     {
       "id": "serrurier",
@@ -1237,7 +1318,10 @@
       "secteur": "BTP et artisanat",
       "categorie": "prestation-chantier",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "miroiterie"
+      ]
     },
     {
       "id": "facadier",
@@ -1245,7 +1329,10 @@
       "secteur": "BTP et artisanat",
       "categorie": "prestation-chantier",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "ravalement de façade"
+      ]
     },
     {
       "id": "terrassier",
@@ -1261,7 +1348,10 @@
       "secteur": "BTP et artisanat",
       "categorie": "prestation-chantier",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "climatisation"
+      ]
     },
     {
       "id": "installateur-solaire-ou-pompe-a-chaleur",
@@ -1269,7 +1359,12 @@
       "secteur": "BTP et artisanat",
       "categorie": "prestation-chantier",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "photovoltaïque",
+        "panneaux solaires",
+        "PAC"
+      ]
     },
     {
       "id": "pisciniste",
@@ -1285,7 +1380,12 @@
       "secteur": "BTP et artisanat",
       "categorie": "prestation-chantier",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "BTP",
+        "rénovation",
+        "tous corps d'état"
+      ]
     },
     {
       "id": "architecte-d-interieur",
@@ -1333,7 +1433,11 @@
       "secteur": "Immobilier",
       "categorie": "rendez-vous-non-reglemente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "diagnostic immobilier",
+        "DPE"
+      ]
     },
     {
       "id": "garage-et-mecanicien",
@@ -1341,7 +1445,12 @@
       "secteur": "Automobile",
       "categorie": "rendez-vous-non-reglemente",
       "stock": "a_demander",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "garage automobile",
+        "mécanique automobile",
+        "réparation automobile"
+      ]
     },
     {
       "id": "carrossier",
@@ -1365,7 +1474,10 @@
       "secteur": "Transport et logistique",
       "categorie": "transport-logistique",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "livreur"
+      ]
     },
     {
       "id": "transport-de-marchandises",
@@ -1373,7 +1485,11 @@
       "secteur": "Transport et logistique",
       "categorie": "transport-logistique",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "fret",
+        "transporteur routier"
+      ]
     },
     {
       "id": "demenagement",
@@ -1389,7 +1505,10 @@
       "secteur": "Transport et logistique",
       "categorie": "transport-logistique",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "chauffeur"
+      ]
     },
     {
       "id": "autocariste",
@@ -1397,7 +1516,11 @@
       "secteur": "Transport et logistique",
       "categorie": "transport-logistique",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "autocar",
+        "transport de voyageurs"
+      ]
     },
     {
       "id": "coursier",
@@ -1413,7 +1536,12 @@
       "secteur": "Transport et logistique",
       "categorie": "transport-logistique",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "entrepôt",
+        "stockage",
+        "logistique"
+      ]
     },
     {
       "id": "location-de-vehicules",
@@ -1424,6 +1552,11 @@
       "agentComm": "oui",
       "profilsImposes": [
         "location"
+      ],
+      "motsRecherche": [
+        "loueur",
+        "location de voitures",
+        "location d'utilitaires"
       ]
     },
     {
@@ -1432,7 +1565,11 @@
       "secteur": "Hôtellerie-restauration",
       "categorie": "restauration",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "resto",
+        "bistrot"
+      ]
     },
     {
       "id": "brasserie-restaurant",
@@ -1448,7 +1585,10 @@
       "secteur": "Hôtellerie-restauration",
       "categorie": "restauration",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "pizza"
+      ]
     },
     {
       "id": "restauration-rapide",
@@ -1456,7 +1596,14 @@
       "secteur": "Hôtellerie-restauration",
       "categorie": "restauration",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "fast-food",
+        "snack",
+        "kebab",
+        "burger",
+        "sandwicherie"
+      ]
     },
     {
       "id": "salon-de-the",
@@ -1480,7 +1627,10 @@
       "secteur": "Hôtellerie-restauration",
       "categorie": "restauration",
       "stock": "oui",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "dark kitchen"
+      ]
     },
     {
       "id": "cafe-bar",
@@ -1488,7 +1638,12 @@
       "secteur": "Hôtellerie-restauration",
       "categorie": "restauration",
       "stock": "oui",
-      "agentComm": "a_trancher"
+      "agentComm": "a_trancher",
+      "motsRecherche": [
+        "bar",
+        "café",
+        "pub"
+      ]
     },
     {
       "id": "camping",
@@ -1521,6 +1676,9 @@
       "agentComm": "oui",
       "profilsImposes": [
         "location"
+      ],
+      "motsRecherche": [
+        "maison d'hôtes"
       ]
     },
     {
@@ -1545,7 +1703,11 @@
       "secteur": "Beauté",
       "categorie": "rendez-vous-non-reglemente",
       "stock": "a_demander",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "institut de beauté",
+        "esthétique"
+      ]
     },
     {
       "id": "onglerie",
@@ -1553,7 +1715,12 @@
       "secteur": "Beauté",
       "categorie": "rendez-vous-non-reglemente",
       "stock": "a_demander",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "prothésiste ongulaire",
+        "manucure",
+        "ongles"
+      ]
     },
     {
       "id": "tatoueur",
@@ -1561,7 +1728,10 @@
       "secteur": "Beauté",
       "categorie": "rendez-vous-non-reglemente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "piercing"
+      ]
     },
     {
       "id": "salle-de-sport",
@@ -1569,7 +1739,12 @@
       "secteur": "Sport et loisirs",
       "categorie": "prestation-recurrente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "fitness",
+        "musculation",
+        "club de sport"
+      ]
     },
     {
       "id": "professeur-de-yoga-ou-de-pilates",
@@ -1601,7 +1776,10 @@
       "secteur": "Sport et loisirs",
       "categorie": "rendez-vous-non-reglemente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "parc d'attractions"
+      ]
     },
     {
       "id": "aide-a-domicile",
@@ -1609,7 +1787,11 @@
       "secteur": "Services aux particuliers",
       "categorie": "prestation-recurrente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "auxiliaire de vie",
+        "services à la personne"
+      ]
     },
     {
       "id": "menage",
@@ -1617,7 +1799,11 @@
       "secteur": "Services aux particuliers",
       "categorie": "prestation-recurrente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "femme de ménage",
+        "aide ménagère"
+      ]
     },
     {
       "id": "garde-d-enfants",
@@ -1625,7 +1811,11 @@
       "secteur": "Services aux particuliers",
       "categorie": "prestation-recurrente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "nounou",
+        "baby-sitting"
+      ]
     },
     {
       "id": "creche-et-micro-creche",
@@ -1657,7 +1847,12 @@
       "secteur": "Services aux particuliers",
       "categorie": "rendez-vous-non-reglemente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "blanchisserie",
+        "teinturerie",
+        "nettoyage à sec"
+      ]
     },
     {
       "id": "reparation-de-telephones",
@@ -1665,7 +1860,10 @@
       "secteur": "Services aux particuliers",
       "categorie": "rendez-vous-non-reglemente",
       "stock": "a_demander",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "réparateur de smartphones"
+      ]
     },
     {
       "id": "nettoyage-de-locaux",
@@ -1673,7 +1871,10 @@
       "secteur": "Services aux entreprises",
       "categorie": "prestation-recurrente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "entreprise de propreté"
+      ]
     },
     {
       "id": "gardiennage-et-securite",
@@ -1681,7 +1882,11 @@
       "secteur": "Services aux entreprises",
       "categorie": "prestation-recurrente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "agent de sécurité",
+        "surveillance"
+      ]
     },
     {
       "id": "deratisation",
@@ -1689,7 +1894,11 @@
       "secteur": "Services aux entreprises",
       "categorie": "prestation-recurrente",
       "stock": "non",
-      "agentComm": "oui"
+      "agentComm": "oui",
+      "motsRecherche": [
+        "désinsectisation",
+        "nuisibles"
+      ]
     },
     {
       "id": "avocat",
@@ -1723,7 +1932,10 @@
       "profils": [
         "b2b"
       ],
-      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché d'avocat et de notaire"
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché d'avocat et de notaire",
+      "motsRecherche": [
+        "huissier"
+      ]
     },
     {
       "id": "expert-comptable",
@@ -1734,6 +1946,9 @@
       "agentComm": "non",
       "profils": [
         "abonnement"
+      ],
+      "motsRecherche": [
+        "cabinet comptable"
       ]
     },
     {
@@ -1780,6 +1995,10 @@
       "agentComm": "non",
       "profils": [
         "rdv"
+      ],
+      "motsRecherche": [
+        "docteur",
+        "généraliste"
       ]
     },
     {
@@ -1792,7 +2011,10 @@
       "profils": [
         "rdv"
       ],
-      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin"
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin",
+      "motsRecherche": [
+        "chirurgien-dentiste"
+      ]
     },
     {
       "id": "kine",
@@ -1803,6 +2025,10 @@
       "agentComm": "non",
       "profils": [
         "rdv"
+      ],
+      "motsRecherche": [
+        "kinésithérapeute",
+        "masseur-kinésithérapeute"
       ]
     },
     {
@@ -1851,7 +2077,10 @@
       "profils": [
         "rdv"
       ],
-      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin"
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin",
+      "motsRecherche": [
+        "véto"
+      ]
     },
     {
       "id": "psychologue",
@@ -1863,7 +2092,10 @@
       "profils": [
         "rdv"
       ],
-      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin"
+      "aConfirmer": "profil d'entreprise non précisé par le document : rapproché de médecin",
+      "motsRecherche": [
+        "psy"
+      ]
     },
     {
       "id": "osteopathe",

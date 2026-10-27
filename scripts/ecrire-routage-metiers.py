@@ -46,6 +46,75 @@ def majuscule(t):
     return t[0].upper() + t[1:]
 
 
+# --- Mots de recherche (27 octobre) -------------------------------------------------------------
+# Mots qu'un dirigeant peut taper pour trouver son métier, quand ni le libellé, ni ses activités, ni la
+# recherche par famille de mots (src/lib/recherche-metier.ts : « coiffeuse » → Coiffeur, « boulangerie »
+# → Boulanger-pâtissier) ne suffisent : abréviations, mots courants, autre nom du même métier. Ils servent
+# seulement à la recherche, jamais au routage. Ajoutés à la demande du propriétaire (la recherche ne trouvait
+# pas « coiffeuse », « garagiste »…) ; liste à compléter avec ses mots.
+MOTS_RECHERCHE = {
+    "Agence immobilière": ["agent immobilier", "immobilier"],
+    "Hôtel": ["hôtellerie"],
+    "Paysagiste": ["jardinier paysagiste", "espaces verts", "entretien de jardins"],
+    "Agence de voyage": ["voyagiste", "tour-opérateur"],
+    "Numérique et tech": ["informatique", "développeur", "logiciel"],
+    "Événementiel": ["organisateur de mariages", "wedding planner"],
+    "Primeur": ["fruits et légumes"],
+    "Épicerie": ["supérette", "alimentation générale"],
+    "Caviste": ["cave à vin"],
+    "Opticien": ["lunetterie", "optique"],
+    "Vêtements": ["prêt-à-porter", "habillement", "magasin de vêtements"],
+    "Bijouterie": ["joaillerie", "horlogerie"],
+    "Librairie-papeterie": ["libraire", "papeterie"],
+    "Animalerie": ["animaux"],
+    "Quincaillerie": ["bricolage"],
+    "Bureau de tabac": ["buraliste", "tabac-presse"],
+    "E-commerçant": ["e-commerce", "ecommerce", "vente en ligne", "boutique en ligne"],
+    "Peintre": ["peinture", "peintre en bâtiment"],
+    "Plaquiste": ["plâtrier", "placo"],
+    "Couvreur": ["toiture", "couverture", "zingueur"],
+    "Vitrier": ["miroiterie"],
+    "Façadier": ["ravalement de façade"],
+    "Climaticien": ["climatisation"],
+    "Installateur solaire ou pompe à chaleur": ["photovoltaïque", "panneaux solaires", "PAC"],
+    "Entreprise générale de bâtiment": ["BTP", "rénovation", "tous corps d'état"],
+    "Diagnostiqueur immobilier": ["diagnostic immobilier", "DPE"],
+    "Garage et mécanicien": ["garage automobile", "mécanique automobile", "réparation automobile"],
+    "Livraison du dernier kilomètre": ["livreur"],
+    "Transport de marchandises": ["fret", "transporteur routier"],
+    "VTC et taxi": ["chauffeur"],
+    "Autocariste": ["autocar", "transport de voyageurs"],
+    "Entreposage": ["entrepôt", "stockage", "logistique"],
+    "Location de véhicules": ["loueur", "location de voitures", "location d'utilitaires"],
+    "Restaurant": ["resto", "bistrot"],
+    "Pizzeria": ["pizza"],
+    "Restauration rapide": ["fast-food", "snack", "kebab", "burger", "sandwicherie"],
+    "Cuisine en livraison seule": ["dark kitchen"],
+    "Café-bar": ["bar", "café", "pub"],
+    "Chambre d'hôtes": ["maison d'hôtes"],
+    "Onglerie": ["prothésiste ongulaire", "manucure", "ongles"],
+    "Esthéticienne": ["institut de beauté", "esthétique"],
+    "Tatoueur": ["piercing"],
+    "Salle de sport": ["fitness", "musculation", "club de sport"],
+    "Parc de loisirs": ["parc d'attractions"],
+    "Aide à domicile": ["auxiliaire de vie", "services à la personne"],
+    "Ménage": ["femme de ménage", "aide ménagère"],
+    "Garde d'enfants": ["nounou", "baby-sitting"],
+    "Pressing": ["blanchisserie", "teinturerie", "nettoyage à sec"],
+    "Réparation de téléphones": ["réparateur de smartphones"],
+    "Nettoyage de locaux": ["entreprise de propreté"],
+    "Gardiennage et sécurité": ["agent de sécurité", "surveillance"],
+    "Dératisation": ["désinsectisation", "nuisibles"],
+    "Commissaire de justice": ["huissier"],
+    "Expert-comptable": ["cabinet comptable"],
+    "Médecin": ["docteur", "généraliste"],
+    "Dentiste": ["chirurgien-dentiste"],
+    "Kiné": ["kinésithérapeute", "masseur-kinésithérapeute"],
+    "Vétérinaire": ["véto"],
+    "Psychologue": ["psy"],
+}
+
+
 # --- Liste 1 : métiers à sous-parties --------------------------------------------------------
 # (libellé du métier, synonymes, [(sous-partie, catégorie, stock, agent Comm, par défaut ?)])
 LISTE1 = [
@@ -266,6 +335,13 @@ def main():
         for v in m.get("sousVariantes", []):
             if (m["id"], v["id"]) in PROFILS_IMPOSES_ACTIVITE:
                 v["profilsImposes"] = PROFILS_IMPOSES_ACTIVITE[(m["id"], v["id"])]
+
+    par_libelle = {m["libelle"]: m for m in metiers}
+    inconnus = [l for l in MOTS_RECHERCHE if l not in par_libelle]
+    if inconnus:
+        raise SystemExit(f"Mots de recherche pour des métiers absents de la liste : {inconnus}")
+    for libelle, mots in MOTS_RECHERCHE.items():
+        par_libelle[libelle]["motsRecherche"] = mots
 
     r["metiers"] = metiers
     r["source"] = "Document « CAXE — Règles de fonctionnement » (15 octobre 2026), partie 3, et document « CAXE — Liste des métiers » (15 octobre 2026)."

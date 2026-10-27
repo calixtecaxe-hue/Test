@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { ChoixCases } from "@/components/choix-cases";
 import type { Reponse, Reponses } from "@/lib/audit/reponse";
 import type { FormeDeclencheur } from "@/lib/donnees/schemas";
-import { enregistrerReponse } from "./enregistrer";
+import { HORS_LIGNE, enregistrerReponse, suivreRenvois } from "./enregistrer";
 import { CartePartagee, QuestionCarte, type LibellesLignes, type QuestionClient } from "./question-carte";
 export type { QuestionClient };
 
@@ -126,11 +126,20 @@ export function Questionnaire({
   }
   async function enregistrerQuestion(cle: string, r: Reponse | null, rapide = false, preremplie = false): Promise<string | null> {
     const e = await enregistrerReponse(cle, r, rapide, preremplie);
-    if (!e) setReponses((x) => ({ ...x, [cle]: r ?? undefined }));
+    // Réponse gardée pendant une coupure du réseau : l'écran la suit déjà, elle partira seule.
+    if (!e || e === HORS_LIGNE) setReponses((x) => ({ ...x, [cle]: r ?? undefined }));
     // Une question dont la réponse ouvre d'autres questions : l'écran recalcule ce qui reste à poser.
     if (!e && donneesLues.includes(cle)) router.refresh();
     return e;
   }
+  // Réponse gardée pendant une coupure, partie au retour du réseau : même recalcul qu'après un envoi direct.
+  useEffect(
+    () =>
+      suivreRenvois((cle, erreur) => {
+        if (!erreur && (donneesLues.includes(cle) || declencheurs.some((d) => cle === d.code || cle.startsWith(`${d.code}#`)))) router.refresh();
+      }),
+    [donneesLues, declencheurs, router],
+  );
 
   const a = declencheurs.length > 0;
 

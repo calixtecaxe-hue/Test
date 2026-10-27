@@ -2,38 +2,12 @@
 
 import { useLayoutEffect, useRef, useState } from "react";
 import { classeChamp } from "@/components/champ";
+import { SEPARATEUR, finaliserSaisie, formaterSaisie } from "@/lib/saisie-nombre";
 
-// Séparateur de milliers : espace fine insécable, usage français.
-const SEPARATEUR = " ";
-
-// Met en forme ce que tape le dirigeant (« 100000 » devient « 100 000 ») et
-// renvoie la valeur brute que le formulaire envoie (« 100000 »).
-function formater(saisie: string, decimales: boolean) {
-  const propre = saisie.replace(decimales ? /[^\d,.]/g : /\D/g, "");
-  let entier = propre;
-  let fraction: string | null = null;
-  if (decimales) {
-    const i = propre.search(/[,.]/);
-    if (i >= 0) {
-      entier = propre.slice(0, i);
-      fraction = propre
-        .slice(i + 1)
-        .replace(/[,.]/g, "")
-        .slice(0, 2);
-    }
-  }
-  entier = entier.replace(/^0+(?=\d)/, "");
-  if (entier === "" && fraction !== null) entier = "0";
-  const groupe = entier.replace(/\B(?=(\d{3})+(?!\d))/g, SEPARATEUR);
-  return {
-    affichage: groupe + (fraction !== null ? `,${fraction}` : ""),
-    brut: entier + (fraction ? `.${fraction}` : ""),
-  };
-}
-
-// Champ numérique qui sépare les milliers au fil de la saisie. Le champ
-// visible n'a pas de nom : seul le champ caché, en valeur brute, part dans le
-// formulaire.
+// Champ numérique qui sépare les milliers au fil de la saisie (règles de lecture
+// dans src/lib/saisie-nombre.ts : « 60k », « 1.250,75 », signe moins gardé). Le
+// champ visible n'a pas de nom : seul le champ caché, en valeur brute, part dans
+// le formulaire.
 export function ChampNombre({
   id,
   name,
@@ -49,23 +23,25 @@ export function ChampNombre({
   valeurInitiale?: string;
 }) {
   const [valeur, setValeur] = useState(() =>
-    valeurInitiale ? formater(valeurInitiale, decimales) : { affichage: "", brut: "" },
+    valeurInitiale ? finaliserSaisie(formaterSaisie(valeurInitiale, decimales)) : { affichage: "", brut: "", multiplie: false },
   );
   const champ = useRef<HTMLInputElement>(null);
-  const curseur = useRef<number | null>(null);
+  // Place du curseur parmi les chiffres : combien le précèdent, et s'il suit le signe ou le séparateur décimal.
+  const curseur = useRef<{ chiffres: number; signe: boolean; separateur: boolean } | null>(null);
 
   // Remet le curseur à la même place parmi les chiffres après la mise en forme.
   useLayoutEffect(() => {
     if (curseur.current === null || !champ.current) return;
     const cible = curseur.current;
     curseur.current = null;
-    let vus = 0;
-    let position = 0;
     const texte = champ.current.value;
-    while (position < texte.length && vus < cible) {
-      if (/[\d,]/.test(texte[position])) vus += 1;
+    let vus = 0;
+    let position = cible.signe && texte.startsWith("-") ? 1 : 0;
+    while (position < texte.length && vus < cible.chiffres) {
+      if (/\d/.test(texte[position])) vus += 1;
       position += 1;
     }
+    if (cible.separateur && /[,.]/.test(texte[position] ?? "")) position += 1;
     champ.current.setSelectionRange(position, position);
   }, [valeur]);
 
@@ -87,11 +63,13 @@ export function ChampNombre({
       }
     }
 
-    curseur.current = saisie
-      .slice(0, position)
-      .replace(/\./g, ",")
-      .replace(/[^\d,]/g, "").length;
-    setValeur(formater(saisie, decimales));
+    const suivante = formaterSaisie(saisie, decimales);
+    const avant = saisie.slice(0, position);
+    // « 60k » réécrit en « 60 000 » : le curseur va à la fin.
+    curseur.current = suivante.multiplie
+      ? { chiffres: Infinity, signe: true, separateur: false }
+      : { chiffres: (avant.match(/\d/g) ?? []).length, signe: avant.includes("-"), separateur: /[,.]$/.test(avant) };
+    setValeur(suivante);
   }
 
   return (
@@ -106,6 +84,7 @@ export function ChampNombre({
         required={required}
         value={valeur.affichage}
         onChange={surSaisie}
+        onBlur={() => setValeur((v) => finaliserSaisie(v))}
         className={classeChamp}
       />
     </>

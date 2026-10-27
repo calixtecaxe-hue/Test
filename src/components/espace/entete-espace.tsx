@@ -8,15 +8,16 @@ import { NavEspace } from "./nav-espace";
 // même bascule jour / nuit et même bouton bordé. Deux entrées (Mes agents, Mon compte), l'adresse du compte, la déconnexion.
 export function EnteteEspace({ email }: { email: string }) {
   return (
-    <header className="entete-espace relative z-20 mx-auto w-full max-w-[1320px] px-6 py-5 lg:px-10 lg:py-6">
-      <div className="flex items-center justify-between gap-6">
+    <header className="entete-espace relative z-20 mx-auto w-full max-w-[1320px] px-4 py-5 sm:px-6 lg:px-10 lg:py-6">
+      {/* Téléphone (360 px, 320 px) : marges, écarts et logo resserrés pour que la barre tienne sans défiler de côté. */}
+      <div className="flex items-center justify-between gap-3 sm:gap-6">
         <Link href="/tableau-de-bord" className="flex shrink-0 items-center" aria-label="CAXE, mes agents">
-          <Logo priority className="h-11 w-auto sm:h-14" />
+          <Logo priority className="h-8 w-auto min-[360px]:h-10 sm:h-14" />
         </Link>
         <div className="hidden md:block">
           <NavEspace />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <BasculeTheme />
           <span className="hidden max-w-[220px] truncate text-xs text-[var(--text-muted)] lg:inline">{email}</span>
           <DeconnexionBouton />

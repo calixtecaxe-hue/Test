@@ -45,3 +45,4 @@ site-miroir/
 # Sorties des contrôles navigateur
 /audit-client/
 /controle-parcours/
+/.emails-demonstration/

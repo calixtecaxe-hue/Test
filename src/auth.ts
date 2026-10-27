@@ -38,7 +38,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     jwt: async ({ token, user }) => {
-      if (user?.id) token.id = user.id;
+      if (user?.id) {
+        token.id = user.id;
+        token.connecteLe = Date.now();
+        return token;
+      }
+      // Un mot de passe changé après la connexion (« Mot de passe oublié ») ferme la session : un tiers
+      // qui aurait eu l'ancien mot de passe perd l'accès. Un compte supprimé aussi.
+      if (typeof token.id === "string") {
+        const compte = await prisma.user.findUnique({ where: { id: token.id }, select: { motDePasseModifieLe: true } });
+        if (!compte) return null;
+        const connecteLe = typeof token.connecteLe === "number" ? token.connecteLe : 0;
+        if (compte.motDePasseModifieLe && compte.motDePasseModifieLe.getTime() > connecteLe) return null;
+      }
       return token;
     },
     session: async ({ session, token }) => {

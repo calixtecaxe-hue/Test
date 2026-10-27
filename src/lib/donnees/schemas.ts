@@ -280,6 +280,9 @@ export const routage = z.object({
       pilote: z.boolean().optional(),
       // Mots que le client peut taper pour trouver ce métier (« consultant RH »).
       synonymes: z.array(z.string()).optional(),
+      // Autres mots de recherche (abréviations, mots courants), écrits par scripts/ecrire-routage-metiers.py ;
+      // recherche seulement, jamais le routage.
+      motsRecherche: z.array(z.string()).optional(),
       // Profil propre au métier quand la catégorie n'en donne pas (professions réglementées).
       profils: z.array(profilId).optional(),
       // Profils qui remplacent ceux de la catégorie (hébergement et location de véhicules : profil location).

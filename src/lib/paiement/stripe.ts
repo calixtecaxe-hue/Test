@@ -4,6 +4,7 @@
 import Stripe from "stripe";
 import { intervalleFacturation, montantCentimesHT, nomProduit, type Periode } from "./etat.ts";
 import type { Facturation } from "./tva.ts";
+import { adresseSite } from "../adresse-site.ts";
 
 let client: Stripe | null = null;
 export function stripe(): Stripe {
@@ -14,9 +15,7 @@ export function stripe(): Stripe {
   return client;
 }
 
-export function adresseSite(): string {
-  return (process.env.NEXT_PUBLIC_SITE_URL ?? process.env.AUTH_URL ?? "http://localhost:3000").replace(/\/$/, "");
-}
+export { adresseSite };
 
 // Client Stripe du compte, créé au premier paiement avec le nom de l'entreprise et son numéro de TVA,
 // puis tenu à jour : ce sont eux que Stripe reprend sur la facture.

@@ -61,7 +61,14 @@ function FormulaireConnexion() {
           autoComplete="current-password"
           className={classeChamp}
         />
+        <Link href="/mot-de-passe-oublie" className="w-fit text-sm text-[var(--blue-1)] hover:underline">
+          Mot de passe oublié ?
+        </Link>
       </Champ>
+
+      {searchParams.get("motDePasse") === "change" ? (
+        <p role="status" className="text-sm text-[var(--text-muted)]">Votre mot de passe a été changé. Connectez-vous avec le nouveau.</p>
+      ) : null}
 
       {erreur ? <p className="text-sm text-[var(--red-1)]">{erreur}</p> : null}
 

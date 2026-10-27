@@ -116,7 +116,12 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   agence web, com ou marketing : projets ponctuels / contrats mensuels).
   **Cases à cocher, plusieurs choix possibles.** Une case → la variante ; plusieurs
   → le socle une fois plus le bloc de chaque spécialité, sans doublon.
-- **Liste des métiers (15 octobre)** : recherche par synonymes ; métiers à plusieurs activités = cases à
+- **Liste des métiers (15 octobre)** : recherche par synonymes (**renforcée le 27 octobre**, demande du propriétaire : accents, tirets
+  et majuscules ignorés, mots de la même famille rapprochés par leur racine — « coiffeuse » → Coiffeur, « boulangerie » →
+  Boulanger-pâtissier, « garagiste » → Garage et mécanicien —, mot en cours de frappe, nom des activités, plusieurs mots ;
+  `src/lib/recherche-metier.ts`, tests `tests/recherche-metier.test.mts` ; abréviations et autres noms du même métier dans
+  `motsRecherche` de `routage.json`, écrits par `MOTS_RECHERCHE` de `scripts/ecrire-routage-metiers.py`, **liste à compléter par le
+  propriétaire**, recherche seulement, jamais le routage) ; métiers à plusieurs activités = cases à
   cocher plus **« Autre (précisez) »** (seule, elle applique l'activité par défaut du métier ; le texte est
   gardé sur le compte). **« Mon métier n'est pas dans la liste »** : le dirigeant décrit son activité et
   choisit la catégorie qui y ressemble le plus (jamais une profession réglementée). Stock : si le métier ne le
@@ -401,9 +406,21 @@ préférence (`?agents=3&periode=annuel`, `src/lib/formule-url.ts`) ; la page `/
 `/formule` pour un compte connecté ; `/activation` redirige vers `/formule`. Le niveau du questionnaire se change depuis
 l'étape « Niveau et contexte » du parcours (plus de ligne « Niveau du questionnaire… Passer en essentiel » en tête du questionnaire :
 retirée à la demande du propriétaire le 27 octobre, comme la note « Aperçu : … » de la copie) ; une donnée partagée déjà posée pour un autre agent se modifie depuis n'importe lequel des agents ouverts.
+**Mot de passe oublié (construit le 27 octobre, demande du propriétaire)** : lien « Mot de passe oublié ? » sous le mot de passe de
+`/connexion` → `/mot-de-passe-oublie` (adresse email ; même réponse qu'un compte existe ou non, l'e-mail part après la réponse,
+`POST /api/mot-de-passe/demande`, trois demandes par compte et par heure au plus) → e-mail avec un lien `/nouveau-mot-de-passe?jeton=…`
+valable une heure et une seule fois (table `ReinitialisationMotDePasse` : seule l'empreinte SHA-256 du jeton est gardée) → nouveau mot de
+passe (même règle qu'à l'inscription, `POST /api/mot-de-passe/nouveau`), connexion directe, les autres demandes annulées et **les sessions
+ouvertes avant fermées** (`User.motDePasseModifieLe`, relu à chaque lecture de session dans `src/auth.ts`). Les adresses et les mots de
+passe sont dans la table `User` ; un mot de passe n'est jamais gardé en clair (empreinte bcrypt) : personne ne peut le lire, on ne peut
+que le remplacer. Code : `src/lib/mot-de-passe/reinitialisation.ts`, tests `tests/mot-de-passe.test.mts`. **E-mails** : `src/lib/email/`
+(SMTP, compatible avec la plupart des fournisseurs : `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `EMAIL_EXPEDITEUR`) ; sans
+SMTP, mode démonstration hors production (message écrit dans `.emails-demonstration/`, rien ne part ; `EMAIL_MODE=demonstration` le force
+pour un serveur de test), aucun envoi en production. Les liens prennent l'adresse de `NEXT_PUBLIC_SITE_URL` (à régler sur l'adresse
+publique). **À fournir par le propriétaire** : le fournisseur d'e-mails et ses accès SMTP, l'adresse qui envoie (domaine du site).
 **À fournir ou à construire** : le texte des conditions générales de vente (`/conditions-generales` n'a qu'une page d'attente,
-à remplacer avant l'ouverture du paiement réel), la réinitialisation du mot de passe, la vérification de l'adresse e-mail et
-les e-mails (rappel d'un dossier non terminé, reçu).
+à remplacer avant l'ouverture du paiement réel ; **rédigées par le propriétaire avec un avocat**), la vérification de l'adresse e-mail et
+les autres e-mails (rappel d'un dossier non terminé, reçu).
 Pas encore construits : « formule suggérée à l'inscription » et « essai d'un agent
 non souscrit » (le document ne les détaille pas). **Cookies, politique de confidentialité et mentions RGPD : rédigés par le
 propriétaire du produit, à intégrer tels quels ; ne rien écrire à sa place.**
@@ -558,9 +575,15 @@ vous publiez, moyens de recrutement, demandes d'avis, ton, langues, contenus vou
 **Audit client (27 octobre)** : `node scripts/audit-client.mjs [--sortie dossier]` rejoue les parcours d'un dirigeant (inscription, recherche du
 métier, dossier, objectif, questionnaire, coupure réseau, reprise sur téléphone, droits, mobile 360 px, clavier, connexion, page 404) avec des
 comptes fictifs ; chaque contrôle porte l'identifiant du rapport « Audit client de CAXE (27 octobre 2026) » (Claude Docs) et sort en « ÉCART »
-tant que le défaut n'est pas corrigé (code de sortie 1). Au 27 octobre : 30 contrôles, 16 écarts (recherche du métier, lecture des montants du
-dossier, renvoi après coupure réseau, en-tête à 360 px, « valeur retenue » d'une valeur refusée, page 404, compte rendu sans priorités,
-« mot de passe oublié »). Le rapport liste aussi les décisions à prendre (compte rendu avant les repères, repère de progression, lecture des
+tant que le défaut n'est pas corrigé (code de sortie 1). Au 27 octobre (soir) : 38 contrôles, 3 écarts (« valeur retenue » d'une valeur
+refusée Q-03, page 404 en anglais L-03, compte rendu sans priorités R-01 : **normal, le compte rendu est en conception par le propriétaire**).
+**Corrigés le 27 octobre (demande du propriétaire)** : recherche du métier (M-01) ; lecture des montants du dossier (D-01,
+`src/lib/saisie-nombre.ts` : « 60k » = 60 000, « 1.250,75 » = 1 250,75, un point suivi de trois chiffres sépare les milliers, signe moins
+gardé et chiffre d'affaires négatif refusé avec une explication ; le seuil d'un montant à faire confirmer reste à décider) ; renvoi après
+coupure réseau (Q-02, `enregistrer.ts` : la réponse est gardée dans la page avec le message « Pas de connexion… », repart seule au retour du
+réseau et à intervalles, dans l'ordre, et le navigateur prévient si l'on ferme la page avant l'envoi) ; en-tête de l'espace à 360 et 320 px
+(A-01, marges, écarts et logo resserrés) ; « mot de passe oublié » (L-01, L-04 à L-10, parcours complet ; serveur de test lancé avec
+`EMAIL_MODE=demonstration`). Le rapport liste aussi les décisions à prendre (compte rendu avant les repères, repère de progression, lecture des
 montants, synonymes des métiers, e-mails, chemin court pour le dirigeant pressé).
 
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
