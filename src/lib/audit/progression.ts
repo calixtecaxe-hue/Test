@@ -10,6 +10,7 @@ import { assemblerQuestionnaire } from "./assemblage";
 import { ancienneteEnMois, tailleDepuisEffectif } from "./affichage";
 import { reponsesDuCompte } from "./compte";
 import { exclusionsAcquisition } from "@/lib/routage";
+import { vocabulaireDuCompte } from "@/lib/vocabulaire";
 
 // objectif : à définir. niveau : à choisir. questionnaire : en cours. termine : toutes les questions traitées.
 // en_preparation : le questionnaire de cette activité reste à créer.
@@ -61,6 +62,7 @@ export async function progressionAgents(userId: string, u: Utilisateur, agents: 
         reponses,
         ancienneteMois: ancienneteEnMois(u.dateCreationEntreprise, new Date()),
         exclusions,
+        vocabulaire: vocabulaireDuCompte(ENSEMBLE.vocabulairesMetiers, u),
       });
       const toutes = a.themes.flatMap((t) => t.questions);
       const traitees = toutes.filter((q) => reponses[q.code] !== undefined || q.dejaPosee).length;

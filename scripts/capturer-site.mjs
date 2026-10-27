@@ -350,6 +350,25 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
       extra += `<script type="application/json" id="objectif-modes">${JSON.stringify(modes)}</script>`;
       await p.goto(B + "/audit/" + a.slug, { waitUntil: "networkidle" });
     }
+    if (nom === "questionnaire") {
+      // Le questionnaire de la copie n'est pas une photo : le vrai code de l'application y tourne (scripts/apercu/).
+      // On garde l'en-tête de la page et on remplace le questionnaire par un point d'accroche.
+      const remplace = await p.evaluate((code) => {
+        const racine = document.querySelector("div.audit-entree.mt-10.flex.flex-col.gap-12");
+        if (!racine) return false;
+        const point = document.createElement("div");
+        point.id = "apercu-questionnaire";
+        point.setAttribute("data-agent", code);
+        const note = document.createElement("p");
+        note.setAttribute("role", "note");
+        note.className = "mt-6 text-xs text-[var(--text-muted)]";
+        note.textContent = "Aperçu : les questions, les règles d'affichage et la vérification des réponses sont celles de l'application. Vos réponses restent dans cet onglet et ne sont enregistrées nulle part.";
+        racine.replaceWith(note, point);
+        return true;
+      }, a.code);
+      if (!remplace) throw new Error("questionnaire introuvable pour " + a.code);
+      extra += '<script src="questionnaire-apercu.js"></script>';
+    }
     await marquerAgent(a);
     await capturer(`audit-${nom}-${a.court}.html`, "Votre audit — CAXE", extra);
   };
@@ -553,6 +572,8 @@ const SCRIPT = `
 // Parcours d'abonnement : ce que React fait dans l'application, rejoué en quelques lignes pour le miroir.
 const SCRIPT_PARCOURS = String.raw`
 (function(){
+  // Questionnaire interactif (vrai code de l'application, voir scripts/apercu/) : ces scripts de la copie n'y touchent pas.
+  var interactif=!!document.getElementById('apercu-questionnaire');
   function modele(k){ var t=document.querySelector('template[data-etat="'+k+'"]'); return t ? t.innerHTML : ''; }
   function norm(t){ return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
   function stocke(k, v){ try { if (v === null) sessionStorage.removeItem(k); else sessionStorage.setItem(k, v); } catch (e) {} }
@@ -562,6 +583,8 @@ const SCRIPT_PARCOURS = String.raw`
   var COCHE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
   function synchroCases(){
     document.querySelectorAll('.case-option').forEach(function(l){
+      // Le questionnaire interactif (React) gère lui-même ses cases : on n'y touche pas.
+      if (l.closest('#apercu-questionnaire')) return;
       var i=l.querySelector('input'); if(!i) return;
       l.classList.toggle('choisie', i.checked);
       var m=l.querySelector('.case-marque'); if(m) m.innerHTML = i.checked ? (i.type==='checkbox' ? COCHE : '<span class="case-point"></span>') : '';
@@ -914,9 +937,9 @@ const SCRIPT_PARCOURS = String.raw`
       location.href='audit-niveau-'+suf+'.html';
     });
   }
-  document.querySelectorAll('section[aria-labelledby=niveau] button').forEach(function(b){ b.addEventListener('click', function(){ location.href='audit-questionnaire-'+suf+'.html'; }); });
+  document.querySelectorAll('section[aria-labelledby=niveau] button').forEach(function(b){ b.addEventListener('click', function(){ stocke('caxe-apercu-niveau', /Approfondi/.test(b.textContent) ? 'approfondi' : 'essentiel'); location.href='audit-questionnaire-'+suf+'.html'; }); });
   var ESTIM='<div class="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2"><div class="champ-groupe"><label class="champ-etiquette">Entre</label><input type="text" inputmode="decimal" class="champ-saisie"></div><div class="champ-groupe"><label class="champ-etiquette">Et</label><input type="text" inputmode="decimal" class="champ-saisie"></div><p class="champ-aide sm:col-span-2">Nous retenons le milieu de la fourchette, signalé comme estimé.</p></div>';
-  document.querySelectorAll('li[data-question]').forEach(function(li){
+  [].slice.call(interactif ? [] : document.querySelectorAll('li[data-question]')).forEach(function(li){
     var corps=function(){ return [].slice.call(li.children).filter(function(c){ return c.tagName==='DIV' && c.getAttribute('aria-label')!=='Autres réponses' && !c.classList.contains('flex'); }); };
     var autres=li.querySelector('[aria-label="Autres réponses"]');
     var facon=li.querySelector('[aria-label="Façon de répondre"]');
@@ -944,7 +967,7 @@ const SCRIPT_PARCOURS = String.raw`
 
   // Liste des catégories de clients : les lignes des tableaux qui en dépendent suivent ce qui est écrit.
   var LIGNES_LISTE=['ACQ-01.02','ACQ-01.03','ACQ-01.04','ACQ-01.05','COM-02.01','COM-09.03'];
-  var srcListe=document.querySelector('li[data-question="ACQ-01.01"]');
+  var srcListe=interactif ? null : document.querySelector('li[data-question="ACQ-01.01"]');
   if (srcListe) {
     var champsListe=function(){ return [].slice.call(srcListe.querySelectorAll('input[type=text]')); };
     var synchroTableaux=function(){
@@ -990,5 +1013,10 @@ for (const page of PAGES) {
     const frag = `<title>${page.titre}</title><link rel="stylesheet" href="site.css"><script>${SCRIPT_THEME_TETE}</script><div class="${page.dom.classeHtml}"><div class="${page.dom.classeCorps}">${corps}</div></div><script>${SCRIPT}</script>`;
     writeFileSync(`${OUT}/index.html`, frag);
   }
+}
+if (APERCU === "application") {
+  // Paquet du questionnaire interactif de la copie (vrai code de l'application, données comprises).
+  const { execFileSync } = await import("node:child_process");
+  execFileSync("node", ["scripts/apercu/construire.mjs", `${OUT}/questionnaire-apercu.js`], { stdio: "inherit" });
 }
 console.log("fichiers locaux :", cache.size);

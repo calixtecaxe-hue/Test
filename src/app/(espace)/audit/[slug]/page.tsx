@@ -7,10 +7,10 @@ import { aAccesAgent } from "@/lib/acces-agent";
 import { AGENTS } from "@/lib/agents";
 import { PROFILS, type ProfilId } from "@/lib/donnees/schemas";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
-import { assemblerQuestionnaire, compterQuestions } from "@/lib/audit/assemblage";
-import { specDeLaDonnee } from "@/lib/audit/validation";
+import { compterQuestions } from "@/lib/audit/assemblage";
+import { preparerQuestionnaire } from "@/lib/audit/preparation";
 import { exclusionsAcquisition } from "@/lib/routage";
-import { ancienneteEnMois, cleDeDonnee, clesDeLaRegle, donneeDuDeclencheur, tailleDepuisEffectif } from "@/lib/audit/affichage";
+import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
 import { reponsesDuCompte, reponsesPreremplies } from "@/lib/audit/compte";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
 import { ObjectifFormulaire } from "./objectif-formulaire";
@@ -21,9 +21,10 @@ import { NiveauReglage } from "./niveau-reglage";
 import { ResultatsMaquette } from "./resultats-maquette";
 import { Resultats } from "./resultats";
 import { compteRenduDuCompte } from "@/lib/audit/constat-compte";
-import { Questionnaire, type ThemeClient } from "./questionnaire";
+import { Questionnaire } from "./questionnaire";
 import { TeteAgent, type EtapeParcours } from "./tete-agent";
 import { estComplet } from "@/lib/compte";
+import { vocabulaireDuCompte } from "@/lib/vocabulaire";
 
 export const metadata: Metadata = {
   title: "Votre audit — CAXE",
@@ -102,95 +103,27 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
     const preremplies = await reponsesPreremplies(userId);
     // Saisies partielles de tableaux à total imposé, gardées sur le compte (jamais utilisées par le calcul).
     const brouillons = new Map((await prisma.brouillonReponse.findMany({ where: { userId } })).map((b) => [b.cle, b.saisie as Record<string, string>]));
-    const a = assemblerQuestionnaire(ENSEMBLE, {
+    const prep = preparerQuestionnaire(ENSEMBLE, {
       agent: agent.code,
       profils,
       taille,
       niveau: utilisateur.niveauAudit === "APPROFONDI" ? "approfondi" : "essentiel",
       reponses,
+      brouillons,
+      preremplies,
       ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()),
       exclusions: exclusionsAcquisition(ENSEMBLE.routage, utilisateur),
+      vocabulaire: vocabulaireDuCompte(ENSEMBLE.vocabulairesMetiers, utilisateur),
     });
-    // Un tableau dont les lignes viennent d'un déclencheur qui est lui-même une question (D03 → ACQ-03.01) lit la réponse à cette question.
-    const lignesDeLaDonnee = (spec: typeof a.themes[number]["questions"][number]["spec"]) => {
-      if (spec?.type !== "tableau" || spec.lignes.source !== "declencheur") return spec;
-      const donnee = donneeDuDeclencheur(ENSEMBLE.reglesAffichage, spec.lignes.cle);
-      return donnee ? { ...spec, lignes: { source: "declencheur" as const, cle: donnee } } : spec;
-    };
-    const questionClient = (q: typeof a.themes[number]["questions"][number]) => ({
-      code: q.code,
-      libelle: q.libelle,
-      texte: q.texte,
-      aide: q.aide,
-      repli: q.repli,
-      format: q.format,
-      spec: lignesDeLaDonnee(q.spec),
-      quatreReponses: q.quatreReponses,
-      dejaPosee: q.dejaPosee,
-      prereponse: q.prereponse,
-      preremplie: preremplies.get(q.code) ?? null,
-      brouillon: reponses[q.code] === undefined ? brouillons.get(q.code) ?? null : null,
-      source: q.dejaPoseeDans
-        ? {
-            code: q.dejaPoseeDans,
-            spec: specDeLaDonnee(ENSEMBLE, q.dejaPoseeDans).spec,
-            agent: AGENTS.find((a) => a.code === ENSEMBLE.themes.find((t) => t.code === q.dejaPoseeDans!.slice(0, q.dejaPoseeDans!.indexOf(".")))?.agent)?.nom ?? "un autre agent",
-          }
-        : null,
-    });
-    const themes: ThemeClient[] = [
-      // Questions d'un autre agent dont dépendent celles-ci : posées ici une seule fois, jamais redemandées ensuite.
-      ...(a.prealables.length > 0
-        ? [
-            {
-              code: "PREALABLES",
-              nom: "Pour commencer",
-              bloc: "Questions qui servent aussi à d'autres agents",
-              intro: "Ces réponses décident des questions suivantes. Elles sont partagées avec les autres agents : vous ne les saisissez qu'une fois.",
-              questions: a.prealables.map(questionClient),
-            },
-          ]
-        : []),
-      ...a.themes.map((t) => ({
-        code: t.theme.code,
-        nom: t.theme.nom,
-        bloc: t.theme.bloc,
-        questions: t.questions.map(questionClient),
-      })),
-    ];
-    // Seules les réponses utiles à cet écran partent au navigateur.
-    const cles = new Set<string>([...a.declencheursConcernes.flatMap((d) => Object.keys(reponses).filter((c) => c === d.code || c.startsWith(`${d.code}.`))), ...themes.flatMap((t) => t.questions.flatMap((q) => [q.code, ...(q.source ? [q.source.code] : []), ...(q.spec?.type === "tableau" && q.spec.lignes.source === "donnee" ? [q.spec.lignes.code] : []), ...(q.spec?.type === "tableau" && q.spec.lignes.source === "declencheur" ? [q.spec.lignes.cle] : [])]))]);
-    const reponsesEcran = Object.fromEntries(Object.entries(reponses).filter(([c]) => cles.has(c)));
-    // Noms des canaux, réseaux… cochés au cadrage, pour nommer les lignes des tableaux.
-    const libellesLignes: Record<string, Record<string, string>> = {};
-    for (const [code, f] of Object.entries(ENSEMBLE.reglesAffichage.declencheurs)) {
-      if (f.type === "cases") libellesLignes[code] = Object.fromEntries(f.options.map((o) => [o.id, o.libelle]));
-      // Déclencheur qui est une question de la banque : les libellés sont ceux de ses cases, sous le code de la donnée.
-      if (f.type === "reponse_donnee") {
-        const spec = specDeLaDonnee(ENSEMBLE, f.donnee).spec;
-        if (spec?.type === "cases") libellesLignes[f.donnee] = Object.fromEntries(spec.options.map((o) => [o.id, o.libelle]));
-      }
-    }
-    // Questions dont la réponse ouvre ou ferme d'autres questions (D03 → ACQ-03.01, « FIN-10.01#retours_par_mois »…) :
-    // après leur enregistrement, l'écran recalcule les questions à poser.
-    const donneesLues = new Set<string>();
-    const regles = ENSEMBLE.reglesAffichage;
-    for (const r of [...Object.values(regles.conditions), ...Object.values(regles.masquages)]) {
-      for (const c of clesDeLaRegle(r)) {
-        const dn = cleDeDonnee(c);
-        if (dn) donneesLues.add(dn.donnee);
-      }
-    }
-    for (const f of Object.values(regles.declencheurs)) if (f.type === "reponse_donnee") donneesLues.add(f.donnee);
     corps = (
       <Questionnaire
-        donneesLues={[...donneesLues]}
-        declencheurs={a.declencheursConcernes.map((d) => ({ code: d.code, question: d.question, forme: d.forme }))}
-        themes={themes}
-        reponsesInitiales={reponsesEcran}
-        masques={a.themesMasques.length}
-        manquantes={a.statistiques.manquantes}
-        libellesLignes={libellesLignes}
+        donneesLues={prep.donneesLues}
+        declencheurs={prep.declencheurs}
+        themes={prep.themes}
+        reponsesInitiales={prep.reponsesInitiales}
+        masques={prep.masques}
+        manquantes={prep.manquantes}
+        libellesLignes={prep.libellesLignes}
       />
     );
   }

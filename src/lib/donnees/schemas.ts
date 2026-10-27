@@ -540,6 +540,22 @@ export const implications = z.object({
 });
 export type Implications = z.infer<typeof implications>;
 
+// --- Vocabulaires par métier ----------------------------------------------------
+
+// Quel vocabulaire propre (hébergement, négoce, cabinet…) s'applique à quel métier ou activité. Tant que « valide » est faux,
+// l'application garde les mots du profil : c'est une proposition à valider par le propriétaire.
+export const vocabulairesMetiers = z.object({
+  source: z.string(),
+  valide: z.boolean(),
+  regle: z.string(),
+  vocabulaires: z.record(z.string(), z.string()),
+  metiers: z.record(z.string(), z.object({ vocabulaire: z.string(), aConfirmer: z.boolean() })),
+  // Clé « métier/activité » : l'activité cochée l'emporte sur le métier.
+  activites: z.record(z.string(), z.object({ vocabulaire: z.string(), aConfirmer: z.boolean() })),
+  aTrancher: z.record(z.string(), z.string()),
+});
+export type VocabulairesMetiers = z.infer<typeof vocabulairesMetiers>;
+
 // --- Ensemble ----------------------------------------------------------------
 
 export type EnsembleDonnees = {
@@ -559,6 +575,7 @@ export type EnsembleDonnees = {
   objectifsAgents: ObjectifsAgents;
   retraits: Retraits;
   implications: Implications;
+  vocabulairesMetiers: VocabulairesMetiers;
   catalogue: FicheTheme[];
   catalogueEffets: EffetCatalogue[];
   parametresReferences: ParametresReferences;
@@ -583,6 +600,7 @@ export const schemaFichiers = {
   objectifsAgents,
   retraits,
   implications,
+  vocabulairesMetiers,
   catalogue: z.array(ficheTheme),
   catalogueEffets: z.array(effetCatalogue),
   parametresReferences,

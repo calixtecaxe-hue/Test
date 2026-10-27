@@ -382,7 +382,9 @@ export function QuestionCarte({
   const ctx = { lignesDeclencheur, elementsDeListe };
   const totalImpose = spec?.type === "tableau" && spec.total !== undefined;
 
-  function vider() {
+  // La saisie en attente part tout de suite. En quittant le champ (`depart` faux), la carte le dit (« Enregistré ») ; en
+  // quittant la page ou la question (`depart` vrai), l'envoi survit à la fermeture (keepalive) et rien n'est perdu.
+  function vider(depart = false) {
     // Le brouillon part aussi en quittant la page.
     if (attenteBrouillon.current !== undefined) {
       if (minuteurBrouillon.current) clearTimeout(minuteurBrouillon.current);
@@ -394,16 +396,18 @@ export function QuestionCarte({
     if (minuteur.current) clearTimeout(minuteur.current);
     const r = attente.current;
     attente.current = undefined;
-    void enregistrerRef.current(q.code, r, true);
+    if (depart) void enregistrerRef.current(q.code, r, true);
+    else void envoyer(r);
   }
+  const quitter = () => vider(true);
+  const quitterCache = () => { if (document.visibilityState === "hidden") vider(true); };
   useEffect(() => {
-    const cacher = () => { if (document.visibilityState === "hidden") vider(); };
-    window.addEventListener("pagehide", vider);
-    document.addEventListener("visibilitychange", cacher);
+    window.addEventListener("pagehide", quitter);
+    document.addEventListener("visibilitychange", quitterCache);
     return () => {
-      window.removeEventListener("pagehide", vider);
-      document.removeEventListener("visibilitychange", cacher);
-      vider();
+      window.removeEventListener("pagehide", quitter);
+      document.removeEventListener("visibilitychange", quitterCache);
+      vider(true);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -469,9 +473,12 @@ export function QuestionCarte({
     if (minuteur.current) clearTimeout(minuteur.current);
     attente.current = undefined;
     if (m === mode) {
-      // Un second clic sur le même bouton annule ce choix.
+      // Un second clic sur le même bouton annule ce choix. Ce qui était saisi réapparaît : s'il est valide, on le garde
+      // comme réponse (l'écran et l'enregistrement disent la même chose), sinon la question redevient sans réponse.
       setMode("reponse");
-      void envoyer(null);
+      const { reponse: gardee, erreur: e } = construireReponse(spec, saisie, ctx);
+      setErreur(null);
+      void envoyer(!e && gardee ? (gardee as Reponse) : null);
       return;
     }
     setMode(m);
@@ -510,7 +517,7 @@ export function QuestionCarte({
           {prerempli && detailPrerempli && reponseDonnee ? (
             <p className="mt-3 text-sm text-[var(--text-muted)]">Rempli d&apos;après vos réponses précédentes ({detailPrerempli}). Il se met à jour si ce détail change ; corrigez le montant pour le garder tel quel.</p>
           ) : null}
-          {reponseDonnee ? <CorpsReponse q={q} id={id} spec={spec} saisie={saisie} surSaisie={surSaisie} setSaisie={setSaisie} poser={poser} vider={vider} lignesDeclencheur={lignesDeclencheur} elementsDeListe={elementsDeListe} libellesLignes={libellesLignes} lignesLibres={lignesLibres} setLignesLibres={setLignesLibres} /> : null}
+          {reponseDonnee ? <CorpsReponse q={q} id={id} spec={spec} saisie={saisie} surSaisie={surSaisie} setSaisie={setSaisie} poser={poser} vider={() => vider(false)} lignesDeclencheur={lignesDeclencheur} elementsDeListe={elementsDeListe} libellesLignes={libellesLignes} lignesLibres={lignesLibres} setLignesLibres={setLignesLibres} /> : null}
           <div role="group" aria-label="Autres réponses" className="reponse-choix mt-4">
             <button type="button" aria-pressed={mode === "inconnu"} onClick={() => choisirMode("inconnu")} className={`reponse-bouton${mode === "inconnu" ? " actif" : ""}`}>Je ne sais pas</button>
             <button type="button" aria-pressed={mode === "non_suivi"} onClick={() => choisirMode("non_suivi")} className={`reponse-bouton${mode === "non_suivi" ? " actif" : ""}`}>Je ne suis pas cette donnée</button>

@@ -45,6 +45,8 @@ export type ContexteAssemblage = {
   ancienneteMois?: number;
   // Ce que l'audit ne pose pas à ce compte (professions réglementées, agent Acquisition).
   exclusions?: Exclusions | null;
+  // Vocabulaire propre au métier (« immobilier », « negoce »…), s'il est validé : ses mots passent avant ceux du profil.
+  vocabulaire?: string | null;
   // Tout ce que le compte a déjà répondu, tous agents confondus (données partagées).
   reponses: Reponses;
 };
@@ -217,7 +219,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
     const q = banque.get(d.code);
     let texte: string | null = null;
     if (q) {
-      const f = formuler(q.texte, ctx.profils, e.lexique);
+      const f = formuler(q.texte, ctx.profils, e.lexique, ctx.vocabulaire ?? null);
       // Un mot du lexique absent pour ce profil : la question ne s'applique pas.
       if (!f.ok) return null;
       texte = f.texte;
@@ -237,7 +239,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
     // Les mots du lexique valent aussi dans l'aide et la question de repli.
     const mots = (t: string | null | undefined): string | null => {
       if (!t) return null;
-      const f = formuler(t, ctx.profils, e.lexique);
+      const f = formuler(t, ctx.profils, e.lexique, ctx.vocabulaire ?? null);
       return f.ok ? f.texte : t.replace(/\{[a-z0-9_]+\}/g, "").replace(/\s+([.,;:])/g, "$1");
     };
     return {

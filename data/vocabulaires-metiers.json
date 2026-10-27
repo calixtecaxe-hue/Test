@@ -1,0 +1,265 @@
+{
+  "source": "Proposition du 27 octobre à valider par le propriétaire. Les dix vocabulaires viennent du classeur (data/lexique.json, champ « metiers ») ; l'attribution à chaque métier est écrite par scripts/ecrire-vocabulaires-metiers.py.",
+  "valide": false,
+  "regle": "Un vocabulaire remplace les mots du profil. Plusieurs activités cochées : le vocabulaire s'applique seulement si elles ont toutes le même ; sinon les mots du profil restent. Un mot sans forme dans le vocabulaire (« — » dans le classeur) garde la forme du profil.",
+  "vocabulaires": {
+    "hebergement": "Hébergement (nuitées, chambres, logements, emplacements)",
+    "location_vehicules": "Location de véhicules",
+    "immobilier": "Immobilier (mandats, estimations, honoraires)",
+    "projet_particuliers": "Projets pour des particuliers (devis signé, projet réalisé)",
+    "vente_de_biens": "Vente de biens (acheteurs, visite ou essai, bien livré)",
+    "negoce": "Négoce, gros et distribution (commandes, propositions de prix)",
+    "fabrication": "Fabrication (commandes à produire, production)",
+    "cabinet": "Cabinet (dossiers, honoraires, consultations)",
+    "course": "Courses (VTC, taxi, coursier)",
+    "livraison_repas": "Cuisine en livraison seule (commandes, menu en ligne)"
+  },
+  "metiers": {
+    "architecte": {
+      "vocabulaire": "cabinet",
+      "aConfirmer": false
+    },
+    "architecte-d-interieur": {
+      "vocabulaire": "projet_particuliers",
+      "aConfirmer": true
+    },
+    "atelier-de-production": {
+      "vocabulaire": "fabrication",
+      "aConfirmer": false
+    },
+    "avocat": {
+      "vocabulaire": "cabinet",
+      "aConfirmer": false
+    },
+    "biscuiterie": {
+      "vocabulaire": "fabrication",
+      "aConfirmer": false
+    },
+    "brasserie-artisanale-fabrication-de-biere": {
+      "vocabulaire": "fabrication",
+      "aConfirmer": false
+    },
+    "camping": {
+      "vocabulaire": "hebergement",
+      "aConfirmer": false
+    },
+    "chambre-d-hotes": {
+      "vocabulaire": "hebergement",
+      "aConfirmer": false
+    },
+    "chaudronnerie": {
+      "vocabulaire": "fabrication",
+      "aConfirmer": false
+    },
+    "commissaire-aux-comptes": {
+      "vocabulaire": "cabinet",
+      "aConfirmer": false
+    },
+    "commissaire-de-justice": {
+      "vocabulaire": "cabinet",
+      "aConfirmer": false
+    },
+    "constructeur-de-maisons-individuelles": {
+      "vocabulaire": "vente_de_biens",
+      "aConfirmer": true
+    },
+    "coursier": {
+      "vocabulaire": "course",
+      "aConfirmer": false
+    },
+    "cuisine-en-livraison-seule": {
+      "vocabulaire": "livraison_repas",
+      "aConfirmer": false
+    },
+    "cuisiniste": {
+      "vocabulaire": "projet_particuliers",
+      "aConfirmer": true
+    },
+    "distributeur-d-equipements-de-cuisine-professionnelle": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "distributeur-de-fournitures-industrielles": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "distributeur-de-materiel-electrique": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "distributeur-de-plomberie-et-sanitaire": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "expert-comptable": {
+      "vocabulaire": "cabinet",
+      "aConfirmer": false
+    },
+    "finance-et-assurance": {
+      "vocabulaire": "cabinet",
+      "aConfirmer": true
+    },
+    "geometre-expert": {
+      "vocabulaire": "cabinet",
+      "aConfirmer": false
+    },
+    "gite": {
+      "vocabulaire": "hebergement",
+      "aConfirmer": false
+    },
+    "grossiste-alimentaire": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "grossiste-en-boissons-pour-cafes-et-restaurants": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "grossiste-en-emballages": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "grossiste-en-fournitures-de-bureau": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "grossiste-en-fruits-et-legumes": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "grossiste-en-pieces-automobiles": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "grossiste-en-produits-d-entretien-et-d-hygiene": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "grossiste-en-produits-de-beaute-pour-salons": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "grossiste-en-textile": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "import-export": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "imprimerie": {
+      "vocabulaire": "fabrication",
+      "aConfirmer": false
+    },
+    "location-de-vehicules": {
+      "vocabulaire": "location_vehicules",
+      "aConfirmer": false
+    },
+    "marchand-de-biens": {
+      "vocabulaire": "vente_de_biens",
+      "aConfirmer": false
+    },
+    "mecanique-de-precision": {
+      "vocabulaire": "fabrication",
+      "aConfirmer": false
+    },
+    "menuiserie-de-fabrication": {
+      "vocabulaire": "fabrication",
+      "aConfirmer": false
+    },
+    "negoce-de-bois": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "negoce-de-materiaux-de-construction": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "negoce-de-vins-et-spiritueux": {
+      "vocabulaire": "negoce",
+      "aConfirmer": false
+    },
+    "notaire": {
+      "vocabulaire": "cabinet",
+      "aConfirmer": false
+    },
+    "pisciniste": {
+      "vocabulaire": "projet_particuliers",
+      "aConfirmer": true
+    },
+    "promoteur-immobilier": {
+      "vocabulaire": "vente_de_biens",
+      "aConfirmer": false
+    },
+    "sous-traitance-industrielle": {
+      "vocabulaire": "fabrication",
+      "aConfirmer": false
+    },
+    "vente-de-vehicules": {
+      "vocabulaire": "vente_de_biens",
+      "aConfirmer": false
+    },
+    "vtc-et-taxi": {
+      "vocabulaire": "course",
+      "aConfirmer": false
+    }
+  },
+  "activites": {
+    "agence-immobiliere/gestion-locative": {
+      "vocabulaire": "immobilier",
+      "aConfirmer": true
+    },
+    "agence-immobiliere/immobilier-d-entreprise-bureaux-locaux-commerciaux": {
+      "vocabulaire": "immobilier",
+      "aConfirmer": false
+    },
+    "agence-immobiliere/location-recherche-de-locataires": {
+      "vocabulaire": "immobilier",
+      "aConfirmer": false
+    },
+    "agence-immobiliere/transaction": {
+      "vocabulaire": "immobilier",
+      "aConfirmer": false
+    },
+    "evenementiel/organisation-de-mariages-et-fetes-privees": {
+      "vocabulaire": "projet_particuliers",
+      "aConfirmer": true
+    },
+    "hotel/hebergement-chambres": {
+      "vocabulaire": "hebergement",
+      "aConfirmer": false
+    },
+    "paysagiste/creation": {
+      "vocabulaire": "projet_particuliers",
+      "aConfirmer": true
+    },
+    "photographe/particuliers-mariages-et-portraits": {
+      "vocabulaire": "projet_particuliers",
+      "aConfirmer": true
+    }
+  },
+  "aTrancher": {
+    "agence-immobiliere/syndic": "Un syndic ne fait pas d'estimation ni de vente : aucun des dix vocabulaires ne convient franchement.",
+    "agence-immobiliere/conciergerie-saisonniere": "Proche de l'hébergement (nuitées) mais le client est le propriétaire du logement.",
+    "agence-de-voyage": "Dossier de voyage : ni « devis signé » ni « vente de bien » ne décrit bien ; vocabulaire à créer ?",
+    "livraison-du-dernier-kilometre": "Course ou livraison ? Le vocabulaire « courses » parle de passagers ou de coursiers.",
+    "transport-de-marchandises": "Idem : « demande de course » ne convient pas à un transport de marchandises.",
+    "demenagement": "Devis et chantier plutôt que course : profil actuel conservé.",
+    "autocariste": "Devis groupe : profil actuel conservé.",
+    "restauration-rapide": "Peut faire de la livraison : le vocabulaire « livraison repas » ne vaut que pour la livraison seule.",
+    "pizzeria": "Même remarque que la restauration rapide.",
+    "recrutement-et-rh": "« Dossier ouvert / honoraires » (cabinet) convient à un cabinet de recrutement, moins à une agence d'intérim.",
+    "consultant": "Mission plutôt que dossier : profil B2B conservé ; « cabinet » possible pour le conseil juridique.",
+    "medecin": "Professions de santé : « dossier » et « honoraires » ne sont pas les mots d'un patient. Vocabulaire « consultation » à créer ?",
+    "dentiste": "Idem médecin.",
+    "kine": "Idem médecin.",
+    "infirmier-liberal": "Idem médecin.",
+    "sage-femme": "Idem médecin.",
+    "orthophoniste": "Idem médecin.",
+    "veterinaire": "Idem médecin.",
+    "psychologue": "Idem médecin.",
+    "osteopathe": "Idem médecin.",
+    "naturopathe": "Idem médecin.",
+    "sophrologue": "Idem médecin."
+  }
+}

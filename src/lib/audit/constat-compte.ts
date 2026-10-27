@@ -9,6 +9,7 @@ import { constaterAgent } from "../moteur/constat";
 import { contexteReference } from "../references/contexte";
 import { chargerReferencesActives } from "../references/depot";
 import { exclusionsAcquisition } from "../routage";
+import { vocabulaireDuCompte } from "../vocabulaire";
 import type { AgentCode } from "@prisma/client";
 
 // Le constat du moteur pour un agent, sur les réponses réelles du compte (étape 4 du parcours).
@@ -27,6 +28,7 @@ export async function compteRenduDuCompte(utilisateur: UtilisateurComplet, agent
     reponses,
     ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()),
     exclusions,
+    vocabulaire: vocabulaireDuCompte(ENSEMBLE.vocabulairesMetiers, utilisateur),
   });
 
   const zone = utilisateur.typeZone;

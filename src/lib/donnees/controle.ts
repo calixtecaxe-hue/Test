@@ -439,6 +439,21 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     const specSource = banqueParDonnee.get(i.siCoche.donnee)?.reponse;
     if (specSource && (specSource.type !== "cases" || !specSource.options.some((o) => o.id === i.siCoche.option))) erreurs.push(`Implication sur ${i.donnee} : ${i.siCoche.donnee} n'a pas de case « ${i.siCoche.option} » dans la banque.`);
   }
+  // Vocabulaires par métier : chaque vocabulaire existe dans le lexique, chaque métier et chaque activité dans le routage.
+  const clesVocabulaire = new Set(e.lexique.flatMap((m) => Object.keys(m.metiers ?? {})));
+  const idsMetiers = new Set(e.routage.metiers.map((m) => m.id));
+  const idsActivites = new Set(e.routage.metiers.flatMap((m) => (m.sousVariantes ?? []).map((v) => `${m.id}/${v.id}`)));
+  const vm = e.vocabulairesMetiers;
+  for (const cle of Object.keys(vm.vocabulaires)) if (!clesVocabulaire.has(cle)) erreurs.push(`Vocabulaire « ${cle} » : absent du lexique (champ « metiers »).`);
+  for (const [id, a] of Object.entries(vm.metiers)) {
+    if (!idsMetiers.has(id)) erreurs.push(`Vocabulaire : le métier ${id} n'existe pas dans le routage.`);
+    if (!clesVocabulaire.has(a.vocabulaire)) erreurs.push(`Vocabulaire du métier ${id} : « ${a.vocabulaire} » n'existe pas dans le lexique.`);
+  }
+  for (const [id, a] of Object.entries(vm.activites)) {
+    if (!idsActivites.has(id)) erreurs.push(`Vocabulaire : l'activité ${id} n'existe pas dans le routage.`);
+    if (!clesVocabulaire.has(a.vocabulaire)) erreurs.push(`Vocabulaire de l'activité ${id} : « ${a.vocabulaire} » n'existe pas dans le lexique.`);
+  }
+  if (!vm.valide) avertissements.push(`Vocabulaires par métier : proposition non validée (${Object.keys(vm.metiers).length} métiers, ${Object.keys(vm.activites).length} activités, ${Object.keys(vm.aTrancher).length} à trancher) ; les mots du profil restent en vigueur.`);
   const sansSpec = posees.filter((d) => !banqueParDonnee.get(d.code)?.reponse && proposerSpec(d.format).certitude !== "sure");
 
   // Une donnée « partagée » se pose comme une donnée demandée (par le premier agent qui en a besoin).

@@ -7,7 +7,7 @@
 
 import type { ProfilId } from "./schemas.ts";
 
-type Mot = { mot: string; cle?: string; formes: Record<ProfilId, string | null> };
+type Mot = { mot: string; cle?: string; metiers?: Record<string, string | null>; formes: Record<ProfilId, string | null> };
 
 // Clé d'un mot du lexique dans un gabarit : minuscules, sans accent, « _ » entre les mots.
 // « Montant du premier achat » devient montant_du_premier_achat.
@@ -37,12 +37,15 @@ export type Formulation =
 
 // Remplace chaque variable par sa forme pour le profil. Avec plusieurs profils
 // (ex. B2B et Abonnement), le premier profil qui a une forme pour le mot l'emporte.
-export function formuler(gabarit: string, profils: ProfilId[], lexique: Mot[]): Formulation {
+// Un vocabulaire propre au métier (« immobilier », « negoce »…), quand il est donné, passe avant le profil ; un mot qu'il
+// ne renseigne pas (« — » dans le classeur) garde la forme du profil.
+export function formuler(gabarit: string, profils: ProfilId[], lexique: Mot[], vocabulaire: string | null = null): Formulation {
   const parCle = new Map(lexique.map((m) => [cleDuMot(m), m]));
   const absents: string[] = [];
   const texte = gabarit.replace(/\{([a-z0-9_]+)\}/g, (_, cle: string) => {
     const mot = parCle.get(cle);
-    const forme = mot ? profils.map((p) => mot.formes[p]).find((f) => f != null) : undefined;
+    const propre = mot && vocabulaire ? mot.metiers?.[vocabulaire] : undefined;
+    const forme = propre != null ? propre : mot ? profils.map((p) => mot.formes[p]).find((f) => f != null) : undefined;
     if (forme == null) {
       absents.push(cle);
       return "";

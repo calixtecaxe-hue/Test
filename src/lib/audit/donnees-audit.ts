@@ -18,6 +18,7 @@ import prereponses from "../../../data/prereponses.json";
 import objectifsAgents from "../../../data/objectifs-agents.json";
 import retraits from "../../../data/retraits.json";
 import implications from "../../../data/implications.json";
+import vocabulairesMetiers from "../../../data/vocabulaires-metiers.json";
 import catalogue from "../../../data/catalogue-themes.json";
 import catalogueEffets from "../../../data/catalogue-effets.json";
 import parametresReferences from "../../../data/parametres-references.json";
@@ -41,6 +42,7 @@ export const ENSEMBLE: EnsembleDonnees = {
   objectifsAgents: schemaFichiers.objectifsAgents.parse(objectifsAgents),
   retraits: schemaFichiers.retraits.parse(retraits),
   implications: schemaFichiers.implications.parse(implications),
+  vocabulairesMetiers: schemaFichiers.vocabulairesMetiers.parse(vocabulairesMetiers),
   catalogue: schemaFichiers.catalogue.parse(catalogue),
   catalogueEffets: schemaFichiers.catalogueEffets.parse(catalogueEffets),
   parametresReferences: schemaFichiers.parametresReferences.parse(parametresReferences),

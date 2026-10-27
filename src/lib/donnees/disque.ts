@@ -31,6 +31,7 @@ export function chargerDepuisDisque(dossier: string): EnsembleDonnees {
     objectifsAgents: schemaFichiers.objectifsAgents.parse(lire(dossier, "objectifs-agents.json")),
     retraits: schemaFichiers.retraits.parse(lire(dossier, "retraits.json")),
     implications: schemaFichiers.implications.parse(lire(dossier, "implications.json")),
+    vocabulairesMetiers: schemaFichiers.vocabulairesMetiers.parse(lire(dossier, "vocabulaires-metiers.json")),
     catalogue: schemaFichiers.catalogue.parse(lire(dossier, "catalogue-themes.json")),
     catalogueEffets: schemaFichiers.catalogueEffets.parse(lire(dossier, "catalogue-effets.json")),
     parametresReferences: schemaFichiers.parametresReferences.parse(lire(dossier, "parametres-references.json")),
