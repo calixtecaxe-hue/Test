@@ -12,7 +12,7 @@
 // Lecture seule : rien n'est écrit dans les données.
 
 import { join } from "node:path";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { equivalences, donneesPrerepondues } from "../../src/lib/audit/assemblage.ts";
 import { clesDeLaRegle, cleDeDonnee, moisMinimumDExistence, donneeDuDeclencheur, TAILLES_D02 } from "../../src/lib/audit/affichage.ts";
 import { formuler, variablesDuGabarit } from "../../src/lib/donnees/lexique.ts";
@@ -87,6 +87,54 @@ for (const p of e.prereponses.regles) for (const s of p.somme) liens.push({ sour
 for (const x of e.croisements) for (const s of x.entrees) liens.push({ source: s, type: "croisement (calcul)", condition: x.calcul, cible: x.code, attendu: "calcul pas encore exécutable (formule en texte libre) : la réponse active seule doit y entrer" });
 for (const x of e.scenarios) for (const s of x.entrees) liens.push({ source: s, type: "scénario (calcul)", condition: x.calcul, cible: x.code, attendu: "calcul pas encore exécutable" });
 
+// --- Relecture (docs/verification/relecture-questions.json) et contrôles automatiques du texte ---------------------------
+
+const relecture = JSON.parse(readFileSync(join(racine, "docs", "verification", "relecture-questions.json"), "utf8")) as Record<string, { statut: string; constat: string }>;
+// Montants sans période écrite, relus un par un : la base est dans la question elle-même.
+const PERIODE_VUE: Record<string, string> = {
+  "ACQ-15.11": "seuil d'achat à partir duquel le paiement en plusieurs fois est proposé, un montant par achat",
+  "ACQ-18.07": "récompense pour un client recommandé, la question le dit",
+  "FIN-11.02": "part de la trésorerie du jour, donnée juste avant (FIN-11.01, « aujourd'hui »)",
+  "FIN-11.03": "plafond autorisé à ce jour, un montant à une date et pas un flux",
+  "RH-28.05": "coût d'un recrutement, la question le dit",
+};
+function controlesAutomatiques(code: string, q: { texte: string | null; aide: string | null; reponse: ReponseSpec | null } | undefined, d: Donnee | undefined): string[] {
+  const constats: string[] = [];
+  if (!q?.texte) return ["texte absent de la banque"];
+  const t = `${q.texte} ${q.aide ?? ""}`;
+  if (/!/.test(t)) constats.push("point d'exclamation");
+  // « ton » peut désigner le ton d'une communication (« votre ton », « quel ton ») ; « tes » est dans « êtes ».
+  if (/(?<!\p{L})(tu|toi|ta|tes)(?!\p{L})/iu.test(q.texte) || /(?<!(votre|quel|le|un|même) )(?<!\p{L})ton(?!\p{L})/iu.test(q.texte)) constats.push("tutoiement");
+  if (/\p{Extended_Pictographic}/u.test(t)) constats.push("émoji");
+  const nombres: { spec: Extract<ReponseSpec, { type: "nombre" }>; ou: string }[] = [];
+  const parcourir = (spec: ReponseSpec | null, ou: string) => {
+    if (!spec) return;
+    if (spec.type === "nombre") nombres.push({ spec, ou });
+    if (spec.type === "composite") for (const c of spec.champs) parcourir(c.spec as ReponseSpec, `${ou}#${c.id}`);
+    if (spec.type === "tableau") for (const c of spec.colonnes) parcourir(c.spec as ReponseSpec, `${ou}#${c.id}`);
+  };
+  parcourir(q.reponse, "");
+  for (const { spec, ou } of nombres) {
+    if (spec.unite === "pourcent" && (spec.min === undefined || spec.max === undefined)) constats.push(`part en % sans bornes${ou}`);
+    else if (spec.unite !== "points" && spec.min === undefined && !["FIN-05.04", "FIN-11.01"].includes(code)) constats.push(`nombre sans minimum${ou}`);
+  }
+  // Un montant sans période ni base : par mois, par an, sur 12 mois, par client, prix d'une offre… dans le texte, l'aide, les
+  // libellés des champs ou la période du classeur. Un nombre de jours ou d'heures est le plus souvent un délai ou une durée
+  // (« combien de jours avant de relancer ») : il n'est pas contrôlé ici. Les cas restants sont tranchés à la main (PERIODE_VUE).
+  const libelles = q.reponse?.type === "composite" ? q.reponse.champs.map((c) => c.libelle) : q.reponse?.type === "tableau" ? q.reponse.colonnes.map((c) => c.libelle) : [];
+  const tout = `${t} ${libelles.join(" ")}`;
+  const montant = nombres.some(({ spec }) => spec.unite === "euros");
+  if (montant && !periodeDuTexte(tout) && !d?.periode && !/(moyen|en tout|au total|prochains|pour chaque|chaque fois|prix|tarif|factur|par (heure|jour|devis|vente|client|commande|personne|salarié|chantier|projet|nuit|séjour|unité|location|recrutement))/i.test(tout)) {
+    constats.push(PERIODE_VUE[code] ? `montant sans période écrite, vérifié : ${PERIODE_VUE[code]}` : "montant sans période ni base explicite");
+  }
+  if (q.reponse && (q.reponse.type === "choix" || q.reponse.type === "cases")) {
+    const libelles = q.reponse.options.map((o) => o.libelle.toLowerCase());
+    if (new Set(libelles).size !== libelles.length) constats.push("deux choix identiques");
+    if (libelles.length < 2) constats.push("moins de deux choix");
+  }
+  return constats;
+}
+
 // --- Inventaire ---------------------------------------------------------------------------------------------------------
 
 type Ligne = Record<string, string | number>;
@@ -160,6 +208,8 @@ for (const code of codes) {
     atteignable: atteinte,
     temoin: temoin ? `${temoin.profil} · ${temoin.taille}${temoin.metier ? ` · ${temoin.metier}` : ""}${Object.keys(temoin.reponses).length ? ` · réponses : ${Object.entries(temoin.reponses).map(([k, v]) => `${k}=${JSON.stringify(v && "valeur" in v ? v.valeur : v)}`).join(", ")}` : ""}` : "",
     raison_non_atteinte: atteinte === "NON" ? raison : "",
+    relecture: relecture[code] ? `${relecture[code].statut} : ${relecture[code].constat}` : q?.texte ? "relue (texte, aide, choix, unité, période) : sans correction" : "non relue (pas de texte dans la banque)",
+    controles_automatiques: q ? (controlesAutomatiques(code, q as { texte: string | null; aide: string | null; reponse: ReponseSpec | null }, d).join(" ; ") || "aucun constat") : "pas de question dans la banque",
   });
   if (++n % 100 === 0) process.stderr.write(`${n}/${codes.length}\n`);
 }

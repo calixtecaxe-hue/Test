@@ -27,6 +27,13 @@ const OUI_NON = [
 function Cadrage({ declencheurs, reponses, enregistrer }: { declencheurs: DeclencheurClient[]; reponses: Reponses; enregistrer: (cle: string, r: Reponse | null) => Promise<void> }) {
   const lire = (cle: string) => brut(reponses[cle]);
   const saisie = (valeur: string | string[]): Reponse => ({ genre: "saisie", valeur });
+  // Aucune question n'est obligatoire : une réponse de cadrage s'efface comme celle d'une question.
+  const effacer = (cle: string) =>
+    lire(cle) !== undefined ? (
+      <button type="button" onClick={() => enregistrer(cle, null)} className="self-start text-xs text-[var(--text-muted)] hover:text-[var(--text)]">
+        Effacer ma réponse
+      </button>
+    ) : null;
 
   return (
     <div className="flex flex-col gap-8">
@@ -43,6 +50,7 @@ function Cadrage({ declencheurs, reponses, enregistrer }: { declencheurs: Declen
               onChange={(v) => enregistrer(d.code, saisie(v[0]))}
             />
           ) : null}
+          {d.forme.type === "oui_non" ? effacer(d.code) : null}
           {d.forme.type === "choix" ? (
             <ChoixCases
               nom={d.code}
@@ -53,6 +61,7 @@ function Cadrage({ declencheurs, reponses, enregistrer }: { declencheurs: Declen
               onChange={(v) => enregistrer(d.code, saisie(v[0]))}
             />
           ) : null}
+          {d.forme.type === "choix" ? effacer(d.code) : null}
           {d.forme.type === "cases" ? (
             <ChoixCases
               nom={d.code}
@@ -74,6 +83,7 @@ function Cadrage({ declencheurs, reponses, enregistrer }: { declencheurs: Declen
                   <div key={cle} className="flex flex-col gap-2">
                     <p className="text-sm text-[var(--text-muted)]">{s.libelle}</p>
                     <ChoixCases nom={cle} type="radio" legende={s.libelle} options={OUI_NON} valeurs={[String(lire(cle) ?? "")]} onChange={(v) => enregistrer(cle, saisie(v[0]))} />
+                    {effacer(cle)}
                   </div>
                 );
               })

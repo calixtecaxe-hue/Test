@@ -6,7 +6,7 @@
 
 import type { CodeAgent, EnsembleDonnees } from "../donnees/schemas.ts";
 import { reponseSchema, type Reponse, type Reponses } from "./reponse.ts";
-import { proposerSpec, validerSelonSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
+import { idsDeListe, proposerSpec, validerSelonSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
 import type { Exclusions } from "./assemblage.ts";
 import { donneeDuDeclencheur } from "./affichage.ts";
 
@@ -79,7 +79,23 @@ export function validerReponse(e: EnsembleDonnees, cle: string, brut: unknown, d
       const interdites = Object.entries(exclusions.optionsCadrage).filter(([c]) => donneeDuDeclencheur(e.reglesAffichage, c) === cle).flatMap(([, ids]) => ids);
       if (reponse.valeur.some((x) => interdites.includes(x))) return refus("Ce choix ne concerne pas votre activité.");
     }
-    const verdict = validerSelonSpec(spec, reponse, { lignesDeclencheur, elementsDeListe });
+    // Nom d'une ligne pour un message d'erreur : le libellé du choix ou de l'élément de liste, jamais l'identifiant technique.
+    const nomLigne = (l: string): string | undefined => {
+      if (spec.type !== "tableau") return undefined;
+      if (spec.lignes.source === "declencheur") {
+        const source = donneeDuDeclencheur(e.reglesAffichage, spec.lignes.cle);
+        const s = source ? e.banque.find((q) => q.donnee === source)?.reponse : undefined;
+        if (s && (s.type === "cases" || s.type === "choix")) return s.options.find((o) => o.id === l)?.libelle;
+        const f = e.reglesAffichage.declencheurs[spec.lignes.cle];
+        if (f && (f.type === "cases" || f.type === "choix")) return f.options.find((o) => o.id === l)?.libelle;
+      }
+      if (spec.lignes.source === "donnee") {
+        const elements = elementsDeListe(spec.lignes.code);
+        return elements[idsDeListe(elements).indexOf(l)];
+      }
+      return undefined;
+    };
+    const verdict = validerSelonSpec(spec, reponse, { lignesDeclencheur, elementsDeListe, nomLigne });
     if (!verdict.ok) return refus(verdict.message);
   } else if (reponse.genre === "exact" || reponse.genre === "estimation" || reponse.genre === "valeurs") {
     // Sans spécification de réponse, seuls un texte, « je ne sais pas » et « je ne suis pas cette donnée » sont permis.

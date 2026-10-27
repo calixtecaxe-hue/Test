@@ -16,7 +16,7 @@
 
 import type { EnsembleDonnees, ProfilId, Donnee, ReglesAffichage } from "../donnees/schemas.ts";
 import { colonnesDuTotal, idsDeListe, type ReponseSpec, type ValeursStructurees } from "../donnees/reponse-spec.ts";
-import { clesDeLaRegle, cleDeDonnee, donneeDuDeclencheur, evaluer, lecteurDeclencheurs, moisMinimumDExistence, type TailleId } from "./affichage.ts";
+import { clesDeLaRegle, cleDeDonnee, donneeDuDeclencheur, evaluer, lecteurDeclencheurs, moisMinimumDExistence, sousQuestionOuverte, type TailleId } from "./affichage.ts";
 import type { Reponse, Reponses } from "./reponse.ts";
 import type { MetierDuCompte } from "../routage.ts";
 
@@ -172,6 +172,13 @@ export function analyserApplicabilite(e: EnsembleDonnees, reponses: Reponses, ct
     inapplicables = suivantes;
     actives = Object.fromEntries(Object.entries(reponses).filter(([c]) => !inapplicables.has(c)));
     if (stable) break;
+  }
+
+  // Sous-question de cadrage qui n'est plus posée (D12 repassé à « non » après « en service ? » = « oui ») : sa réponse gardée
+  // ne compte pas.
+  for (const cle of Object.keys(actives)) {
+    const etat = sousQuestionOuverte(cle, actives, regles);
+    if (etat === "fermee" || etat === "en_attente") delete actives[cle];
   }
 
   // Tableaux dont les lignes viennent d'une autre réponse : seules les cases des lignes actuelles comptent.

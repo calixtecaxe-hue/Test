@@ -150,19 +150,26 @@ export function lecteurDeclencheurs(reponses: Reponses, taille: TailleId, regles
     if (source && inapplicables?.has(source)) return INAPPLICABLE;
     if (donnee) return lireDonnee(reponses, donnee.donnee, donnee.chemin);
     if (forme0?.type === "reponse_donnee" && !cle.includes(".")) return lireDonnee(reponses, forme0.donnee, null);
-    const direct = brut(reponses, cle);
-    if (direct !== undefined) return direct;
-    const [code, sous] = cle.split(".");
-    const forme = regles.declencheurs[code];
-    if (forme?.type === "oui_non_multiple" && sous) {
-      const def = forme.sousCles.find((s) => s.cle === sous);
-      if (def?.siCle) {
-        const parent = brut(reponses, def.siCle.cle ? `${code}.${def.siCle.cle}` : code);
-        if (parent !== undefined && parent !== def.siCle.egal) return "non";
-      }
-    }
-    return undefined;
+    // Sous-question posée seulement après une réponse donnée à sa question parente (D12 « en service ? » après « oui ») : sans
+    // elle, une réponse gardée d'avant ne compte pas ; avec une autre réponse, elle vaut « non ».
+    const sousQuestion = sousQuestionOuverte(cle, reponses, regles);
+    if (sousQuestion === "fermee") return "non";
+    if (sousQuestion === "en_attente") return undefined;
+    return brut(reponses, cle);
   };
+}
+
+// Une sous-question de cadrage qui dépend de la réponse à sa question parente est-elle posée ? « sans_condition » pour les
+// autres clés.
+export function sousQuestionOuverte(cle: string, reponses: Reponses, regles: ReglesAffichage): "sans_condition" | "ouverte" | "fermee" | "en_attente" {
+  const [code, sous] = cle.split(".");
+  const forme = regles.declencheurs[code];
+  if (forme?.type !== "oui_non_multiple" || !sous) return "sans_condition";
+  const def = forme.sousCles.find((s) => s.cle === sous);
+  if (!def?.siCle) return "sans_condition";
+  const parent = brut(reponses, def.siCle.cle ? `${code}.${def.siCle.cle}` : code);
+  if (parent === undefined) return "en_attente";
+  return parent === def.siCle.egal ? "ouverte" : "fermee";
 }
 
 // Donnée dont la réponse tient lieu de réponse au déclencheur (D03 → ACQ-03.01), ou null.

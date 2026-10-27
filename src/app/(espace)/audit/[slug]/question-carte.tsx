@@ -423,7 +423,7 @@ export function CartePartagee({ q, reponse, onModifier }: { q: QuestionClient; r
 
 // Un tableau dont le total est imposé (« 100 % ») ne s'enregistre comme réponse que lorsque le total est juste. En attendant, la saisie
 // est gardée en brouillon sur le compte : elle suit le dirigeant d'un appareil à l'autre, et le calcul l'ignore.
-const NOTE_BROUILLON = " Votre saisie est enregistrée sur votre compte : vous la retrouverez ici, sur cet appareil ou un autre, et elle sera prise en compte dès que le total sera juste.";
+const NOTE_BROUILLON = " Votre saisie est enregistrée sur votre compte : vous la retrouverez ici, sur cet appareil ou un autre. Elle comptera dans votre analyse dès que le tableau sera complet et juste.";
 
 function contexteLignes(cadrage: Reponses) {
   const liste = (cle: string): string[] => {
@@ -557,7 +557,25 @@ export function QuestionCarte({
         />
       </ul>
     ) : null;
-  const ctxAvec = (affichees: string[][] | null) => ({ lignesDeclencheur, elementsDeListe, ...(affichees ? { lignesAffichees: affichees.flat() } : {}) });
+  // Nom d'une ligne tel qu'il s'affiche dans le tableau : un message d'erreur le cite, jamais l'identifiant technique.
+  const nomLigne = (l: string): string | undefined => {
+    if (spec?.type !== "tableau") return undefined;
+    if (noms[l]) return noms[l];
+    if (groupes) {
+      for (const [gi, g] of groupes.entries()) {
+        const k = idsAffiches[gi]?.indexOf(l) ?? -1;
+        if (k >= 0) return spec.lignes.source === "libre" ? saisie.champs?.[`${l}.nom`]?.trim() || `Ligne ${k + 1}` : `${g.libelle} ${k + 1}`;
+      }
+    }
+    if (spec.lignes.source === "fixe") return spec.lignes.items.find((x) => x.id === l)?.libelle;
+    if (spec.lignes.source === "declencheur") return libellesLignes[spec.lignes.cle]?.[l];
+    if (spec.lignes.source === "donnee") {
+      const elements = elementsDeListe(spec.lignes.code);
+      return elements[idsDeListe(elements).indexOf(l)];
+    }
+    return undefined;
+  };
+  const ctxAvec = (affichees: string[][] | null) => ({ lignesDeclencheur, elementsDeListe, nomLigne, ...(affichees ? { lignesAffichees: affichees.flat() } : {}) });
   const ctx = ctxAvec(groupes ? idsAffiches : null);
   const totalImpose = spec?.type === "tableau" && spec.total !== undefined;
 

@@ -586,6 +586,29 @@ réseau et à intervalles, dans l'ordre, et le navigateur prévient si l'on ferm
 `EMAIL_MODE=demonstration`). Le rapport liste aussi les décisions à prendre (compte rendu avant les repères, repère de progression, lecture des
 montants, synonymes des métiers, e-mails, chemin court pour le dirigeant pressé).
 
+**Vérification du questionnaire (27 et 28 octobre, demande du propriétaire)** : rapport `docs/verification/rapport.md` (chiffres,
+corrections par impact, problèmes restants, décisions, limites, commandes), inventaire des 561 questions et matrice des dépendances
+(`inventaire-questions.csv`, `matrice-dependances.csv`, `node scripts/verification/inventaire.mts`), contrôles dans `scripts/verification/`
+(tout relancer : `bash scripts/verification/tout.sh`, serveur lancé sur le port 3100). Règles retenues :
+
+- **Réponses actives.** Une réponse devenue inapplicable (question fermée par une autre, thème masqué, taille, case d'un canal décoché) reste
+  en base mais ne compte plus : ni dans les conditions, ni dans le calcul, ni dans l'avancement, ni dans le total pré-rempli. Elle revient si le
+  dirigeant revient à son premier choix. Code : `src/lib/audit/reponses-actives.ts`, lecture `INAPPLICABLE` dans `affichage.ts`, contexte
+  d'un compte dans `contexte-compte.ts`.
+- **Répartitions à refaire.** Une répartition dont une ligne est ajoutée ou retirée ne compte pas tant que le total n'est pas de nouveau
+  juste. Un message le dit, et rien n'est redistribué.
+- **Totaux sur plusieurs colonnes.** Un total peut porter sur plusieurs colonnes (`total.colonnes`, COM-12.01 ; dans le classeur, « A ; B = 100 »).
+- **Bornes obligatoires.** Tout nombre a un minimum et toute part en % a des bornes ; le contrôle des données le refuse sinon. Seuls FIN-05.04
+  et FIN-11.01 peuvent être négatifs.
+- **Doublons de cadrage.** D27 lit RH-08.01, D13 lit RH-28.01.
+- **Sous-questions de cadrage.** Une sous-question qui n'est plus posée (D12 « en service ? » après « non ») ne compte plus.
+- **Cadrage effaçable.** Une question de cadrage répondue a « Effacer ma réponse ».
+- **Messages d'erreur.** Un message d'erreur d'une case de tableau nomme la ligne comme l'écran, jamais par son identifiant.
+- **Page 404** en français (`src/app/not-found.tsx`).
+- **Relecture.** 29 constats (`docs/verification/relecture-questions.json`, appliqués par `scripts/verification/appliquer-relecture.py`).
+  **À décider par le propriétaire** : ACQ-22.05 (créneaux proposés ou libres), FIN-17.02 (nombre ou montant), COM-13.10 (le canal coché
+  l'emporte sur un « non » caché), COM-22.04 (mesure sur les demandes), FIN-05.02 sans agent Comm (jamais pré-rempli), 24 reformulations.
+
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),
 puis la connexion des deux. Tant que la banque n'existe pas, rien n'est inventé :

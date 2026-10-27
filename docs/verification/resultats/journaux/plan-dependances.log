@@ -1,0 +1,8 @@
+4 règles sur la taille (changement d'effectif dans Mon compte).
+87 règles à jouer (76 conditions, 11 masquages) ; 385 questions concernées.
+Conditions sans plan (2) : Pas posée si les agents Acquisition et Comm sont faits : calculée | D30 · avant la première création de contenu
+  M-092 Ne publie pas (parcours mise en place) : des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage) → COM-10.03, COM-10.04, COM-10.05
+(node:10111) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/audit/assemblage.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

@@ -6,7 +6,9 @@
     "repli": null,
     "reponse": {
       "type": "nombre",
-      "unite": "pourcent"
+      "unite": "pourcent",
+      "min": 0,
+      "max": 100
     },
     "raison": "categorie_fabrication_a_creer"
   },
@@ -23,7 +25,8 @@
           "libelle": "Heures de production",
           "spec": {
             "type": "nombre",
-            "unite": "heures"
+            "unite": "heures",
+            "min": 0
           }
         },
         {
@@ -31,7 +34,8 @@
           "libelle": "Heures possibles",
           "spec": {
             "type": "nombre",
-            "unite": "heures"
+            "unite": "heures",
+            "min": 0
           }
         }
       ]
@@ -45,7 +49,9 @@
     "repli": null,
     "reponse": {
       "type": "nombre",
-      "unite": "pourcent"
+      "unite": "pourcent",
+      "min": 0,
+      "max": 100
     },
     "raison": "categorie_fabrication_a_creer"
   },
@@ -62,7 +68,8 @@
           "libelle": "Délai total",
           "spec": {
             "type": "nombre",
-            "unite": "jours"
+            "unite": "jours",
+            "min": 0
           }
         },
         {
@@ -70,7 +77,8 @@
           "libelle": "Dont attente avant lancement",
           "spec": {
             "type": "nombre",
-            "unite": "jours"
+            "unite": "jours",
+            "min": 0
           }
         }
       ]
@@ -84,7 +92,8 @@
     "repli": null,
     "reponse": {
       "type": "nombre",
-      "unite": "heures"
+      "unite": "heures",
+      "min": 0
     },
     "raison": "categorie_fabrication_a_creer"
   }

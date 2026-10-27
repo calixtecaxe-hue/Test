@@ -157,6 +157,8 @@ export type ContexteLignes = {
   // Écran seulement : lignes affichées du tableau (lignes retirées, lignes suivies d'un autre tableau). Une case d'une
   // ligne qui n'est plus affichée n'est pas envoyée.
   lignesAffichees?: string[];
+  // Nom affiché d'une ligne (« Bouche-à-oreille », « Offre 2 »), pour qu'un message d'erreur la désigne comme l'écran.
+  nomLigne?: (id: string) => string | undefined;
 };
 
 // Identifiants stables des éléments d'une liste : le nom sans accent, avec un numéro si deux se ressemblent.
@@ -283,7 +285,8 @@ export function validerSelonSpec(spec: ReponseSpec, r: ReponseAValider, ctx: Con
       for (const l of idsLignes) {
         const ligne: ValeursStructurees = {};
         for (const c of spec.colonnes) if (`${l}.${c.id}` in v) ligne[c.id] = v[`${l}.${c.id}`];
-        const verdict = validerChamps(spec.colonnes, ligne, l);
+        const nom = ctx.nomLigne?.(l) ?? (spec.lignes.source === "fixe" ? spec.lignes.items.find((x) => x.id === l)?.libelle : undefined);
+        const verdict = validerChamps(spec.colonnes, ligne, nom ?? "");
         if (!verdict.ok) return verdict;
       }
       if (spec.total) {
@@ -311,7 +314,7 @@ function validerChamps(champs: ChampNomme[], valeurs: ValeursStructurees, prefix
     const v = valeurs[c.id];
     if (v === undefined || v === null || v === "") continue; // champ laissé vide : permis, rien n'est obligatoire
     const verdict = validerChampSimple(c.spec, v);
-    if (!verdict.ok) return non(`${prefixe ? `Ligne ${prefixe} · ` : ""}${c.libelle} : ${verdict.message}`);
+    if (!verdict.ok) return non(`${prefixe ? `${prefixe} · ` : ""}${c.libelle} : ${verdict.message}`);
   }
   return ok;
 }

@@ -1,0 +1,1321 @@
+{
+ "le": "2026-10-27T23:47:28.922Z",
+ "resultats": [
+  {
+   "item": "D-001",
+   "id": "D-001-a",
+   "attendu": "D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : règle vraie, 4 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-001",
+   "id": "D-001-b",
+   "attendu": "D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-001",
+   "id": "D-001-d",
+   "attendu": "D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-001",
+   "id": "D-001-e",
+   "attendu": "D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-002",
+   "id": "D-002-a",
+   "attendu": "D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-002",
+   "id": "D-002-b",
+   "attendu": "D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-002",
+   "id": "D-002-d",
+   "attendu": "D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-002",
+   "id": "D-002-e",
+   "attendu": "D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-003",
+   "id": "D-003-a",
+   "attendu": "D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : règle vraie, 5 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-003",
+   "id": "D-003-b",
+   "attendu": "D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-003",
+   "id": "D-003-c",
+   "attendu": "D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : la réponse à ACQ-04.01 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-003",
+   "id": "D-003-d",
+   "attendu": "D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-003",
+   "id": "D-003-d2",
+   "attendu": "D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : la réponse gardée à ACQ-04.01 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-003",
+   "id": "D-003-e",
+   "attendu": "D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-004",
+   "id": "D-004-a",
+   "attendu": "D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : règle vraie, 4 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-004",
+   "id": "D-004-b",
+   "attendu": "D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-004",
+   "id": "D-004-c",
+   "attendu": "D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : la réponse à ACQ-05.01 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-004",
+   "id": "D-004-d",
+   "attendu": "D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-004",
+   "id": "D-004-d2",
+   "attendu": "D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : la réponse gardée à ACQ-05.01 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-004",
+   "id": "D-004-e",
+   "attendu": "D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-005",
+   "id": "D-005-a",
+   "attendu": "D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : règle vraie, 5 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-005",
+   "id": "D-005-b",
+   "attendu": "D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-005",
+   "id": "D-005-d",
+   "attendu": "D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-005",
+   "id": "D-005-e",
+   "attendu": "D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-006",
+   "id": "D-006-a",
+   "attendu": "D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-006",
+   "id": "D-006-b",
+   "attendu": "D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-006",
+   "id": "D-006-c",
+   "attendu": "D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : la réponse à ACQ-06.07 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-006",
+   "id": "D-006-d",
+   "attendu": "D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-006",
+   "id": "D-006-d2",
+   "attendu": "D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : la réponse gardée à ACQ-06.07 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-006",
+   "id": "D-006-e",
+   "attendu": "D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-007",
+   "id": "D-007-a",
+   "attendu": "D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : règle vraie, 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-007",
+   "id": "D-007-b",
+   "attendu": "D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-007",
+   "id": "D-007-c",
+   "attendu": "D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : la réponse à ACQ-07.15 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-007",
+   "id": "D-007-d",
+   "attendu": "D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-007",
+   "id": "D-007-d2",
+   "attendu": "D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : la réponse gardée à ACQ-07.15 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-007",
+   "id": "D-007-e",
+   "attendu": "D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-008",
+   "id": "D-008-a",
+   "attendu": "D04 · si publicité ou agence [D04 (cadrage) = « oui »] : règle vraie, 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-008",
+   "id": "D-008-b",
+   "attendu": "D04 · si publicité ou agence [D04 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-008",
+   "id": "D-008-c",
+   "attendu": "D04 · si publicité ou agence [D04 (cadrage) = « oui »] : la réponse à ACQ-07.01 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-008",
+   "id": "D-008-d",
+   "attendu": "D04 · si publicité ou agence [D04 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-008",
+   "id": "D-008-d2",
+   "attendu": "D04 · si publicité ou agence [D04 (cadrage) = « oui »] : la réponse gardée à ACQ-07.01 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-008",
+   "id": "D-008-e",
+   "attendu": "D04 · si publicité ou agence [D04 (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-009",
+   "id": "D-009-a",
+   "attendu": "D37 · si vous manquez des appels [ACQ-08.02 > 0] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-009",
+   "id": "D-009-b",
+   "attendu": "D37 · si vous manquez des appels [ACQ-08.02 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-009",
+   "id": "D-009-c",
+   "attendu": "D37 · si vous manquez des appels [ACQ-08.02 > 0] : la réponse à ACQ-08.03 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-009",
+   "id": "D-009-d",
+   "attendu": "D37 · si vous manquez des appels [ACQ-08.02 > 0] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-009",
+   "id": "D-009-d2",
+   "attendu": "D37 · si vous manquez des appels [ACQ-08.02 > 0] : la réponse gardée à ACQ-08.03 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-009",
+   "id": "D-009-e",
+   "attendu": "D37 · si vous manquez des appels [ACQ-08.02 > 0] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-010",
+   "id": "D-010-a",
+   "attendu": "D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : règle vraie, 5 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-010",
+   "id": "D-010-b",
+   "attendu": "D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-010",
+   "id": "D-010-c",
+   "attendu": "D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : la réponse à ACQ-09.01 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-010",
+   "id": "D-010-d",
+   "attendu": "D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-010",
+   "id": "D-010-d2",
+   "attendu": "D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : la réponse gardée à ACQ-09.01 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-010",
+   "id": "D-010-e",
+   "attendu": "D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-011",
+   "id": "D-011-a",
+   "attendu": "D06 · si devis ou propositions [D06 (cadrage) = « oui »] : règle vraie, 10 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-011",
+   "id": "D-011-b",
+   "attendu": "D06 · si devis ou propositions [D06 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-011",
+   "id": "D-011-c",
+   "attendu": "D06 · si devis ou propositions [D06 (cadrage) = « oui »] : la réponse à ACQ-10.05 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-011",
+   "id": "D-011-d",
+   "attendu": "D06 · si devis ou propositions [D06 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-011",
+   "id": "D-011-d2",
+   "attendu": "D06 · si devis ou propositions [D06 (cadrage) = « oui »] : la réponse gardée à ACQ-10.05 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-011",
+   "id": "D-011-e",
+   "attendu": "D06 · si devis ou propositions [D06 (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-012",
+   "id": "D-012-a",
+   "attendu": "D36 · si vous relancez vos devis [ACQ-10.06 > 0] : règle vraie, 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-012",
+   "id": "D-012-b",
+   "attendu": "D36 · si vous relancez vos devis [ACQ-10.06 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-012",
+   "id": "D-012-c",
+   "attendu": "D36 · si vous relancez vos devis [ACQ-10.06 > 0] : la réponse à ACQ-10.07 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-012",
+   "id": "D-012-d",
+   "attendu": "D36 · si vous relancez vos devis [ACQ-10.06 > 0] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-012",
+   "id": "D-012-d2",
+   "attendu": "D36 · si vous relancez vos devis [ACQ-10.06 > 0] : la réponse gardée à ACQ-10.07 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-012",
+   "id": "D-012-e",
+   "attendu": "D36 · si vous relancez vos devis [ACQ-10.06 > 0] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-013",
+   "id": "D-013-a",
+   "attendu": "D18 · si facturation au temps [D18 (cadrage) = « oui »] : règle vraie, 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-013",
+   "id": "D-013-b",
+   "attendu": "D18 · si facturation au temps [D18 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-013",
+   "id": "D-013-d",
+   "attendu": "D18 · si facturation au temps [D18 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-013",
+   "id": "D-013-e",
+   "attendu": "D18 · si facturation au temps [D18 (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-014",
+   "id": "D-014-a",
+   "attendu": "D35 · si vous accordez des remises [ACQ-14.01 > 0] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-014",
+   "id": "D-014-b",
+   "attendu": "D35 · si vous accordez des remises [ACQ-14.01 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-014",
+   "id": "D-014-c",
+   "attendu": "D35 · si vous accordez des remises [ACQ-14.01 > 0] : la réponse à ACQ-14.02 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-014",
+   "id": "D-014-d",
+   "attendu": "D35 · si vous accordez des remises [ACQ-14.01 > 0] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-014",
+   "id": "D-014-d2",
+   "attendu": "D35 · si vous accordez des remises [ACQ-14.01 > 0] : la réponse gardée à ACQ-14.02 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-014",
+   "id": "D-014-e",
+   "attendu": "D35 · si vous accordez des remises [ACQ-14.01 > 0] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-015",
+   "id": "D-015-a",
+   "attendu": "D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : règle vraie, 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-015",
+   "id": "D-015-b",
+   "attendu": "D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-015",
+   "id": "D-015-c",
+   "attendu": "D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : la réponse à ACQ-15.02 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-015",
+   "id": "D-015-d",
+   "attendu": "D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-015",
+   "id": "D-015-d2",
+   "attendu": "D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : la réponse gardée à ACQ-15.02 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-015",
+   "id": "D-015-e",
+   "attendu": "D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-016",
+   "id": "D-016-a",
+   "attendu": "D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : règle vraie, 4 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-016",
+   "id": "D-016-b",
+   "attendu": "D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-016",
+   "id": "D-016-c",
+   "attendu": "D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : la réponse à ACQ-15.10 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"saisie\",\"valeur\":\"un_organisme_alma_oney_klarna\"}"
+  },
+  {
+   "item": "D-016",
+   "id": "D-016-d",
+   "attendu": "D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-016",
+   "id": "D-016-d2",
+   "attendu": "D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : la réponse gardée à ACQ-15.10 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"un_organisme_alma_oney_klarna\"}"
+  },
+  {
+   "item": "D-016",
+   "id": "D-016-e",
+   "attendu": "D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-017",
+   "id": "D-017-a",
+   "attendu": "D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-017",
+   "id": "D-017-b",
+   "attendu": "D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-017",
+   "id": "D-017-c",
+   "attendu": "D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : la réponse à ACQ-15.14 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-017",
+   "id": "D-017-d",
+   "attendu": "D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-017",
+   "id": "D-017-d2",
+   "attendu": "D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : la réponse gardée à ACQ-15.14 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-017",
+   "id": "D-017-e",
+   "attendu": "D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-018",
+   "id": "D-018-a",
+   "attendu": "D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : règle vraie, 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-018",
+   "id": "D-018-b",
+   "attendu": "D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-018",
+   "id": "D-018-d",
+   "attendu": "D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-018",
+   "id": "D-018-e",
+   "attendu": "D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-019",
+   "id": "D-019-a",
+   "attendu": "D38 · si des clients résilient [ACQ-17.13 > 0] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-019",
+   "id": "D-019-b",
+   "attendu": "D38 · si des clients résilient [ACQ-17.13 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-019",
+   "id": "D-019-c",
+   "attendu": "D38 · si des clients résilient [ACQ-17.13 > 0] : la réponse à ACQ-17.14 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"saisie\",\"valeur\":\"le_prix\"}"
+  },
+  {
+   "item": "D-019",
+   "id": "D-019-d",
+   "attendu": "D38 · si des clients résilient [ACQ-17.13 > 0] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-019",
+   "id": "D-019-d2",
+   "attendu": "D38 · si des clients résilient [ACQ-17.13 > 0] : la réponse gardée à ACQ-17.14 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"le_prix\"}"
+  },
+  {
+   "item": "D-019",
+   "id": "D-019-e",
+   "attendu": "D38 · si des clients résilient [ACQ-17.13 > 0] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-020",
+   "id": "D-020-a",
+   "attendu": "D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-020",
+   "id": "D-020-b",
+   "attendu": "D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-020",
+   "id": "D-020-c",
+   "attendu": "D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : la réponse à ACQ-17.30 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-020",
+   "id": "D-020-d",
+   "attendu": "D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-020",
+   "id": "D-020-d2",
+   "attendu": "D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : la réponse gardée à ACQ-17.30 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-020",
+   "id": "D-020-e",
+   "attendu": "D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-a",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : règle vraie, 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-b",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-c",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : la réponse à ACQ-18.03 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-d",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-d2",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : la réponse gardée à ACQ-18.03 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-e",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-a",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-b",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-c",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : la réponse à ACQ-19.01 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-d",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-d2",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : la réponse gardée à ACQ-19.01 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-e",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-024",
+   "id": "D-024-a",
+   "attendu": "D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-024",
+   "id": "D-024-b",
+   "attendu": "D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-024",
+   "id": "D-024-c",
+   "attendu": "D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : la réponse à ACQ-22.04 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-024",
+   "id": "D-024-d",
+   "attendu": "D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-024",
+   "id": "D-024-d2",
+   "attendu": "D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : la réponse gardée à ACQ-22.04 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-024",
+   "id": "D-024-e",
+   "attendu": "D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-025",
+   "id": "D-025-a",
+   "attendu": "D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-025",
+   "id": "D-025-b",
+   "attendu": "D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-025",
+   "id": "D-025-c",
+   "attendu": "D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : la réponse à FIN-05.04 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-025",
+   "id": "D-025-d",
+   "attendu": "D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-025",
+   "id": "D-025-d2",
+   "attendu": "D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : la réponse gardée à FIN-05.04 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-025",
+   "id": "D-025-e",
+   "attendu": "D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-026",
+   "id": "D-026-a",
+   "attendu": "D08 · si achats [D08.achats (cadrage) = « oui »] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-026",
+   "id": "D-026-b",
+   "attendu": "D08 · si achats [D08.achats (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-026",
+   "id": "D-026-c",
+   "attendu": "D08 · si achats [D08.achats (cadrage) = « oui »] : la réponse à FIN-08.01 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-026",
+   "id": "D-026-d",
+   "attendu": "D08 · si achats [D08.achats (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-026",
+   "id": "D-026-d2",
+   "attendu": "D08 · si achats [D08.achats (cadrage) = « oui »] : la réponse gardée à FIN-08.01 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-026",
+   "id": "D-026-e",
+   "attendu": "D08 · si achats [D08.achats (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-027",
+   "id": "D-027-a",
+   "attendu": "D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-027",
+   "id": "D-027-b",
+   "attendu": "D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-027",
+   "id": "D-027-c",
+   "attendu": "D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : la réponse à FIN-08.02 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-027",
+   "id": "D-027-d",
+   "attendu": "D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-027",
+   "id": "D-027-d2",
+   "attendu": "D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : la réponse gardée à FIN-08.02 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-027",
+   "id": "D-027-e",
+   "attendu": "D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-028",
+   "id": "D-028-a",
+   "attendu": "D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : règle vraie, 7 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-028",
+   "id": "D-028-b",
+   "attendu": "D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-028",
+   "id": "D-028-c",
+   "attendu": "D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : la réponse à FIN-08.04 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-028",
+   "id": "D-028-d",
+   "attendu": "D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-028",
+   "id": "D-028-d2",
+   "attendu": "D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : la réponse gardée à FIN-08.04 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-028",
+   "id": "D-028-e",
+   "attendu": "D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-029",
+   "id": "D-029-a",
+   "attendu": "D07 · si stock [D07 (cadrage) = « oui »] : règle vraie, 17 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-029",
+   "id": "D-029-b",
+   "attendu": "D07 · si stock [D07 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-029",
+   "id": "D-029-c",
+   "attendu": "D07 · si stock [D07 (cadrage) = « oui »] : la réponse à FIN-08.06 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-029",
+   "id": "D-029-d",
+   "attendu": "D07 · si stock [D07 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-029",
+   "id": "D-029-d2",
+   "attendu": "D07 · si stock [D07 (cadrage) = « oui »] : la réponse gardée à FIN-08.06 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-029",
+   "id": "D-029-e",
+   "attendu": "D07 · si stock [D07 (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-a",
+   "attendu": "D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : règle vraie, 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-b",
+   "attendu": "D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-c",
+   "attendu": "D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : la réponse à FIN-10.02 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"saisie\",\"valeur\":\"erreur_de_realisation\"}"
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-d",
+   "attendu": "D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-d2",
+   "attendu": "D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : la réponse gardée à FIN-10.02 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"erreur_de_realisation\"}"
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-e",
+   "attendu": "D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-031",
+   "id": "D-031-a",
+   "attendu": "D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-031",
+   "id": "D-031-b",
+   "attendu": "D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-031",
+   "id": "D-031-c",
+   "attendu": "D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : la réponse à FIN-10.03 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-031",
+   "id": "D-031-d",
+   "attendu": "D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-031",
+   "id": "D-031-d2",
+   "attendu": "D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : la réponse gardée à FIN-10.03 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-031",
+   "id": "D-031-e",
+   "attendu": "D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-032",
+   "id": "D-032-a",
+   "attendu": "D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-032",
+   "id": "D-032-b",
+   "attendu": "D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-032",
+   "id": "D-032-c",
+   "attendu": "D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : la réponse à FIN-10.04 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-032",
+   "id": "D-032-d",
+   "attendu": "D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-032",
+   "id": "D-032-d2",
+   "attendu": "D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : la réponse gardée à FIN-10.04 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-032",
+   "id": "D-032-e",
+   "attendu": "D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-a",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : règle vraie, 14 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-b",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-c",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : la réponse à FIN-16.02 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-d",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-d2",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : la réponse gardée à FIN-16.02 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-e",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-034",
+   "id": "D-034-a",
+   "attendu": "D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-034",
+   "id": "D-034-b",
+   "attendu": "D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-034",
+   "id": "D-034-c",
+   "attendu": "D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : la réponse à FIN-20.08 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-034",
+   "id": "D-034-d",
+   "attendu": "D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-034",
+   "id": "D-034-d2",
+   "attendu": "D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : la réponse gardée à FIN-20.08 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-034",
+   "id": "D-034-e",
+   "attendu": "D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  }
+ ]
+}

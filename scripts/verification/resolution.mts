@@ -167,7 +167,8 @@ export function resoudre(r: Regle, ctx: Ctx, voulu: boolean): boolean {
     case "different": poser(ctx, cle, multiple ? [autre(valeur)] : (typeof valeur === "number" ? valeur + 1 : autre(valeur))); break;
     case "contient": poser(ctx, cle, multiple ? [...new Set([...liste, String(valeur)])] : String(valeur)); break;
     case "ne_contient_pas": poser(ctx, cle, multiple ? (liste.filter((x) => x !== valeur).length ? liste.filter((x) => x !== valeur) : [autre(valeur)]) : autre(valeur)); break;
-    case "non_vide": poser(ctx, cle, multiple ? [options[0]] : options[0]); break;
+    // Non vide : un choix, ou pour une case de tableau ou un champ sans choix (« poste de la personne clé »), un texte.
+    case "non_vide": poser(ctx, cle, multiple ? [options[0]] : options[0] ?? (specDeCle(cle)?.type === "nombre" ? 1 : "Responsable d'atelier")); break;
     case "vide": {
       const dn = cleDeDonnee(cle);
       if (dn?.chemin) {
@@ -186,7 +187,8 @@ export function resoudre(r: Regle, ctx: Ctx, voulu: boolean): boolean {
     case "pas_plus": poser(ctx, cle, Number(valeur)); break;
     case "dans": poser(ctx, cle, Array.isArray(valeur) ? String(valeur[0]) : String(valeur)); break;
     case "hors": poser(ctx, cle, options.find((o) => !(valeur as string[]).includes(o)) ?? "autre"); break;
-    case "moins_de": poser(ctx, cle, []); break;
+    // Moins de N choix : le plus de choix possible sous N (une case au moins, si la question en exige une).
+    case "moins_de": poser(ctx, cle, options.slice(0, Math.max(1, Number(valeur) - 1))); break;
     case "pas_moins": poser(ctx, cle, options.slice(0, Number(valeur))); break;
   }
   return vrai();

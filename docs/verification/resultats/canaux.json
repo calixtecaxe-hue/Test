@@ -1,0 +1,161 @@
+{
+ "le": "2026-10-27T23:42:57.346Z",
+ "resultats": [
+  {
+   "id": "C-00",
+   "attendu": "sans canal coché, la répartition par canal n'est pas posée (elle attend la réponse aux canaux)",
+   "conforme": true,
+   "observe": "0 carte(s)"
+  },
+  {
+   "id": "C-00b",
+   "attendu": "la question des canaux annonce que ses choix ouvrent les questions par canal",
+   "conforme": true,
+   "observe": "Sur les 12 derniers mois, par quels canaux vos clients sont-ils arrivés jusqu'à vous ?\n\nCochez tous ceux qui vous ont amené au moins un client : chaque canal coché ouvre ensuite quelques questions sur lui (part des demandes, des nouveaux clients, du chiffre d'affaires). Bouche-à-oreille : vos client"
+  },
+  {
+   "id": "C-01",
+   "attendu": "deux canaux cochés : la répartition montre exactement leurs deux lignes, sans actualiser la page",
+   "conforme": true,
+   "observe": "[\"Bouche-à-oreille\",\"Réseaux sociaux\"]"
+  },
+  {
+   "id": "C-02",
+   "attendu": "répartition 60 / 40 enregistrée par canal",
+   "conforme": true,
+   "observe": "{\"genre\":\"valeurs\",\"valeurs\":{\"reseaux_sociaux.part_des_demandes\":40,\"bouche_a_oreille.part_des_demandes\":60}}"
+  },
+  {
+   "id": "C-03a",
+   "attendu": "canal ajouté : une ligne « Fiche Google » apparaît, vide, sans toucher aux valeurs 60 et 40",
+   "conforme": true,
+   "observe": "{\"Bouche-à-oreille\":\"60\",\"Fiche Google\":\"\",\"Réseaux sociaux\":\"40\"}"
+  },
+  {
+   "id": "C-03b",
+   "attendu": "canal ajouté : la question dit que la répartition est à revoir pour le nouveau canal (le total ne peut pas être juste en le laissant vide)",
+   "conforme": true,
+   "observe": "100\n\n« Fiche Google » est nouveau depuis votre dernière répartition. Indiquez sa part (0 s'il n'en représente aucune) : le total doit de nouveau faire 100. D'ici là, cette répartition ne compte pas dans votre analyse.\n\nJe ne sais pas\nJe ne suis pas cette donnée\nRéponse enregistrée\nEffacer ma réponse"
+  },
+  {
+   "id": "C-03c",
+   "attendu": "canal ajouté : la répartition incomplète ne compte pas comme réponse dans les calculs",
+   "conforme": true,
+   "observe": "null"
+  },
+  {
+   "id": "C-04a",
+   "attendu": "canal retiré : sa ligne disparaît, les autres valeurs restent",
+   "conforme": true,
+   "observe": "{\"Bouche-à-oreille\":\"60\",\"Fiche Google\":\"\"}"
+  },
+  {
+   "id": "C-04b",
+   "attendu": "canal retiré : le total affiché ne compte plus son ancienne valeur",
+   "conforme": true,
+   "observe": "Total : 60 sur 100"
+  },
+  {
+   "id": "C-04c",
+   "attendu": "canal retiré : son ancienne valeur ne fait plus partie de la réponse active",
+   "conforme": true,
+   "observe": "null"
+  },
+  {
+   "id": "C-04d",
+   "attendu": "canal retiré : son coût (150 €) sort des coûts actifs",
+   "conforme": true,
+   "observe": "{\"genre\":\"valeurs\",\"valeurs\":{\"bouche_a_oreille.depense_par_mois\":0}}"
+  },
+  {
+   "id": "C-05",
+   "attendu": "canal coché de nouveau : sa valeur 40 revient",
+   "conforme": true,
+   "observe": "{\"Bouche-à-oreille\":\"60\",\"Fiche Google\":\"\",\"Réseaux sociaux\":\"40\"}"
+  },
+  {
+   "id": "C-06a",
+   "attendu": "décocher puis recocher un canal ne change pas l'ordre des lignes (ordre de la liste des canaux)",
+   "conforme": true,
+   "observe": "[\"Bouche-à-oreille\",\"Fiche Google\",\"Réseaux sociaux\"] → [\"Bouche-à-oreille\",\"Fiche Google\",\"Réseaux sociaux\"]"
+  },
+  {
+   "id": "C-06b",
+   "attendu": "chaque valeur reste associée à son canal",
+   "conforme": true,
+   "observe": "{\"Bouche-à-oreille\":\"60\",\"Fiche Google\":\"\",\"Réseaux sociaux\":\"40\"}"
+  },
+  {
+   "id": "C-07a",
+   "attendu": "canaux remplacés : lignes « Partenaires » et « Passage » seulement, vides",
+   "conforme": true,
+   "observe": "{\"Partenaires\":\"\",\"Passage\":\"\"}"
+  },
+  {
+   "id": "C-07b",
+   "attendu": "canaux remplacés : aucune ancienne valeur dans la réponse active",
+   "conforme": true,
+   "observe": "null"
+  },
+  {
+   "id": "C-08a",
+   "attendu": "120 % sur un canal est refusé avec un message",
+   "conforme": true,
+   "observe": "00. Votre saisie est enregistrée sur votre compte : vous la retrouverez ici, sur cet appareil ou un autre. Elle comptera dans votre analyse dès que le tableau sera complet et juste.\nEffacer ma réponse"
+  },
+  {
+   "id": "C-08b",
+   "attendu": "33,3 + 66,7 = 100 : accepté et enregistré",
+   "conforme": true,
+   "observe": "{\"genre\":\"valeurs\",\"valeurs\":{\"passage.part_des_demandes\":33.3,\"partenaires.part_des_demandes\":66.7}}"
+  },
+  {
+   "id": "C-08c",
+   "attendu": "« 50 % » et « 50% » sont lus comme 50",
+   "conforme": true,
+   "observe": "squ'à vous ? ». Pour ajouter ou retirer une ligne, modifiez cette réponse.Aller à cette question\n\nTotal : 100 sur 100\n\nJe ne sais pas\nJe ne suis pas cette donnée\nRéponse enregistrée\nEffacer ma réponse"
+  },
+  {
+   "id": "C-08d",
+   "attendu": "total faux (90) : expliqué, la saisie est gardée, l'ancienne réponse juste n'est pas remplacée",
+   "conforme": true,
+   "observe": "as cette donnée\nLe total doit faire 100 (il fait 90). Votre saisie est enregistrée sur votre compte : vous la retrouverez ici, sur cet appareil ou un autre. Elle comptera dans votre analyse dès que le tableau sera complet et juste.\nEffacer ma réponse"
+  },
+  {
+   "id": "C-09a",
+   "attendu": "source effacée : la répartition n'est plus posée (elle attend de nouveau les canaux)",
+   "conforme": true,
+   "observe": "0 carte(s)"
+  },
+  {
+   "id": "C-09b",
+   "attendu": "source effacée : la répartition ne compte plus dans les calculs",
+   "conforme": true,
+   "observe": "null"
+  },
+  {
+   "id": "C-10a",
+   "attendu": "après actualisation : mêmes lignes et mêmes valeurs",
+   "conforme": true,
+   "observe": "{\"Partenaires\":\"50\",\"Passage\":\"50\"} → {\"Partenaires\":\"50\",\"Passage\":\"50\"}"
+  },
+  {
+   "id": "C-10b",
+   "attendu": "reconnexion sur un autre appareil (390 px) : mêmes lignes et mêmes valeurs",
+   "conforme": true,
+   "observe": "{\"Partenaires\":\"50\",\"Passage\":\"50\"}"
+  },
+  {
+   "id": "C-10c",
+   "attendu": "390 px : la page ne défile pas de côté (le tableau défile dans son cadre)",
+   "conforme": true,
+   "observe": "390/390"
+  },
+  {
+   "id": "C-11",
+   "attendu": "la répartition dit ce qu'elle mesure (demandes) et sur quelle période",
+   "conforme": true,
+   "observe": "Sur les 12 derniers mois, quelle part de vos demandes de devis est arrivée par chaque canal ?"
+  }
+ ]
+}

@@ -340,3 +340,19 @@ test("une case d'une ligne qui n'existe plus (canal décoché) est ignorée au l
   const aucune = construireReponse(tableauCanaux, { champs: { "fiche_google.part": "10" } }, ctx);
   assert.deepEqual(aucune, { reponse: null, erreur: null });
 });
+
+test("message d'erreur d'une case de tableau : la ligne est nommée comme à l'écran, jamais par son identifiant", () => {
+  const spec = reel.banque.find((q) => q.donnee === "ACQ-03.02")?.reponse;
+  assert.equal(spec?.type, "tableau");
+  if (spec?.type !== "tableau") return;
+  const ctx = { lignesDeclencheur: () => ["bouche_a_oreille", "reseaux_sociaux"], nomLigne: (l: string) => ({ bouche_a_oreille: "Bouche-à-oreille", reseaux_sociaux: "Réseaux sociaux" })[l] };
+  const v = validerSelonSpec(spec, { genre: "valeurs", valeurs: { "bouche_a_oreille.part_des_demandes": 120, "reseaux_sociaux.part_des_demandes": 40 } }, ctx);
+  assert.equal(v.ok, false);
+  if (!v.ok) {
+    assert.match(v.message, /^Bouche-à-oreille · /);
+    assert.doesNotMatch(v.message, /bouche_a_oreille/);
+  }
+  // Sans nom connu : pas d'identifiant technique non plus.
+  const sansNom = validerSelonSpec(spec, { genre: "valeurs", valeurs: { "bouche_a_oreille.part_des_demandes": 120 } }, { lignesDeclencheur: () => ["bouche_a_oreille"] });
+  assert.ok(!sansNom.ok && !/bouche_a_oreille/.test(sansNom.message));
+});

@@ -6,11 +6,11 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { assemblerQuestionnaire } from "../../src/lib/audit/assemblage.ts";
-import { clesDeLaRegle, cleDeDonnee, donneeDuDeclencheur, type TailleId } from "../../src/lib/audit/affichage.ts";
+import { clesDeLaRegle, cleDeDonnee, donneeDuDeclencheur, evaluer, type TailleId } from "../../src/lib/audit/affichage.ts";
 import { router } from "../../src/lib/routage.ts";
 import { type ProfilId, type Regle, type CodeAgent } from "../../src/lib/donnees/schemas.ts";
 import type { Reponses } from "../../src/lib/audit/reponse.ts";
-import { chercherTemoin, donneeDe, e, lireRegle, racine, regles, resoudre, themeDe, type Ctx } from "./resolution.mts";
+import { chercherTemoin, donneeDe, e, lireRegle, lu, racine, regles, resoudre, themeDe, type Ctx } from "./resolution.mts";
 
 // Un métier par profil, pour créer le compte témoin (pas de profession réglementée, agent Comm ouvert).
 const metierDuProfil = new Map<ProfilId, { metier: string; sousVariantes: string[] }>();
@@ -60,7 +60,10 @@ function construire(id: string, type: Item["type"], nom: string, regle: Regle, c
     const vrai: Ctx = { reponses: { ...temoin.reponses }, taille: temoin.taille };
     const faux: Ctx = { reponses: { ...temoin.reponses }, taille: temoin.taille };
     // Condition : la rendre fausse. Masquage : rendre le thème masqué (règle vraie).
-    if (!resoudre(regle, faux, type === "masquage")) continue;
+    // Une condition « fausse » peut aussi être une condition en attente (D57 : plus aucun poste nommé = tableau sans réponse) :
+    // la question qu'elle ouvre n'est pas posée non plus.
+    const fausse = resoudre(regle, faux, type === "masquage") || (type === "condition" && evaluer(regle, (c) => lu(faux, c)) !== true);
+    if (!fausse) continue;
     if (faux.taille !== vrai.taille) continue; // la taille vient du compte : contrôlée à part (page Mon compte)
     const cles = [...new Set([...Object.keys(vrai.reponses), ...Object.keys(faux.reponses)])].filter((k) => JSON.stringify(vrai.reponses[k]) !== JSON.stringify(faux.reponses[k]));
     if (cles.length === 0) continue;
@@ -111,7 +114,7 @@ const surTaille = [
   ...[...parCondition.entries()].filter(([nom]) => { const r = regles.conditions[nom]; return r && !("aPreciser" in r) && !("toujours" in r) && clesDeLaRegle(r).every((c) => c === "D02"); }).map(([nom, cibles]) => ({ nom, regle: regles.conditions[nom], cibles, type: "condition" as const })),
   ...Object.entries(regles.masquages).filter(([, r]) => clesDeLaRegle(r).length > 0 && clesDeLaRegle(r).every((c) => c === "D02")).map(([nom, r]) => ({ nom, regle: r, cibles: e.donnees.filter((d) => e.themes.some((t) => t.masquePour === nom && t.code === d.theme) && (d.mode === "demandee" || d.mode === "partagee") && !d.condition).map((d) => d.code), type: "masquage" as const })),
 ];
-const tailles: { id: string; type: string; regle: string; lisible: string; agent: CodeAgent; profil: ProfilId; metier: string; effectifVrai: number; effectifFaux: number; cibles: string[]; attenduVrai: string[]; attenduFaux: string[] }[] = [];
+const tailles: { id: string; type: string; regle: string; lisible: string; agent: CodeAgent; profil: ProfilId; metier: string; sousVariantes: string[]; effectifVrai: number; effectifFaux: number; cibles: string[]; attenduVrai: string[]; attenduFaux: string[] }[] = [];
 for (const t of surTaille) {
   const cible = t.cibles.find((c) => chercherTemoin(donneeDe.get(c)!).temoin);
   if (!cible) continue;
@@ -123,11 +126,11 @@ for (const t of surTaille) {
   const ctxFaux: Ctx = { reponses: { ...tem.reponses }, taille: tailleVrai };
   resoudre(t.regle, ctxFaux, t.type === "masquage");
   if (ctxFaux.taille === tailleVrai) continue;
-  tailles.push({ id: `T-${String(tailles.length + 1).padStart(2, "0")}`, type: t.type, regle: t.nom, lisible: lireRegle(t.regle), agent, profil: tem.profil, metier: metier.metier, effectifVrai: EFFECTIF[tailleVrai], effectifFaux: EFFECTIF[ctxFaux.taille], cibles: t.cibles, attenduVrai: t.cibles.filter((c) => montre(tailleVrai).has(c)), attenduFaux: t.cibles.filter((c) => montre(ctxFaux.taille).has(c)) });
+  tailles.push({ id: `T-${String(tailles.length + 1).padStart(2, "0")}`, type: t.type, regle: t.nom, lisible: lireRegle(t.regle), agent, profil: tem.profil, metier: metier.metier, sousVariantes: metier.sousVariantes, effectifVrai: EFFECTIF[tailleVrai], effectifFaux: EFFECTIF[ctxFaux.taille], cibles: t.cibles, attenduVrai: t.cibles.filter((c) => montre(tailleVrai).has(c)), attenduFaux: t.cibles.filter((c) => montre(ctxFaux.taille).has(c)) });
 }
 
-const sansPlan = [...parCondition.keys()].filter((k) => !items.some((i) => i.regle === k));
-writeFileSync(join(racine, "docs", "verification", "plan-dependances.json"), JSON.stringify({ genereLe: new Date().toISOString(), items, tailles, sansPlan: sansPlan.filter((k) => !tailles.some((t) => t.regle === k)) }, null, 1));
+const sansPlan = [...parCondition.keys()].filter((k) => !items.some((i) => i.regle === k) && !tailles.some((t) => t.regle === k));
+writeFileSync(join(racine, "docs", "verification", "plan-dependances.json"), JSON.stringify({ genereLe: new Date().toISOString(), items, tailles, sansPlan }, null, 1));
 console.log(`${tailles.length} règles sur la taille (changement d'effectif dans Mon compte).`);
 console.log(`${items.length} règles à jouer (${items.filter((i) => i.type === "condition").length} conditions, ${items.filter((i) => i.type === "masquage").length} masquages) ; ${items.reduce((s, i) => s + i.cibles.length, 0)} questions concernées.`);
 console.log(`Conditions sans plan (${sansPlan.length}) : ${sansPlan.join(" | ")}`);

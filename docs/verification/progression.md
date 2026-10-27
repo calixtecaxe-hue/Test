@@ -1,28 +1,28 @@
 # Vérification du questionnaire : journal de progression
 
 Trace de travail de la vérification lancée le 27 octobre 2026 au soir (questionnaire, dépendances, parcours, résultats). Le rapport
-final sera `docs/verification/rapport.md`. Chaque étape dit ce qui a été **exécuté** (navigateur, base), ce qui a été **vérifié
-dans le code**, ce qui a été **simulé** (réponses fabriquées passées au vrai code) et ce qui reste une **hypothèse**.
+est `docs/verification/rapport.md`. Chaque étape dit ce qui a été **exécuté** (navigateur, base), ce qui a été **vérifié dans le
+code**, ce qui a été **simulé** (réponses fabriquées passées au vrai code) et ce qui reste une **hypothèse**.
 
 | Étape | État | Sortie |
 |---|---|---|
 | V1 Inventaire des questions | fait | `inventaire-questions.csv`, `inventaire-questions.json` (`node scripts/verification/inventaire.mts`) |
 | V2 Matrice des dépendances | fait | `matrice-dependances.csv` |
-| V3 Cas de référence des canaux | 25 / 26 avant les derniers changements de texte ; à relancer | `node scripts/verification/canaux.mjs` |
-| V4 Relecture des questions | corrections appliquées (229 modifications de la banque) ; statuts à reporter dans l'inventaire | `relecture-questions.json`, `scripts/verification/appliquer-relecture.py` |
-| V5 Dépendances dans le navigateur | plan écrit (86 règles, 4 règles de taille) ; exécution à écrire | `plan-dependances.json` (`node scripts/verification/plan-dependances.mts`) |
-| V6 Parcours complets et résultats | à faire | |
-| V7 Rapport, commit | à faire | `rapport.md` |
+| V3 Cas de référence des canaux | fait, 26 contrôles conformes | `node scripts/verification/canaux.mjs` |
+| V4 Relecture des questions | fait : 29 constats, 229 modifications de la banque, statut de relecture et contrôles automatiques du texte dans l'inventaire | `relecture-questions.json`, `appliquer-relecture.py` |
+| V5 Dépendances dans le navigateur | fait : 91 règles jouées dans les deux sens (plan + exécution) ; 4 règles hors plan, expliquées | `plan-dependances.json`, `dependances.mjs` |
+| V6 Parcours, cas difficiles, résultats | fait : cohérence des résultats, séparation, départs de page, changements rapides, parcours existants relancés | `resultats.mjs`, `separation.mjs`, `retours.mjs`, `rapides.mjs`, `tout.sh` |
+| V7 Rapport | fait | `rapport.md`, `chiffres.json`, `resultats/`, `captures/` |
 
-## Corrections déjà faites (non encore relancées dans le navigateur après la dernière construction)
+## Étapes de la journée
 
-- Réponses devenues inapplicables : gardées en base, mais retirées des conditions, du calcul, de l'avancement et du total pré-rempli
-  (`src/lib/audit/reponses-actives.ts`, lecture `INAPPLICABLE` dans `affichage.ts`).
-- Répartitions par canal ou par catégorie : une ligne retirée sort de la réponse ; une ligne nouvelle rend la répartition « à refaire »
-  (message sous le tableau, la répartition ne compte pas tant que le total n'est pas de nouveau juste). Rien n'est redistribué.
-- Ordre des lignes d'un tableau : celui des options de la question source, même après avoir décoché puis recoché.
-- « 50 % », « 1 200 € » lus comme des nombres ; « Valeur retenue » affichée seulement pour une valeur acceptée.
-- Bornes : 194 champs chiffrés sans minimum (personnes, heures, euros…) ; parts en % entre 0 et 100.
-- COM-12.01 : le total de 100 % est contrôlé sur ses trois colonnes, plus seulement la première.
-- Doublons de cadrage : D27 lit RH-08.01, D13 lit RH-28.01 (la question n'est plus posée deux fois).
-- 29 questions reformulées (période, unité, ambiguïtés) : `relecture-questions.json`.
+1. Inventaire et matrice : 561 questions, 1 088 liens. Défaut principal trouvé à la lecture du code : les réponses devenues inapplicables
+   restaient actives (corrigé, M1 à M3 du rapport).
+2. Canaux : 26 contrôles, corrections de l'ordre des lignes, de la lecture de « 50 % », de « Valeur retenue ».
+3. Relecture : 29 constats, bornes sur 192 champs, total de COM-12.01 sur trois colonnes, doublons D27 et D13.
+4. Plan des dépendances : il a révélé la sous-question de cadrage D12 gardée (M7, corrigé).
+5. Premier passage navigateur des règles (avant les dernières corrections) : 90 règles, 481 contrôles, 478 conformes, 3 bloqués (deux
+   par une modification faite pendant l'exécution, un par une réponse de départ refusée ; corrigés et rejoués : 40 contrôles conformes).
+6. Captures : elles ont révélé le message d'erreur avec l'identifiant technique de la ligne (m4, corrigé) et la note du brouillon (m6).
+7. Contrôles ajoutés : résultats (11), séparation (9), départs de page (5), changements rapides (7). Page 404 en français (m7).
+8. Exécution complète finale : `bash scripts/verification/tout.sh`, synthèse dans `resultats/synthese.txt`.

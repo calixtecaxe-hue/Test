@@ -1,5 +1,5 @@
 {
- "genereLe": "2026-10-27T19:51:51.284Z",
+ "genereLe": "2026-10-27T23:42:14.785Z",
  "items": [
   {
    "id": "D-001",
@@ -977,7 +977,14 @@
    "vrai": {
     "ACQ-22.01": {
      "genre": "saisie",
-     "valeur": []
+     "valeur": [
+      "lundi",
+      "mardi",
+      "mercredi",
+      "jeudi",
+      "vendredi",
+      "samedi"
+     ]
     }
    },
    "faux": {
@@ -2265,6 +2272,47 @@
    ],
    "attenduVrai": [
     "RH-34.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-053",
+   "type": "condition",
+   "regle": "D57 · s'il y a une personne clé",
+   "lisible": "(RH-37.01 [personne_1.poste] répondue OU RH-37.01 [personne_2.poste] répondue OU RH-37.01 [personne_3.poste] répondue)",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 4
+   },
+   "base": {},
+   "vrai": {
+    "RH-37.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "personne_1.poste": "oui"
+     }
+    }
+   },
+   "faux": {
+    "RH-37.01": null
+   },
+   "cles": [
+    "RH-37.01"
+   ],
+   "cibles": [
+    "RH-37.02",
+    "RH-38.01",
+    "RH-38.02"
+   ],
+   "attenduVrai": [
+    "RH-37.02",
+    "RH-38.01",
+    "RH-38.02"
    ],
    "attenduFaux": []
   },
@@ -3817,11 +3865,7 @@
     "FIN-28.01",
     "FIN-28.02"
    ],
-   "attenduFaux": [
-    "FIN-28.01",
-    "FIN-28.02"
-   ],
-   "remarque": "des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage)"
+   "attenduFaux": []
   },
   {
    "id": "M-089",
@@ -4079,6 +4123,9 @@
    "agent": "ACQUISITION_CA",
    "profil": "rdv",
    "metier": "coach",
+   "sousVariantes": [
+    "sportif"
+   ],
    "effectifVrai": 4,
    "effectifFaux": 1,
    "cibles": [
@@ -4101,6 +4148,9 @@
    "agent": "RH_ORGANISATION",
    "profil": "rdv",
    "metier": "coach",
+   "sousVariantes": [
+    "sportif"
+   ],
    "effectifVrai": 4,
    "effectifFaux": 1,
    "cibles": [
@@ -4188,6 +4238,9 @@
    "agent": "RH_ORGANISATION",
    "profil": "rdv",
    "metier": "coach",
+   "sousVariantes": [
+    "sportif"
+   ],
    "effectifVrai": 8,
    "effectifFaux": 1,
    "cibles": [
@@ -4216,6 +4269,9 @@
    "agent": "RH_ORGANISATION",
    "profil": "rdv",
    "metier": "coach",
+   "sousVariantes": [
+    "sportif"
+   ],
    "effectifVrai": 1,
    "effectifFaux": 4,
    "cibles": [
@@ -4235,7 +4291,6 @@
  ],
  "sansPlan": [
   "Pas posée si les agents Acquisition et Comm sont faits : calculée",
-  "D57 · s'il y a une personne clé",
   "D30 · avant la première création de contenu"
  ]
 }

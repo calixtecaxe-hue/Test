@@ -1,0 +1,29 @@
+conforme  C-00    sans canal coché, la répartition par canal n'est pas posée (elle attend la réponse aux canaux)
+conforme  C-00b   la question des canaux annonce que ses choix ouvrent les questions par canal
+conforme  C-01    deux canaux cochés : la répartition montre exactement leurs deux lignes, sans actualiser la page
+conforme  C-02    répartition 60 / 40 enregistrée par canal
+conforme  C-03a   canal ajouté : une ligne « Fiche Google » apparaît, vide, sans toucher aux valeurs 60 et 40
+conforme  C-03b   canal ajouté : la question dit que la répartition est à revoir pour le nouveau canal (le total ne peut pas être juste en le laissant vide)
+conforme  C-03c   canal ajouté : la répartition incomplète ne compte pas comme réponse dans les calculs
+conforme  C-04a   canal retiré : sa ligne disparaît, les autres valeurs restent
+conforme  C-04b   canal retiré : le total affiché ne compte plus son ancienne valeur
+conforme  C-04c   canal retiré : son ancienne valeur ne fait plus partie de la réponse active
+conforme  C-04d   canal retiré : son coût (150 €) sort des coûts actifs
+conforme  C-05    canal coché de nouveau : sa valeur 40 revient
+conforme  C-06a   décocher puis recocher un canal ne change pas l'ordre des lignes (ordre de la liste des canaux)
+conforme  C-06b   chaque valeur reste associée à son canal
+conforme  C-07a   canaux remplacés : lignes « Partenaires » et « Passage » seulement, vides
+conforme  C-07b   canaux remplacés : aucune ancienne valeur dans la réponse active
+conforme  C-08a   120 % sur un canal est refusé avec un message
+conforme  C-08b   33,3 + 66,7 = 100 : accepté et enregistré
+conforme  C-08c   « 50 % » et « 50% » sont lus comme 50
+conforme  C-08d   total faux (90) : expliqué, la saisie est gardée, l'ancienne réponse juste n'est pas remplacée
+conforme  C-09a   source effacée : la répartition n'est plus posée (elle attend de nouveau les canaux)
+conforme  C-09b   source effacée : la répartition ne compte plus dans les calculs
+conforme  C-10a   après actualisation : mêmes lignes et mêmes valeurs
+conforme  C-10b   reconnexion sur un autre appareil (390 px) : mêmes lignes et mêmes valeurs
+conforme  C-10c   390 px : la page ne défile pas de côté (le tableau défile dans son cadre)
+conforme  C-11    la répartition dit ce qu'elle mesure (demandes) et sur quelle période
+
+26 contrôles, 26 conformes, 0 écart(s).
+compte de test : verif.1793144535127.30889@example.com

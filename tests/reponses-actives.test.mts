@@ -97,3 +97,20 @@ test("taille : une réponse RH réservée aux 6 personnes et plus ne compte plus
   assert.ok(reponsesActives(reel, r, ctxActif({ taille: "structure_6_plus" }))["RH-32.01"]);
   assert.equal(reponsesActives(reel, r, ctxActif({ taille: "equipe_2_5" }))["RH-32.01"], undefined);
 });
+
+test("sous-question de cadrage : « en service ? » gardé d'avant ne compte plus quand l'investissement repasse à « non »", () => {
+  // D12 = oui ouvre « Est-il déjà en service ? » (D12.en_service) ; « oui » pose FIN-28.01 et FIN-28.02. D12 repassé à « non » :
+  // la sous-question n'est plus posée, le thème FIN-28 est masqué, ses questions disparaissent.
+  const fin = (reponses: Reponses) => {
+    const a = assemblerQuestionnaire(reel, { agent: "FINANCE_RENTABILITE", profils: ["chantier"], taille: "equipe_2_5", niveau: "approfondi", ancienneteMois: 120, reponses });
+    return new Set(a.themes.flatMap((t) => t.questions.map((q) => q.code)));
+  };
+  const oui: Reponses = { D12: saisie("oui"), "D12.en_service": saisie("oui"), "FIN-28.01": nombre(2) };
+  assert.ok(fin(oui).has("FIN-28.01"));
+  const non: Reponses = { ...oui, D12: saisie("non") };
+  assert.ok(!fin(non).has("FIN-28.01") && !fin(non).has("FIN-28.02"), "investissement « non » : plus de questions sur sa mise en service");
+  const actives = reponsesActives(reel, non, ctxActif());
+  assert.equal(actives["D12.en_service"], undefined, "la réponse gardée à la sous-question ne compte plus");
+  assert.equal(actives["FIN-28.01"], undefined, "ni la réponse à la question qu'elle ouvrait");
+  assert.deepEqual(reponsesActives(reel, oui, ctxActif())["FIN-28.01"], nombre(2), "retour à « oui » : la réponse gardée compte de nouveau");
+});

@@ -18,6 +18,7 @@ from pathlib import Path
 
 RACINE = Path(__file__).resolve().parents[2]
 BANQUE = RACINE / "data" / "banque" / "questions.json"
+ATTENTE = RACINE / "data" / "banque" / "en-attente.json"
 RELECTURE = RACINE / "docs" / "verification" / "relecture-questions.json"
 NEGATIF_PERMIS = {"FIN-05.04", "FIN-11.01"}
 UNITES_POSITIVES = {"nombre", "heures", "jours", "semaines", "mois", "annees", "km", "euros", "euros_par_heure"}
@@ -78,10 +79,15 @@ def main():
                 journal.append(f"{code} : total imposé sur {len(c['total_colonnes'])} colonnes")
     for q in banque:
         borner(q.get("reponse"), q["donnee"], journal)
+    # Questions en attente (ACQ-26, Fabrication) : mêmes bornes, pour qu'elles arrivent déjà bornées dans la banque.
+    attente = json.loads(ATTENTE.read_text(encoding="utf-8"))
+    for q in attente:
+        borner(q.get("reponse"), q["donnee"], journal)
     if erreurs:
         print("\n".join(erreurs))
         sys.exit(1)
     BANQUE.write_text(json.dumps(banque, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    ATTENTE.write_text(json.dumps(attente, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"{len(journal)} modification(s) :")
     print("\n".join(f"  {x}" for x in journal))
 
