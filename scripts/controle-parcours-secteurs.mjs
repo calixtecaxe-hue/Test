@@ -219,7 +219,7 @@ for (const s of retenus) {
     await visiter(page, secteur, ou("niveau"), `/audit/${a.slug}`);
     await api.put(B + "/api/audit/niveau", { data: { niveau: "ESSENTIEL" } });
 
-    const entree = { agent: a.code, profils: rt.profils, taille, niveau: "essentiel", ancienneteMois: 12 * 7, exclusions: rt.reglementee ? e.routage.reglementees.acquisitionExclut ?? null : null, reponses: reponsesCompte, metier: metierDuCompte(e.routage, s), vocabulaire: vocabulaireDuCompte(e.vocabulairesMetiers, metierDuCompte(e.routage, s)) };
+    const entree = { agent: a.code, profils: rt.profils, taille, niveau: "essentiel", ancienneteMois: 12 * 7, exclusions: rt.reglementee ? e.routage.reglementees.acquisitionExclut ?? null : null, reponses: reponsesCompte, metier: metierDuCompte(e.routage, { metierPrecis: s.metier, sousVariantes: s.sousVariantes }), vocabulaire: vocabulaireDuCompte(e.vocabulairesMetiers, metierDuCompte(e.routage, { metierPrecis: s.metier, sousVariantes: s.sousVariantes })) };
     const prevu = assemblerQuestionnaire(e, entree);
     const vide = await visiter(page, secteur, ou("questionnaire vide"), `/audit/${a.slug}`);
     const attendu = prevu.themes.reduce((n, t) => n + t.questions.length, 0) + prevu.prealables.length;
