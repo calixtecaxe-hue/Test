@@ -27,7 +27,7 @@ import {
   enregistrerObjectif,
 } from "../src/lib/audit/objectif.ts";
 import { evaluer, tailleDepuisEffectif, lecteurDeclencheurs } from "../src/lib/audit/affichage.ts";
-import { assemblerQuestionnaire, equivalences } from "../src/lib/audit/assemblage.ts";
+import { assemblerQuestionnaire, compterQuestions, equivalences } from "../src/lib/audit/assemblage.ts";
 
 const dossier = join(fileURLToPath(new URL("..", import.meta.url)), "data");
 const reel = chargerDepuisDisque(dossier);
@@ -605,4 +605,37 @@ test("les objectifs proposés par agent existent pour la RH et la Comm, avec un 
   // Les deux parcours de la Comm (CLAUDE.md section 9) : améliorer l'existant, mettre en place.
   const groupes = new Set(reel.objectifsAgents.agents["COMM_CREATION"].objectifs.map((o) => o.groupe));
   assert.equal(groupes.size, 2);
+});
+
+// --- Doublons retirés et réponses déduites (décisions du propriétaire, 27 octobre) -----------------------
+
+test("une donnée retirée comme doublon n'est jamais posée, et la donnée conservée l'est", () => {
+  const codes = (a: ReturnType<typeof assemblerQuestionnaire>) => new Set([...a.prealables, ...a.themes.flatMap((t) => t.questions)].map((q) => q.code));
+  // RH-41.04 et RH-41.05 : couvertes par RH-42.01 pour le dirigeant seul qui veut être aidé.
+  const rh = assemblerQuestionnaire(reel, ctx("RH_ORGANISATION", { taille: "seul", reponses: { "RH-41.01": saisie("oui_dans_les_6_prochains_mois") } }));
+  assert.ok(codes(rh).has("RH-42.01"));
+  assert.ok(!codes(rh).has("RH-41.04") && !codes(rh).has("RH-41.05"));
+  // ACQ-09.04 : voisine d'ACQ-12.01, posées ensemble aux profils rendez-vous avec devis.
+  const acq = assemblerQuestionnaire(reel, ctx("ACQUISITION_CA", { profils: ["b2b"], reponses: { D05: saisie("oui"), D06: saisie("oui") } }));
+  assert.ok(codes(acq).has("ACQ-12.01"));
+  assert.ok(!codes(acq).has("ACQ-09.04"));
+  // Elles ne sont pas comptées au choix du niveau.
+  const sansRetrait: EnsembleDonnees = { ...reel, retraits: { ...reel.retraits, retraits: [] } };
+  const avec = compterQuestions(reel, "ACQUISITION_CA", ["b2b"], "equipe_2_5");
+  const sans = compterQuestions(sansRetrait, "ACQUISITION_CA", ["b2b"], "equipe_2_5");
+  assert.equal(sans.total - avec.total, 1);
+});
+
+test("« Avez-vous un site internet ? » n'est posée que si « site internet » n'est pas coché dans les canaux", () => {
+  const codes = (a: ReturnType<typeof assemblerQuestionnaire>) => new Set([...a.prealables, ...a.themes.flatMap((t) => t.questions)].map((q) => q.code));
+  const sansCoche = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "ACQ-03.01": saisie(["bouche_a_oreille"]) } }));
+  assert.ok(codes(sansCoche).has("COM-13.10"));
+  assert.ok(!codes(sansCoche).has("COM-13.01"), "sans site, ses questions n'ont pas lieu d'être");
+  const coche = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "ACQ-03.01": saisie(["bouche_a_oreille", "site_internet"]) } }));
+  assert.ok(!codes(coche).has("COM-13.10"));
+  // La réponse déduite ouvre les questions qui dépendent du site (D23 = oui).
+  assert.ok(codes(coche).has("COM-13.01"));
+  // Une réponse déjà donnée l'emporte : « non » reste « non ».
+  const dejaNon = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "ACQ-03.01": saisie(["site_internet"]), "COM-13.10": saisie("non") } }));
+  assert.ok(!codes(dejaNon).has("COM-13.01"));
 });

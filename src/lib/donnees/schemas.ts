@@ -509,6 +509,37 @@ export const question = z.object({
 });
 export type Question = z.infer<typeof question>;
 
+// --- Retraits et réponses déduites ---------------------------------------------
+
+// Données retirées des questionnaires (doublons) sans toucher au classeur : l'import du classeur ne les remet pas.
+export const retraits = z.object({
+  source: z.string(),
+  retraits: z.array(
+    z.object({
+      donnee: codeDonnee,
+      raison: z.string().min(1),
+      // La donnée qui couvre désormais le même besoin.
+      conservee: codeDonnee,
+      decideLe: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    })
+  ),
+});
+export type Retraits = z.infer<typeof retraits>;
+
+// Réponse déduite d'une autre : « oui » à COM-13.10 quand « site internet » est coché en ACQ-03.01.
+export const implications = z.object({
+  source: z.string(),
+  implications: z.array(
+    z.object({
+      donnee: codeDonnee,
+      valeur: z.string().min(1),
+      siCoche: z.object({ donnee: codeDonnee, option: z.string().min(1) }),
+      raison: z.string().min(1),
+    })
+  ),
+});
+export type Implications = z.infer<typeof implications>;
+
 // --- Ensemble ----------------------------------------------------------------
 
 export type EnsembleDonnees = {
@@ -526,6 +557,8 @@ export type EnsembleDonnees = {
   limitesObjectif: LimitesObjectif;
   prereponses: Prereponses;
   objectifsAgents: ObjectifsAgents;
+  retraits: Retraits;
+  implications: Implications;
   catalogue: FicheTheme[];
   catalogueEffets: EffetCatalogue[];
   parametresReferences: ParametresReferences;
@@ -548,6 +581,8 @@ export const schemaFichiers = {
   limitesObjectif,
   prereponses,
   objectifsAgents,
+  retraits,
+  implications,
   catalogue: z.array(ficheTheme),
   catalogueEffets: z.array(effetCatalogue),
   parametresReferences,

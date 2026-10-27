@@ -417,6 +417,28 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     }
   }
   if (e.objectifsAgents.aValider) avertissements.push("Objectifs proposés par agent (RH, Comm) : brouillon à valider par le propriétaire.");
+  // Retraits (doublons) : la donnée existe, est posée, et n'alimente ni un calcul ni une règle d'affichage ; la donnée conservée existe.
+  const donneesParCode = new Map(e.donnees.map((d) => [d.code, d]));
+  const texteRegles = JSON.stringify(e.reglesAffichage);
+  for (const r of e.retraits.retraits) {
+    const d = donneesParCode.get(r.donnee);
+    if (!d) erreurs.push(`Retrait : la donnée ${r.donnee} n'existe pas.`);
+    else if (d.mode !== "demandee" && d.mode !== "partagee") erreurs.push(`Retrait : ${r.donnee} n'est pas une donnée posée au client.`);
+    if (!donneesParCode.has(r.conservee)) erreurs.push(`Retrait de ${r.donnee} : la donnée conservée ${r.conservee} n'existe pas.`);
+    const alimente = e.donnees.filter((x) => x.entrees.includes(r.donnee)).map((x) => x.code);
+    if (alimente.length > 0) erreurs.push(`Retrait de ${r.donnee} impossible : elle alimente ${alimente.join(", ")}.`);
+    if (e.croisements.some((c) => c.entrees.includes(r.donnee))) erreurs.push(`Retrait de ${r.donnee} impossible : un croisement l'utilise.`);
+    if (texteRegles.includes(`"${r.donnee}`)) erreurs.push(`Retrait de ${r.donnee} impossible : une règle d'affichage la lit.`);
+  }
+  if (e.retraits.retraits.length > 0) {
+    avertissements.push(`${e.retraits.retraits.length} donnée(s) retirée(s) des questionnaires (doublons, décision du propriétaire) : ${e.retraits.retraits.map((r) => r.donnee).join(", ")}. À supprimer au classeur, puis à enlever de data/retraits.json.`);
+  }
+  // Réponses déduites : la donnée existe, la source est une question à cases qui propose l'option.
+  for (const i of e.implications.implications) {
+    if (!donneesParCode.has(i.donnee)) erreurs.push(`Implication : la donnée ${i.donnee} n'existe pas.`);
+    const specSource = banqueParDonnee.get(i.siCoche.donnee)?.reponse;
+    if (specSource && (specSource.type !== "cases" || !specSource.options.some((o) => o.id === i.siCoche.option))) erreurs.push(`Implication sur ${i.donnee} : ${i.siCoche.donnee} n'a pas de case « ${i.siCoche.option} » dans la banque.`);
+  }
   const sansSpec = posees.filter((d) => !banqueParDonnee.get(d.code)?.reponse && proposerSpec(d.format).certitude !== "sure");
 
   // Une donnée « partagée » se pose comme une donnée demandée (par le premier agent qui en a besoin).

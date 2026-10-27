@@ -14,7 +14,7 @@ const copie = (): EnsembleDonnees => structuredClone(reel);
 test("les fichiers du dépôt passent le contrôle sans erreur ; seules les règles à préciser sont signalées", () => {
   const r = controlerDonnees(reel);
   assert.deepEqual(r.erreurs, []);
-  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté ") && !/^(Le métier|L'activité|La catégorie|\d+ métier|\d+ indicateurs de références|Effets d'actions à valider|La réponse de |Sens à trancher|Aucun plafond quotidien|Objectifs proposés par agent)/.test(a));
+  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté ") && !/^(Le métier|L'activité|La catégorie|\d+ métier|\d+ indicateurs de références|Effets d'actions à valider|La réponse de |Sens à trancher|Aucun plafond quotidien|Objectifs proposés par agent|\d+ donnée\(s\) retirée\(s\))/.test(a));
   assert.deepEqual(inattendus, []);
   assert.equal(r.avertissements.filter((a) => a.startsWith("Règle à préciser")).length, 2);
 });

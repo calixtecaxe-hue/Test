@@ -1,0 +1,11 @@
+{
+  "source": "Réponses déduites d'une autre réponse : la question n'est pas posée quand la réponse est déjà connue. Décision du propriétaire, 27 octobre ; elle reprend la règle du classeur (« oui si Site internet est déjà coché en ACQ-03.01 »).",
+  "implications": [
+    {
+      "donnee": "COM-13.10",
+      "valeur": "oui",
+      "siCoche": { "donnee": "ACQ-03.01", "option": "site_internet" },
+      "raison": "Un client qui a coché « site internet » parmi les canaux qui lui amènent des clients a un site : la question « Avez-vous un site internet ? » n'est posée que dans le cas contraire."
+    }
+  ]
+}

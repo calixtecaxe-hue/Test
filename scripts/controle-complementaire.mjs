@@ -212,7 +212,7 @@ async function parcoursMetier(secteur, libelle, { viewport = { width: 1280, heig
   return c;
 }
 
-const parties = process.env.PARTIES ?? "ABCDEF";
+const parties = process.env.PARTIES ?? "ABCDEFG";
 const casMetier = [
   ["Électricien", "Électricien"],
   ["Hôtel (toutes activités)", "Hôtel", { activites: "toutes" }],
@@ -379,6 +379,45 @@ if (parties.includes("F")) {
     await ctx2.close();
   }
   await prisma.$disconnect();
+  await c.contexte.close();
+}
+
+// --- G. Doublons retirés et réponse déduite -----------------------------------------------------
+
+console.log("\n== Doublons retirés");
+if (parties.includes("G")) {
+  const c = await nouveauCompte({ metier: "electricien", effectif: 1 });
+  await c.api.put(B + "/api/audit/niveau", { data: { niveau: "APPROFONDI" } });
+  const comm = c.agents.find((a) => a.code === "COMM_CREATION");
+  const rh = c.agents.find((a) => a.code === "RH_ORGANISATION");
+  const acq = c.agents.find((a) => a.code === "ACQUISITION_CA");
+  const present = async (url, code) => {
+    await c.page.goto(B + url, { waitUntil: "networkidle" });
+    return (await c.page.locator(`li[data-question="${code}"]`).count()) > 0;
+  };
+  // « Avez-vous un site internet ? » : posée sans la case, absente avec la case.
+  await c.api.put(B + "/api/audit/reponses", { data: { cle: "ACQ-03.01", reponse: { genre: "saisie", valeur: ["bouche_a_oreille"] } } });
+  if (!(await present(`/audit/${comm.slug}`, "COM-13.10"))) noter("erreur", "Doublons", "COM-13.10", "la question n'est pas posée alors que « site internet » n'est pas coché");
+  await c.api.put(B + "/api/audit/reponses", { data: { cle: "ACQ-03.01", reponse: { genre: "saisie", valeur: ["bouche_a_oreille", "site_internet"] } } });
+  if (await present(`/audit/${comm.slug}`, "COM-13.10")) noter("erreur", "Doublons", "COM-13.10", "la question est encore posée alors que « site internet » est coché");
+  else console.log("  COM-13.10 absente quand « site internet » est coché");
+  if (!(await present(`/audit/${comm.slug}`, "COM-13.01"))) noter("erreur", "Doublons", "COM-13.01", "les questions sur le site ne s'ouvrent pas alors que le site est déduit");
+  else console.log("  COM-13.01 posée (site déduit des canaux)");
+  // Dirigeant seul qui veut être aidé : RH-42.01 oui, RH-41.04 et RH-41.05 non.
+  await c.api.put(B + "/api/audit/reponses", { data: { cle: "RH-41.01", reponse: { genre: "saisie", valeur: "oui_dans_les_6_prochains_mois" } } });
+  const aide = await present(`/audit/${rh.slug}`, "RH-42.01");
+  const ancien1 = await c.page.locator('li[data-question="RH-41.04"]').count();
+  const ancien2 = await c.page.locator('li[data-question="RH-41.05"]').count();
+  if (!aide) noter("erreur", "Doublons", "RH-42.01", "la question conservée n'est pas posée");
+  if (ancien1 + ancien2 > 0) noter("erreur", "Doublons", "RH-41.04 / RH-41.05", "une question retirée est encore posée");
+  else console.log("  RH-41.04 et RH-41.05 absentes, RH-42.01 posée");
+  // ACQ-09.04 retirée, ACQ-12.01 conservée (profil avec rendez-vous et devis : les deux cadrages à « oui »).
+  await c.api.put(B + "/api/audit/reponses", { data: { cle: "D05", reponse: { genre: "saisie", valeur: "oui" } } });
+  await c.api.put(B + "/api/audit/reponses", { data: { cle: "D06", reponse: { genre: "saisie", valeur: "oui" } } });
+  await c.page.goto(B + `/audit/${acq.slug}`, { waitUntil: "networkidle" });
+  const retiree = await c.page.locator('li[data-question="ACQ-09.04"]').count();
+  if (retiree > 0) noter("erreur", "Doublons", "ACQ-09.04", "une question retirée est encore posée");
+  else console.log("  ACQ-09.04 absente");
   await c.contexte.close();
 }
 

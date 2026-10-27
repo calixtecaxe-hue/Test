@@ -198,6 +198,16 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   du propriétaire du 23 octobre) : elle suit le dirigeant d'un appareil à l'autre, le calcul l'ignore, et elle est supprimée dès que la réponse complète
   est enregistrée. Le nombre de questions
   annoncé au choix du niveau est un maximum (« jusqu'à N questions, selon vos réponses »).
+- **Doublons retirés et réponses déduites (décisions du propriétaire, 27 octobre)** : une relecture des 519 questions posées a repéré des questions
+  qui se recoupent ; **ne sont pas des doublons** (gardées) les questions faites exprès pour des statistiques ou des calculs : tendances (« il y a 6 / 12
+  mois »), répartitions par canal ou type de client, contrôles de cohérence (ACQ-01.05 contre COM-02.01), et les paires qui alimentent deux
+  calculs différents (ACQ-17.06 alimente la reconquête des clients inactifs XA17, COM-15.01 le fichier de contacts inexploité XC10). **Retirées**
+  (`data/retraits.json`, qui survit à l'import du classeur ; le contrôle refuse un retrait qui alimente un calcul, un croisement ou une règle) :
+  RH-41.04 et RH-41.05 (couvertes par RH-42.01) et ACQ-09.04 (voisine d'ACQ-12.01). **Déduite** (`data/implications.json`, fonction
+  `reponsesDeduites`) : COM-13.10 « Avez-vous un site internet ? » vaut « oui » et n'est pas posée quand « site internet » est coché en ACQ-03.01 ;
+  une réponse déjà donnée l'emporte. **À reporter dans le classeur** : supprimer les lignes RH-41.04, RH-41.05 et ACQ-09.04, ajouter à COM-13.10 la
+  condition « posée si ACQ-03.01 ne contient pas Site internet », puis vider `data/retraits.json`. À trancher encore : COM-03.01 et COM-04.01
+  (« résultat promis » posé deux fois), à reformuler par le propriétaire.
 - **Assemblage en 5 couches** : (1) inscription, (2) socle de l'agent, (3) module
   catégorie, (4) module métier — 5 questions maximum —, (5) filtre taille
   (seul / 2 à 5 / 6 et plus). **Questions déclencheuses** (D01 à D65) qui ouvrent

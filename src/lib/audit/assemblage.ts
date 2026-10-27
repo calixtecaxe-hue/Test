@@ -131,6 +131,22 @@ function agentDeLaDonnee(e: EnsembleDonnees, code: string): CodeAgent | undefine
   return e.themes.find((t) => t.code === code.slice(0, code.indexOf(".")))?.agent;
 }
 
+// Réponses que l'on déduit d'autres réponses (data/implications.json) : « oui » à « Avez-vous un site internet ? » quand le client a
+// coché « site internet » parmi ses canaux. Une réponse déjà donnée l'emporte : rien n'est déduit.
+export function reponsesDeduites(impl: EnsembleDonnees["implications"], reponses: Reponses): { reponses: Reponses; codes: Set<string> } {
+  const deduites: Reponses = {};
+  const codes = new Set<string>();
+  for (const i of impl.implications) {
+    if (reponses[i.donnee] !== undefined) continue;
+    const source = reponses[i.siCoche.donnee];
+    if (source?.genre === "saisie" && Array.isArray(source.valeur) && source.valeur.includes(i.siCoche.option)) {
+      deduites[i.donnee] = { genre: "saisie", valeur: i.valeur };
+      codes.add(i.donnee);
+    }
+  }
+  return { reponses: deduites, codes };
+}
+
 // Les questions de cadrage exclues valent « non » ; les options exclues d'une question à cases
 // sont retirées, y compris d'une réponse donnée avant.
 export function appliquerExclusions(reponses: Reponses, ex: Exclusions | null | undefined, regles?: ReglesAffichage): Reponses {
@@ -150,7 +166,11 @@ export function appliquerExclusions(reponses: Reponses, ex: Exclusions | null | 
 export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssemblage): Assemblage {
   const ex = entree.agent === "ACQUISITION_CA" ? entree.exclusions : null;
   const regles = e.reglesAffichage;
-  const ctx: ContexteAssemblage = { ...entree, reponses: appliquerExclusions(entree.reponses, ex, regles) };
+  const reponsesBrutes = appliquerExclusions(entree.reponses, ex, regles);
+  // Données retirées des questionnaires (doublons), et réponses déduites d'autres réponses : ni les unes ni les autres ne sont posées.
+  const retires = new Set(e.retraits.retraits.map((r) => r.donnee));
+  const implicites = reponsesDeduites(e.implications, reponsesBrutes);
+  const ctx: ContexteAssemblage = { ...entree, reponses: { ...reponsesBrutes, ...implicites.reponses } };
   const lire = lecteurDeclencheurs(ctx.reponses, ctx.taille, regles);
   const banque = new Map<string, Question>(e.banque.map((q) => [q.donnee, q]));
   const equiv = equivalences(e.donnees);
@@ -177,6 +197,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
   // Une donnée devient une question : texte de la banque avec les mots du métier, type de réponse, réponse déjà donnée.
   // « attente » : sa condition attend la réponse à une autre question.
   const construire = (d: Donnee, themeCode: string): QuestionAssemblee | "attente" | null => {
+    if (implicites.codes.has(d.code)) return null;
     const condition = d.condition ? regles.conditions[d.condition] : undefined;
     const minimum = moisMinimumDExistence(d.periode);
     if (minimum !== null && ctx.ancienneteMois !== undefined && ctx.ancienneteMois < minimum) return null;
@@ -233,6 +254,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
     const candidates = e.donnees.filter(
       (d) =>
         d.theme === theme.code &&
+        !retires.has(d.code) &&
         (d.mode === "demandee" || d.mode === "partagee") &&
         d.niveau !== null &&
         (ctx.niveau === "approfondi" || d.niveau === "essentiel") &&
@@ -343,7 +365,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
 export function compterQuestions(e: EnsembleDonnees, agent: CodeAgent, profils: ProfilId[], taille: TailleId, exclusions: Exclusions | null = null): { essentielles: number; total: number } {
   const themes = new Set(e.themes.filter((t) => t.agent === agent && !(agent === "ACQUISITION_CA" && exclusions?.themes.includes(t.code))).map((t) => t.code));
   const concernees = e.donnees.filter(
-    (d) => themes.has(d.theme) && (d.mode === "demandee" || d.mode === "partagee") && d.niveau !== null && concerne(d, profils, taille)
+    (d) => themes.has(d.theme) && !e.retraits.retraits.some((r) => r.donnee === d.code) && (d.mode === "demandee" || d.mode === "partagee") && d.niveau !== null && concerne(d, profils, taille)
   );
   return { essentielles: concernees.filter((d) => d.niveau === "essentiel").length, total: concernees.length };
 }

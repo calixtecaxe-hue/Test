@@ -179,7 +179,8 @@ test("balayage : chaque donnée demandée est posable pour au moins un profil, u
   }
   const inatteignables = reel.donnees
     // D30 (« avant la première création de contenu ») vaut « non » pendant l'audit : le brief de création se pose plus tard.
-    .filter((d) => (d.mode === "demandee" || d.mode === "partagee") && !atteintes.has(d.code) && !d.condition?.startsWith("D30"))
+    // Les doublons retirés du questionnaire (data/retraits.json) ne sont jamais posés, et la réponse déduite des canaux (implications) non plus quand elle est connue.
+    .filter((d) => (d.mode === "demandee" || d.mode === "partagee") && !atteintes.has(d.code) && !d.condition?.startsWith("D30") && !reel.retraits.retraits.some((r) => r.donnee === d.code))
     .map((d) => d.code);
   // Les données sans niveau, ou masquées par une règle « à préciser », sont listées par la campagne ; ici on exige zéro.
   assert.deepEqual(inatteignables, [], `Données jamais posables : ${inatteignables.join(", ")}`);
