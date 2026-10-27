@@ -196,6 +196,11 @@
       "op": "ne_contient_pas",
       "valeur": "site_internet"
     },
+    "COM-63.01 · si vous faites de la publicité Google": {
+      "cle": "COM-63.01",
+      "op": "egal",
+      "valeur": "oui"
+    },
     "D03 · une ligne par canal coché": {
       "cle": "D03",
       "op": "non_vide"

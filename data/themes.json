@@ -368,6 +368,38 @@
     "masquePour": null
   },
   {
+    "code": "ACQ-24",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Piloter",
+    "nom": "Objectif et moyens",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-30",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Piloter",
+    "nom": "Contexte",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
     "code": "FIN-01",
     "agent": "FINANCE_RENTABILITE",
     "bloc": "Marges et rentabilité",
@@ -2894,5 +2926,37 @@
     "methodeVolume": null,
     "siInconnu": null,
     "masquePour": "Ne publie pas (parcours mise en place)"
+  },
+  {
+    "code": "COM-62",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Référencement du site (SEO)",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "COM-63",
+    "agent": "COMM_CREATION",
+    "bloc": "Présence et canaux",
+    "nom": "Annonces Google (SEA)",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
   }
 ]

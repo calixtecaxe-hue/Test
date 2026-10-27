@@ -608,6 +608,24 @@
     "indicateurs": []
   },
   {
+    "theme": "ACQ-24",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Objectif et moyens",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-30",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Contexte",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
     "theme": "FIN-01",
     "agent": "FINANCE_RENTABILITE",
     "libelle": "Marge par offre",
@@ -2314,6 +2332,24 @@
     "nature": "pratique",
     "rechercheReference": false,
     "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-62",
+    "agent": "COMM_CREATION",
+    "libelle": "Référencement du site (SEO)",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-63",
+    "agent": "COMM_CREATION",
+    "libelle": "Annonces Google (SEA)",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
     "indicateurs": []
   }
 ]

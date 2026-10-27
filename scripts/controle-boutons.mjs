@@ -33,6 +33,15 @@ const AGENTS = {
   COM: { code: "COMM_CREATION", slug: "comm-creation-contenu", objectif: { quoi: "augmenter mon taux de conversion", ampleur: { valeur: 5, unite: "pourcent" }, delaiMois: 3, choix: "com-conversion" } },
 };
 
+// Réponses attendues de la banque : sert à choisir des valeurs dans les bornes de chaque champ (un chiffre hors bornes est refusé, à juste titre).
+const BANQUE = Object.fromEntries(JSON.parse(readFileSync("data/banque/questions.json", "utf8")).map((q) => [q.donnee, q.reponse]));
+const champsSaisis = (rep) => (rep?.type === "composite" ? rep.champs.filter((c) => c.spec.type === "nombre" || c.spec.type === "texte") : []);
+const valeurDans = (spec) => {
+  if (spec?.type !== "nombre") return String(10 + ((++graine * 7) % 40));
+  const min = spec.min ?? 0, max = Math.min(spec.max ?? 97, 97);
+  return String(min + ((++graine * 7 + 3) % (max - min + 1)));
+};
+
 const echecs = [];
 const compte = { verifies: 0 };
 function verifier(agent, ou, nom, ok, detail = "") {
@@ -127,7 +136,7 @@ async function reposer(page, carte, type) {
   if (type === "nombre") {
     const exact = carte.getByRole("button", { name: "Chiffre exact", exact: true });
     if ((await exact.getAttribute("aria-pressed")) !== "true") await exact.click();
-    await carte.locator('input[id$="-exact"]').fill(unique());
+    await carte.locator('input[id$="-exact"]').fill(valeurDans(BANQUE[await carte.getAttribute("data-question")]));
     await carte.locator('input[id$="-exact"]').blur();
   } else if (type === "cases" || type === "choix") {
     const o = carte.locator("label.case-option").first();
@@ -148,7 +157,8 @@ async function reposer(page, carte, type) {
       if (opts.length) await selects.nth(i).selectOption(opts[0]);
     }
     const champs = carte.locator('input[type="text"]');
-    for (let i = 0; i < (await champs.count()); i++) await champs.nth(i).fill(unique());
+    const specs = champsSaisis(BANQUE[await carte.getAttribute("data-question")]);
+    for (let i = 0; i < (await champs.count()); i++) await champs.nth(i).fill(valeurDans(specs[i]?.spec));
     await champs.first().blur().catch(() => {});
   }
   await page.waitForTimeout(700);
@@ -281,7 +291,8 @@ async function exercer(page, agent, T, code, completPour) {
       const opts = await selects.nth(i).locator("option").evaluateAll((o) => o.map((x) => x.value).filter(Boolean));
       if (opts.length) await selects.nth(i).selectOption(opts[0]);
     }
-    for (let i = 0; i < (await champsTexte.count()); i++) await champsTexte.nth(i).fill("5");
+    const specsChamps = champsSaisis(BANQUE[code]);
+    for (let i = 0; i < (await champsTexte.count()); i++) await champsTexte.nth(i).fill(valeurDans(specsChamps[i]?.spec));
     for (let i = 0; i < (await mois.count()); i++) await mois.nth(i).fill("2021-05");
     await champsTexte.first().blur().catch(() => {});
     await pause(page, 1200);

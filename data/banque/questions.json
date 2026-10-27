@@ -13903,5 +13903,738 @@
       ],
       "minChoix": 1
     }
+  },
+  {
+    "donnee": "ACQ-24.01",
+    "texte": "Quel objectif voulez-vous atteindre sur vos clients et votre chiffre d'affaires ?",
+    "aide": "Dites quoi, de combien et en combien de temps. Par exemple : chiffre d'affaires, + 15 %, 6 mois. Ou : nouveaux clients, 10 de plus par mois, 3 mois.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "ce_que_vous_voulez_ameliorer",
+          "libelle": "Ce que vous voulez améliorer",
+          "spec": {
+            "type": "texte"
+          }
+        },
+        {
+          "id": "de_combien",
+          "libelle": "De combien",
+          "spec": {
+            "type": "texte"
+          }
+        },
+        {
+          "id": "en_combien_de_temps",
+          "libelle": "En combien de temps",
+          "spec": {
+            "type": "choix",
+            "options": [
+              {
+                "id": "1_mois",
+                "libelle": "1 mois"
+              },
+              {
+                "id": "3_mois",
+                "libelle": "3 mois"
+              },
+              {
+                "id": "6_mois",
+                "libelle": "6 mois"
+              },
+              {
+                "id": "12_mois",
+                "libelle": "12 mois"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-24.02",
+    "texte": "Dans les 3 prochains mois, combien d'heures par semaine et quel budget par mois pouvez-vous consacrer à améliorer votre entreprise ?",
+    "aide": "Ce que vous pouvez vraiment y mettre, en plus de votre travail habituel. 0 si vous voulez avancer sans budget.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "heures_par_semaine",
+          "libelle": "Heures par semaine",
+          "spec": {
+            "type": "nombre",
+            "unite": "heures"
+          }
+        },
+        {
+          "id": "budget_par_mois",
+          "libelle": "Budget par mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-07.15",
+    "texte": "Parmi les clients venus par une plateforme, quelle part revient ensuite vous voir sans passer par elle ?",
+    "aide": "Une estimation suffit. Par exemple, un client venu par Booking qui réserve ensuite directement chez vous.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "pourcent"
+    }
+  },
+  {
+    "donnee": "ACQ-11.38",
+    "texte": "Sur les 3 derniers mois, quelle part de votre chiffre d'affaires est venue des boissons ?",
+    "aide": "Votre caisse le donne si les boissons ont leur propre famille de produits.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "pourcent"
+    }
+  },
+  {
+    "donnee": "ACQ-11.39",
+    "texte": "Combien paient vos clients pour la livraison, et à partir de quel montant est-elle offerte ?",
+    "aide": "Laissez la seconde case vide si la livraison n'est jamais offerte.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "prix_de_la_livraison_standard",
+          "libelle": "Prix de la livraison standard",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        },
+        {
+          "id": "offerte_a_partir_de",
+          "libelle": "Offerte à partir de",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-13.12",
+    "texte": "Pour chaque catégorie de clients, laquelle de vos offres principales choisit-elle le plus ?",
+    "aide": "Les offres sont celles que vous venez d'indiquer. Cela permet de calculer la marge que vous laisse chaque catégorie de clients.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "donnee",
+        "code": "ACQ-01.01"
+      },
+      "colonnes": [
+        {
+          "id": "offre_choisie_le_plus",
+          "libelle": "Offre choisie le plus",
+          "spec": {
+            "type": "choix",
+            "options": [
+              {
+                "id": "offre_1",
+                "libelle": "Offre 1"
+              },
+              {
+                "id": "offre_2",
+                "libelle": "Offre 2"
+              },
+              {
+                "id": "offre_3",
+                "libelle": "Offre 3"
+              },
+              {
+                "id": "une_autre_offre",
+                "libelle": "Une autre offre"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-13.13",
+    "texte": "Après votre dernière hausse de prix, quelle part de vos clients est partie à cause du prix ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "aucun_a_ma_connaissance",
+          "libelle": "Aucun, à ma connaissance"
+        },
+        {
+          "id": "moins_de_5",
+          "libelle": "Moins de 5 %"
+        },
+        {
+          "id": "5_a_15",
+          "libelle": "5 à 15 %"
+        },
+        {
+          "id": "plus_de_15",
+          "libelle": "Plus de 15 %"
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-13.14",
+    "texte": "Pour quelle raison principale vos clients vous choisissent-ils plutôt qu'un concurrent ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "le_prix",
+          "libelle": "Le prix"
+        },
+        {
+          "id": "la_qualite_des_produits_ou_du_travail",
+          "libelle": "La qualité des produits ou du travail"
+        },
+        {
+          "id": "la_rapidite_ou_la_disponibilite",
+          "libelle": "La rapidité ou la disponibilité"
+        },
+        {
+          "id": "la_proximite",
+          "libelle": "La proximité"
+        },
+        {
+          "id": "la_confiance_et_la_relation",
+          "libelle": "La confiance et la relation"
+        },
+        {
+          "id": "la_reputation_et_les_avis",
+          "libelle": "La réputation et les avis"
+        },
+        {
+          "id": "une_specialite_que_les_autres_n_ont_pas",
+          "libelle": "Une spécialité que les autres n'ont pas"
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "ACQ-30.01",
+    "texte": "Pour chaque étape, y a-t-il quelque chose d'important que vos chiffres ne montrent pas ?",
+    "aide": "Facultatif. Par exemple : un gros client perdu en mars, un concurrent qui a ouvert à côté, un associé parti en juin.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "attirer_des_clients",
+            "libelle": "Attirer des clients"
+          },
+          {
+            "id": "les_convaincre",
+            "libelle": "Les convaincre"
+          },
+          {
+            "id": "votre_chiffre_d_affaires",
+            "libelle": "Votre chiffre d'affaires"
+          },
+          {
+            "id": "les_faire_revenir",
+            "libelle": "Les faire revenir"
+          },
+          {
+            "id": "suivre_vos_chiffres",
+            "libelle": "Suivre vos chiffres"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "ce_que_vos_chiffres_ne_montrent_pas",
+          "libelle": "Ce que vos chiffres ne montrent pas",
+          "spec": {
+            "type": "texte"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-13.11",
+    "texte": "Quelle est l'adresse de votre site ?",
+    "aide": "Par exemple www.mon-entreprise.fr. Elle permet de vérifier sa vitesse et son affichage sur téléphone sans vous poser de questions.",
+    "repli": null,
+    "reponse": {
+      "type": "texte"
+    }
+  },
+  {
+    "donnee": "COM-62.01",
+    "texte": "Votre site est-il relié à Google Search Console ?",
+    "aide": "L'outil gratuit de Google qui montre sur quelles recherches votre site apparaît. La personne qui a créé votre site peut vous le dire.",
+    "repli": null,
+    "reponse": {
+      "type": "oui_non"
+    }
+  },
+  {
+    "donnee": "COM-62.02",
+    "texte": "Sur les 3 derniers mois, combien de fois votre site est-il apparu dans les résultats de Google, et combien de clics a-t-il reçus ?",
+    "aide": "Dans Search Console, partie « Performances », choisissez les 3 derniers mois : « Impressions totales », « Clics totaux » et « Position moyenne ».",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "apparitions",
+          "libelle": "Apparitions",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "clics",
+          "libelle": "Clics",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "position_moyenne",
+          "libelle": "Position moyenne",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre",
+            "min": 1,
+            "max": 100
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-62.03",
+    "texte": "Sur les 3 derniers mois, quelles recherches Google vous ont amené le plus de visites sur votre site ?",
+    "aide": "Dans « Performances », onglet « Requêtes » : recopiez les 5 premières, avec leurs clics et leur position.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "libre",
+        "max": 5
+      },
+      "colonnes": [
+        {
+          "id": "clics",
+          "libelle": "Clics",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "position_moyenne",
+          "libelle": "Position moyenne",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre",
+            "min": 1,
+            "max": 100
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-62.04",
+    "texte": "Quand on cherche chacune de vos offres principales sur Google, à quelle place sort votre site ?",
+    "aide": "En navigation privée, tapez l'offre et votre ville, par exemple « rénovation salle de bain Lyon ». Ne comptez ni les annonces payantes ni la carte.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "offre_1",
+            "libelle": "Offre 1"
+          },
+          {
+            "id": "offre_2",
+            "libelle": "Offre 2"
+          },
+          {
+            "id": "offre_3",
+            "libelle": "Offre 3"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "recherche_tapee",
+          "libelle": "Recherche tapée",
+          "spec": {
+            "type": "texte"
+          }
+        },
+        {
+          "id": "place",
+          "libelle": "Place",
+          "spec": {
+            "type": "choix",
+            "options": [
+              {
+                "id": "dans_les_3_premiers",
+                "libelle": "Dans les 3 premiers"
+              },
+              {
+                "id": "sur_la_premiere_page",
+                "libelle": "Sur la première page"
+              },
+              {
+                "id": "deuxieme_page_ou_plus_loin",
+                "libelle": "Deuxième page ou plus loin"
+              },
+              {
+                "id": "absent",
+                "libelle": "Absent"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-62.05",
+    "texte": "Chacune de vos offres principales a-t-elle sa propre page sur votre site ?",
+    "aide": "Une page qui ne parle que de cette offre, avec son nom dans le titre.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "offre_1",
+            "libelle": "Offre 1"
+          },
+          {
+            "id": "offre_2",
+            "libelle": "Offre 2"
+          },
+          {
+            "id": "offre_3",
+            "libelle": "Offre 3"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "page_a_elle",
+          "libelle": "Page à elle",
+          "spec": {
+            "type": "oui_non"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-62.06",
+    "texte": "Sur les 12 derniers mois, combien de pages ou d'articles avez-vous ajoutés à votre site ?",
+    "aide": "Une nouvelle page d'offre, un article de conseil, une réalisation présentée… 0 si aucun.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre"
+    }
+  },
+  {
+    "donnee": "COM-62.07",
+    "texte": "Quels autres sites renvoient vers le vôtre avec un lien ?",
+    "aide": "Ces liens aident Google à faire confiance à votre site. Cochez ceux que vous connaissez.",
+    "repli": null,
+    "reponse": {
+      "type": "cases",
+      "options": [
+        {
+          "id": "annuaires_comme_pagesjaunes",
+          "libelle": "Annuaires, comme PagesJaunes"
+        },
+        {
+          "id": "sites_de_partenaires_ou_de_fournisseurs",
+          "libelle": "Sites de partenaires ou de fournisseurs"
+        },
+        {
+          "id": "federation_label_ou_reseau_professionnel",
+          "libelle": "Fédération, label ou réseau professionnel"
+        },
+        {
+          "id": "presse_locale",
+          "libelle": "Presse locale"
+        },
+        {
+          "id": "blogs_ou_sites_de_conseils",
+          "libelle": "Blogs ou sites de conseils"
+        },
+        {
+          "id": "aucun_a_ma_connaissance",
+          "libelle": "Aucun à ma connaissance"
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-62.08",
+    "texte": "Qui s'occupe du référencement de votre site sur Google ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "personne",
+          "libelle": "Personne"
+        },
+        {
+          "id": "vous",
+          "libelle": "Vous"
+        },
+        {
+          "id": "un_salarie",
+          "libelle": "Un salarié"
+        },
+        {
+          "id": "la_personne_qui_a_cree_votre_site",
+          "libelle": "La personne qui a créé votre site"
+        },
+        {
+          "id": "une_agence_ou_un_freelance",
+          "libelle": "Une agence ou un freelance"
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-63.01",
+    "texte": "Faites-vous de la publicité sur Google, avec Google Ads ?",
+    "aide": "Les annonces qui s'affichent en haut des résultats de recherche, avec la mention « Sponsorisé ».",
+    "repli": null,
+    "reponse": {
+      "type": "oui_non"
+    }
+  },
+  {
+    "donnee": "COM-63.02",
+    "texte": "En moyenne sur les 3 derniers mois, combien dépensez-vous par mois en publicité Google ?",
+    "aide": "Votre compte Google Ads l'indique. Ce montant fait partie de votre publicité en ligne, déjà demandée : il n'est pas ajouté.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "euros"
+    }
+  },
+  {
+    "donnee": "COM-63.03",
+    "texte": "En moyenne sur les 3 derniers mois, combien de clics et de demandes vos annonces Google vous apportent-elles par mois ?",
+    "aide": "Demandes : appels, formulaires, devis ou réservations venus des annonces. Si Google Ads ne les compte pas, estimez-les.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "clics_par_mois",
+          "libelle": "Clics par mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "demandes_par_mois",
+          "libelle": "Demandes par mois",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-63.04",
+    "texte": "Google Ads compte-t-il automatiquement les appels et les formulaires venus de vos annonces ?",
+    "aide": "Dans Google Ads, partie « Conversions ». Sans ce suivi, Google ne sait pas quelles annonces vous amènent des clients.",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "oui_les_appels_et_les_formulaires",
+          "libelle": "Oui, les appels et les formulaires"
+        },
+        {
+          "id": "seulement_une_partie",
+          "libelle": "Seulement une partie"
+        },
+        {
+          "id": "non",
+          "libelle": "Non"
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-63.05",
+    "texte": "Sur les 3 derniers mois, quelles recherches ont déclenché le plus de clics sur vos annonces ?",
+    "aide": "Dans Google Ads, partie « Termes de recherche » : recopiez les 5 premiers.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "libre",
+        "max": 5
+      },
+      "colonnes": [
+        {
+          "id": "clics",
+          "libelle": "Clics",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        },
+        {
+          "id": "depense",
+          "libelle": "Dépense",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        },
+        {
+          "id": "demandes",
+          "libelle": "Demandes",
+          "spec": {
+            "type": "nombre",
+            "unite": "nombre"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-63.06",
+    "texte": "Quand quelqu'un clique sur une de vos annonces, sur quelle page arrive-t-il ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "une_page_faite_pour_l_offre_de_l_annonce",
+          "libelle": "Une page faite pour l'offre de l'annonce"
+        },
+        {
+          "id": "la_page_d_accueil_de_votre_site",
+          "libelle": "La page d'accueil de votre site"
+        },
+        {
+          "id": "une_page_de_prise_de_rendez_vous_ou_de_r",
+          "libelle": "Une page de prise de rendez-vous ou de réservation"
+        },
+        {
+          "id": "votre_boutique_en_ligne",
+          "libelle": "Votre boutique en ligne"
+        },
+        {
+          "id": "un_appel_direct_sans_page",
+          "libelle": "Un appel direct, sans page"
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-63.07",
+    "texte": "Dans quelle zone vos annonces sont-elles diffusées ?",
+    "aide": "Dans Google Ads, partie « Zones géographiques » de chaque campagne.",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "votre_ville",
+          "libelle": "Votre ville"
+        },
+        {
+          "id": "votre_ville_et_les_communes_autour",
+          "libelle": "Votre ville et les communes autour"
+        },
+        {
+          "id": "votre_departement",
+          "libelle": "Votre département"
+        },
+        {
+          "id": "votre_region",
+          "libelle": "Votre région"
+        },
+        {
+          "id": "toute_la_france",
+          "libelle": "Toute la France"
+        },
+        {
+          "id": "plusieurs_pays",
+          "libelle": "Plusieurs pays"
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "COM-63.08",
+    "texte": "Qui gère vos annonces Google ?",
+    "aide": "Son coût est déjà demandé avec votre agence ou prestataire marketing.",
+    "repli": null,
+    "reponse": {
+      "type": "choix",
+      "options": [
+        {
+          "id": "vous",
+          "libelle": "Vous"
+        },
+        {
+          "id": "un_salarie",
+          "libelle": "Un salarié"
+        },
+        {
+          "id": "une_agence_ou_un_freelance",
+          "libelle": "Une agence ou un freelance"
+        }
+      ]
+    }
   }
 ]
