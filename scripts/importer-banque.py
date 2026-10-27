@@ -253,11 +253,17 @@ def construire_reponse(ligne, erreur):
             if not mt:
                 erreur("total mal écrit : Colonne = valeur (ex. Part du CA = 100)")
                 return None
-            col = next((c for c in colonnes if c["libelle"].lower() == mt.group(1).strip().lower()), None)
-            if col is None:
-                erreur(f"total : la colonne « {mt.group(1).strip()} » n'existe pas")
-                return None
-            spec["total"] = {"colonne": col["id"], "valeur": nombre(mt.group(2))}
+            # Plusieurs colonnes au même total : « Part des demandes ; Part des nouveaux clients = 100 ».
+            cols = []
+            for nom in [x.strip() for x in mt.group(1).split(";") if x.strip()]:
+                col = next((c for c in colonnes if c["libelle"].lower() == nom.lower()), None)
+                if col is None:
+                    erreur(f"total : la colonne « {nom} » n'existe pas")
+                    return None
+                cols.append(col["id"])
+            spec["total"] = {"colonne": cols[0], "valeur": nombre(mt.group(2))}
+            if len(cols) > 1:
+                spec["total"]["colonnes"] = cols
         return spec
     return None
 

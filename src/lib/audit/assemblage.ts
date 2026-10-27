@@ -31,6 +31,7 @@ import type { Prereponses } from "../donnees/schemas.ts";
 import { proposerSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
 import type { ReglesAffichage, Routage } from "../donnees/schemas.ts";
 import type { MetierDuCompte } from "../routage.ts";
+import { analyserApplicabilite, reponsesDeduites } from "./reponses-actives.ts";
 
 export type Exclusions = NonNullable<Routage["reglementees"]["acquisitionExclut"]>;
 
@@ -100,6 +101,8 @@ export type Assemblage = {
   enAttente: number;
   // Données déjà posées par un autre agent.
   dejaPosees: number;
+  // Réponses qui s'appliquent encore à ce compte (sans les réponses déduites) : ce que le compte rendu et la progression lisent.
+  reponsesActives: Reponses;
   statistiques: { aPoser: number; ecrites: number; manquantes: number; essentielles: number };
 };
 
@@ -157,21 +160,8 @@ function agentDeLaDonnee(e: EnsembleDonnees, code: string): CodeAgent | undefine
   return e.themes.find((t) => t.code === code.slice(0, code.indexOf(".")))?.agent;
 }
 
-// Réponses que l'on déduit d'autres réponses (data/implications.json) : « oui » à « Avez-vous un site internet ? » quand le client a
-// coché « site internet » parmi ses canaux. Une réponse déjà donnée l'emporte : rien n'est déduit.
-export function reponsesDeduites(impl: EnsembleDonnees["implications"], reponses: Reponses): { reponses: Reponses; codes: Set<string> } {
-  const deduites: Reponses = {};
-  const codes = new Set<string>();
-  for (const i of impl.implications) {
-    if (reponses[i.donnee] !== undefined) continue;
-    const source = reponses[i.siCoche.donnee];
-    if (source?.genre === "saisie" && Array.isArray(source.valeur) && source.valeur.includes(i.siCoche.option)) {
-      deduites[i.donnee] = { genre: "saisie", valeur: i.valeur };
-      codes.add(i.donnee);
-    }
-  }
-  return { reponses: deduites, codes };
-}
+// Réponses déduites d'autres réponses : voir reponses-actives.ts.
+export { reponsesDeduites };
 
 // Les questions de cadrage exclues valent « non » ; les options exclues d'une question à cases
 // sont retirées, y compris d'une réponse donnée avant.
@@ -192,12 +182,20 @@ export function appliquerExclusions(reponses: Reponses, ex: Exclusions | null | 
 export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssemblage): Assemblage {
   const ex = entree.agent === "ACQUISITION_CA" ? entree.exclusions : null;
   const regles = e.reglesAffichage;
-  const reponsesBrutes = appliquerExclusions(entree.reponses, ex, regles);
+  // Réponses qui s'appliquent encore (reponses-actives.ts) : une réponse à une question devenue inapplicable reste en base,
+  // mais n'ouvre plus d'autres questions et ne compte plus.
+  const { actives, inapplicables } = analyserApplicabilite(e, appliquerExclusions(entree.reponses, ex, regles), {
+    profils: entree.profils,
+    taille: entree.taille,
+    ancienneteMois: entree.ancienneteMois,
+    metier: entree.metier,
+    themesExclus: ex?.themes ?? [],
+  });
   // Données retirées des questionnaires (doublons), et réponses déduites d'autres réponses : ni les unes ni les autres ne sont posées.
   const retires = new Set(e.retraits.retraits.map((r) => r.donnee));
-  const implicites = reponsesDeduites(e.implications, reponsesBrutes);
-  const ctx: ContexteAssemblage = { ...entree, reponses: { ...reponsesBrutes, ...implicites.reponses } };
-  const lire = lecteurDeclencheurs(ctx.reponses, ctx.taille, regles);
+  const implicites = reponsesDeduites(e.implications, actives);
+  const ctx: ContexteAssemblage = { ...entree, reponses: { ...actives, ...implicites.reponses } };
+  const lire = lecteurDeclencheurs(ctx.reponses, ctx.taille, regles, inapplicables);
   const banque = new Map<string, Question>(e.banque.map((q) => [q.donnee, q]));
   const equiv = equivalences(e.donnees, donneesPrerepondues(e.prereponses));
   const declencheursParCode = new Map(e.declencheurs.map((d) => [d.code, d]));
@@ -383,6 +381,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
     themesMasques,
     enAttente,
     dejaPosees,
+    reponsesActives: actives,
     statistiques: { aPoser: toutes.length, ecrites, manquantes: toutes.length - ecrites, essentielles },
   };
 }

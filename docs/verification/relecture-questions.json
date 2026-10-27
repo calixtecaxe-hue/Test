@@ -1,0 +1,169 @@
+{
+ "ACQ-01.02": {
+  "statut": "reformulée",
+  "constat": "Période absente pour une part de chiffre d'affaires.",
+  "texte": "Sur les 12 derniers mois, quelle part de votre chiffre d'affaires vient de chacune de ces catégories de clients ?"
+ },
+ "ACQ-01.06": {
+  "statut": "reformulée",
+  "constat": "« Vos clients » sans période : tous les clients depuis la création, ou ceux de l'année ?",
+  "texte": "Sur les 12 derniers mois, à quelle distance de votre entreprise se trouvaient vos clients ?"
+ },
+ "ACQ-01.08": {
+  "statut": "reformulée",
+  "constat": "Période absente pour une part de chiffre d'affaires.",
+  "texte": "Sur les 12 derniers mois, quelle part de votre chiffre d'affaires avez-vous faite dans cette zone ?"
+ },
+ "ACQ-01.10": {
+  "statut": "reformulée",
+  "constat": "« Part de vos ventes » ambigu (nombre de commandes ou chiffre d'affaires ?) et sans période ; l'aide parle de commandes.",
+  "texte": "Sur les 12 derniers mois, quelle part de vos commandes vient de clients situés hors de votre région, y compris à l'étranger ?"
+ },
+ "ACQ-03.01": {
+  "statut": "reformulée",
+  "constat": "Rien n'annonce que chaque canal coché ouvre ensuite des questions par canal (répartitions).",
+  "aide": "Cochez tous ceux qui vous ont amené au moins un client : chaque canal coché ouvre ensuite quelques questions sur lui (part des demandes, des nouveaux clients, du chiffre d'affaires). Bouche-à-oreille : vos clients et votre entourage. Partenaires : des professionnels qui vous recommandent. Réseaux sociaux : vos publications ; leur publicité payante va dans Publicité en ligne. Emailing et SMS : vos messages à vos propres contacts ; à des inconnus, c'est de la Prospection. Plateformes : TheFork, Doctolib, Booking, Uber Eats, Malt, marketplace… Annuaires : PagesJaunes et sites d'annuaires. Réseaux d'affaires : BNI, CCI, clubs d'entrepreneurs. Réseau ou enseigne : les clients envoyés par votre franchise ou votre groupement. Passage : les clients qui passent devant chez vous."
+ },
+ "ACQ-03.02": {
+  "statut": "reformulée",
+  "constat": "Période absente ; rien ne dit qu'une demande ne compte que dans un canal (condition d'un total à 100 %).",
+  "texte": "Sur les 12 derniers mois, quelle part de vos {demandes} est arrivée par chaque canal ?",
+  "aide": "Une demande compte dans un seul canal : celui par lequel elle vous est arrivée. Par exemple : 50 % bouche-à-oreille, 30 % fiche Google, 20 % site internet. Une estimation suffit."
+ },
+ "ACQ-03.03": {
+  "statut": "reformulée",
+  "constat": "Période absente.",
+  "texte": "Sur les 12 derniers mois, quelle part de vos nouveaux clients est arrivée par chaque canal ?"
+ },
+ "ACQ-05.03": {
+  "statut": "conforme",
+  "constat": "« Vos 3 principaux partenaires » : le tableau accepte 3 lignes au plus, le texte est cohérent."
+ },
+ "ACQ-07.02": {
+  "statut": "reformulée",
+  "constat": "Période absente pour une part de chiffre d'affaires.",
+  "texte": "Sur les 12 derniers mois, pour chaque plateforme : quelle part de votre chiffre d'affaires vous a-t-elle apportée, et quel pourcentage prélève-t-elle ?"
+ },
+ "ACQ-08.04": {
+  "statut": "reformulée",
+  "constat": "Choix incomplet : un dirigeant qui répond aussi vite partout ne peut pas répondre.",
+  "options_ajoutees": [
+   {
+    "id": "aucun_je_reponds_aussi_vite_partout",
+    "libelle": "Aucun : je réponds aussi vite partout"
+   }
+  ]
+ },
+ "ACQ-11.04": {
+  "statut": "reformulée",
+  "constat": "Répartition à 100 % sans règle d'attribution : une affaire perdue peut avoir plusieurs raisons.",
+  "aide": "Comptez chaque affaire perdue une fois, avec sa raison principale. Répartissez, par exemple 50 % prix, 30 % pas assez relancé, 20 % projet abandonné. Une estimation suffit."
+ },
+ "ACQ-11.13": {
+  "statut": "reformulée",
+  "constat": "Période absente pour une part de chiffre d'affaires.",
+  "texte": "Sur les 12 derniers mois, quelle part de votre chiffre d'affaires vient de la vente à emporter et de la livraison ?"
+ },
+ "ACQ-11.37": {
+  "statut": "reformulée",
+  "constat": "Période absente pour une part de chiffre d'affaires.",
+  "texte": "Sur les 12 derniers mois, quelle part de votre chiffre d'affaires vient de ce que vous vendez en plus : {hors_location} ?"
+ },
+ "ACQ-13.02": {
+  "statut": "reformulée",
+  "constat": "Période absente pour une part de chiffre d'affaires.",
+  "texte": "Sur les 12 derniers mois, quelle part de votre chiffre d'affaires a fait chacune de ces offres ?"
+ },
+ "ACQ-17.02": {
+  "statut": "reformulée",
+  "constat": "« L'an dernier » et « cette année » sont des années civiles : en janvier, « cette année » ne dure qu'un mois. Même donnée, sur 12 mois glissants.",
+  "texte": "Parmi vos clients de l'année d'avant, quelle part vous a de nouveau choisi sur les 12 derniers mois ?",
+  "aide": "L'année d'avant : les 12 mois qui précèdent les 12 derniers mois. Une estimation suffit. Si vous ne connaissez pas vos clients par leur nom, estimez la part d'habitués."
+ },
+ "ACQ-18.01": {
+  "statut": "reformulée",
+  "constat": "Choix unique alors qu'on peut demander à plusieurs moments : le dirigeant ne sait pas lequel donner.",
+  "aide": "Si vous le faites à plusieurs moments, choisissez le plus fréquent."
+ },
+ "ACQ-22.05": {
+  "statut": "à arbitrer",
+  "constat": "Le texte demande les créneaux proposés par semaine ; l'aide (« Les créneaux réservés sont déjà comptés avec vos rendez-vous ») laisse entendre qu'il ne faut compter que les créneaux libres. Les deux donnent des chiffres différents : laquelle des deux mesures le calcul de capacité attend-il ? Rien n'est modifié en attendant."
+ },
+ "COM-02.01": {
+  "statut": "reformulée",
+  "constat": "L'aide dit « Cochez » alors que le tableau se répond par Oui / Non.",
+  "aide": "Répondez « Oui » pour une catégorie, deux au plus."
+ },
+ "COM-12.01": {
+  "statut": "reformulée",
+  "constat": "Trois répartitions dans un tableau, mais le total de 100 % n'est imposé qu'à la première colonne (demandes) : les colonnes « nouveaux clients » et « chiffre d'affaires » acceptent n'importe quelle somme. Période absente ; rien ne dit qu'un client ne compte que dans un canal.",
+  "texte": "Sur les 12 derniers mois, quelle part de vos demandes, de vos nouveaux clients et de votre chiffre d'affaires est arrivée par chaque canal ?",
+  "aide": "Une ligne par canal coché. Chaque colonne fait 100 % : une demande, un client ou un euro ne compte que dans un canal, celui par lequel il est arrivé. Si l'agent Acquisition a déjà posé ces questions, les réponses sont reprises.",
+  "total_colonnes": [
+   "part_des_demandes",
+   "part_des_nouveaux_clients",
+   "part_du_chiffre_d_affaires_sur_12_mois"
+  ]
+ },
+ "COM-13.04": {
+  "statut": "reformulée",
+  "constat": "Période absente pour une répartition des visites.",
+  "texte": "Sur les 3 derniers mois, d'où sont venues les visites de votre site ?"
+ },
+ "COM-17.03": {
+  "statut": "reformulée",
+  "constat": "Période absente.",
+  "texte": "Sur les 3 derniers mois, quelle part des personnes touchées sur chaque réseau ne vous suivait pas encore ?"
+ },
+ "COM-22.04": {
+  "statut": "reformulée",
+  "constat": "Une seule répartition pour deux populations différentes (« les clients et les demandes ») et sans période. Mesure précisée sur les demandes, comme la ligne « Réseaux sociaux » de la répartition des demandes par canal (ACQ-03.02) : à valider.",
+  "texte": "Sur les 12 derniers mois, parmi les demandes qui vous sont venues des réseaux sociaux, quelle part est venue de chaque réseau ?",
+  "aide": "Une estimation suffit. Une demande compte dans un seul réseau : celui par lequel elle est arrivée. Leur nombre total est déjà demandé avec vos canaux : ici, on le répartit entre vos réseaux."
+ },
+ "COM-39.02": {
+  "statut": "reformulée",
+  "constat": "« Ces 6 publications » renvoie à COM-39.01, qui n'est pas posée quand les statistiques sont connectées (D26) : la question reste alors sans référence.",
+  "texte": "Pour vos 3 meilleures et vos 3 moins bonnes publications des 3 derniers mois, quel est leur texte et leur lien ?"
+ },
+ "FIN-01.02": {
+  "statut": "reformulée",
+  "constat": "Période absente pour une part de chiffre d'affaires (même correction que ACQ-13.02, donnée partagée).",
+  "texte": "Sur les 12 derniers mois, quelle part de votre chiffre d'affaires a fait chacune de ces offres ?"
+ },
+ "FIN-17.02": {
+  "statut": "à arbitrer",
+  "constat": "Répartition « des paiements » : on ne sait pas s'il faut compter les paiements (nombre de factures) ou les montants, et sans période. Pour la trésorerie, c'est le montant qui compte (interprétation). Période ajoutée ; la mesure (nombre ou montant) reste à trancher.",
+  "texte": "Sur les 12 derniers mois, en combien de temps vos clients vous ont-ils payé en réalité ?"
+ },
+ "RH-08.01": {
+  "statut": "corrigée (règle)",
+  "constat": "Doublon : la même question (« La personne la plus chargée, est-ce vous ? ») est posée au cadrage (D27) puis ici. RH-08.02 et RH-08.04 suivaient le cadrage seul : avec « Vous » au cadrage et « Une personne à l'administratif » ici, les questions sur cette personne disparaissaient. Correction : D27 devient la réponse à RH-08.01 (comme D03 → ACQ-03.01), le cadrage n'est plus posé.",
+  "regle": "D27 → réponse de RH-08.01 ; condition « D27 · si ce n'est pas vous » : RH-08.01 ≠ « Vous »"
+ },
+ "RH-11.02": {
+  "statut": "reformulée",
+  "constat": "Choix unique incomplet : beaucoup d'entreprises font les deux (intérim et heures supplémentaires).",
+  "options_ajoutees": [
+   {
+    "id": "les_deux",
+    "libelle": "Les deux"
+   }
+  ]
+ },
+ "RH-28.01": {
+  "statut": "corrigée (règle)",
+  "constat": "Doublon : la même question est posée au cadrage (D13 « Avez-vous recruté sur la période, ou prévoyez-vous de recruter ? ») puis ici, avec des choix différents. Les questions de recrutement (RH-28 à RH-33) suivaient le cadrage seul : deux réponses contradictoires étaient possibles. Correction : D13 devient la réponse à RH-28.01, le cadrage n'est plus posé ; « Les deux » compte comme « recruté » et « prévu ».",
+  "regle": "D13 → réponse de RH-28.01 ; « fait ou prévu » : J'ai recruté, Je prévois, Les deux ; « sur la période » : J'ai recruté, Les deux ; masquage : Ni l'un ni l'autre"
+ },
+ "RH-39.01": {
+  "statut": "reformulée",
+  "constat": "Choix incomplet : une entreprise sans changement d'organisation récent ne peut pas répondre.",
+  "options_ajoutees": [
+   {
+    "id": "aucun_changement_recent",
+    "libelle": "Aucun changement récent"
+   }
+  ]
+ }
+}

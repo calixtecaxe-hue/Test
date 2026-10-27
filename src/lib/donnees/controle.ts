@@ -11,7 +11,7 @@
 import { PREFIXE_AGENT, PROFILS, TAILLES } from "./schemas.ts";
 import type { CodeAgent, EnsembleDonnees } from "./schemas.ts";
 import { cleDuMot, variablesDuGabarit } from "./lexique.ts";
-import { groupesNumerotes, proposerSpec } from "./reponse-spec.ts";
+import { groupesNumerotes, proposerSpec, type ReponseSpec } from "./reponse-spec.ts";
 import type { Regle, RegleSimple } from "./schemas.ts";
 import { cleDeDonnee } from "../audit/affichage.ts";
 
@@ -395,6 +395,23 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     }
     if (q.reponse.type === "tableau" && q.reponse.lignes.source === "declencheur" && !(q.reponse.lignes.cle in e.reglesAffichage.declencheurs)) {
       erreurs.push(`Les lignes du tableau de ${q.donnee} viennent d'un déclencheur sans question de cadrage : ${q.reponse.lignes.cle}.`);
+    }
+  }
+  // Bornes (vérification du 28 octobre) : un nombre de personnes, d'heures, de jours ou d'euros ne peut pas être négatif, une part en %
+  // reste entre 0 et 100. Seuls le résultat de l'année et la trésorerie peuvent être négatifs.
+  const NEGATIF_PERMIS = new Set(["FIN-05.04", "FIN-11.01"]);
+  for (const q of e.banque) {
+    const champs: [string, ReponseSpec][] = !q.reponse
+      ? []
+      : q.reponse.type === "composite"
+        ? q.reponse.champs.map((c) => [`#${c.id}`, c.spec as ReponseSpec])
+        : q.reponse.type === "tableau"
+          ? q.reponse.colonnes.map((c) => [`#${c.id}`, c.spec as ReponseSpec])
+          : [["", q.reponse]];
+    for (const [chemin, s] of champs) {
+      if (s.type !== "nombre") continue;
+      if (s.unite === "pourcent" && (s.min === undefined || s.max === undefined)) erreurs.push(`${q.donnee}${chemin} : une part en % doit être bornée entre 0 et 100 (min et max).`);
+      else if (s.unite !== "pourcent" && s.unite !== "points" && s.min === undefined && !NEGATIF_PERMIS.has(q.donnee)) erreurs.push(`${q.donnee}${chemin} : ce nombre accepterait une valeur négative (min manquant).`);
     }
   }
   for (const q of e.banque) {

@@ -28,7 +28,7 @@ COLONNES = [
     ("options", "Options (A · B · C)", 34, True),
     ("champs", "Champs ou colonnes : Libellé [type] · Libellé [type]", 46, True),
     ("lignes", "Lignes du tableau", 34, True),
-    ("total", "Total imposé (Colonne = valeur)", 20, True),
+    ("total", "Total imposé (Colonne = valeur ; plusieurs colonnes séparées par « ; »)", 20, True),
     ("indice", "Ce que le format laisse entendre", 46, False),
 ]
 

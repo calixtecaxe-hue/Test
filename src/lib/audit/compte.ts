@@ -4,20 +4,23 @@ import { abonnementOuvert } from "@/lib/paiement/abonnement-serveur";
 import { reponseSchema, type Reponses } from "./reponse";
 import { ENSEMBLE } from "./donnees-audit";
 import { prereponseDe } from "./prereponse";
+import { reponsesActivesDuCompte, type CompteActif } from "./contexte-compte";
 
 // Toutes les réponses du compte, tous agents confondus (données partagées). Un chiffre proposé par CAXE et gardé tel
 // quel (budget marketing de la Finance) se met à jour quand le détail dont il vient a changé ; un chiffre que le
 // dirigeant a lui-même donné ou corrigé n'est jamais touché.
-export async function reponsesDuCompte(userId: string): Promise<Reponses> {
+// `compte` : pour calculer le total proposé sur les seules réponses actives (un canal décoché ne compte plus dans le coût).
+export async function reponsesDuCompte(userId: string, compte?: CompteActif): Promise<Reponses> {
   const lignes = await prisma.reponseAudit.findMany({ where: { userId }, select: { cle: true, reponse: true, preremplie: true } });
   const reponses: Reponses = {};
   for (const l of lignes) {
     const analyse = reponseSchema.safeParse(l.reponse);
     if (analyse.success) reponses[l.cle] = analyse.data;
   }
-  for (const l of lignes) {
-    if (!l.preremplie) continue;
-    const propose = prereponseDe(ENSEMBLE.prereponses, l.cle, reponses);
+  const preremplies = lignes.filter((l) => l.preremplie);
+  const actives = compte && preremplies.length > 0 ? reponsesActivesDuCompte(compte, reponses) : reponses;
+  for (const l of preremplies) {
+    const propose = prereponseDe(ENSEMBLE.prereponses, l.cle, actives);
     const actuelle = reponses[l.cle];
     if (!propose || (actuelle?.genre === "exact" && actuelle.valeur === propose.total)) continue;
     const nouvelle = { genre: "exact" as const, valeur: propose.total };

@@ -101,7 +101,7 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   } else if (actif && utilisateur.niveauAudit) {
     // Le niveau se change depuis l'étape « Niveau et contexte » du parcours (demande du propriétaire, 27 octobre : plus de
     // ligne de réglage en tête du questionnaire).
-    const reponses = await reponsesDuCompte(userId);
+    const reponses = await reponsesDuCompte(userId, utilisateur);
     const preremplies = await reponsesPreremplies(userId);
     // Saisies partielles de tableaux à total imposé, gardées sur le compte (jamais utilisées par le calcul).
     const brouillons = new Map((await prisma.brouillonReponse.findMany({ where: { userId } })).map((b) => [b.cle, b.saisie as Record<string, string>]));

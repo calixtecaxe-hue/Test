@@ -4,6 +4,7 @@
 //   « 12,5 » et « 12.5 »                                     → 12,5
 //   « 1.000 » et « 12.345.678 » (points de milliers)         → 1000 et 12345678
 //   « 1,234.56 » ou « 1.234,56 » (milliers + décimales)      → 1234,56
+//   « 50 % », « 1 200 € » (unité tapée à la fin)             → 50 et 1200
 //   « abc », « 1e999 », « 1,2,3 »                            → illisible (null)
 //
 // Un point suivi d'exactement trois chiffres est lu comme un séparateur de milliers : c'est
@@ -13,7 +14,8 @@
 // Ce fichier n'a aucune dépendance : il se teste directement avec Node.
 
 export function lireNombre(texte: string): number | null {
-  let t = texte.trim().replace(/[\s  ]/g, "");
+  // Une unité tapée à la fin (« 50 % », « 1 200 € ») ne change rien au nombre : l'unité est celle de la question.
+  let t = texte.trim().replace(/\s*(%|€|eur|euros?)$/i, "").replace(/[\s  ]/g, "");
   if (t === "") return null;
   if (!/^[-+]?[\d.,]+$/.test(t)) return null;
   const signe = t.startsWith("-") ? -1 : 1;

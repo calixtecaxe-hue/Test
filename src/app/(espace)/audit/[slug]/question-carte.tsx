@@ -7,7 +7,8 @@ import { formaterNombre, lireNombre } from "@/lib/audit/nombre";
 import type { Reponse, Reponses } from "@/lib/audit/reponse";
 import { construireReponse, saisieInitiale, type Saisie } from "@/lib/audit/saisie";
 import { ajouterLigne, groupesReglables, lignesInitiales, lignesRemplies, questionMeneuse, sansLigne, type GroupeLignes } from "@/lib/audit/lignes";
-import { LIBELLE_UNITE, appliquerExclusives, idsDeListe, type ChampNomme, type ChampSimple, type ReponseSpec } from "@/lib/donnees/reponse-spec";
+import { LIBELLE_UNITE, appliquerExclusives, colonnesDuTotal, idsDeListe, type ChampNomme, type ChampSimple, type ReponseSpec } from "@/lib/donnees/reponse-spec";
+import { etatTableau } from "@/lib/audit/reponses-actives";
 
 export type QuestionClient = {
   code: string;
@@ -119,6 +120,8 @@ type PropsCorps = {
   retirer: (groupe: number, ligne: string) => void;
   // La question d'où viennent les lignes, à répondre sur place tant que le tableau n'a pas de lignes.
   sourceEnLigne: React.ReactNode;
+  // Réponse enregistrée : une répartition dont les lignes ont changé depuis (choix ajouté ou retiré) le dit.
+  enregistree: Reponse | undefined;
 };
 
 // Lignes d'un tableau réglable ou qui suit un autre tableau : groupes, lignes affichées par groupe, noms repris.
@@ -132,7 +135,7 @@ function VersLaQuestion({ r }: { r: RenvoiLignes }) {
 }
 const citation = (r: RenvoiLignes) => `« ${r.texte} »${r.ici ? "" : `, dans l'audit ${r.agent}`}`;
 
-function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider, lignesDeclencheur, elementsDeListe, libellesLignes, lignes: reglage, ajouter, retirer, sourceEnLigne }: PropsCorps) {
+function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider, lignesDeclencheur, elementsDeListe, libellesLignes, lignes: reglage, ajouter, retirer, sourceEnLigne, enregistree }: PropsCorps) {
   const champs = saisie.champs ?? {};
 
   if (!spec) {
@@ -147,7 +150,9 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
     case "nombre": {
       const u = LIBELLE_UNITE[spec.unite];
       const estimation = saisie.sous === "estimation";
-      const retenue = !estimation && saisie.exact ? lireNombre(saisie.exact) : null;
+      const lu = !estimation && saisie.exact ? lireNombre(saisie.exact) : null;
+      // « Valeur retenue » seulement pour un chiffre accepté : un chiffre hors bornes est expliqué par l'erreur, pas annoncé comme retenu.
+      const retenue = lu !== null && (spec.min === undefined || lu >= spec.min) && (spec.max === undefined || lu <= spec.max) ? lu : null;
       return (
         <>
           <div role="group" aria-label="Façon de répondre" className="reponse-choix mt-4">
@@ -250,7 +255,11 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
       } else if (spec.lignes.source === "fixe") lignes = spec.lignes.items;
       else if (spec.lignes.source === "declencheur") {
         const cle = spec.lignes.cle;
-        lignes = lignesDeclencheur(cle).map((l) => ({ id: l, libelle: libellesLignes[cle]?.[l] ?? l }));
+        // Lignes dans l'ordre de la liste des choix, pas dans l'ordre où ils ont été cochés : décocher puis recocher un canal ne le
+        // déplace pas.
+        const ordre = Object.keys(libellesLignes[cle] ?? {});
+        const rang = (l: string) => (ordre.indexOf(l) < 0 ? ordre.length : ordre.indexOf(l));
+        lignes = [...lignesDeclencheur(cle)].sort((a, b) => rang(a) - rang(b)).map((l) => ({ id: l, libelle: libellesLignes[cle]?.[l] ?? l }));
       } else if (spec.lignes.source === "donnee") {
         const elements = elementsDeListe(spec.lignes.code);
         const ids = idsDeListe(elements);
@@ -273,7 +282,14 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
         );
       }
       const total = spec.total;
-      const somme = total ? lignes.reduce((s, l) => s + (lireNombre(champs[`${l.id}.${total.colonne}`] ?? "") ?? 0), 0) : 0;
+      // Somme de chaque colonne au total imposé (une seule en général ; COM-12.01 en a trois).
+      const sommes = total ? colonnesDuTotal(total).map((c) => ({ libelle: spec.colonnes.find((x) => x.id === c)?.libelle ?? c, somme: lignes.reduce((s, l) => s + (lireNombre(champs[`${l.id}.${c}`] ?? "") ?? 0), 0) })) : [];
+      // Répartition enregistrée dont les lignes ont changé depuis (choix ajouté ou retiré à la question d'origine) : elle ne compte
+      // plus tant qu'elle n'est pas complétée, et l'écran le dit ; aucune valeur n'est inventée ni redistribuée.
+      const lignesVenues = spec.lignes.source === "declencheur" || spec.lignes.source === "donnee";
+      const etat = total && lignesVenues && enregistree?.genre === "valeurs" ? etatTableau(spec, enregistree.valeurs, lignes.map((l) => l.id)) : null;
+      const nouvelles = etat ? lignes.filter((l) => etat.nouvelles.includes(l.id)).map((l) => l.libelle) : [];
+      const aRevoir = etat !== null && !etat.utilisable && (nouvelles.length > 0 || etat.retirees);
       // Tableau qui suit un autre tableau sans réponse encore : il garde ses lignes, et le dit.
       const suivraPlusTard = q.lignesSuivies && !reglage?.meneuse ? q.lignesSuivies.questions.find((r) => r.ici) ?? null : null;
       return (
@@ -345,7 +361,19 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
           ) : null}
           {total ? (
             <p className="champ-aide mt-2" aria-live="polite">
-              Total : {formaterNombre(somme)} sur {total.valeur}
+              {sommes.length === 1
+                ? `Total : ${formaterNombre(sommes[0].somme)} sur ${total.valeur}`
+                : sommes.map((x) => `${x.libelle} : ${formaterNombre(x.somme)} sur ${total.valeur}`).join(" · ")}
+            </p>
+          ) : null}
+          {aRevoir && total ? (
+            <p className="etat-attente mt-2 text-sm" role="status">
+              {nouvelles.length > 0
+                ? nouvelles.length === 1
+                  ? `« ${nouvelles[0]} » est nouveau depuis votre dernière répartition. Indiquez sa part (0 s'il n'en représente aucune) : le total doit de nouveau faire ${total.valeur}.`
+                  : `${nouvelles.map((n) => `« ${n} »`).join(", ")} sont nouveaux depuis votre dernière répartition. Indiquez leur part (0 pour aucune) : le total doit de nouveau faire ${total.valeur}.`
+                : `Une ligne a été retirée depuis votre réponse : le total ne fait plus ${total.valeur}. Complétez la répartition.`}{" "}
+              D&apos;ici là, cette répartition ne compte pas dans votre analyse.
             </p>
           ) : null}
         </div>
@@ -715,7 +743,7 @@ export function QuestionCarte({
           {prerempli && detailPrerempli && reponseDonnee ? (
             <p className="mt-3 text-sm text-[var(--text-muted)]">Rempli d&apos;après vos réponses précédentes ({detailPrerempli}). Il se met à jour si ce détail change ; corrigez le montant pour le garder tel quel.</p>
           ) : null}
-          {reponseDonnee ? <CorpsReponse q={q} id={id} spec={spec} saisie={saisie} surSaisie={surSaisie} setSaisie={setSaisie} poser={poser} vider={() => vider(false)} lignesDeclencheur={lignesDeclencheur} elementsDeListe={elementsDeListe} libellesLignes={libellesLignes} lignes={reglage} ajouter={ajouter} retirer={retirer} sourceEnLigne={sourceEnLigne} /> : null}
+          {reponseDonnee ? <CorpsReponse q={q} id={id} spec={spec} saisie={saisie} surSaisie={surSaisie} setSaisie={setSaisie} poser={poser} vider={() => vider(false)} lignesDeclencheur={lignesDeclencheur} elementsDeListe={elementsDeListe} libellesLignes={libellesLignes} lignes={reglage} ajouter={ajouter} retirer={retirer} sourceEnLigne={sourceEnLigne} enregistree={reponse} /> : null}
           <div role="group" aria-label="Autres réponses" className="reponse-choix mt-4">
             <button type="button" aria-pressed={mode === "inconnu"} onClick={() => choisirMode("inconnu")} className={`reponse-bouton${mode === "inconnu" ? " actif" : ""}`}>Je ne sais pas</button>
             <button type="button" aria-pressed={mode === "non_suivi"} onClick={() => choisirMode("non_suivi")} className={`reponse-bouton${mode === "non_suivi" ? " actif" : ""}`}>Je ne suis pas cette donnée</button>

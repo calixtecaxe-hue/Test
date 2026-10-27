@@ -20,6 +20,10 @@ export function tailleDepuisEffectif(personnes: number): TailleId {
 export type Valeur = string | number | string[];
 export type Lecteur = (cle: string) => Valeur | undefined;
 
+// Valeur lue pour une question qui ne s'applique pas à ce compte (masquée, ou elle-même suspendue à une question masquée) :
+// une condition qui la lit est fausse, jamais « en attente » (reponses-actives.ts).
+export const INAPPLICABLE = "\u0000inapplicable";
+
 // Vrai, faux, ou null quand une réponse manque encore.
 export type Tri = boolean | null;
 
@@ -28,6 +32,7 @@ type Simple = RegleSimple;
 function evaluerSimple(r: Simple, lire: Lecteur): Tri {
   const v = lire(r.cle);
   if (v === undefined) return r.op === "vide" ? true : null;
+  if (v === INAPPLICABLE) return r.op === "vide";
   const taille = Array.isArray(v) ? v.length : v === "" ? 0 : 1;
   switch (r.op) {
     case "plus_de":
@@ -134,13 +139,16 @@ function lireDonnee(reponses: Reponses, donnee: string, chemin: string | null): 
 // vaut « non » pendant l'audit : le brief de création se pose plus tard, à la première création. Une sous-question qui
 // n'a pas lieu d'être posée (« est-il en service ? » quand il n'y a pas
 // d'investissement) vaut « non ».
-export function lecteurDeclencheurs(reponses: Reponses, taille: TailleId, regles: ReglesAffichage): Lecteur {
+// `inapplicables` : données qui ne s'appliquent pas à ce compte ; les lire donne INAPPLICABLE.
+export function lecteurDeclencheurs(reponses: Reponses, taille: TailleId, regles: ReglesAffichage, inapplicables?: ReadonlySet<string>): Lecteur {
   return (cle) => {
     if (cle === "D02") return taille;
     if (cle === "D30") return "non";
     const donnee = cleDeDonnee(cle);
-    if (donnee) return lireDonnee(reponses, donnee.donnee, donnee.chemin);
     const forme0 = regles.declencheurs[cle.split(".")[0]];
+    const source = donnee?.donnee ?? (forme0?.type === "reponse_donnee" ? forme0.donnee : null);
+    if (source && inapplicables?.has(source)) return INAPPLICABLE;
+    if (donnee) return lireDonnee(reponses, donnee.donnee, donnee.chemin);
     if (forme0?.type === "reponse_donnee" && !cle.includes(".")) return lireDonnee(reponses, forme0.donnee, null);
     const direct = brut(reponses, cle);
     if (direct !== undefined) return direct;

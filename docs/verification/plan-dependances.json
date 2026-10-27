@@ -1,0 +1,4241 @@
+{
+ "genereLe": "2026-10-27T19:51:51.284Z",
+ "items": [
+  {
+   "id": "D-001",
+   "type": "condition",
+   "regle": "D03 · une ligne par canal coché",
+   "lisible": "ACQ-03.01 (D03) répondue",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille"
+     ]
+    }
+   },
+   "faux": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": []
+    }
+   },
+   "cles": [
+    "ACQ-03.01"
+   ],
+   "cibles": [
+    "ACQ-03.02",
+    "ACQ-03.03",
+    "ACQ-03.04",
+    "ACQ-03.06"
+   ],
+   "attenduVrai": [
+    "ACQ-03.02",
+    "ACQ-03.03",
+    "ACQ-03.04",
+    "ACQ-03.06"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-002",
+   "type": "condition",
+   "regle": "D04 · seulement les canaux payants cochés",
+   "lisible": "D04 (cadrage) = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D04": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D04": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D04"
+   ],
+   "cibles": [
+    "ACQ-03.05"
+   ],
+   "attenduVrai": [
+    "ACQ-03.05"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-003",
+   "type": "condition",
+   "regle": "D03 · si « prospection » est cochée",
+   "lisible": "ACQ-03.01 (D03) contient « Prospection »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "prospection"
+     ]
+    }
+   },
+   "faux": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille"
+     ]
+    }
+   },
+   "cles": [
+    "ACQ-03.01"
+   ],
+   "cibles": [
+    "ACQ-04.01",
+    "ACQ-04.02",
+    "ACQ-04.03",
+    "ACQ-04.04",
+    "ACQ-04.05",
+    "ACQ-04.06"
+   ],
+   "attenduVrai": [
+    "ACQ-04.01",
+    "ACQ-04.02",
+    "ACQ-04.03",
+    "ACQ-04.04",
+    "ACQ-04.05"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-004",
+   "type": "condition",
+   "regle": "D03 · si « partenaires » est coché",
+   "lisible": "ACQ-03.01 (D03) contient « Partenaires »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "partenaires"
+     ]
+    }
+   },
+   "faux": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille"
+     ]
+    }
+   },
+   "cles": [
+    "ACQ-03.01"
+   ],
+   "cibles": [
+    "ACQ-05.01",
+    "ACQ-05.02",
+    "ACQ-05.03",
+    "ACQ-05.04"
+   ],
+   "attenduVrai": [
+    "ACQ-05.01",
+    "ACQ-05.02",
+    "ACQ-05.03",
+    "ACQ-05.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-005",
+   "type": "condition",
+   "regle": "D03 · si « fiche Google » est cochée",
+   "lisible": "ACQ-03.01 (D03) contient « Fiche Google »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "fiche_google"
+     ]
+    }
+   },
+   "faux": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille"
+     ]
+    }
+   },
+   "cles": [
+    "ACQ-03.01"
+   ],
+   "cibles": [
+    "ACQ-06.01",
+    "ACQ-06.04",
+    "ACQ-06.06",
+    "ACQ-06.12",
+    "ACQ-06.13",
+    "COM-14.01",
+    "COM-14.02",
+    "COM-16.01"
+   ],
+   "attenduVrai": [
+    "ACQ-06.01",
+    "ACQ-06.04",
+    "ACQ-06.06",
+    "ACQ-06.12",
+    "ACQ-06.13"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-006",
+   "type": "condition",
+   "regle": "D03 · si « site » est coché",
+   "lisible": "ACQ-03.01 (D03) contient « Site internet »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "site_internet"
+     ]
+    }
+   },
+   "faux": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille"
+     ]
+    }
+   },
+   "cles": [
+    "ACQ-03.01"
+   ],
+   "cibles": [
+    "ACQ-06.07"
+   ],
+   "attenduVrai": [
+    "ACQ-06.07"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-007",
+   "type": "condition",
+   "regle": "D03 · si « plateformes » est coché",
+   "lisible": "ACQ-03.01 (D03) contient « Plateformes »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "plateformes"
+     ]
+    }
+   },
+   "faux": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille"
+     ]
+    }
+   },
+   "cles": [
+    "ACQ-03.01"
+   ],
+   "cibles": [
+    "ACQ-06.08",
+    "ACQ-07.02",
+    "ACQ-07.15"
+   ],
+   "attenduVrai": [
+    "ACQ-06.08",
+    "ACQ-07.02",
+    "ACQ-07.15"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-008",
+   "type": "condition",
+   "regle": "D04 · si publicité ou agence",
+   "lisible": "D04 (cadrage) = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D04": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D04": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D04"
+   ],
+   "cibles": [
+    "ACQ-07.01",
+    "ACQ-07.05"
+   ],
+   "attenduVrai": [
+    "ACQ-07.01",
+    "ACQ-07.05"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-009",
+   "type": "condition",
+   "regle": "D37 · si vous manquez des appels",
+   "lisible": "ACQ-08.02 > 0",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-08.02": {
+     "genre": "exact",
+     "valeur": 1
+    }
+   },
+   "faux": {
+    "ACQ-08.02": {
+     "genre": "exact",
+     "valeur": 0
+    }
+   },
+   "cles": [
+    "ACQ-08.02"
+   ],
+   "cibles": [
+    "ACQ-08.03"
+   ],
+   "attenduVrai": [
+    "ACQ-08.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-010",
+   "type": "condition",
+   "regle": "D05 · si activité sur rendez-vous",
+   "lisible": "D05 (cadrage) = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D05": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D05": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D05"
+   ],
+   "cibles": [
+    "ACQ-09.01",
+    "ACQ-09.02",
+    "ACQ-09.05",
+    "ACQ-09.06",
+    "ACQ-09.07",
+    "ACQ-22.05"
+   ],
+   "attenduVrai": [
+    "ACQ-09.01",
+    "ACQ-09.02",
+    "ACQ-09.06",
+    "ACQ-09.07",
+    "ACQ-22.05"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-011",
+   "type": "condition",
+   "regle": "D06 · si devis ou propositions",
+   "lisible": "D06 (cadrage) = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D06": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D06": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D06"
+   ],
+   "cibles": [
+    "ACQ-10.01",
+    "ACQ-10.03",
+    "ACQ-10.05",
+    "ACQ-10.06",
+    "ACQ-10.08",
+    "ACQ-10.09",
+    "ACQ-12.01",
+    "ACQ-12.02",
+    "ACQ-12.03",
+    "ACQ-12.04",
+    "FIN-19.01",
+    "FIN-19.02"
+   ],
+   "attenduVrai": [
+    "ACQ-10.01",
+    "ACQ-10.03",
+    "ACQ-10.05",
+    "ACQ-10.06",
+    "ACQ-10.08",
+    "ACQ-10.09",
+    "ACQ-12.01",
+    "ACQ-12.02",
+    "ACQ-12.03",
+    "ACQ-12.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-012",
+   "type": "condition",
+   "regle": "D36 · si vous relancez vos devis",
+   "lisible": "ACQ-10.06 > 0",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "D06": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "vrai": {
+    "ACQ-10.06": {
+     "genre": "exact",
+     "valeur": 1
+    }
+   },
+   "faux": {
+    "ACQ-10.06": {
+     "genre": "exact",
+     "valeur": 0
+    }
+   },
+   "cles": [
+    "ACQ-10.06"
+   ],
+   "cibles": [
+    "ACQ-10.07",
+    "ACQ-10.10",
+    "ACQ-10.11"
+   ],
+   "attenduVrai": [
+    "ACQ-10.07",
+    "ACQ-10.10",
+    "ACQ-10.11"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-013",
+   "type": "condition",
+   "regle": "D18 · si facturation au temps",
+   "lisible": "D18 (cadrage) = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D18": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D18": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D18"
+   ],
+   "cibles": [
+    "ACQ-13.03",
+    "ACQ-21.04",
+    "FIN-07.03",
+    "FIN-07.04"
+   ],
+   "attenduVrai": [
+    "ACQ-13.03",
+    "ACQ-21.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-014",
+   "type": "condition",
+   "regle": "D35 · si vous accordez des remises",
+   "lisible": "ACQ-14.01 > 0",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-14.01": {
+     "genre": "exact",
+     "valeur": 1
+    }
+   },
+   "faux": {
+    "ACQ-14.01": {
+     "genre": "exact",
+     "valeur": 0
+    }
+   },
+   "cles": [
+    "ACQ-14.01"
+   ],
+   "cibles": [
+    "ACQ-14.02",
+    "ACQ-14.04"
+   ],
+   "attenduVrai": [
+    "ACQ-14.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-015",
+   "type": "condition",
+   "regle": "D32 · si vous proposez un produit ou un service en plus",
+   "lisible": "ACQ-15.01 ≠ « Jamais »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-15.01": {
+     "genre": "saisie",
+     "valeur": "a_chaque_client"
+    }
+   },
+   "faux": {
+    "ACQ-15.01": {
+     "genre": "saisie",
+     "valeur": "jamais"
+    }
+   },
+   "cles": [
+    "ACQ-15.01"
+   ],
+   "cibles": [
+    "ACQ-15.02",
+    "ACQ-15.03"
+   ],
+   "attenduVrai": [
+    "ACQ-15.02",
+    "ACQ-15.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-016",
+   "type": "condition",
+   "regle": "D33 · si paiement en plusieurs fois proposé",
+   "lisible": "ACQ-15.09 = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "commerce",
+    "metier": "fleuriste",
+    "sousVariantes": [
+     "boutique"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-15.09": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "ACQ-15.09": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "ACQ-15.09"
+   ],
+   "cibles": [
+    "ACQ-15.10",
+    "ACQ-15.11",
+    "ACQ-15.12",
+    "ACQ-15.13"
+   ],
+   "attenduVrai": [
+    "ACQ-15.10",
+    "ACQ-15.11",
+    "ACQ-15.12",
+    "ACQ-15.13"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-017",
+   "type": "condition",
+   "regle": "D34 · si offre haut de gamme",
+   "lisible": "ACQ-15.04 = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-15.04": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "ACQ-15.04": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "ACQ-15.04"
+   ],
+   "cibles": [
+    "ACQ-15.14"
+   ],
+   "attenduVrai": [
+    "ACQ-15.14"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-018",
+   "type": "condition",
+   "regle": "D15 · si clients professionnels réguliers",
+   "lisible": "D15 (cadrage) = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "chantier",
+    "metier": "paysagiste",
+    "sousVariantes": [
+     "creation"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D15": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D15": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D15"
+   ],
+   "cibles": [
+    "ACQ-16.01",
+    "ACQ-16.02",
+    "ACQ-16.03",
+    "FIN-02.01",
+    "FIN-17.03",
+    "FIN-29.01"
+   ],
+   "attenduVrai": [
+    "ACQ-16.01",
+    "ACQ-16.02",
+    "ACQ-16.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-019",
+   "type": "condition",
+   "regle": "D38 · si des clients résilient",
+   "lisible": "ACQ-17.13 > 0",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "abonnement",
+    "metier": "salle-de-sport",
+    "sousVariantes": [],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-17.13": {
+     "genre": "exact",
+     "valeur": 1
+    }
+   },
+   "faux": {
+    "ACQ-17.13": {
+     "genre": "exact",
+     "valeur": 0
+    }
+   },
+   "cles": [
+    "ACQ-17.13"
+   ],
+   "cibles": [
+    "ACQ-17.14"
+   ],
+   "attenduVrai": [
+    "ACQ-17.14"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-020",
+   "type": "condition",
+   "regle": "D39 · si contrat d'entretien proposé",
+   "lisible": "ACQ-17.29 = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "chantier",
+    "metier": "paysagiste",
+    "sousVariantes": [
+     "creation"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-17.29": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "ACQ-17.29": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "ACQ-17.29"
+   ],
+   "cibles": [
+    "ACQ-17.30"
+   ],
+   "attenduVrai": [
+    "ACQ-17.30"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-021",
+   "type": "condition",
+   "regle": "D17 · si programme de parrainage",
+   "lisible": "ACQ-18.02 (D17) = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-18.02": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "ACQ-18.02": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "ACQ-18.02"
+   ],
+   "cibles": [
+    "ACQ-18.03",
+    "ACQ-18.07"
+   ],
+   "attenduVrai": [
+    "ACQ-18.03",
+    "ACQ-18.07"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-022",
+   "type": "condition",
+   "regle": "D19 · si travail planifié à l'avance",
+   "lisible": "D19 (cadrage) = « oui »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D19": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D19": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D19"
+   ],
+   "cibles": [
+    "ACQ-19.01",
+    "ACQ-19.02",
+    "ACQ-19.03",
+    "ACQ-19.04",
+    "FIN-21.01"
+   ],
+   "attenduVrai": [
+    "ACQ-19.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-024",
+   "type": "condition",
+   "regle": "D20 · s'il y a au moins un jour fermé",
+   "lisible": "ACQ-22.01 (D20) moins de N choix 7",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-22.01": {
+     "genre": "saisie",
+     "valeur": []
+    }
+   },
+   "faux": {
+    "ACQ-22.01": {
+     "genre": "saisie",
+     "valeur": [
+      "lundi",
+      "mardi",
+      "mercredi",
+      "jeudi",
+      "vendredi",
+      "samedi",
+      "dimanche"
+     ]
+    }
+   },
+   "cles": [
+    "ACQ-22.01"
+   ],
+   "cibles": [
+    "ACQ-22.04"
+   ],
+   "attenduVrai": [
+    "ACQ-22.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-025",
+   "type": "condition",
+   "regle": "D31 · sauf micro-entreprise",
+   "lisible": "FIN-47.01 ≠ « Micro-entreprise »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "FIN-47.01": {
+     "genre": "saisie",
+     "valeur": "entreprise_individuelle_au_reel"
+    }
+   },
+   "faux": {
+    "FIN-47.01": {
+     "genre": "saisie",
+     "valeur": "micro_entreprise"
+    }
+   },
+   "cles": [
+    "FIN-47.01"
+   ],
+   "cibles": [
+    "FIN-05.04"
+   ],
+   "attenduVrai": [
+    "FIN-05.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-026",
+   "type": "condition",
+   "regle": "D08 · si achats",
+   "lisible": "D08.achats (cadrage) = « oui »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D08.achats": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D08.achats": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D08.achats"
+   ],
+   "cibles": [
+    "FIN-08.01"
+   ],
+   "attenduVrai": [
+    "FIN-08.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-027",
+   "type": "condition",
+   "regle": "D08 · si sous-traitance",
+   "lisible": "D08.sous_traitance (cadrage) = « oui »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "D08.achats": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "vrai": {
+    "D08.sous_traitance": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D08.sous_traitance": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D08.sous_traitance"
+   ],
+   "cibles": [
+    "FIN-08.02"
+   ],
+   "attenduVrai": [
+    "FIN-08.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-028",
+   "type": "condition",
+   "regle": "D08 · si fournisseurs réguliers",
+   "lisible": "D08.fournisseurs (cadrage) = « oui »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "D08.achats": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "vrai": {
+    "D08.fournisseurs": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D08.fournisseurs": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D08.fournisseurs"
+   ],
+   "cibles": [
+    "FIN-08.03",
+    "FIN-08.04",
+    "FIN-08.05",
+    "FIN-20.01",
+    "FIN-20.02",
+    "FIN-20.03",
+    "FIN-20.04"
+   ],
+   "attenduVrai": [
+    "FIN-08.03",
+    "FIN-08.04",
+    "FIN-08.05",
+    "FIN-20.01",
+    "FIN-20.02",
+    "FIN-20.03",
+    "FIN-20.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-029",
+   "type": "condition",
+   "regle": "D07 · si stock",
+   "lisible": "D07 (cadrage) = « oui »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "D08.achats": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "vrai": {
+    "D07": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D07": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D07"
+   ],
+   "cibles": [
+    "FIN-08.06",
+    "FIN-37.01",
+    "FIN-37.02",
+    "FIN-37.03",
+    "FIN-37.04",
+    "FIN-39.01",
+    "FIN-39.02",
+    "FIN-39.03",
+    "FIN-40.01",
+    "FIN-40.02",
+    "FIN-41.01",
+    "FIN-42.01",
+    "FIN-43.02",
+    "FIN-44.01",
+    "FIN-45.01",
+    "FIN-45.02",
+    "FIN-45.03"
+   ],
+   "attenduVrai": [
+    "FIN-08.06",
+    "FIN-37.01",
+    "FIN-37.02",
+    "FIN-37.03",
+    "FIN-37.04",
+    "FIN-39.01",
+    "FIN-39.02",
+    "FIN-39.03",
+    "FIN-40.01",
+    "FIN-40.02",
+    "FIN-41.01",
+    "FIN-42.01",
+    "FIN-43.02",
+    "FIN-44.01",
+    "FIN-45.01",
+    "FIN-45.02",
+    "FIN-45.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-030",
+   "type": "condition",
+   "regle": "D40 · si reprises, retours ou gestes",
+   "lisible": "(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "FIN-10.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "reprises_par_mois": 1
+     }
+    }
+   },
+   "faux": {
+    "FIN-10.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "reprises_par_mois": 0,
+      "retours_par_mois": 0,
+      "gestes_commerciaux_par_mois": 0
+     }
+    }
+   },
+   "cles": [
+    "FIN-10.01"
+   ],
+   "cibles": [
+    "FIN-10.02",
+    "FIN-10.05"
+   ],
+   "attenduVrai": [
+    "FIN-10.02",
+    "FIN-10.05"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-031",
+   "type": "condition",
+   "regle": "D48 · si vous avez des reprises",
+   "lisible": "FIN-10.01 [reprises_par_mois] > 0",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "FIN-10.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "reprises_par_mois": 1
+     }
+    }
+   },
+   "faux": {
+    "FIN-10.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "reprises_par_mois": 0
+     }
+    }
+   },
+   "cles": [
+    "FIN-10.01"
+   ],
+   "cibles": [
+    "FIN-10.03"
+   ],
+   "attenduVrai": [
+    "FIN-10.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-032",
+   "type": "condition",
+   "regle": "D41 · si vous avez des retours",
+   "lisible": "FIN-10.01 [retours_par_mois] > 0",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "commerce",
+    "metier": "fleuriste",
+    "sousVariantes": [
+     "boutique"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "FIN-10.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "retours_par_mois": 1
+     }
+    }
+   },
+   "faux": {
+    "FIN-10.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "retours_par_mois": 0
+     }
+    }
+   },
+   "cles": [
+    "FIN-10.01"
+   ],
+   "cibles": [
+    "FIN-10.04"
+   ],
+   "attenduVrai": [
+    "FIN-10.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-033",
+   "type": "condition",
+   "regle": "D09 · si paiement après facture",
+   "lisible": "D09 (cadrage) = « oui »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "chantier",
+    "metier": "paysagiste",
+    "sousVariantes": [
+     "creation"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D09": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D09": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D09"
+   ],
+   "cibles": [
+    "FIN-16.01",
+    "FIN-16.02",
+    "FIN-16.03",
+    "FIN-16.04",
+    "FIN-17.01",
+    "FIN-17.02",
+    "FIN-17.04",
+    "FIN-17.10",
+    "FIN-18.01",
+    "FIN-18.02",
+    "FIN-18.03",
+    "FIN-18.04",
+    "FIN-18.05",
+    "FIN-18.06"
+   ],
+   "attenduVrai": [
+    "FIN-16.01",
+    "FIN-16.02",
+    "FIN-16.03",
+    "FIN-16.04",
+    "FIN-17.01",
+    "FIN-17.02",
+    "FIN-17.04",
+    "FIN-17.10",
+    "FIN-18.01",
+    "FIN-18.02",
+    "FIN-18.03",
+    "FIN-18.04",
+    "FIN-18.05",
+    "FIN-18.06"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-034",
+   "type": "condition",
+   "regle": "D43 · si remise pour paiement rapide",
+   "lisible": "FIN-20.03 = « oui »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "D08.fournisseurs": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "vrai": {
+    "FIN-20.03": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "FIN-20.03": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "FIN-20.03"
+   ],
+   "cibles": [
+    "FIN-20.08"
+   ],
+   "attenduVrai": [
+    "FIN-20.08"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-035",
+   "type": "condition",
+   "regle": "D10 · si crédit ou leasing en cours",
+   "lisible": "D10 (cadrage) = « oui »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D10": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D10": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D10"
+   ],
+   "cibles": [
+    "FIN-22.01",
+    "FIN-22.02"
+   ],
+   "attenduVrai": [
+    "FIN-22.01",
+    "FIN-22.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-036",
+   "type": "condition",
+   "regle": "D12 · si investissement prévu ou récent",
+   "lisible": "D12 (cadrage) = « oui »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D12": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D12": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D12"
+   ],
+   "cibles": [
+    "FIN-23.01",
+    "FIN-25.01",
+    "FIN-25.02",
+    "FIN-27.01"
+   ],
+   "attenduVrai": [
+    "FIN-23.01",
+    "FIN-25.01",
+    "FIN-25.02",
+    "FIN-27.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-037",
+   "type": "condition",
+   "regle": "D11 · si découvert sur la période",
+   "lisible": "D11 (cadrage) = « oui »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D11": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D11": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D11"
+   ],
+   "cibles": [
+    "FIN-24.01",
+    "FIN-24.02",
+    "FIN-24.03",
+    "FIN-24.04",
+    "FIN-24.05"
+   ],
+   "attenduVrai": [
+    "FIN-24.01",
+    "FIN-24.02",
+    "FIN-24.03",
+    "FIN-24.04",
+    "FIN-24.05"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-038",
+   "type": "condition",
+   "regle": "D12 · si investissement déjà en service",
+   "lisible": "D12.en_service (cadrage) = « oui »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "D12": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "vrai": {
+    "D12.en_service": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D12.en_service": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D12.en_service"
+   ],
+   "cibles": [
+    "FIN-28.01",
+    "FIN-28.02"
+   ],
+   "attenduVrai": [
+    "FIN-28.01",
+    "FIN-28.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-039",
+   "type": "condition",
+   "regle": "D42 · si vous avez des ruptures",
+   "lisible": "FIN-41.01 [ruptures_par_mois] > 0",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "D07": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "vrai": {
+    "FIN-41.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "ruptures_par_mois": 1
+     }
+    }
+   },
+   "faux": {
+    "FIN-41.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "ruptures_par_mois": 0
+     }
+    }
+   },
+   "cles": [
+    "FIN-41.01"
+   ],
+   "cibles": [
+    "FIN-41.02"
+   ],
+   "attenduVrai": [
+    "FIN-41.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-040",
+   "type": "condition",
+   "regle": "D31 · si micro-entreprise ou entreprise individuelle",
+   "lisible": "FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "FIN-47.01": {
+     "genre": "saisie",
+     "valeur": "micro_entreprise"
+    }
+   },
+   "faux": {
+    "FIN-47.01": {
+     "genre": "saisie",
+     "valeur": "societe_sarl_eurl_sas_sasu"
+    }
+   },
+   "cles": [
+    "FIN-47.01"
+   ],
+   "cibles": [
+    "FIN-47.02"
+   ],
+   "attenduVrai": [
+    "FIN-47.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-041",
+   "type": "condition",
+   "regle": "D44 · si vous avez confié des tâches",
+   "lisible": "RH-04.01 > 0",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 4
+   },
+   "base": {},
+   "vrai": {
+    "RH-04.01": {
+     "genre": "exact",
+     "valeur": 1
+    }
+   },
+   "faux": {
+    "RH-04.01": {
+     "genre": "exact",
+     "valeur": 0
+    }
+   },
+   "cles": [
+    "RH-04.01"
+   ],
+   "cibles": [
+    "RH-04.02"
+   ],
+   "attenduVrai": [
+    "RH-04.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-042",
+   "type": "condition",
+   "regle": "D45 · si vous avez dû reprendre des tâches en main",
+   "lisible": "RH-04.02 > 0",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 4
+   },
+   "base": {
+    "RH-04.01": {
+     "genre": "exact",
+     "valeur": 1
+    }
+   },
+   "vrai": {
+    "RH-04.02": {
+     "genre": "exact",
+     "valeur": 1
+    }
+   },
+   "faux": {
+    "RH-04.02": {
+     "genre": "exact",
+     "valeur": 0
+    }
+   },
+   "cles": [
+    "RH-04.02"
+   ],
+   "cibles": [
+    "RH-04.03",
+    "RH-04.04",
+    "RH-04.05"
+   ],
+   "attenduVrai": [
+    "RH-04.03",
+    "RH-04.04",
+    "RH-04.05"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-043",
+   "type": "condition",
+   "regle": "D46 · s'il y a des heures supplémentaires",
+   "lisible": "RH-06.05 ≠ « Aucune »",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 4
+   },
+   "base": {},
+   "vrai": {
+    "RH-06.05": {
+     "genre": "saisie",
+     "valeur": "1_a_3"
+    }
+   },
+   "faux": {
+    "RH-06.05": {
+     "genre": "saisie",
+     "valeur": "aucune"
+    }
+   },
+   "cles": [
+    "RH-06.05"
+   ],
+   "cibles": [
+    "RH-06.06",
+    "RH-06.07"
+   ],
+   "attenduVrai": [
+    "RH-06.06",
+    "RH-06.07"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-044",
+   "type": "condition",
+   "regle": "D27 · si ce n'est pas vous (sinon RH-05)",
+   "lisible": "RH-08.01 (D27) ≠ « Vous »",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 4
+   },
+   "base": {},
+   "vrai": {
+    "RH-08.01": {
+     "genre": "saisie",
+     "valeur": "une_personne_qui_fait_le_travail_pour_le"
+    }
+   },
+   "faux": {
+    "RH-08.01": {
+     "genre": "saisie",
+     "valeur": "vous"
+    }
+   },
+   "cles": [
+    "RH-08.01"
+   ],
+   "cibles": [
+    "RH-08.02",
+    "RH-08.04"
+   ],
+   "attenduVrai": [
+    "RH-08.02",
+    "RH-08.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-045",
+   "type": "condition",
+   "regle": "D47 · si du matériel ralentit le travail",
+   "lisible": "RH-15.02 = « oui »",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "RH-15.02": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "RH-15.02": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "RH-15.02"
+   ],
+   "cibles": [
+    "RH-15.03"
+   ],
+   "attenduVrai": [
+    "RH-15.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-046",
+   "type": "condition",
+   "regle": "D49 · si vous avez des reprises",
+   "lisible": "RH-16.01 [reprises_par_mois] > 0",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "RH-16.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "reprises_par_mois": 1
+     }
+    }
+   },
+   "faux": {
+    "RH-16.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "reprises_par_mois": 0
+     }
+    }
+   },
+   "cles": [
+    "RH-16.01"
+   ],
+   "cibles": [
+    "RH-16.02",
+    "RH-16.03",
+    "RH-16.04"
+   ],
+   "attenduVrai": [
+    "RH-16.02",
+    "RH-16.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-047",
+   "type": "condition",
+   "regle": "D50 · si vous faites des réunions",
+   "lisible": "RH-19.01 [reunions_par_mois] > 0",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 8
+   },
+   "base": {},
+   "vrai": {
+    "RH-19.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "reunions_par_mois": 1
+     }
+    }
+   },
+   "faux": {
+    "RH-19.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "reunions_par_mois": 0
+     }
+    }
+   },
+   "cles": [
+    "RH-19.01"
+   ],
+   "cibles": [
+    "RH-19.02",
+    "RH-19.04"
+   ],
+   "attenduVrai": [
+    "RH-19.02",
+    "RH-19.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-048",
+   "type": "condition",
+   "regle": "D53 · si l'équipe a été formée",
+   "lisible": "RH-25.01 [jours_de_formation] > 0",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 8
+   },
+   "base": {},
+   "vrai": {
+    "RH-25.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "jours_de_formation": 1
+     }
+    }
+   },
+   "faux": {
+    "RH-25.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "jours_de_formation": 0
+     }
+    }
+   },
+   "cles": [
+    "RH-25.01"
+   ],
+   "cibles": [
+    "RH-26.01"
+   ],
+   "attenduVrai": [
+    "RH-26.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-049",
+   "type": "condition",
+   "regle": "D13 · si recrutement fait ou prévu",
+   "lisible": "RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "RH-28.01": {
+     "genre": "saisie",
+     "valeur": "j_ai_recrute"
+    }
+   },
+   "faux": {
+    "RH-28.01": {
+     "genre": "saisie",
+     "valeur": "ni_l_un_ni_l_autre"
+    }
+   },
+   "cles": [
+    "RH-28.01"
+   ],
+   "cibles": [
+    "RH-28.02",
+    "RH-28.03",
+    "RH-28.06",
+    "RH-28.09",
+    "RH-28.10",
+    "RH-29.01",
+    "RH-30.01",
+    "RH-31.01",
+    "RH-31.02",
+    "RH-31.03"
+   ],
+   "attenduVrai": [
+    "RH-28.02",
+    "RH-28.03",
+    "RH-28.09",
+    "RH-28.10",
+    "RH-29.01",
+    "RH-30.01",
+    "RH-31.01",
+    "RH-31.02",
+    "RH-31.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-050",
+   "type": "condition",
+   "regle": "D13 · si recrutement sur la période",
+   "lisible": "RH-28.01 (D13) parmi « J'ai recruté », « Les deux »",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 8
+   },
+   "base": {},
+   "vrai": {
+    "RH-28.01": {
+     "genre": "saisie",
+     "valeur": "j_ai_recrute"
+    }
+   },
+   "faux": {
+    "RH-28.01": {
+     "genre": "saisie",
+     "valeur": "je_prevois_de_recruter"
+    }
+   },
+   "cles": [
+    "RH-28.01"
+   ],
+   "cibles": [
+    "RH-28.04",
+    "RH-28.05",
+    "RH-33.01"
+   ],
+   "attenduVrai": [
+    "RH-28.04",
+    "RH-28.05",
+    "RH-33.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-051",
+   "type": "condition",
+   "regle": "D54 · s'il y a eu des départs",
+   "lisible": "(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 8
+   },
+   "base": {},
+   "vrai": {
+    "RH-32.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "demission.departs": 1
+     }
+    }
+   },
+   "faux": {
+    "RH-32.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "demission.departs": 0,
+      "fin_de_periode_d_essai.departs": 0,
+      "rupture_conventionnelle.departs": 0,
+      "licenciement.departs": 0,
+      "fin_de_contrat.departs": 0
+     }
+    }
+   },
+   "cles": [
+    "RH-32.01"
+   ],
+   "cibles": [
+    "RH-32.03",
+    "RH-32.04"
+   ],
+   "attenduVrai": [
+    "RH-32.03",
+    "RH-32.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-052",
+   "type": "condition",
+   "regle": "D55 · s'il y a eu des absences",
+   "lisible": "RH-34.01 > 0",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 8
+   },
+   "base": {},
+   "vrai": {
+    "RH-34.01": {
+     "genre": "exact",
+     "valeur": 1
+    }
+   },
+   "faux": {
+    "RH-34.01": {
+     "genre": "exact",
+     "valeur": 0
+    }
+   },
+   "cles": [
+    "RH-34.01"
+   ],
+   "cibles": [
+    "RH-34.03"
+   ],
+   "attenduVrai": [
+    "RH-34.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-054",
+   "type": "condition",
+   "regle": "D28 · si vous voulez être aidé",
+   "lisible": "RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "RH-41.01": {
+     "genre": "saisie",
+     "valeur": "oui_dans_les_6_prochains_mois"
+    }
+   },
+   "faux": {
+    "RH-41.01": {
+     "genre": "saisie",
+     "valeur": "non_je_prefere_rester_seul"
+    }
+   },
+   "cles": [
+    "RH-41.01"
+   ],
+   "cibles": [
+    "RH-41.02",
+    "RH-41.03",
+    "RH-42.01",
+    "RH-42.02",
+    "RH-43.01",
+    "RH-43.02",
+    "RH-43.03",
+    "RH-44.01",
+    "RH-44.02"
+   ],
+   "attenduVrai": [
+    "RH-41.02",
+    "RH-41.03",
+    "RH-42.01",
+    "RH-42.02",
+    "RH-43.01",
+    "RH-43.02",
+    "RH-43.03",
+    "RH-44.01",
+    "RH-44.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-055",
+   "type": "condition",
+   "regle": "D29 · si l'expérience s'est mal passée",
+   "lisible": "RH-44.02 = « Oui, mais ça s'est mal passé »",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "RH-41.01": {
+     "genre": "saisie",
+     "valeur": "oui_dans_les_6_prochains_mois"
+    }
+   },
+   "vrai": {
+    "RH-44.02": {
+     "genre": "saisie",
+     "valeur": "oui_mais_ca_s_est_mal_passe"
+    }
+   },
+   "faux": {
+    "RH-44.02": {
+     "genre": "saisie",
+     "valeur": "oui_et_ca_s_est_bien_passe"
+    }
+   },
+   "cles": [
+    "RH-44.02"
+   ],
+   "cibles": [
+    "RH-44.03"
+   ],
+   "attenduVrai": [
+    "RH-44.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-056",
+   "type": "condition",
+   "regle": "D51 · si des objectifs existent",
+   "lisible": "RH-48.01 ≠ « Pour personne »",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 4
+   },
+   "base": {},
+   "vrai": {
+    "RH-48.01": {
+     "genre": "saisie",
+     "valeur": "pour_tous"
+    }
+   },
+   "faux": {
+    "RH-48.01": {
+     "genre": "saisie",
+     "valeur": "pour_personne"
+    }
+   },
+   "cles": [
+    "RH-48.01"
+   ],
+   "cibles": [
+    "RH-48.02"
+   ],
+   "attenduVrai": [
+    "RH-48.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-057",
+   "type": "condition",
+   "regle": "D52 · s'il y a des responsables",
+   "lisible": "RH-49.01 [responsables_vous_non_compris] > 0",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 8
+   },
+   "base": {},
+   "vrai": {
+    "RH-49.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "responsables_vous_non_compris": 1
+     }
+    }
+   },
+   "faux": {
+    "RH-49.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "responsables_vous_non_compris": 0
+     }
+    }
+   },
+   "cles": [
+    "RH-49.01"
+   ],
+   "cibles": [
+    "RH-49.02"
+   ],
+   "attenduVrai": [
+    "RH-49.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-058",
+   "type": "condition",
+   "regle": "D56 · si garantie proposée",
+   "lisible": "COM-05.01 ≠ « Aucune »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "COM-05.01": {
+     "genre": "saisie",
+     "valeur": "satisfait_ou_rembourse"
+    }
+   },
+   "faux": {
+    "COM-05.01": {
+     "genre": "saisie",
+     "valeur": "aucune"
+    }
+   },
+   "cles": [
+    "COM-05.01"
+   ],
+   "cibles": [
+    "COM-05.02"
+   ],
+   "attenduVrai": [
+    "COM-05.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-059",
+   "type": "condition",
+   "regle": "D22 · une ligne par réseau utilisé",
+   "lisible": "COM-10.08 (D22) répondue",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    }
+   },
+   "vrai": {
+    "COM-10.08": {
+     "genre": "saisie",
+     "valeur": [
+      "linkedin"
+     ]
+    }
+   },
+   "faux": {
+    "COM-10.08": {
+     "genre": "saisie",
+     "valeur": []
+    }
+   },
+   "cles": [
+    "COM-10.08"
+   ],
+   "cibles": [
+    "COM-10.01",
+    "COM-17.01",
+    "COM-17.02",
+    "COM-17.03",
+    "COM-18.01",
+    "COM-19.01",
+    "COM-31.03",
+    "COM-37.01",
+    "COM-59.01"
+   ],
+   "attenduVrai": [
+    "COM-10.01",
+    "COM-17.01",
+    "COM-17.02",
+    "COM-17.03",
+    "COM-18.01",
+    "COM-19.01",
+    "COM-31.03",
+    "COM-37.01",
+    "COM-59.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-060",
+   "type": "condition",
+   "regle": "D21 · si vous ne publiez pas encore",
+   "lisible": "COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "rarement_ou_plus_du_tout"
+    }
+   },
+   "faux": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    }
+   },
+   "cles": [
+    "COM-10.07"
+   ],
+   "cibles": [
+    "COM-10.03",
+    "COM-10.04",
+    "COM-10.05",
+    "COM-56.01",
+    "COM-56.02",
+    "COM-56.03",
+    "COM-56.04"
+   ],
+   "attenduVrai": [
+    "COM-10.03",
+    "COM-10.04",
+    "COM-10.05",
+    "COM-56.01",
+    "COM-56.02",
+    "COM-56.03",
+    "COM-56.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-061",
+   "type": "condition",
+   "regle": "D21 · si vous publiez déjà",
+   "lisible": "COM-10.07 (D21) = « Oui, au moins une fois par mois »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    }
+   },
+   "faux": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "rarement_ou_plus_du_tout"
+    }
+   },
+   "cles": [
+    "COM-10.07"
+   ],
+   "cibles": [
+    "COM-10.08",
+    "COM-25.01",
+    "COM-26.01",
+    "COM-27.02",
+    "COM-28.01",
+    "COM-31.04",
+    "COM-33.01",
+    "COM-34.01",
+    "COM-34.02",
+    "COM-35.01",
+    "COM-39.02",
+    "COM-39.07",
+    "COM-47.01",
+    "COM-55.01",
+    "COM-60.01",
+    "COM-61.01"
+   ],
+   "attenduVrai": [
+    "COM-10.08",
+    "COM-25.01",
+    "COM-26.01",
+    "COM-27.02",
+    "COM-28.01",
+    "COM-31.04",
+    "COM-33.01",
+    "COM-34.01",
+    "COM-34.02",
+    "COM-35.01",
+    "COM-39.02",
+    "COM-39.07",
+    "COM-47.01",
+    "COM-55.01",
+    "COM-60.01",
+    "COM-61.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-062",
+   "type": "condition",
+   "regle": "D23 · si site",
+   "lisible": "COM-13.10 (D23) = « oui »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille"
+     ]
+    }
+   },
+   "vrai": {
+    "COM-13.10": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "COM-13.10": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "COM-13.10"
+   ],
+   "cibles": [
+    "COM-13.01",
+    "COM-13.02",
+    "COM-13.03",
+    "COM-13.11",
+    "COM-62.01",
+    "COM-62.02",
+    "COM-62.03",
+    "COM-62.04",
+    "COM-62.05",
+    "COM-62.06",
+    "COM-62.07",
+    "COM-62.08"
+   ],
+   "attenduVrai": [
+    "COM-13.01",
+    "COM-13.02",
+    "COM-13.03",
+    "COM-13.11",
+    "COM-62.01",
+    "COM-62.02",
+    "COM-62.03",
+    "COM-62.04",
+    "COM-62.05",
+    "COM-62.06",
+    "COM-62.07",
+    "COM-62.08"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-063",
+   "type": "condition",
+   "regle": "D23 · si outil de mesure du site",
+   "lisible": "COM-13.02 ≠ « Aucun »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-13.10": {
+     "genre": "saisie",
+     "valeur": "oui"
+    },
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille"
+     ]
+    }
+   },
+   "vrai": {
+    "COM-13.02": {
+     "genre": "saisie",
+     "valeur": "google_analytics"
+    }
+   },
+   "faux": {
+    "COM-13.02": {
+     "genre": "saisie",
+     "valeur": "aucun"
+    }
+   },
+   "cles": [
+    "COM-13.02"
+   ],
+   "cibles": [
+    "COM-13.04",
+    "COM-13.05",
+    "COM-13.06"
+   ],
+   "attenduVrai": [
+    "COM-13.04",
+    "COM-13.05",
+    "COM-13.06"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-064",
+   "type": "condition",
+   "regle": "D03 · si « Site internet » n'est pas coché",
+   "lisible": "ACQ-03.01 (D03) ne contient pas « Site internet »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille"
+     ]
+    }
+   },
+   "faux": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille",
+      "site_internet"
+     ]
+    }
+   },
+   "cles": [
+    "ACQ-03.01"
+   ],
+   "cibles": [
+    "COM-13.10"
+   ],
+   "attenduVrai": [
+    "COM-13.10"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-065",
+   "type": "condition",
+   "regle": "D24 · si fichier de contacts",
+   "lisible": "COM-15.12 (D24) = « oui »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "COM-15.12": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "COM-15.12": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "COM-15.12"
+   ],
+   "cibles": [
+    "COM-15.01",
+    "COM-15.02",
+    "COM-15.03",
+    "COM-15.05"
+   ],
+   "attenduVrai": [
+    "COM-15.01",
+    "COM-15.02",
+    "COM-15.03",
+    "COM-15.05"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-066",
+   "type": "condition",
+   "regle": "D58 · si vous écrivez à votre fichier",
+   "lisible": "COM-15.03 [envois_sur_6_mois] > 0",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-15.12": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "vrai": {
+    "COM-15.03": {
+     "genre": "valeurs",
+     "valeurs": {
+      "envois_sur_6_mois": 1
+     }
+    }
+   },
+   "faux": {
+    "COM-15.03": {
+     "genre": "valeurs",
+     "valeurs": {
+      "envois_sur_6_mois": 0
+     }
+    }
+   },
+   "cles": [
+    "COM-15.03"
+   ],
+   "cibles": [
+    "COM-15.04",
+    "COM-15.06"
+   ],
+   "attenduVrai": [
+    "COM-15.04",
+    "COM-15.06"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-067",
+   "type": "condition",
+   "regle": "D25 · si offre d'appel",
+   "lisible": "COM-21.01 (D25) ≠ « Non, rien »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "COM-21.01": {
+     "genre": "saisie",
+     "valeur": "guide_ou_liste_de_conseils"
+    }
+   },
+   "faux": {
+    "COM-21.01": {
+     "genre": "saisie",
+     "valeur": "non_rien"
+    }
+   },
+   "cles": [
+    "COM-21.01"
+   ],
+   "cibles": [
+    "COM-21.02",
+    "COM-21.03",
+    "COM-21.04"
+   ],
+   "attenduVrai": [
+    "COM-21.02",
+    "COM-21.03",
+    "COM-21.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-068",
+   "type": "condition",
+   "regle": "D03 · si « Réseaux sociaux » est coché",
+   "lisible": "ACQ-03.01 (D03) contient « Réseaux sociaux »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    }
+   },
+   "vrai": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "reseaux_sociaux"
+     ]
+    }
+   },
+   "faux": {
+    "ACQ-03.01": {
+     "genre": "saisie",
+     "valeur": [
+      "bouche_a_oreille"
+     ]
+    }
+   },
+   "cles": [
+    "ACQ-03.01"
+   ],
+   "cibles": [
+    "COM-22.04"
+   ],
+   "attenduVrai": [
+    "COM-22.04"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-069",
+   "type": "condition",
+   "regle": "D59 · si vous recevez des messages",
+   "lisible": "(COM-23.01 [instagram.messages_par_mois] > 0 OU COM-23.01 [facebook_et_messenger.messages_par_mois] > 0 OU COM-23.01 [linkedin.messages_par_mois] > 0 OU COM-23.01 [whatsapp.messages_par_mois] > 0 OU COM-23.01 [tiktok.messages_par_mois] > 0 OU COM-23.01 [chat_du_site.messages_par_mois] > 0)",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    }
+   },
+   "vrai": {
+    "COM-23.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "instagram.messages_par_mois": 1
+     }
+    }
+   },
+   "faux": {
+    "COM-23.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "instagram.messages_par_mois": 0,
+      "facebook_et_messenger.messages_par_mois": 0,
+      "linkedin.messages_par_mois": 0,
+      "whatsapp.messages_par_mois": 0,
+      "tiktok.messages_par_mois": 0,
+      "chat_du_site.messages_par_mois": 0
+     }
+    }
+   },
+   "cles": [
+    "COM-23.01"
+   ],
+   "cibles": [
+    "COM-23.02",
+    "COM-23.03"
+   ],
+   "attenduVrai": [
+    "COM-23.02",
+    "COM-23.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-070",
+   "type": "condition",
+   "regle": "D60 · si vous consacrez du temps à la communication",
+   "lisible": "(COM-31.01 [trouver_les_idees_et_ecrire.heures_par_semaine] > 0 OU COM-31.01 [photos_videos_et_montage.heures_par_semaine] > 0 OU COM-31.01 [publier_et_programmer.heures_par_semaine] > 0 OU COM-31.01 [repondre_aux_commentaires_messages_et_av.heures_par_semaine] > 0 OU COM-31.01 [emails_et_site.heures_par_semaine] > 0 OU COM-31.01 [regarder_les_statistiques.heures_par_semaine] > 0)",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    }
+   },
+   "vrai": {
+    "COM-31.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "trouver_les_idees_et_ecrire.heures_par_semaine": 1
+     }
+    }
+   },
+   "faux": {
+    "COM-31.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "trouver_les_idees_et_ecrire.heures_par_semaine": 0,
+      "photos_videos_et_montage.heures_par_semaine": 0,
+      "publier_et_programmer.heures_par_semaine": 0,
+      "repondre_aux_commentaires_messages_et_av.heures_par_semaine": 0,
+      "emails_et_site.heures_par_semaine": 0,
+      "regarder_les_statistiques.heures_par_semaine": 0
+     }
+    }
+   },
+   "cles": [
+    "COM-31.01"
+   ],
+   "cibles": [
+    "COM-31.02"
+   ],
+   "attenduVrai": [
+    "COM-31.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-071",
+   "type": "condition",
+   "regle": "D26 · saisie si les statistiques ne sont pas connectées",
+   "lisible": "COM-39.07 (D26) = « oui »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    }
+   },
+   "vrai": {
+    "COM-39.07": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "COM-39.07": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "COM-39.07"
+   ],
+   "cibles": [
+    "COM-39.01"
+   ],
+   "attenduVrai": [
+    "COM-39.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-072",
+   "type": "condition",
+   "regle": "D26 + D63 · si accès aux statistiques et vidéos publiées",
+   "lisible": "COM-39.07 (D26) = « oui » ET (COM-26.01 [video_courte.publications] > 0 OU COM-26.01 [video_longue.publications] > 0)",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    },
+    "COM-26.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "video_courte.publications": 1
+     }
+    }
+   },
+   "vrai": {
+    "COM-39.07": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "COM-39.07": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "COM-39.07"
+   ],
+   "cibles": [
+    "COM-39.03"
+   ],
+   "attenduVrai": [
+    "COM-39.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-073",
+   "type": "condition",
+   "regle": "D61 · si vous avez des avis",
+   "lisible": "COM-44.01 [avis_au_total] > 0",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "COM-44.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "avis_au_total": 1
+     }
+    }
+   },
+   "faux": {
+    "COM-44.01": {
+     "genre": "valeurs",
+     "valeurs": {
+      "avis_au_total": 0
+     }
+    }
+   },
+   "cles": [
+    "COM-44.01"
+   ],
+   "cibles": [
+    "COM-44.03",
+    "COM-44.04",
+    "COM-46.01",
+    "COM-46.02"
+   ],
+   "attenduVrai": [
+    "COM-44.03",
+    "COM-44.04",
+    "COM-46.01",
+    "COM-46.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-074",
+   "type": "condition",
+   "regle": "D62 · si vous demandez des avis",
+   "lisible": "COM-45.01 ≠ « Jamais »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "COM-45.01": {
+     "genre": "saisie",
+     "valeur": "a_chaque_client"
+    }
+   },
+   "faux": {
+    "COM-45.01": {
+     "genre": "saisie",
+     "valeur": "jamais"
+    }
+   },
+   "cles": [
+    "COM-45.01"
+   ],
+   "cibles": [
+    "COM-45.02"
+   ],
+   "attenduVrai": [
+    "COM-45.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-075",
+   "type": "condition",
+   "regle": "D64 · si le profil mène vers une page",
+   "lisible": "COM-60.01 ≠ « Il n'y a pas de lien sur mon profil »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    }
+   },
+   "vrai": {
+    "COM-60.01": {
+     "genre": "saisie",
+     "valeur": "une_page_faite_pour_votre_offre_principa"
+    }
+   },
+   "faux": {
+    "COM-60.01": {
+     "genre": "saisie",
+     "valeur": "il_n_y_a_pas_de_lien_sur_mon_profil"
+    }
+   },
+   "cles": [
+    "COM-60.01"
+   ],
+   "cibles": [
+    "COM-60.02"
+   ],
+   "attenduVrai": [
+    "COM-60.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-076",
+   "type": "condition",
+   "regle": "D65 · si vous leur écrivez en message privé",
+   "lisible": "COM-61.01 contient « Je leur écris en message privé »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    }
+   },
+   "vrai": {
+    "COM-61.01": {
+     "genre": "saisie",
+     "valeur": [
+      "je_leur_ecris_en_message_prive"
+     ]
+    }
+   },
+   "faux": {
+    "COM-61.01": {
+     "genre": "saisie",
+     "valeur": [
+      "je_les_ajoute_a_mon_fichier_de_contacts"
+     ]
+    }
+   },
+   "cles": [
+    "COM-61.01"
+   ],
+   "cibles": [
+    "COM-61.02"
+   ],
+   "attenduVrai": [
+    "COM-61.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "D-077",
+   "type": "condition",
+   "regle": "COM-63.01 · si vous faites de la publicité Google",
+   "lisible": "COM-63.01 = « oui »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "COM-63.01": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "COM-63.01": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "COM-63.01"
+   ],
+   "cibles": [
+    "COM-63.02",
+    "COM-63.03",
+    "COM-63.04",
+    "COM-63.05",
+    "COM-63.06",
+    "COM-63.07",
+    "COM-63.08"
+   ],
+   "attenduVrai": [
+    "COM-63.02",
+    "COM-63.03",
+    "COM-63.04",
+    "COM-63.05",
+    "COM-63.06",
+    "COM-63.07",
+    "COM-63.08"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "M-078",
+   "type": "masquage",
+   "regle": "Métiers sans rendez-vous",
+   "lisible": "D05 (cadrage) = « non »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D05": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D05": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D05"
+   ],
+   "cibles": [
+    "ACQ-09.01",
+    "ACQ-09.02",
+    "ACQ-09.05",
+    "ACQ-09.06",
+    "ACQ-09.07"
+   ],
+   "attenduVrai": [
+    "ACQ-09.01",
+    "ACQ-09.02",
+    "ACQ-09.06",
+    "ACQ-09.07"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "M-079",
+   "type": "masquage",
+   "regle": "Métiers sans devis",
+   "lisible": "D06 (cadrage) = « non »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D06": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D06": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D06"
+   ],
+   "cibles": [
+    "ACQ-10.01",
+    "ACQ-10.03",
+    "ACQ-10.05",
+    "ACQ-10.06",
+    "ACQ-10.07",
+    "ACQ-10.08",
+    "ACQ-10.09",
+    "ACQ-10.10",
+    "ACQ-10.11"
+   ],
+   "attenduVrai": [
+    "ACQ-10.01",
+    "ACQ-10.03",
+    "ACQ-10.05",
+    "ACQ-10.06",
+    "ACQ-10.08",
+    "ACQ-10.09"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "M-081",
+   "type": "masquage",
+   "regle": "Commerce sans commande",
+   "lisible": "D19 (cadrage) = « non »",
+   "agent": "ACQUISITION_CA",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D19": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D19": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D19"
+   ],
+   "cibles": [
+    "ACQ-19.01",
+    "ACQ-19.02",
+    "ACQ-19.03",
+    "ACQ-19.04"
+   ],
+   "attenduVrai": [
+    "ACQ-19.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "M-083",
+   "type": "masquage",
+   "regle": "Sans achats (services purs)",
+   "lisible": "D08.achats (cadrage) = « non » ET D08.sous_traitance (cadrage) = « non » ET D08.fournisseurs (cadrage) = « non »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D08.achats": {
+     "genre": "saisie",
+     "valeur": "oui"
+    },
+    "D08.sous_traitance": null,
+    "D08.fournisseurs": null
+   },
+   "faux": {
+    "D08.achats": {
+     "genre": "saisie",
+     "valeur": "non"
+    },
+    "D08.sous_traitance": {
+     "genre": "saisie",
+     "valeur": "non"
+    },
+    "D08.fournisseurs": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D08.achats",
+    "D08.sous_traitance",
+    "D08.fournisseurs"
+   ],
+   "cibles": [
+    "FIN-08.01",
+    "FIN-08.02",
+    "FIN-08.03",
+    "FIN-08.04",
+    "FIN-08.05",
+    "FIN-08.06"
+   ],
+   "attenduVrai": [
+    "FIN-08.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "M-084",
+   "type": "masquage",
+   "regle": "Encaissement immédiat (commerce)",
+   "lisible": "D09 (cadrage) = « non »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "chantier",
+    "metier": "paysagiste",
+    "sousVariantes": [
+     "creation"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D09": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D09": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D09"
+   ],
+   "cibles": [
+    "FIN-16.01",
+    "FIN-16.02",
+    "FIN-16.03",
+    "FIN-16.04",
+    "FIN-17.01",
+    "FIN-17.02",
+    "FIN-17.03",
+    "FIN-17.04",
+    "FIN-17.10",
+    "FIN-18.01",
+    "FIN-18.02",
+    "FIN-18.03",
+    "FIN-18.04",
+    "FIN-18.05",
+    "FIN-18.06",
+    "FIN-19.01",
+    "FIN-19.02"
+   ],
+   "attenduVrai": [
+    "FIN-16.01",
+    "FIN-16.02",
+    "FIN-16.03",
+    "FIN-16.04",
+    "FIN-17.01",
+    "FIN-17.02",
+    "FIN-17.04",
+    "FIN-17.10",
+    "FIN-18.01",
+    "FIN-18.02",
+    "FIN-18.03",
+    "FIN-18.04",
+    "FIN-18.05",
+    "FIN-18.06"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "M-086",
+   "type": "masquage",
+   "regle": "Sans emprunt",
+   "lisible": "D10 (cadrage) = « non »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D10": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D10": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D10"
+   ],
+   "cibles": [
+    "FIN-22.01",
+    "FIN-22.02"
+   ],
+   "attenduVrai": [
+    "FIN-22.01",
+    "FIN-22.02"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "M-087",
+   "type": "masquage",
+   "regle": "Sans investissement prévu ni récent",
+   "lisible": "D12 (cadrage) = « non »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D12": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D12": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D12"
+   ],
+   "cibles": [
+    "FIN-23.01",
+    "FIN-25.01",
+    "FIN-25.02",
+    "FIN-27.01"
+   ],
+   "attenduVrai": [
+    "FIN-23.01",
+    "FIN-25.01",
+    "FIN-25.02",
+    "FIN-27.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "M-088",
+   "type": "masquage",
+   "regle": "Sans investissement récent",
+   "lisible": "(D12 (cadrage) = « non » OU D12.en_service (cadrage) = « non »)",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "D12.en_service": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "vrai": {
+    "D12": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D12": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D12"
+   ],
+   "cibles": [
+    "FIN-28.01",
+    "FIN-28.02"
+   ],
+   "attenduVrai": [
+    "FIN-28.01",
+    "FIN-28.02"
+   ],
+   "attenduFaux": [
+    "FIN-28.01",
+    "FIN-28.02"
+   ],
+   "remarque": "des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage)"
+  },
+  {
+   "id": "M-089",
+   "type": "masquage",
+   "regle": "Sans stock",
+   "lisible": "D07 (cadrage) = « non »",
+   "agent": "FINANCE_RENTABILITE",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "D07": {
+     "genre": "saisie",
+     "valeur": "oui"
+    }
+   },
+   "faux": {
+    "D07": {
+     "genre": "saisie",
+     "valeur": "non"
+    }
+   },
+   "cles": [
+    "D07"
+   ],
+   "cibles": [
+    "FIN-37.01",
+    "FIN-37.02",
+    "FIN-37.03",
+    "FIN-37.04",
+    "FIN-39.01",
+    "FIN-39.02",
+    "FIN-39.03",
+    "FIN-40.01",
+    "FIN-40.02",
+    "FIN-41.01",
+    "FIN-41.02",
+    "FIN-42.01",
+    "FIN-43.02",
+    "FIN-44.01",
+    "FIN-45.01",
+    "FIN-45.02",
+    "FIN-45.03"
+   ],
+   "attenduVrai": [
+    "FIN-37.01",
+    "FIN-37.02",
+    "FIN-37.03",
+    "FIN-37.04",
+    "FIN-39.01",
+    "FIN-39.02",
+    "FIN-39.03",
+    "FIN-40.01",
+    "FIN-40.02",
+    "FIN-41.01",
+    "FIN-42.01",
+    "FIN-43.02",
+    "FIN-44.01",
+    "FIN-45.01",
+    "FIN-45.02",
+    "FIN-45.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "M-091",
+   "type": "masquage",
+   "regle": "Aucun recrutement en 12 mois ni prévu",
+   "lisible": "RH-28.01 (D13) = « Ni l'un ni l'autre »",
+   "agent": "RH_ORGANISATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {},
+   "vrai": {
+    "RH-28.01": {
+     "genre": "saisie",
+     "valeur": "j_ai_recrute"
+    }
+   },
+   "faux": {
+    "RH-28.01": {
+     "genre": "saisie",
+     "valeur": "ni_l_un_ni_l_autre"
+    }
+   },
+   "cles": [
+    "RH-28.01"
+   ],
+   "cibles": [
+    "RH-28.02",
+    "RH-28.03",
+    "RH-28.04",
+    "RH-28.05",
+    "RH-28.06",
+    "RH-28.09",
+    "RH-28.10",
+    "RH-29.01",
+    "RH-30.01",
+    "RH-31.01",
+    "RH-31.02",
+    "RH-31.03"
+   ],
+   "attenduVrai": [
+    "RH-28.02",
+    "RH-28.03",
+    "RH-28.09",
+    "RH-28.10",
+    "RH-29.01",
+    "RH-30.01",
+    "RH-31.01",
+    "RH-31.02",
+    "RH-31.03"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "M-092",
+   "type": "masquage",
+   "regle": "Ne publie pas (parcours mise en place)",
+   "lisible": "COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »",
+   "agent": "COMM_CREATION",
+   "compte": {
+    "profil": "rdv",
+    "metier": "coach",
+    "sousVariantes": [
+     "sportif"
+    ],
+    "effectif": 1
+   },
+   "base": {
+    "COM-10.08": {
+     "genre": "saisie",
+     "valeur": [
+      "linkedin"
+     ]
+    }
+   },
+   "vrai": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "oui_au_moins_une_fois_par_mois"
+    }
+   },
+   "faux": {
+    "COM-10.07": {
+     "genre": "saisie",
+     "valeur": "rarement_ou_plus_du_tout"
+    }
+   },
+   "cles": [
+    "COM-10.07"
+   ],
+   "cibles": [
+    "COM-10.01",
+    "COM-10.03",
+    "COM-10.04",
+    "COM-10.05",
+    "COM-10.08",
+    "COM-17.01",
+    "COM-17.02",
+    "COM-17.03",
+    "COM-18.01",
+    "COM-19.01",
+    "COM-22.01",
+    "COM-22.04",
+    "COM-23.01",
+    "COM-23.02",
+    "COM-23.03",
+    "COM-25.01",
+    "COM-26.01",
+    "COM-27.02",
+    "COM-28.01",
+    "COM-31.01",
+    "COM-31.02",
+    "COM-31.03",
+    "COM-31.04",
+    "COM-33.01",
+    "COM-34.01",
+    "COM-34.02",
+    "COM-35.01",
+    "COM-35.02",
+    "COM-37.01",
+    "COM-39.01",
+    "COM-39.02",
+    "COM-39.03",
+    "COM-39.07",
+    "COM-43.01",
+    "COM-43.03",
+    "COM-47.01",
+    "COM-55.01",
+    "COM-59.01",
+    "COM-60.01",
+    "COM-60.02",
+    "COM-61.01",
+    "COM-61.02"
+   ],
+   "attenduVrai": [
+    "COM-10.01",
+    "COM-10.08",
+    "COM-17.01",
+    "COM-17.02",
+    "COM-17.03",
+    "COM-18.01",
+    "COM-19.01",
+    "COM-23.01",
+    "COM-25.01",
+    "COM-26.01",
+    "COM-27.02",
+    "COM-28.01",
+    "COM-31.01",
+    "COM-31.03",
+    "COM-31.04",
+    "COM-33.01",
+    "COM-34.01",
+    "COM-34.02",
+    "COM-35.01",
+    "COM-35.02",
+    "COM-37.01",
+    "COM-39.02",
+    "COM-39.07",
+    "COM-43.01",
+    "COM-43.03",
+    "COM-47.01",
+    "COM-55.01",
+    "COM-59.01",
+    "COM-60.01",
+    "COM-61.01"
+   ],
+   "attenduFaux": [
+    "COM-10.03",
+    "COM-10.04",
+    "COM-10.05"
+   ],
+   "remarque": "des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage)"
+  }
+ ],
+ "tailles": [
+  {
+   "id": "T-01",
+   "type": "condition",
+   "regle": "D02 · si au moins un salarié",
+   "lisible": "taille (D02) ≠ « seul »",
+   "agent": "ACQUISITION_CA",
+   "profil": "rdv",
+   "metier": "coach",
+   "effectifVrai": 4,
+   "effectifFaux": 1,
+   "cibles": [
+    "ACQ-21.01",
+    "FIN-07.01",
+    "FIN-07.02",
+    "FIN-07.05",
+    "FIN-07.06"
+   ],
+   "attenduVrai": [
+    "ACQ-21.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "T-02",
+   "type": "masquage",
+   "regle": "Seul",
+   "lisible": "taille (D02) = « seul »",
+   "agent": "RH_ORGANISATION",
+   "profil": "rdv",
+   "metier": "coach",
+   "effectifVrai": 4,
+   "effectifFaux": 1,
+   "cibles": [
+    "RH-01.01",
+    "RH-01.02",
+    "RH-03.01",
+    "RH-03.02",
+    "RH-03.03",
+    "RH-03.04",
+    "RH-03.05",
+    "RH-04.01",
+    "RH-06.01",
+    "RH-06.02",
+    "RH-06.03",
+    "RH-06.04",
+    "RH-06.05",
+    "RH-08.01",
+    "RH-08.03",
+    "RH-08.05",
+    "RH-08.06",
+    "RH-13.01",
+    "RH-18.01",
+    "RH-19.01",
+    "RH-19.03",
+    "RH-20.01",
+    "RH-21.01",
+    "RH-25.01",
+    "RH-25.02",
+    "RH-27.01",
+    "RH-32.01",
+    "RH-32.02",
+    "RH-32.06",
+    "RH-34.01",
+    "RH-34.02",
+    "RH-46.01",
+    "RH-46.02",
+    "RH-47.01",
+    "RH-47.02",
+    "RH-47.03",
+    "RH-48.01"
+   ],
+   "attenduVrai": [
+    "RH-01.01",
+    "RH-03.01",
+    "RH-03.02",
+    "RH-03.03",
+    "RH-03.04",
+    "RH-03.05",
+    "RH-04.01",
+    "RH-06.01",
+    "RH-06.02",
+    "RH-06.03",
+    "RH-06.04",
+    "RH-06.05",
+    "RH-08.01",
+    "RH-08.03",
+    "RH-08.05",
+    "RH-08.06",
+    "RH-13.01",
+    "RH-18.01",
+    "RH-19.01",
+    "RH-19.03",
+    "RH-20.01",
+    "RH-21.01",
+    "RH-25.01",
+    "RH-25.02",
+    "RH-27.01",
+    "RH-32.02",
+    "RH-32.06",
+    "RH-34.02",
+    "RH-46.01",
+    "RH-46.02",
+    "RH-47.01",
+    "RH-47.02",
+    "RH-47.03",
+    "RH-48.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "T-03",
+   "type": "masquage",
+   "regle": "Moins de 6 personnes",
+   "lisible": "taille (D02) parmi « seul », « equipe_2_5 »",
+   "agent": "RH_ORGANISATION",
+   "profil": "rdv",
+   "metier": "coach",
+   "effectifVrai": 8,
+   "effectifFaux": 1,
+   "cibles": [
+    "RH-22.01",
+    "RH-24.01",
+    "RH-35.01",
+    "RH-36.01",
+    "RH-39.01",
+    "RH-49.01"
+   ],
+   "attenduVrai": [
+    "RH-22.01",
+    "RH-24.01",
+    "RH-35.01",
+    "RH-36.01",
+    "RH-39.01",
+    "RH-49.01"
+   ],
+   "attenduFaux": []
+  },
+  {
+   "id": "T-04",
+   "type": "masquage",
+   "regle": "Au moins un salarié",
+   "lisible": "taille (D02) ≠ « seul »",
+   "agent": "RH_ORGANISATION",
+   "profil": "rdv",
+   "metier": "coach",
+   "effectifVrai": 1,
+   "effectifFaux": 4,
+   "cibles": [
+    "RH-41.01",
+    "RH-45.01",
+    "RH-45.02",
+    "RH-45.03"
+   ],
+   "attenduVrai": [
+    "RH-41.01",
+    "RH-45.01",
+    "RH-45.02",
+    "RH-45.03"
+   ],
+   "attenduFaux": []
+  }
+ ],
+ "sansPlan": [
+  "Pas posée si les agents Acquisition et Comm sont faits : calculée",
+  "D57 · s'il y a une personne clé",
+  "D30 · avant la première création de contenu"
+ ]
+}

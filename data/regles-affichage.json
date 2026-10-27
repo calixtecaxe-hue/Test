@@ -1,5 +1,5 @@
 {
-  "source": "Lecture des conditions d'affichage et de masquage écrites dans le classeur « CAXE_Themes_Chiffres_4_agents » (colonnes « Condition » des données et « Masqué pour » des thèmes) et des réponses attendues de chaque déclencheur (feuille Déclencheurs). Fichier écrit à la main : le contrôle (npm run donnees:controle) échoue si une condition ou un masquage du classeur n'a pas de règle ici. Une règle « aPreciser » n'est pas décidable avec le classeur : la question reste affichée et le contrôle la signale. Mise à jour du 20 octobre (classeur n° 11) : déclencheurs dérivés D28 à D65 lus dans les réponses de la banque (clé « CODE » ou « CODE#champ »), D03, D17, D21, D22, D23, D24 et D26 deviennent des questions de la banque, FIN-05.02 reste « à préciser ».",
+  "source": "Lecture des conditions d'affichage et de masquage écrites dans le classeur « CAXE_Themes_Chiffres_4_agents » (colonnes « Condition » des données et « Masqué pour » des thèmes) et des réponses attendues de chaque déclencheur (feuille Déclencheurs). Fichier écrit à la main : le contrôle (npm run donnees:controle) échoue si une condition ou un masquage du classeur n'a pas de règle ici. Une règle « aPreciser » n'est pas décidable avec le classeur : la question reste affichée et le contrôle la signale. Mise à jour du 20 octobre (classeur n° 11) : déclencheurs dérivés D28 à D65 lus dans les réponses de la banque (clé « CODE » ou « CODE#champ »), D03, D17, D21, D22, D23, D24 et D26 deviennent des questions de la banque, FIN-05.02 reste « à préciser ». Vérification du 28 octobre : D13 et D27 deviennent la réponse aux questions RH-28.01 et RH-08.01, qui posaient la même chose (doublons du cadrage).",
   "declencheurs": {
     "D03": {
       "type": "reponse_donnee",
@@ -61,21 +61,8 @@
       ]
     },
     "D13": {
-      "type": "choix",
-      "options": [
-        {
-          "id": "recrute",
-          "libelle": "Recruté"
-        },
-        {
-          "id": "prevu",
-          "libelle": "Prévu"
-        },
-        {
-          "id": "aucun",
-          "libelle": "Ni l'un ni l'autre"
-        }
-      ]
+      "type": "reponse_donnee",
+      "donnee": "RH-28.01"
     },
     "D15": {
       "type": "oui_non"
@@ -119,17 +106,8 @@
       "donnee": "COM-39.07"
     },
     "D27": {
-      "type": "choix",
-      "options": [
-        {
-          "id": "vous",
-          "libelle": "Vous"
-        },
-        {
-          "id": "autre",
-          "libelle": "Une autre personne"
-        }
-      ]
+      "type": "reponse_donnee",
+      "donnee": "RH-08.01"
     }
   },
   "conditions": {
@@ -246,14 +224,18 @@
       "cle": "D13",
       "op": "dans",
       "valeur": [
-        "recrute",
-        "prevu"
+        "j_ai_recrute",
+        "je_prevois_de_recruter",
+        "les_deux"
       ]
     },
     "D13 · si recrutement sur la période": {
       "cle": "D13",
-      "op": "egal",
-      "valeur": "recrute"
+      "op": "dans",
+      "valeur": [
+        "j_ai_recrute",
+        "les_deux"
+      ]
     },
     "D15 · si clients professionnels réguliers": {
       "cle": "D15",
@@ -319,8 +301,8 @@
     },
     "D27 · si ce n'est pas vous (sinon RH-05)": {
       "cle": "D27",
-      "op": "egal",
-      "valeur": "autre"
+      "op": "different",
+      "valeur": "vous"
     },
     "D37 · si vous manquez des appels": {
       "cle": "ACQ-08.02",
@@ -754,7 +736,7 @@
     "Aucun recrutement en 12 mois ni prévu": {
       "cle": "D13",
       "op": "egal",
-      "valeur": "aucun"
+      "valeur": "ni_l_un_ni_l_autre"
     },
     "Ne publie pas (parcours mise en place)": {
       "cle": "D21",

@@ -264,7 +264,9 @@ test("la saisie d'un chiffre devient une réponse exacte ou une fourchette, un c
 test("un tableau saisi devient des valeurs « ligne.colonne » contrôlées ; le total est vérifié avant l'envoi", () => {
   const ctx = { lignesDeclencheur: () => ["site", "fiche_google"] };
   const ok = construireReponse(tableauCanaux, { champs: { "site.part": "60", "fiche_google.part": "40", "site.cout": "1 200" } }, ctx);
-  assert.deepEqual(ok.reponse, { genre: "valeurs", valeurs: { "site.part": 60, "fiche_google.part": 40, "site.cout": 1200 } });
+  // Lignes venues d'une autre réponse : une case affichée et laissée vide est enregistrée vide (null), pour distinguer plus tard
+  // une ligne vue d'une ligne ajoutée depuis.
+  assert.deepEqual(ok.reponse, { genre: "valeurs", valeurs: { "site.part": 60, "fiche_google.part": 40, "site.cout": 1200, "fiche_google.cout": null } });
   const faux = construireReponse(tableauCanaux, { champs: { "site.part": "60", "fiche_google.part": "30" } }, ctx);
   assert.match(faux.erreur ?? "", /total/);
   assert.match(construireReponse(tableauCanaux, { champs: { "site.part": "beaucoup" } }, ctx).erreur ?? "", /Part des demandes/);
@@ -323,7 +325,7 @@ test("un tableau dont les lignes sont les éléments d'une liste précédente", 
 
 test("le contrôle exige que la liste source d'un tableau soit une liste dans la banque", () => {
   const cible = reel.donnees.find((d) => d.mode === "demandee" && d.format === "% par ligne")!;
-  const t: ReponseSpec = { type: "tableau", lignes: { source: "donnee", code: "ACQ-01.01" }, colonnes: [{ id: "part", libelle: "Part", spec: { type: "nombre", unite: "pourcent" } }] };
+  const t: ReponseSpec = { type: "tableau", lignes: { source: "donnee", code: "ACQ-01.01" }, colonnes: [{ id: "part", libelle: "Part", spec: { type: "nombre", unite: "pourcent", min: 0, max: 100 } }] };
   const e: EnsembleDonnees = structuredClone(reel);
   e.banque = [{ donnee: cible.code, texte: "T", aide: null, repli: null, reponse: t }];
   assert.ok(controlerDonnees(e).erreurs.some((m) => m.includes("ACQ-01.01") && m.includes("liste")));
@@ -334,7 +336,7 @@ test("le contrôle exige que la liste source d'un tableau soit une liste dans la
 test("une case d'une ligne qui n'existe plus (canal décoché) est ignorée au lieu de bloquer le tableau", () => {
   const ctx = { lignesDeclencheur: () => ["site"] };
   const r = construireReponse(tableauCanaux, { champs: { "site.part": "100", "fiche_google.part": "0", "fiche_google.cout": "300" } }, ctx);
-  assert.deepEqual(r, { reponse: { genre: "valeurs", valeurs: { "site.part": 100 } }, erreur: null });
+  assert.deepEqual(r, { reponse: { genre: "valeurs", valeurs: { "site.part": 100, "site.cout": null } }, erreur: null });
   const aucune = construireReponse(tableauCanaux, { champs: { "fiche_google.part": "10" } }, ctx);
   assert.deepEqual(aucune, { reponse: null, erreur: null });
 });

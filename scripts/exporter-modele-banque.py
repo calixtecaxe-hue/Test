@@ -82,8 +82,9 @@ def cellules_depuis_spec(spec):
         else:
             c["lignes"] = f"libre: {lg['max']}"
         if "total" in spec:
-            col = next(x for x in spec["colonnes"] if x["id"] == spec["total"]["colonne"])
-            c["total"] = f"{col['libelle']} = {spec['total']['valeur']}"
+            ids = spec["total"].get("colonnes") or [spec["total"]["colonne"]]
+            noms = [next(x for x in spec["colonnes"] if x["id"] == i)["libelle"] for i in ids]
+            c["total"] = f"{' ; '.join(noms)} = {spec['total']['valeur']}"
     return c
 
 

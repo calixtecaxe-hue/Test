@@ -10,6 +10,7 @@ import { reponsesDuCompte } from "@/lib/audit/compte";
 import { exclusionsAcquisition } from "@/lib/routage";
 import { peutEcrireDonnee } from "@/lib/audit/acces-donnee";
 import { prereponseDe } from "@/lib/audit/prereponse";
+import { reponsesActivesDuCompte } from "@/lib/audit/contexte-compte";
 
 const corps = z.object({
   cle: z.string().min(1).max(40),
@@ -37,15 +38,15 @@ export async function PUT(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const compte = await prisma.user.findUnique({ where: { id: userId }, select: { categorie: true, metierPrecis: true, sousVariantes: true } });
-  const reponsesActuelles = await reponsesDuCompte(userId);
+  const compte = await prisma.user.findUnique({ where: { id: userId }, select: { categorie: true, metierPrecis: true, sousVariantes: true, profils: true, nombreCollaborateurs: true, dateCreationEntreprise: true } });
+  const reponsesActuelles = await reponsesDuCompte(userId, compte ?? undefined);
   const verdict = validerReponse(ENSEMBLE, cle, reponse, reponsesActuelles, (compte && compteRoutable(compte)) ? exclusionsAcquisition(ENSEMBLE.routage, compteRoutable(compte)!) : null);
   if (!verdict.ok) return NextResponse.json({ erreur: verdict.message }, { status: 400 });
   if (!(await peutEcrireDonnee(userId, cle, verdict.agent ?? null))) return NextResponse.json({ erreur: "Cet agent n'est pas inclus dans votre formule." }, { status: 403 });
 
   // « Préremplie » n'est accepté que si le chiffre envoyé est bien celui que le détail du compte donne : le serveur
   // le recalcule, il ne croit pas le navigateur.
-  const propose = parsed.data.preremplie === true ? prereponseDe(ENSEMBLE.prereponses, cle, reponsesActuelles) : null;
+  const propose = parsed.data.preremplie === true && compte ? prereponseDe(ENSEMBLE.prereponses, cle, reponsesActivesDuCompte(compte, reponsesActuelles)) : null;
   const rep = verdict.reponse as { genre?: string; valeur?: number };
   const preremplie = propose !== null && rep.genre === "exact" && rep.valeur === propose.total;
 

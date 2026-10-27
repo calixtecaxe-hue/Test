@@ -19,7 +19,7 @@ export async function compteRenduDuCompte(utilisateur: UtilisateurComplet, agent
   const profils = utilisateur.profils.filter((p): p is ProfilId => (PROFILS as readonly string[]).includes(p));
   const taille = tailleDepuisEffectif(utilisateur.nombreCollaborateurs);
   const exclusions = exclusionsAcquisition(ENSEMBLE.routage, utilisateur);
-  const reponses = await reponsesDuCompte(utilisateur.id);
+  const reponses = await reponsesDuCompte(utilisateur.id, utilisateur);
   const a = assemblerQuestionnaire(ENSEMBLE, {
     agent,
     profils,
@@ -43,7 +43,9 @@ export async function compteRenduDuCompte(utilisateur: UtilisateurComplet, agent
     effectif: utilisateur.nombreCollaborateurs,
   });
 
-  const constats = constaterAgent(ENSEMBLE, ENSEMBLE.seuils, a, reponses, {
+  // Seules les réponses actives comptent : une réponse à une question devenue inapplicable, ou la case d'un canal décoché, n'entre
+  // ni dans la couverture d'un thème, ni dans une note.
+  const constats = constaterAgent(ENSEMBLE, ENSEMBLE.seuils, a, a.reponsesActives, {
     zone,
     taille,
     references,

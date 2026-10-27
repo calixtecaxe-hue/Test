@@ -38,7 +38,7 @@ type Utilisateur = {
 export async function progressionAgents(userId: string, u: Utilisateur, agents: AgentCode[]): Promise<Record<string, ProgressionAgent>> {
   const [objectifs, reponses] = await Promise.all([
     prisma.objectif.findMany({ where: { userId, statut: "ACTIF", agent: { in: agents } }, orderBy: { id: "asc" }, select: { agent: true, texteBrut: true, echeance: true } }),
-    reponsesDuCompte(userId),
+    reponsesDuCompte(userId, u),
   ]);
   const profils = u.profils.filter((p): p is ProfilId => (PROFILS as readonly string[]).includes(p));
   const taille = tailleDepuisEffectif(u.nombreCollaborateurs);
@@ -68,7 +68,8 @@ export async function progressionAgents(userId: string, u: Utilisateur, agents: 
         metier: metierDuCompte(ENSEMBLE.routage, u),
       });
       const toutes = a.themes.flatMap((t) => t.questions);
-      const traitees = toutes.filter((q) => reponses[q.code] !== undefined || q.dejaPosee).length;
+      // Réponses actives : une répartition à revoir (canal ajouté ou retiré) n'est plus « traitée ».
+      const traitees = toutes.filter((q) => a.reponsesActives[q.code] !== undefined || q.dejaPosee).length;
       resultat[agent] = { ...base, etape: toutes.length > 0 && traitees >= toutes.length ? "termine" : "questionnaire", questions: toutes.length, traitees };
     }
   }

@@ -84,13 +84,19 @@ const tableau = z.object({
   type: z.literal("tableau"),
   lignes,
   colonnes: z.array(champNomme).min(1).max(8),
-  total: z.object({ colonne: identifiant, valeur: z.number() }).optional(),
+  // `colonnes` : plusieurs colonnes qui doivent chacune faire le total (COM-12.01 : demandes, nouveaux clients, chiffre d'affaires).
+  total: z.object({ colonne: identifiant, valeur: z.number(), colonnes: z.array(identifiant).min(1).optional() }).optional(),
 });
+
+// Colonnes dont la somme est imposée (une seule, sauf si plusieurs sont listées).
+export function colonnesDuTotal(total: { colonne: string; colonnes?: string[] }): string[] {
+  return total.colonnes ?? [total.colonne];
+}
 
 export const reponseSpec = z.discriminatedUnion("type", [nombre, ouiNon, choix, texte, dateMois, cases, liste, composite, tableau]).superRefine((s, ctx) => {
   const ids = s.type === "composite" ? s.champs.map((c) => c.id) : s.type === "tableau" ? s.colonnes.map((c) => c.id) : [];
   if (new Set(ids).size !== ids.length) ctx.addIssue({ code: "custom", message: "Deux champs ont le même identifiant." });
-  if (s.type === "tableau" && s.total && !s.colonnes.some((c) => c.id === s.total!.colonne && c.spec.type === "nombre")) {
+  if (s.type === "tableau" && s.total && !colonnesDuTotal(s.total).every((id) => s.colonnes.some((c) => c.id === id && c.spec.type === "nombre"))) {
     ctx.addIssue({ code: "custom", message: "Le total porte sur une colonne numérique qui n'existe pas." });
   }
   if (s.type === "cases" && s.minChoix !== undefined && s.maxChoix !== undefined && s.minChoix > s.maxChoix) {
@@ -281,13 +287,17 @@ export function validerSelonSpec(spec: ReponseSpec, r: ReponseAValider, ctx: Con
         if (!verdict.ok) return verdict;
       }
       if (spec.total) {
-        const { colonne, valeur } = spec.total;
-        const somme = idsLignes.reduce((s, l) => {
-          const x = v[`${l}.${colonne}`];
-          return s + (typeof x === "number" ? x : 0);
-        }, 0);
-        const saisi = idsLignes.some((l) => typeof v[`${l}.${colonne}`] === "number");
-        if (saisi && Math.abs(somme - valeur) > TOLERANCE_TOTAL) return non(`Le total doit faire ${valeur} (il fait ${Math.round(somme * 100) / 100}).`);
+        const { valeur } = spec.total;
+        const plusieurs = colonnesDuTotal(spec.total).length > 1;
+        for (const colonne of colonnesDuTotal(spec.total)) {
+          const somme = idsLignes.reduce((s, l) => {
+            const x = v[`${l}.${colonne}`];
+            return s + (typeof x === "number" ? x : 0);
+          }, 0);
+          const saisi = idsLignes.some((l) => typeof v[`${l}.${colonne}`] === "number");
+          const nom = spec.colonnes.find((c) => c.id === colonne)?.libelle ?? colonne;
+          if (saisi && Math.abs(somme - valeur) > TOLERANCE_TOTAL) return non(`${plusieurs ? `${nom} : le` : "Le"} total doit faire ${valeur} (il fait ${Math.round(somme * 100) / 100}).`);
+        }
       }
       return ok;
     }

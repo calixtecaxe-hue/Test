@@ -110,7 +110,12 @@ export function construireReponse(spec: ReponseSpec | null, s: Saisie, ctx: Cont
         if (illisible) return { reponse: null, erreur: `${colonne.libelle} : ${MESSAGE_ILLISIBLE.toLowerCase().replace(/^ce/, "ce")}` };
         if (valeur !== null) valeurs[cle] = valeur;
       }
-      if (Object.keys(valeurs).length === 0) return { reponse: null, erreur: null };
+      if (!Object.values(valeurs).some((v) => v !== null)) return { reponse: null, erreur: null };
+      // Lignes venues d'une autre réponse (canaux, catégories…) : une case affichée et laissée vide est enregistrée vide, pour
+      // distinguer plus tard une ligne vue et laissée vide d'une ligne ajoutée depuis (reponses-actives.ts).
+      if (spec.type === "tableau" && lignesValides && (spec.lignes.source === "declencheur" || spec.lignes.source === "donnee")) {
+        for (const l of lignesValides) for (const c of spec.colonnes) if (!(`${l}.${c.id}` in valeurs)) valeurs[`${l}.${c.id}`] = null;
+      }
       reponse = { genre: "valeurs", valeurs };
       break;
     }

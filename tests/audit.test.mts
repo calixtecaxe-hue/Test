@@ -358,7 +358,10 @@ test("le budget marketing et communication (FIN-05.02) est toujours posé, déj�
     assemblerQuestionnaire(reel, ctx("FINANCE_RENTABILITE", { profils: ["rdv"], taille: "equipe_2_5", niveau: "approfondi", reponses }))
       .themes.flatMap((t) => t.questions)
       .find((q) => q.code === "FIN-05.02");
+  // Le détail d'un compte réel : le coût par canal (ACQ-03.05) n'existe que pour les canaux cochés, publicité payante déclarée (D04).
   const detail: Reponses = {
+    D04: saisie("oui"),
+    "ACQ-03.01": saisie(["site_internet"]),
     "ACQ-03.05": { genre: "valeurs", valeurs: { "site_internet.depense_par_mois": 50 } },
     "ACQ-07.01": { genre: "exact", valeur: 100 },
     "ACQ-07.03": { genre: "exact", valeur: 200 },
@@ -396,8 +399,10 @@ test("une réponse de déclencheur doit correspondre à ce qui est posé", () =>
   assert.equal(validerReponse(reel, "D03", saisie(["site_internet"])).ok, false);
   assert.equal(validerReponse(reel, "ACQ-03.01", saisie(["site_internet", "salons_et_evenements"])).ok, true);
   assert.equal(validerReponse(reel, "ACQ-03.01", saisie(["telepathie"])).ok, false);
-  assert.equal(validerReponse(reel, "D13", saisie("prevu")).ok, true);
-  assert.equal(validerReponse(reel, "D13", saisie("oui")).ok, false);
+  // D13 est la question RH-28.01 (vérification du 28 octobre : le cadrage la posait une seconde fois).
+  assert.equal(validerReponse(reel, "D13", saisie("prevu")).ok, false);
+  assert.equal(validerReponse(reel, "RH-28.01", saisie("je_prevois_de_recruter")).ok, true);
+  assert.equal(validerReponse(reel, "RH-28.01", saisie("oui")).ok, false);
   assert.equal(validerReponse(reel, "D08.achats", saisie("non")).ok, true);
   assert.equal(validerReponse(reel, "D08.inconnu", saisie("non")).ok, false);
   assert.equal(validerReponse(reel, "D12.en_service", saisie("oui")).ok, true);
@@ -659,9 +664,13 @@ test("« Avez-vous un site internet ? » n'est posée que si « site internet »
   assert.ok(!codes(coche).has("COM-13.10"));
   // La réponse déduite ouvre les questions qui dépendent du site (D23 = oui).
   assert.ok(codes(coche).has("COM-13.01"));
-  // Une réponse déjà donnée l'emporte : « non » reste « non ».
-  const dejaNon = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "ACQ-03.01": saisie(["site_internet"]), "COM-13.10": saisie("non") } }));
-  assert.ok(!codes(dejaNon).has("COM-13.01"));
+  // Une réponse déjà donnée l'emporte tant que la question est posée (« site internet » non coché) : « non » reste « non ».
+  const dejaNon = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "ACQ-03.01": saisie(["bouche_a_oreille"]), "COM-13.10": saisie("non") } }));
+  assert.ok(codes(dejaNon).has("COM-13.10") && !codes(dejaNon).has("COM-13.01"));
+  // « Site internet » coché ensuite : la question n'est plus posée, son ancien « non » ne compte plus (on ne peut ni le voir ni le
+  // corriger) ; la réponse déduite « oui » ouvre les questions sur le site (vérification du 28 octobre, décision à confirmer).
+  const nonPuisCoche = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "ACQ-03.01": saisie(["site_internet"]), "COM-13.10": saisie("non") } }));
+  assert.ok(!codes(nonPuisCoche).has("COM-13.10") && codes(nonPuisCoche).has("COM-13.01"));
 });
 
 // --- Modules métier (décision du propriétaire, 27 octobre) ------------------------------------------------------------------
