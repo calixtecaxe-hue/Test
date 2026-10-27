@@ -403,6 +403,32 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
     await capturer(`audit-exemple-${a.court}.html`, "Votre audit — CAXE");
   }
   await p.goto(B + "/compte", { waitUntil: "networkidle" });
+  // Gestion de l'abonnement : l'application change d'état au clic (React). Pour la copie, on relève chaque état en
+  // vrai (changer d'offre, confirmation d'arrêt, arrêt programmé), puis on les remet dans la page, cachés, avec un
+  // petit script qui les montre au clic (SCRIPT_PARCOURS). Rien n'est enregistré : le compte est remis dans son état.
+  const etats = {};
+  const parent = (nom) => p.getByRole("button", { name: nom, exact: true }).locator("xpath=..");
+  await p.getByRole("button", { name: "Changer d'offre", exact: true }).click();
+  etats.offre = await p.locator("section[aria-labelledby=abo] .rounded-xl.border.p-4").first().evaluate((n) => n.parentElement.innerHTML);
+  await p.getByRole("button", { name: "Annuler", exact: true }).click();
+  await p.getByRole("button", { name: "Me désabonner", exact: true }).click();
+  etats.confirmation = await p.locator('[role="alertdialog"]').evaluate((n) => n.parentElement.innerHTML);
+  await p.getByRole("button", { name: "Oui, arrêter mon abonnement", exact: true }).click();
+  await p.getByRole("button", { name: "Reprendre mon abonnement", exact: true }).waitFor();
+  etats.arret = await p.getByRole("button", { name: "Reprendre mon abonnement", exact: true }).evaluate((n) => n.parentElement.innerHTML);
+  await p.getByRole("button", { name: "Reprendre mon abonnement", exact: true }).click();
+  await p.getByRole("button", { name: "Me désabonner", exact: true }).waitFor();
+  await p.goto(B + "/compte", { waitUntil: "networkidle" });
+  await p.evaluate((e) => {
+    const groupe = (bouton, etatsHtml) => {
+      const conteneur = [...document.querySelectorAll("button")].find((b) => b.textContent.trim() === bouton).parentElement;
+      const ferme = conteneur.innerHTML;
+      conteneur.setAttribute("data-ap-groupe", "");
+      conteneur.innerHTML = `<div data-ap="ferme">${ferme}</div>` + Object.entries(etatsHtml).map(([k, h]) => `<div data-ap="${k}" hidden>${h}</div>`).join("");
+    };
+    groupe("Changer d'offre", { ouvert: e.offre });
+    groupe("Me désabonner", { confirmation: e.confirmation, arret: e.arret });
+  }, etats);
   await capturer("compte.html", "Mon compte — CAXE");
   }
   // Retour à l'écran de bienvenue avec un second compte, pour avoir sa page entière (en-tête, titre) dans son premier état.
@@ -543,6 +569,31 @@ const SCRIPT_PARCOURS = String.raw`
     });
   }
   document.addEventListener('change', function(e){ if (e.target.classList && e.target.classList.contains('case-entree')) synchroCases(); });
+
+  // Mon compte : changer d'offre, se désabonner, Mon entreprise. Les états ont été relevés dans l'application (voir la capture).
+  function montre(g, k){ g.querySelectorAll(':scope > [data-ap]').forEach(function(d){ d.hidden = d.getAttribute('data-ap') !== k; }); }
+  function note(el, texte){ var n=el.parentElement.querySelector('[data-ap-note]'); if(!n){ n=document.createElement('p'); n.setAttribute('data-ap-note',''); n.setAttribute('role','status'); n.className='text-sm text-[var(--text-muted)]'; el.insertAdjacentElement('afterend', n); } n.textContent=texte; }
+  var ACTIF='border-[var(--blue-1)] text-[var(--text)]'.split(' '), REPOS=['border-[var(--line)]','text-[var(--text-muted)]'];
+  function marque(b, on){ ACTIF.forEach(function(c){ b.classList.toggle(c, on); }); REPOS.forEach(function(c){ b.classList.toggle(c, !on); }); }
+  document.addEventListener('click', function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    var g=b.closest('[data-ap-groupe]');
+    var t=b.textContent.trim();
+    if (g) {
+      var panneau=b.closest('[data-ap="ouvert"]');
+      // Un choix modifié rend le bouton de validation actif, comme dans l'application.
+      if (panneau && (b.hasAttribute('aria-pressed') || b.getAttribute('role')==='checkbox')) panneau.querySelectorAll('button').forEach(function(x){ if (x.textContent.trim()==='Valider ce changement') x.removeAttribute('disabled'); });
+      if (panneau && b.hasAttribute('aria-pressed')) { b.parentElement.querySelectorAll('button[aria-pressed]').forEach(function(x){ x.setAttribute('aria-pressed','false'); marque(x,false); }); b.setAttribute('aria-pressed','true'); marque(b,true); return; }
+      if (panneau && b.getAttribute('role')==='checkbox' && b.getAttribute('aria-disabled')!=='true') { var on=b.getAttribute('aria-checked')!=='true'; b.setAttribute('aria-checked', on); marque(b,on); return; }
+      if (t==="Changer d'offre") montre(g,'ouvert');
+      else if (t==='Annuler' || t==='Garder mon abonnement' || t==='Reprendre mon abonnement') montre(g,'ferme');
+      else if (t==='Valider ce changement') { montre(g,'ferme'); note(g.querySelector('[data-ap="ferme"] button'), "Aperçu : la formule n'est pas modifiée dans cette copie."); }
+      else if (t==='Me désabonner') montre(g,'confirmation');
+      else if (t==='Oui, arrêter mon abonnement') montre(g,'arret');
+      return;
+    }
+    if (t.indexOf('Enregistrer les informations de mon entreprise')===0) { e.preventDefault(); note(b, "Aperçu : rien n'est enregistré dans cette copie."); }
+  });
 
   // Étape 1 : le compte, puis le métier.
   document.querySelectorAll('button[aria-pressed]').forEach(function(b){
