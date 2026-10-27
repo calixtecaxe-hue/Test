@@ -2,3 +2,4 @@ Vérification du questionnaire : contrôles lancés le 2026-10-27T23:58Z (repris
 canaux                       code 0  compte de test : verif.1793144535127.30889@example.com
 dependances                  code 0  91 règles jouées, 496 contrôles : 496 conformes, 0 écart(s), 0 bloqué(s).
 typescript                   code 0  
+lint                         code 0  
