@@ -168,7 +168,12 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   délai en mois. Pour la Comm, la liste suit les deux parcours : « Améliorer ce que j'ai déjà » (objectifs chiffrés,
   ex. taux de conversion) et « Mettre en place ma présence en ligne » (sans chiffre : ouvrir les comptes, identité
   visuelle, parcours de conversion, régularité). Liste dans `data/objectifs-agents.json` (**brouillon à valider par le
-  propriétaire** : libellés, exemples, thèmes rattachés ; contrôlée par `npm run donnees:controle`) ; formulaire
+  propriétaire** : libellés, exemples, thèmes rattachés ; contrôlée par `npm run donnees:controle`). **Comm complétée le 27 octobre (demande du
+  propriétaire)** : 22 objectifs « Améliorer ce que j'ai déjà » (du funnel : portée, visites du profil, clics, messages, demandes, conversion, relance ;
+  puis site, Google, fiche, annonces, avis, fichier de contacts, partenaires, qualité, coût, temps) et 21 « Mettre en place ma présence en ligne » (cible,
+  positionnement, promesse, identité, preuves, réseau, comptes, profil, site, fiche Google, premiers avis, sujets, calendrier, régularité, premières
+  publications, formats, parcours, offre gratuite, fichier, suivi, qui s'en occupe), les huit d'origine gardés ; **« Autre (précisez) » termine chaque
+  partie** (dans une partie surtout sans chiffre, il commence par la description) ; formulaire
   `objectif-choix.tsx` ; l'objectif enregistré garde `choix`, `reussite` et un chiffre facultatif. Le moteur ne juge
   pas le réalisme d'un objectif sans chiffre (rien à comparer) ; l'avancement se mesure à ce que le dirigeant déclare.
   Acquisition et Finance gardent les trois champs chiffrés.

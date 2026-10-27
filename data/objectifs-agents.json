@@ -1,32 +1,748 @@
 {
-  "source": "Proposition de rédaction du 22 octobre, d'après les thèmes réels de chaque agent (themes.json) et les exemples du propriétaire pour la Comm (taux de conversion, création des comptes, identité visuelle, tunnel de conversion). BROUILLON À VALIDER par le propriétaire : libellés, exemples et rattachements aux thèmes. Un objectif chiffré a une unité ; un objectif sans chiffre se décrit par une phrase de réussite.",
+  "source": "Proposition de rédaction du 22 octobre, d'après les thèmes réels de chaque agent (themes.json) et les exemples du propriétaire pour la Comm (taux de conversion, création des comptes, identité visuelle, tunnel de conversion). BROUILLON À VALIDER par le propriétaire : libellés, exemples et rattachements aux thèmes. Un objectif chiffré a une unité ; un objectif sans chiffre se décrit par une phrase de réussite. Complété le 27 octobre à la demande du propriétaire : une vingtaine d'objectifs par parcours de la Comm (de l'amélioration du funnel à la mise en place), rattachés aux thèmes réels ; BROUILLON À VALIDER.",
   "aValider": true,
   "agents": {
     "RH_ORGANISATION": {
       "intro": "Choisissez ce que vous voulez améliorer dans votre organisation. Un chiffre n'est pas nécessaire : décrivez ce que vous voulez constater.",
       "objectifs": [
-        { "id": "rh-turnover", "libelle": "Baisser le turnover", "mesure": "chiffre", "unite": "pourcent", "themes": ["RH-32"], "exemple": { "valeur": 5, "delaiMois": 3 } },
-        { "id": "rh-absences", "libelle": "Réduire les absences", "mesure": "chiffre", "unite": "pourcent", "themes": ["RH-34"], "exemple": { "valeur": 10, "delaiMois": 6 } },
-        { "id": "rh-recruter", "libelle": "Recruter et intégrer de nouvelles personnes", "mesure": "chiffre", "unite": "unites", "themes": ["RH-28", "RH-29"], "exemple": { "valeur": 2, "delaiMois": 6 } },
-        { "id": "rh-roles", "libelle": "Clarifier les rôles et les responsabilités", "mesure": "phrase", "themes": ["RH-01", "RH-02"], "exemple": { "reussite": "chacun sait ce qu'il doit faire sans me solliciter", "delaiMois": 3 } },
-        { "id": "rh-deleguer", "libelle": "Déléguer davantage", "mesure": "phrase", "themes": ["RH-04", "RH-05"], "exemple": { "reussite": "je n'ai plus à reprendre les tâches que je confie", "delaiMois": 6 } },
-        { "id": "rh-charge", "libelle": "Alléger la charge de l'équipe", "mesure": "phrase", "themes": ["RH-06", "RH-08"], "exemple": { "reussite": "personne ne travaille régulièrement au-delà de ses horaires", "delaiMois": 6 } },
-        { "id": "rh-information", "libelle": "Mieux faire circuler l'information", "mesure": "phrase", "themes": ["RH-14", "RH-19"], "exemple": { "reussite": "l'équipe trouve seule les informations dont elle a besoin", "delaiMois": 3 } },
-        { "id": "rh-competences", "libelle": "Développer les compétences de l'équipe", "mesure": "phrase", "themes": ["RH-23", "RH-24"], "exemple": { "reussite": "chaque savoir-faire clé est maîtrisé par au moins deux personnes", "delaiMois": 12 } },
-        { "id": "rh-absence-dirigeant", "libelle": "Pouvoir m'absenter sans que l'activité s'arrête", "mesure": "phrase", "themes": ["RH-37", "RH-38"], "exemple": { "reussite": "je pars une semaine sans être sollicité", "delaiMois": 6 } }
+        {
+          "id": "rh-turnover",
+          "libelle": "Baisser le turnover",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "RH-32"
+          ],
+          "exemple": {
+            "valeur": 5,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "rh-absences",
+          "libelle": "Réduire les absences",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "RH-34"
+          ],
+          "exemple": {
+            "valeur": 10,
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "rh-recruter",
+          "libelle": "Recruter et intégrer de nouvelles personnes",
+          "mesure": "chiffre",
+          "unite": "unites",
+          "themes": [
+            "RH-28",
+            "RH-29"
+          ],
+          "exemple": {
+            "valeur": 2,
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "rh-roles",
+          "libelle": "Clarifier les rôles et les responsabilités",
+          "mesure": "phrase",
+          "themes": [
+            "RH-01",
+            "RH-02"
+          ],
+          "exemple": {
+            "reussite": "chacun sait ce qu'il doit faire sans me solliciter",
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "rh-deleguer",
+          "libelle": "Déléguer davantage",
+          "mesure": "phrase",
+          "themes": [
+            "RH-04",
+            "RH-05"
+          ],
+          "exemple": {
+            "reussite": "je n'ai plus à reprendre les tâches que je confie",
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "rh-charge",
+          "libelle": "Alléger la charge de l'équipe",
+          "mesure": "phrase",
+          "themes": [
+            "RH-06",
+            "RH-08"
+          ],
+          "exemple": {
+            "reussite": "personne ne travaille régulièrement au-delà de ses horaires",
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "rh-information",
+          "libelle": "Mieux faire circuler l'information",
+          "mesure": "phrase",
+          "themes": [
+            "RH-14",
+            "RH-19"
+          ],
+          "exemple": {
+            "reussite": "l'équipe trouve seule les informations dont elle a besoin",
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "rh-competences",
+          "libelle": "Développer les compétences de l'équipe",
+          "mesure": "phrase",
+          "themes": [
+            "RH-23",
+            "RH-24"
+          ],
+          "exemple": {
+            "reussite": "chaque savoir-faire clé est maîtrisé par au moins deux personnes",
+            "delaiMois": 12
+          }
+        },
+        {
+          "id": "rh-absence-dirigeant",
+          "libelle": "Pouvoir m'absenter sans que l'activité s'arrête",
+          "mesure": "phrase",
+          "themes": [
+            "RH-37",
+            "RH-38"
+          ],
+          "exemple": {
+            "reussite": "je pars une semaine sans être sollicité",
+            "delaiMois": 6
+          }
+        }
       ]
     },
     "COMM_CREATION": {
       "intro": "Choisissez ce que vous voulez faire. Si vous suivez déjà vos chiffres, indiquez un objectif chiffré. Si vous démarrez, décrivez ce que vous voulez mettre en place : nous le construirons avec vous.",
       "objectifs": [
-        { "id": "com-conversion", "libelle": "Augmenter mon taux de conversion", "groupe": "Améliorer ce que j'ai déjà", "mesure": "chiffre", "unite": "pourcent", "themes": ["COM-19", "COM-22"], "exemple": { "valeur": 5, "delaiMois": 3 } },
-        { "id": "com-demandes", "libelle": "Augmenter les demandes venues des réseaux et d'internet", "groupe": "Améliorer ce que j'ai déjà", "mesure": "chiffre", "unite": "pourcent", "themes": ["COM-22", "COM-23"], "exemple": { "valeur": 20, "delaiMois": 6 } },
-        { "id": "com-audience", "libelle": "Augmenter mon audience", "groupe": "Améliorer ce que j'ai déjà", "mesure": "chiffre", "unite": "pourcent", "themes": ["COM-37"], "exemple": { "valeur": 15, "delaiMois": 6 } },
-        { "id": "com-engagement", "libelle": "Améliorer l'engagement sur mes publications", "groupe": "Améliorer ce que j'ai déjà", "mesure": "chiffre", "unite": "pourcent", "themes": ["COM-36"], "exemple": { "valeur": 10, "delaiMois": 3 } },
-        { "id": "com-comptes", "libelle": "Ouvrir et configurer mes comptes sur les réseaux", "groupe": "Mettre en place ma présence en ligne", "mesure": "phrase", "themes": ["COM-10", "COM-56"], "exemple": { "reussite": "mes comptes sont ouverts, complets et à jour", "delaiMois": 1 } },
-        { "id": "com-identite", "libelle": "Définir mon identité visuelle : logo, couleurs, ton", "groupe": "Mettre en place ma présence en ligne", "mesure": "phrase", "themes": ["COM-06", "COM-07"], "exemple": { "reussite": "mes publications se reconnaissent au premier coup d'œil", "delaiMois": 2 } },
-        { "id": "com-parcours", "libelle": "Construire un parcours qui transforme les visiteurs en clients", "groupe": "Mettre en place ma présence en ligne", "mesure": "phrase", "themes": ["COM-19", "COM-20", "COM-21"], "exemple": { "reussite": "depuis chaque publication, un visiteur peut me contacter en deux clics", "delaiMois": 3 } },
-        { "id": "com-regularite", "libelle": "Publier régulièrement sans y passer mes soirées", "groupe": "Mettre en place ma présence en ligne", "mesure": "phrase", "themes": ["COM-28", "COM-33"], "exemple": { "reussite": "je publie deux fois par semaine, planifié à l'avance", "delaiMois": 3 } }
+        {
+          "id": "com-audience",
+          "libelle": "Augmenter mon audience",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-37"
+          ],
+          "exemple": {
+            "valeur": 15,
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "com-portee",
+          "libelle": "Toucher plus de personnes avec chaque publication",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-17",
+            "COM-37"
+          ],
+          "exemple": {
+            "valeur": 20,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-engagement",
+          "libelle": "Améliorer l'engagement sur mes publications",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-36"
+          ],
+          "exemple": {
+            "valeur": 10,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-visites-profil",
+          "libelle": "Augmenter les visites de mon profil",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-59",
+            "COM-55"
+          ],
+          "exemple": {
+            "valeur": 20,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-clics",
+          "libelle": "Obtenir plus de clics vers mon site ou ma prise de rendez-vous",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-19",
+            "COM-20",
+            "COM-60"
+          ],
+          "exemple": {
+            "valeur": 15,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-messages",
+          "libelle": "Recevoir plus de messages privés de clients potentiels",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-23"
+          ],
+          "exemple": {
+            "valeur": 20,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-demandes",
+          "libelle": "Augmenter les demandes venues des réseaux et d'internet",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-22",
+            "COM-23"
+          ],
+          "exemple": {
+            "valeur": 20,
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "com-conversion",
+          "libelle": "Augmenter mon taux de conversion",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-19",
+            "COM-22"
+          ],
+          "exemple": {
+            "valeur": 5,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-contacts-offre",
+          "libelle": "Récupérer plus de contacts grâce à une offre gratuite",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "unites",
+          "themes": [
+            "COM-21"
+          ],
+          "exemple": {
+            "valeur": 30,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-relance",
+          "libelle": "Transformer plus de personnes intéressées en clients en les relançant",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-61"
+          ],
+          "exemple": {
+            "valeur": 10,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-visites-site",
+          "libelle": "Augmenter les visites de mon site internet",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-13",
+            "COM-62"
+          ],
+          "exemple": {
+            "valeur": 20,
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "com-google-recherche",
+          "libelle": "Mieux apparaître sur Google quand on cherche mon métier",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "phrase",
+          "themes": [
+            "COM-62",
+            "COM-16"
+          ],
+          "exemple": {
+            "reussite": "mon site sort en première page sur mes trois recherches principales",
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "com-fiche-google",
+          "libelle": "Obtenir plus d'appels et d'itinéraires depuis ma fiche Google",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-14",
+            "COM-16"
+          ],
+          "exemple": {
+            "valeur": 20,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-annonces",
+          "libelle": "Réduire le coût de chaque demande venue de mes annonces Google",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-63"
+          ],
+          "exemple": {
+            "valeur": 20,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-avis",
+          "libelle": "Obtenir plus d'avis clients",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "unites",
+          "themes": [
+            "COM-44",
+            "COM-45"
+          ],
+          "exemple": {
+            "valeur": 15,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-note",
+          "libelle": "Améliorer ma note moyenne sur Google",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "phrase",
+          "themes": [
+            "COM-44",
+            "COM-46"
+          ],
+          "exemple": {
+            "reussite": "ma note dépasse 4,5 sur 5",
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "com-fichier",
+          "libelle": "Faire travailler mon fichier de contacts par e-mail ou SMS",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "phrase",
+          "themes": [
+            "COM-15"
+          ],
+          "exemple": {
+            "reussite": "j'écris à mes contacts une fois par mois et chaque envoi m'apporte des demandes",
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-partenaires",
+          "libelle": "Me faire recommander par des partenaires et des relais",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "unites",
+          "themes": [
+            "COM-48"
+          ],
+          "exemple": {
+            "valeur": 3,
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "com-contenus-performants",
+          "libelle": "Publier davantage ce qui marche le mieux auprès de mes clients",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "phrase",
+          "themes": [
+            "COM-39",
+            "COM-40"
+          ],
+          "exemple": {
+            "reussite": "la moitié de mes publications reprend les formats qui m'apportent des demandes",
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-qualite",
+          "libelle": "Rendre mes publications plus convaincantes",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "phrase",
+          "themes": [
+            "COM-49",
+            "COM-50",
+            "COM-51",
+            "COM-52",
+            "COM-53"
+          ],
+          "exemple": {
+            "reussite": "chaque publication a une accroche, un bénéfice clair et une action à faire",
+            "delaiMois": 2
+          }
+        },
+        {
+          "id": "com-cout-demande",
+          "libelle": "Réduire le coût de chaque demande obtenue par ma communication",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-32",
+            "COM-38"
+          ],
+          "exemple": {
+            "valeur": 15,
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "com-temps",
+          "libelle": "Passer moins de temps sur ma communication pour le même résultat",
+          "groupe": "Améliorer ce que j'ai déjà",
+          "mesure": "chiffre",
+          "unite": "pourcent",
+          "themes": [
+            "COM-31",
+            "COM-34",
+            "COM-35"
+          ],
+          "exemple": {
+            "valeur": 30,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-cible",
+          "libelle": "Définir précisément à qui je m'adresse",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-02"
+          ],
+          "exemple": {
+            "reussite": "je sais décrire mon client idéal en trois phrases",
+            "delaiMois": 1
+          }
+        },
+        {
+          "id": "com-positionnement",
+          "libelle": "Clarifier ce qui me distingue de mes concurrents",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-01",
+            "COM-29"
+          ],
+          "exemple": {
+            "reussite": "je peux dire en une phrase pourquoi me choisir",
+            "delaiMois": 1
+          }
+        },
+        {
+          "id": "com-promesse",
+          "libelle": "Formuler une promesse claire pour mes clients",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-03",
+            "COM-04"
+          ],
+          "exemple": {
+            "reussite": "ma promesse figure sur mon site et sur mes profils",
+            "delaiMois": 1
+          }
+        },
+        {
+          "id": "com-identite",
+          "libelle": "Définir mon identité visuelle : logo, couleurs, ton",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-06",
+            "COM-07"
+          ],
+          "exemple": {
+            "reussite": "mes publications se reconnaissent au premier coup d'œil",
+            "delaiMois": 2
+          }
+        },
+        {
+          "id": "com-preuves",
+          "libelle": "Rassembler mes preuves : avis, réalisations, chiffres",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-08",
+            "COM-09"
+          ],
+          "exemple": {
+            "reussite": "j'ai au moins dix preuves prêtes à publier",
+            "delaiMois": 2
+          }
+        },
+        {
+          "id": "com-reseau-choisi",
+          "libelle": "Choisir le réseau le plus adapté à mes clients",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-11",
+            "COM-12"
+          ],
+          "exemple": {
+            "reussite": "j'ai choisi un réseau principal en fonction de mes clients",
+            "delaiMois": 1
+          }
+        },
+        {
+          "id": "com-comptes",
+          "libelle": "Ouvrir et configurer mes comptes sur les réseaux",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-10",
+            "COM-56"
+          ],
+          "exemple": {
+            "reussite": "mes comptes sont ouverts, complets et à jour",
+            "delaiMois": 1
+          }
+        },
+        {
+          "id": "com-profil",
+          "libelle": "Rendre mon profil clair dès la première visite",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-55"
+          ],
+          "exemple": {
+            "reussite": "mon profil dit qui je suis, pour qui je travaille et comment me contacter",
+            "delaiMois": 1
+          }
+        },
+        {
+          "id": "com-site",
+          "libelle": "Créer un site internet simple qui présente mon offre",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-13"
+          ],
+          "exemple": {
+            "reussite": "mon site est en ligne avec mes offres et un moyen de me contacter",
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-fiche",
+          "libelle": "Créer et compléter ma fiche Google",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-14",
+            "COM-16"
+          ],
+          "exemple": {
+            "reussite": "ma fiche est complète, avec photos, horaires et description",
+            "delaiMois": 1
+          }
+        },
+        {
+          "id": "com-premiers-avis",
+          "libelle": "Obtenir mes premiers avis clients",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "chiffre",
+          "unite": "unites",
+          "themes": [
+            "COM-44",
+            "COM-45"
+          ],
+          "exemple": {
+            "valeur": 10,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-lignes-editoriales",
+          "libelle": "Choisir les sujets dont je vais parler",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-24",
+            "COM-25"
+          ],
+          "exemple": {
+            "reussite": "j'ai trois thèmes de publication et une liste de vingt idées",
+            "delaiMois": 1
+          }
+        },
+        {
+          "id": "com-calendrier",
+          "libelle": "Préparer un calendrier de publication",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-28",
+            "COM-35"
+          ],
+          "exemple": {
+            "reussite": "mes publications du mois sont prêtes et programmées",
+            "delaiMois": 1
+          }
+        },
+        {
+          "id": "com-regularite",
+          "libelle": "Publier régulièrement sans y passer mes soirées",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-28",
+            "COM-33"
+          ],
+          "exemple": {
+            "reussite": "je publie deux fois par semaine, planifié à l'avance",
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-premieres-publications",
+          "libelle": "Publier mes premiers contenus",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "chiffre",
+          "unite": "unites",
+          "themes": [
+            "COM-10",
+            "COM-33"
+          ],
+          "exemple": {
+            "valeur": 12,
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-formats",
+          "libelle": "Apprendre à faire des photos et des vidéos simples de mon activité",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-26",
+            "COM-34"
+          ],
+          "exemple": {
+            "reussite": "je sais tourner et monter une vidéo courte en moins d'une heure",
+            "delaiMois": 2
+          }
+        },
+        {
+          "id": "com-parcours",
+          "libelle": "Construire un parcours qui transforme les visiteurs en clients",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-19",
+            "COM-20",
+            "COM-21"
+          ],
+          "exemple": {
+            "reussite": "depuis chaque publication, un visiteur peut me contacter en deux clics",
+            "delaiMois": 3
+          }
+        },
+        {
+          "id": "com-offre-gratuite",
+          "libelle": "Créer une offre gratuite pour récupérer des contacts",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-21"
+          ],
+          "exemple": {
+            "reussite": "mon guide ou mon diagnostic gratuit est proposé sur mon site et sur mes profils",
+            "delaiMois": 2
+          }
+        },
+        {
+          "id": "com-fichier-contacts",
+          "libelle": "Constituer mon fichier de contacts",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "chiffre",
+          "unite": "unites",
+          "themes": [
+            "COM-15"
+          ],
+          "exemple": {
+            "valeur": 100,
+            "delaiMois": 6
+          }
+        },
+        {
+          "id": "com-suivi",
+          "libelle": "Mettre en place le suivi de mes chiffres",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-43"
+          ],
+          "exemple": {
+            "reussite": "je relève chaque mois mes vues, mes clics et mes demandes",
+            "delaiMois": 1
+          }
+        },
+        {
+          "id": "com-delegation",
+          "libelle": "Trouver qui s'occupera de ma communication",
+          "groupe": "Mettre en place ma présence en ligne",
+          "mesure": "phrase",
+          "themes": [
+            "COM-30",
+            "COM-31",
+            "COM-32"
+          ],
+          "exemple": {
+            "reussite": "je sais qui produit quoi, avec quel temps et quel budget",
+            "delaiMois": 2
+          }
+        }
       ]
     }
   }

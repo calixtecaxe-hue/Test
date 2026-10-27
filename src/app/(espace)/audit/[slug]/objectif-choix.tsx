@@ -12,7 +12,8 @@ const UNITES = [
   { valeur: "euros", libelle: "En euros (€)" },
   { valeur: "unites", libelle: "En nombre" },
 ];
-const AUTRE = "autre";
+// « Autre (précisez) » termine chaque partie de la liste (« Améliorer ce que j'ai déjà », « Mettre en place… ») : autre-0, autre-1…
+const AUTRE = "autre-";
 
 const enMinuscule = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
 
@@ -52,10 +53,14 @@ export function ObjectifChoix({
   }, [choixId]);
 
   const option = propositions.objectifs.find((o) => o.id === choixId);
-  const estAutre = choixId === AUTRE;
+  const estAutre = choixId.startsWith(AUTRE);
   const quoi = option ? enMinuscule(option.libelle) : autreQuoi.trim();
   const avecChiffre = !sansChiffre;
   const groupes = [...new Set(propositions.objectifs.map((o) => o.groupe ?? ""))];
+  const objectifsDu = (g: string) => propositions.objectifs.filter((o) => (o.groupe ?? "") === g);
+  // « Autre » dans une partie nommée dont la plupart des objectifs se décrivent sans chiffre : on commence par la description.
+  const autreSansChiffre = (g: string) => g !== "" && objectifsDu(g).filter((o) => o.mesure === "phrase").length * 2 > objectifsDu(g).length;
+  const groupeAutre = estAutre ? (groupes[Number(choixId.slice(AUTRE.length))] ?? "") : "";
 
   const valeur = lireNombre(combien);
   const mois = lireNombre(delai);
@@ -77,7 +82,7 @@ export function ObjectifChoix({
       setUnite(o.unite ?? "pourcent");
       setSansChiffre(o.mesure === "phrase");
     } else {
-      setSansChiffre(false);
+      setSansChiffre(autreSansChiffre(groupes[Number(valeurChoisie.slice(AUTRE.length))] ?? ""));
     }
   }
 
@@ -126,20 +131,19 @@ export function ObjectifChoix({
         <span className="champ-etiquette">Ce que vous voulez améliorer</span>
         {propositions.intro ? <p className="text-sm text-[var(--text-muted)]">{propositions.intro}</p> : null}
         <div className="mt-3 flex flex-col gap-6">
-          {groupes.map((g) => (
+          {groupes.map((g, i) => (
             <div key={g || "tous"}>
               {g ? <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--text-muted)]">{g}</p> : null}
               <ChoixCases
                 nom={`${id}-choix`}
                 type="radio"
                 legende={g || "Objectifs proposés"}
-                options={propositions.objectifs.filter((o) => (o.groupe ?? "") === g).map((o) => ({ valeur: o.id, libelle: o.libelle }))}
+                options={[...objectifsDu(g).map((o) => ({ valeur: o.id, libelle: o.libelle })), { valeur: `${AUTRE}${i}`, libelle: "Autre (précisez)" }]}
                 valeurs={[choixId]}
                 onChange={(v) => choisir(v[0])}
               />
             </div>
           ))}
-          <ChoixCases nom={`${id}-choix`} type="radio" legende="Un autre objectif" options={[{ valeur: AUTRE, libelle: "Autre (précisez)" }]} valeurs={[choixId]} onChange={(v) => choisir(v[0])} />
         </div>
         {erreurs.choix ? <p className="text-xs text-[var(--red-1)]">{erreurs.choix}</p> : null}
       </div>
@@ -154,7 +158,7 @@ export function ObjectifChoix({
                 type="text"
                 value={autreQuoi}
                 onChange={(e) => { setAutreQuoi(e.target.value); effacer("quoi"); }}
-                placeholder="Ex. : mieux faire connaître mon entreprise"
+                placeholder={autreSansChiffre(groupeAutre) ? "Ex. : créer ma page professionnelle" : "Ex. : mieux faire connaître mon entreprise"}
                 maxLength={160}
                 className="champ-saisie"
                 aria-invalid={erreurs.quoi ? true : undefined}

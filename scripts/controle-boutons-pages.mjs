@@ -101,7 +101,8 @@ for (const cle of CHOIX) {
       await page.waitForTimeout(300);
       verifier(cle, `objectif (liste) : choisir « ${o.libelle.slice(0, 30)} » ouvre le détail`, (await page.locator("[data-detail]").count()) === 1);
     }
-    await page.locator("label.case-option:has-text('Autre (précisez)')").click();
+    // « Autre (précisez) » termine chaque partie de la liste : le premier suffit ici.
+    await page.locator("label.case-option:has-text('Autre (précisez)')").first().click();
     await page.waitForTimeout(300);
     await envoyer.click();
     verifier(cle, "objectif (« Autre », vide) : messages d'erreur", (await texteErreurs(page)).length >= 1);
