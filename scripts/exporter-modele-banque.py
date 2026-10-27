@@ -5,7 +5,11 @@ permet de déduire (type de réponse, unité, options des tranches). Il reste à
 question, l'aide, et à préciser les réponses que le format ne définit pas (Choix sans
 liste, plusieurs champs, tableaux).
 
-Usage :  python3 scripts/exporter-modele-banque.py [--sortie CAXE_Banque_Questions.xlsx]
+Usage :  python3 scripts/exporter-modele-banque.py [--sortie CAXE_Banque_Questions.xlsx] [--avec-questions]
+
+Avec --avec-questions, les questions déjà écrites (data/banque/questions.json) sont reportées dans
+le classeur, avec leur aide, leur repli et leur réponse attendue ; celles mises de côté
+(data/banque/en-attente.json) sont ajoutées en fin de feuille, marquées « en attente ».
 Ensuite : remplir le classeur, puis  python3 scripts/importer-banque.py CAXE_Banque_Questions.xlsx
 
 Besoin :  pip install openpyxl  et  node (pour la déduction des réponses, une seule logique).
@@ -86,8 +90,14 @@ def cellules_depuis_spec(spec):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sortie", default=str(RACINE / "CAXE_Banque_Questions.xlsx"))
+    ap.add_argument("--avec-questions", action="store_true")
     args = ap.parse_args()
     d = charger()
+    ecrites = {}
+    en_attente = []
+    if args.avec_questions:
+        ecrites = {q["donnee"]: q for q in json.loads((RACINE / "data" / "banque" / "questions.json").read_text(encoding="utf-8"))}
+        en_attente = json.loads((RACINE / "data" / "banque" / "en-attente.json").read_text(encoding="utf-8"))
 
     wb = openpyxl.Workbook()
     # --- Mode d'emploi ---
@@ -156,6 +166,12 @@ def main():
         spec = l["proposition"]["spec"]
         if spec:
             valeurs.update(cellules_depuis_spec(spec))
+        q = ecrites.get(l["code"])
+        if q:
+            valeurs.update({"question": q["texte"], "aide": q.get("aide"), "repli": q.get("repli")})
+            for cle in ("type", "unite", "min", "max", "options", "champs", "lignes", "total"):
+                valeurs.pop(cle, None)
+            valeurs.update(cellules_depuis_spec(q["reponse"]))
         for cle, v in valeurs.items():
             c = wq.cell(i, cle_col[cle], v)
             c.alignment = Alignment(wrap_text=True, vertical="top")
@@ -166,7 +182,18 @@ def main():
                 wq.cell(i, cle_col[cle]).alignment = Alignment(wrap_text=True, vertical="top")
                 if wq.cell(i, cle_col[cle]).value is None:
                     wq.cell(i, cle_col[cle]).fill = jaune
-    fin = len(lignes) + 1
+    for k, q in enumerate(en_attente, len(lignes) + 2):
+        valeurs = {
+            "code": q["donnee"],
+            "agent": {"ACQ": "Acquisition", "FIN": "Finance", "RH-": "RH", "COM": "Comm"}[q["donnee"][:3]],
+            "libelle": "EN ATTENTE : cette donnée n'est pas encore dans le classeur des 4 agents (" + (q.get("raison") or "à ajouter") + ")",
+            "question": q["texte"], "aide": q.get("aide"), "repli": q.get("repli"),
+        }
+        valeurs.update(cellules_depuis_spec(q["reponse"]))
+        for cle, v in valeurs.items():
+            c = wq.cell(k, cle_col[cle], v)
+            c.alignment = Alignment(wrap_text=True, vertical="top")
+    fin = len(lignes) + len(en_attente) + 1
 
     dv_type = DataValidation(type="list", formula1='"' + ",".join(TYPES.keys()) + '"', allow_blank=True)
     dv_unite = DataValidation(type="list", formula1='"' + ",".join(UNITES.keys()) + '"', allow_blank=True)

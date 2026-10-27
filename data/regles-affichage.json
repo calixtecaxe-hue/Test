@@ -191,6 +191,11 @@
       "op": "contient",
       "valeur": "site_internet"
     },
+    "D03 · si « Site internet » n'est pas coché": {
+      "cle": "D03",
+      "op": "ne_contient_pas",
+      "valeur": "site_internet"
+    },
     "D03 · une ligne par canal coché": {
       "cle": "D03",
       "op": "non_vide"

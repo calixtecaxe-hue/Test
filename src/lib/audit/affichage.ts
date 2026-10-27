@@ -38,6 +38,8 @@ function evaluerSimple(r: Simple, lire: Lecteur): Tri {
       return v !== r.valeur;
     case "contient":
       return Array.isArray(v) ? v.includes(String(r.valeur)) : v === r.valeur;
+    case "ne_contient_pas":
+      return Array.isArray(v) ? !v.includes(String(r.valeur)) : v !== r.valeur;
     case "non_vide":
       return taille > 0;
     case "vide":

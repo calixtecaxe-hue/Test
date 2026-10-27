@@ -173,7 +173,7 @@ export const motLexique = z.object({
 // « FIN-10.01#retours_par_mois » (un champ d'une question à plusieurs champs) ou
 // « RH-32.01#demission.departs » (une case d'un tableau : ligne.colonne). C'est ce que le classeur appelle un
 // déclencheur dérivé (D28 à D65) : la question suivante attend que celle-ci soit répondue.
-const operateur = z.enum(["egal", "different", "contient", "non_vide", "vide", "dans", "moins_de", "plus_de"]);
+const operateur = z.enum(["egal", "different", "contient", "non_vide", "vide", "dans", "moins_de", "plus_de", "ne_contient_pas"]);
 const regleSimple = z.object({
   cle: z.string().min(1),
   op: operateur,

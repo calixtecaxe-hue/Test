@@ -167,8 +167,8 @@
     "code": "COM-04.01",
     "theme": "COM-04",
     "ecran": "C01 · Votre positionnement et votre offre",
-    "libelle": "Pour votre offre principale : résultat promis, preuve qu'il est atteignable, délai pour l'obtenir, effort demandé au client",
-    "format": "4 champs courts",
+    "libelle": "Pour votre offre principale : preuve que le résultat est atteignable, délai pour l'obtenir, effort demandé au client",
+    "format": "3 champs courts",
     "mode": "demandee",
     "niveau": "approfondi",
     "condition": null,
@@ -1350,8 +1350,10 @@
     "format": "Oui / non",
     "mode": "demandee",
     "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
+    "condition": "D03 · si « Site internet » n'est pas coché",
+    "declencheurs": [
+      "D03"
+    ],
     "periode": null,
     "profils": {
       "rdv": true,

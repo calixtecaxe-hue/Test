@@ -618,21 +618,22 @@ test("les objectifs proposés par agent existent pour la RH et la Comm, avec un 
 
 // --- Doublons retirés et réponses déduites (décisions du propriétaire, 27 octobre) -----------------------
 
-test("une donnée retirée comme doublon n'est jamais posée, et la donnée conservée l'est", () => {
+test("les doublons retirés n'existent plus au classeur, et les données conservées sont posées ; le mécanisme de retrait reste disponible", () => {
   const codes = (a: ReturnType<typeof assemblerQuestionnaire>) => new Set([...a.prealables, ...a.themes.flatMap((t) => t.questions)].map((q) => q.code));
-  // RH-41.04 et RH-41.05 : couvertes par RH-42.01 pour le dirigeant seul qui veut être aidé.
+  // Retirés du classeur le 27 octobre (décision du propriétaire), puis supprimés.
+  for (const code of ["RH-41.04", "RH-41.05", "ACQ-09.04", "ACQ-22.08"]) assert.ok(!reel.donnees.some((d) => d.code === code), `${code} ne doit plus exister`);
+  assert.deepEqual(reel.retraits.retraits, []);
+  // RH-42.01 couvre RH-41.04 et RH-41.05 pour le dirigeant seul qui veut être aidé.
   const rh = assemblerQuestionnaire(reel, ctx("RH_ORGANISATION", { taille: "seul", reponses: { "RH-41.01": saisie("oui_dans_les_6_prochains_mois") } }));
   assert.ok(codes(rh).has("RH-42.01"));
-  assert.ok(!codes(rh).has("RH-41.04") && !codes(rh).has("RH-41.05"));
-  // ACQ-09.04 : voisine d'ACQ-12.01, posées ensemble aux profils rendez-vous avec devis.
+  // ACQ-12.01 couvre ACQ-09.04 pour les profils rendez-vous avec devis.
   const acq = assemblerQuestionnaire(reel, ctx("ACQUISITION_CA", { profils: ["b2b"], reponses: { D05: saisie("oui"), D06: saisie("oui") } }));
   assert.ok(codes(acq).has("ACQ-12.01"));
-  assert.ok(!codes(acq).has("ACQ-09.04"));
-  // Elles ne sont pas comptées au choix du niveau.
-  const sansRetrait: EnsembleDonnees = { ...reel, retraits: { ...reel.retraits, retraits: [] } };
+  // Le mécanisme de retrait (data/retraits.json) retire une donnée du questionnaire et du compte des questions.
+  const retire: EnsembleDonnees = { ...reel, retraits: { ...reel.retraits, retraits: [{ donnee: "ACQ-12.01", raison: "essai", conservee: "ACQ-12.02", decideLe: "2026-10-27" }] } };
   const avec = compterQuestions(reel, "ACQUISITION_CA", ["b2b"], "equipe_2_5");
-  const sans = compterQuestions(sansRetrait, "ACQUISITION_CA", ["b2b"], "equipe_2_5");
-  assert.equal(sans.total - avec.total, 1);
+  const sans = compterQuestions(retire, "ACQUISITION_CA", ["b2b"], "equipe_2_5");
+  assert.equal(avec.total - sans.total, 1);
 });
 
 test("« Avez-vous un site internet ? » n'est posée que si « site internet » n'est pas coché dans les canaux", () => {

@@ -1,23 +1,4 @@
 {
   "source": "Décision du propriétaire, 27 octobre : doublons retirés des questionnaires. Les données restent dans le classeur ; leurs lignes sont à supprimer au classeur, puis cette liste se vide.",
-  "retraits": [
-    {
-      "donnee": "RH-41.04",
-      "raison": "« Sur quelle partie de votre travail cette personne vous aiderait-elle d'abord ? » est déjà couvert par RH-42.01 (tâches confiées en premier). Aucun calcul n'en dépend.",
-      "conservee": "RH-42.01",
-      "decideLe": "2026-10-27"
-    },
-    {
-      "donnee": "RH-41.05",
-      "raison": "« Combien d'heures par semaine voudriez-vous lui confier ? » est déjà couvert par la colonne « Heures par semaine » de RH-42.01. Aucun calcul n'en dépend.",
-      "conservee": "RH-42.01",
-      "decideLe": "2026-10-27"
-    },
-    {
-      "donnee": "ACQ-09.04",
-      "raison": "Délai pour proposer un premier rendez-vous : mesure voisine d'ACQ-12.01 (jours réels entre le premier contact et le premier rendez-vous), posées ensemble aux profils rendez-vous, chantier et B2B. Aucun calcul n'en dépend ; ACQ-12.01 alimente ACQ-12.05.",
-      "conservee": "ACQ-12.01",
-      "decideLe": "2026-10-27"
-    }
-  ]
+  "retraits": []
 }

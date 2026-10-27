@@ -776,9 +776,9 @@
       "ACQ-11.25",
       "ACQ-11.08",
       "ACQ-11.26",
-      "ACQ-22.08"
+      "ACQ-22.07"
     ],
-    "entreesTexte": "ACQ-11.25, ACQ-11.08, ACQ-11.26, ACQ-22.08",
+    "entreesTexte": "ACQ-11.25, ACQ-11.08, ACQ-11.26, ACQ-22.07",
     "profils": {
       "rdv": false,
       "commerce": false,
@@ -962,11 +962,10 @@
     "calcul": "Créneaux les plus demandés comparés aux moins remplis, avec le CA de chaque jour",
     "entrees": [
       "ACQ-22.07",
-      "ACQ-22.08",
       "ACQ-22.12",
       "ACQ-22.09"
     ],
-    "entreesTexte": "ACQ-22.07, ACQ-22.08, ACQ-22.12, ACQ-22.09",
+    "entreesTexte": "ACQ-22.07, ACQ-22.12, ACQ-22.09",
     "profils": {
       "rdv": true,
       "commerce": true,

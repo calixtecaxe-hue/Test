@@ -4267,56 +4267,6 @@
     "utiliseeDansTexte": null
   },
   {
-    "code": "RH-41.04",
-    "theme": "RH-41",
-    "ecran": null,
-    "libelle": "Partie du travail confiée en premier",
-    "format": "Choix",
-    "mode": "demandee",
-    "niveau": "essentiel",
-    "condition": "D28 · si vous voulez être aidé",
-    "declencheurs": [
-      "D28"
-    ],
-    "periode": null,
-    "tailles": {
-      "seul": true,
-      "equipe_2_5": false,
-      "structure_6_plus": false
-    },
-    "sertA": [],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
-    "utiliseeDans": [],
-    "utiliseeDansTexte": null
-  },
-  {
-    "code": "RH-41.05",
-    "theme": "RH-41",
-    "ecran": null,
-    "libelle": "Heures par semaine à confier",
-    "format": "Heures",
-    "mode": "demandee",
-    "niveau": "essentiel",
-    "condition": "D28 · si vous voulez être aidé",
-    "declencheurs": [
-      "D28"
-    ],
-    "periode": null,
-    "tailles": {
-      "seul": true,
-      "equipe_2_5": false,
-      "structure_6_plus": false
-    },
-    "sertA": [],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
-    "utiliseeDans": [],
-    "utiliseeDansTexte": null
-  },
-  {
     "code": "RH-42.01",
     "theme": "RH-42",
     "ecran": null,

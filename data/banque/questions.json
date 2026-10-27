@@ -1174,17 +1174,6 @@
     }
   },
   {
-    "donnee": "ACQ-09.04",
-    "texte": "Quand un nouveau client vous contacte, dans combien de jours pouvez-vous lui proposer le premier rendez-vous disponible ?",
-    "aide": null,
-    "repli": null,
-    "reponse": {
-      "type": "nombre",
-      "unite": "jours",
-      "min": 0
-    }
-  },
-  {
     "donnee": "ACQ-09.05",
     "texte": "En moyenne, combien de rendez-vous faut-il pour signer un nouveau client ?",
     "aide": "Premier rendez-vous compris. Par exemple : une visite, puis un rendez-vous pour présenter le devis = 2.",
@@ -10057,49 +10046,6 @@
     }
   },
   {
-    "donnee": "RH-41.04",
-    "texte": "Sur quelle partie de votre travail cette personne vous aiderait-elle d'abord ?",
-    "aide": null,
-    "repli": null,
-    "reponse": {
-      "type": "choix",
-      "options": [
-        {
-          "id": "le_travail_pour_les_clients",
-          "libelle": "Le travail pour les clients"
-        },
-        {
-          "id": "trouver_et_suivre_les_clients",
-          "libelle": "Trouver et suivre les clients"
-        },
-        {
-          "id": "administratif_et_gestion",
-          "libelle": "Administratif et gestion"
-        },
-        {
-          "id": "communication",
-          "libelle": "Communication"
-        },
-        {
-          "id": "un_peu_de_tout",
-          "libelle": "Un peu de tout"
-        }
-      ]
-    }
-  },
-  {
-    "donnee": "RH-41.05",
-    "texte": "Combien d'heures par semaine voudriez-vous lui confier ?",
-    "aide": "Une estimation suffit. Un temps plein fait 35 heures.",
-    "repli": null,
-    "reponse": {
-      "type": "nombre",
-      "unite": "heures",
-      "min": 0,
-      "max": 60
-    }
-  },
-  {
     "donnee": "RH-42.01",
     "texte": "Quelles tâches lui confieriez-vous en premier, et combien de temps vous prennent-elles ?",
     "aide": "Nommez chaque tâche : devis, facturation, préparation, livraisons, réponses aux clients… 5 au plus.",
@@ -10516,19 +10462,12 @@
   },
   {
     "donnee": "COM-04.01",
-    "texte": "Pour votre offre principale, que promettez-vous au client, et comment le prouvez-vous ?",
-    "aide": "Par exemple : « une terrasse prête pour l'été » · « 40 terrasses posées, photos à l'appui » · « 3 semaines » · « aucun : nous gérons tout ».",
+    "texte": "Pour votre offre principale, comment prouvez-vous que le résultat est atteignable, en combien de temps le client l'obtient-il et quel effort lui demandez-vous ?",
+    "aide": "Par exemple : « 40 terrasses posées, photos à l'appui » · « 3 semaines » · « aucun : nous gérons tout ».",
     "repli": null,
     "reponse": {
       "type": "composite",
       "champs": [
-        {
-          "id": "resultat_promis",
-          "libelle": "Résultat promis",
-          "spec": {
-            "type": "texte"
-          }
-        },
         {
           "id": "preuve_que_c_est_possible",
           "libelle": "Preuve que c'est possible",

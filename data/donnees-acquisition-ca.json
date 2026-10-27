@@ -3249,38 +3249,6 @@
     "utiliseeDansTexte": "ACQ-09.08, ACQ-09.10, ACQ-09.13"
   },
   {
-    "code": "ACQ-09.04",
-    "theme": "ACQ-09",
-    "ecran": "A10 · Vos rendez-vous",
-    "libelle": "Délai pour obtenir un rendez-vous (premier créneau proposé)",
-    "format": "Jours",
-    "mode": "demandee",
-    "niveau": "essentiel",
-    "condition": "D05 · si activité sur rendez-vous",
-    "declencheurs": [
-      "D05"
-    ],
-    "periode": null,
-    "profils": {
-      "rdv": true,
-      "commerce": false,
-      "ecommerce": false,
-      "restaurant": false,
-      "chantier": true,
-      "b2b": true,
-      "abonnement": false,
-      "location": false
-    },
-    "sertA": [
-      "Problème"
-    ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
-    "utiliseeDans": [],
-    "utiliseeDansTexte": "Notée directement (couleur du thème)"
-  },
-  {
     "code": "ACQ-09.05",
     "theme": "ACQ-09",
     "ecran": "A10 · Vos rendez-vous",
@@ -9403,39 +9371,6 @@
       "XA42"
     ],
     "utiliseeDansTexte": "XA42"
-  },
-  {
-    "code": "ACQ-22.08",
-    "theme": "ACQ-22",
-    "ecran": "A21 · Vos horaires et créneaux",
-    "libelle": "Créneaux les moins remplis",
-    "format": "Grille à cocher",
-    "mode": "demandee",
-    "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
-    "periode": null,
-    "profils": {
-      "rdv": true,
-      "commerce": true,
-      "ecommerce": false,
-      "restaurant": true,
-      "chantier": false,
-      "b2b": false,
-      "abonnement": false,
-      "location": true
-    },
-    "sertA": [
-      "Levier"
-    ],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
-    "utiliseeDans": [
-      "XA34",
-      "XA42"
-    ],
-    "utiliseeDansTexte": "XA34, XA42"
   },
   {
     "code": "ACQ-22.09",

@@ -202,12 +202,14 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   qui se recoupent ; **ne sont pas des doublons** (gardées) les questions faites exprès pour des statistiques ou des calculs : tendances (« il y a 6 / 12
   mois »), répartitions par canal ou type de client, contrôles de cohérence (ACQ-01.05 contre COM-02.01), et les paires qui alimentent deux
   calculs différents (ACQ-17.06 alimente la reconquête des clients inactifs XA17, COM-15.01 le fichier de contacts inexploité XC10). **Retirées**
-  (`data/retraits.json`, qui survit à l'import du classeur ; le contrôle refuse un retrait qui alimente un calcul, un croisement ou une règle) :
-  RH-41.04 et RH-41.05 (couvertes par RH-42.01) et ACQ-09.04 (voisine d'ACQ-12.01). **Déduite** (`data/implications.json`, fonction
+  (mécanisme `data/retraits.json`, qui survit à l'import du classeur ; le contrôle refuse un retrait qui alimente un calcul, un croisement ou une règle ;
+  **la liste est vide depuis le 27 octobre** : les lignes ont été supprimées du classeur) : RH-41.04 et RH-41.05 (couvertes par RH-42.01), ACQ-09.04
+  (voisine d'ACQ-12.01) et ACQ-22.08 (fusionnée dans ACQ-22.07 ; les croisements XA34 et XA42, qui la lisaient, lisent ACQ-22.07). **Déduite** (`data/implications.json`, fonction
   `reponsesDeduites`) : COM-13.10 « Avez-vous un site internet ? » vaut « oui » et n'est pas posée quand « site internet » est coché en ACQ-03.01 ;
-  une réponse déjà donnée l'emporte. **À reporter dans le classeur** : supprimer les lignes RH-41.04, RH-41.05 et ACQ-09.04, ajouter à COM-13.10 la
-  condition « posée si ACQ-03.01 ne contient pas Site internet », puis vider `data/retraits.json`. À trancher encore : COM-03.01 et COM-04.01
-  (« résultat promis » posé deux fois), à reformuler par le propriétaire.
+  une réponse déjà donnée l'emporte. Le classeur porte aussi la condition de COM-13.10 (« D03 · si « Site internet » n'est pas coché », opérateur
+  `ne_contient_pas` de `regles-affichage.json`). **COM-03.01 / COM-04.01 (décision du propriétaire, 27 octobre : deux questions distinctes)** :
+  COM-03.01 garde le résultat promis ; COM-04.01 ne demande plus que la preuve, le délai et l'effort demandé (3 champs). **Le texte reformulé de
+  COM-04.01 est une proposition à faire valider.** Classeur corrigé : `CAXE_Themes_Chiffres_4_agents_11` (version du 27 octobre).
 - **Assemblage en 5 couches** : (1) inscription, (2) socle de l'agent, (3) module
   catégorie, (4) module métier — 5 questions maximum —, (5) filtre taille
   (seul / 2 à 5 / 6 et plus). **Questions déclencheuses** (D01 à D65) qui ouvrent
@@ -374,13 +376,13 @@ dans le dépôt**; il utilise encore les types A / B / C : ne pas les reprendre
 tels quels).
 
 **Fichiers de données (dossier `data/`)** : `themes.json` (181 thèmes), `donnees-*.json`
-(895 données, par agent), `croisements.json` (157), `scenarios.json` (13),
+(891 données, par agent), `croisements.json` (157), `scenarios.json` (13),
 `diagnostic-comm.json` (14 problèmes), `declencheurs.json` (65), `lexique.json`,
 `regles-affichage.json` (conditions d'affichage, masquages de thèmes et réponses attendues des
 déclencheurs, **écrit à la main** d'après le classeur ; le contrôle échoue si une condition du classeur n'y a pas
 de règle ; deux règles sont « à préciser » ; une règle `toujours` pour FIN-05.02), `routage.json` (11 catégories, 8 profils, 149 métiers et 54 activités tirés du document « CAXE — Liste des métiers » du 15 octobre, avec synonymes de recherche, stock oui / non / à demander et agent Comm oui / non / à trancher),
 `inscription.json` (questions du dossier d'inscription, avec mots du lexique) et
-`banque/questions.json` (518 questions écrites ; 47 autres en attente dans `banque/en-attente.json`). Les huit premiers viennent du classeur par
+`banque/questions.json` (515 questions écrites ; 47 autres en attente dans `banque/en-attente.json`). Les huit premiers viennent du classeur par
 `python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` et `inscription.json` sont écrits
 d'après le document de règles et la liste des métiers (`python3 scripts/ecrire-routage-metiers.py` réécrit `routage.json` ; les profils des professions réglementées ajoutées sont déduits et marqués `aConfirmer`). Schémas : `src/lib/donnees/schemas.ts` ; routage : `src/lib/routage.ts` ;
 lexique : `src/lib/donnees/lexique.ts` (un mot du lexique s'écrit `{demande}`,
@@ -419,7 +421,7 @@ réponse** (`src/lib/donnees/reponse-spec.ts`) : nombre (unité, bornes), oui / 
 texte, mois et année, plusieurs champs, tableau (lignes fixes, issues d'une question de cadrage, d'une liste,
 ou libres ; total imposé). Elle vient de la banque (`question.reponse`) ou, à défaut, de ce que le format du
 classeur permet de déduire sans ambiguïté (`proposerSpec` : 178 données sur 395) ; les 217 autres (« Choix » sans
-liste, plusieurs champs, tableaux) **doivent être définies dans la banque**, sinon saisie libre (au 22 octobre, les 518 questions de la banque portent toutes leur spécification). Le serveur
+liste, plusieurs champs, tableaux) **doivent être définies dans la banque**, sinon saisie libre (au 22 octobre, les questions de la banque portent toutes leur spécification). Le serveur
 refuse toute réponse non conforme (`validerReponse`), le navigateur contrôle le même code
 (`src/lib/audit/saisie.ts`). **La banque s'écrit dans Excel** : `python3 scripts/exporter-modele-banque.py`
 produit `CAXE_Banque_Questions.xlsx` (une ligne par donnée posée, prérempli), `python3 scripts/importer-banque.py
@@ -464,13 +466,13 @@ brouillon à valider ; l'IA du rapport choisit parmi ces actions pour obtenir un
 sourcé »), le calcul du montant en jeu (formules des croisements encore en texte libre), l'effet de l'ensemble par recalcul de la chaîne,
 l'affichage dans le rapport, la mise à jour périodique. Clé requise : `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt).
 
-**Banque de questions des 4 agents et classeur « 11 » (20 et 21 octobre)** : `data/banque/questions.json` contient **518 questions écrites** par le propriétaire
+**Banque de questions des 4 agents et classeur « 11 » (20 et 21 octobre)** : `data/banque/questions.json` contient **515 questions écrites** (518 avant le retrait de 3 doublons) par le propriétaire
 (page « Banque de questions » du 21 octobre, importée par `python3 scripts/importer-banque.py <fichier> --ecarter-inconnues`), rattachées à une donnée « Demandée » ou
 « Partagée » du classeur. **47 questions sont mises de côté** dans `data/banque/en-attente.json` (donnée absente du classeur 11 : thèmes ACQ-24 à ACQ-30, COM-62 « Référencement (SEO) » et
 COM-63 « Annonces Google (SEA) », plus ACQ-07.15, ACQ-11.38, ACQ-11.39, ACQ-13.12 à 13.14, COM-13.11) ; elles reviennent seules dès que le classeur des 4 agents les contient comme « Demandée » (liste dans
-`docs/Ajouts_au_classeur_des_4_agents.xlsx`). **ACQ-22.08** n'a plus de question (fusionnée dans ACQ-22.07) mais reste dans le classeur : elle s'affiche « question à rédiger » jusqu'à sa suppression au classeur.
-La version Excel de la banque (« partie technique », 519 lignes) est **en retard** sur la page HTML : sans les 47 nouvelles questions, avec des tranches qui se chevauchent encore (« 3 à 6 h » puis « 6 à 10 h »). **La page HTML fait foi.** Le **classeur « 11 »** (`CAXE_Themes_Chiffres_4_agents_11.xlsx`, onglet « Modifications 20 oct. ») est
-importé : 181 thèmes (19 nouveaux : FIN-46 à 48, RH-41 à 49, COM-55 à 61), 65 déclencheurs, 157 croisements, 895 données. **La nature et l'impact des 19 thèmes nouveaux sont des
+`docs/Ajouts_au_classeur_des_4_agents.xlsx`). **Ajout des 47 données au classeur (validé le 27 octobre, pas encore fait)** : le fichier d'ajouts ne donne ni la nature de notation, ni l'impact, ni l'étape, ni les profils concernés des 9 thèmes nouveaux (ACQ-24 à 30, COM-62, COM-63) ni les profils des 38 données : à fournir par le propriétaire, rien n'est inventé.
+La version Excel de la banque (`CAXE_Banque_Questions.xlsx`) est **régénérée à partir de la banque écrite** par `python3 scripts/exporter-modele-banque.py --avec-questions` (515 questions plus les 47 en attente en fin de feuille ; réimportée, elle redonne exactement la banque). **La page HTML fait foi** en cas de doute. Le **classeur « 11 »** (`CAXE_Themes_Chiffres_4_agents_11.xlsx`, onglet « Modifications 20 oct. ») est
+importé : 181 thèmes (19 nouveaux : FIN-46 à 48, RH-41 à 49, COM-55 à 61), 65 déclencheurs, 157 croisements, 891 données (895 avant la suppression de 4 doublons). **La nature et l'impact des 19 thèmes nouveaux sont des
 propositions du classeur, à valider par le propriétaire.** Le lexique vient du classeur seul (`--reporter-lexique` n'est plus nécessaire) : colonne « Clé dans les questions » (champ `cle`
 de `lexique.json` quand elle diffère de la clé dérivée du mot), colonne **Location** (8e profil) et 10 lexiques par métier (champ `metiers` de `lexique.json` ; **branchés le 27 octobre mais inactifs** : voir la fin de ce paragraphe). Le contrôle (`npm run donnees:controle`) compare la réponse de la banque au format du classeur (avertissement, la banque l'emporte).
 
