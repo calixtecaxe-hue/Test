@@ -30,6 +30,7 @@ import { prereponseDe, type Prereponse } from "./prereponse.ts";
 import type { Prereponses } from "../donnees/schemas.ts";
 import { proposerSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
 import type { ReglesAffichage, Routage } from "../donnees/schemas.ts";
+import type { MetierDuCompte } from "../routage.ts";
 
 export type Exclusions = NonNullable<Routage["reglementees"]["acquisitionExclut"]>;
 
@@ -47,6 +48,9 @@ export type ContexteAssemblage = {
   exclusions?: Exclusions | null;
   // Vocabulaire propre au métier (« immobilier », « negoce »…), s'il est validé : ses mots passent avant ceux du profil.
   vocabulaire?: string | null;
+  // Métier et activités du compte (« Autre » seul = activité par défaut, voir metierDuCompte) : une donnée réservée à
+  // certains métiers (module métier) n'est posée qu'à eux. Non renseigné : aucune donnée réservée n'est posée.
+  metier?: MetierDuCompte | null;
   // Tout ce que le compte a déjà répondu, tous agents confondus (données partagées).
   reponses: Reponses;
 };
@@ -125,9 +129,21 @@ export function equivalences(donnees: Donnee[], exclues: ReadonlySet<string> = n
   return index;
 }
 
-function concerne(d: Donnee, profils: ProfilId[], taille: TailleId): boolean {
+function concerne(d: Donnee, profils: ProfilId[], taille: TailleId, metier: MetierDuCompte | null | undefined): boolean {
+  if (!pourLeMetier(d, metier)) return false;
   if ("tailles" in d) return d.tailles[taille];
   return profils.some((p) => d.profils[p]);
+}
+
+// Module métier : une donnée qui liste ses métiers (« vtc-et-taxi ») ou ses activités (« agence-immobiliere/transaction »)
+// n'est posée qu'à eux ; une activité listée exige qu'elle soit cochée (ou qu'elle soit l'activité par défaut, « Autre » seul).
+export function pourLeMetier(d: Donnee, metier: MetierDuCompte | null | undefined): boolean {
+  if (!d.metiers) return true;
+  if (!metier?.metierPrecis) return false;
+  return d.metiers.some((cle) => {
+    const [id, activite] = cle.split("/");
+    return id === metier.metierPrecis && (activite === undefined || metier.sousVariantes.includes(activite));
+  });
 }
 
 // Donnée dont la réponse porte une clé de règle (« D03 » → ACQ-03.01, « COM-23.01#tiktok.messages » → COM-23.01), ou null
@@ -268,7 +284,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
         (d.mode === "demandee" || d.mode === "partagee") &&
         d.niveau !== null &&
         (ctx.niveau === "approfondi" || d.niveau === "essentiel") &&
-        concerne(d, ctx.profils, ctx.taille)
+        concerne(d, ctx.profils, ctx.taille, ctx.metier)
     );
     // Un thème dont le masquage est vrai est masqué, pas « non évalué » — y compris
     // quand c'est la taille qui l'écarte (RH : aucune donnée pour « seul »).
@@ -276,6 +292,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
       (d) =>
         d.theme === theme.code &&
         (d.mode === "demandee" || d.mode === "partagee") &&
+        pourLeMetier(d, ctx.metier) &&
         ("tailles" in d ? Object.values(d.tailles).some(Boolean) : ctx.profils.some((p) => d.profils[p]))
     );
     if (!concerneLEntreprise) continue;
@@ -372,10 +389,10 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
 
 // Nombre de questions d'un agent pour ce profil et cette taille, avant les
 // déclencheurs : c'est ce que le dirigeant voit en choisissant son niveau.
-export function compterQuestions(e: EnsembleDonnees, agent: CodeAgent, profils: ProfilId[], taille: TailleId, exclusions: Exclusions | null = null): { essentielles: number; total: number } {
+export function compterQuestions(e: EnsembleDonnees, agent: CodeAgent, profils: ProfilId[], taille: TailleId, exclusions: Exclusions | null = null, metier: MetierDuCompte | null = null): { essentielles: number; total: number } {
   const themes = new Set(e.themes.filter((t) => t.agent === agent && !(agent === "ACQUISITION_CA" && exclusions?.themes.includes(t.code))).map((t) => t.code));
   const concernees = e.donnees.filter(
-    (d) => themes.has(d.theme) && !e.retraits.retraits.some((r) => r.donnee === d.code) && (d.mode === "demandee" || d.mode === "partagee") && d.niveau !== null && concerne(d, profils, taille)
+    (d) => themes.has(d.theme) && !e.retraits.retraits.some((r) => r.donnee === d.code) && (d.mode === "demandee" || d.mode === "partagee") && d.niveau !== null && concerne(d, profils, taille, metier)
   );
   return { essentielles: concernees.filter((d) => d.niveau === "essentiel").length, total: concernees.length };
 }

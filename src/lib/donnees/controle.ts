@@ -114,6 +114,23 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
   e.scenarios.forEach((s) => s.entrees.forEach((x) => reference(`Le scénario ${s.code}`, x)));
   e.diagnosticComm.problemes.forEach((p) => p.entrees.forEach((x) => reference(`Le problème ${p.code}`, x)));
 
+  // Module métier : chaque métier ou activité listé existe ; jamais une profession réglementée (socle seulement, aucun module
+  // métier) ; 5 questions au plus par module (CLAUDE.md section 6).
+  const parModule = new Map<string, number>();
+  for (const d of e.donnees) {
+    if (!d.metiers) continue;
+    for (const cle of d.metiers) {
+      const [id, activite] = cle.split("/");
+      const m = e.routage.metiers.find((x) => x.id === id);
+      if (!m) { erreurs.push(`La donnée ${d.code} est réservée à un métier inconnu : ${id}.`); continue; }
+      if (activite !== undefined && !(m.sousVariantes ?? []).some((v) => v.id === activite)) erreurs.push(`La donnée ${d.code} est réservée à une activité inconnue : ${cle}.`);
+      const reglementee = e.routage.categories.find((c) => c.id === m.categorie)?.reglementee ?? false;
+      if (reglementee && !e.routage.reglementees.moduleMetier) erreurs.push(`La donnée ${d.code} est réservée à ${m.libelle}, profession réglementée : aucun module métier pour elles.`);
+    }
+    if (d.mode === "demandee" || d.mode === "partagee") parModule.set(d.theme, (parModule.get(d.theme) ?? 0) + 1);
+  }
+  for (const [theme, n] of parModule) if (n > 5) erreurs.push(`Le module métier ${theme} pose ${n} questions : 5 au plus.`);
+
   // Un croisement porte le préfixe de son agent.
   const lettreCroisement: Record<CodeAgent, string> = {
     ACQUISITION_CA: "XA",
@@ -454,6 +471,11 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     if (!clesVocabulaire.has(a.vocabulaire)) erreurs.push(`Vocabulaire de l'activité ${id} : « ${a.vocabulaire} » n'existe pas dans le lexique.`);
   }
   if (!vm.valide) avertissements.push(`Vocabulaires par métier : proposition non validée (${Object.keys(vm.metiers).length} métiers, ${Object.keys(vm.activites).length} activités, ${Object.keys(vm.aTrancher).length} à trancher) ; les mots du profil restent en vigueur.`);
+  else if (Object.keys(vm.aTrancher).length > 0) avertissements.push(`Vocabulaires par métier : ${Object.keys(vm.aTrancher).length} métiers ou activités attendent encore leur vocabulaire (${[...new Set(Object.values(vm.aTrancher))].join(" ")}) ; les mots du profil restent pour eux.`);
+  for (const id of [...Object.keys(vm.profilConserve), ...Object.keys(vm.aTrancher)]) {
+    if (!idsMetiers.has(id) && !idsActivites.has(id)) erreurs.push(`Vocabulaire : ${id} n'existe pas dans le routage.`);
+    if (id in vm.metiers || id in vm.activites) erreurs.push(`Vocabulaire : ${id} a un vocabulaire et figure aussi parmi les métiers sans vocabulaire.`);
+  }
   const sansSpec = posees.filter((d) => !banqueParDonnee.get(d.code)?.reponse && proposerSpec(d.format).certitude !== "sure");
 
   // Une donnée « partagée » se pose comme une donnée demandée (par le premier agent qui en a besoin).

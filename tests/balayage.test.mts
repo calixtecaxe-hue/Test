@@ -6,7 +6,7 @@ import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import { chargerDepuisDisque } from "../src/lib/donnees/disque.ts";
-import { router } from "../src/lib/routage.ts";
+import { metierDuCompte, router } from "../src/lib/routage.ts";
 import { assemblerQuestionnaire, equivalences, type Assemblage } from "../src/lib/audit/assemblage.ts";
 import { constaterAgent } from "../src/lib/moteur/constat.ts";
 import { cleDeDonnee, clesDeLaRegle, moisMinimumDExistence } from "../src/lib/audit/affichage.ts";
@@ -174,6 +174,20 @@ test("balayage : chaque donnée demandée est posable pour au moins un profil, u
           const a = assemblerQuestionnaire(reel, { agent, profils, taille, niveau: "approfondi", reponses: reponsesDeclencheurs(jeu) });
           a.themes.forEach((t) => t.questions.forEach((q) => atteintes.add(q.code)));
         }
+      }
+    }
+  }
+  // Modules métier : une donnée réservée à des métiers est posable pour chacun d'eux (avec ses profils réels).
+  for (const cle of new Set(reel.donnees.flatMap((d) => d.metiers ?? []))) {
+    const [id, activite] = cle.split("/");
+    const aDesActivites = (reel.routage.metiers.find((m) => m.id === id)?.sousVariantes?.length ?? 0) > 0;
+    const r = router(reel.routage, id, activite ? [activite] : [], { autre: aDesActivites && !activite });
+    assert.ok(r.ok, cle);
+    const metier = metierDuCompte(reel.routage, { metierPrecis: id, sousVariantes: activite ? [activite] : [] });
+    for (const taille of TAILLES) {
+      for (const jeu of ["oui", "non", "autre"] as const) {
+        const a = assemblerQuestionnaire(reel, { agent: "ACQUISITION_CA", profils: r.routage.profils, taille, niveau: "approfondi", reponses: reponsesDeclencheurs(jeu), metier });
+        a.themes.forEach((t) => t.questions.filter((q) => reel.donnees.find((d) => d.code === q.code)?.metiers?.includes(cle)).forEach((q) => atteintes.add(q.code)));
       }
     }
   }

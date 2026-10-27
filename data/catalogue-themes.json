@@ -617,6 +617,42 @@
     "indicateurs": []
   },
   {
+    "theme": "ACQ-25",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Métier · Transport de personnes et coursiers",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-27",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Métier · Négoce",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-28",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Métier · Vente de véhicules et de logements",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-29",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Métier · Immobilier",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
     "theme": "ACQ-30",
     "agent": "ACQUISITION_CA",
     "libelle": "Contexte",

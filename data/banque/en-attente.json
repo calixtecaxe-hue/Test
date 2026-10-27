@@ -1,91 +1,5 @@
 [
   {
-    "donnee": "ACQ-25.01",
-    "texte": "Sur une semaine habituelle, combien de courses faites-vous, combien d'heures êtes-vous disponible, et combien d'heures roulez-vous avec un client ou un colis ?",
-    "aide": "Les heures connectées à vos applications comptent comme disponibles. Vos applications donnent souvent ces chiffres dans leurs statistiques.",
-    "repli": null,
-    "reponse": {
-      "type": "composite",
-      "champs": [
-        {
-          "id": "courses",
-          "libelle": "Courses",
-          "spec": {
-            "type": "nombre",
-            "unite": "nombre"
-          }
-        },
-        {
-          "id": "heures_disponibles",
-          "libelle": "Heures disponibles",
-          "spec": {
-            "type": "nombre",
-            "unite": "heures"
-          }
-        },
-        {
-          "id": "heures_avec_un_client_ou_un_colis",
-          "libelle": "Heures avec un client ou un colis",
-          "spec": {
-            "type": "nombre",
-            "unite": "heures"
-          }
-        }
-      ]
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-25.02",
-    "texte": "Sur une semaine habituelle, combien de kilomètres faites-vous au total, et combien avec un client ou un colis ?",
-    "aide": "Le reste correspond aux trajets à vide : aller chercher un client ou revenir.",
-    "repli": null,
-    "reponse": {
-      "type": "composite",
-      "champs": [
-        {
-          "id": "kilometres_au_total",
-          "libelle": "Kilomètres au total",
-          "spec": {
-            "type": "nombre",
-            "unite": "km"
-          }
-        },
-        {
-          "id": "dont_avec_un_client_ou_un_colis",
-          "libelle": "Dont avec un client ou un colis",
-          "spec": {
-            "type": "nombre",
-            "unite": "km"
-          }
-        }
-      ]
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-25.03",
-    "texte": "Sur une semaine habituelle, combien de courses ou de livraisons échouent : client absent, annulation sur place, mauvaise adresse ?",
-    "aide": null,
-    "repli": null,
-    "reponse": {
-      "type": "nombre",
-      "unite": "nombre"
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-25.04",
-    "texte": "Sur une semaine habituelle, quelle part de vos courses faites-vous aux heures où les prix sont majorés : nuit, week-end, forte demande ?",
-    "aide": "Une estimation suffit.",
-    "repli": null,
-    "reponse": {
-      "type": "nombre",
-      "unite": "pourcent"
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
     "donnee": "ACQ-26.01",
     "texte": "Sur les 3 derniers mois, quelle part de vos commandes avez-vous livrée à la date promise ?",
     "aide": null,
@@ -94,7 +8,7 @@
       "type": "nombre",
       "unite": "pourcent"
     },
-    "raison": "module_metier_a_definir"
+    "raison": "categorie_fabrication_a_creer"
   },
   {
     "donnee": "ACQ-26.02",
@@ -122,7 +36,7 @@
         }
       ]
     },
-    "raison": "module_metier_a_definir"
+    "raison": "categorie_fabrication_a_creer"
   },
   {
     "donnee": "ACQ-26.03",
@@ -133,7 +47,7 @@
       "type": "nombre",
       "unite": "pourcent"
     },
-    "raison": "module_metier_a_definir"
+    "raison": "categorie_fabrication_a_creer"
   },
   {
     "donnee": "ACQ-26.04",
@@ -161,7 +75,7 @@
         }
       ]
     },
-    "raison": "module_metier_a_definir"
+    "raison": "categorie_fabrication_a_creer"
   },
   {
     "donnee": "ACQ-26.05",
@@ -172,244 +86,6 @@
       "type": "nombre",
       "unite": "heures"
     },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-27.01",
-    "texte": "Sur les 3 derniers mois, quelle part des commandes de vos clients avez-vous livrée complète et à la date promise ?",
-    "aide": null,
-    "repli": null,
-    "reponse": {
-      "type": "nombre",
-      "unite": "pourcent"
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-27.02",
-    "texte": "Quelle remise accordez-vous en moyenne à chaque catégorie de clients, sur votre prix catalogue ?",
-    "aide": "0 pour une catégorie qui paie le prix catalogue.",
-    "repli": null,
-    "reponse": {
-      "type": "tableau",
-      "lignes": {
-        "source": "donnee",
-        "code": "ACQ-01.01"
-      },
-      "colonnes": [
-        {
-          "id": "remise_moyenne",
-          "libelle": "Remise moyenne",
-          "spec": {
-            "type": "nombre",
-            "unite": "pourcent",
-            "min": 0,
-            "max": 100
-          }
-        }
-      ]
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-27.03",
-    "texte": "Combien vous coûtent en moyenne la préparation et la livraison d'une commande, et à partir de quel montant la livraison est-elle offerte ?",
-    "aide": "Le coût comprend le temps de préparation, l'emballage et le transport. Laissez la seconde case vide si la livraison n'est jamais offerte.",
-    "repli": null,
-    "reponse": {
-      "type": "composite",
-      "champs": [
-        {
-          "id": "cout_d_une_commande",
-          "libelle": "Coût d'une commande",
-          "spec": {
-            "type": "nombre",
-            "unite": "euros",
-            "min": 0
-          }
-        },
-        {
-          "id": "livraison_offerte_a_partir_de",
-          "libelle": "Livraison offerte à partir de",
-          "spec": {
-            "type": "nombre",
-            "unite": "euros",
-            "min": 0
-          }
-        }
-      ]
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-27.04",
-    "texte": "En moyenne, en combien de jours livrez-vous une commande, et en combien de jours vos principaux concurrents livrent-ils ?",
-    "aide": null,
-    "repli": null,
-    "reponse": {
-      "type": "composite",
-      "champs": [
-        {
-          "id": "votre_delai",
-          "libelle": "Votre délai",
-          "spec": {
-            "type": "nombre",
-            "unite": "jours"
-          }
-        },
-        {
-          "id": "delai_des_concurrents",
-          "libelle": "Délai des concurrents",
-          "spec": {
-            "type": "nombre",
-            "unite": "jours"
-          }
-        }
-      ]
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-28.01",
-    "texte": "Combien de biens avez-vous en stock aujourd'hui, et depuis combien de jours en moyenne ?",
-    "aide": "Un bien : un véhicule, un logement ou un lot à vendre.",
-    "repli": null,
-    "reponse": {
-      "type": "composite",
-      "champs": [
-        {
-          "id": "biens_en_stock",
-          "libelle": "Biens en stock",
-          "spec": {
-            "type": "nombre",
-            "unite": "nombre"
-          }
-        },
-        {
-          "id": "jours_en_stock_en_moyenne",
-          "libelle": "Jours en stock en moyenne",
-          "spec": {
-            "type": "nombre",
-            "unite": "jours"
-          }
-        }
-      ]
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-28.02",
-    "texte": "En moyenne, de combien baissez-vous le prix affiché avant de vendre ?",
-    "aide": "Par exemple 4 % : un véhicule affiché 20 000 € vendu 19 200 €.",
-    "repli": null,
-    "reponse": {
-      "type": "nombre",
-      "unite": "pourcent"
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-28.03",
-    "texte": "Sur les 3 derniers mois, quelle part de vos ventes comprenait une reprise de l'ancien bien du client, et quelle part un financement proposé par vous ?",
-    "aide": null,
-    "repli": null,
-    "reponse": {
-      "type": "composite",
-      "champs": [
-        {
-          "id": "avec_une_reprise",
-          "libelle": "Avec une reprise",
-          "spec": {
-            "type": "nombre",
-            "unite": "pourcent",
-            "min": 0,
-            "max": 100
-          }
-        },
-        {
-          "id": "avec_un_financement_propose_par_vous",
-          "libelle": "Avec un financement proposé par vous",
-          "spec": {
-            "type": "nombre",
-            "unite": "pourcent",
-            "min": 0,
-            "max": 100
-          }
-        }
-      ]
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-28.04",
-    "texte": "En moyenne sur les 3 derniers mois, combien de biens entrent en stock par mois ?",
-    "aide": "Achats, reprises et dépôts-ventes compris.",
-    "repli": null,
-    "reponse": {
-      "type": "nombre",
-      "unite": "nombre"
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-29.01",
-    "texte": "Combien de mandats avez-vous aujourd'hui, et combien sont exclusifs ?",
-    "aide": null,
-    "repli": null,
-    "reponse": {
-      "type": "composite",
-      "champs": [
-        {
-          "id": "mandats",
-          "libelle": "Mandats",
-          "spec": {
-            "type": "nombre",
-            "unite": "nombre"
-          }
-        },
-        {
-          "id": "dont_exclusifs",
-          "libelle": "Dont exclusifs",
-          "spec": {
-            "type": "nombre",
-            "unite": "nombre"
-          }
-        }
-      ]
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-29.02",
-    "texte": "Sur les 12 derniers mois, combien de jours un bien est-il resté en moyenne sur le marché avant de trouver un acquéreur ou un locataire ?",
-    "aide": null,
-    "repli": null,
-    "reponse": {
-      "type": "nombre",
-      "unite": "jours"
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-29.03",
-    "texte": "Sur les 12 derniers mois, quel écart y a-t-il eu en moyenne entre le prix du mandat et le prix signé ?",
-    "aide": "Par exemple 5 % : un bien en mandat à 300 000 € vendu 285 000 €. Pour la location, comparez le loyer annoncé et le loyer signé.",
-    "repli": null,
-    "reponse": {
-      "type": "nombre",
-      "unite": "pourcent"
-    },
-    "raison": "module_metier_a_definir"
-  },
-  {
-    "donnee": "ACQ-29.04",
-    "texte": "Aujourd'hui, combien de vos mandats sont sur le marché depuis plus de 3 mois sans aucune offre ?",
-    "aide": null,
-    "repli": null,
-    "reponse": {
-      "type": "nombre",
-      "unite": "nombre"
-    },
-    "raison": "module_metier_a_definir"
+    "raison": "categorie_fabrication_a_creer"
   }
 ]

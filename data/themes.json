@@ -384,6 +384,70 @@
     "masquePour": null
   },
   {
+    "code": "ACQ-25",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Votre métier",
+    "nom": "Métier · Transport de personnes et coursiers",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-27",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Votre métier",
+    "nom": "Métier · Négoce",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-28",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Votre métier",
+    "nom": "Métier · Vente de véhicules et de logements",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
+    "code": "ACQ-29",
+    "agent": "ACQUISITION_CA",
+    "bloc": "Votre métier",
+    "nom": "Métier · Immobilier",
+    "nature": "contexte",
+    "impact": {
+      "type": "aucun",
+      "sur": null
+    },
+    "chiffreNecessaire": "non",
+    "dejaConnu": null,
+    "methodeVolume": null,
+    "siInconnu": null,
+    "masquePour": null
+  },
+  {
     "code": "ACQ-30",
     "agent": "ACQUISITION_CA",
     "bloc": "Piloter",

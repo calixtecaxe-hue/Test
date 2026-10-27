@@ -95,6 +95,9 @@ const donneeBase = {
   entreesTexte: z.string().nullable(),
   utiliseeDans: z.array(z.union([codeDonnee, codeCroisement])),
   utiliseeDansTexte: z.string().nullable(),
+  // Module métier : la donnée n'est posée qu'à ces métiers (« vtc-et-taxi ») ou activités (« agence-immobiliere/transaction »).
+  // Absent : tous les métiers du profil (colonne « Métiers concernés » du classeur, vide).
+  metiers: z.array(z.string().regex(/^[a-z0-9-]+(\/[a-z0-9-]+)?$/)).min(1).optional(),
 };
 
 // Agents Acquisition, Finance, Comm : colonnes par profil d'entreprise.
@@ -543,7 +546,7 @@ export type Implications = z.infer<typeof implications>;
 // --- Vocabulaires par métier ----------------------------------------------------
 
 // Quel vocabulaire propre (hébergement, négoce, cabinet…) s'applique à quel métier ou activité. Tant que « valide » est faux,
-// l'application garde les mots du profil : c'est une proposition à valider par le propriétaire.
+// l'application garde les mots du profil. Validé par le propriétaire le 27 octobre.
 export const vocabulairesMetiers = z.object({
   source: z.string(),
   valide: z.boolean(),
@@ -552,6 +555,9 @@ export const vocabulairesMetiers = z.object({
   metiers: z.record(z.string(), z.object({ vocabulaire: z.string(), aConfirmer: z.boolean() })),
   // Clé « métier/activité » : l'activité cochée l'emporte sur le métier.
   activites: z.record(z.string(), z.object({ vocabulaire: z.string(), aConfirmer: z.boolean() })),
+  // Métiers ou activités qui gardent les mots de leur profil (décision du propriétaire), avec la raison.
+  profilConserve: z.record(z.string(), z.string()).default({}),
+  // Décision encore ouverte (ou vocabulaire à écrire) : les mots du profil restent en attendant.
   aTrancher: z.record(z.string(), z.string()),
 });
 export type VocabulairesMetiers = z.infer<typeof vocabulairesMetiers>;

@@ -8,7 +8,7 @@ import { PROFILS, type ProfilId } from "../donnees/schemas";
 import { constaterAgent } from "../moteur/constat";
 import { contexteReference } from "../references/contexte";
 import { chargerReferencesActives } from "../references/depot";
-import { exclusionsAcquisition } from "../routage";
+import { exclusionsAcquisition, metierDuCompte } from "../routage";
 import { vocabulaireDuCompte } from "../vocabulaire";
 import type { AgentCode } from "@prisma/client";
 
@@ -28,7 +28,8 @@ export async function compteRenduDuCompte(utilisateur: UtilisateurComplet, agent
     reponses,
     ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()),
     exclusions,
-    vocabulaire: vocabulaireDuCompte(ENSEMBLE.vocabulairesMetiers, utilisateur),
+    vocabulaire: vocabulaireDuCompte(ENSEMBLE.vocabulairesMetiers, metierDuCompte(ENSEMBLE.routage, utilisateur)),
+    metier: metierDuCompte(ENSEMBLE.routage, utilisateur),
   });
 
   const zone = utilisateur.typeZone;

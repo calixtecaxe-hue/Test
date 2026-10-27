@@ -13,7 +13,8 @@ import { join } from "node:path";
 import { writeFileSync } from "node:fs";
 import { chargerDepuisDisque } from "../src/lib/donnees/disque.ts";
 import { TAILLES } from "../src/lib/donnees/constantes.ts";
-import { router, METIER_ABSENT } from "../src/lib/routage.ts";
+import { router, METIER_ABSENT, metierDuCompte } from "../src/lib/routage.ts";
+import { vocabulaireDuCompte } from "../src/lib/vocabulaire.ts";
 import { equivalences, type Niveau } from "../src/lib/audit/assemblage.ts";
 import { formuler } from "../src/lib/donnees/lexique.ts";
 import { constaterAgent } from "../src/lib/moteur/constat.ts";
@@ -87,6 +88,9 @@ for (const s of scenarios) {
     continue;
   }
   const ex = ro.reglementee ? e.routage.reglementees.acquisitionExclut ?? null : null;
+  // Métier et vocabulaire réels du compte : modules métier et mots du métier (vocabulaires validés le 27 octobre).
+  const metier = metierDuCompte(e.routage, { metierPrecis: s.metier, sousVariantes: s.sousVariantes });
+  const vocabulaire = vocabulaireDuCompte(e.vocabulairesMetiers, metier);
   const agents = AGENTS.filter((a) => !ro.agentsExclus.includes(a));
   if (agents.length === 0) resume.sansAgent++;
 
@@ -97,7 +101,7 @@ for (const s of scenarios) {
           // On ne fait les deux variantes que pour le niveau approfondi (le plus complet) : le reste est un sous-ensemble.
           if (variante === "non" && niveau === "essentiel") continue;
           const nom = `${s.libelle} · ${agent} · ${taille} · ${niveau} · ${variante}`;
-          const entree = { agent, profils: ro.profils as ProfilId[], taille, niveau, ancienneteMois: 60, exclusions: ex, reponses: {} as Reponses };
+          const entree = { agent, profils: ro.profils as ProfilId[], taille, niveau, ancienneteMois: 60, exclusions: ex, reponses: {} as Reponses, metier, vocabulaire };
           let rempli: ReturnType<typeof remplir>;
           try {
             rempli = remplir(e, entree, variante);
@@ -220,7 +224,7 @@ for (const s of scenarios) {
     if (!q) continue;
     const concerne = "tailles" in d ? true : ro.profils.some((p) => d.profils[p]);
     if (!concerne) continue;
-    const f = formuler(q.texte, ro.profils as ProfilId[], e.lexique);
+    const f = formuler(q.texte, ro.profils as ProfilId[], e.lexique, vocabulaire);
     if (!f.ok) {
       const cle = `${d.code}|${ro.profils.join("+")}`;
       if (!lexiqueAbsent.has(cle)) lexiqueAbsent.set(cle, new Set());

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Écrit data/vocabulaires-metiers.json : quel vocabulaire par métier (hébergement, négoce, cabinet…) s'applique à quel
-métier ou activité. PROPOSITION à valider par le propriétaire : tant que « valide » est faux, l'application n'utilise
-pas ce fichier (les mots du profil continuent de s'appliquer). Les dix vocabulaires et leurs mots viennent du classeur
+métier ou activité. VALIDÉ par le propriétaire le 27 octobre (attributions, « à confirmer » compris, et décisions sur les
+cas à trancher) : l'application l'utilise. Les dix vocabulaires et leurs mots viennent du classeur
 (data/lexique.json, champ « metiers »). Relancer après toute décision : python3 scripts/ecrire-vocabulaires-metiers.py"""
 import json, pathlib, sys
 
@@ -22,8 +22,8 @@ VOCABULAIRES = {
     "livraison_repas": "Cuisine en livraison seule (commandes, menu en ligne)",
 }
 
-# Chaque entrée : identifiant du métier -> (vocabulaire, certitude). « evident » : le vocabulaire décrit le métier sans
-# ambiguïté ; « a_confirmer » : plausible, à valider. Un métier absent de ces tables garde les mots de son profil.
+# Chaque entrée : identifiant du métier -> (vocabulaire, certitude). Les attributions marquées « a_confirmer » dans la
+# proposition ont été confirmées le 27 octobre : toutes sont « evident ». Un métier absent de ces tables garde les mots de son profil.
 METIERS = {}
 def poser(ids, vocab, certitude="evident"):
     for i in ids: METIERS[i] = (vocab, certitude)
@@ -46,9 +46,9 @@ poser(["avocat", "notaire", "commissaire-de-justice", "expert-comptable", "commi
 poser(["vtc-et-taxi", "coursier"], "course")
 poser(["cuisine-en-livraison-seule"], "livraison_repas")
 poser(["vente-de-vehicules", "promoteur-immobilier", "marchand-de-biens"], "vente_de_biens")
-poser(["constructeur-de-maisons-individuelles"], "vente_de_biens", "a_confirmer")
-poser(["architecte-d-interieur", "cuisiniste", "pisciniste"], "projet_particuliers", "a_confirmer")
-poser(["finance-et-assurance"], "cabinet", "a_confirmer")
+poser(["constructeur-de-maisons-individuelles"], "vente_de_biens")
+poser(["architecte-d-interieur", "cuisiniste", "pisciniste"], "projet_particuliers")
+poser(["finance-et-assurance"], "cabinet")
 
 # Métiers à activités : le vocabulaire se décide activité par activité (clé « métier/activité »).
 ACTIVITES = {
@@ -56,48 +56,54 @@ ACTIVITES = {
     "agence-immobiliere/transaction": ("immobilier", "evident"),
     "agence-immobiliere/location-recherche-de-locataires": ("immobilier", "evident"),
     "agence-immobiliere/immobilier-d-entreprise-bureaux-locaux-commerciaux": ("immobilier", "evident"),
-    "agence-immobiliere/gestion-locative": ("immobilier", "a_confirmer"),
-    "paysagiste/creation": ("projet_particuliers", "a_confirmer"),
-    "evenementiel/organisation-de-mariages-et-fetes-privees": ("projet_particuliers", "a_confirmer"),
-    "photographe/particuliers-mariages-et-portraits": ("projet_particuliers", "a_confirmer"),
+    "agence-immobiliere/gestion-locative": ("immobilier", "evident"),
+    "paysagiste/creation": ("projet_particuliers", "evident"),
+    "evenementiel/organisation-de-mariages-et-fetes-privees": ("projet_particuliers", "evident"),
+    "photographe/particuliers-mariages-et-portraits": ("projet_particuliers", "evident"),
 }
 
-# Ce qui reste sans vocabulaire propre, et pourquoi : pour que le propriétaire tranche.
-A_TRANCHER = {
-    "agence-immobiliere/syndic": "Un syndic ne fait pas d'estimation ni de vente : aucun des dix vocabulaires ne convient franchement.",
-    "agence-immobiliere/conciergerie-saisonniere": "Proche de l'hébergement (nuitées) mais le client est le propriétaire du logement.",
-    "agence-de-voyage": "Dossier de voyage : ni « devis signé » ni « vente de bien » ne décrit bien ; vocabulaire à créer ?",
-    "livraison-du-dernier-kilometre": "Course ou livraison ? Le vocabulaire « courses » parle de passagers ou de coursiers.",
-    "transport-de-marchandises": "Idem : « demande de course » ne convient pas à un transport de marchandises.",
-    "demenagement": "Devis et chantier plutôt que course : profil actuel conservé.",
-    "autocariste": "Devis groupe : profil actuel conservé.",
-    "restauration-rapide": "Peut faire de la livraison : le vocabulaire « livraison repas » ne vaut que pour la livraison seule.",
+# Décision du propriétaire, 27 octobre : ces métiers et activités gardent les mots de leur profil.
+PROFIL_CONSERVE = {
+    "agence-immobiliere/syndic": "Un syndic ne fait pas d'estimation ni de vente : aucun des dix vocabulaires ne convient.",
+    "agence-immobiliere/conciergerie-saisonniere": "Proche de l'hébergement, mais le client est le propriétaire du logement.",
+    "agence-de-voyage": "Dossier de voyage : ni « devis signé » ni « vente de bien » ne décrit bien.",
+    "livraison-du-dernier-kilometre": "Le vocabulaire « courses » parle de passagers ou de coursiers.",
+    "transport-de-marchandises": "« Demande de course » ne convient pas à un transport de marchandises.",
+    "demenagement": "Devis et chantier plutôt que course.",
+    "autocariste": "Devis groupe.",
+    "restauration-rapide": "Peut faire de la livraison : « livraison repas » ne vaut que pour la livraison seule.",
     "pizzeria": "Même remarque que la restauration rapide.",
-    "recrutement-et-rh": "« Dossier ouvert / honoraires » (cabinet) convient à un cabinet de recrutement, moins à une agence d'intérim.",
-    "consultant": "Mission plutôt que dossier : profil B2B conservé ; « cabinet » possible pour le conseil juridique.",
-    "medecin": "Professions de santé : « dossier » et « honoraires » ne sont pas les mots d'un patient. Vocabulaire « consultation » à créer ?",
-    "dentiste": "Idem médecin.", "kine": "Idem médecin.", "infirmier-liberal": "Idem médecin.", "sage-femme": "Idem médecin.",
-    "orthophoniste": "Idem médecin.", "veterinaire": "Idem médecin.", "psychologue": "Idem médecin.",
-    "osteopathe": "Idem médecin.", "naturopathe": "Idem médecin.", "sophrologue": "Idem médecin.",
+    "recrutement-et-rh": "« Dossier ouvert / honoraires » convient à un cabinet de recrutement, moins à une agence d'intérim.",
+    "consultant": "Mission plutôt que dossier.",
 }
+
+# Décision du propriétaire, 27 octobre : un vocabulaire « consultation » est à créer pour les professions de santé ; ses mots
+# sont à écrire par le propriétaire (dans le classeur, lexique). En attendant, les mots du profil restent.
+A_ECRIRE = "Vocabulaire « consultation » à créer (décision du 27 octobre) : ses mots sont à écrire par le propriétaire. En attendant, les mots du profil restent."
+A_TRANCHER = {i: A_ECRIRE for i in [
+    "medecin", "dentiste", "kine", "infirmier-liberal", "sage-femme", "orthophoniste", "veterinaire", "psychologue",
+    "osteopathe", "naturopathe", "sophrologue",
+]}
 
 ids_metiers = {m["id"] for m in routage["metiers"]}
 ids_activites = {f'{m["id"]}/{v["id"]}' for m in routage["metiers"] for v in m.get("sousVariantes", [])}
 cles = {k for mot in lexique for k in (mot.get("metiers") or {})}
 erreurs = [i for i in METIERS if i not in ids_metiers] + [i for i in ACTIVITES if i not in ids_activites]
+erreurs += [i for i in list(PROFIL_CONSERVE) + list(A_TRANCHER) if i not in ids_metiers and i not in ids_activites]
 erreurs += [v for v, _ in list(METIERS.values()) + list(ACTIVITES.values()) if v not in cles]
 erreurs += [k for k in VOCABULAIRES if k not in cles]
 if erreurs:
     sys.exit("Identifiants inconnus : " + ", ".join(erreurs))
 
 sortie = {
-    "source": "Proposition du 27 octobre à valider par le propriétaire. Les dix vocabulaires viennent du classeur (data/lexique.json, champ « metiers ») ; l'attribution à chaque métier est écrite par scripts/ecrire-vocabulaires-metiers.py.",
-    "valide": False,
+    "source": "Validé par le propriétaire le 27 octobre. Les dix vocabulaires viennent du classeur (data/lexique.json, champ « metiers ») ; l'attribution à chaque métier est écrite par scripts/ecrire-vocabulaires-metiers.py.",
+    "valide": True,
     "regle": "Un vocabulaire remplace les mots du profil. Plusieurs activités cochées : le vocabulaire s'applique seulement si elles ont toutes le même ; sinon les mots du profil restent. Un mot sans forme dans le vocabulaire (« — » dans le classeur) garde la forme du profil.",
     "vocabulaires": VOCABULAIRES,
     "metiers": {i: {"vocabulaire": v, "aConfirmer": c == "a_confirmer"} for i, (v, c) in sorted(METIERS.items())},
     "activites": {i: {"vocabulaire": v, "aConfirmer": c == "a_confirmer"} for i, (v, c) in sorted(ACTIVITES.items())},
+    "profilConserve": PROFIL_CONSERVE,
     "aTrancher": A_TRANCHER,
 }
 (RACINE / "data/vocabulaires-metiers.json").write_text(json.dumps(sortie, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-print(f"{len(METIERS)} métiers, {len(ACTIVITES)} activités, {len(A_TRANCHER)} à trancher.")
+print(f"{len(METIERS)} métiers, {len(ACTIVITES)} activités, {len(PROFIL_CONSERVE)} gardent leur profil, {len(A_TRANCHER)} attendent le vocabulaire « consultation ».")

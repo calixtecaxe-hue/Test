@@ -26,9 +26,10 @@ test("un mot du vocabulaire du métier passe avant celui du profil, et un mot sa
 });
 
 test("le vocabulaire d'un compte : aucun tant que le fichier n'est pas validé, puis par métier ou par activité", () => {
-  const v = reel.vocabulairesMetiers;
-  assert.equal(v.valide, false, "proposition non validée : aucun vocabulaire appliqué");
-  assert.equal(vocabulaireDuCompte(v, { metierPrecis: "grossiste-alimentaire", sousVariantes: [] }), null);
+  // Validé par le propriétaire le 27 octobre.
+  assert.equal(reel.vocabulairesMetiers.valide, true);
+  const v = { ...reel.vocabulairesMetiers, valide: false };
+  assert.equal(vocabulaireDuCompte(v, { metierPrecis: "grossiste-alimentaire", sousVariantes: [] }), null, "non validé : aucun vocabulaire appliqué");
   const ok = valide(v);
   assert.equal(vocabulaireDuCompte(ok, { metierPrecis: "grossiste-alimentaire", sousVariantes: [] }), "negoce");
   assert.equal(vocabulaireDuCompte(ok, { metierPrecis: "electricien", sousVariantes: [] }), null, "métier sans vocabulaire propre : profil");
@@ -49,6 +50,12 @@ test("le fichier de vocabulaires est cohérent avec le routage et le lexique", (
   for (const [id, a] of Object.entries(v.activites)) { assert.ok(metiers.has(id.split("/")[0]), id); assert.ok(cles.has(a.vocabulaire), a.vocabulaire); }
   for (const id of Object.keys(v.aTrancher)) assert.ok(metiers.has(id.split("/")[0]), id);
   for (const id of Object.keys(v.aTrancher)) assert.equal(id in v.metiers, false, `${id} est à la fois attribué et à trancher`);
+  // Décisions du 27 octobre : 11 métiers ou activités gardent les mots de leur profil, 11 professions de santé attendent le vocabulaire « consultation ».
+  for (const id of Object.keys(v.profilConserve)) { assert.ok(metiers.has(id.split("/")[0]), id); assert.equal(id in v.metiers || id in v.activites, false, id); }
+  assert.equal(Object.keys(v.profilConserve).length, 11);
+  assert.equal(Object.keys(v.aTrancher).length, 11);
+  assert.equal(vocabulaireDuCompte(v, { metierPrecis: "medecin", sousVariantes: [] }), null, "santé : les mots du profil en attendant");
+  assert.equal(vocabulaireDuCompte(v, { metierPrecis: "cuisiniste", sousVariantes: [] }), "projet_particuliers", "attribution confirmée");
 });
 
 test("avec un vocabulaire, aucune question n'apparaît ni ne disparaît, aucun mot n'est laissé entre accolades", () => {

@@ -9,6 +9,7 @@ import { cleDeDonnee, clesDeLaRegle, donneeDuDeclencheur } from "./affichage.ts"
 import { specDeLaDonnee } from "./validation.ts";
 import type { Reponses } from "./reponse.ts";
 import type { TailleId } from "./affichage.ts";
+import type { MetierDuCompte } from "../routage.ts";
 import type { DeclencheurClient, ThemeClient } from "../../app/(espace)/audit/[slug]/questionnaire.tsx";
 import type { LibellesLignes } from "../../app/(espace)/audit/[slug]/question-carte.tsx";
 
@@ -25,6 +26,8 @@ export type EntreePreparation = {
   ancienneteMois: number;
   exclusions: Exclusions | null;
   vocabulaire: string | null;
+  // Métier et activités du compte : les questions d'un module métier ne sont posées qu'aux métiers concernés.
+  metier: MetierDuCompte | null;
 };
 
 export type SortiePreparation = {
@@ -48,6 +51,7 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
     ancienneteMois: o.ancienneteMois,
     exclusions: o.exclusions,
     vocabulaire: o.vocabulaire,
+    metier: o.metier,
   });
   // Un tableau dont les lignes viennent d'un déclencheur qui est lui-même une question (D03 → ACQ-03.01) lit la réponse à cette question.
   const lignesDeLaDonnee = (spec: typeof a.themes[number]["questions"][number]["spec"]) => {

@@ -14,7 +14,7 @@ const copie = (): EnsembleDonnees => structuredClone(reel);
 test("les fichiers du dépôt passent le contrôle sans erreur ; seules les règles à préciser sont signalées", () => {
   const r = controlerDonnees(reel);
   assert.deepEqual(r.erreurs, []);
-  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté ") && !/^(Le métier|L'activité|La catégorie|\d+ métier|\d+ indicateurs de références|Effets d'actions à valider|La réponse de |Sens à trancher|Aucun plafond quotidien|Objectifs proposés par agent|\d+ donnée\(s\) retirée\(s\)|Vocabulaires par métier : proposition)/.test(a));
+  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté ") && !/^(Le métier|L'activité|La catégorie|\d+ métier|\d+ indicateurs de références|Effets d'actions à valider|La réponse de |Sens à trancher|Aucun plafond quotidien|Objectifs proposés par agent|\d+ donnée\(s\) retirée\(s\)|Vocabulaires par métier :)/.test(a));
   assert.deepEqual(inattendus, []);
   assert.equal(r.avertissements.filter((a) => a.startsWith("Règle à préciser")).length, 2);
 });
@@ -36,8 +36,8 @@ test("une règle d'affichage qui porte sur une réponse inconnue est une erreur"
 
 test("le nombre de thèmes par agent est celui du document de règles", () => {
   const par = (a: string) => reel.themes.filter((t) => t.agent === a).length;
-  // 23 du document + ACQ-24 et ACQ-30 ajoutés le 27 octobre (ACQ-25 à 29, modules métier, restent en attente).
-  assert.equal(par("ACQUISITION_CA"), 25);
+  // 23 du document + ACQ-24, ACQ-30 et les modules métier ACQ-25, 27, 28, 29 ajoutés le 27 octobre (ACQ-26, Fabrication, reste en attente).
+  assert.equal(par("ACQUISITION_CA"), 29);
   assert.equal(par("FINANCE_RENTABILITE"), 48);
   assert.equal(par("RH_ORGANISATION"), 49);
   // 61 du document + COM-62 (référencement) et COM-63 (annonces Google), 27 octobre.
@@ -53,8 +53,8 @@ test("Finance : le bloc Stock compte 9 thèmes, masqués sans stock", () => {
 test("les quatre natures de notation, et seulement elles", () => {
   const natures = new Set(reel.themes.map((t) => t.nature));
   assert.deepEqual([...natures].sort(), ["coherence", "contexte", "marche", "pratique"]);
-  // 11 du classeur + les 4 thèmes ajoutés le 27 octobre, en « Contexte » en attendant la décision du propriétaire.
-  assert.equal(reel.themes.filter((t) => t.nature === "contexte").length, 15);
+  // 11 du classeur + les 8 thèmes ajoutés le 27 octobre, en « Contexte » en attendant la décision du propriétaire.
+  assert.equal(reel.themes.filter((t) => t.nature === "contexte").length, 19);
 });
 
 test("RH se règle sur la taille, les autres agents sur le profil", () => {

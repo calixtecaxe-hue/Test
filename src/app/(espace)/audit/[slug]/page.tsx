@@ -9,7 +9,7 @@ import { PROFILS, type ProfilId } from "@/lib/donnees/schemas";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { compterQuestions } from "@/lib/audit/assemblage";
 import { preparerQuestionnaire } from "@/lib/audit/preparation";
-import { exclusionsAcquisition } from "@/lib/routage";
+import { exclusionsAcquisition, metierDuCompte } from "@/lib/routage";
 import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
 import { reponsesDuCompte, reponsesPreremplies } from "@/lib/audit/compte";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
@@ -83,11 +83,13 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   const historique = objectifs.filter((o) => o.statut !== "ACTIF");
   const profils = utilisateur.profils.filter((p): p is ProfilId => (PROFILS as readonly string[]).includes(p));
   const taille = tailleDepuisEffectif(utilisateur.nombreCollaborateurs);
+  // « Autre » seul = activité par défaut : sert aux questions des modules métier et au vocabulaire du métier.
+  const metier = metierDuCompte(ENSEMBLE.routage, utilisateur);
 
   let corps: React.ReactNode = null;
   let reglageNiveau: React.ReactNode = null;
   if (actif && !utilisateur.niveauAudit) {
-    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
+    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur), metier);
     corps = <NiveauChoix essentielles={n.essentielles} approfondies={n.total} />;
   } else if (actif && profils.length === 0 && agent.code !== "RH_ORGANISATION") {
     // Catégorie dont le questionnaire reste à créer (Fabrication) : aucun profil, donc rien à poser pour l'instant.
@@ -97,7 +99,7 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       </p>
     );
   } else if (actif && utilisateur.niveauAudit) {
-    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
+    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur), metier);
     reglageNiveau = <NiveauReglage niveau={utilisateur.niveauAudit} essentielles={n.essentielles} total={n.total} />;
     const reponses = await reponsesDuCompte(userId);
     const preremplies = await reponsesPreremplies(userId);
@@ -113,7 +115,8 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       preremplies,
       ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()),
       exclusions: exclusionsAcquisition(ENSEMBLE.routage, utilisateur),
-      vocabulaire: vocabulaireDuCompte(ENSEMBLE.vocabulairesMetiers, utilisateur),
+      vocabulaire: vocabulaireDuCompte(ENSEMBLE.vocabulairesMetiers, metier),
+      metier,
     });
     corps = (
       <Questionnaire
@@ -141,7 +144,7 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   const retourAudit = `/audit/${agent.slug}`;
   const exemple = process.env.RESULTATS_MAQUETTE === "1" && exempleDemande === "1";
   const vueCompteRendu = vue === 4 && actif && !exemple ? await compteRenduDuCompte(utilisateur, agent.code) : null;
-  const nCompte = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur));
+  const nCompte = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur), metier);
 
   return (
     <main data-couleur={agent.couleur} className="audit-agent mx-auto flex w-full max-w-3xl flex-1 flex-col gap-2 px-6 py-10">

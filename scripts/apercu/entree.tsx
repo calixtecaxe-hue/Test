@@ -101,6 +101,7 @@ function Apercu({ agent }: { agent: CodeAgent }) {
       ancienneteMois: 84,
       exclusions: null,
       vocabulaire: null,
+      metier: { metierPrecis: "electricien", sousVariantes: [] },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [version, agent]);

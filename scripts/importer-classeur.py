@@ -116,6 +116,29 @@ def themes(wb):
     ecrire("themes.json", sortie)
 
 
+def metiers_concernes(texte, code):
+    """Colonne « Métiers concernés » (module métier) : libellés de la liste des métiers séparés par « ; », une activité
+    s'écrit « Métier / Activité ». Renvoie les identifiants (« vtc-et-taxi », « agence-immobiliere/transaction »)."""
+    if texte is None:
+        return None
+    routage = json.loads((SORTIE / "routage.json").read_text(encoding="utf-8"))
+    par_libelle = {m["libelle"].casefold(): m for m in routage["metiers"]}
+    sortie = []
+    for morceau in [x.strip() for x in str(texte).split(";") if x.strip()]:
+        metier, _, activite = morceau.partition(" / ")
+        m = par_libelle.get(metier.strip().casefold())
+        if m is None:
+            sys.exit(f"{code} : métier inconnu dans « Métiers concernés » : « {metier} ».")
+        if not activite:
+            sortie.append(m["id"])
+            continue
+        a = next((x for x in m.get("sousVariantes") or [] if x["libelle"].casefold() == activite.strip().casefold()), None)
+        if a is None:
+            sys.exit(f"{code} : activité inconnue pour {m['libelle']} : « {activite} ».")
+        sortie.append(f'{m["id"]}/{a["id"]}')
+    return sortie or None
+
+
 def donnees(wb):
     for onglet, agent in ONGLETS_DONNEES.items():
         ws = wb[onglet]
@@ -124,9 +147,11 @@ def donnees(wb):
         cles = TAILLES if rh else PROFILS
         i0 = entetes.index("Seul") if rh else entetes.index("RDV")
         i_sert = entetes.index("Sert à")
+        i_metiers = entetes.index("Métiers concernés") if "Métiers concernés" in entetes else None
         sortie = []
         for r in lignes(ws):
             marques = {k: (r[i0 + n] == "●") for n, k in enumerate(cles)}
+            metiers = metiers_concernes(v(r[i_metiers]) if i_metiers is not None and i_metiers < len(r) else None, r[0])
             sortie.append({
                 "code": r[0],
                 "theme": r[1],
@@ -145,6 +170,7 @@ def donnees(wb):
                 "entreesTexte": v(r[i_sert + 2]),
                 "utiliseeDans": codes(v(r[i_sert + 3])),
                 "utiliseeDansTexte": v(r[i_sert + 3]),
+                **({"metiers": metiers} if metiers else {}),
             })
         ecrire(f"donnees-{agent.lower().replace('_', '-')}.json", sortie)
 

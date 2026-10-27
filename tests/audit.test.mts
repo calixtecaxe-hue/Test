@@ -430,7 +430,7 @@ test("un nombre tapé à la française est lu comme le dirigeant l'entend", () =
 
 // --- Professions réglementées : l'audit Acquisition ne pose pas ce qu'il n'a pas le droit de recommander -------
 
-import { exclusionsAcquisition } from "../src/lib/routage.ts";
+import { exclusionsAcquisition, metierDuCompte } from "../src/lib/routage.ts";
 
 const AVOCAT = { metierPrecis: "avocat", sousVariantes: [], categorie: "professions-reglementees" };
 const ELECTRICIEN = { metierPrecis: "electricien", sousVariantes: [], categorie: "prestation-chantier" };
@@ -648,4 +648,42 @@ test("« Avez-vous un site internet ? » n'est posée que si « site internet »
   // Une réponse déjà donnée l'emporte : « non » reste « non ».
   const dejaNon = assemblerQuestionnaire(reel, ctx("COMM_CREATION", { reponses: { "ACQ-03.01": saisie(["site_internet"]), "COM-13.10": saisie("non") } }));
   assert.ok(!codes(dejaNon).has("COM-13.01"));
+});
+
+// --- Modules métier (décision du propriétaire, 27 octobre) ------------------------------------------------------------------
+
+test("une question de module métier n'est posée qu'aux métiers ou activités listés (« Autre » seul = activité par défaut)", () => {
+  const codes = (a: ReturnType<typeof assemblerQuestionnaire>) => new Set([...a.prealables, ...a.themes.flatMap((t) => t.questions)].map((q) => q.code));
+  const pour = (metierPrecis: string | null, sousVariantes: string[] = []) =>
+    codes(assemblerQuestionnaire(reel, ctx("ACQUISITION_CA", { profils: ["b2b"], niveau: "approfondi", metier: { metierPrecis, sousVariantes } })));
+  // Transport de personnes et coursiers.
+  assert.ok(pour("vtc-et-taxi").has("ACQ-25.01"));
+  assert.ok(!pour("transport-de-marchandises").has("ACQ-25.01"), "métier non listé");
+  assert.ok(!codes(assemblerQuestionnaire(reel, ctx("ACQUISITION_CA", { profils: ["b2b"], niveau: "approfondi" }))).has("ACQ-25.01"), "sans métier connu : rien");
+  // Vente de véhicules et de logements : la reprise et le financement (ACQ-28.03) ne concernent que les véhicules.
+  assert.ok(pour("marchand-de-biens").has("ACQ-28.01"));
+  assert.ok(!pour("marchand-de-biens").has("ACQ-28.03"));
+  assert.ok(pour("vente-de-vehicules", ["premium"]).has("ACQ-28.03"));
+  // Immobilier : par activité.
+  assert.ok(pour("agence-immobiliere", ["transaction"]).has("ACQ-29.01"));
+  assert.ok(!pour("agence-immobiliere", ["syndic"]).has("ACQ-29.01"));
+  assert.ok(!pour("agence-immobiliere", ["gestion-locative"]).has("ACQ-29.01"));
+  assert.ok(pour("agence-immobiliere", ["syndic", "transaction"]).has("ACQ-29.01"), "une activité listée parmi les cochées suffit");
+  const autreSeul = metierDuCompte(reel.routage, { metierPrecis: "agence-immobiliere", sousVariantes: [] });
+  assert.deepEqual(autreSeul.sousVariantes, ["transaction"]);
+  assert.ok(pour(autreSeul.metierPrecis, autreSeul.sousVariantes).has("ACQ-29.01"));
+  // Négoce : les 17 métiers de gros et de distribution.
+  assert.ok(pour("grossiste-alimentaire").has("ACQ-27.02"));
+  assert.ok(!pour("electricien").has("ACQ-27.02"));
+  // Le module compte au choix du niveau seulement pour les métiers concernés.
+  const avec = compterQuestions(reel, "ACQUISITION_CA", ["b2b"], "equipe_2_5", null, { metierPrecis: "vtc-et-taxi", sousVariantes: [] });
+  const sans = compterQuestions(reel, "ACQUISITION_CA", ["b2b"], "equipe_2_5", null, { metierPrecis: "consultant", sousVariantes: [] });
+  assert.equal(avec.total - sans.total, 4);
+});
+
+import { controlerDonnees } from "../src/lib/donnees/controle.ts";
+
+test("une profession réglementée n'a aucun module métier : le contrôle refuse de lui réserver une donnée", () => {
+  const e: EnsembleDonnees = { ...reel, donnees: reel.donnees.map((d) => (d.code === "ACQ-25.01" ? { ...d, metiers: ["avocat"] } : d)) };
+  assert.ok(controlerDonnees(e).erreurs.some((m) => m.includes("ACQ-25.01") && m.includes("réglementée")));
 });

@@ -214,6 +214,18 @@ export function contrainteDepuisCompte(routage: Routage, c: CompteRoutable): Con
   return { agentsExclus: [], nombreMaxAgents: null, reglementee: false };
 }
 
+// Métier et activités qui s'appliquent au compte : « Autre (précisez) » seul vaut l'activité par défaut du métier.
+// Sert aux questions réservées à certains métiers (modules métier) et au vocabulaire du métier.
+export type MetierDuCompte = { metierPrecis: string | null; sousVariantes: string[] };
+
+export function metierDuCompte(routage: Routage, c: { metierPrecis: string | null; sousVariantes: string[] }): MetierDuCompte {
+  if (!c.metierPrecis) return { metierPrecis: null, sousVariantes: [] };
+  const variantes = trouverMetier(routage, c.metierPrecis)?.sousVariantes ?? [];
+  if (variantes.length === 0 || c.sousVariantes.length > 0) return { metierPrecis: c.metierPrecis, sousVariantes: c.sousVariantes };
+  const defaut = variantes.find((v) => v.defaut) ?? variantes[0];
+  return { metierPrecis: c.metierPrecis, sousVariantes: [defaut.id] };
+}
+
 export type ExclusionsAcquisition = NonNullable<Routage["reglementees"]["acquisitionExclut"]>;
 
 // Ce que l'audit Acquisition ne pose pas à ce compte : vide pour un métier non réglementé.

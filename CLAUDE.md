@@ -212,7 +212,15 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   COM-04.01 est une proposition à faire valider.** Classeur corrigé : `CAXE_Themes_Chiffres_4_agents_11` (version du 27 octobre).
 - **Assemblage en 5 couches** : (1) inscription, (2) socle de l'agent, (3) module
   catégorie, (4) module métier — 5 questions maximum —, (5) filtre taille
-  (seul / 2 à 5 / 6 et plus). **Questions déclencheuses** (D01 à D65) qui ouvrent
+  (seul / 2 à 5 / 6 et plus). **Module métier (construit le 27 octobre)** : colonne « Métiers concernés » du classeur (onglet
+  Acquisition, libellés de la liste des métiers séparés par « ; », une activité s'écrit « Métier / Activité ») → champ `metiers` de
+  la donnée ; la donnée n'est posée qu'à ces métiers ou activités (`pourLeMetier` dans `assemblage.ts`, contexte `metier` calculé par
+  `metierDuCompte` de `routage.ts` : « Autre » seul = activité par défaut). Le contrôle refuse un métier inconnu, une profession
+  réglementée (aucun module métier) et plus de 5 questions par module. **Validé par le propriétaire (27 octobre)** : ACQ-25
+  (VTC et taxi, coursier, livraison du dernier kilomètre), ACQ-27 (les 17 métiers de gros, de distribution et de négoce), ACQ-28
+  (vente de véhicules, marchand de biens, promoteur immobilier ; ACQ-28.03 reprise et financement : véhicules seulement), ACQ-29
+  (agence immobilière : transaction, location, immobilier d'entreprise). ACQ-26 (Fabrication) reste en attente avec la catégorie.
+  Restent ouverts : transport de marchandises (ACQ-25), constructeur de maisons individuelles (ACQ-28), gestion locative (ACQ-29). **Questions déclencheuses** (D01 à D65) qui ouvrent
   ou masquent des blocs. Le questionnaire est assemblé selon le profil ; seul
   l'assemblage est automatique.
 - Durée visée : **1 h à 1 h 15 par agent**. **Jamais à faire d'une traite** :
@@ -311,10 +319,10 @@ un renvoi est un **aperçu** de l'agent manquant, avec ajout en un clic.
 
 | Agent | Sa question | Contenu |
 |---|---|---|
-| Acquisition & CA | Quels leviers comblent l'écart à l'objectif ? | 23 thèmes en 5 étapes ; reste factuel sur la communication |
+| Acquisition & CA | Quels leviers comblent l'écart à l'objectif ? | 23 thèmes en 5 étapes (+ 6 ajoutés le 27 octobre, dont 4 modules métier, en « Contexte » à valider) ; reste factuel sur la communication |
 | Finance & Rentabilité | L'objectif est-il rentable et finançable ? | 48 thèmes dont un bloc Stock de 9 ; 13 scénarios ; jamais fiscalité ni comptabilité |
 | RH & Organisation | L'organisation peut-elle porter l'objectif ? | 49 thèmes en 8 blocs ; verdict Oui / Sous conditions / Pas en l'état ; jamais droit du travail |
-| Comm & Création de contenu | La présence en ligne génère-t-elle assez de contacts ? | 61 thèmes en 8 groupes ; deux parcours (amélioration, mise en place) ; qualité notée sur une grille fixe de 6 critères ; pas proposé aux professions réglementées |
+| Comm & Création de contenu | La présence en ligne génère-t-elle assez de contacts ? | 61 thèmes en 8 groupes (+ COM-62 référencement et COM-63 annonces Google, 27 octobre, en « Contexte » à valider) ; deux parcours (amélioration, mise en place) ; qualité notée sur une grille fixe de 6 critères ; pas proposé aux professions réglementées |
 
 Agents nommés par leur fonction, **sans prénom ni personnage**.
 
@@ -375,14 +383,14 @@ lexique des 4 agents) et `CAXE_Questionnaire_Grille_Pilote.xlsx` (**pas encore
 dans le dépôt**; il utilise encore les types A / B / C : ne pas les reprendre
 tels quels).
 
-**Fichiers de données (dossier `data/`)** : `themes.json` (181 thèmes), `donnees-*.json`
-(891 données, par agent), `croisements.json` (157), `scenarios.json` (13),
+**Fichiers de données (dossier `data/`)** : `themes.json` (189 thèmes), `donnees-*.json`
+(933 données, par agent), `croisements.json` (157), `scenarios.json` (13),
 `diagnostic-comm.json` (14 problèmes), `declencheurs.json` (65), `lexique.json`,
 `regles-affichage.json` (conditions d'affichage, masquages de thèmes et réponses attendues des
 déclencheurs, **écrit à la main** d'après le classeur ; le contrôle échoue si une condition du classeur n'y a pas
 de règle ; deux règles sont « à préciser » ; une règle `toujours` pour FIN-05.02), `routage.json` (11 catégories, 8 profils, 149 métiers et 54 activités tirés du document « CAXE — Liste des métiers » du 15 octobre, avec synonymes de recherche, stock oui / non / à demander et agent Comm oui / non / à trancher),
 `inscription.json` (questions du dossier d'inscription, avec mots du lexique) et
-`banque/questions.json` (515 questions écrites ; 47 autres en attente dans `banque/en-attente.json`). Les huit premiers viennent du classeur par
+`banque/questions.json` (557 questions écrites ; 5 autres en attente dans `banque/en-attente.json` : ACQ-26, Fabrication). Les huit premiers viennent du classeur par
 `python3 scripts/importer-classeur.py <classeur.xlsx>` ; `routage.json` et `inscription.json` sont écrits
 d'après le document de règles et la liste des métiers (`python3 scripts/ecrire-routage-metiers.py` réécrit `routage.json` ; les profils des professions réglementées ajoutées sont déduits et marqués `aConfirmer`). Schémas : `src/lib/donnees/schemas.ts` ; routage : `src/lib/routage.ts` ;
 lexique : `src/lib/donnees/lexique.ts` (un mot du lexique s'écrit `{demande}`,
@@ -470,11 +478,11 @@ l'affichage dans le rapport, la mise à jour périodique. Clé requise : `ANTHRO
 (page « Banque de questions » du 21 octobre, importée par `python3 scripts/importer-banque.py <fichier> --ecarter-inconnues`), rattachées à une donnée « Demandée » ou
 « Partagée » du classeur. **47 questions sont mises de côté** dans `data/banque/en-attente.json` (donnée absente du classeur 11 : thèmes ACQ-24 à ACQ-30, COM-62 « Référencement (SEO) » et
 COM-63 « Annonces Google (SEA) », plus ACQ-07.15, ACQ-11.38, ACQ-11.39, ACQ-13.12 à 13.14, COM-13.11) ; elles reviennent seules dès que le classeur des 4 agents les contient comme « Demandée » (liste dans
-`docs/Ajouts_au_classeur_des_4_agents.xlsx`). **Ajout des 47 données au classeur (validé le 27 octobre, pas encore fait)** : le fichier d'ajouts ne donne ni la nature de notation, ni l'impact, ni l'étape, ni les profils concernés des 9 thèmes nouveaux (ACQ-24 à 30, COM-62, COM-63) ni les profils des 38 données : à fournir par le propriétaire, rien n'est inventé.
-La version Excel de la banque (`CAXE_Banque_Questions.xlsx`) est **régénérée à partir de la banque écrite** par `python3 scripts/exporter-modele-banque.py --avec-questions` (515 questions plus les 47 en attente en fin de feuille ; réimportée, elle redonne exactement la banque). **La page HTML fait foi** en cas de doute. Le **classeur « 11 »** (`CAXE_Themes_Chiffres_4_agents_11.xlsx`, onglet « Modifications 20 oct. ») est
+`docs/Ajouts_au_classeur_des_4_agents.xlsx`). **Ajout des données au classeur (validé le 27 octobre, fait)** : 42 des 47 questions sont insérées (classeur corrigé du 27 octobre, lignes marquées « Nouveau ») ; les 5 de ACQ-26 attendent la catégorie Fabrication. Le fichier d'ajouts ne donnait ni la nature, ni l'impact, ni l'étape des 8 thèmes nouveaux (ACQ-24, 25, 27, 28, 29, 30, COM-62, COM-63) : ils sont en **« Contexte »** (non notés, lus par l'IA), étapes « Piloter », « Votre métier » et « Présence et canaux », **à valider par le propriétaire**. Profils et conditions posés par défaut, à valider : ACQ-07.15 posée si « plateformes » est coché (profils de ACQ-07.02) ; ACQ-11.38 restaurant ; ACQ-11.39 e-commerce et restaurant ; COM-13.11 et COM-62 si le dirigeant a un site ; COM-63.02 à .08 si COM-63.01 = oui ; les autres, tous les profils.
+La version Excel de la banque (`CAXE_Banque_Questions.xlsx`) est **régénérée à partir de la banque écrite** par `python3 scripts/exporter-modele-banque.py --avec-questions` (questions écrites plus celles en attente en fin de feuille ; réimportée, elle redonne exactement la banque). **La page HTML fait foi** en cas de doute. Le **classeur « 11 »** (`CAXE_Themes_Chiffres_4_agents_11.xlsx`, onglet « Modifications 20 oct. ») est
 importé : 181 thèmes (19 nouveaux : FIN-46 à 48, RH-41 à 49, COM-55 à 61), 65 déclencheurs, 157 croisements, 891 données (895 avant la suppression de 4 doublons). **La nature et l'impact des 19 thèmes nouveaux sont des
 propositions du classeur, à valider par le propriétaire.** Le lexique vient du classeur seul (`--reporter-lexique` n'est plus nécessaire) : colonne « Clé dans les questions » (champ `cle`
-de `lexique.json` quand elle diffère de la clé dérivée du mot), colonne **Location** (8e profil) et 10 lexiques par métier (champ `metiers` de `lexique.json` ; **branchés le 27 octobre mais inactifs** : voir la fin de ce paragraphe). Le contrôle (`npm run donnees:controle`) compare la réponse de la banque au format du classeur (avertissement, la banque l'emporte).
+de `lexique.json` quand elle diffère de la clé dérivée du mot), colonne **Location** (8e profil) et 10 lexiques par métier (champ `metiers` de `lexique.json` ; **branchés et validés le 27 octobre** : voir plus bas). Le contrôle (`npm run donnees:controle`) compare la réponse de la banque au format du classeur (avertissement, la banque l'emporte).
 
 **Règles d'affichage du classeur 11 (construit)** : une condition peut lire **la réponse à une donnée** (`ACQ-10.06`, `FIN-10.01#retours_par_mois`, `RH-32.01#demission.departs`),
 avec l'opérateur `plus_de` et des blocs imbriqués `tous` / `un` ; `D30` (« avant la première création de contenu ») vaut toujours « non » pendant l'audit (les données COM-57
@@ -489,7 +497,7 @@ Les exclusions des professions réglementées s'appliquent aux options de la don
 location en miroir de XA34, les couverts par mois (ACQ-11.07 × ACQ-11.09 × 4,33), les nombres par canal (ACQ-02.01 × ACQ-03.02 et ACQ-11.01 × ACQ-03.03), les calculs du funnel Comm
 (COM-58.03, COM-61.03, COM-39.06) et les formules et croisements des 19 thèmes nouveaux.
 
-**Vocabulaires par métier (27 octobre, proposition à valider, inactive)** : `data/vocabulaires-metiers.json` (écrit par `python3 scripts/ecrire-vocabulaires-metiers.py`) dit quel métier ou activité utilise quel vocabulaire (hébergement, location de véhicules, immobilier, projets pour particuliers, vente de biens, négoce, fabrication, cabinet, courses, cuisine en livraison seule) : 47 métiers, 8 activités, 22 laissés « à trancher » avec la raison. Tant que `valide` est faux, **aucun vocabulaire n'est appliqué** (les mots du profil restent). Règles proposées : un vocabulaire passe avant le profil ; un mot sans forme dans le vocabulaire garde celle du profil ; plusieurs activités cochées = vocabulaire seulement si elles s'accordent. Code : `src/lib/vocabulaire.ts` (`vocabulaireDuCompte`), `formuler(…, vocabulaire)` dans `src/lib/donnees/lexique.ts`, champ `vocabulaire` du contexte d'assemblage. Document de validation : `docs/CAXE-vocabulaires-par-metier.pdf` (`node scripts/pdf-vocabulaires.mjs`). Tests : `tests/vocabulaire.test.mts` (aucune question n'apparaît ni ne disparaît, aucun mot manquant). **Ne pas passer `valide` à vrai sans l'accord du propriétaire.**
+**Vocabulaires par métier (validés par le propriétaire le 27 octobre, actifs)** : `data/vocabulaires-metiers.json` (écrit par `python3 scripts/ecrire-vocabulaires-metiers.py`, `valide: true`) dit quel métier ou activité utilise quel vocabulaire (hébergement, location de véhicules, immobilier, projets pour particuliers, vente de biens, négoce, fabrication, cabinet, courses, cuisine en livraison seule) : 47 métiers et 8 activités (les « à confirmer » sont confirmés). **Décisions sur les cas à trancher** : 11 gardent les mots de leur profil (`profilConserve` : syndic, conciergerie saisonnière, agence de voyage, livraison du dernier kilomètre, transport de marchandises, déménagement, autocariste, restauration rapide, pizzeria, recrutement et RH, consultant) ; les 11 professions de santé attendent un vocabulaire **« consultation » dont les mots sont à écrire par le propriétaire** dans le classeur (`aTrancher`), avec les mots du profil en attendant. Règles : un vocabulaire passe avant le profil ; un mot sans forme dans le vocabulaire garde celle du profil ; plusieurs activités cochées = vocabulaire seulement si elles s'accordent ; « Autre » seul = activité par défaut (`metierDuCompte`). Code : `src/lib/vocabulaire.ts` (`vocabulaireDuCompte`), `formuler(…, vocabulaire)` dans `src/lib/donnees/lexique.ts`, champ `vocabulaire` du contexte d'assemblage. Document de validation : `docs/CAXE-vocabulaires-par-metier.pdf` (`node scripts/pdf-vocabulaires.mjs`). Tests : `tests/vocabulaire.test.mts` (aucune question n'apparaît ni ne disparaît, aucun mot manquant). Une nouvelle attribution se décide avec le propriétaire.
 
 **Aperçu interactif du questionnaire (27 octobre)** : la copie de l'application (artefact) ne montre plus une photo du questionnaire : le vrai code (cartes de questions, assemblage, règles d'affichage, validation des réponses, données) est empaqueté par `scripts/apercu/construire.mjs` (esbuild) et tourne dans le navigateur ; seul l'enregistrement est simulé (réponses gardées dans l'onglet, `sessionStorage`). Le calcul de ce que l'écran reçoit est partagé : `src/lib/audit/preparation.ts` sert la page de l'application et l'aperçu. Compte de démonstration : électricien (profil artisan), 4 personnes. À refaire à chaque changement du questionnaire : `APERCU=application SORTIE=<dossier> node scripts/capturer-site.mjs` (serveur lancé avec `RESULTATS_MAQUETTE=1`), puis publier.
 
