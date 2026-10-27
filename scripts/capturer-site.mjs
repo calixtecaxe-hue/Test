@@ -973,6 +973,18 @@ const SCRIPT_PARCOURS = String.raw`
     });
   }
   document.querySelectorAll('section[aria-labelledby=niveau] button').forEach(function(b){ b.addEventListener('click', function(){ stocke('caxe-apercu-niveau', /Approfondi/.test(b.textContent) ? 'approfondi' : 'essentiel'); location.href='audit-questionnaire-'+suf+'.html'; }); });
+  // Niveau affiché au-dessus du questionnaire : la page est capturée en essentiel ; la phrase et le lien suivent le niveau choisi dans l'aperçu.
+  var reglage=document.querySelector('[data-niveau-reglage]');
+  if (reglage) {
+    var nb=(reglage.textContent.match(/jusqu.\u00e0 \d+/g)||[]).map(function(x){ return +x.replace(/\D/g,''); });
+    var nEss=nb[0], nTot=nb[1]||nb[0];
+    var afficherNiveau=function(){
+      var ap=(lit('caxe-apercu-niveau')||'essentiel')==='approfondi';
+      reglage.innerHTML='Niveau du questionnaire : <span class="text-[var(--text)]">'+(ap?'approfondi':'essentiel')+'</span> (jusqu\u2019\u00e0 '+(ap?nTot:nEss)+' questions, selon vos r\u00e9ponses). <button type="button" class="audit-lien text-[var(--blue-1)] hover:underline">'+(ap?'Passer en essentiel':'Passer en approfondi (jusqu\u2019\u00e0 '+nTot+' questions)')+'</button>';
+      reglage.querySelector('button').addEventListener('click', function(){ stocke('caxe-apercu-niveau', ap?'essentiel':'approfondi'); location.reload(); });
+    };
+    afficherNiveau();
+  }
   var ESTIM='<div class="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2"><div class="champ-groupe"><label class="champ-etiquette">Entre</label><input type="text" inputmode="decimal" class="champ-saisie"></div><div class="champ-groupe"><label class="champ-etiquette">Et</label><input type="text" inputmode="decimal" class="champ-saisie"></div><p class="champ-aide sm:col-span-2">Nous retenons le milieu de la fourchette, signalé comme estimé.</p></div>';
   [].slice.call(interactif ? [] : document.querySelectorAll('li[data-question]')).forEach(function(li){
     var corps=function(){ return [].slice.call(li.children).filter(function(c){ return c.tagName==='DIV' && c.getAttribute('aria-label')!=='Autres réponses' && !c.classList.contains('flex'); }); };
