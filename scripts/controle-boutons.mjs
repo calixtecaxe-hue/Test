@@ -87,7 +87,7 @@ async function attendreEnregistre(carte, ms = 2500) {
 }
 const pause = (page, ms = 900) => page.waitForTimeout(ms);
 let graine = 100;
-const unique = () => String(++graine);
+const unique = () => String(1 + (++graine % 97));
 
 // Remplit un tableau : chaque cellule, avec un total imposé respecté quand il existe.
 async function remplirTableau(carte, marque = "1") {
