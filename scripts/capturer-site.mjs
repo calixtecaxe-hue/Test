@@ -332,7 +332,9 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
     let extra = "";
     if (nom === "objectif" && PROP[a.code]) {
       const modes = {};
-      const liste = [...PROP[a.code].objectifs.map((o) => ({ id: o.id, libelle: o.libelle })), { id: "autre", libelle: "Autre (précisez)" }];
+      // « Autre (précisez) » termine chaque partie de la liste : autre-0, autre-1…
+      const groupes = [...new Set(PROP[a.code].objectifs.map((o) => o.groupe ?? ""))];
+      const liste = [...PROP[a.code].objectifs.map((o) => ({ id: o.id, libelle: o.libelle })), ...groupes.map((_, i) => ({ id: `autre-${i}`, libelle: "Autre (précisez)" }))];
       for (const o of liste) {
         await p.locator(`input[type=radio][value="${o.id}"]`).check({ force: true });
         await p.waitForTimeout(300);
@@ -894,7 +896,7 @@ const SCRIPT_PARCOURS = String.raw`
     var lireChoix=function(){
       if (!courant.id) return null;
       var q;
-      if (courant.id==='autre') { var iq=champC('quoi'); q=iq ? iq.value.trim() : ''; }
+      if (courant.id.indexOf('autre-')===0) { var iq=champC('quoi'); q=iq ? iq.value.trim() : ''; }
       else { var l=MODES[courant.id].libelle; q=l.charAt(0).toLowerCase()+l.slice(1); }
       var mois=lireNb(champC('delai').value);
       if (q.length<3 || mois===null || mois%1!==0 || mois<1) return null;
