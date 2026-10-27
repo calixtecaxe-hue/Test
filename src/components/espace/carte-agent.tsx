@@ -19,10 +19,8 @@ function TeteCarte({ agent, badge }: { agent: Agent; badge: React.ReactNode }) {
         <AgentAvatar code={agent.code} />
       </div>
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
-          <h2 className="carte-conseil-nom">{agent.nom}</h2>
-          {badge}
-        </div>
+        {badge}
+        <h2 className="carte-conseil-nom mt-3">{agent.nom}</h2>
         <p className="carte-conseil-promesse">{CONSEILS[agent.code].promesse}</p>
       </div>
     </div>
@@ -49,14 +47,15 @@ export function CarteAgent({ agent, progression, rang }: { agent: Agent; progres
       <Domaines agent={agent} />
 
       <div className="carte-conseil-pied">
-        <div className="min-w-0 flex-1 space-y-3">
-          {progression.objectif ? (
-            <div>
-              <p className="carte-conseil-etiquette">Votre objectif</p>
-              <p className="mt-1 text-sm leading-snug text-[var(--text)]">{progression.objectif.phrase}</p>
-              <p className="mt-0.5 text-xs text-[var(--text-faint)]">Échéance : {formaterDate(progression.objectif.echeance)}</p>
-            </div>
-          ) : null}
+        {progression.objectif ? (
+          <div>
+            <p className="carte-conseil-etiquette">Votre objectif</p>
+            <p className="mt-1 text-sm leading-snug text-[var(--text)]">{progression.objectif.phrase}</p>
+            <p className="mt-0.5 text-xs text-[var(--text-faint)]">Échéance : {formaterDate(progression.objectif.echeance)}</p>
+          </div>
+        ) : null}
+        <div className="carte-conseil-ligne">
+          <div className="carte-conseil-etat">
           {etat.pourcent !== null ? (
             <IndicateurProgression pourcent={etat.pourcent} traitees={progression.traitees} questions={progression.questions} libelle={`Questionnaire ${agent.nom}`} />
           ) : etat.statut === "en_cours" ? (
@@ -66,10 +65,11 @@ export function CarteAgent({ agent, progression, rang }: { agent: Agent; progres
           ) : (
             <p className="text-sm text-[var(--text-muted)]">L&apos;audit commence par l&apos;objectif que vous voulez atteindre.</p>
           )}
+          </div>
+          <Link href={href} className={etat.statut === "preparation" ? "bouton-secondaire carte-conseil-action" : "bouton-eclat carte-conseil-action"}>
+            {etat.action}
+          </Link>
         </div>
-        <Link href={href} className={etat.statut === "preparation" ? "bouton-secondaire carte-conseil-action" : "bouton-eclat carte-conseil-action"}>
-          {etat.action}
-        </Link>
       </div>
     </li>
   );
@@ -82,10 +82,12 @@ export function CarteAgentNonInclus({ agent }: { agent: Agent }) {
       <TeteCarte agent={agent} badge={<BadgeStatut statut="non_inclus" libelle="Non inclus" />} />
       <Domaines agent={agent} />
       <div className="carte-conseil-pied">
-        <p className="min-w-0 flex-1 text-sm text-[var(--text-muted)]">Vous pouvez l&apos;ajouter depuis votre compte, en changeant de formule.</p>
-        <Link href={`/agents/${agent.slug}`} className="bouton-secondaire carte-conseil-action">
-          Découvrir cet agent
-        </Link>
+        <div className="carte-conseil-ligne">
+          <p className="carte-conseil-etat text-sm text-[var(--text-muted)]">Vous pouvez l&apos;ajouter depuis votre compte, en changeant de formule.</p>
+          <Link href={`/agents/${agent.slug}`} className="bouton-secondaire carte-conseil-action">
+            Découvrir cet agent
+          </Link>
+        </div>
       </div>
     </li>
   );

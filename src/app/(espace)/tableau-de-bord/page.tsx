@@ -35,7 +35,7 @@ export default async function TableauDeBord({ searchParams }: { searchParams: Pr
           <span className="badge-dispo" role={bienvenue ? "status" : undefined}>
             {bienvenue ? "Abonnement actif" : "Votre conseil CAXE"}
           </span>
-          <h1 className="mt-6 max-w-[22ch] text-balance text-3xl leading-[1.15] sm:text-[2.75rem]">
+          <h1 className="mt-6 max-w-[34ch] text-balance text-[1.875rem] leading-[1.15] sm:text-[2.6rem]">
             Quel pilier de votre entreprise voulez-vous <span className="accent-degrade accent-calme">améliorer</span> aujourd&apos;hui&nbsp;?
           </h1>
           <p className="mt-5 max-w-[60ch] text-balance text-[var(--text-muted)]">

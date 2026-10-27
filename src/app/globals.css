@@ -4309,12 +4309,22 @@ h3,
 .carte-conseil-pied {
   margin-top: auto;
   display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+}
+/* État de l'audit (avancement ou phrase) et action, sur une ligne quand la place le permet. */
+.carte-conseil-ligne {
+  display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 20px 28px;
-  border-top: 1px solid var(--line);
-  padding-top: 24px;
+  gap: 16px 28px;
+}
+.carte-conseil-etat {
+  min-width: min(100%, 200px);
+  flex: 1 1 200px;
 }
 .carte-conseil-etiquette {
   font-size: 0.6875rem;
