@@ -164,9 +164,11 @@ for (const cle of CHOIX) {
   verifier(cle, "« Garder l'objectif actuel » referme le formulaire", (await page.getByRole("button", { name: "Garder l'objectif actuel" }).count()) === 0);
   await page.getByRole("button", { name: "Changer d'objectif" }).click();
   if (A.chiffre) {
-    await page.getByLabel("Ce que vous voulez changer").fill("réduire mes coûts");
-    await page.getByLabel("De combien").fill("5");
-    await page.getByLabel(/En combien de temps/).fill("4");
+    // Le formulaire d'objectif seulement : une question du questionnaire (ACQ-24.01) porte aussi un champ « De combien ».
+    const formulaire = page.locator("form").filter({ has: page.getByLabel("Ce que vous voulez changer") });
+    await formulaire.getByLabel("Ce que vous voulez changer").fill("réduire mes coûts");
+    await formulaire.getByLabel("De combien").fill("5");
+    await formulaire.getByLabel(/En combien de temps/).fill("4");
   } else {
     const liste = PROP[A.code].objectifs;
     await page.locator(`label.case-option:has-text("${liste[1].libelle.slice(0, 40).replace(/"/g, '\\"')}")`).first().click();
