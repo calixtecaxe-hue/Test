@@ -13905,56 +13905,6 @@
     }
   },
   {
-    "donnee": "ACQ-24.01",
-    "texte": "Quel objectif voulez-vous atteindre sur vos clients et votre chiffre d'affaires ?",
-    "aide": "Dites quoi, de combien et en combien de temps. Par exemple : chiffre d'affaires, + 15 %, 6 mois. Ou : nouveaux clients, 10 de plus par mois, 3 mois.",
-    "repli": null,
-    "reponse": {
-      "type": "composite",
-      "champs": [
-        {
-          "id": "ce_que_vous_voulez_ameliorer",
-          "libelle": "Ce que vous voulez améliorer",
-          "spec": {
-            "type": "texte"
-          }
-        },
-        {
-          "id": "de_combien",
-          "libelle": "De combien",
-          "spec": {
-            "type": "texte"
-          }
-        },
-        {
-          "id": "en_combien_de_temps",
-          "libelle": "En combien de temps",
-          "spec": {
-            "type": "choix",
-            "options": [
-              {
-                "id": "1_mois",
-                "libelle": "1 mois"
-              },
-              {
-                "id": "3_mois",
-                "libelle": "3 mois"
-              },
-              {
-                "id": "6_mois",
-                "libelle": "6 mois"
-              },
-              {
-                "id": "12_mois",
-                "libelle": "12 mois"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
     "donnee": "ACQ-24.02",
     "texte": "Dans les 3 prochains mois, combien d'heures par semaine et quel budget par mois pouvez-vous consacrer à améliorer votre entreprise ?",
     "aide": "Ce que vous pouvez vraiment y mettre, en plus de votre travail habituel. 0 si vous voulez avancer sans budget.",

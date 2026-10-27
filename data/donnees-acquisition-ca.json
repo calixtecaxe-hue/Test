@@ -10266,34 +10266,6 @@
     "utiliseeDansTexte": "XA29"
   },
   {
-    "code": "ACQ-24.01",
-    "theme": "ACQ-24",
-    "ecran": null,
-    "libelle": "Quel objectif voulez-vous atteindre sur vos clients et votre chiffre d'affaires ?",
-    "format": "Plusieurs champs : Ce que vous voulez améliorer · De combien · En combien de temps",
-    "mode": "demandee",
-    "niveau": "essentiel",
-    "condition": null,
-    "declencheurs": [],
-    "periode": null,
-    "profils": {
-      "rdv": true,
-      "commerce": true,
-      "ecommerce": true,
-      "restaurant": true,
-      "chantier": true,
-      "b2b": true,
-      "abonnement": true,
-      "location": true
-    },
-    "sertA": [],
-    "calcul": null,
-    "entrees": [],
-    "entreesTexte": null,
-    "utiliseeDans": [],
-    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
-  },
-  {
     "code": "ACQ-24.02",
     "theme": "ACQ-24",
     "ecran": null,
