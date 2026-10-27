@@ -112,6 +112,12 @@ async function remplirTableau(carte, marque = "1") {
     const cellules = lignes.nth(i).locator("td");
     const m = await cellules.count();
     for (let j = 0; j < m; j++) {
+      // Oui / non : deux boutons ; on choisit le premier s'il n'est pas déjà choisi.
+      const bascule = cellules.nth(j).locator(".choix-cellule button");
+      if (await bascule.count()) {
+        if ((await bascule.first().getAttribute("aria-pressed")) !== "true") await bascule.first().click();
+        continue;
+      }
       const sel = cellules.nth(j).locator("select");
       if (await sel.count()) {
         const opts = await sel.locator("option").evaluateAll((o) => o.map((x) => x.value).filter(Boolean));
@@ -159,6 +165,11 @@ async function reposer(page, carte, type) {
     for (let i = 0; i < (await selects.count()); i++) {
       const opts = await selects.nth(i).locator("option").evaluateAll((o) => o.map((x) => x.value).filter(Boolean));
       if (opts.length) await selects.nth(i).selectOption(opts[0]);
+    }
+    const ouiNon = carte.locator(".choix-cellule");
+    for (let i = 0; i < (await ouiNon.count()); i++) {
+      const b = ouiNon.nth(i).locator("button").first();
+      if ((await b.getAttribute("aria-pressed")) !== "true") await b.click();
     }
     const champs = carte.locator('input[type="text"]');
     const specs = champsSaisis(BANQUE[await carte.getAttribute("data-question")]);
@@ -288,12 +299,17 @@ async function exercer(page, agent, T, code, completPour) {
     verifier(agent, code, "texte : « Enregistré » affiché", await attendreEnregistre(carte));
     const r = await T.ligne(code);
     verifier(agent, code, "texte : enregistré en base", /Réponse libre de test/.test(r), r);
-  } else if ((await selects.count()) > 0 || (await champsTexte.count()) > 0 || (await mois.count()) > 0) {
+  } else if ((await selects.count()) > 0 || (await champsTexte.count()) > 0 || (await mois.count()) > 0 || (await carte.locator(".choix-cellule").count()) > 0) {
     type = "composite";
     complet = completPour(type);
     for (let i = 0; i < (await selects.count()); i++) {
       const opts = await selects.nth(i).locator("option").evaluateAll((o) => o.map((x) => x.value).filter(Boolean));
       if (opts.length) await selects.nth(i).selectOption(opts[0]);
+    }
+    const ouiNon = carte.locator(".choix-cellule");
+    for (let i = 0; i < (await ouiNon.count()); i++) {
+      const b = ouiNon.nth(i).locator("button").first();
+      if ((await b.getAttribute("aria-pressed")) !== "true") await b.click();
     }
     const specsChamps = champsSaisis(BANQUE[code]);
     for (let i = 0; i < (await champsTexte.count()); i++) await champsTexte.nth(i).fill(valeurDans(specsChamps[i]?.spec));

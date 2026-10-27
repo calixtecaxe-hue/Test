@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChoixCases } from "@/components/choix-cases";
-import { aUneReponse, type Reponse, type Reponses } from "@/lib/audit/reponse";
+import type { Reponse, Reponses } from "@/lib/audit/reponse";
 import type { FormeDeclencheur } from "@/lib/donnees/schemas";
 import { enregistrerReponse } from "./enregistrer";
 import { CartePartagee, QuestionCarte, type LibellesLignes, type QuestionClient } from "./question-carte";
@@ -132,27 +132,14 @@ export function Questionnaire({
     return e;
   }
 
-  const repondues = toutes.filter((q) => aUneReponse(reponses[q.code])).length;
   const a = declencheurs.length > 0;
 
   return (
     <div className="audit-entree mt-10 flex flex-col gap-12" style={{ "--d": "480ms" } as React.CSSProperties}>
-      {a ? (
-        <section aria-labelledby="cadrage">
-          <h2 id="cadrage" className="text-xl">Quelques questions pour cadrer votre audit</h2>
-          <p className="mt-1 text-sm text-[var(--text-muted)]">Elles servent à ne vous poser que les questions qui vous concernent.</p>
-          <div className="mt-5">
-            <Cadrage declencheurs={declencheurs} reponses={reponses} enregistrer={enregistrerCadrage} />
-          </div>
-        </section>
-      ) : null}
-
       <section aria-labelledby="questions">
         <h2 id="questions" className="text-xl">Votre questionnaire</h2>
-        <p className="mt-1 text-sm text-[var(--text-muted)]" aria-live="polite">
-          {toutes.length === 0
-            ? "Répondez aux questions de cadrage ci-dessus : les questions qui vous concernent s'afficheront ici."
-            : `${traitees} question${traitees > 1 ? "s" : ""} traitée${traitees > 1 ? "s" : ""} sur ${toutes.length}, dont ${repondues} avec une réponse. Aucune question n'est obligatoire. Vos réponses sont enregistrées au fur et à mesure : vous pouvez quitter cette page et reprendre plus tard.`}
+        <p className="mt-1 text-sm text-[var(--text-muted)]">
+          Aucune question n&apos;est obligatoire. Vos réponses sont enregistrées au fur et à mesure : vous pouvez quitter cette page et reprendre plus tard.
         </p>
         {manquantes > 0 ? (
           <p className="mt-2 text-xs text-[var(--text-muted)]">
@@ -160,6 +147,17 @@ export function Questionnaire({
           </p>
         ) : null}
         {masques > 0 ? <p className="mt-1 text-xs text-[var(--text-muted)]">{masques} thème{masques > 1 ? "s" : ""} masqué{masques > 1 ? "s" : ""} : ils ne s&apos;appliquent pas à votre entreprise.</p> : null}
+
+        {a ? (
+          <div className="mt-8" aria-labelledby="cadrage" role="group">
+            <h3 id="cadrage" className="text-lg">Quelques questions pour cadrer votre audit</h3>
+            <p className="mt-1 text-sm text-[var(--text-muted)]">Elles servent à ne vous poser que les questions qui vous concernent.</p>
+            <div className="mt-5">
+              <Cadrage declencheurs={declencheurs} reponses={reponses} enregistrer={enregistrerCadrage} />
+            </div>
+          </div>
+        ) : null}
+        {toutes.length === 0 ? <p className="mt-6 text-sm text-[var(--text-muted)]">Répondez aux questions de cadrage ci-dessus : les questions qui vous concernent s&apos;afficheront ici.</p> : null}
 
         <div className="mt-6 flex flex-col gap-10">
           {themes.map((t) => (

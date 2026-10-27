@@ -336,7 +336,8 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
       const groupes = [...new Set(PROP[a.code].objectifs.map((o) => o.groupe ?? ""))];
       const liste = [...PROP[a.code].objectifs.map((o) => ({ id: o.id, libelle: o.libelle })), ...groupes.map((_, i) => ({ id: `autre-${i}`, libelle: "Autre (précisez)" }))];
       for (const o of liste) {
-        await p.locator(`input[type=radio][value="${o.id}"]`).check({ force: true });
+        // Clic direct sur la case : avec une longue liste, le défilement vers le détail déplacerait la page pendant un clic à la souris.
+        await p.locator(`input[type=radio][value="${o.id}"]`).evaluate((e) => e.click());
         await p.waitForTimeout(300);
         const det = p.locator("[data-detail]");
         const chiffre = (await p.locator("[data-sans-chiffre]").count()) > 0;

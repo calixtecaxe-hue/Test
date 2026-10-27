@@ -41,10 +41,22 @@ function suffixe(spec: ChampSimple): string {
 // --- Un champ simple (cellule de tableau, champ d'une réponse composée) ----------------
 
 function ChampCellule({ spec, valeur, onChange, onBlur, etiquette, id }: { spec: ChampSimple; valeur: string; onChange: (v: string) => void; onBlur: () => void; etiquette: string; id: string }) {
-  if (spec.type === "choix" || spec.type === "oui_non") {
-    const options = spec.type === "oui_non" ? [{ id: "oui", libelle: "Oui" }, { id: "non", libelle: "Non" }] : spec.options;
+  // Oui / non : deux boutons, plus nets qu'un menu déroulant ; un second clic sur le bouton choisi efface la case.
+  if (spec.type === "oui_non") {
     return (
-      <select id={id} aria-label={etiquette} value={valeur} onChange={(e) => { onChange(e.target.value); }} onBlur={onBlur} className="champ-saisie champ-cellule">
+      <div id={id} role="group" aria-label={etiquette} className="choix-cellule">
+        {[{ id: "oui", libelle: "Oui" }, { id: "non", libelle: "Non" }].map((o) => (
+          <button key={o.id} type="button" aria-pressed={valeur === o.id} onClick={() => onChange(valeur === o.id ? "" : o.id)} onBlur={onBlur}>
+            {o.libelle}
+          </button>
+        ))}
+      </div>
+    );
+  }
+  if (spec.type === "choix") {
+    const options = spec.options;
+    return (
+      <select id={id} aria-label={etiquette} value={valeur} onChange={(e) => { onChange(e.target.value); }} onBlur={onBlur} className="champ-saisie champ-cellule champ-select">
         <option value="">—</option>
         {options.map((o) => (
           <option key={o.id} value={o.id}>{o.libelle}</option>
