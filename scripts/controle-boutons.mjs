@@ -92,7 +92,7 @@ const brouillonDb = (email, cle) => sql(`select b.saisie::text from "BrouillonRe
 
 const codesVisibles = (page) => page.locator("li[data-question]").evaluateAll((els) => els.map((e) => e.getAttribute("data-question")));
 async function attendreEnregistre(carte, ms = 2500) {
-  try { await carte.getByText(/^Enregistré$/).waitFor({ timeout: ms }); return true; } catch { return false; }
+  try { await carte.getByText(/^(Réponse enregistrée|Enregistré)$/).waitFor({ timeout: ms }); return true; } catch { return false; }
 }
 const pause = (page, ms = 900) => page.waitForTimeout(ms);
 let graine = 100;
@@ -139,6 +139,58 @@ async function remplirTableau(carte, marque = "1") {
     if (await nom.count()) await nom.fill(`Ligne ${i + 1}`);
   }
   await carte.locator("tbody tr").first().locator("input,select").first().blur().catch(() => {});
+}
+
+// Lignes d'un tableau (décision du 27 octobre) : on ajoute une ligne, on la remplit, elle est enregistrée ; on la retire,
+// elle disparaît de l'écran et de la réponse. Un tableau qui suit un autre a autant de lignes que lui.
+const idsLignes = (carte) => carte.locator("tbody tr[data-ligne]").evaluateAll((t) => t.map((x) => x.getAttribute("data-ligne")));
+async function lignesReglables(page, agent, T, code, carte) {
+  const ajout = carte.getByRole("button", { name: /^Ajouter (« |une ligne)/ });
+  if (await ajout.count()) {
+    const avant = await idsLignes(carte);
+    await ajout.first().click();
+    await pause(page, 250);
+    const apres = await idsLignes(carte);
+    const neuve = apres.find((x) => !avant.includes(x));
+    verifier(agent, code, "ajouter une ligne : une ligne de plus à l'écran", apres.length === avant.length + 1 && neuve !== undefined, `${avant.join(",")} → ${apres.join(",")}`);
+    if (neuve) {
+      const ligne = carte.locator(`tbody tr[data-ligne="${neuve}"]`);
+      const colonnes = BANQUE[code]?.colonnes ?? [];
+      const cellules = ligne.locator("td");
+      let rempli = false;
+      for (let j = 0; j < (await cellules.count()) && !rempli; j++) {
+        const bascule = cellules.nth(j).locator(".choix-cellule button");
+        if (await bascule.count()) { await bascule.first().click(); rempli = true; continue; }
+        const champ = cellules.nth(j).locator('input[type="text"]');
+        if (await champ.count()) {
+          const spec = colonnes[j]?.spec;
+          await champ.fill(spec?.type === "nombre" ? valeurDans(spec) : "Ligne ajoutée");
+          await champ.blur();
+          rempli = true;
+        }
+      }
+      const nom = ligne.locator("th input");
+      if (await nom.count()) { await nom.fill("Ligne ajoutée"); await nom.blur(); }
+      await pause(page, 1200);
+      const r = await T.ligne(code);
+      verifier(agent, code, "ligne ajoutée : enregistrée", r.includes(`"${neuve}.`), r.slice(0, 160));
+      await ligne.getByRole("button", { name: /^Retirer/ }).click();
+      await pause(page, 1200);
+      verifier(agent, code, "retirer : la ligne disparaît de l'écran", !(await idsLignes(carte)).includes(neuve));
+      const r2 = await T.ligne(code);
+      verifier(agent, code, "retirer : la ligne disparaît de la réponse", !r2.includes(`"${neuve}.`), r2.slice(0, 160));
+    }
+  }
+  // Tableau qui suit les lignes d'une question de la page : même nombre de lignes.
+  const lien = carte.locator('a[href^="#q-"]');
+  if ((await carte.getByText(/Les lignes de ce tableau suivent votre réponse/).count()) && (await lien.count())) {
+    const cible = (await lien.first().getAttribute("href")).slice(3);
+    const meneuse = page.locator(`li[data-question="${cible}"]:not([data-partagee])`);
+    if (await meneuse.count()) {
+      const n = (await idsLignes(meneuse)).length, m = (await idsLignes(carte)).length;
+      verifier(agent, code, `lignes suivies : autant de lignes que ${cible}`, n === m, `${m} contre ${n}`);
+    }
+  }
 }
 
 // Pose une réponse minimale du type reconnu (sert à remettre une réponse après « Effacer »).
@@ -288,6 +340,7 @@ async function exercer(page, agent, T, code, completPour) {
     const r = await T.ligne(code);
     const b = await T.brouillon(code);
     verifier(agent, code, "tableau : enregistré (ou gardé en brouillon si total imposé non atteint)", r.length > 0 || b.length > 0, `réponse=${r.slice(0, 80)} brouillon=${b.slice(0, 80)}`);
+    await lignesReglables(page, agent, T, code, carte);
   } else if (await mois.count() && (await selects.count()) === 0 && (await champsTexte.count()) === 0) {
     type = "mois";
     await mois.fill("2021-05"); await mois.blur();

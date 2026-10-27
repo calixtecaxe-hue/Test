@@ -148,6 +148,9 @@ export type ContexteLignes = {
   lignesDeclencheur: (cle: string) => string[];
   // Éléments de la liste écrite en réponse à une autre question (type « liste »), dans l'ordre.
   elementsDeListe?: (code: string) => string[];
+  // Écran seulement : lignes affichées du tableau (lignes retirées, lignes suivies d'un autre tableau). Une case d'une
+  // ligne qui n'est plus affichée n'est pas envoyée.
+  lignesAffichees?: string[];
 };
 
 // Identifiants stables des éléments d'une liste : le nom sans accent, avec un numéro si deux se ressemblent.
@@ -161,6 +164,63 @@ export function idsDeListe(elements: string[]): string[] {
     vus.add(id);
     return id;
   });
+}
+
+// --- Réponse « aucun » ------------------------------------------------------------------------------
+
+// Une option qui dit « aucun » (« Aucun », « Aucune urgence de ce type », « Rien de tout cela ») se coche seule : la cocher
+// décoche les autres, en cocher une autre la décoche.
+export function optionsExclusives(options: { id: string; libelle: string }[]): string[] {
+  return options.filter((o) => /^(aucun|aucune|rien)\b/i.test(o.libelle.trim())).map((o) => o.id);
+}
+export function appliquerExclusives(options: { id: string; libelle: string }[], avant: string[], apres: string[]): string[] {
+  const exclusives = new Set(optionsExclusives(options));
+  const ajoutee = apres.find((x) => !avant.includes(x));
+  if (ajoutee === undefined) return apres;
+  return exclusives.has(ajoutee) ? [ajoutee] : apres.filter((x) => !exclusives.has(x));
+}
+
+// --- Lignes ajoutées ou retirées par le dirigeant ------------------------------------------------
+
+// Lignes numérotées (« Offre 1, Offre 2, Offre 3 », « Meilleure 1… Moins bonne 3 ») : le dirigeant en ajoute jusqu'à 10
+// par groupe, ou en retire jusqu'à une (décision du propriétaire, 27 octobre). Les identifiants restent stables
+// (« offre_3 » reste « offre_3 » quand « offre_2 » est retirée) : les tableaux qui suivent ces lignes gardent leurs réponses.
+export const MAX_LIGNES_NUMEROTEES = 10;
+export type GroupeNumerote = { base: string; libelle: string; parDefaut: number };
+
+// Groupes de lignes numérotées d'un tableau à lignes fixes, ou null si une ligne n'est pas numérotée (« Moins de 5 km »).
+export function groupesNumerotes(items: { id: string; libelle: string }[]): GroupeNumerote[] | null {
+  const groupes: GroupeNumerote[] = [];
+  for (const it of items) {
+    const i = /^(.+)_(\d+)$/.exec(it.id);
+    const l = /^(.+\S) (\d+)$/.exec(it.libelle);
+    if (!i || !l || i[2] !== l[2]) return null;
+    const n = Number(i[2]);
+    const dernier = groupes[groupes.length - 1];
+    if (dernier && dernier.base === i[1]) {
+      if (n !== dernier.parDefaut + 1) return null;
+      dernier.parDefaut = n;
+    } else {
+      if (n !== 1 || groupes.some((g) => g.base === i[1])) return null;
+      groupes.push({ base: i[1], libelle: l[1], parDefaut: 1 });
+    }
+  }
+  return groupes.length > 0 ? groupes : null;
+}
+
+export const idNumerote = (g: GroupeNumerote, n: number) => `${g.base}_${n}`;
+
+// Lignes qu'un tableau accepte : celles écrites, toutes les lignes numérotées possibles, les lignes cochées ou écrites
+// ailleurs, ou les lignes libres. Le serveur et le navigateur appliquent la même règle.
+export function idsDesLignes(spec: Extract<ReponseSpec, { type: "tableau" }>, ctx: ContexteLignes): string[] {
+  const l = spec.lignes;
+  if (l.source === "fixe") {
+    const groupes = groupesNumerotes(l.items);
+    return groupes ? groupes.flatMap((g) => Array.from({ length: MAX_LIGNES_NUMEROTEES }, (_, k) => idNumerote(g, k + 1))) : l.items.map((i) => i.id);
+  }
+  if (l.source === "declencheur") return ctx.lignesDeclencheur(l.cle);
+  if (l.source === "donnee") return idsDeListe(ctx.elementsDeListe?.(l.code) ?? []);
+  return Array.from({ length: l.max }, (_, i) => String(i + 1));
 }
 
 const TOLERANCE_TOTAL = 0.5;
@@ -198,6 +258,8 @@ export function validerSelonSpec(spec: ReponseSpec, r: ReponseAValider, ctx: Con
       const v = r.valeur;
       if (!v.every((x) => spec.options.some((o) => o.id === x))) return non("Choix non reconnu.");
       if (new Set(v).size !== v.length) return non("Une option est cochée deux fois.");
+      const seule = v.length > 1 ? spec.options.find((o) => v.includes(o.id) && optionsExclusives([o]).length === 1) : undefined;
+      if (seule) return non(`« ${seule.libelle} » se coche seul.`);
       if (spec.minChoix !== undefined && v.length < spec.minChoix) return non(`Cochez au moins ${spec.minChoix} option(s).`);
       if (spec.maxChoix !== undefined && v.length > spec.maxChoix) return non(`Cochez ${spec.maxChoix} option(s) au plus.`);
       return ok;
@@ -209,11 +271,7 @@ export function validerSelonSpec(spec: ReponseSpec, r: ReponseAValider, ctx: Con
     case "tableau": {
       if (r.genre !== "valeurs") return non("Réponse non conforme à la question.");
       const v = r.valeurs;
-      let idsLignes: string[];
-      if (spec.lignes.source === "fixe") idsLignes = spec.lignes.items.map((i) => i.id);
-      else if (spec.lignes.source === "declencheur") idsLignes = ctx.lignesDeclencheur(spec.lignes.cle);
-      else if (spec.lignes.source === "donnee") idsLignes = idsDeListe(ctx.elementsDeListe?.(spec.lignes.code) ?? []);
-      else idsLignes = Array.from({ length: spec.lignes.max }, (_, i) => String(i + 1));
+      const idsLignes = idsDesLignes(spec, ctx);
       const autorisees = new Set(idsLignes.flatMap((l) => [...spec.colonnes.map((c) => `${l}.${c.id}`), ...(spec.lignes.source === "libre" ? [`${l}.nom`] : [])]));
       for (const cle of Object.keys(v)) if (!autorisees.has(cle)) return non("Une case du tableau n'existe pas.");
       for (const l of idsLignes) {

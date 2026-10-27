@@ -473,6 +473,22 @@ export const prereponses = z.object({
 });
 export type Prereponses = z.infer<typeof prereponses>;
 
+// --- Tableaux liés ------------------------------------------------------------------------
+
+// Un tableau qui reprend les lignes d'un autre (« chacune de ces offres ») : ses lignes suivent la première question de
+// « suit » qui a une réponse ; « nom » est la colonne de cette question qui nomme chaque ligne.
+export const tableauxLies = z.object({
+  source: z.string(),
+  liens: z.array(
+    z.object({
+      tableau: codeDonnee,
+      suit: z.array(codeDonnee).min(1),
+      nom: z.string().regex(/^[a-z0-9_]+$/).nullable(),
+    })
+  ),
+});
+export type TableauxLies = z.infer<typeof tableauxLies>;
+
 // --- Objectifs proposés par agent ---------------------------------------------------------
 
 // Pour les agents dont l'objectif n'a pas forcément de chiffre (RH, Comm) : une liste d'objectifs écrits à
@@ -578,6 +594,7 @@ export type EnsembleDonnees = {
   seuils: z.infer<typeof seuilDonnee>[];
   limitesObjectif: LimitesObjectif;
   prereponses: Prereponses;
+  tableauxLies: TableauxLies;
   objectifsAgents: ObjectifsAgents;
   retraits: Retraits;
   implications: Implications;
@@ -603,6 +620,7 @@ export const schemaFichiers = {
   seuils: z.array(seuilDonnee),
   limitesObjectif,
   prereponses,
+  tableauxLies,
   objectifsAgents,
   retraits,
   implications,

@@ -293,17 +293,18 @@ if (parties.includes("C")) {
     if (traitee !== "oui") noter("erreur", "Saisie", code, "« Je ne sais pas » n'est pas retrouvé après rechargement");
     else console.log(`  ${code} : « Je ne sais pas » retrouvé après rechargement`);
   } else noter("attention", "Saisie", "je ne sais pas", "aucun bouton « Je ne sais pas » trouvé");
-  // Passage en approfondi depuis l'écran : le nombre de questions augmente.
+  // Passage en approfondi depuis l'étape « Niveau et contexte » : le nombre de questions augmente.
   const avant = await p.locator("li[data-question]").count();
-  const bouton = p.getByRole("button", { name: /Passer en approfondi/ });
+  await p.goto(p.url().split("?")[0] + "?etape=2", { waitUntil: "networkidle" });
+  const bouton = p.getByRole("button", { name: /^Approfondi/ });
   if ((await bouton.count()) > 0) {
     await bouton.click();
-    await p.waitForTimeout(2000);
+    await p.waitForURL((u) => !u.search.includes("etape=2"), { timeout: 8000 }).catch(() => {});
     await p.reload({ waitUntil: "networkidle" });
     const apres = await p.locator("li[data-question]").count();
     if (apres <= avant) noter("erreur", "Saisie", "niveau", `le passage en approfondi n'ajoute aucune question (${avant} → ${apres})`);
     else console.log(`  essentiel → approfondi : ${avant} → ${apres} questions`);
-  } else noter("attention", "Saisie", "niveau", "bouton « Passer en approfondi » introuvable");
+  } else noter("attention", "Saisie", "niveau", "bouton « Approfondi » introuvable à l'étape 2");
   await c.contexte.close();
 }
 

@@ -11,7 +11,7 @@
 import { PREFIXE_AGENT, PROFILS, TAILLES } from "./schemas.ts";
 import type { CodeAgent, EnsembleDonnees } from "./schemas.ts";
 import { cleDuMot, variablesDuGabarit } from "./lexique.ts";
-import { proposerSpec } from "./reponse-spec.ts";
+import { groupesNumerotes, proposerSpec } from "./reponse-spec.ts";
 import type { Regle, RegleSimple } from "./schemas.ts";
 import { cleDeDonnee } from "../audit/affichage.ts";
 
@@ -419,6 +419,34 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     const spec = banqueParDonnee.get(p.donnee)?.reponse;
     if (spec && spec.type !== "nombre") erreurs.push(`La pré-réponse de ${p.donnee} suppose une réponse en nombre, la banque en définit une autre (${spec.type}).`);
   }
+  // Tableaux liés : chaque tableau et chaque question suivie est un tableau à lignes numérotées de la banque, avec les mêmes
+  // groupes de lignes ; la colonne qui nomme les lignes existe dans au moins une question suivie.
+  const groupesDe = (code: string) => {
+    const spec = banqueParDonnee.get(code)?.reponse;
+    return spec?.type === "tableau" && spec.lignes.source === "fixe" ? groupesNumerotes(spec.lignes.items) : null;
+  };
+  for (const d of doublons(e.tableauxLies.liens.map((l) => l.tableau))) erreurs.push(`Tableaux liés : ${d} est écrit deux fois.`);
+  let liensSansEffet = 0;
+  for (const l of e.tableauxLies.liens) {
+    for (const code of [l.tableau, ...l.suit]) if (!donnees.has(code)) erreurs.push(`Tableaux liés : ${code} n'est pas une donnée du classeur.`);
+    if (l.suit.includes(l.tableau)) erreurs.push(`Tableaux liés : ${l.tableau} se suit lui-même.`);
+    // Une question pas encore écrite dans la banque : le lien n'a pas d'effet tant qu'elle manque.
+    if (![l.tableau, ...l.suit].every((code) => banqueParDonnee.has(code))) {
+      liensSansEffet++;
+      continue;
+    }
+    const g = groupesDe(l.tableau);
+    if (!g) erreurs.push(`Tableaux liés : ${l.tableau} n'est pas un tableau à lignes numérotées dans la banque.`);
+    for (const code of l.suit) {
+      const gs = groupesDe(code);
+      if (!gs) erreurs.push(`Tableaux liés : ${l.tableau} suit ${code}, qui n'est pas un tableau à lignes numérotées dans la banque.`);
+      else if (g && gs.map((x) => x.base).join() !== g.map((x) => x.base).join()) erreurs.push(`Tableaux liés : ${l.tableau} et ${code} n'ont pas les mêmes lignes.`);
+    }
+    if (l.nom && !l.suit.some((code) => { const s = banqueParDonnee.get(code)?.reponse; return s?.type === "tableau" && s.colonnes.some((c) => c.id === l.nom); })) {
+      erreurs.push(`Tableaux liés : la colonne ${l.nom} qui nomme les lignes de ${l.tableau} n'existe dans aucune question suivie.`);
+    }
+  }
+  if (liensSansEffet > 0) avertissements.push(`Tableaux liés : ${liensSansEffet} lien(s) portent sur une question absente de la banque (sans effet tant qu'elle manque).`);
   // Objectifs proposés : l'agent existe, les identifiants sont uniques, les thèmes existent et sont ceux de l'agent.
   for (const [agent, def] of Object.entries(e.objectifsAgents.agents)) {
     if (!e.themes.some((t) => t.agent === agent)) erreurs.push(`Objectifs proposés : l'agent ${agent} n'existe pas.`);

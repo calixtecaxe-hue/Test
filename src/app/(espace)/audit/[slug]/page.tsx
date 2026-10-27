@@ -17,7 +17,6 @@ import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifActif, ObjectifEdition } from "./objectif-actif";
 import { ObjectifChoix } from "./objectif-choix";
 import { NiveauChoix } from "./niveau-choix";
-import { NiveauReglage } from "./niveau-reglage";
 import { ResultatsMaquette } from "./resultats-maquette";
 import { Resultats } from "./resultats";
 import { compteRenduDuCompte } from "@/lib/audit/constat-compte";
@@ -71,13 +70,15 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
 
   const [utilisateur, objectifs] = await Promise.all([
     prisma.user.findUnique({ where: { id: userId } }),
-    prisma.objectif.findMany({ where: { userId, agent: agent.code }, orderBy: { creeLe: "desc" }, take: 10 }),
+    prisma.objectif.findMany({ where: { userId, agent: agent.code }, orderBy: [{ creeLe: "desc" }, { id: "asc" }], take: 40 }),
   ]);
   if (!utilisateur) redirect("/connexion");
   // Le dossier d'entreprise se complète après le paiement : tant qu'il manque, on y ramène le dirigeant.
   if (!estComplet(utilisateur)) redirect("/bienvenue");
 
-  const actif = objectifs.find((o) => o.statut === "ACTIF") ?? null;
+  // Objectifs en cours : un seul (Acquisition, Finance), un ou plusieurs (RH, Comm), dans l'ordre où ils ont été choisis.
+  const actifs = objectifs.filter((o) => o.statut === "ACTIF");
+  const actif = actifs[0] ?? null;
   // RH et Comm : l'objectif se choisit dans une liste écrite à l'avance, avec ou sans chiffre.
   const propositions = ENSEMBLE.objectifsAgents.agents[agent.code] ?? null;
   const historique = objectifs.filter((o) => o.statut !== "ACTIF");
@@ -87,7 +88,6 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   const metier = metierDuCompte(ENSEMBLE.routage, utilisateur);
 
   let corps: React.ReactNode = null;
-  let reglageNiveau: React.ReactNode = null;
   if (actif && !utilisateur.niveauAudit) {
     const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur), metier);
     corps = <NiveauChoix essentielles={n.essentielles} approfondies={n.total} />;
@@ -99,8 +99,8 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       </p>
     );
   } else if (actif && utilisateur.niveauAudit) {
-    const n = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur), metier);
-    reglageNiveau = <NiveauReglage niveau={utilisateur.niveauAudit} essentielles={n.essentielles} total={n.total} />;
+    // Le niveau se change depuis l'étape « Niveau et contexte » du parcours (demande du propriétaire, 27 octobre : plus de
+    // ligne de réglage en tête du questionnaire).
     const reponses = await reponsesDuCompte(userId);
     const preremplies = await reponsesPreremplies(userId);
     // Saisies partielles de tableaux à total imposé, gardées sur le compte (jamais utilisées par le calcul).
@@ -132,6 +132,10 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   }
 
   const structure = actif ? (actif.structure as unknown as ObjectifEnregistre) : null;
+  const structures = actifs.map((o) => o.structure as unknown as ObjectifEnregistre);
+  const affiches = actifs.map((o, i) => ({ phrase: o.texteBrut, echeance: formaterDate(o.echeance), indicateur: structures[i].indicateur?.nom ?? null, reussite: structures[i].reussite ?? null }));
+  // Ce qui a été saisi, sans ce que le serveur a ajouté (indicateur, échéance) : repris pour modifier les objectifs.
+  const saisies = structures.map(({ quoi, ampleur, reussite, choix, partie, delaiMois }) => ({ quoi, ampleur, reussite, choix, partie, delaiMois }));
 
   // L'étape atteinte, et l'étape affichée : une étape déjà atteinte se rouvre avec ?etape=1 ou ?etape=2.
   const etapeParcours: EtapeParcours = !actif ? 1 : !utilisateur.niveauAudit ? 2 : 3;
@@ -158,21 +162,20 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
 
       {vue === 4 && actif ? (
         exemple ? (
-          <ResultatsMaquette agent={agent} objectif={actif.texteBrut} echeance={formaterDate(actif.echeance)} reussite={structure?.reussite ?? null} />
+          <ResultatsMaquette agent={agent} objectifs={affiches} />
         ) : (
-          <Resultats agent={agent} vue={vueCompteRendu!} objectif={actif.texteBrut} echeance={formaterDate(actif.echeance)} reussite={structure?.reussite ?? null} questionnaire={retourAudit} />
+          <Resultats agent={agent} vue={vueCompteRendu!} objectifs={affiches} questionnaire={retourAudit} />
         )
       ) : rouvre && vue === 1 ? (
-        <ObjectifEdition agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} propositions={propositions} retour={retourAudit} />
+        <ObjectifEdition agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} propositions={propositions} saisies={saisies} retour={retourAudit} />
       ) : rouvre && vue === 2 && actif && structure ? (
         <>
-          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} reussite={structure.reussite ?? null} propositions={propositions} />
+          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} saisies={saisies} propositions={propositions} />
           <NiveauChoix essentielles={nCompte.essentielles} approfondies={nCompte.total} actuel={utilisateur.niveauAudit} retour={retourAudit} />
         </>
       ) : actif && structure ? (
         <>
-          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} phrase={actif.texteBrut} echeance={formaterDate(actif.echeance)} indicateur={structure.indicateur?.nom ?? null} reussite={structure.reussite ?? null} propositions={propositions} />
-          {reglageNiveau}
+          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} saisies={saisies} propositions={propositions} />
           {corps}
         </>
       ) : (

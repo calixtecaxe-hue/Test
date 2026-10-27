@@ -331,32 +331,20 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
     await p.goto(B + "/audit/" + a.slug, { waitUntil: "networkidle" });
     let extra = "";
     if (nom === "objectif" && PROP[a.code]) {
-      const modes = {};
-      // « Autre (précisez) » termine chaque partie de la liste : autre-0, autre-1…
-      const groupes = [...new Set(PROP[a.code].objectifs.map((o) => o.groupe ?? ""))];
-      const liste = [...PROP[a.code].objectifs.map((o) => ({ id: o.id, libelle: o.libelle })), ...groupes.map((_, i) => ({ id: `autre-${i}`, libelle: "Autre (précisez)" }))];
-      for (const o of liste) {
-        // « Autre » : la case de sa partie ; un objectif de la liste : le menu déroulant de sa partie.
-        if (o.id.startsWith("autre-")) await p.locator(`input[type=radio][value="${o.id}"]`).evaluate((e) => e.click());
-        else {
-          const gi = groupes.indexOf(PROP[a.code].objectifs.find((x) => x.id === o.id).groupe ?? "");
-          await p.locator("[data-objectif-choix] .menu-declencheur").nth(gi).click();
-          await p.locator(`[role="option"]:has-text("${o.libelle.replace(/"/g, '\\"')}")`).first().click();
-        }
-        await p.waitForTimeout(300);
-        const det = p.locator("[data-detail]");
-        const chiffre = (await p.locator("[data-sans-chiffre]").count()) > 0;
-        modes[o.id] = { libelle: o.libelle, defaut: chiffre ? "chiffre" : "phrase" };
-        extra += modele(`det-${o.id}-${chiffre ? "chiffre" : "phrase"}`, await det.innerHTML());
-        const bascule = p.locator(chiffre ? "[data-sans-chiffre]" : "[data-avec-chiffre]");
-        if (await bascule.count()) {
-          await bascule.click();
-          await p.waitForTimeout(300);
-          extra += modele(`det-${o.id}-${chiffre ? "phrase" : "chiffre"}`, await det.innerHTML());
-        }
-      }
-      extra += `<script type="application/json" id="objectif-modes">${JSON.stringify(modes)}</script>`;
-      await p.goto(B + "/audit/" + a.slug, { waitUntil: "networkidle" });
+      // RH et Comm : le vrai formulaire (un ou plusieurs objectifs) tourne dans la copie (scripts/apercu/) ; on garde la
+      // page et on remplace le formulaire par un point d'accroche.
+      const remplace = await p.evaluate(({ code, court }) => {
+        const form = document.querySelector("form[data-objectif-choix]");
+        if (!form) return false;
+        const point = document.createElement("div");
+        point.id = "apercu-objectif";
+        point.setAttribute("data-agent", code);
+        point.setAttribute("data-court", court);
+        form.replaceWith(point);
+        return true;
+      }, { code: a.code, court: a.court });
+      if (!remplace) throw new Error("formulaire d'objectifs introuvable pour " + a.code);
+      extra += '<script src="questionnaire-apercu.js"></script>';
     }
     if (nom === "questionnaire") {
       // Le questionnaire de la copie n'est pas une photo : le vrai code de l'application y tourne (scripts/apercu/).
@@ -367,11 +355,7 @@ const EMAILS_TEST = []; // adresses des comptes de test, remplacées par une adr
         const point = document.createElement("div");
         point.id = "apercu-questionnaire";
         point.setAttribute("data-agent", code);
-        const note = document.createElement("p");
-        note.setAttribute("role", "note");
-        note.className = "mt-6 text-xs text-[var(--text-muted)]";
-        note.textContent = "Aperçu : les questions, les règles d'affichage et la vérification des réponses sont celles de l'application. Vos réponses restent dans cet onglet et ne sont enregistrées nulle part.";
-        racine.replaceWith(note, point);
+        racine.replaceWith(point);
         return true;
       }, a.code);
       if (!remplace) throw new Error("questionnaire introuvable pour " + a.code);
@@ -592,7 +576,7 @@ const SCRIPT_PARCOURS = String.raw`
   function synchroCases(){
     document.querySelectorAll('.case-option').forEach(function(l){
       // Le questionnaire interactif (React) gère lui-même ses cases : on n'y touche pas.
-      if (l.closest('#apercu-questionnaire')) return;
+      if (l.closest('#apercu-questionnaire, #apercu-objectif')) return;
       var i=l.querySelector('input'); if(!i) return;
       l.classList.toggle('choisie', i.checked);
       var m=l.querySelector('.case-marque'); if(m) m.innerHTML = i.checked ? (i.type==='checkbox' ? COCHE : '<span class="case-point"></span>') : '';
@@ -875,6 +859,22 @@ const SCRIPT_PARCOURS = String.raw`
   var carteObjectif=document.querySelector('.audit-objectif-actif');
   if (carteObjectif) {
     var enregistre=null; try { enregistre=JSON.parse(lit('caxe-objectif-'+suf)); } catch (e) {}
+    // RH et Comm : un ou plusieurs objectifs, affichés comme dans l'application.
+    if (enregistre && enregistre.objectifs && enregistre.objectifs.length>1) {
+      var kick=carteObjectif.querySelector('p'); kick.textContent='Vos objectifs';
+      [].slice.call(carteObjectif.children).forEach(function(c){ if (c!==kick && c.tagName!=='BUTTON') c.remove(); });
+      var ol=document.createElement('ol'); ol.className='liste-objectifs mt-3';
+      enregistre.objectifs.forEach(function(o, i){
+        var li=document.createElement('li');
+        var p1=document.createElement('p'); p1.className='text-base text-[var(--text)]'; p1.innerHTML='<span class="text-[var(--text-muted)]">'+(i+1)+'. </span>'; p1.appendChild(document.createTextNode(o.phrase)); li.appendChild(p1);
+        if (o.reussite) { var p2=document.createElement('p'); p2.className='mt-1 text-sm text-[var(--text)]'; p2.textContent='R\u00e9ussite : '+o.reussite; li.appendChild(p2); }
+        var p3=document.createElement('p'); p3.className='mt-1 text-sm text-[var(--text-muted)]'; p3.textContent='\u00c9ch\u00e9ance : '+echeanceMiroir(o.mois); li.appendChild(p3);
+        ol.appendChild(li);
+      });
+      kick.insertAdjacentElement('afterend', ol);
+      var bt=carteObjectif.querySelector('button'); if (bt) bt.textContent='Changer mes objectifs';
+      enregistre=null;
+    } else if (enregistre && enregistre.objectifs) enregistre=enregistre.objectifs[0];
     if (enregistre) {
       var ps=[].slice.call(carteObjectif.querySelectorAll('p'));
       var pPhrase=ps[1];
@@ -973,18 +973,6 @@ const SCRIPT_PARCOURS = String.raw`
     });
   }
   document.querySelectorAll('section[aria-labelledby=niveau] button').forEach(function(b){ b.addEventListener('click', function(){ stocke('caxe-apercu-niveau', /Approfondi/.test(b.textContent) ? 'approfondi' : 'essentiel'); location.href='audit-questionnaire-'+suf+'.html'; }); });
-  // Niveau affiché au-dessus du questionnaire : la page est capturée en essentiel ; la phrase et le lien suivent le niveau choisi dans l'aperçu.
-  var reglage=document.querySelector('[data-niveau-reglage]');
-  if (reglage) {
-    var nb=(reglage.textContent.match(/jusqu.\u00e0 \d+/g)||[]).map(function(x){ return +x.replace(/\D/g,''); });
-    var nEss=nb[0], nTot=nb[1]||nb[0];
-    var afficherNiveau=function(){
-      var ap=(lit('caxe-apercu-niveau')||'essentiel')==='approfondi';
-      reglage.innerHTML='Niveau du questionnaire : <span class="text-[var(--text)]">'+(ap?'approfondi':'essentiel')+'</span> (jusqu\u2019\u00e0 '+(ap?nTot:nEss)+' questions, selon vos r\u00e9ponses). <button type="button" class="audit-lien text-[var(--blue-1)] hover:underline">'+(ap?'Passer en essentiel':'Passer en approfondi (jusqu\u2019\u00e0 '+nTot+' questions)')+'</button>';
-      reglage.querySelector('button').addEventListener('click', function(){ stocke('caxe-apercu-niveau', ap?'essentiel':'approfondi'); location.reload(); });
-    };
-    afficherNiveau();
-  }
   var ESTIM='<div class="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2"><div class="champ-groupe"><label class="champ-etiquette">Entre</label><input type="text" inputmode="decimal" class="champ-saisie"></div><div class="champ-groupe"><label class="champ-etiquette">Et</label><input type="text" inputmode="decimal" class="champ-saisie"></div><p class="champ-aide sm:col-span-2">Nous retenons le milieu de la fourchette, signalé comme estimé.</p></div>';
   [].slice.call(interactif ? [] : document.querySelectorAll('li[data-question]')).forEach(function(li){
     var corps=function(){ return [].slice.call(li.children).filter(function(c){ return c.tagName==='DIV' && c.getAttribute('aria-label')!=='Autres réponses' && !c.classList.contains('flex'); }); };

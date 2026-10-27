@@ -47,11 +47,22 @@ export function CarteAgent({ agent, progression, rang }: { agent: Agent; progres
       <Domaines agent={agent} />
 
       <div className="carte-conseil-pied">
-        {progression.objectif ? (
+        {progression.objectifs.length === 1 ? (
           <div>
             <p className="carte-conseil-etiquette">Votre objectif</p>
-            <p className="mt-1 text-sm leading-snug text-[var(--text)]">{progression.objectif.phrase}</p>
-            <p className="mt-0.5 text-xs text-[var(--text-faint)]">Échéance : {formaterDate(progression.objectif.echeance)}</p>
+            <p className="mt-1 text-sm leading-snug text-[var(--text)]">{progression.objectifs[0].phrase}</p>
+            <p className="mt-0.5 text-xs text-[var(--text-faint)]">Échéance : {formaterDate(progression.objectifs[0].echeance)}</p>
+          </div>
+        ) : progression.objectifs.length > 1 ? (
+          <div>
+            <p className="carte-conseil-etiquette">Vos {progression.objectifs.length} objectifs</p>
+            <ul className="mt-1 flex flex-col gap-1">
+              {progression.objectifs.map((o, i) => (
+                <li key={i} className="text-sm leading-snug text-[var(--text)]">
+                  {o.phrase} <span className="text-xs text-[var(--text-faint)]">· échéance : {formaterDate(o.echeance)}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         ) : null}
         <div className="carte-conseil-ligne">

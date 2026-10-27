@@ -19,7 +19,8 @@ export type EtapeAgent = "objectif" | "niveau" | "questionnaire" | "termine" | "
 export type ProgressionAgent = {
   agent: AgentCode;
   etape: EtapeAgent;
-  objectif: { phrase: string; echeance: Date } | null;
+  // Objectifs en cours, dans l'ordre choisi (un seul pour l'Acquisition et la Finance ; RH et Comm : un ou plusieurs).
+  objectifs: { phrase: string; echeance: Date }[];
   questions: number;
   traitees: number;
 };
@@ -36,7 +37,7 @@ type Utilisateur = {
 
 export async function progressionAgents(userId: string, u: Utilisateur, agents: AgentCode[]): Promise<Record<string, ProgressionAgent>> {
   const [objectifs, reponses] = await Promise.all([
-    prisma.objectif.findMany({ where: { userId, statut: "ACTIF", agent: { in: agents } }, select: { agent: true, texteBrut: true, echeance: true } }),
+    prisma.objectif.findMany({ where: { userId, statut: "ACTIF", agent: { in: agents } }, orderBy: { id: "asc" }, select: { agent: true, texteBrut: true, echeance: true } }),
     reponsesDuCompte(userId),
   ]);
   const profils = u.profils.filter((p): p is ProfilId => (PROFILS as readonly string[]).includes(p));
@@ -45,8 +46,9 @@ export async function progressionAgents(userId: string, u: Utilisateur, agents: 
   const resultat: Record<string, ProgressionAgent> = {};
 
   for (const agent of agents) {
-    const o = objectifs.find((x) => x.agent === agent);
-    const base = { agent, objectif: o ? { phrase: o.texteBrut, echeance: o.echeance } : null, questions: 0, traitees: 0 };
+    const siens = objectifs.filter((x) => x.agent === agent);
+    const o = siens[0];
+    const base = { agent, objectifs: siens.map((x) => ({ phrase: x.texteBrut, echeance: x.echeance })), questions: 0, traitees: 0 };
     if (!o) {
       resultat[agent] = { ...base, etape: "objectif" };
     } else if (!u.niveauAudit) {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Agent } from "@/lib/agents";
 import type { LigneTheme, VueCompteRendu } from "@/lib/audit/compte-rendu";
+import type { ObjectifAffiche } from "./objectif-actif";
 
 const MOT_COULEUR = { rouge: "Rouge", orange: "Orange", vert: "Vert" } as const;
 
@@ -72,7 +73,8 @@ function Groupe({ id, titre, intro, themes }: { id: string; titre: string; intro
 // Compte rendu : ce que le constat du moteur donne aujourd'hui sur les réponses du compte. Sans seuil ni
 // repère de marché, aucun thème n'est noté et le dit ; l'ordre de priorité, l'impact et le plan d'action
 // (rédigé par l'IA) ne sont pas encore construits et ne sont pas inventés.
-export function Resultats({ agent, vue, objectif, echeance, reussite, questionnaire }: { agent: Agent; vue: VueCompteRendu; objectif: string; echeance: string; reussite: string | null; questionnaire: string }) {
+export function Resultats({ agent, vue, objectifs, questionnaire }: { agent: Agent; vue: VueCompteRendu; objectifs: ObjectifAffiche[]; questionnaire: string }) {
+  const plusieurs = objectifs.length > 1;
   const evalues = vue.notes.length + vue.avecRepere.length + vue.sansRepere.length;
   const total = evalues + vue.aCompleter.length;
   return (
@@ -96,25 +98,30 @@ export function Resultats({ agent, vue, objectif, echeance, reussite, questionna
 
       <div className="res-panneaux">
         <div className="res-panneau res-p1">
-          <div className="audit-objectif-actif rounded-xl border border-[var(--line)] bg-[var(--panel)] p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">Votre objectif</p>
-            <p className="mt-2 text-lg text-[var(--text)]">{objectif}</p>
-            {reussite ? <p className="mt-2 text-sm text-[var(--text)]">Réussite : {reussite}</p> : null}
-            <p className="mt-2 text-sm text-[var(--text-muted)]">Échéance : {echeance}</p>
-            <div className="mt-5">
-              <div className="flex items-baseline justify-between gap-3 text-sm">
-                <span className="text-[var(--text)]">Avancement déclaré</span>
-                <span className="text-[var(--text)]">0 %</span>
+          {/* Chaque objectif a son propre avancement (RH, Comm : plusieurs objectifs possibles). */}
+          {objectifs.map((o, i) => (
+            <div key={i} className={`audit-objectif-actif rounded-xl border border-[var(--line)] bg-[var(--panel)] p-6${i > 0 ? " mt-4" : ""}`} data-objectif-resultat>
+              <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">{plusieurs ? `Objectif ${i + 1}` : "Votre objectif"}</p>
+              <p className="mt-2 text-lg text-[var(--text)]">{o.phrase}</p>
+              {o.reussite ? <p className="mt-2 text-sm text-[var(--text)]">Réussite : {o.reussite}</p> : null}
+              <p className="mt-2 text-sm text-[var(--text-muted)]">Échéance : {o.echeance}</p>
+              <div className="mt-5">
+                <div className="flex items-baseline justify-between gap-3 text-sm">
+                  <span className="text-[var(--text)]">Avancement déclaré</span>
+                  <span className="text-[var(--text)]">0 %</span>
+                </div>
+                <div className="audit-progres mt-2" role="presentation">
+                  <div style={{ width: "2%", background: "var(--agent)" }} />
+                </div>
+                {i === objectifs.length - 1 ? (
+                  <p className="mt-2 text-sm text-[var(--text-muted)]">Rien n&apos;est encore déclaré : l&apos;avancement se calcule sur ce que vous déclarez aux points d&apos;étape, jamais sur une estimation.</p>
+                ) : null}
               </div>
-              <div className="audit-progres mt-2" role="presentation">
-                <div style={{ width: "2%", background: "var(--agent)" }} />
-              </div>
-              <p className="mt-2 text-sm text-[var(--text-muted)]">Rien n&apos;est encore déclaré : l&apos;avancement se calcule sur ce que vous déclarez aux points d&apos;étape, jamais sur une estimation.</p>
             </div>
-          </div>
+          ))}
 
           <div className="res-bloc">
-            <h3 className="text-base">Réalisme de l&apos;objectif</h3>
+            <h3 className="text-base">{plusieurs ? "Réalisme des objectifs" : "Réalisme de l'objectif"}</h3>
             <p className="mt-2 text-sm text-[var(--text-muted)]">Pas encore évalué. Il se calcule à partir des repères de votre secteur et de vos volumes ; ils ne sont pas encore disponibles pour votre métier.</p>
           </div>
 

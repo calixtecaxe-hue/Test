@@ -139,6 +139,8 @@ model Objectif {
   creeLe    DateTime  @default(now())
   clotureLe DateTime?
 
+  // Un seul objectif actif par compte pour l'Acquisition et la Finance ; RH et Comm : un ou plusieurs (index partiel de la
+  // migration 20261027150000_objectifs_multiples, non exprimable ici).
   @@index([userId, agent, creeLe])
 }
 

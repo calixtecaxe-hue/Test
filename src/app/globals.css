@@ -3891,6 +3891,58 @@ h3,
   outline-offset: 2px;
 }
 
+/* Question répondue dans la carte d'un tableau qui en dépend (ses lignes en viennent). */
+.carte-imbriquee {
+  background: rgb(var(--ink) / 0.03);
+  list-style: none;
+}
+
+/* Réponse enregistrée : une confirmation discrète (coche), jamais l'allure d'un bouton. */
+.etat-enregistre {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: rgb(var(--green-rgb));
+}
+.etat-enregistre svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* En-tête d'une ligne : son libellé (« Offre 2 »), le nom repris du tableau suivi, et « Retirer ». */
+.ligne-entete {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.ligne-nom {
+  display: block;
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+.ligne-retirer {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+  border-radius: 3px;
+  transition: color 150ms ease;
+}
+.ligne-retirer:hover {
+  color: var(--red-1);
+}
+.ligne-retirer:focus-visible {
+  outline: 2px solid var(--blue-1);
+  outline-offset: 2px;
+}
+
+/* Une question atteinte par un lien (« Aller à cette question ») ne passe pas sous l'en-tête. */
+[data-question] {
+  scroll-margin-top: 96px;
+}
+
 .champ-cellule {
   min-height: 40px;
   padding: 8px 10px;
@@ -4136,6 +4188,21 @@ h3,
 
 .audit-objectif-actif {
   border-left: 3px solid var(--agent);
+}
+
+/* Un objectif choisi (RH, Comm : plusieurs possibles), avec ses champs. */
+.objectif-entree {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--agent);
+  border-radius: 12px;
+  background: var(--panel);
+  padding: 20px;
+  scroll-margin-top: 96px;
+}
+.liste-objectifs > li + li {
+  border-top: 1px solid var(--line);
+  margin-top: 14px;
+  padding-top: 14px;
 }
 
 .audit-agent .case-option.choisie,

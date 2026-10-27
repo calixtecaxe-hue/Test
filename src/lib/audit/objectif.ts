@@ -38,6 +38,9 @@ export const objectifSaisieSchema = z
   reussite: z.string().trim().min(3, "Décrivez ce que vous voulez constater.").max(200, "Résumez en une phrase.").optional(),
   // Objectif choisi dans la liste proposée pour l'agent (data/objectifs-agents.json) ; absent pour « Autre » ou un objectif libre.
   choix: z.string().regex(/^[a-z0-9-]+$/).max(60).optional(),
+  // Partie de la liste où l'objectif a été pris (Comm : « Améliorer ce que j'ai déjà » ou « Mettre en place ma présence en
+  // ligne ») ; pour « Autre (précisez) », c'est la seule trace de la partie choisie.
+  partie: z.string().trim().max(80).optional(),
   delaiMois: z
     .number({ message: "Indiquez en combien de temps." })
     .int("Indiquez un nombre entier de mois.")

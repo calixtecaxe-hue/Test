@@ -176,7 +176,8 @@ export function Questionnaire({
                     return (
                       <QuestionCarte
                         key={q.code}
-                        q={{ ...q, code: source.code, spec: source.spec, dejaPosee: false, source: null }}
+                        q={{ ...q, code: source.code, spec: source.spec, lignesSuivies: source.lignesSuivies, renvoiLignes: source.renvoiLignes, suiviPar: source.suiviPar, dejaPosee: false, source: null }}
+                        ancre={q.code}
                         reponse={reponses[source.code]}
                         cadrage={reponses}
                         libellesLignes={libellesLignes}

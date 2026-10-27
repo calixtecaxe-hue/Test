@@ -5,6 +5,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Questionnaire } from "../../src/app/(espace)/audit/[slug]/questionnaire";
+import { ObjectifChoix } from "../../src/app/(espace)/audit/[slug]/objectif-choix";
+import { controlerObjectifs } from "../../src/lib/audit/objectifs-agent";
+import { phraseObjectif, type ObjectifSaisie } from "../../src/lib/audit/objectif";
 import { ENSEMBLE } from "../../src/lib/audit/donnees-audit";
 import { preparerQuestionnaire } from "../../src/lib/audit/preparation";
 import { prereponseDe } from "../../src/lib/audit/prereponse";
@@ -73,6 +76,16 @@ window.fetch = async (entree: RequestInfo | URL, init?: RequestInit) => {
     garder();
     return json({ ok: true });
   }
+  // Objectifs (RH, Comm) : mêmes contrôles que l'application ; gardés dans l'onglet pour les écrans suivants de la copie.
+  if (chemin === "/api/audit/objectif") {
+    const { agent, objectifs } = corps as { agent: string; objectifs: unknown[] };
+    const r = controlerObjectifs(objectifs ?? [], ENSEMBLE.objectifsAgents.agents[agent]?.objectifs ?? null, ENSEMBLE.limitesObjectif.facteurAnnuelMax);
+    if (!r.ok) return json({ erreur: r.erreur, champ: r.champ, rang: r.rang }, 400);
+    const cle = document.getElementById("apercu-objectif")?.getAttribute("data-court");
+    const garde = { objectifs: r.objectifs.map((o) => ({ phrase: phraseObjectif(o.saisie), mois: o.saisie.delaiMois, reussite: o.saisie.reussite ?? null, saisie: o.saisie })) };
+    try { if (cle) sessionStorage.setItem(`caxe-objectif-${cle}`, JSON.stringify(garde)); } catch { /* stockage indisponible */ }
+    return json({ ok: true });
+  }
   if (chemin === "/api/audit/brouillon") {
     const { cle, saisie } = corps as { cle: string; saisie: Record<string, string> | null };
     if (saisie === null) delete etat.brouillons[cle];
@@ -120,3 +133,30 @@ function Apercu({ agent }: { agent: CodeAgent }) {
 
 const racine = document.getElementById("apercu-questionnaire");
 if (racine) createRoot(racine).render(<Apercu agent={racine.getAttribute("data-agent") as CodeAgent} />);
+
+// Écran « Votre objectif » des agents RH et Comm : le vrai formulaire (un ou plusieurs objectifs), repris d'après ce qui a
+// déjà été choisi dans l'onglet ; une fois enregistré, la copie passe au choix du niveau.
+const racineObjectif = document.getElementById("apercu-objectif");
+if (racineObjectif) {
+  const agent = racineObjectif.getAttribute("data-agent") as CodeAgent;
+  const court = racineObjectif.getAttribute("data-court");
+  let initiaux: ObjectifSaisie[] = [];
+  try {
+    const garde = JSON.parse(sessionStorage.getItem(`caxe-objectif-${court}`) ?? "null") as { objectifs?: { saisie: ObjectifSaisie }[] } | null;
+    initiaux = garde?.objectifs?.map((o) => o.saisie) ?? [];
+  } catch { /* rien de gardé */ }
+  const propositions = ENSEMBLE.objectifsAgents.agents[agent];
+  if (propositions) {
+    createRoot(racineObjectif).render(
+      <ObjectifChoix
+        agent={agent}
+        propositions={propositions}
+        facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax}
+        initiaux={initiaux}
+        // La copie est faite de pages statiques, sans routeur Next : on passe à la page suivante du fichier.
+        // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+        onEnregistre={() => { window.location.href = `audit-niveau-${court}.html`; }}
+      />,
+    );
+  }
+}

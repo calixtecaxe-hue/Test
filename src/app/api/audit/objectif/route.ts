@@ -5,14 +5,16 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { agentsActifs } from "@/lib/audit/compte";
-import { enregistrerObjectif, objectifSaisieSchema, phraseObjectif, verifierVraisemblance } from "@/lib/audit/objectif";
+import { enregistrerObjectif, phraseObjectif } from "@/lib/audit/objectif";
+import { controlerObjectifs } from "@/lib/audit/objectifs-agent";
 import { codeAgent } from "@/lib/donnees/schemas";
 
-const corps = z.object({ agent: codeAgent, objectif: z.unknown() });
+// Un objectif (`objectif`), ou plusieurs pour les agents RH et Comm (`objectifs`, décision du 27 octobre).
+const corps = z.object({ agent: codeAgent, objectif: z.unknown().optional(), objectifs: z.array(z.unknown()).max(50).optional() });
 
-// Enregistre l'objectif d'un agent : ce que le dirigeant veut changer, de combien, en
-// combien de temps. Un nouvel objectif remplace l'objectif actif du même agent, qui
-// reste en historique ; les objectifs des autres agents ne sont pas touchés.
+// Enregistre l'objectif d'un agent (ou ses objectifs, RH et Comm) : ce que le dirigeant veut changer, de combien, en
+// combien de temps. Les nouveaux objectifs remplacent ensemble les objectifs actifs du même agent, qui restent en
+// historique ; les objectifs des autres agents ne sont pas touchés.
 export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ erreur: "Connexion requise." }, { status: 401 });
@@ -26,35 +28,41 @@ export async function POST(request: Request) {
     return NextResponse.json({ erreur: "Cet agent n'est pas inclus dans votre formule." }, { status: 403 });
   }
 
-  const saisie = objectifSaisieSchema.safeParse(parsed.data.objectif);
-  if (!saisie.success) {
-    const premier = saisie.error.issues[0];
-    return NextResponse.json({ erreur: premier?.message ?? "Objectif invalide.", champ: premier?.path[0] }, { status: 400 });
-  }
-
-  // Un objectif choisi dans la liste de l'agent doit exister pour cet agent.
-  const liste = ENSEMBLE.objectifsAgents.agents[agent]?.objectifs ?? [];
-  const choisi = saisie.data.choix ? liste.find((o) => o.id === saisie.data.choix) : undefined;
-  if (saisie.data.choix && !choisi) return NextResponse.json({ erreur: "Cet objectif n'est pas proposé pour cet agent.", champ: "choix" }, { status: 400 });
-
-  const vraisemblance = verifierVraisemblance(saisie.data, ENSEMBLE.limitesObjectif.facteurAnnuelMax);
-  if (!vraisemblance.ok) return NextResponse.json({ erreur: vraisemblance.message, champ: vraisemblance.champ }, { status: 400 });
+  const saisies = parsed.data.objectifs ?? (parsed.data.objectif !== undefined ? [parsed.data.objectif] : []);
+  // Un objectif choisi dans la liste de l'agent doit exister pour cet agent ; plusieurs objectifs, seulement avec une liste.
+  const liste = ENSEMBLE.objectifsAgents.agents[agent]?.objectifs ?? null;
+  const controle = controlerObjectifs(saisies, liste, ENSEMBLE.limitesObjectif.facteurAnnuelMax);
+  if (!controle.ok) return NextResponse.json({ erreur: controle.erreur, champ: controle.champ, rang: controle.rang }, { status: 400 });
 
   const maintenant = new Date();
-  const objectif = enregistrerObjectif(saisie.data, ENSEMBLE.themes.filter((t) => t.agent === agent), maintenant, choisi?.themes);
-  const cree = await prisma.$transaction(async (tx) => {
+  const themes = ENSEMBLE.themes.filter((t) => t.agent === agent);
+  const enregistres = controle.objectifs.map((o) => ({ saisie: o.saisie, objectif: enregistrerObjectif(o.saisie, themes, maintenant, o.choisi?.themes) }));
+  const crees = await prisma.$transaction(async (tx) => {
     await tx.objectif.updateMany({ where: { userId, agent, statut: "ACTIF" }, data: { statut: "REMPLACE", clotureLe: maintenant } });
-    return tx.objectif.create({
-      data: {
-        userId,
-        agent,
-        texteBrut: phraseObjectif(saisie.data),
-        structure: objectif as unknown as Prisma.InputJsonValue,
-        echeance: new Date(objectif.echeance),
-        creeLe: maintenant,
-      },
-      select: { id: true },
-    });
+    const ids: string[] = [];
+    // Même instant de création, dans l'ordre choisi : l'ordre d'affichage suit l'identifiant.
+    for (const e of enregistres) {
+      const c = await tx.objectif.create({
+        data: {
+          userId,
+          agent,
+          texteBrut: phraseObjectif(e.saisie),
+          structure: e.objectif as unknown as Prisma.InputJsonValue,
+          echeance: new Date(e.objectif.echeance),
+          creeLe: maintenant,
+        },
+        select: { id: true },
+      });
+      ids.push(c.id);
+    }
+    return ids;
   });
-  return NextResponse.json({ ok: true, id: cree.id, phrase: phraseObjectif(saisie.data), indicateur: objectif.indicateur, echeance: objectif.echeance });
+  return NextResponse.json({
+    ok: true,
+    id: crees[0],
+    ids: crees,
+    phrase: phraseObjectif(enregistres[0].saisie),
+    indicateur: enregistres[0].objectif.indicateur,
+    echeance: enregistres[0].objectif.echeance,
+  });
 }

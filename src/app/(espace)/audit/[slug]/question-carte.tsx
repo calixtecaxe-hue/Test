@@ -6,7 +6,8 @@ import { enregistrerBrouillon } from "./enregistrer";
 import { formaterNombre, lireNombre } from "@/lib/audit/nombre";
 import type { Reponse, Reponses } from "@/lib/audit/reponse";
 import { construireReponse, saisieInitiale, type Saisie } from "@/lib/audit/saisie";
-import { LIBELLE_UNITE, idsDeListe, type ChampNomme, type ChampSimple, type ReponseSpec } from "@/lib/donnees/reponse-spec";
+import { ajouterLigne, groupesReglables, lignesInitiales, lignesRemplies, questionMeneuse, sansLigne, type GroupeLignes } from "@/lib/audit/lignes";
+import { LIBELLE_UNITE, appliquerExclusives, idsDeListe, type ChampNomme, type ChampSimple, type ReponseSpec } from "@/lib/donnees/reponse-spec";
 
 export type QuestionClient = {
   code: string;
@@ -23,9 +24,21 @@ export type QuestionClient = {
   // Chiffre déjà enregistré d'après ce détail : il se met à jour si le détail change, tant que le dirigeant ne le corrige pas.
   preremplie?: string | null;
   // Réponse donnée pour un autre agent : où elle est enregistrée, et comment elle se modifie.
-  source: { code: string; spec: ReponseSpec | null; agent: string } | null;
+  source: ({ code: string; spec: ReponseSpec | null; agent: string } & LignesVenues) | null;
   // Tableau à total imposé : saisie partielle gardée sur le compte, restée sans réponse faute d'un total juste.
   brouillon?: Record<string, string> | null;
+} & LignesVenues;
+
+// Question où se règlent les lignes d'un tableau : sur cette page (ancre « #q-CODE ») ou dans l'audit d'un autre agent.
+export type RenvoiLignes = { code: string; texte: string; ici: boolean; agent: string; question?: QuestionClient };
+export type LignesVenues = {
+  // Tableau qui reprend les lignes d'un autre (« chacune de ces offres ») : les questions qu'il suit (la première qui a une
+  // réponse mène), et la colonne de celle-ci qui nomme chaque ligne.
+  lignesSuivies?: { questions: RenvoiLignes[]; nom: string | null } | null;
+  // Tableau dont les lignes viennent d'une autre réponse (canaux cochés, liste écrite) : où les ajouter ou les retirer.
+  renvoiLignes?: RenvoiLignes | null;
+  // Tableaux qui suivent les lignes de celui-ci : une ligne retirée ici l'est aussi chez eux.
+  suiviPar?: { code: string; suit: string[] }[];
 };
 
 type Etat = "repos" | "enregistrement" | "enregistre" | "erreur";
@@ -100,11 +113,25 @@ type PropsCorps = {
   lignesDeclencheur: (cle: string) => string[];
   elementsDeListe: (code: string) => string[];
   libellesLignes: LibellesLignes;
-  lignesLibres: number;
-  setLignesLibres: (n: number) => void;
+  lignes: LignesAffichees | null;
+  ajouter: (groupe: number) => void;
+  retirer: (groupe: number, ligne: string) => void;
+  // La question d'où viennent les lignes, à répondre sur place tant que le tableau n'a pas de lignes.
+  sourceEnLigne: React.ReactNode;
 };
 
-function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider, lignesDeclencheur, elementsDeListe, libellesLignes, lignesLibres, setLignesLibres }: PropsCorps) {
+// Lignes d'un tableau réglable ou qui suit un autre tableau : groupes, lignes affichées par groupe, noms repris.
+type LignesAffichees = { groupes: GroupeLignes[]; ids: string[][]; reglable: boolean; noms: Record<string, string>; meneuse: RenvoiLignes | null };
+
+// Renvoi vers la question où se règlent les lignes.
+function VersLaQuestion({ r }: { r: RenvoiLignes }) {
+  return r.ici ? (
+    <a href={`#q-${r.code}`} className="audit-lien ml-1 text-[var(--blue-1)] hover:underline">Aller à cette question</a>
+  ) : null;
+}
+const citation = (r: RenvoiLignes) => `« ${r.texte} »${r.ici ? "" : `, dans l'audit ${r.agent}`}`;
+
+function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider, lignesDeclencheur, elementsDeListe, libellesLignes, lignes: reglage, ajouter, retirer, sourceEnLigne }: PropsCorps) {
   const champs = saisie.champs ?? {};
 
   if (!spec) {
@@ -163,7 +190,7 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
     case "cases":
       return (
         <div className="mt-3">
-          <ChoixCases nom={`${id}-q`} type="checkbox" legende={q.texte ?? q.libelle} options={spec.options.map((o) => ({ valeur: o.id, libelle: o.libelle }))} valeurs={saisie.cases ?? []} onChange={(v) => surSaisie({ ...saisie, cases: v })} />
+          <ChoixCases nom={`${id}-q`} type="checkbox" legende={q.texte ?? q.libelle} options={spec.options.map((o) => ({ valeur: o.id, libelle: o.libelle }))} valeurs={saisie.cases ?? []} onChange={(v) => surSaisie({ ...saisie, cases: appliquerExclusives(spec.options, saisie.cases ?? [], v) })} />
           {spec.minChoix || spec.maxChoix ? <p className="champ-aide mt-2">{spec.minChoix ? `Au moins ${spec.minChoix}` : ""}{spec.minChoix && spec.maxChoix ? ", " : ""}{spec.maxChoix ? `${spec.minChoix ? "" : "Jusqu'à "}${spec.maxChoix} au plus` : ""}.</p> : null}
         </div>
       );
@@ -213,8 +240,13 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
       );
     case "tableau": {
       const libre = spec.lignes.source === "libre";
-      let lignes: { id: string; libelle: string }[];
-      if (spec.lignes.source === "fixe") lignes = spec.lignes.items;
+      // Chaque ligne : son identifiant, son libellé (« Offre 2 »), le nom repris du tableau suivi, et son groupe.
+      let lignes: { id: string; libelle: string; nom?: string; groupe?: number; rang?: number }[];
+      if (reglage) {
+        lignes = reglage.groupes.flatMap((g, gi) =>
+          reglage.ids[gi].map((l, k) => ({ id: l, libelle: libre ? `Ligne ${k + 1}` : `${g.libelle} ${k + 1}`, nom: reglage.noms[l], groupe: gi, rang: k })),
+        );
+      } else if (spec.lignes.source === "fixe") lignes = spec.lignes.items;
       else if (spec.lignes.source === "declencheur") {
         const cle = spec.lignes.cle;
         lignes = lignesDeclencheur(cle).map((l) => ({ id: l, libelle: libellesLignes[cle]?.[l] ?? l }));
@@ -222,15 +254,31 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
         const elements = elementsDeListe(spec.lignes.code);
         const ids = idsDeListe(elements);
         lignes = elements.map((el, i) => ({ id: ids[i], libelle: el }));
-      } else lignes = Array.from({ length: lignesLibres }, (_, i) => ({ id: String(i + 1), libelle: "" }));
+      } else lignes = [];
+      const renvoi = q.renvoiLignes ?? null;
       if (lignes.length === 0) {
-        return <p className="mt-3 text-sm text-[var(--text-muted)]">Répondez d&apos;abord à la question dont dépendent les lignes de ce tableau (cadrage ou liste précédente).</p>;
+        if (sourceEnLigne) {
+          return (
+            <div className="mt-3">
+              <p className="text-sm text-[var(--text-muted)]">Les lignes de ce tableau viennent de la question ci-dessous. Répondez-y ici : le tableau s&apos;affiche aussitôt.</p>
+              {sourceEnLigne}
+            </div>
+          );
+        }
+        return (
+          <p className="mt-3 text-sm text-[var(--text-muted)]">
+            {renvoi ? <>Répondez d&apos;abord à {citation(renvoi)} : les lignes de ce tableau en viennent.<VersLaQuestion r={renvoi} /></> : <>Répondez d&apos;abord à la question dont dépendent les lignes de ce tableau (cadrage ou liste précédente).</>}
+          </p>
+        );
       }
       const total = spec.total;
       const somme = total ? lignes.reduce((s, l) => s + (lireNombre(champs[`${l.id}.${total.colonne}`] ?? "") ?? 0), 0) : 0;
+      // Tableau qui suit un autre tableau sans réponse encore : il garde ses lignes, et le dit.
+      const suivraPlusTard = q.lignesSuivies && !reglage?.meneuse ? q.lignesSuivies.questions.find((r) => r.ici) ?? null : null;
       return (
         <div className="mt-3">
-          <div className="tableau-reponse" role="region" aria-label="Tableau de réponses" tabIndex={0}>
+          {sourceEnLigne}
+          <div className={`tableau-reponse${sourceEnLigne ? " mt-4" : ""}`} role="region" aria-label="Tableau de réponses" tabIndex={0}>
             <table style={{ minWidth: `${110 + spec.colonnes.length * 120}px` }}>
               <thead>
                 <tr>
@@ -241,27 +289,58 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
                 </tr>
               </thead>
               <tbody>
-                {lignes.map((l, i) => (
-                  <tr key={l.id}>
-                    <th scope="row">
-                      {libre ? (
-                        <input type="text" aria-label={`Nom de la ligne ${i + 1}`} placeholder={`Ligne ${i + 1}`} maxLength={80} value={champs[`${l.id}.nom`] ?? ""} onChange={(e) => poser(`${l.id}.nom`, e.target.value)} onBlur={vider} className="champ-saisie champ-cellule" />
-                      ) : (
-                        l.libelle
-                      )}
-                    </th>
-                    {spec.colonnes.map((c) => (
-                      <td key={c.id}>
-                        <ChampCellule spec={c.spec} valeur={champs[`${l.id}.${c.id}`] ?? ""} onChange={(v) => poser(`${l.id}.${c.id}`, v)} onBlur={vider} etiquette={`${c.libelle}, ${libre ? `ligne ${i + 1}` : l.libelle}`} id={`${id}-${l.id}-${c.id}`} />
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                {lignes.map((l, i) => {
+                  const nomLigne = libre ? champs[`${l.id}.nom`]?.trim() || l.libelle : l.libelle;
+                  const retirable = reglage?.reglable && l.groupe !== undefined && reglage.ids[l.groupe].length > 1;
+                  return (
+                    <tr key={l.id} data-ligne={l.id}>
+                      <th scope="row">
+                        <div className="ligne-entete">
+                          {libre ? (
+                            <input type="text" aria-label={`Nom de la ligne ${i + 1}`} placeholder={l.libelle} maxLength={80} value={champs[`${l.id}.nom`] ?? ""} onChange={(e) => poser(`${l.id}.nom`, e.target.value)} onBlur={vider} className="champ-saisie champ-cellule" />
+                          ) : (
+                            <span>
+                              {l.libelle}
+                              {l.nom ? <span className="ligne-nom">{l.nom}</span> : null}
+                            </span>
+                          )}
+                          {retirable ? (
+                            <button type="button" className="ligne-retirer" aria-label={`Retirer la ligne « ${nomLigne} »`} onClick={() => retirer(l.groupe!, l.id)}>
+                              Retirer
+                            </button>
+                          ) : null}
+                        </div>
+                      </th>
+                      {spec.colonnes.map((c) => (
+                        <td key={c.id}>
+                          <ChampCellule spec={c.spec} valeur={champs[`${l.id}.${c.id}`] ?? ""} onChange={(v) => poser(`${l.id}.${c.id}`, v)} onBlur={vider} etiquette={`${c.libelle}, ${nomLigne}`} id={`${id}-${l.id}-${c.id}`} />
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
-          {libre && spec.lignes.source === "libre" && lignesLibres < spec.lignes.max ? (
-            <button type="button" onClick={() => setLignesLibres(lignesLibres + 1)} className="audit-lien mt-3 text-sm text-[var(--blue-1)] hover:underline">Ajouter une ligne</button>
+          {reglage?.reglable ? (
+            <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+              {reglage.groupes.map((g, gi) =>
+                reglage.ids[gi].length < g.max ? (
+                  <button key={g.base || "libre"} type="button" onClick={() => ajouter(gi)} className="audit-lien text-sm text-[var(--blue-1)] hover:underline">
+                    {libre ? "Ajouter une ligne" : `Ajouter « ${g.libelle} ${reglage.ids[gi].length + 1} »`}
+                  </button>
+                ) : (
+                  <p key={g.base || "libre"} className="champ-aide">{g.max} lignes au plus{reglage.groupes.length > 1 ? ` pour « ${g.libelle} »` : ""}.</p>
+                ),
+              )}
+            </div>
+          ) : null}
+          {reglage?.meneuse ? (
+            <p className="champ-aide mt-2">Les lignes de ce tableau suivent votre réponse à {citation(reglage.meneuse)}. Pour ajouter ou retirer une ligne, modifiez cette réponse.<VersLaQuestion r={reglage.meneuse} /></p>
+          ) : suivraPlusTard ? (
+            <p className="champ-aide mt-2">Dès que vous aurez répondu à {citation(suivraPlusTard)}, ce tableau reprendra ses lignes.</p>
+          ) : !reglage && renvoi ? (
+            <p className="champ-aide mt-2">Les lignes de ce tableau viennent de votre réponse à {citation(renvoi)}. Pour ajouter ou retirer une ligne, modifiez cette réponse.<VersLaQuestion r={renvoi} /></p>
           ) : null}
           {total ? (
             <p className="champ-aide mt-2" aria-live="polite">
@@ -300,7 +379,7 @@ export function resumeReponse(r: Reponse | undefined): string {
 // Donnée déjà posée pour un autre agent : reprise ici, jamais redemandée, mais modifiable.
 export function CartePartagee({ q, reponse, onModifier }: { q: QuestionClient; reponse: Reponse | undefined; onModifier: () => void }) {
   return (
-    <li className="rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5" data-question={q.code} data-traitee="oui" data-partagee="oui">
+    <li id={`q-${q.code}`} className="rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5" data-question={q.code} data-traitee="oui" data-partagee="oui">
       <p className="text-[var(--text)]">{q.texte ?? q.libelle}</p>
       <p className="mt-3 text-sm text-[var(--text-muted)]">
         Déjà renseigné pour l&apos;audit {q.source?.agent ?? "d'un autre agent"} : vous n&apos;avez pas à le saisir de nouveau.
@@ -333,8 +412,14 @@ export function QuestionCarte({
   enregistrer,
   partageAvec,
   onTerminer,
+  ancre,
+  imbriquee,
 }: {
+  // Question répondue dans la carte d'un tableau qui en dépend (sa liste, ses cases) : pas d'ancre ni de repère de page.
+  imbriquee?: boolean;
   partageAvec?: string;
+  // Code sous lequel la question est affichée (une donnée partagée s'enregistre sous le code de l'autre agent).
+  ancre?: string;
   onTerminer?: () => void;
   q: QuestionClient;
   reponse: Reponse | undefined;
@@ -355,11 +440,9 @@ export function QuestionCarte({
   const [saisie, setSaisie] = useState<Saisie>(() =>
     brouillonRepris ? { champs: brouillonRepris } : saisieInitiale(spec, (prerempli && q.prereponse ? { genre: "exact", valeur: q.prereponse.total } : reponse) as never)
   );
-  const [lignesLibres, setLignesLibres] = useState<number>(() => {
-    if (spec?.type !== "tableau" || spec.lignes.source !== "libre" || reponse?.genre !== "valeurs") return 1;
-    const n = Object.keys(reponse.valeurs).map((k) => Number(k.split(".")[0])).filter((x) => Number.isInteger(x));
-    return Math.max(1, ...n);
-  });
+  // Lignes d'un tableau réglable (« Offre 1… », lignes libres) : celles qui ont une valeur, ou celles de la banque.
+  const groupes = spec?.type === "tableau" ? groupesReglables(spec) : null;
+  const [lignesPropres, setLignesPropres] = useState<string[][]>(() => (groupes ? lignesInitiales(groupes, saisie.champs ?? {}) : []));
   const [etat, setEtat] = useState<Etat>("repos");
   const [erreur, setErreur] = useState<string | null>(() => {
     if (!brouillonRepris) return null;
@@ -376,6 +459,25 @@ export function QuestionCarte({
   const attente = useRef<Reponse | null | undefined>(undefined);
   const enregistrerRef = useRef(enregistrer);
   useEffect(() => { enregistrerRef.current = enregistrer; });
+  const carte = useRef<HTMLLIElement>(null);
+
+  // Réponse changée ailleurs sur la page (la même question répondue dans un tableau qui en dépend, une ligne retirée par le
+  // tableau suivi) : la saisie la reprend, sauf pendant une saisie en cours dans cette carte. `vue` : dernière réponse connue
+  // ici, envoyée par cette carte ou reçue.
+  const vue = useRef<string>(JSON.stringify(reponse ?? null));
+  useEffect(() => {
+    const j = JSON.stringify(reponse ?? null);
+    if (j === vue.current) return;
+    vue.current = j;
+    if (attente.current !== undefined || carte.current?.contains(document.activeElement)) return;
+    const s = saisieInitiale(spec, reponse);
+    // La réponse vient d'ailleurs : la saisie affichée la suit (une seule fois par changement, rien ne boucle).
+    /* eslint-disable react-hooks/set-state-in-effect */
+    setSaisie(s);
+    setMode(reponse?.genre === "inconnu" ? "inconnu" : reponse?.genre === "non_suivi" ? "non_suivi" : "reponse");
+    if (groupes) setLignesPropres(lignesInitiales(groupes, s.champs ?? {}));
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, [reponse, spec, groupes]);
 
   useEffect(() => {
     if (prerempli && q.prereponse) void envoyer({ genre: "exact", valeur: q.prereponse.total }, true);
@@ -391,7 +493,43 @@ export function QuestionCarte({
     const r = cadrage[code];
     return r?.genre === "saisie" && Array.isArray(r.valeur) ? r.valeur : [];
   };
-  const ctx = { lignesDeclencheur, elementsDeListe };
+  // Tableau qui suit les lignes d'un autre (« chacune de ces offres ») : tant que celui-ci a une réponse, ses lignes et leurs noms.
+  const meneuse = q.lignesSuivies ? questionMeneuse(q.lignesSuivies.questions.map((r) => r.code), cadrage) : null;
+  const valeursMeneuse = meneuse ? (cadrage[meneuse] as Extract<Reponse, { genre: "valeurs" }>).valeurs : null;
+  const lignesSuivies = groupes && valeursMeneuse ? lignesInitiales(groupes, valeursMeneuse) : null;
+  const idsAffiches = lignesSuivies ?? lignesPropres;
+  const noms: Record<string, string> = {};
+  if (valeursMeneuse && q.lignesSuivies?.nom) {
+    for (const l of idsAffiches.flat()) {
+      const n = valeursMeneuse[`${l}.${q.lignesSuivies.nom}`];
+      if (typeof n === "string" && n.trim() !== "") noms[l] = n.trim();
+    }
+  }
+  const reglage: LignesAffichees | null = groupes
+    ? { groupes, ids: idsAffiches, reglable: lignesSuivies === null, noms, meneuse: q.lignesSuivies?.questions.find((r) => r.code === meneuse) ?? null }
+    : null;
+  // Tableau dont les lignes viennent d'une liste ou de cases posées sur cette page : tant qu'il n'a pas de lignes, la question se
+  // répond ici ; ouverte, elle reste affichée jusqu'à « Terminer » (on peut écrire plusieurs catégories d'affilée).
+  const sourceQuestion = q.renvoiLignes?.question ?? null;
+  const lignesVides =
+    spec?.type === "tableau" && (spec.lignes.source === "donnee" ? elementsDeListe(spec.lignes.code) : spec.lignes.source === "declencheur" ? lignesDeclencheur(spec.lignes.cle) : [""]).length === 0;
+  const [sourceOuverte, setSourceOuverte] = useState(lignesVides && sourceQuestion !== null);
+  const sourceEnLigne =
+    sourceQuestion && (lignesVides || sourceOuverte) ? (
+      <ul>
+        <QuestionCarte
+          q={sourceQuestion}
+          reponse={cadrage[sourceQuestion.code]}
+          cadrage={cadrage}
+          libellesLignes={libellesLignes}
+          enregistrer={enregistrer}
+          imbriquee
+          onTerminer={lignesVides ? undefined : () => setSourceOuverte(false)}
+        />
+      </ul>
+    ) : null;
+  const ctxAvec = (affichees: string[][] | null) => ({ lignesDeclencheur, elementsDeListe, ...(affichees ? { lignesAffichees: affichees.flat() } : {}) });
+  const ctx = ctxAvec(groupes ? idsAffiches : null);
   const totalImpose = spec?.type === "tableau" && spec.total !== undefined;
 
   // La saisie en attente part tout de suite. En quittant le champ (`depart` faux), la carte le dit (« Enregistré ») ; en
@@ -408,6 +546,7 @@ export function QuestionCarte({
     if (minuteur.current) clearTimeout(minuteur.current);
     const r = attente.current;
     attente.current = undefined;
+    vue.current = JSON.stringify(r ?? null);
     if (depart) void enregistrerRef.current(q.code, r, true);
     else void envoyer(r);
   }
@@ -426,6 +565,7 @@ export function QuestionCarte({
 
   async function envoyer(r: Reponse | null, preremplie = false) {
     attente.current = undefined;
+    vue.current = JSON.stringify(r ?? null);
     setEtat("enregistrement");
     setErreur(null);
     const e = await enregistrer(q.code, r, false, preremplie);
@@ -454,11 +594,12 @@ export function QuestionCarte({
   }
 
   // Une saisie change : on la contrôle tout de suite ; si elle est valide, elle part après une courte pause.
-  function surSaisie(nouvelle: Saisie) {
+  // `affichees` : lignes du tableau quand elles viennent de changer (ligne retirée), avant que l'écran ne les montre.
+  function surSaisie(nouvelle: Saisie, affichees?: string[][]) {
     setPrerempli(false);
     setSaisie(nouvelle);
     setMode("reponse");
-    const { reponse: r, erreur: e } = construireReponse(spec, nouvelle, ctx);
+    const { reponse: r, erreur: e } = construireReponse(spec, nouvelle, affichees ? ctxAvec(affichees) : ctx);
     if (e) {
       // Illisible ou hors bornes : on n'écrase pas la réponse déjà enregistrée, on l'explique.
       if (minuteur.current) clearTimeout(minuteur.current);
@@ -505,7 +646,7 @@ export function QuestionCarte({
     attente.current = undefined;
     setMode("reponse");
     setSaisie(saisieInitiale(spec, undefined));
-    setLignesLibres(1);
+    if (groupes) setLignesPropres(lignesInitiales(groupes, {}));
     setPrerempli(false);
     setErreur(null);
     void envoyer(null);
@@ -514,9 +655,41 @@ export function QuestionCarte({
   const traitee = reponse !== undefined;
   const poser = (cle: string, v: string) => surSaisie({ ...saisie, champs: { ...(saisie.champs ?? {}), [cle]: v } });
 
+  // Lignes employées par les tableaux qui suivent celui-ci : une ligne ajoutée prend un numéro neuf, jamais celui d'une
+  // ligne retirée dont ils gardent encore les réponses.
+  const suiveursMenes = (q.suiviPar ?? []).filter((f) => questionMeneuse(f.suit, cadrage) === q.code);
+  function ajouter(gi: number) {
+    if (!groupes) return;
+    const employes = [...lignesRemplies(saisie.champs ?? {}), ...(q.suiviPar ?? []).flatMap((f) => {
+      const r = cadrage[f.code];
+      return r?.genre === "valeurs" ? [...lignesRemplies(r.valeurs)] : [];
+    })];
+    setLignesPropres(lignesPropres.map((l, k) => (k === gi ? ajouterLigne(groupes[gi], l, employes) : l)));
+  }
+  function retirer(gi: number, ligne: string) {
+    const nouvelles = lignesPropres.map((l, k) => (k === gi ? l.filter((x) => x !== ligne) : l));
+    setLignesPropres(nouvelles);
+    const champs = saisie.champs ?? {};
+    if (Object.keys(champs).some((c) => c.startsWith(`${ligne}.`))) surSaisie({ ...saisie, champs: sansLigne(champs, ligne) }, nouvelles);
+    // La ligne disparaît aussi des tableaux qui la reprennent (« la part de cette offre », « son coût »).
+    for (const f of suiveursMenes) {
+      const r = cadrage[f.code];
+      if (r?.genre !== "valeurs" || !Object.keys(r.valeurs).some((c) => c.startsWith(`${ligne}.`))) continue;
+      const reste = sansLigne(r.valeurs, ligne);
+      void enregistrer(f.code, lignesRemplies(reste).size > 0 ? { genre: "valeurs", valeurs: reste } : null);
+    }
+  }
+
   const reponseDonnee = mode === "reponse";
   return (
-    <li className="rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5" data-question={q.code} data-traitee={traitee ? "oui" : "non"}>
+    <li
+      ref={carte}
+      id={imbriquee ? undefined : `q-${ancre ?? q.code}`}
+      className={imbriquee ? "carte-imbriquee mt-3 rounded-xl border border-[var(--line)] p-4" : "rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5"}
+      data-question={imbriquee ? undefined : q.code}
+      data-question-imbriquee={imbriquee ? q.code : undefined}
+      data-traitee={traitee ? "oui" : "non"}
+    >
       <p className="text-[var(--text)]">{q.texte ?? q.libelle}</p>
       {q.texte === null ? <p className="mt-1 text-xs text-[var(--text-muted)]">Question à rédiger dans la banque · libellé du classeur · {q.code}</p> : null}
       {q.aide ? <p className="mt-1 text-sm text-[var(--text-muted)]">{q.aide}</p> : null}
@@ -529,7 +702,7 @@ export function QuestionCarte({
           {prerempli && detailPrerempli && reponseDonnee ? (
             <p className="mt-3 text-sm text-[var(--text-muted)]">Rempli d&apos;après vos réponses précédentes ({detailPrerempli}). Il se met à jour si ce détail change ; corrigez le montant pour le garder tel quel.</p>
           ) : null}
-          {reponseDonnee ? <CorpsReponse q={q} id={id} spec={spec} saisie={saisie} surSaisie={surSaisie} setSaisie={setSaisie} poser={poser} vider={() => vider(false)} lignesDeclencheur={lignesDeclencheur} elementsDeListe={elementsDeListe} libellesLignes={libellesLignes} lignesLibres={lignesLibres} setLignesLibres={setLignesLibres} /> : null}
+          {reponseDonnee ? <CorpsReponse q={q} id={id} spec={spec} saisie={saisie} surSaisie={surSaisie} setSaisie={setSaisie} poser={poser} vider={() => vider(false)} lignesDeclencheur={lignesDeclencheur} elementsDeListe={elementsDeListe} libellesLignes={libellesLignes} lignes={reglage} ajouter={ajouter} retirer={retirer} sourceEnLigne={sourceEnLigne} /> : null}
           <div role="group" aria-label="Autres réponses" className="reponse-choix mt-4">
             <button type="button" aria-pressed={mode === "inconnu"} onClick={() => choisirMode("inconnu")} className={`reponse-bouton${mode === "inconnu" ? " actif" : ""}`}>Je ne sais pas</button>
             <button type="button" aria-pressed={mode === "non_suivi"} onClick={() => choisirMode("non_suivi")} className={`reponse-bouton${mode === "non_suivi" ? " actif" : ""}`}>Je ne suis pas cette donnée</button>
@@ -540,7 +713,13 @@ export function QuestionCarte({
 
           <div className="mt-3 flex flex-wrap items-center gap-4 text-xs" aria-live="polite">
             {etat === "enregistrement" ? <span className="text-[var(--text-muted)]">Enregistrement…</span> : null}
-            {etat === "enregistre" && !erreur ? <span className="text-[var(--text-muted)]">Enregistré</span> : null}
+            {/* Une confirmation, pas un bouton : la coche dit que la réponse est gardée sur le compte. */}
+            {etat === "enregistre" && !erreur ? (
+              <span className="etat-enregistre" role="status">
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+                Réponse enregistrée
+              </span>
+            ) : null}
             {erreur ? <span className="text-[var(--red-1)]">{erreur}</span> : null}
             {traitee || mode !== "reponse" ? (
               <button type="button" onClick={effacer} className="text-[var(--text-muted)] hover:text-[var(--text)]">Effacer ma réponse</button>

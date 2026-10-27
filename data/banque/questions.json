@@ -6944,6 +6944,10 @@
         {
           "id": "probleme_technique",
           "libelle": "Problème technique"
+        },
+        {
+          "id": "aucune_demande_de_ce_type",
+          "libelle": "Aucune demande de ce type"
         }
       ],
       "minChoix": 1,
@@ -7786,6 +7790,10 @@
         {
           "id": "absence_imprevue",
           "libelle": "Absence imprévue"
+        },
+        {
+          "id": "aucune_urgence_de_ce_type",
+          "libelle": "Aucune urgence de ce type"
         }
       ],
       "minChoix": 1,
@@ -10852,6 +10860,10 @@
         {
           "id": "x",
           "libelle": "X"
+        },
+        {
+          "id": "aucun",
+          "libelle": "Aucun"
         }
       ],
       "minChoix": 1
@@ -10967,6 +10979,10 @@
         {
           "id": "douter_que_cela_amene_des_clients",
           "libelle": "Douter que cela amène des clients"
+        },
+        {
+          "id": "rien_de_particulier",
+          "libelle": "Rien de particulier"
         }
       ],
       "minChoix": 1,

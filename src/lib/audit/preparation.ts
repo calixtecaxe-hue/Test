@@ -7,11 +7,12 @@ import { AGENTS } from "../agents.ts";
 import { assemblerQuestionnaire, type Exclusions } from "./assemblage.ts";
 import { cleDeDonnee, clesDeLaRegle, donneeDuDeclencheur } from "./affichage.ts";
 import { specDeLaDonnee } from "./validation.ts";
+import { formuler } from "../donnees/lexique.ts";
 import type { Reponses } from "./reponse.ts";
 import type { TailleId } from "./affichage.ts";
 import type { MetierDuCompte } from "../routage.ts";
 import type { DeclencheurClient, ThemeClient } from "../../app/(espace)/audit/[slug]/questionnaire.tsx";
-import type { LibellesLignes } from "../../app/(espace)/audit/[slug]/question-carte.tsx";
+import type { LibellesLignes, QuestionClient, RenvoiLignes } from "../../app/(espace)/audit/[slug]/question-carte.tsx";
 
 export type EntreePreparation = {
   agent: CodeAgent;
@@ -59,7 +60,28 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
     const donnee = donneeDuDeclencheur(e.reglesAffichage, spec.lignes.cle);
     return donnee ? { ...spec, lignes: { source: "declencheur" as const, cle: donnee } } : spec;
   };
-  const questionClient = (q: typeof a.themes[number]["questions"][number]) => ({
+  // Tableaux dont les lignes se règlent ailleurs : la question d'où elles viennent, sur cette page ou dans l'audit d'un autre agent.
+  const assemblees = new Map([...a.prealables, ...a.themes.flatMap((t) => t.questions)].map((q) => [q.code, q]));
+  const nomAgent = (code: string) => AGENTS.find((ag) => ag.code === e.themes.find((t) => t.code === code.slice(0, code.indexOf(".")))?.agent)?.nom ?? "un autre agent";
+  const renvoi = (code: string): RenvoiLignes => {
+    const ici = assemblees.get(code);
+    const banque = e.banque.find((b) => b.donnee === code);
+    const f = banque ? formuler(banque.texte, o.profils, e.lexique, o.vocabulaire) : null;
+    const texte = ici?.texte ?? (f?.ok ? f.texte : null) ?? e.donnees.find((d) => d.code === code)?.libelle ?? code;
+    // Une liste ou des cases posées sur cette page : la question se répond aussi dans le tableau qui en dépend, tant
+    // qu'il n'a pas de lignes (le dirigeant n'a pas à la chercher plus haut).
+    const enLigne = ici && !ici.dejaPosee && (ici.spec?.type === "liste" || ici.spec?.type === "cases") ? questionClient(ici) : undefined;
+    return { code, texte, ici: ici !== undefined, agent: nomAgent(code), ...(enLigne ? { question: enLigne } : {}) };
+  };
+  const lignesVenues = (code: string, spec: ReturnType<typeof lignesDeLaDonnee>) => {
+    const lien = e.tableauxLies.liens.find((l) => l.tableau === code);
+    const suiviPar = e.tableauxLies.liens.filter((l) => l.suit.includes(code)).map((l) => ({ code: l.tableau, suit: l.suit }));
+    if (lien) return { lignesSuivies: { questions: lien.suit.map(renvoi), nom: lien.nom }, renvoiLignes: null, suiviPar };
+    if (spec?.type === "tableau" && spec.lignes.source === "donnee") return { lignesSuivies: null, renvoiLignes: renvoi(spec.lignes.code), suiviPar };
+    if (spec?.type === "tableau" && spec.lignes.source === "declencheur" && !/^D\d{2}$/.test(spec.lignes.cle)) return { lignesSuivies: null, renvoiLignes: renvoi(spec.lignes.cle), suiviPar };
+    return { lignesSuivies: null, renvoiLignes: null, suiviPar };
+  };
+  const questionClient = (q: typeof a.themes[number]["questions"][number]): QuestionClient => ({
     code: q.code,
     libelle: q.libelle,
     texte: q.texte,
@@ -67,6 +89,7 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
     repli: q.repli,
     format: q.format,
     spec: lignesDeLaDonnee(q.spec),
+    ...lignesVenues(q.code, lignesDeLaDonnee(q.spec)),
     quatreReponses: q.quatreReponses,
     dejaPosee: q.dejaPosee,
     prereponse: q.prereponse,
@@ -76,6 +99,7 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
       ? {
           code: q.dejaPoseeDans,
           spec: specDeLaDonnee(e, q.dejaPoseeDans).spec,
+          ...lignesVenues(q.dejaPoseeDans, lignesDeLaDonnee(specDeLaDonnee(e, q.dejaPoseeDans).spec)),
           agent: AGENTS.find((ag) => ag.code === e.themes.find((t) => t.code === q.dejaPoseeDans!.slice(0, q.dejaPoseeDans!.indexOf(".")))?.agent)?.nom ?? "un autre agent",
         }
       : null,
@@ -109,6 +133,12 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
         ...(q.source ? [q.source.code] : []),
         ...(q.spec?.type === "tableau" && q.spec.lignes.source === "donnee" ? [q.spec.lignes.code] : []),
         ...(q.spec?.type === "tableau" && q.spec.lignes.source === "declencheur" ? [q.spec.lignes.cle] : []),
+        // Tableau qui suit les lignes d'un autre : la réponse de celui-ci donne les lignes et leurs noms.
+        ...(q.lignesSuivies?.questions.map((r) => r.code) ?? []),
+        ...(q.source?.lignesSuivies?.questions.map((r) => r.code) ?? []),
+        // Tableaux qui suivent celui-ci : une ligne retirée ici l'est aussi chez eux.
+        ...(q.suiviPar ?? []).flatMap((f) => [f.code, ...f.suit]),
+        ...(q.source?.suiviPar ?? []).flatMap((f) => [f.code, ...f.suit]),
       ]),
     ),
   ]);

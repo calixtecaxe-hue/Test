@@ -1,0 +1,20 @@
+{
+  "source": "Décision du propriétaire, 27 octobre : dans tout tableau, le dirigeant ajoute ou retire des lignes (lignes numérotées : jusqu'à 10, au moins une). Un tableau qui reprend les lignes d'un autre (« chacune de ces offres », « chacun de vos 5 plus gros clients », « chacune de ces personnes ») suit ses lignes : elles s'ajoutent ou se retirent dans la question d'origine, la première de « suit » qui a une réponse. Sans réponse à la question d'origine, le tableau garde ses propres lignes. « nom » : colonne de la question d'origine qui nomme chaque ligne. Liens écrits d'après le texte des questions et les libellés du classeur (« colonne ajoutée au tableau des gros clients », « pour chaque personne de RH-37.01 »).",
+  "liens": [
+    { "tableau": "ACQ-13.02", "suit": ["ACQ-13.01", "FIN-01.01"], "nom": "nom_de_l_offre" },
+    { "tableau": "FIN-01.02", "suit": ["FIN-01.01", "ACQ-13.01"], "nom": "nom_de_l_offre" },
+    { "tableau": "FIN-01.03", "suit": ["FIN-01.01", "ACQ-13.01"], "nom": "nom_de_l_offre" },
+    { "tableau": "COM-09.08", "suit": ["ACQ-13.01", "FIN-01.01"], "nom": "nom_de_l_offre" },
+    { "tableau": "COM-62.04", "suit": ["ACQ-13.01", "FIN-01.01"], "nom": "nom_de_l_offre" },
+    { "tableau": "COM-62.05", "suit": ["ACQ-13.01", "FIN-01.01", "COM-62.04"], "nom": "nom_de_l_offre" },
+    { "tableau": "ACQ-16.02", "suit": ["ACQ-16.01", "FIN-29.01"], "nom": "nom_ou_initiales" },
+    { "tableau": "ACQ-16.03", "suit": ["ACQ-16.01", "FIN-29.01"], "nom": "nom_ou_initiales" },
+    { "tableau": "FIN-02.01", "suit": ["FIN-29.01", "ACQ-16.01"], "nom": "nom_ou_initiales" },
+    { "tableau": "FIN-17.03", "suit": ["FIN-29.01", "ACQ-16.01"], "nom": "nom_ou_initiales" },
+    { "tableau": "FIN-22.02", "suit": ["FIN-22.01"], "nom": "nom" },
+    { "tableau": "RH-37.02", "suit": ["RH-37.01"], "nom": "poste" },
+    { "tableau": "RH-38.01", "suit": ["RH-37.01"], "nom": "poste" },
+    { "tableau": "RH-38.02", "suit": ["RH-37.01"], "nom": "poste" },
+    { "tableau": "COM-39.02", "suit": ["COM-39.01"], "nom": null }
+  ]
+}

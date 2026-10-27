@@ -1,5 +1,6 @@
 import type { Agent } from "@/lib/agents";
 import { EXEMPLES, VERDICTS, type CouleurConstat } from "@/lib/audit/resultats-exemple";
+import { ListeObjectifs, type ObjectifAffiche } from "./objectif-actif";
 
 const MOT_COULEUR: Record<CouleurConstat, string> = { rouge: "Rouge", orange: "Orange", vert: "Vert" };
 
@@ -9,7 +10,7 @@ function Origine({ de }: { de: "moteur" | "ia" }) {
 
 // MAQUETTE du compte rendu : trois onglets (objectif, priorités, plan d'action), sans JavaScript (boutons radio
 // et :checked). Les chiffres sont des exemples fictifs ; voir resultats-exemple.ts.
-export function ResultatsMaquette({ agent, objectif, echeance, reussite }: { agent: Agent; objectif: string; echeance: string; reussite: string | null }) {
+export function ResultatsMaquette({ agent, objectifs }: { agent: Agent; objectifs: ObjectifAffiche[] }) {
   const ex = EXEMPLES[agent.code];
   if (!ex) return null;
   return (
@@ -34,10 +35,8 @@ export function ResultatsMaquette({ agent, objectif, echeance, reussite }: { age
       <div className="res-panneaux">
         <div className="res-panneau res-p1">
           <div className="audit-objectif-actif rounded-xl border border-[var(--line)] bg-[var(--panel)] p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">Votre objectif</p>
-            <p className="mt-2 text-lg text-[var(--text)]">{objectif}</p>
-            {reussite ? <p className="mt-2 text-sm text-[var(--text)]">Réussite : {reussite}</p> : null}
-            <p className="mt-2 text-sm text-[var(--text-muted)]">Échéance : {echeance}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">{objectifs.length > 1 ? "Vos objectifs" : "Votre objectif"}</p>
+            <ListeObjectifs objectifs={objectifs.map((o) => ({ ...o, indicateur: null }))} />
             <div className="res-avancement mt-5">
               <div className="flex items-baseline justify-between gap-3 text-sm">
                 <span className="text-[var(--text)]">Avancement déclaré</span>

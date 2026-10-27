@@ -160,8 +160,14 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   sur les 3 prochains mois »). Chiffre et délai sont utilisés directement. Ce
   qu'il veut changer est rattaché à un indicateur de l'agent quand c'est possible ;
   sinon l'objectif est gardé tel quel et l'avancement se mesure à ce qu'il
-  déclare aux points d'étape. **Un objectif par agent**, conservé avec son
-  historique.
+  déclare aux points d'étape. **Un objectif par agent** pour l'Acquisition et la Finance, conservé avec son
+  historique. **RH et Comm : un ou plusieurs objectifs (décision du propriétaire, 27 octobre)**, chacun complet (son chiffre
+  ou sa description, son délai, son avancement ; le compte rendu et le plan les reprennent tous) ; **Comm : tous dans la même
+  partie** (« Améliorer ce que j'ai déjà » ou « Mettre en place ma présence en ligne » ; l'autre partie se ferme tant qu'un
+  objectif est choisi). Contrôle commun `controlerObjectifs` (`src/lib/audit/objectifs-agent.ts` : une seule partie, pas de
+  doublon, vraisemblance par objectif ; plafond technique `MAX_OBJECTIFS` = 10, **à confirmer**) ; `POST /api/audit/objectif`
+  accepte `objectifs` (tableau) et remplace ensemble les objectifs actifs (plusieurs lignes `Objectif` ACTIF ; champ `partie`
+  dans la structure). « Changer mes objectifs » reprend ceux en cours dans le formulaire.
   **Objectif sans chiffre (décision du propriétaire, 22 octobre : option 3, RH et Comm)** : pour ces deux
   agents, le dirigeant **choisit dans une liste d'objectifs écrite à l'avance** (ou « Autre (précisez) »), puis donne
   **un chiffre s'il en a un, ou décrit ce qu'il veut constater** (« Comment saurez-vous que c'est atteint ? »), plus le
@@ -218,6 +224,19 @@ qu'aux deux dernières étapes, sur un constat déjà calculé.
   `ne_contient_pas` de `regles-affichage.json`). **COM-03.01 / COM-04.01 (décision du propriétaire, 27 octobre : deux questions distinctes)** :
   COM-03.01 garde le résultat promis ; COM-04.01 ne demande plus que la preuve, le délai et l'effort demandé (3 champs). **Le texte reformulé de
   COM-04.01 est une proposition à faire valider.** Classeur corrigé : `CAXE_Themes_Chiffres_4_agents_11` (version du 27 octobre).
+- **Lignes des tableaux (décision du propriétaire, 27 octobre)** : dans tout questionnaire, un tableau à **lignes numérotées**
+  (« Offre 1, 2, 3 », « Client 1… 5 », « Meilleure 1… Moins bonne 3 » : reconnues d'après la banque, `groupesNumerotes`) s'allonge
+  jusqu'à **10 lignes par groupe** (« Ajouter « Offre 4 » ») et se réduit jusqu'à **une** (« Retirer ») ; un tableau à lignes
+  **libres** aussi (jusqu'au maximum de la banque). Les identifiants restent stables (retirer `offre_2` garde `offre_3`) ; une ligne
+  ajoutée prend un numéro neuf. Lignes affichées au retour : celles qui ont une valeur (au moins une), ou celles de la banque sans
+  réponse. Un tableau qui **reprend les lignes d'un autre** (« chacune de ces offres », « vos 5 plus gros clients », « chacune de ces
+  personnes ») les **suit** : `data/tableaux-lies.json` (écrit à la main d'après le texte des questions, contrôlé ; 15 liens), noms
+  repris de la question d'origine, renvoi « Aller à cette question » ; une ligne retirée à l'origine l'est aussi chez eux. Sans
+  réponse à l'origine, le tableau garde ses propres lignes. Les tableaux dont les lignes viennent d'une autre réponse (canaux,
+  jours, types de clients, réseaux) se règlent **dans cette question** (renvoi et lien). Les tableaux à **catégories fixes**
+  (tranches, mois, délais, postes) gardent leurs lignes : une ligne qui ne concerne pas le dirigeant reste vide. Code :
+  `src/lib/audit/lignes.ts`, `idsDesLignes` (serveur et écran), carte `question-carte.tsx`. **Les textes qui annoncent un nombre**
+  (« vos 3 offres principales », « vos 5 plus gros clients », « vos 2 concurrents ») **sont à revoir par le propriétaire.**
 - **Assemblage en 5 couches** : (1) inscription, (2) socle de l'agent, (3) module
   catégorie, (4) module métier — 5 questions maximum —, (5) filtre taille
   (seul / 2 à 5 / 6 et plus). **Module métier (construit le 27 octobre)** : colonne « Métiers concernés » du classeur (onglet
@@ -380,7 +399,8 @@ facturation professionnelle facultative, **case des conditions générales de ve
 connexion reprend le parcours là où il s'est arrêté. Une formule regardée sur `/offres` suit le parcours comme simple
 préférence (`?agents=3&periode=annuel`, `src/lib/formule-url.ts`) ; la page `/offres` mène à `/inscription` pour un visiteur et à
 `/formule` pour un compte connecté ; `/activation` redirige vers `/formule`. Le niveau du questionnaire se change depuis
-l'audit ; une donnée partagée déjà posée pour un autre agent se modifie depuis n'importe lequel des agents ouverts.
+l'étape « Niveau et contexte » du parcours (plus de ligne « Niveau du questionnaire… Passer en essentiel » en tête du questionnaire :
+retirée à la demande du propriétaire le 27 octobre, comme la note « Aperçu : … » de la copie) ; une donnée partagée déjà posée pour un autre agent se modifie depuis n'importe lequel des agents ouverts.
 **À fournir ou à construire** : le texte des conditions générales de vente (`/conditions-generales` n'a qu'une page d'attente,
 à remplacer avant l'ouverture du paiement réel), la réinitialisation du mot de passe, la vérification de l'adresse e-mail et
 les e-mails (rappel d'un dossier non terminé, reçu).
@@ -404,7 +424,7 @@ tels quels).
 **Fichiers de données (dossier `data/`)** : `themes.json` (189 thèmes), `donnees-*.json`
 (932 données, par agent), `croisements.json` (157), `scenarios.json` (13),
 `diagnostic-comm.json` (14 problèmes), `declencheurs.json` (65), `lexique.json`,
-`regles-affichage.json` (conditions d'affichage, masquages de thèmes et réponses attendues des
+`tableaux-lies.json` (tableaux qui suivent les lignes d'un autre, écrit à la main), `regles-affichage.json` (conditions d'affichage, masquages de thèmes et réponses attendues des
 déclencheurs, **écrit à la main** d'après le classeur ; le contrôle échoue si une condition du classeur n'y a pas
 de règle ; deux règles sont « à préciser » ; une règle `toujours` pour FIN-05.02), `routage.json` (11 catégories, 8 profils, 149 métiers et 54 activités tirés du document « CAXE — Liste des métiers » du 15 octobre, avec synonymes de recherche, stock oui / non / à demander et agent Comm oui / non / à trancher),
 `inscription.json` (questions du dossier d'inscription, avec mots du lexique) et
@@ -523,6 +543,17 @@ location en miroir de XA34, les couverts par mois (ACQ-11.07 × ACQ-11.09 × 4,3
 **Contrôles des boutons (27 octobre)** : `node scripts/controle-boutons.mjs [--agents ACQ,FIN,RH,COM] [--apercu <dossier>]` exerce chaque question (chiffre exact, estimation, « je ne sais pas », « je ne suis pas cette donnée », « Effacer ma réponse », cases, choix, listes, tableaux, texte, mois, cartes partagées, mise à jour des questions suivantes, rechargement) sur l'application ou sur l'aperçu ; `node scripts/controle-boutons-pages.mjs` exerce les écrans d'un agent (objectif, niveau, étapes, changement d'objectif, résultats, tableau de bord, jour / nuit, déconnexion). **Questionnaire (27 octobre, demandes du propriétaire)** : l'en-tête « Votre questionnaire » (« Aucune question n'est obligatoire… », sans compteur) est
 en haut, avant les questions de cadrage ; dans un tableau ou un groupe de champs, un oui / non se répond par deux boutons (`.choix-cellule`, second clic =
 effacer) au lieu d'un menu déroulant, et le menu natif restant (plusieurs choix) prend les couleurs du site (`.champ-select`). `node scripts/controle-autre.mjs` clique chaque « Autre » : activités des 16 métiers à plusieurs activités (seule, avec une autre case, vide), objectif RH et Comm (« Autre (précisez) » de chaque partie, avec chiffre ou description), et les questions dont une option est « Autre » ; il relit la base. Corrections qui en sont issues : « Enregistré » s'affiche aussi en quittant un champ ; un second clic sur « Je ne sais pas » rétablit la saisie valide au lieu de laisser l'écran et l'enregistrement en désaccord.
+
+**Corrections du 27 octobre (après-midi, demandes du propriétaire)** : la confirmation d'une réponse s'écrit « Réponse enregistrée »
+avec une coche (`.etat-enregistre`, `role="status"` : une confirmation, pas un bouton) ; un tableau dont les lignes viennent d'une
+liste ou de cases posées sur la page (catégories de clients ACQ-01.01 pour COM-02.01, COM-09.03, ACQ-01.02… ; canaux ; réseaux) montre
+**cette question dans sa propre carte** tant qu'il n'a pas de lignes (`renvoiLignes.question`, carte `imbriquee`), le tableau
+s'affiche dès la réponse et la question reste ouverte jusqu'à « Terminer » ; une carte reprend une réponse changée ailleurs sur la page
+(même question affichée deux fois, ligne retirée par le tableau suivi). **Option « aucun » exclusive** : une option « Aucun… »,
+« Aucune… » ou « Rien… » se coche seule (écran et serveur, `optionsExclusives`) ; ajoutée à COM-10.03 (« Aucun »), COM-56.02
+(« Rien de particulier »), RH-03.03 (« Aucune demande de ce type ») et RH-09.02 (« Aucune urgence de ce type »), **libellés à valider** ;
+pas ajoutée là où « aucun » n'a pas de sens ou où la question n'est posée qu'à qui a la chose (canaux, jours d'ouverture, réseaux où
+vous publiez, moyens de recrutement, demandes d'avis, ton, langues, contenus voulus, forme d'aide qui a « Pas encore décidé »).
 
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),
