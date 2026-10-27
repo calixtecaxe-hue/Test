@@ -41,3 +41,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 site-miroir/
+
+# Sorties des contrôles navigateur
+/audit-client/
+/controle-parcours/

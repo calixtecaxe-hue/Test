@@ -555,6 +555,14 @@ s'affiche dès la réponse et la question reste ouverte jusqu'à « Terminer » 
 pas ajoutée là où « aucun » n'a pas de sens ou où la question n'est posée qu'à qui a la chose (canaux, jours d'ouverture, réseaux où
 vous publiez, moyens de recrutement, demandes d'avis, ton, langues, contenus voulus, forme d'aide qui a « Pas encore décidé »).
 
+**Audit client (27 octobre)** : `node scripts/audit-client.mjs [--sortie dossier]` rejoue les parcours d'un dirigeant (inscription, recherche du
+métier, dossier, objectif, questionnaire, coupure réseau, reprise sur téléphone, droits, mobile 360 px, clavier, connexion, page 404) avec des
+comptes fictifs ; chaque contrôle porte l'identifiant du rapport « Audit client de CAXE (27 octobre 2026) » (Claude Docs) et sort en « ÉCART »
+tant que le défaut n'est pas corrigé (code de sortie 1). Au 27 octobre : 30 contrôles, 16 écarts (recherche du métier, lecture des montants du
+dossier, renvoi après coupure réseau, en-tête à 360 px, « valeur retenue » d'une valeur refusée, page 404, compte rendu sans priorités,
+« mot de passe oublié »). Le rapport liste aussi les décisions à prendre (compte rendu avant les repères, repère de progression, lecture des
+montants, synonymes des métiers, e-mails, chemin court pour le dirigeant pressé).
+
 **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements,
 moteur), puis la **banque de questions** (rédaction finale de chaque question),
 puis la connexion des deux. Tant que la banque n'existe pas, rien n'est inventé :
