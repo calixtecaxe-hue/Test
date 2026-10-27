@@ -52,6 +52,33 @@ export const PRESENTATIONS: Record<Agent["code"], Presentation> = {
   },
 };
 
+// Carte de l'agent sur l'accueil de l'application (« Mes agents ») : une promesse courte, dite en bénéfice pour le dirigeant,
+// et trois domaines qui reprennent les blocs réels de ses thèmes (data/themes.json). Texte de présentation seulement :
+// rien ici ne sert au moteur ni aux agents.
+export type Conseil = {
+  promesse: string;
+  domaines: [string, string, string];
+};
+
+export const CONSEILS: Record<Agent["code"], Conseil> = {
+  ACQUISITION_CA: {
+    promesse: "Trouvez où votre entreprise perd des opportunités.",
+    domaines: ["Attirer", "Convertir", "Fidéliser"],
+  },
+  FINANCE_RENTABILITE: {
+    promesse: "Vérifiez si votre croissance est réellement rentable.",
+    domaines: ["Marges", "Coûts", "Trésorerie"],
+  },
+  RH_ORGANISATION: {
+    promesse: "Identifiez ce qui dépend encore trop de vous.",
+    domaines: ["Délégation", "Charge de travail", "Processus"],
+  },
+  COMM_CREATION: {
+    promesse: "Mesurez ce que votre communication vous rapporte.",
+    domaines: ["Présence en ligne", "Contenus", "Contacts obtenus"],
+  },
+};
+
 // « Comment il travaille » : trois colonnes de lignes dépliables.
 export type Colonne = {
   etiquette: string;
