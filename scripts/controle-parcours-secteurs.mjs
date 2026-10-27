@@ -54,6 +54,11 @@ for (const id of ["hotel", "agence-immobiliere", "coach", "traiteur", "fleuriste
   const m = e.routage.metiers.find((x) => x.id === id);
   if (m?.sousVariantes?.length) scenarios.push({ libelle: `${m.libelle} · toutes les activités`, metier: m.id, sousVariantes: m.sousVariantes.map((v) => v.id), autre: false, categorie: m.categorie });
 }
+// Modules métier (27 octobre) : un métier de chaque module, pour voir ses questions et ses mots dans le navigateur.
+for (const [id, activite] of [["vtc-et-taxi"], ["grossiste-alimentaire"], ["vente-de-vehicules", "premium"], ["marchand-de-biens"]]) {
+  const m = e.routage.metiers.find((x) => x.id === id);
+  if (m) scenarios.push({ libelle: `Module métier · ${m.libelle}`, metier: m.id, sousVariantes: activite ? [activite] : [], autre: false, categorie: m.categorie });
+}
 scenarios.push({ libelle: "Électricien · métier de chantier", metier: "electricien", sousVariantes: [], autre: false, categorie: "prestation-chantier" });
 scenarios.push({ libelle: "Métier absent de la liste · commerce de détail", metier: METIER_ABSENT, sousVariantes: [], autre: false, categorie: "commerce-stock", categorieAbsente: "commerce-stock" });
 const effectifs = [1, 3, 12];
