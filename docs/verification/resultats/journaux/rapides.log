@@ -1,0 +1,3 @@
+conforme  V-01    cinq clics de suite sur les canaux : l'écran et la base gardent le dernier état (réseaux sociaux, fiche Google, site internet)
+conforme  V-02    la répartition par canal suit le dernier état : trois lignes, dans l'ordre de la liste des canaux
+conforme  V-03    après actualisation, les mêmes canaux sont cochés
