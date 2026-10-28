@@ -4,18 +4,10 @@
 //   node scripts/pdf-decisions-objectifs.mjs           (HTML_SORTIE=fichier.html pour garder aussi la page)
 // Quand un choix est fait, mettre à jour la décision concernée (champ « decide ») et relancer : le document dit alors ce qui est
 // décidé au lieu de proposer les options.
-import { createRequire } from "node:module";
-import { readFileSync, writeFileSync } from "node:fs";
-import { objectifsPourLaTaille } from "../src/lib/audit/objectifs-proposes.ts";
+import { writeFileSync } from "node:fs";
+import { RH, COM, PARTIES as parties, COM_PAR_PARTIE as comParPartie, TOTAL as total, CACHES_SEUL as cachesSeul, esc, mesure, imprimer } from "./objectifs-pdf-commun.mjs";
 
-const require = createRequire(import.meta.url);
-const { chromium } = require("/opt/node22/lib/node_modules/playwright/index.js");
-const lire = (f) => JSON.parse(readFileSync(f, "utf8"));
-const OBJECTIFS = lire("data/objectifs-agents.json");
-const THEMES = lire("data/themes.json");
-const REGLES = lire("data/regles-affichage.json");
 const SORTIE = "docs/objectifs/CAXE-decisions-objectifs.pdf";
-const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
 // Les décisions. « decide » : null tant que le propriétaire n'a pas choisi ; sinon le code de l'option retenue et sa date.
 const DECISIONS = [
@@ -166,19 +158,6 @@ const DECISIONS = [
 ];
 
 // Annexe : chaque objectif, sa mesure, et pour qui il est proposé (filtre selon la taille, calculé par le code de l'application).
-const UNITE = { pourcent: "en %", unites: "en nombre", euros: "en €" };
-const mesure = (o) => {
-  if (o.mesure === "phrase") return "Sans chiffre : « Comment saurez-vous que c'est atteint ? »";
-  if (o.gabarit) return `Nombre visé : « ${o.gabarit.pluriel.replace("{n}", "N")} »`;
-  return `Chiffre ${(o.unites ?? [o.unite]).map((u) => UNITE[u] ?? u).join(" ou ")}`;
-};
-const cachesPour = (def, taille) => {
-  const gardes = new Set(objectifsPourLaTaille(def, THEMES, REGLES, taille, []).objectifs.map((o) => o.id));
-  return def.objectifs.filter((o) => !gardes.has(o.id));
-};
-const RH = OBJECTIFS.agents.RH_ORGANISATION;
-const COM = OBJECTIFS.agents.COMM_CREATION;
-const cachesSeul = new Set([...cachesPour(RH, "seul"), ...cachesPour(COM, "seul")].map((o) => o.id));
 const caseVide = '<span class="case"></span>';
 const tableau = (objectifs) =>
   `<table class="annexe"><thead><tr><th>Objectif</th><th>Mesure</th><th>Exemple de réussite</th><th class="c">OK</th><th class="c">À changer</th></tr></thead><tbody>${objectifs
@@ -187,9 +166,6 @@ const tableau = (objectifs) =>
         `<tr><td><b>${esc(o.libelle)}</b>${o.detail ? `<br><span class="p">${esc(o.detail)}</span>` : ""}${cachesSeul.has(o.id) ? '<br><span class="pastille">pas proposé au dirigeant seul</span>' : ""}</td><td>${esc(mesure(o))}</td><td>${esc(o.exemple?.reussite ?? "")}</td><td class="c">${caseVide}</td><td class="c">${caseVide}</td></tr>`,
     )
     .join("")}</tbody></table>`;
-const parties = COM.parties.map((p) => p.nom);
-const comParPartie = parties.map((p) => COM.objectifs.filter((o) => o.groupe === p));
-const total = RH.objectifs.length + COM.objectifs.length;
 const remplacer = (t) =>
   t
     .replace("{CACHES_SEUL}", [...cachesSeul].map((id) => `« ${RH.objectifs.find((o) => o.id === id)?.libelle} »`).join(", "))
@@ -268,17 +244,5 @@ ${comParPartie.map((l, i) => `<h3 class="partie">Comm &amp; Création de contenu
 </body></html>`;
 
 if (process.env.HTML_SORTIE) writeFileSync(process.env.HTML_SORTIE, html);
-const nav = await chromium.launch({ args: ["--proxy-bypass-list=*"], executablePath: "/opt/pw-browsers/chromium" });
-const page = await nav.newPage();
-await page.setContent(html, { waitUntil: "load" });
-await page.pdf({
-  path: SORTIE,
-  format: "A4",
-  printBackground: true,
-  displayHeaderFooter: true,
-  headerTemplate: "<span></span>",
-  footerTemplate: '<div style="width:100%;font:7.5pt Inter,Arial,sans-serif;color:#5b6672;text-align:center">Objectifs RH et Comm : vos choix · page <span class="pageNumber"></span> sur <span class="totalPages"></span></div>',
-  margin: { top: "16mm", bottom: "18mm", left: "15mm", right: "15mm" },
-});
-await nav.close();
+await imprimer(html, SORTIE, { titre: "Objectifs RH et Comm : vos choix" });
 console.log(`Écrit : ${SORTIE} (${total} objectifs en annexe, ${DECISIONS.length} décisions)`);

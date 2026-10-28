@@ -340,6 +340,8 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 - `src/lib/vocabulaire.ts` (`vocabulaireDuCompte`), `formuler(…, vocabulaire)` dans `src/lib/donnees/lexique.ts`, champ `vocabulaire`
   du contexte d'assemblage. Tests : `tests/vocabulaire.test.mts` (aucune question n'apparaît ni ne disparaît, aucun mot manquant).
 - Document de validation : `docs/CAXE-vocabulaires-par-metier.pdf` (`node scripts/pdf-vocabulaires.mjs`).
+- Liste des objectifs proposés RH et Comm : `docs/objectifs/CAXE-objectifs-proposes.pdf` (`node scripts/pdf-objectifs-proposes.mjs`, à relancer
+  après toute modification de `data/objectifs-agents.json`). Outils communs aux deux documents : `scripts/objectifs-pdf-commun.mjs`.
 - Décisions sur les objectifs RH et Comm : `docs/objectifs/CAXE-decisions-objectifs.pdf` (`node scripts/pdf-decisions-objectifs.mjs`).
   Les décisions et les recommandations sont écrites dans le script (champ `decide` une fois le choix fait) ; l'annexe vient de
   `data/objectifs-agents.json`, avec le filtre selon la taille calculé par `objectifsPourLaTaille`.

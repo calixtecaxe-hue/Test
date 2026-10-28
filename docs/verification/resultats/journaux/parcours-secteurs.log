@@ -26,3 +26,23 @@ To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 == Coach · Sportif (rdv, equipe_2_5, agents : ACQ FIN RH_ COM)
 
 == Photographe · Particuliers, mariages et portraits (rdv, structure_6_plus, agents : ACQ FIN RH_ COM)
+
+== E-commerçant (ecommerce, seul, agents : ACQ FIN RH_ COM)
+
+== Atelier de production (aucun profil, equipe_2_5, agents : ACQ FIN RH_ COM)
+
+== Sous-traitance industrielle (aucun profil, structure_6_plus, agents : ACQ FIN RH_ COM)
+
+== Livraison du dernier kilomètre (b2b, seul, agents : ACQ FIN RH_ COM)
+
+== Transport de marchandises (b2b, equipe_2_5, agents : ACQ FIN RH_ COM)
+
+== Salle de sport (abonnement, structure_6_plus, agents : ACQ FIN RH_ COM)
+
+== Aide à domicile (abonnement, seul, agents : ACQ FIN RH_ COM)
+
+== Avocat (b2b, equipe_2_5, agents : ACQ FIN RH_)
+
+== Notaire (b2b, structure_6_plus, agents : ACQ FIN RH_)
+
+== Hôtel · toutes les activités (restaurant+location, seul, agents : ACQ FIN RH_ COM)
