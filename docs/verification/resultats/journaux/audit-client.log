@@ -14,3 +14,27 @@ conforme  D-01  Dossier · « 60k » est refusé avec une explication, ou lu tel
 conforme  D-01  Dossier · « -5000 » est refusé avec une explication, ou lu tel que le dirigeant l'entend
 conforme  D-01  Dossier · « 1.250,75 » est refusé avec une explication, ou lu tel que le dirigeant l'entend
 conforme  D-01  Dossier · « -5000 » : Continuer explique que le chiffre d'affaires ne peut pas être négatif
+conforme  P-05  Dossier · les cinq questions mènent au tableau de bord et sont enregistrées
+conforme  O-01  Objectif · un double clic n'enregistre qu'un objectif actif
+conforme  Q-03  Questionnaire · une valeur refusée n'est pas annoncée comme « valeur retenue »
+conforme  Q-01  Questionnaire · une réponse s'enregistre et l'écran le confirme
+conforme  Q-02a Questionnaire · une coupure du réseau est signalée sur la question
+conforme  Q-02b Questionnaire · au retour du réseau, la réponse saisie part sans que le dirigeant la retape
+conforme  Q-04  Reprise · sur un autre appareil, la réponse est retrouvée et l'écran amène à la première question sans réponse
+conforme  A-01  Mobile · à 360 px, la page ne défile pas de côté
+ÉCART     R-01  Résultats · l'onglet Priorités classe au moins un thème — observé : « Aucun thème n'a encore de note » (repères de marché et règles de notation non écrits)
+conforme  S-01  Droits · une question d'un agent non souscrit (Comm) est refusée (403)
+conforme  S-02  Droits · sans session, l'écriture est refusée (401)
+conforme  A-02  Clavier · le premier choix de l'objectif s'atteint au clavier, focus visible
+conforme  L-01  Connexion · un lien « Mot de passe oublié » existe
+conforme  L-02  Connexion · un mauvais mot de passe est expliqué
+conforme  L-04  Mot de passe oublié · la demande est confirmée sans dire si l'adresse a un compte
+conforme  L-05  Mot de passe oublié · une adresse sans compte reçoit la même réponse ; une adresse mal écrite est expliquée
+conforme  L-06  Mot de passe oublié · un e-mail part avec un lien de réinitialisation
+conforme  L-07  Mot de passe oublié · le nouveau mot de passe est enregistré et le dirigeant retrouve ses agents
+conforme  L-08  Mot de passe oublié · une session ouverte avant le changement est fermée
+conforme  L-09  Mot de passe oublié · le lien ne sert qu'une fois
+conforme  L-10  Mot de passe oublié · l'ancien mot de passe est refusé, le nouveau ouvre le compte
+conforme  L-03  Page introuvable · la page 404 parle français et propose un chemin de retour
+
+38 contrôles, 37 conformes, 1 écart(s) : R-01.
