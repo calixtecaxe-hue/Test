@@ -12,3 +12,8 @@ conforme  LI-11   Le curseur se place sur le champ qui a pris la place de l'él�
 conforme  LI-12   Après actualisation, la liste est celle qui reste
 conforme  LI-13   Au clavier, « Retirer » se joint par Tab et s'actionne par Entrée
 conforme  LI-14   Retirer le dernier élément vide le champ et efface la réponse
+conforme  LI-15   À quatre éléments, plus de bouton d'ajout (limite affichée)
+conforme  LI-16   Après un retrait, le bouton d'ajout revient
+conforme  LI-17   Téléphone 360 px : boutons dans la carte, champs lisibles, pas de défilement horizontal
+
+17 contrôles, 17 conformes, 0 écart(s).
