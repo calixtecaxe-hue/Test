@@ -1,0 +1,19 @@
+ok   compte : formulaire Mon entreprise prérempli (CA, effectif, ville)
+ok   effectif vide : message d'erreur, pas d'enregistrement
+ok   Mon entreprise : CA, effectif, ville et zone enregistrés
+ok   après rechargement, les nouvelles valeurs s'affichent
+ok   l'agent reste accessible après le changement d'effectif
+ok   le serveur refuse un dossier invalide (400)
+ok   bouton Valider désactivé tant que rien n'a changé
+ok   le nouveau montant s'affiche avant validation (4 agents annuel : 1019,90 € HT par an)
+ok   passage à 4 agents annuel enregistré
+ok   les quatre agents sont ouverts
+ok   la page affiche la nouvelle formule
+ok   une fois 2 agents choisis, les autres sont bloqués
+ok   2 sur 2 agents conservés d'office
+ok   passage à 2 agents mensuel enregistré
+ok   seuls 2 agents restent ouverts
+ok   3 agents annoncés mais 1 envoyé : refus (400)
+ok   offre à 1 agent : refus (400)
+ok   sans connexion : 401
+ok   l'ancienne route ne change pas une formule en cours (409)
