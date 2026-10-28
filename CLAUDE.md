@@ -754,7 +754,7 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
   ACQ-07.02) ; ACQ-11.38 restaurant ; ACQ-11.39 e-commerce et restaurant ; COM-13.11 et COM-62 si le dirigeant a un site ;
   COM-63.02 à .08 si COM-63.01 = oui ; les autres, tous les profils.
 - Liste des objectifs RH et Comm, relue le 28 octobre, et plafond de 10 objectifs (`docs/objectifs/objectifs-rh-comm.md`,
-  section 4) :
+  section 4 ; document de décision à cocher : `docs/objectifs/CAXE-decisions-objectifs.pdf`) :
   - un seul objectif actif ou plusieurs ;
   - trois changements de sens (« Relancer les personnes intéressées » en clients en plus ; « Guider les visiteurs jusqu'à me
     contacter » ; taux de conversion visé) ;

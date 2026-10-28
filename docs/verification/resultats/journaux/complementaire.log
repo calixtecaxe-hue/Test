@@ -1,4 +1,4 @@
-(node:4242) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+(node:11284) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
@@ -26,27 +26,3 @@ To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 == Écrans : Hôtel (toutes activités)
 
 == Écrans : Avocat
-
-== Saisie réelle
-  ACQ-01.06 : 42 retrouvé après rechargement
-  ACQ-01.01 : « Je ne sais pas » retrouvé après rechargement
-  essentiel → approfondi : 43 → 67 questions
-
-== Textes très longs
-
-== Brouillon sur le compte
-  60 retrouvé sur un autre appareil
-  total juste enregistré comme réponse
-  brouillon supprimé
-
-== Doublons retirés
-  COM-13.10 absente quand « site internet » est coché
-  COM-13.01 posée (site déduit des canaux)
-  RH-41.04 et RH-41.05 absentes, RH-42.01 posée
-  ACQ-09.04 absente
-
-== Fabrication : agent RH
-  RH : 52 questions
-
-Comptes : 17 · pages vérifiées : 148
-Erreurs : 0 · points d'attention : 0
