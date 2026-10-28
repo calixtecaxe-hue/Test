@@ -11,3 +11,5 @@ plan-dependances             code 0    M-092 Ne publie pas (parcours mise en pla
 resultats                    code 0  11 contrôles, 11 conformes, 0 écart(s).
 separation                   code 0  9 contrôles, 9 conformes, 0 écart(s).
 retours                      code 0  5 contrôles, 5 conformes, 0 écart(s).
+rapides                      code 0  7 contrôles, 7 conformes, 0 écart(s).
+prereponse                   code 0  Tout est conforme.
