@@ -6,3 +6,47 @@ To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 == Inscription : Électricien
 
 == Inscription : Hôtel (toutes activités)
+
+== Inscription : Agence immobilière
+
+== Inscription : Avocat (réglementé)
+
+== Inscription : Atelier de production (en préparation)
+
+== Inscription : Métier absent de la liste
+
+== Inscription : Hôtel, mobile
+
+== Inscription : Avocat, mobile
+
+== Inscription : Garage et mécanicien (question du stock)
+
+== Écrans : Électricien
+
+== Écrans : Hôtel (toutes activités)
+
+== Écrans : Avocat
+
+== Saisie réelle
+  ACQ-01.06 : 42 retrouvé après rechargement
+  ACQ-01.01 : « Je ne sais pas » retrouvé après rechargement
+  essentiel → approfondi : 43 → 67 questions
+
+== Textes très longs
+
+== Brouillon sur le compte
+  60 retrouvé sur un autre appareil
+  total juste enregistré comme réponse
+  brouillon supprimé
+
+== Doublons retirés
+  COM-13.10 absente quand « site internet » est coché
+  COM-13.01 posée (site déduit des canaux)
+  RH-41.04 et RH-41.05 absentes, RH-42.01 posée
+  ACQ-09.04 absente
+
+== Fabrication : agent RH
+  RH : 52 questions
+
+Comptes : 17 · pages vérifiées : 148
+Erreurs : 0 · points d'attention : 0
