@@ -5,6 +5,7 @@ import { reponseSchema, type Reponses } from "./reponse";
 import { ENSEMBLE } from "./donnees-audit";
 import { prereponseDe } from "./prereponse";
 import { reponsesActivesDuCompte, type CompteActif } from "./contexte-compte";
+import { moisDe, type Mois } from "./periodes";
 
 // Toutes les réponses du compte, tous agents confondus (données partagées). Un chiffre proposé par CAXE et gardé tel
 // quel (budget marketing de la Finance) se met à jour quand le détail dont il vient a changé ; un chiffre que le
@@ -28,6 +29,12 @@ export async function reponsesDuCompte(userId: string, compte?: CompteActif): Pr
     await prisma.reponseAudit.updateMany({ where: { userId, cle: l.cle, preremplie: true }, data: { reponse: nouvelle } });
   }
   return reponses;
+}
+
+// Mois où chaque réponse a été donnée ou modifiée en dernier : la période d'une réponse (« les 3 derniers mois ») en dépend.
+export async function ancragesDesReponses(userId: string): Promise<Map<string, Mois>> {
+  const lignes = await prisma.reponseAudit.findMany({ where: { userId }, select: { cle: true, modifieLe: true } });
+  return new Map(lignes.map((l) => [l.cle, moisDe(l.modifieLe)]));
 }
 
 // Données dont le chiffre vient du détail déjà donné (et non d'une saisie du dirigeant), avec la phrase qui le dit.

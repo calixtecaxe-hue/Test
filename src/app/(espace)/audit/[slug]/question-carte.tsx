@@ -28,6 +28,10 @@ export type QuestionClient = {
   source: ({ code: string; spec: ReponseSpec | null; agent: string } & LignesVenues) | null;
   // Tableau à total imposé : saisie partielle gardée sur le compte, restée sans réponse faute d'un total juste.
   brouillon?: Record<string, string> | null;
+  // Mois exacts sur lesquels porte la réponse (« Période : juillet à septembre 2025, les mêmes mois un an plus tôt. »).
+  periode?: string | null;
+  // Réponse donnée un mois antérieur : les mois sur lesquels elle porte, à mettre à jour si besoin.
+  periodeAncienne?: string | null;
 } & LignesVenues;
 
 // Question où se règlent les lignes d'un tableau : sur cette page (ancre « #q-CODE ») ou dans l'audit d'un autre agent.
@@ -410,6 +414,7 @@ export function CartePartagee({ q, reponse, onModifier }: { q: QuestionClient; r
   return (
     <li id={`q-${q.code}`} className="rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5" data-question={q.code} data-traitee="oui" data-partagee="oui">
       <p className="text-[var(--text)]">{q.texte ?? q.libelle}</p>
+      {q.periode ? <p className="mt-1 text-sm text-[var(--text)]" data-periode>{q.periode}</p> : null}
       <p className="mt-3 text-sm text-[var(--text-muted)]">
         Déjà renseigné pour l&apos;audit {q.source?.agent ?? "d'un autre agent"} : vous n&apos;avez pas à le saisir de nouveau.
       </p>
@@ -752,6 +757,8 @@ export function QuestionCarte({
       <p className="text-[var(--text)]">{q.texte ?? q.libelle}</p>
       {q.texte === null ? <p className="mt-1 text-xs text-[var(--text-muted)]">Question à rédiger dans la banque · libellé du classeur · {q.code}</p> : null}
       {q.aide ? <p className="mt-1 text-sm text-[var(--text-muted)]">{q.aide}</p> : null}
+      {q.periode ? <p className="mt-1 text-sm text-[var(--text)]" data-periode>{q.periode}</p> : null}
+      {q.periodeAncienne ? <p className="mt-1 text-sm text-[var(--text-muted)]" data-periode-ancienne>{q.periodeAncienne}</p> : null}
       {partageAvec ? <p className="mt-2 text-sm text-[var(--text-muted)]">Cette réponse est partagée avec l&apos;audit {partageAvec} : la modifier la change aussi là-bas.</p> : null}
 
       {q.dejaPosee ? (

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Agent } from "@/lib/agents";
-import type { LigneTheme, VueCompteRendu } from "@/lib/audit/compte-rendu";
+import { phraseEvolution, type LigneTheme, type VueCompteRendu } from "@/lib/audit/compte-rendu";
+import type { ResultatEvolution } from "@/lib/moteur/evolution";
 import type { ObjectifAffiche } from "./objectif-actif";
 
 const MOT_COULEUR = { rouge: "Rouge", orange: "Orange", vert: "Vert" } as const;
@@ -73,6 +74,51 @@ function Groupe({ id, titre, intro, themes }: { id: string; titre: string; intro
 // Compte rendu : ce que le constat du moteur donne aujourd'hui sur les réponses du compte. Sans seuil ni
 // repère de marché, aucun thème n'est noté et le dit ; l'ordre de priorité, l'impact et le plan d'action
 // (rédigé par l'IA) ne sont pas encore construits et ne sont pas inventés.
+// Évolutions : vos chiffres comparés à vos propres chiffres passés, sur les mêmes mois. Ni couleur ni jugement : un écart se lit
+// avec votre activité et votre objectif. Ce qui ne peut pas encore être comparé dit précisément ce qui manque.
+function Evolutions({ liste }: { liste: ResultatEvolution[] }) {
+  if (liste.length === 0) return null;
+  const lisibles = liste.filter((r) => r.statut !== "non_etablie");
+  const manquantes = liste.filter((r) => r.statut === "non_etablie");
+  return (
+    <div className="res-bloc !mt-0" data-evolutions>
+      <h3 className="text-base">Ce qui a changé, d&apos;après vos chiffres</h3>
+      <p className="mt-2 text-sm text-[var(--text-muted)]">
+        Vos chiffres comparés à vos propres chiffres passés, sur des mois de même longueur. Un écart ne dit pas si c&apos;est bien ou mal : cela dépend de votre activité et de votre objectif.
+      </p>
+      {lisibles.length > 0 ? (
+        <ul className="mt-3 space-y-3">
+          {lisibles.map((r) => (
+            <li key={r.id} data-evolution={r.id} data-statut={r.statut}>
+              <p className="text-sm font-medium text-[var(--text)]">{r.libelle}</p>
+              <p className="mt-1 text-sm text-[var(--text)]">{phraseEvolution(r)}</p>
+              {r.raison ? <p className="mt-1 text-sm text-[var(--text-muted)]">Non comparable : {r.raison}</p> : null}
+              {r.notes.map((n) => (
+                <p key={n} className="mt-1 text-xs text-[var(--text-muted)]">{n}</p>
+              ))}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {manquantes.length > 0 ? (
+        <details className="mt-3">
+          <summary className="cursor-pointer text-sm text-[var(--text-muted)]">
+            {manquantes.length} comparaison{manquantes.length > 1 ? "s" : ""} pas encore possible{manquantes.length > 1 ? "s" : ""}
+          </summary>
+          <ul className="mt-2 space-y-2">
+            {manquantes.map((r) => (
+              <li key={r.id} data-evolution={r.id} data-statut={r.statut} className="text-sm">
+                <span className="text-[var(--text)]">{r.libelle} : </span>
+                <span className="text-[var(--text-muted)]">{r.raison}</span>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
+    </div>
+  );
+}
+
 export function Resultats({ agent, vue, objectifs, questionnaire }: { agent: Agent; vue: VueCompteRendu; objectifs: ObjectifAffiche[]; questionnaire: string }) {
   const plusieurs = objectifs.length > 1;
   const evalues = vue.notes.length + vue.avecRepere.length + vue.sansRepere.length;
@@ -132,6 +178,7 @@ export function Resultats({ agent, vue, objectifs, questionnaire }: { agent: Age
         </div>
 
         <div className="res-panneau res-p2">
+          <Evolutions liste={vue.evolutions} />
           {vue.notes.length === 0 ? (
             <p className="text-sm text-[var(--text-muted)]">Aucun thème n&apos;a encore de note : elle demande un repère de marché pour votre métier. L&apos;ordre de priorité apparaîtra ici une fois les thèmes notés.</p>
           ) : (

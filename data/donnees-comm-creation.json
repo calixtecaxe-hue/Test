@@ -1212,7 +1212,7 @@
     "declencheurs": [
       "D23"
     ],
-    "periode": "Si le site et l'outil de mesure existent depuis plus de 6 mois",
+    "periode": "3 mois, 6 mois plus tôt (masquée avant 9 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -1964,7 +1964,7 @@
     "declencheurs": [
       "D22"
     ],
-    "periode": null,
+    "periode": "Aujourd'hui",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -3618,7 +3618,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": null,
+    "periode": "Aujourd'hui",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -3650,7 +3650,7 @@
     "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Il y a 12 mois (masquée avant 12 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -3806,13 +3806,15 @@
     "sertA": [
       "Problème"
     ],
-    "calcul": "Évolution du budget comparée à celle des demandes venant de la communication",
+    "calcul": "Budget marketing et communication par mois aujourd'hui (ACQ-07.06 + COM-32.02) comparé à il y a 12 mois (ACQ-07.05 + COM-32.03). Avant : le budget actuel sans la publicité était comparé au budget passé avec la publicité.",
     "entrees": [
-      "COM-32.04",
+      "ACQ-07.06",
+      "COM-32.02",
+      "ACQ-07.05",
       "COM-32.03",
       "ACQ-02.06"
     ],
-    "entreesTexte": "COM-32.04, COM-32.03, ACQ-02.06",
+    "entreesTexte": "ACQ-07.06, COM-32.02, ACQ-07.05, COM-32.03, ACQ-02.06",
     "utiliseeDans": [
       "XC22"
     ],

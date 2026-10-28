@@ -14,6 +14,9 @@ import { cleDuMot, variablesDuGabarit } from "./lexique.ts";
 import { groupesNumerotes, proposerSpec, type ReponseSpec } from "./reponse-spec.ts";
 import type { Regle, RegleSimple } from "./schemas.ts";
 import { cleDeDonnee } from "../audit/affichage.ts";
+import { ancienneteExigee, reglePeriode } from "../audit/periodes.ts";
+import { controlerEvolution } from "../moteur/evolution.ts";
+import type { SourceEvolution } from "./schemas.ts";
 
 function reglesSimples(r: Regle): RegleSimple[] {
   if ("aPreciser" in r || "toujours" in r) return [];
@@ -522,6 +525,33 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     if (id in vm.metiers || id in vm.activites) erreurs.push(`Vocabulaire : ${id} a un vocabulaire et figure aussi parmi les métiers sans vocabulaire.`);
   }
   const sansSpec = posees.filter((d) => !banqueParDonnee.get(d.code)?.reponse && proposerSpec(d.format).certitude !== "sure");
+
+  // Périodes (vérification de l'historique, 28 octobre) : chaque formulation de la colonne « Période » est lisible, et une question
+  // sur des mois passés n'est posée qu'à une entreprise qui existait alors (sauf si ses mois « depuis la création » s'adaptent).
+  for (const d of e.donnees) {
+    const r = reglePeriode(d.periode);
+    if (!r.reconnue) erreurs.push(`Période illisible pour ${d.code} : « ${d.periode} ».`);
+    const f = r.fenetre;
+    if (!f || r.adaptee || (f.type === "mois" && f.decalage === 0) || (f.type === "instant" && f.decalage === 0)) continue;
+    const exige = ancienneteExigee(f);
+    if ((r.minimumMois ?? 0) < exige)
+      erreurs.push(`${d.code} demande des mois passés (${d.periode}) : il faut la masquer avant ${exige} mois d'existence, pas ${r.minimumMois ?? 0}.`);
+  }
+  // Évolutions : codes connus, deux périodes de même longueur décalées de l'écart annoncé, et chaque donnée calculée
+  // « Évolution… » du classeur est soit calculée, soit listée avec la raison pour laquelle elle ne l'est pas encore.
+  const periodeDe = (code: string) => donnees.get(code)?.periode ?? null;
+  const citees = (src: SourceEvolution): string[] =>
+    src.type === "somme" ? src.termes.flatMap(citees) : src.type === "rapport" ? [...citees(src.numerateur), ...citees(src.denominateur)] : src.type === "marge" ? [...citees(src.ca), ...citees(src.chargesParMois)] : [src.donnee];
+  for (const d of doublons(e.evolutions.evolutions.map((x) => x.id))) erreurs.push(`Évolutions : identifiant en double ${d}.`);
+  for (const ev of e.evolutions.evolutions) {
+    if (!donnees.has(ev.code)) erreurs.push(`Évolution ${ev.id} : donnée calculée inconnue ${ev.code}.`);
+    for (const c of [...citees(ev.actuel), ...citees(ev.passe)]) if (!donnees.has(c)) erreurs.push(`Évolution ${ev.id} : donnée inconnue ${c}.`);
+    erreurs.push(...controlerEvolution(ev, periodeDe));
+  }
+  const traitees = new Set([...e.evolutions.evolutions.map((x) => x.code), ...e.evolutions.nonCalculables.map((x) => x.code)]);
+  for (const d of e.donnees) {
+    if (d.mode === "calculee" && /^Évolution/.test(d.libelle) && !traitees.has(d.code)) erreurs.push(`La donnée calculée ${d.code} (« ${d.libelle} ») n'est ni dans data/evolutions.json, ni listée comme non calculable.`);
+  }
 
   // Une donnée « partagée » se pose comme une donnée demandée (par le premier agent qui en a besoin).
   const demandees = posees;

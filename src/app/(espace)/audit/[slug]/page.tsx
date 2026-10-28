@@ -11,7 +11,8 @@ import { compterQuestions } from "@/lib/audit/assemblage";
 import { preparerQuestionnaire } from "@/lib/audit/preparation";
 import { exclusionsAcquisition, metierDuCompte } from "@/lib/routage";
 import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
-import { reponsesDuCompte, reponsesPreremplies } from "@/lib/audit/compte";
+import { ancragesDesReponses, reponsesDuCompte, reponsesPreremplies } from "@/lib/audit/compte";
+import { moisDe } from "@/lib/audit/periodes";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
 import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifActif, ObjectifEdition } from "./objectif-actif";
@@ -117,6 +118,9 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       exclusions: exclusionsAcquisition(ENSEMBLE.routage, utilisateur),
       vocabulaire: vocabulaireDuCompte(ENSEMBLE.vocabulairesMetiers, metier),
       metier,
+      creation: moisDe(utilisateur.dateCreationEntreprise),
+      aujourdhui: moisDe(new Date()),
+      ancrages: await ancragesDesReponses(userId),
     });
     corps = (
       <Questionnaire

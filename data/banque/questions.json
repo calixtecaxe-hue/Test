@@ -216,8 +216,8 @@
   },
   {
     "donnee": "ACQ-02.02",
-    "texte": "Il y a 6 mois, combien de {demandes} aviez-vous par mois ?",
-    "aide": null,
+    "texte": "Sur 3 mois, six mois plus tôt, combien de {demandes} aviez-vous par mois, en moyenne ?",
+    "aide": "Les mois exacts sont indiqués sous la question. Un ordre de grandeur suffit : vous pouvez donner une fourchette.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -227,8 +227,8 @@
   },
   {
     "donnee": "ACQ-02.03",
-    "texte": "Il y a un an, à la même période, combien de {demandes} aviez-vous par mois ?",
-    "aide": "Un ordre de grandeur suffit. Comparer à la même période évite l'effet des vacances ou des fêtes.",
+    "texte": "Sur les mêmes 3 mois, un an plus tôt, combien de {demandes} aviez-vous par mois, en moyenne ?",
+    "aide": "Les mois exacts sont indiqués sous la question. Comparer les mêmes mois évite l'effet des vacances ou des fêtes. Un ordre de grandeur suffit : vous pouvez donner une fourchette.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -471,8 +471,8 @@
   },
   {
     "donnee": "ACQ-03.06",
-    "texte": "Sur les 12 derniers mois, chaque canal vous a-t-il apporté plus, autant ou moins de clients que l'année d'avant ?",
-    "aide": null,
+    "texte": "Sur les 12 derniers mois, chaque canal vous a-t-il apporté plus, autant ou moins de clients que sur les 12 mois précédents ?",
+    "aide": "Les mois exacts sont indiqués sous la question. Les 12 mois précédents sont ceux qui précèdent les 12 derniers mois.",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -1015,7 +1015,7 @@
   {
     "donnee": "ACQ-07.05",
     "texte": "Il y a 12 mois, combien dépensiez-vous par mois au total en publicité, plateformes, salons, agence, contenu et outils marketing ?",
-    "aide": "Sans les commissions des plateformes. Un ordre de grandeur suffit.",
+    "aide": "Le mois exact est indiqué sous la question. Sans les commissions des plateformes. Un ordre de grandeur suffit : vous pouvez donner une fourchette.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -1407,8 +1407,8 @@
   },
   {
     "donnee": "ACQ-11.02",
-    "texte": "Il y a un an, à la même période, combien de nouveaux clients aviez-vous par mois ?",
-    "aide": null,
+    "texte": "Sur les mêmes 3 mois, un an plus tôt, combien de nouveaux clients aviez-vous par mois, en moyenne ?",
+    "aide": "Les mois exacts sont indiqués sous la question. Seulement les clients venus pour la première fois. Un ordre de grandeur suffit : vous pouvez donner une fourchette.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -2358,8 +2358,8 @@
   },
   {
     "donnee": "ACQ-16.03",
-    "texte": "Et l'année d'avant, combien chacun de ces clients vous avait-il payé ?",
-    "aide": "Les 12 mois juste avant les 12 derniers mois. 0 pour un client que vous n'aviez pas encore.",
+    "texte": "Et sur les 12 mois précédents, combien chacun de ces clients vous avait-il payé ?",
+    "aide": "Les mois exacts sont indiqués sous la question. 0 pour un client que vous n'aviez pas encore. Laissez vide un montant que vous ne connaissez pas.",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -3305,7 +3305,7 @@
   {
     "donnee": "ACQ-23.01",
     "texte": "Quel a été votre chiffre d'affaires pour chacun des 12 derniers mois ?",
-    "aide": "Votre logiciel de facturation ou de caisse, ou votre comptable, donne ce détail.",
+    "aide": "Chaque ligne indique le mois. Votre logiciel de facturation ou de caisse, ou votre comptable, donne ce détail. 0 pour un mois sans chiffre d'affaires ; laissez vide un mois que vous ne connaissez pas : il ne compte pas pour zéro.",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -3412,8 +3412,8 @@
   },
   {
     "donnee": "ACQ-23.03",
-    "texte": "Pour chacun de ces 12 mois, quel était votre chiffre d'affaires un an plus tôt ?",
-    "aide": null,
+    "texte": "Pour chacun de ces mois, un an plus tôt, quel était votre chiffre d'affaires ?",
+    "aide": "Chaque ligne indique le mois. Votre logiciel de facturation ou de caisse, ou votre comptable, donne ce détail. 0 pour un mois sans chiffre d'affaires ; laissez vide un mois que vous ne connaissez pas : il ne compte pas pour zéro.",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -3838,7 +3838,7 @@
   {
     "donnee": "FIN-05.03",
     "texte": "Il y a 12 mois, combien vous coûtaient vos charges fixes par mois, au total ?",
-    "aide": "Toutes vos charges fixes : loyer, salaires, abonnements, marketing, crédits… Votre comptable peut vous donner ce total.",
+    "aide": "Le mois exact est indiqué sous la question. Les mêmes postes qu'aujourd'hui : loyer, énergie, assurances, véhicules, frais bancaires, honoraires, abonnements et contrats, salaires de vos salariés, marketing et communication. Sans votre propre rémunération, les crédits ni les commissions sur ventes. Votre comptable peut vous donner ce total.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -3960,7 +3960,7 @@
   {
     "donnee": "FIN-06.01",
     "texte": "En moyenne sur les 3 derniers mois, combien vous coûtent par mois les charges qui varient avec votre activité, poste par poste ?",
-    "aide": "Les achats de marchandises et la sous-traitance sont demandés à part.",
+    "aide": "Les achats de marchandises et la sous-traitance sont demandés à part. 0 pour un poste que vous n'avez pas ; laissez vide un montant que vous ne connaissez pas.",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -4019,8 +4019,8 @@
   },
   {
     "donnee": "FIN-06.03",
-    "texte": "Il y a un an, à la même période, combien vous coûtaient par mois les charges qui varient avec votre activité, achats compris ?",
-    "aide": null,
+    "texte": "Sur les mêmes 3 mois, un an plus tôt, combien vous coûtaient par mois les charges qui varient avec votre activité, achats compris ?",
+    "aide": "Les mois exacts sont indiqués sous la question. Les mêmes postes qu'aujourd'hui : commissions, livraison, frais de paiement, consommables, intérim, achats et sous-traitance. Un ordre de grandeur suffit : vous pouvez donner une fourchette.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -4070,8 +4070,8 @@
   },
   {
     "donnee": "FIN-07.02",
-    "texte": "Il y a 12 mois, combien vous coûtaient vos salariés par mois, charges patronales comprises ?",
-    "aide": null,
+    "texte": "Sur les mêmes 3 mois, un an plus tôt, combien vous coûtaient vos salariés par mois, charges patronales comprises ?",
+    "aide": "Les mois exacts sont indiqués sous la question. Vos bulletins de paie ou votre comptable donnent ce total.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -4531,8 +4531,8 @@
   },
   {
     "donnee": "FIN-10.05",
-    "texte": "Par rapport à il y a 12 mois, ces coûts sont-ils plus élevés, stables ou plus bas ?",
-    "aide": null,
+    "texte": "Ces coûts sont-ils plus élevés, stables ou plus bas qu'il y a 12 mois ?",
+    "aide": "Le mois exact est indiqué sous la question.",
     "repli": null,
     "reponse": {
       "type": "choix",
@@ -4736,7 +4736,7 @@
   {
     "donnee": "FIN-14.01",
     "texte": "Quel a été votre chiffre d'affaires pour chacun des 12 derniers mois ?",
-    "aide": "Votre logiciel de facturation ou de caisse, ou votre comptable, donne ce détail.",
+    "aide": "Chaque ligne indique le mois. Votre logiciel de facturation ou de caisse, ou votre comptable, donne ce détail. 0 pour un mois sans chiffre d'affaires ; laissez vide un mois que vous ne connaissez pas : il ne compte pas pour zéro.",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -5048,8 +5048,8 @@
   },
   {
     "donnee": "FIN-17.04",
-    "texte": "Par rapport à il y a 12 mois, vos clients vous paient-ils plus vite ou plus lentement ?",
-    "aide": null,
+    "texte": "Vos clients vous paient-ils plus vite, dans les mêmes délais ou plus lentement qu'il y a 12 mois ?",
+    "aide": "Le mois exact est indiqué sous la question.",
     "repli": null,
     "reponse": {
       "type": "choix",
@@ -5239,8 +5239,8 @@
   },
   {
     "donnee": "FIN-18.06",
-    "texte": "Et l'année d'avant, combien aviez-vous perdu en factures jamais payées ?",
-    "aide": "Les 12 mois juste avant les 12 derniers mois.",
+    "texte": "Et sur les 12 mois précédents, combien aviez-vous perdu en factures jamais payées ?",
+    "aide": "Les mois exacts sont indiqués sous la question. 0 si aucune facture n'a été abandonnée.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -6182,7 +6182,7 @@
   {
     "donnee": "FIN-37.02",
     "texte": "Il y a 12 mois, quelle était la valeur de votre stock, au prix d'achat ?",
-    "aide": null,
+    "aide": "Le mois exact est indiqué sous la question. Un ordre de grandeur suffit : vous pouvez donner une fourchette.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -6342,8 +6342,8 @@
   },
   {
     "donnee": "FIN-40.02",
-    "texte": "Par rapport à il y a 12 mois, perdez-vous plus, autant ou moins de stock ?",
-    "aide": null,
+    "texte": "Perdez-vous plus, autant ou moins de stock qu'il y a 12 mois ?",
+    "aide": "Le mois exact est indiqué sous la question.",
     "repli": null,
     "reponse": {
       "type": "choix",
@@ -7322,8 +7322,8 @@
   },
   {
     "donnee": "RH-05.05",
-    "texte": "Par rapport à il y a 12 mois, travaillez-vous moins, autant ou plus ?",
-    "aide": null,
+    "texte": "Travaillez-vous moins, autant ou plus qu'il y a 12 mois ?",
+    "aide": "Le mois exact est indiqué sous la question.",
     "repli": null,
     "reponse": {
       "type": "choix",
@@ -8097,7 +8097,7 @@
   {
     "donnee": "RH-11.01",
     "texte": "Quel a été votre chiffre d'affaires pour chacun des 12 derniers mois ?",
-    "aide": "Votre logiciel de facturation ou de caisse, ou votre comptable, donne ce détail.",
+    "aide": "Chaque ligne indique le mois. Votre logiciel de facturation ou de caisse, ou votre comptable, donne ce détail. 0 pour un mois sans chiffre d'affaires ; laissez vide un mois que vous ne connaissez pas : il ne compte pas pour zéro.",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -11348,8 +11348,8 @@
   },
   {
     "donnee": "COM-13.06",
-    "texte": "Il y a 6 mois, combien de visites votre site recevait-il par mois ?",
-    "aide": null,
+    "texte": "Sur 3 mois, six mois plus tôt, combien de visites votre site recevait-il par mois, en moyenne ?",
+    "aide": "Les mois exacts sont indiqués sous la question. Si votre site ou votre outil de mesure n'existait pas encore, répondez « je ne suis pas cette donnée ».",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -12945,7 +12945,7 @@
   {
     "donnee": "COM-32.02",
     "texte": "Combien dépensez-vous par mois pour vos autres frais de communication ?",
-    "aide": "Pour une dépense payée à l'année, divisez-la par 12. Les flyers et affiches de publicité sont comptés avec vos canaux, pas ici.",
+    "aide": "Pour une dépense payée à l'année, divisez-la par 12. Les flyers et affiches de publicité sont comptés avec vos canaux, pas ici. 0 pour un poste que vous n'avez pas ; laissez vide un montant que vous ne connaissez pas.",
     "repli": null,
     "reponse": {
       "type": "tableau",
@@ -12986,7 +12986,7 @@
   {
     "donnee": "COM-32.03",
     "texte": "Il y a 12 mois, combien dépensiez-vous par mois en community manager, influence et impression ?",
-    "aide": "Le reste de votre budget d'il y a 12 mois est demandé avec votre budget marketing.",
+    "aide": "Le mois exact est indiqué sous la question. Le reste de votre budget d'il y a 12 mois est demandé avec votre budget marketing.",
     "repli": null,
     "reponse": {
       "type": "nombre",
@@ -15124,6 +15124,195 @@
       "type": "nombre",
       "unite": "nombre",
       "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-23.12",
+    "texte": "Sur les 12 mois précédents, combien de {ventes_realisees} avez-vous réalisées au total ?",
+    "aide": "Les mois exacts sont indiqués sous la question. Votre caisse ou votre logiciel de facturation donne ce chiffre. Un ordre de grandeur suffit : vous pouvez donner une fourchette.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 0
+    }
+  },
+  {
+    "donnee": "ACQ-23.13",
+    "texte": "Sur les 24 derniers mois, le périmètre de votre activité a-t-il changé ?",
+    "aide": "Par exemple l'ouverture d'un deuxième magasin, le rachat d'un concurrent ou l'arrêt d'une activité. Si c'est le cas, indiquez le mois du changement le plus récent : une comparaison d'une année sur l'autre n'est faite que sur un même périmètre.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "changement",
+          "libelle": "Changement",
+          "spec": {
+            "type": "choix",
+            "options": [
+              {
+                "id": "aucun_changement",
+                "libelle": "Aucun changement"
+              },
+              {
+                "id": "ouverture_ou_fermeture_d_un_etablissemen",
+                "libelle": "Ouverture ou fermeture d'un établissement"
+              },
+              {
+                "id": "rachat_ou_vente_d_une_activite",
+                "libelle": "Rachat ou vente d'une activité"
+              },
+              {
+                "id": "nouvelle_activite_ou_arret_d_une_activit",
+                "libelle": "Nouvelle activité, ou arrêt d'une activité"
+              },
+              {
+                "id": "autre_changement_de_perimetre",
+                "libelle": "Autre changement de périmètre"
+              }
+            ]
+          }
+        },
+        {
+          "id": "mois_du_changement_le_plus_recent",
+          "libelle": "Mois du changement (le plus récent)",
+          "spec": {
+            "type": "date_mois"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "FIN-07.17",
+    "texte": "Il y a 12 mois, combien de personnes travaillaient dans votre entreprise, vous compris ?",
+    "aide": "Le mois exact est indiqué sous la question. Comptez comme dans votre dossier d'entreprise : vous y compris.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "nombre",
+      "min": 1
+    }
+  },
+  {
+    "donnee": "FIN-14.04",
+    "texte": "Sur les 24 derniers mois, le périmètre de votre activité a-t-il changé ?",
+    "aide": "Par exemple l'ouverture d'un deuxième magasin, le rachat d'un concurrent ou l'arrêt d'une activité. Si c'est le cas, indiquez le mois du changement le plus récent : une comparaison d'une année sur l'autre n'est faite que sur un même périmètre.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "changement",
+          "libelle": "Changement",
+          "spec": {
+            "type": "choix",
+            "options": [
+              {
+                "id": "aucun_changement",
+                "libelle": "Aucun changement"
+              },
+              {
+                "id": "ouverture_ou_fermeture_d_un_etablissemen",
+                "libelle": "Ouverture ou fermeture d'un établissement"
+              },
+              {
+                "id": "rachat_ou_vente_d_une_activite",
+                "libelle": "Rachat ou vente d'une activité"
+              },
+              {
+                "id": "nouvelle_activite_ou_arret_d_une_activit",
+                "libelle": "Nouvelle activité, ou arrêt d'une activité"
+              },
+              {
+                "id": "autre_changement_de_perimetre",
+                "libelle": "Autre changement de périmètre"
+              }
+            ]
+          }
+        },
+        {
+          "id": "mois_du_changement_le_plus_recent",
+          "libelle": "Mois du changement (le plus récent)",
+          "spec": {
+            "type": "date_mois"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "donnee": "FIN-14.03",
+    "texte": "Pour chacun de ces mois, un an plus tôt, quel était votre chiffre d'affaires ?",
+    "aide": "Chaque ligne indique le mois. Votre logiciel de facturation ou de caisse, ou votre comptable, donne ce détail. 0 pour un mois sans chiffre d'affaires ; laissez vide un mois que vous ne connaissez pas : il ne compte pas pour zéro.",
+    "repli": null,
+    "reponse": {
+      "type": "tableau",
+      "lignes": {
+        "source": "fixe",
+        "items": [
+          {
+            "id": "le_mois_dernier",
+            "libelle": "Le mois dernier"
+          },
+          {
+            "id": "il_y_a_2_mois",
+            "libelle": "Il y a 2 mois"
+          },
+          {
+            "id": "il_y_a_3_mois",
+            "libelle": "Il y a 3 mois"
+          },
+          {
+            "id": "il_y_a_4_mois",
+            "libelle": "Il y a 4 mois"
+          },
+          {
+            "id": "il_y_a_5_mois",
+            "libelle": "Il y a 5 mois"
+          },
+          {
+            "id": "il_y_a_6_mois",
+            "libelle": "Il y a 6 mois"
+          },
+          {
+            "id": "il_y_a_7_mois",
+            "libelle": "Il y a 7 mois"
+          },
+          {
+            "id": "il_y_a_8_mois",
+            "libelle": "Il y a 8 mois"
+          },
+          {
+            "id": "il_y_a_9_mois",
+            "libelle": "Il y a 9 mois"
+          },
+          {
+            "id": "il_y_a_10_mois",
+            "libelle": "Il y a 10 mois"
+          },
+          {
+            "id": "il_y_a_11_mois",
+            "libelle": "Il y a 11 mois"
+          },
+          {
+            "id": "il_y_a_12_mois",
+            "libelle": "Il y a 12 mois"
+          }
+        ]
+      },
+      "colonnes": [
+        {
+          "id": "chiffre_d_affaires_un_an_plus_tot",
+          "libelle": "Chiffre d'affaires un an plus tôt",
+          "spec": {
+            "type": "nombre",
+            "unite": "euros",
+            "min": 0
+          }
+        }
+      ]
     }
   }
 ]

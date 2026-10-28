@@ -474,12 +474,12 @@
     "sertA": [
       "Problème"
     ],
-    "calcul": "(CA du mois d'il y a 12 mois − charges variables il y a 12 mois) ÷ CA de ce mois",
+    "calcul": "(CA des mêmes 3 mois un an plus tôt − 3 × charges variables par mois de ces mois) ÷ CA de ces 3 mois. Avant : le CA d'un seul mois, 11 mois avant le dernier, avec les charges d'une autre période.",
     "entrees": [
-      "ACQ-23.01",
+      "FIN-14.03",
       "FIN-06.03"
     ],
-    "entreesTexte": "ACQ-23.01, FIN-06.03",
+    "entreesTexte": "FIN-14.03, FIN-06.03",
     "utiliseeDans": [
       "FIN-04.03"
     ],
@@ -509,12 +509,14 @@
     "sertA": [
       "Problème"
     ],
-    "calcul": "Taux de marge actuel − taux de marge il y a 12 mois",
+    "calcul": "Taux de marge des 3 derniers mois (CA de FIN-14.01, charges variables FIN-06.05) − taux de marge des mêmes 3 mois un an plus tôt (FIN-04.02), en points de pourcentage.",
     "entrees": [
-      "FIN-06.08",
-      "FIN-04.02"
+      "FIN-14.01",
+      "FIN-06.05",
+      "FIN-04.02",
+      "FIN-14.04"
     ],
-    "entreesTexte": "FIN-06.08, FIN-04.02",
+    "entreesTexte": "FIN-14.01, FIN-06.05, FIN-04.02, FIN-14.04",
     "utiliseeDans": [],
     "utiliseeDansTexte": "Affichée dans le rapport"
   },
@@ -565,7 +567,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": null,
+    "periode": "Aujourd'hui",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -637,7 +639,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Il y a 12 mois (masquée avant 12 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -1131,7 +1133,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": null,
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -1206,7 +1208,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Mêmes 3 mois, un an plus tôt (masquée avant 15 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -1465,7 +1467,7 @@
     "declencheurs": [
       "D02"
     ],
-    "periode": null,
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -1503,7 +1505,41 @@
     "declencheurs": [
       "D02"
     ],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Mêmes 3 mois, un an plus tôt (masquée avant 15 mois d'existence)",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "FIN-07.15"
+    ],
+    "utiliseeDansTexte": "FIN-07.15"
+  },
+  {
+    "code": "FIN-07.17",
+    "theme": "FIN-07",
+    "ecran": "F03 · Votre masse salariale",
+    "libelle": "Nombre de personnes dans l'entreprise il y a 12 mois, vous compris (même définition que le dossier d'entreprise)",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D02 · si au moins un salarié",
+    "declencheurs": [
+      "D02"
+    ],
+    "periode": "Il y a 12 mois (masquée avant 12 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -1975,13 +2011,14 @@
     "sertA": [
       "Problème"
     ],
-    "calcul": "Évolution de la masse salariale − évolution du CA sur 12 mois",
+    "calcul": "Évolution de la masse salariale (3 derniers mois contre les mêmes 3 mois un an plus tôt) à côté de l'évolution du CA sur 12 mois (ACQ-23.10) et de l'effectif (FIN-07.17 il y a 12 mois, dossier aujourd'hui).",
     "entrees": [
       "FIN-07.01",
       "FIN-07.02",
-      "ACQ-23.01"
+      "FIN-07.17",
+      "ACQ-23.10"
     ],
-    "entreesTexte": "FIN-07.01, FIN-07.02, ACQ-23.01",
+    "entreesTexte": "FIN-07.01, FIN-07.02, FIN-07.17, ACQ-23.10",
     "utiliseeDans": [
       "FIN-04.04",
       "XF07"
@@ -2032,7 +2069,7 @@
     "declencheurs": [
       "D08"
     ],
-    "periode": null,
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -2074,7 +2111,7 @@
     "declencheurs": [
       "D08"
     ],
-    "periode": null,
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -2969,7 +3006,7 @@
     "declencheurs": [
       "D40"
     ],
-    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "periode": "Il y a 12 mois (masquée avant 12 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -3824,6 +3861,79 @@
     "utiliseeDansTexte": "FIN-04.02, FIN-07.15, FIN-12.06, FIN-14.02, FIN-37.06"
   },
   {
+    "code": "FIN-14.03",
+    "theme": "FIN-14",
+    "ecran": "A23 · Vos 12 derniers mois (tableau)",
+    "libelle": "CA des mêmes mois l'année précédente",
+    "format": "12 montants",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Mêmes 12 mois, un an plus tôt (depuis la création si plus récente ; masquée avant 13 mois d'existence)",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-23.03), sinon ici",
+    "entrees": [
+      "ACQ-23.03"
+    ],
+    "entreesTexte": "ACQ-23.03",
+    "utiliseeDans": [
+      "FIN-04.02",
+      "FIN-07.15",
+      "FIN-37.06"
+    ],
+    "utiliseeDansTexte": "FIN-04.02, FIN-07.15, FIN-37.06"
+  },
+  {
+    "code": "FIN-14.04",
+    "theme": "FIN-14",
+    "ecran": "A23 · Vos 12 derniers mois (tableau)",
+    "libelle": "Changement de périmètre de l'activité sur les 24 derniers mois, et mois du changement",
+    "format": "Plusieurs champs : Changement · Mois du changement",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "24 derniers mois (depuis la création si plus récente ; masquée avant 12 mois d'existence)",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-23.13), sinon ici",
+    "entrees": [
+      "ACQ-23.13"
+    ],
+    "entreesTexte": "ACQ-23.13",
+    "utiliseeDans": [
+      "FIN-04.03",
+      "FIN-05.10",
+      "FIN-07.15",
+      "FIN-37.06"
+    ],
+    "utiliseeDansTexte": "FIN-04.03, FIN-05.10, FIN-07.15, FIN-37.06"
+  },
+  {
     "code": "FIN-14.02",
     "theme": "FIN-14",
     "ecran": null,
@@ -4343,7 +4453,7 @@
     "declencheurs": [
       "D09"
     ],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Il y a 12 mois (masquée avant 12 mois d'existence)",
     "profils": {
       "rdv": false,
       "commerce": false,
@@ -4754,7 +4864,7 @@
     "declencheurs": [
       "D09"
     ],
-    "periode": "Si plus de 24 mois d'existence (sinon masquée)",
+    "periode": "12 mois précédents (masquée avant 24 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": false,
@@ -6902,7 +7012,7 @@
     "declencheurs": [
       "D07"
     ],
-    "periode": null,
+    "periode": "Aujourd'hui",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -6945,7 +7055,7 @@
     "declencheurs": [
       "D07"
     ],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Il y a 12 mois (masquée avant 12 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -7091,13 +7201,13 @@
     "sertA": [
       "Problème"
     ],
-    "calcul": "Évolution du stock sur 12 mois − évolution du CA",
+    "calcul": "Évolution de la valeur du stock (aujourd'hui contre il y a 12 mois) à côté de l'évolution du CA sur 12 mois (ACQ-23.10).",
     "entrees": [
       "FIN-37.01",
       "FIN-37.02",
-      "ACQ-23.01"
+      "ACQ-23.10"
     ],
-    "entreesTexte": "FIN-37.01, FIN-37.02, ACQ-23.01",
+    "entreesTexte": "FIN-37.01, FIN-37.02, ACQ-23.10",
     "utiliseeDans": [
       "XF41"
     ],
@@ -7361,7 +7471,7 @@
     "declencheurs": [
       "D07"
     ],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Il y a 12 mois (masquée avant 12 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,

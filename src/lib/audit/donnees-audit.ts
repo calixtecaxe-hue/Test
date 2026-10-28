@@ -15,6 +15,7 @@ import reglesAffichage from "../../../data/regles-affichage.json";
 import seuils from "../../../data/seuils.json";
 import limitesObjectif from "../../../data/objectif-limites.json";
 import prereponses from "../../../data/prereponses.json";
+import evolutions from "../../../data/evolutions.json";
 import tableauxLies from "../../../data/tableaux-lies.json";
 import objectifsAgents from "../../../data/objectifs-agents.json";
 import retraits from "../../../data/retraits.json";
@@ -40,6 +41,7 @@ export const ENSEMBLE: EnsembleDonnees = {
   reglesAffichage: schemaFichiers.reglesAffichage.parse(reglesAffichage),
   seuils: schemaFichiers.seuils.parse(seuils),
   prereponses: schemaFichiers.prereponses.parse(prereponses),
+  evolutions: schemaFichiers.evolutions.parse(evolutions),
   tableauxLies: schemaFichiers.tableauxLies.parse(tableauxLies),
   objectifsAgents: schemaFichiers.objectifsAgents.parse(objectifsAgents),
   retraits: schemaFichiers.retraits.parse(retraits),

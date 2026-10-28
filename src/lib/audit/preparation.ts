@@ -8,7 +8,9 @@ import { assemblerQuestionnaire, type Exclusions } from "./assemblage.ts";
 import { cleDeDonnee, clesDeLaRegle, donneeDuDeclencheur } from "./affichage.ts";
 import { specDeLaDonnee } from "./validation.ts";
 import { formuler } from "../donnees/lexique.ts";
-import type { Reponses } from "./reponse.ts";
+import type { Reponse, Reponses } from "./reponse.ts";
+import { champsTropLongs, decalerLignesDuMois, lignesDuMois, moisDe, moisDeLigne, nomDuMois, reglePeriode, texteDePeriode, type Mois } from "./periodes.ts";
+import type { ReponseSpec } from "../donnees/reponse-spec.ts";
 import type { TailleId } from "./affichage.ts";
 import type { MetierDuCompte } from "../routage.ts";
 import type { DeclencheurClient, ThemeClient } from "../../app/(espace)/audit/[slug]/questionnaire.tsx";
@@ -29,6 +31,11 @@ export type EntreePreparation = {
   vocabulaire: string | null;
   // Métier et activités du compte : les questions d'un module métier ne sont posées qu'aux métiers concernés.
   metier: MetierDuCompte | null;
+  // Mois de création de l'entreprise, mois en cours, et mois où chaque réponse a été donnée (sa période en dépend) : pour écrire
+  // les mois exacts sous une question. Par défaut : création déduite de l'ancienneté, mois en cours, réponses de ce mois.
+  creation?: Mois | null;
+  aujourdhui?: Mois;
+  ancrages?: Map<string, Mois>;
 };
 
 export type SortiePreparation = {
@@ -42,7 +49,20 @@ export type SortiePreparation = {
 };
 
 export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation): SortiePreparation {
-  const reponses = o.reponses;
+  const aujourdhui = o.aujourdhui ?? moisDe(new Date());
+  const creation = o.creation !== undefined ? o.creation : aujourdhui - o.ancienneteMois;
+  const ancrages = o.ancrages ?? new Map<string, Mois>();
+  const donnees = new Map(e.donnees.map((d) => [d.code, d]));
+  // Tableau mois par mois répondu un mois antérieur : chaque montant est replacé en face de son mois (voir decalerLignesDuMois).
+  const reponses: Reponses = { ...o.reponses };
+  for (const [cle, r] of Object.entries(o.reponses)) {
+    const ancre = ancrages.get(cle);
+    const spec = specDeLaDonnee(e, cle).spec;
+    if (ancre === undefined || ancre === aujourdhui || r?.genre !== "valeurs" || spec?.type !== "tableau" || spec.lignes.source !== "fixe") continue;
+    if (!spec.lignes.items.every((i) => moisDeLigne(i.id) !== null)) continue;
+    reponses[cle] = { genre: "valeurs", valeurs: decalerLignesDuMois(r.valeurs, aujourdhui - ancre, new Set(spec.lignes.items.map((i) => i.id))) as Extract<Reponse, { genre: "valeurs" }>["valeurs"] };
+    ancrages.set(cle, aujourdhui);
+  }
   const a = assemblerQuestionnaire(e, {
     agent: o.agent,
     profils: o.profils,
@@ -81,6 +101,32 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
     if (spec?.type === "tableau" && spec.lignes.source === "declencheur" && !/^D\d{2}$/.test(spec.lignes.cle)) return { lignesSuivies: null, renvoiLignes: renvoi(spec.lignes.cle), suiviPar };
     return { lignesSuivies: null, renvoiLignes: null, suiviPar };
   };
+  // Période d'une question : les mois exacts sur lesquels porte la réponse (son mois de réponse, ou ce mois-ci). Un tableau mois par
+  // mois nomme chaque mois et ne pose pas ceux qui précèdent la création ; des champs « depuis 12 mois » plus longs que
+  // l'ancienneté ne sont pas posés.
+  const periode = (code: string, codeReponse: string, spec: ReponseSpec | null): { spec: ReponseSpec | null; periode: string | null; periodeAncienne: string | null } => {
+    const regle = reglePeriode(donnees.get(code)?.periode);
+    const ancre = ancrages.get(codeReponse) ?? aujourdhui;
+    let s = spec;
+    if (s?.type === "tableau" && s.lignes.source === "fixe") {
+      const decalage = regle.fenetre?.type === "mois" ? regle.fenetre.decalage : 0;
+      const mois = lignesDuMois(s.lignes.items, decalage, aujourdhui, creation);
+      if (mois) s = { ...s, lignes: { source: "fixe", items: s.lignes.items.filter((i) => !mois.masquees.has(i.id)).map((i) => ({ ...i, libelle: mois.libelles[i.id] })) } };
+    }
+    if (s?.type === "composite" && regle.dureesBornees) {
+      const trop = champsTropLongs(s.champs, o.ancienneteMois);
+      if (trop.size > 0) s = { ...s, champs: s.champs.filter((c) => !trop.has(c.id)) };
+    }
+    const note = regle.note ? ` ${regle.note}` : "";
+    const texte = texteDePeriode(regle, aujourdhui, creation);
+    // Réponse donnée un mois antérieur, hors tableau mois par mois : elle porte sur d'autres mois que ceux de ce mois-ci.
+    let ancienne: string | null = null;
+    if (ancre !== aujourdhui && reponses[codeReponse] !== undefined) {
+      const avant = texteDePeriode(regle, ancre, creation);
+      if (avant && avant !== texte) ancienne = `Votre réponse, donnée en ${nomDuMois(ancre)}, porte sur ${avant.replace(/^Période : /, "").replace(/\.$/, "")}. Mettez-la à jour pour la période ci-dessus si le chiffre a changé.`;
+    }
+    return { spec: s, periode: texte ? texte + note : regle.note, periodeAncienne: ancienne };
+  };
   const questionClient = (q: typeof a.themes[number]["questions"][number]): QuestionClient => ({
     code: q.code,
     libelle: q.libelle,
@@ -88,7 +134,7 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
     aide: q.aide,
     repli: q.repli,
     format: q.format,
-    spec: lignesDeLaDonnee(q.spec),
+    ...periode(q.code, q.dejaPoseeDans ?? q.code, lignesDeLaDonnee(q.spec)),
     ...lignesVenues(q.code, lignesDeLaDonnee(q.spec)),
     quatreReponses: q.quatreReponses,
     dejaPosee: q.dejaPosee,
@@ -98,7 +144,7 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
     source: q.dejaPoseeDans
       ? {
           code: q.dejaPoseeDans,
-          spec: specDeLaDonnee(e, q.dejaPoseeDans).spec,
+          spec: periode(q.dejaPoseeDans, q.dejaPoseeDans, specDeLaDonnee(e, q.dejaPoseeDans).spec).spec,
           ...lignesVenues(q.dejaPoseeDans, lignesDeLaDonnee(specDeLaDonnee(e, q.dejaPoseeDans).spec)),
           agent: AGENTS.find((ag) => ag.code === e.themes.find((t) => t.code === q.dejaPoseeDans!.slice(0, q.dejaPoseeDans!.indexOf(".")))?.agent)?.nom ?? "un autre agent",
         }

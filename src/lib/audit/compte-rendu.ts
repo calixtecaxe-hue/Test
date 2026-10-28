@@ -6,6 +6,7 @@
 import type { Constat } from "../moteur/constat.ts";
 import { presenterConstat } from "../moteur/affichage-constat.ts";
 import type { Couleur } from "../moteur/notation.ts";
+import type { ResultatEvolution } from "../moteur/evolution.ts";
 
 export type LigneTheme = {
   code: string;
@@ -33,12 +34,14 @@ export type VueCompteRendu = {
   // Thèmes qui ne s'appliquent pas à l'entreprise, ou qui servent de contexte à l'IA : comptés, jamais listés.
   masques: number;
   contexte: number;
+  // Évolutions sur un an (ou 6 mois) d'après les chiffres du dirigeant : établies, ou non établies avec ce qui manque.
+  evolutions: ResultatEvolution[];
 };
 
 const ORDRE_COULEUR: Record<Couleur, number> = { rouge: 0, orange: 1, vert: 2 };
 
 export function composerCompteRendu(constats: Constat[], blocs: ReadonlyMap<string, string>): VueCompteRendu {
-  const vue: VueCompteRendu = { notes: [], avecRepere: [], sansRepere: [], aCompleter: [], masques: 0, contexte: 0 };
+  const vue: VueCompteRendu = { notes: [], avecRepere: [], sansRepere: [], aCompleter: [], masques: 0, contexte: 0, evolutions: [] };
   for (const c of constats) {
     if (c.statut === "masque") {
       vue.masques++;
@@ -66,4 +69,29 @@ export function composerCompteRendu(constats: Constat[], blocs: ReadonlyMap<stri
   }
   vue.notes.sort((a, b) => ORDRE_COULEUR[a.couleur!] - ORDRE_COULEUR[b.couleur!]);
   return vue;
+}
+
+// --- Évolutions ----------------------------------------------------------------------------------------------------------
+
+const FORMAT = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 1 });
+const MOINS = "−";
+
+function signe(n: number, texte: string): string {
+  return n > 0 ? `+${texte}` : n < 0 ? `${MOINS}${texte}` : texte;
+}
+
+function valeur(n: number, unite: ResultatEvolution["unite"]): string {
+  const t = FORMAT.format(Math.abs(n) < 100 || unite === "pourcent" ? Math.round(n * 10) / 10 : Math.round(n));
+  return unite === "euros" ? `${t} €` : unite === "pourcent" ? `${t} %` : t;
+}
+
+// Phrases d'une évolution pour l'écran : deux chiffres, leurs mois, l'écart, sans jamais dire si c'est bien ou mal.
+export function phraseEvolution(r: ResultatEvolution): string | null {
+  if (!r.actuel || !r.passe) return null;
+  const deux = `${valeur(r.actuel.valeur, r.unite)} (${r.actuel.periode}), contre ${valeur(r.passe.valeur, r.unite)} (${r.passe.periode}).`;
+  if (r.statut !== "etablie" || r.ecart === null) return deux;
+  if (r.ecart === 0) return `${deux} Écart : aucun.`;
+  const ecart = r.mesure === "points" ? signe(r.ecart, `${FORMAT.format(Math.abs(Math.round(r.ecart * 10) / 10))} point${Math.abs(r.ecart) >= 2 ? "s" : ""}`) : signe(r.ecart, valeur(Math.abs(r.ecart), r.unite));
+  const relatif = r.ecartRelatif !== null ? `, soit ${signe(r.ecartRelatif, `${FORMAT.format(Math.abs(r.ecartRelatif))} %`)}` : "";
+  return `${deux} Écart : ${ecart}${relatif}.`;
 }

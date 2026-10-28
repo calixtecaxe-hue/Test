@@ -476,6 +476,67 @@ export const prereponses = z.object({
 });
 export type Prereponses = z.infer<typeof prereponses>;
 
+// --- Évolutions ----------------------------------------------------------------------------
+
+// Une évolution compare la même mesure sur deux périodes de même longueur, décalées de « ecart » mois (voir
+// src/lib/moteur/evolution.ts). Écrit à la main d'après les données calculées « Évolution… » du classeur.
+export type SourceEvolution =
+  // Un nombre (exact ou fourchette), ou un champ chiffré d'une réponse à plusieurs champs.
+  | { type: "nombre"; donnee: string; champ?: string; facultatif?: boolean }
+  // Tableau mois par mois : somme des lignes « le mois dernier » (1) à « il y a N mois » demandées ; chaque mois est exigé.
+  | { type: "mois"; donnee: string; colonne: string; lignes: number[] }
+  // Somme d'une colonne sur les lignes actuelles d'un tableau (une ligne par canal coché…) ; chaque case est exigée.
+  | { type: "colonne"; donnee: string; colonne: string; facultatif?: boolean }
+  // Somme de plusieurs sources. Un terme « facultatif » qui n'est pas posé au compte (pas de publicité, pas de salarié) n'y entre
+  // pas : la dépense n'existe pas. Tout autre terme est exigé.
+  | { type: "somme"; termes: SourceEvolution[] }
+  // a ÷ b (montant moyen d'une vente).
+  | { type: "rapport"; numerateur: SourceEvolution; denominateur: SourceEvolution }
+  // Taux de marge en % : (chiffre d'affaires − charges par mois × mois) ÷ chiffre d'affaires.
+  | { type: "marge"; ca: SourceEvolution; chargesParMois: SourceEvolution; mois: number };
+
+const sourceEvolution: z.ZodType<SourceEvolution> = z.lazy(() =>
+  z.union([
+    z.object({ type: z.literal("nombre"), donnee: codeDonnee, champ: z.string().min(1).optional(), facultatif: z.boolean().optional() }),
+    z.object({ type: z.literal("mois"), donnee: codeDonnee, colonne: z.string().min(1), lignes: z.array(z.number().int().min(1).max(24)).min(1) }),
+    z.object({ type: z.literal("colonne"), donnee: codeDonnee, colonne: z.string().min(1), facultatif: z.boolean().optional() }),
+    z.object({ type: z.literal("somme"), termes: z.array(sourceEvolution).min(1) }),
+    z.object({ type: z.literal("rapport"), numerateur: sourceEvolution, denominateur: sourceEvolution }),
+    z.object({ type: z.literal("marge"), ca: sourceEvolution, chargesParMois: sourceEvolution, mois: z.number().int().min(1) }),
+  ])
+);
+
+export const evolutions = z.object({
+  source: z.string(),
+  evolutions: z.array(
+    z.object({
+      id: z.string().min(1),
+      // Donnée calculée du classeur que cette évolution rend calculable.
+      code: codeDonnee,
+      agents: z.array(codeAgent).min(1),
+      libelle: z.string().min(1),
+      unite: z.enum(["nombre", "euros", "pourcent"]),
+      // relative : écart et écart en % ; points : écart en points de pourcentage (taux).
+      mesure: z.enum(["relative", "points"]),
+      actuel: sourceEvolution,
+      passe: sourceEvolution,
+      // Mois entre les deux périodes (12 : un an ; 6 : six mois).
+      ecart: z.number().int().min(1),
+      // Périodes de chaque côté (formulations de periodes.ts) quand une somme mêle des montants « aujourd'hui » et des moyennes
+      // des 3 derniers mois : on les lit comme un montant par mois actuel. Sinon, lues dans la colonne « Période » du classeur.
+      periodes: z.object({ actuel: z.string().min(1), passe: z.string().min(1), justification: z.string().min(1) }).optional(),
+      // Le périmètre de l'activité doit être le même sur les deux périodes (ACQ-23.13).
+      perimetre: z.boolean(),
+      // Effectif d'il y a 12 mois et d'aujourd'hui, affiché à côté (masse salariale).
+      effectif: z.boolean().optional(),
+    })
+  ),
+  // Données calculées « Évolution… » du classeur que CAXE ne calcule pas encore, et pourquoi.
+  nonCalculables: z.array(z.object({ code: codeDonnee, raison: z.string().min(1) })),
+});
+export type Evolutions = z.infer<typeof evolutions>;
+export type Evolution = Evolutions["evolutions"][number];
+
 // --- Tableaux liés ------------------------------------------------------------------------
 
 // Un tableau qui reprend les lignes d'un autre (« chacune de ces offres ») : ses lignes suivent la première question de
@@ -597,6 +658,7 @@ export type EnsembleDonnees = {
   seuils: z.infer<typeof seuilDonnee>[];
   limitesObjectif: LimitesObjectif;
   prereponses: Prereponses;
+  evolutions: Evolutions;
   tableauxLies: TableauxLies;
   objectifsAgents: ObjectifsAgents;
   retraits: Retraits;
@@ -623,6 +685,7 @@ export const schemaFichiers = {
   seuils: z.array(seuilDonnee),
   limitesObjectif,
   prereponses,
+  evolutions,
   tableauxLies,
   objectifsAgents,
   retraits,

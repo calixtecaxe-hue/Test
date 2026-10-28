@@ -1,8 +1,14 @@
 import type { UtilisateurComplet } from "../compte";
 import { ENSEMBLE } from "./donnees-audit";
-import { assemblerQuestionnaire } from "./assemblage";
+import { assemblerQuestionnaire, donneesPrerepondues, equivalences } from "./assemblage";
 import { ancienneteEnMois, tailleDepuisEffectif } from "./affichage";
-import { reponsesDuCompte } from "./compte";
+import { agentsActifs, ancragesDesReponses, reponsesDuCompte } from "./compte";
+import { reponsesActivesDuCompte } from "./contexte-compte";
+import { lignesActuelles } from "./reponses-actives";
+import { specDeLaDonnee } from "./validation";
+import { moisDe } from "./periodes";
+import { calculerEvolutions } from "../moteur/evolution";
+import { formuler } from "../donnees/lexique";
 import { composerCompteRendu, type VueCompteRendu } from "./compte-rendu";
 import { PROFILS, type ProfilId } from "../donnees/schemas";
 import { constaterAgent } from "../moteur/constat";
@@ -52,5 +58,37 @@ export async function compteRenduDuCompte(utilisateur: UtilisateurComplet, agent
     contexteReference: ctxRef ?? undefined,
   });
   const blocs = new Map(ENSEMBLE.themes.map((t) => [t.code, t.bloc] as const));
-  return composerCompteRendu(constats, blocs);
+
+  // Évolutions sur un an (ou 6 mois) : les chiffres du dirigeant comparés à ses propres chiffres passés, sans repère de marché.
+  // Les questions posées à ce compte, par l'un de ses agents, décident de ce qui peut être comparé.
+  const vocabulaire = vocabulaireDuCompte(ENSEMBLE.vocabulairesMetiers, metierDuCompte(ENSEMBLE.routage, utilisateur));
+  const niveau = utilisateur.niveauAudit === "APPROFONDI" ? "approfondi" : "essentiel";
+  const posees = new Set<string>();
+  for (const ag of await agentsActifs(utilisateur.id)) {
+    const x = ag === agent ? a : assemblerQuestionnaire(ENSEMBLE, { agent: ag, profils, taille, niveau, reponses, ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()), exclusions, vocabulaire, metier: metierDuCompte(ENSEMBLE.routage, utilisateur) });
+    for (const q of [...x.prealables, ...x.themes.flatMap((t) => t.questions)]) posees.add(q.code);
+  }
+  const actives = reponsesActivesDuCompte(utilisateur, reponses);
+  const nomDe = (code: string) => {
+    const q = ENSEMBLE.banque.find((b) => b.donnee === code);
+    const f = q ? formuler(q.texte, profils, ENSEMBLE.lexique, vocabulaire) : null;
+    return f?.ok ? f.texte : ENSEMBLE.donnees.find((d) => d.code === code)?.libelle ?? code;
+  };
+  const evolutions = calculerEvolutions(ENSEMBLE.evolutions.evolutions, agent, {
+    reponses: actives,
+    ancrages: await ancragesDesReponses(utilisateur.id),
+    aujourdhui: moisDe(new Date()),
+    creation: moisDe(utilisateur.dateCreationEntreprise),
+    ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()),
+    donnees: new Map(ENSEMBLE.donnees.map((d) => [d.code, d])),
+    equivalences: equivalences(ENSEMBLE.donnees, donneesPrerepondues(ENSEMBLE.prereponses)),
+    posees,
+    lignesActuelles: (code) => {
+      const spec = specDeLaDonnee(ENSEMBLE, code).spec;
+      return spec?.type === "tableau" ? lignesActuelles(spec, actives, ENSEMBLE.reglesAffichage) : null;
+    },
+    nomDe,
+    effectifActuel: utilisateur.nombreCollaborateurs,
+  });
+  return { ...composerCompteRendu(constats, blocs), evolutions };
 }

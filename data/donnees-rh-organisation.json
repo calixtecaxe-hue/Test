@@ -632,7 +632,7 @@
     "niveau": "approfondi",
     "condition": null,
     "declencheurs": [],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Il y a 12 mois (masquée avant 12 mois d'existence)",
     "tailles": {
       "seul": true,
       "equipe_2_5": true,

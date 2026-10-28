@@ -545,7 +545,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": "Si plus de 6 mois d'existence (sinon masquée)",
+    "periode": "3 mois, 6 mois plus tôt (masquée avant 9 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -577,7 +577,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Mêmes 3 mois, un an plus tôt (masquée avant 15 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -687,13 +687,14 @@
     "sertA": [
       "Problème"
     ],
-    "calcul": "(Demandes actuelles − demandes passées) ÷ demandes passées",
+    "calcul": "(Moyenne par mois des 3 derniers mois − moyenne par mois des mêmes 3 mois, 6 mois ou un an plus tôt) ÷ cette dernière. Non calculée si les deux réponses ne portent pas sur des mois alignés, ou si le périmètre de l'activité a changé entre les deux périodes (ACQ-23.13).",
     "entrees": [
       "ACQ-02.01",
       "ACQ-02.02",
-      "ACQ-02.03"
+      "ACQ-02.03",
+      "ACQ-23.13"
     ],
-    "entreesTexte": "ACQ-02.01, ACQ-02.02, ACQ-02.03",
+    "entreesTexte": "ACQ-02.01, ACQ-02.02, ACQ-02.03, ACQ-23.13",
     "utiliseeDans": [
       "COM-32.07",
       "XA30",
@@ -974,7 +975,7 @@
     "declencheurs": [
       "D04"
     ],
-    "periode": null,
+    "periode": "Aujourd'hui",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -1015,7 +1016,7 @@
     "declencheurs": [
       "D03"
     ],
-    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "periode": "12 mois précédents (masquée avant 24 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -2123,7 +2124,7 @@
     "declencheurs": [
       "D03"
     ],
-    "periode": null,
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -2359,7 +2360,7 @@
     "declencheurs": [
       "D04"
     ],
-    "periode": null,
+    "periode": "Aujourd'hui",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -2428,7 +2429,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": null,
+    "periode": "Aujourd'hui",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -2461,7 +2462,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": null,
+    "periode": "Aujourd'hui",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -2496,7 +2497,7 @@
     "declencheurs": [
       "D04"
     ],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Il y a 12 mois (masquée avant 12 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -2831,14 +2832,13 @@
     "sertA": [
       "Problème"
     ],
-    "calcul": "Évolution du budget sur 12 mois face à l'évolution des nouveaux clients",
+    "calcul": "Budget marketing par mois aujourd'hui (ACQ-07.06) comparé au budget d'il y a 12 mois (ACQ-07.05, même périmètre), à côté de l'évolution des nouveaux clients (ACQ-11.18) : deux chiffres, sans conclusion automatique.",
     "entrees": [
       "ACQ-07.06",
       "ACQ-07.05",
-      "ACQ-11.01",
-      "ACQ-11.02"
+      "ACQ-11.18"
     ],
-    "entreesTexte": "ACQ-07.06, ACQ-07.05, ACQ-11.01, ACQ-11.02",
+    "entreesTexte": "ACQ-07.06, ACQ-07.05, ACQ-11.18",
     "utiliseeDans": [],
     "utiliseeDansTexte": "Affichée dans le rapport"
   },
@@ -4277,7 +4277,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": "Si plus de 12 mois d'existence (sinon masquée)",
+    "periode": "Mêmes 3 mois, un an plus tôt (masquée avant 15 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": false,
@@ -4819,12 +4819,13 @@
     "sertA": [
       "Problème"
     ],
-    "calcul": "(Actuel − il y a 12 mois) ÷ il y a 12 mois",
+    "calcul": "(Moyenne par mois des 3 derniers mois − moyenne par mois des mêmes 3 mois un an plus tôt) ÷ cette dernière. Non calculée si le périmètre a changé entre les deux périodes (ACQ-23.13).",
     "entrees": [
       "ACQ-11.01",
-      "ACQ-11.02"
+      "ACQ-11.02",
+      "ACQ-23.13"
     ],
-    "entreesTexte": "ACQ-11.01, ACQ-11.02",
+    "entreesTexte": "ACQ-11.01, ACQ-11.02, ACQ-23.13",
     "utiliseeDans": [
       "XA30"
     ],
@@ -6608,12 +6609,15 @@
     "sertA": [
       "Problème"
     ],
-    "calcul": "(Panier actuel − panier du même mois il y a 12 mois, calculé en ACQ-23) ÷ ce dernier",
+    "calcul": "(CA des 12 derniers mois ÷ ventes des 12 derniers mois) comparé à (CA des 12 mois précédents ÷ ventes des 12 mois précédents). Avant : panier actuel comparé à un seul mois, 11 mois plus tôt.",
     "entrees": [
-      "ACQ-15.06",
-      "ACQ-23.09"
+      "ACQ-23.01",
+      "ACQ-23.04",
+      "ACQ-23.03",
+      "ACQ-23.12",
+      "ACQ-23.13"
     ],
-    "entreesTexte": "ACQ-15.06, ACQ-23.09",
+    "entreesTexte": "ACQ-23.01, ACQ-23.04, ACQ-23.03, ACQ-23.12, ACQ-23.13",
     "utiliseeDans": [
       "XA30"
     ],
@@ -6919,7 +6923,7 @@
     "declencheurs": [
       "D15"
     ],
-    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "periode": "12 mois précédents (masquée avant 24 mois d'existence)",
     "profils": {
       "rdv": false,
       "commerce": false,
@@ -7384,7 +7388,7 @@
     "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": null,
+    "periode": "Aujourd'hui",
     "profils": {
       "rdv": false,
       "commerce": false,
@@ -9958,13 +9962,13 @@
     "code": "ACQ-23.03",
     "theme": "ACQ-23",
     "ecran": "A23 · Vos 12 derniers mois (tableau)",
-    "libelle": "CA des mêmes mois l'année précédente",
+    "libelle": "CA des mêmes mois l'année précédente — partagée avec FIN-14.03",
     "format": "Tableau : Chiffre d'affaires un an plus tôt (lignes fixe: Le mois dernier / Il y a 2 mois / Il y a 3 mois / Il y a 4 mois / Il y a 5 mois / Il y a 6 mois / Il y a 7 mois / Il y a 8 mois / Il y a 9 mois / Il y a 10 mois / Il y a 11 mois / Il y a 12 mois)",
     "mode": "demandee",
-    "niveau": "approfondi",
+    "niveau": "essentiel",
     "condition": null,
     "declencheurs": [],
-    "periode": "Si plus de 24 mois d'existence (sinon masquée)",
+    "periode": "Mêmes 12 mois, un an plus tôt (depuis la création si plus récente ; masquée avant 13 mois d'existence)",
     "profils": {
       "rdv": true,
       "commerce": true,
@@ -10218,12 +10222,13 @@
     "sertA": [
       "Problème"
     ],
-    "calcul": "Total des 12 derniers mois ÷ total des 12 mois précédents − 1",
+    "calcul": "Total des 12 derniers mois ÷ total des mêmes 12 mois un an plus tôt − 1, seulement si les 24 mois sont renseignés et le périmètre inchangé (ACQ-23.13).",
     "entrees": [
       "ACQ-23.01",
-      "ACQ-23.03"
+      "ACQ-23.03",
+      "ACQ-23.13"
     ],
-    "entreesTexte": "ACQ-23.01, ACQ-23.03",
+    "entreesTexte": "ACQ-23.01, ACQ-23.03, ACQ-23.13",
     "utiliseeDans": [
       "XA30",
       "XF07"
@@ -10264,6 +10269,73 @@
       "XA29"
     ],
     "utiliseeDansTexte": "XA29"
+  },
+  {
+    "code": "ACQ-23.12",
+    "theme": "ACQ-23",
+    "ecran": "A23 · Vos 12 derniers mois (tableau)",
+    "libelle": "Nombre de ventes sur les 12 mois précédents (pour comparer le montant moyen d'une vente d'une année sur l'autre)",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "12 mois précédents (masquée avant 24 mois d'existence)",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "ACQ-15.07"
+    ],
+    "utiliseeDansTexte": "ACQ-15.07"
+  },
+  {
+    "code": "ACQ-23.13",
+    "theme": "ACQ-23",
+    "ecran": "A23 · Vos 12 derniers mois (tableau)",
+    "libelle": "Changement de périmètre de l'activité sur les 24 derniers mois (ouverture ou fermeture d'un établissement, rachat ou vente, nouvelle activité ou arrêt) et mois du changement — partagée avec FIN-14.04",
+    "format": "Plusieurs champs : Changement · Mois du changement",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "24 derniers mois (depuis la création si plus récente ; masquée avant 12 mois d'existence)",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "ACQ-02.06",
+      "ACQ-11.18",
+      "ACQ-15.07",
+      "ACQ-23.10"
+    ],
+    "utiliseeDansTexte": "ACQ-02.06, ACQ-11.18, ACQ-15.07, ACQ-23.10"
   },
   {
     "code": "ACQ-24.02",

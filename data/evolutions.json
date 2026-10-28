@@ -1,0 +1,264 @@
+{
+  "source": "Écrit à la main d'après les données calculées « Évolution… » du classeur 12 (vérification de l'historique, 28 octobre). Chaque évolution compare la même mesure sur deux périodes de même longueur, décalées de « ecart » mois ; les périodes viennent de la colonne « Période » du classeur et le contrôle des données vérifie qu'elles s'alignent. Le moteur calcule l'écart et l'écart en % (ou en points pour un taux), sans jamais dire si c'est bien ou mal : aucun seuil n'est écrit pour cela.",
+  "evolutions": [
+    {
+      "id": "demandes-6-mois",
+      "code": "ACQ-02.06",
+      "agents": ["ACQUISITION_CA"],
+      "libelle": "Demandes reçues, en moyenne par mois",
+      "unite": "nombre",
+      "mesure": "relative",
+      "actuel": { "type": "nombre", "donnee": "ACQ-02.01" },
+      "passe": { "type": "nombre", "donnee": "ACQ-02.02" },
+      "ecart": 6,
+      "perimetre": true
+    },
+    {
+      "id": "demandes-12-mois",
+      "code": "ACQ-02.06",
+      "agents": ["ACQUISITION_CA"],
+      "libelle": "Demandes reçues, en moyenne par mois",
+      "unite": "nombre",
+      "mesure": "relative",
+      "actuel": { "type": "nombre", "donnee": "ACQ-02.01" },
+      "passe": { "type": "nombre", "donnee": "ACQ-02.03" },
+      "ecart": 12,
+      "perimetre": true
+    },
+    {
+      "id": "nouveaux-clients-12-mois",
+      "code": "ACQ-11.18",
+      "agents": ["ACQUISITION_CA"],
+      "libelle": "Nouveaux clients, en moyenne par mois",
+      "unite": "nombre",
+      "mesure": "relative",
+      "actuel": { "type": "nombre", "donnee": "ACQ-11.01" },
+      "passe": { "type": "nombre", "donnee": "ACQ-11.02" },
+      "ecart": 12,
+      "perimetre": true
+    },
+    {
+      "id": "chiffre-affaires-12-mois",
+      "code": "ACQ-23.10",
+      "agents": ["ACQUISITION_CA", "FINANCE_RENTABILITE"],
+      "libelle": "Chiffre d'affaires sur 12 mois",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": { "type": "mois", "donnee": "ACQ-23.01", "colonne": "chiffre_d_affaires", "lignes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+      "passe": { "type": "mois", "donnee": "ACQ-23.03", "colonne": "chiffre_d_affaires_un_an_plus_tot", "lignes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+      "ecart": 12,
+      "perimetre": true
+    },
+    {
+      "id": "chiffre-affaires-dernier-mois",
+      "code": "ACQ-23.10",
+      "agents": ["ACQUISITION_CA", "FINANCE_RENTABILITE"],
+      "libelle": "Chiffre d'affaires du dernier mois complet",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": { "type": "mois", "donnee": "ACQ-23.01", "colonne": "chiffre_d_affaires", "lignes": [1] },
+      "passe": { "type": "mois", "donnee": "ACQ-23.03", "colonne": "chiffre_d_affaires_un_an_plus_tot", "lignes": [1] },
+      "ecart": 12,
+      "perimetre": true
+    },
+    {
+      "id": "montant-moyen-vente",
+      "code": "ACQ-15.07",
+      "agents": ["ACQUISITION_CA"],
+      "libelle": "Montant moyen d'une vente sur 12 mois",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": {
+        "type": "rapport",
+        "numerateur": { "type": "mois", "donnee": "ACQ-23.01", "colonne": "chiffre_d_affaires", "lignes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+        "denominateur": { "type": "mois", "donnee": "ACQ-23.04", "colonne": "nombre", "lignes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
+      },
+      "passe": {
+        "type": "rapport",
+        "numerateur": { "type": "mois", "donnee": "ACQ-23.03", "colonne": "chiffre_d_affaires_un_an_plus_tot", "lignes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+        "denominateur": { "type": "nombre", "donnee": "ACQ-23.12" }
+      },
+      "ecart": 12,
+      "perimetre": true
+    },
+    {
+      "id": "revenu-recurrent-6-mois",
+      "code": "ACQ-17.27",
+      "agents": ["ACQUISITION_CA"],
+      "libelle": "Revenu des abonnements et contrats, par mois",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": { "type": "nombre", "donnee": "ACQ-17.10", "champ": "total_paye_par_mois" },
+      "passe": { "type": "mois", "donnee": "ACQ-17.12", "colonne": "total_paye_par_mois", "lignes": [6] },
+      "ecart": 6,
+      "perimetre": true
+    },
+    {
+      "id": "revenu-recurrent-12-mois",
+      "code": "ACQ-17.27",
+      "agents": ["ACQUISITION_CA"],
+      "libelle": "Revenu des abonnements et contrats, par mois",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": { "type": "nombre", "donnee": "ACQ-17.10", "champ": "total_paye_par_mois" },
+      "passe": { "type": "mois", "donnee": "ACQ-17.12", "colonne": "total_paye_par_mois", "lignes": [12] },
+      "ecart": 12,
+      "perimetre": true
+    },
+    {
+      "id": "budget-marketing-12-mois",
+      "code": "ACQ-07.14",
+      "agents": ["ACQUISITION_CA"],
+      "libelle": "Budget marketing par mois (publicité, plateformes, agence, contenu, outils)",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": {
+        "type": "somme",
+        "termes": [
+          { "type": "colonne", "donnee": "ACQ-03.05", "colonne": "depense_par_mois", "facultatif": true },
+          { "type": "nombre", "donnee": "ACQ-07.01", "facultatif": true },
+          { "type": "nombre", "donnee": "ACQ-07.03" },
+          { "type": "nombre", "donnee": "ACQ-07.04" }
+        ]
+      },
+      "passe": { "type": "nombre", "donnee": "ACQ-07.05" },
+      "ecart": 12,
+      "perimetre": true
+    },
+    {
+      "id": "budget-communication-12-mois",
+      "code": "COM-32.07",
+      "agents": ["COMM_CREATION"],
+      "libelle": "Budget marketing et communication par mois",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": {
+        "type": "somme",
+        "termes": [
+          { "type": "colonne", "donnee": "ACQ-03.05", "colonne": "depense_par_mois", "facultatif": true },
+          { "type": "nombre", "donnee": "ACQ-07.01", "facultatif": true },
+          { "type": "nombre", "donnee": "ACQ-07.03" },
+          { "type": "nombre", "donnee": "ACQ-07.04" },
+          { "type": "colonne", "donnee": "COM-32.02", "colonne": "par_mois" }
+        ]
+      },
+      "passe": {
+        "type": "somme",
+        "termes": [
+          { "type": "nombre", "donnee": "ACQ-07.05" },
+          { "type": "nombre", "donnee": "COM-32.03" }
+        ]
+      },
+      "ecart": 12,
+      "perimetre": true
+    },
+    {
+      "id": "visites-site-6-mois",
+      "code": "COM-13.09",
+      "agents": ["COMM_CREATION"],
+      "libelle": "Visites du site, en moyenne par mois",
+      "unite": "nombre",
+      "mesure": "relative",
+      "actuel": { "type": "nombre", "donnee": "ACQ-06.07" },
+      "passe": { "type": "nombre", "donnee": "COM-13.06" },
+      "ecart": 6,
+      "perimetre": false
+    },
+    {
+      "id": "taux-de-marge-12-mois",
+      "code": "FIN-04.03",
+      "agents": ["FINANCE_RENTABILITE"],
+      "libelle": "Taux de marge sur coûts variables, sur 3 mois",
+      "unite": "pourcent",
+      "mesure": "points",
+      "actuel": {
+        "type": "marge",
+        "ca": { "type": "mois", "donnee": "FIN-14.01", "colonne": "chiffre_d_affaires", "lignes": [1, 2, 3] },
+        "chargesParMois": {
+          "type": "somme",
+          "termes": [
+            { "type": "colonne", "donnee": "FIN-06.01", "colonne": "par_mois" },
+            { "type": "nombre", "donnee": "FIN-08.01", "facultatif": true },
+            { "type": "nombre", "donnee": "FIN-08.02", "facultatif": true }
+          ]
+        },
+        "mois": 3
+      },
+      "passe": {
+        "type": "marge",
+        "ca": { "type": "mois", "donnee": "FIN-14.03", "colonne": "chiffre_d_affaires_un_an_plus_tot", "lignes": [1, 2, 3] },
+        "chargesParMois": { "type": "nombre", "donnee": "FIN-06.03" },
+        "mois": 3
+      },
+      "ecart": 12,
+      "perimetre": true
+    },
+    {
+      "id": "charges-fixes-12-mois",
+      "code": "FIN-05.10",
+      "agents": ["FINANCE_RENTABILITE"],
+      "libelle": "Charges fixes par mois",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": {
+        "type": "somme",
+        "termes": [
+          { "type": "colonne", "donnee": "FIN-05.01", "colonne": "par_mois" },
+          { "type": "colonne", "donnee": "FIN-09.01", "colonne": "cout_par_mois" },
+          { "type": "nombre", "donnee": "FIN-07.01", "facultatif": true },
+          { "type": "nombre", "donnee": "FIN-05.02" }
+        ]
+      },
+      "passe": { "type": "nombre", "donnee": "FIN-05.03" },
+      "ecart": 12,
+      "periodes": {
+        "actuel": "Aujourd'hui",
+        "passe": "Il y a 12 mois",
+        "justification": "Le total actuel (FIN-05.08) additionne des montants par mois d'aujourd'hui (charges, abonnements, marketing) et la masse salariale moyenne des 3 derniers mois : il se lit comme un montant par mois actuel, comparé au total par mois d'il y a 12 mois, sur les mêmes postes (aide de FIN-05.03)."
+      },
+      "perimetre": true
+    },
+    {
+      "id": "masse-salariale-12-mois",
+      "code": "FIN-07.15",
+      "agents": ["FINANCE_RENTABILITE"],
+      "libelle": "Masse salariale par mois, charges patronales comprises",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": { "type": "nombre", "donnee": "FIN-07.01" },
+      "passe": { "type": "nombre", "donnee": "FIN-07.02" },
+      "ecart": 12,
+      "perimetre": true,
+      "effectif": true
+    },
+    {
+      "id": "valeur-du-stock-12-mois",
+      "code": "FIN-37.06",
+      "agents": ["FINANCE_RENTABILITE"],
+      "libelle": "Valeur du stock, au prix d'achat",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": { "type": "nombre", "donnee": "FIN-37.01" },
+      "passe": { "type": "nombre", "donnee": "FIN-37.02" },
+      "ecart": 12,
+      "perimetre": true
+    },
+    {
+      "id": "pertes-impayes-12-mois",
+      "code": "FIN-18.12",
+      "agents": ["FINANCE_RENTABILITE"],
+      "libelle": "Factures abandonnées faute de paiement, sur 12 mois",
+      "unite": "euros",
+      "mesure": "relative",
+      "actuel": { "type": "nombre", "donnee": "FIN-18.05", "champ": "montant" },
+      "passe": { "type": "nombre", "donnee": "FIN-18.06" },
+      "ecart": 12,
+      "perimetre": true
+    }
+  ],
+  "nonCalculables": [
+    { "code": "COM-37.02", "raison": "La croissance de l'audience se lit réseau par réseau, avec la date d'ouverture de chaque compte (un compte de moins de 6 mois donne ses abonnés à l'ouverture) : ce calcul par réseau n'est pas encore construit." },
+    { "code": "ACQ-16.07", "raison": "Chiffre d'affaires de chacun des 5 plus gros clients comparé à l'année précédente : une comparaison par client, avec des clients nouveaux (0 l'année d'avant), que l'écran ne présente pas encore." },
+    { "code": "FIN-04.02", "raison": "Étape du calcul de FIN-04.03 (taux de marge des mêmes 3 mois, un an plus tôt) : calculée avec lui." }
+  ]
+}

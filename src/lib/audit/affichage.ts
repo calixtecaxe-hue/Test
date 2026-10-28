@@ -1,10 +1,11 @@
 // Évaluation des règles d'affichage (data/regles-affichage.json) : une donnée ou un
 // thème est affiché, masqué, ou en attente d'une réponse à un déclencheur.
 //
-// Ce fichier n'importe que des types et reponse.ts : il se teste directement avec Node.
+// Ce fichier n'importe que des types, reponse.ts et periodes.ts : il se teste directement avec Node.
 
 import type { FormeDeclencheur, Regle, RegleSimple, ReglesAffichage } from "../donnees/schemas.ts";
 import type { Reponses } from "./reponse.ts";
+import { reglePeriode } from "./periodes.ts";
 
 export const TAILLES_D02 = ["seul", "equipe_2_5", "structure_6_plus"] as const;
 export type TailleId = (typeof TAILLES_D02)[number];
@@ -196,10 +197,8 @@ export function ancienneteEnMois(creation: Date, maintenant: Date): number {
   return Math.max(0, mois);
 }
 
-// Condition de période d'une donnée (colonne « Période » du classeur) que le moteur sait
-// lire : « Si plus de N mois d'existence (sinon masquée) ». Les autres formulations
-// (« période adaptée », « si un premier exercice est clos »…) ne masquent rien ici.
+// Ancienneté en dessous de laquelle une donnée n'est pas posée (colonne « Période » du classeur, lue par periodes.ts) :
+// une question qui demanderait des mois antérieurs à la création de l'entreprise est masquée.
 export function moisMinimumDExistence(periode: string | null): number | null {
-  const m = periode ? /^Si plus de (\d+) mois d'existence \(sinon masquée\)$/.exec(periode.trim()) : null;
-  return m ? Number(m[1]) : null;
+  return reglePeriode(periode).minimumMois;
 }

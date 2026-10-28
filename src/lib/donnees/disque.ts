@@ -28,6 +28,7 @@ export function chargerDepuisDisque(dossier: string): EnsembleDonnees {
     seuils: schemaFichiers.seuils.parse(lire(dossier, "seuils.json")),
     limitesObjectif: schemaFichiers.limitesObjectif.parse(lire(dossier, "objectif-limites.json")),
     prereponses: schemaFichiers.prereponses.parse(lire(dossier, "prereponses.json")),
+    evolutions: schemaFichiers.evolutions.parse(lire(dossier, "evolutions.json")),
     tableauxLies: schemaFichiers.tableauxLies.parse(lire(dossier, "tableaux-lies.json")),
     objectifsAgents: schemaFichiers.objectifsAgents.parse(lire(dossier, "objectifs-agents.json")),
     retraits: schemaFichiers.retraits.parse(lire(dossier, "retraits.json")),
