@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
 import { Questionnaire } from "../../src/app/(espace)/audit/[slug]/questionnaire";
 import { ObjectifChoix } from "../../src/app/(espace)/audit/[slug]/objectif-choix";
 import { controlerObjectifs } from "../../src/lib/audit/objectifs-agent";
-import { phraseObjectif, type ObjectifSaisie } from "../../src/lib/audit/objectif";
+import type { ObjectifSaisie } from "../../src/lib/audit/objectif";
 import { ENSEMBLE } from "../../src/lib/audit/donnees-audit";
 import { preparerQuestionnaire } from "../../src/lib/audit/preparation";
 import { prereponseDe } from "../../src/lib/audit/prereponse";
@@ -82,7 +82,7 @@ window.fetch = async (entree: RequestInfo | URL, init?: RequestInit) => {
     const r = controlerObjectifs(objectifs ?? [], ENSEMBLE.objectifsAgents.agents[agent]?.objectifs ?? null, ENSEMBLE.limitesObjectif.facteurAnnuelMax);
     if (!r.ok) return json({ erreur: r.erreur, champ: r.champ, rang: r.rang }, 400);
     const cle = document.getElementById("apercu-objectif")?.getAttribute("data-court");
-    const garde = { objectifs: r.objectifs.map((o) => ({ phrase: phraseObjectif(o.saisie), mois: o.saisie.delaiMois, reussite: o.saisie.reussite ?? null, saisie: o.saisie })) };
+    const garde = { objectifs: r.objectifs.map((o) => ({ phrase: o.phrase, mois: o.saisie.delaiMois, reussite: o.saisie.reussite ?? null, origine: o.origine, saisie: o.saisie })) };
     try { if (cle) sessionStorage.setItem(`caxe-objectif-${cle}`, JSON.stringify(garde)); } catch { /* stockage indisponible */ }
     return json({ ok: true });
   }

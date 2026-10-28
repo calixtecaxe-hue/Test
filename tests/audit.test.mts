@@ -625,9 +625,13 @@ test("les objectifs proposés par agent existent pour la RH et la Comm, avec un 
   for (const agent of ["RH_ORGANISATION", "COMM_CREATION"]) {
     const def = reel.objectifsAgents.agents[agent];
     assert.ok(def && def.objectifs.length >= 5, agent);
+    // « Définir mon propre objectif » : une aide et des exemples propres à l'agent.
+    assert.ok(def.personnel.aide && def.personnel.exemple && def.personnel.exempleReussite, `${agent} : objectif personnel`);
     for (const o of def.objectifs) {
       assert.ok(o.themes.every((c) => reel.themes.find((t) => t.code === c)?.agent === agent), `${o.id} : thèmes de l'agent`);
-      assert.ok(o.mesure === "chiffre" ? !!o.unite && !!o.exemple.valeur : !!o.exemple.reussite, `${o.id} : exemple`);
+      // Une unité pour un objectif chiffré, une phrase de réussite en exemple pour tous ; jamais un chiffre à viser suggéré.
+      assert.ok((o.mesure === "chiffre" ? !!o.unite : true) && !!o.exemple.reussite, `${o.id} : exemple`);
+      assert.equal("valeur" in o.exemple, false, `${o.id} : aucun chiffre suggéré`);
     }
   }
   // Les deux parcours de la Comm (CLAUDE.md section 9) : améliorer l'existant, mettre en place.

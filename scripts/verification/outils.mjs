@@ -36,7 +36,8 @@ export function journal(nom) {
 }
 
 // Compte fictif complet : métier, formule, paiement de démonstration, dossier, niveau, objectifs.
-export async function creerCompte(navigateur, { metier = "electricien", sousVariantes = [], agents = ["ACQ", "FIN", "RH", "COM"], niveau = "APPROFONDI", effectif = 4, creation = "2019-03-01", viewport = { width: 1280, height: 1000 } } = {}) {
+// `objectifs: false` : aucun objectif enregistré (le dirigeant arrive sur l'écran de choix de l'objectif).
+export async function creerCompte(navigateur, { metier = "electricien", sousVariantes = [], agents = ["ACQ", "FIN", "RH", "COM"], niveau = "APPROFONDI", effectif = 4, creation = "2019-03-01", viewport = { width: 1280, height: 1000 }, objectifs = true } = {}) {
   const email = `verif.${Date.now()}.${Math.floor(Math.random() * 1e5)}@example.com`;
   const contexte = await navigateur.newContext({ viewport, reducedMotion: "reduce" });
   const page = await contexte.newPage();
@@ -53,7 +54,7 @@ export async function creerCompte(navigateur, { metier = "electricien", sousVari
   const d = await api.put(B + "/api/compte/dossier", { data: { chiffreAffairesMensuel: 60000, nombreCollaborateurs: effectif, dateCreationEntreprise: creation, typeZone: "PERIURBAINE", ville: "Lyon" } });
   if (!d.ok()) throw new Error("dossier " + (await d.text()));
   if (niveau) await api.put(B + "/api/audit/niveau", { data: { niveau } });
-  for (const a of agents) {
+  for (const a of objectifs ? agents : []) {
     const o = await api.post(B + "/api/audit/objectif", { data: { agent: AGENTS[a].code, objectif: AGENTS[a].objectif } });
     if (!o.ok()) throw new Error("objectif " + a + " " + (await o.text()));
   }

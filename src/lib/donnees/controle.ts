@@ -477,9 +477,16 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
         if (!t) erreurs.push(`Objectif ${o.id} : le thème ${code} n'existe pas.`);
         else if (t.agent !== agent) erreurs.push(`Objectif ${o.id} : le thème ${code} n'est pas un thème de l'agent ${agent}.`);
       }
-      if (o.mesure === "chiffre" && !(o.unite && o.exemple.valeur)) erreurs.push(`Objectif ${o.id} : un objectif chiffré a une unité et une valeur d'exemple.`);
-      if (o.mesure === "phrase" && !o.exemple.reussite) erreurs.push(`Objectif ${o.id} : un objectif sans chiffre a une phrase de réussite en exemple.`);
+      if (o.mesure === "chiffre" && !o.unite) erreurs.push(`Objectif ${o.id} : un objectif chiffré a une unité.`);
+      if (o.unite && o.unites && !o.unites.includes(o.unite)) erreurs.push(`Objectif ${o.id} : l'unité proposée d'abord (${o.unite}) n'est pas parmi ses unités.`);
+      if (o.gabarit && (o.mesure !== "chiffre" || (o.unites ?? [o.unite]).length !== 1 || !o.question)) erreurs.push(`Objectif ${o.id} : un gabarit va avec un objectif chiffré, une seule unité et l'intitulé du chiffre (« question »).`);
+      if (!o.exemple.reussite) erreurs.push(`Objectif ${o.id} : une phrase de réussite en exemple (ce que le dirigeant veut constater).`);
+      if (o.mesure === "phrase" && (o.unite || o.unites || o.gabarit)) erreurs.push(`Objectif ${o.id} : un objectif sans chiffre n'a ni unité ni gabarit.`);
+      const parties = (def.parties ?? []).map((p) => p.nom);
+      if (parties.length > 0 && !parties.includes(o.groupe ?? "")) erreurs.push(`Objectif ${o.id} : sa partie « ${o.groupe ?? ""} » n'est pas dans les parties de l'agent.`);
+      if (parties.length === 0 && o.groupe) erreurs.push(`Objectif ${o.id} : partie « ${o.groupe} » sans liste des parties de l'agent.`);
     }
+    for (const d of doublons(def.objectifs.map((o) => o.libelle.toLowerCase()))) erreurs.push(`Objectifs proposés (${agent}) : titre en double « ${d} ».`);
   }
   if (e.objectifsAgents.aValider) avertissements.push("Objectifs proposés par agent (RH, Comm) : brouillon à valider par le propriétaire.");
   // Retraits (doublons) : la donnée existe, est posée, et n'alimente ni un calcul ni une règle d'affichage ; la donnée conservée existe.

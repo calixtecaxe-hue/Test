@@ -1,6 +1,6 @@
 // Contrôle de tous les « Autre » de l'application, dans le navigateur : on clique, on précise, on enregistre, et on relit la base.
 //   1. Activités du métier (« Autre (précisez) ») : seule, avec une autre activité, et vide (message d'erreur).
-//   2. Objectif des agents RH et Comm : « Autre (précisez) » de chaque partie de la liste, avec un chiffre ou une description.
+//   2. Objectif des agents RH et Comm : « Définir mon propre objectif » dans chaque partie de la liste, avec un chiffre ou une description.
 //   3. Questions du questionnaire dont une option est « Autre » : la réponse est acceptée et enregistrée.
 //
 //   (serveur lancé : AUTH_TRUST_HOST=true PAIEMENT_MODE=demonstration npx next start -p 3100)
@@ -97,35 +97,36 @@ for (const [i, m] of avecActivites.entries()) {
 // --- 2. Objectif des agents RH et Comm ----------------------------------------------------------------------------------------------
 const objectifs = lire("data/objectifs-agents.json").agents;
 const SLUG = { RH_ORGANISATION: "rh-organisation", COMM_CREATION: "comm-creation-contenu" };
-console.log("\n=== Objectifs : « Autre (précisez) » de chaque partie ===");
+console.log("\n=== Objectifs : « Définir mon propre objectif » dans chaque partie ===");
 for (const agent of Object.keys(objectifs)) {
-  const groupes = [...new Set(objectifs[agent].objectifs.map((o) => o.groupe ?? ""))];
-  for (const [i, g] of groupes.entries()) {
+  const parties = (objectifs[agent].parties ?? []).map((p) => p.nom);
+  for (const [i, g] of (parties.length ? parties : [""]).entries()) {
     for (const mode of ["chiffre", "phrase"]) {
-      const ou = `${agent} · ${g || "liste"} · Autre (${mode})`;
+      const ou = `${agent} · ${g || "liste"} · objectif personnel (${mode})`;
       const c = await compteAbonne(["RH_ORGANISATION", "COMM_CREATION"]);
       const { page } = c;
       await page.goto(`${B}/audit/${SLUG[agent]}`, { waitUntil: "networkidle" });
-      const autres = page.locator("[data-objectif-choix] label.case-option:has-text('Autre (précisez)')");
-      verifier(ou, "un « Autre (précisez) » par partie", (await autres.count()) === groupes.length, String(await autres.count()));
-      await autres.nth(i).click();
+      if (g) await page.locator(`[data-objectif-choix] li[data-partie="${g}"] .objectif-carte-tete`).click();
+      const perso = page.locator("[data-objectif-choix] fieldset[data-emplacement] li[data-carte='personnel']");
+      verifier(ou, "« Définir mon propre objectif » est proposé avec les autres objectifs", (await perso.count()) === 1, String(await perso.count()));
+      await perso.locator(".objectif-carte-tete").click();
       await page.waitForTimeout(300);
-      verifier(ou, "« Autre » cliqué : le champ « Votre objectif » apparaît", (await page.getByRole("textbox", { name: "Votre objectif" }).count()) === 1);
+      verifier(ou, "« Définir mon propre objectif » choisi : le champ « Décrivez votre objectif » apparaît", (await page.getByRole("textbox", { name: "Décrivez votre objectif" }).count()) === 1);
       const quoi = `objectif précisé ${agent.slice(0, 3).toLowerCase()} ${i} ${mode}`;
-      await page.getByRole("textbox", { name: "Votre objectif" }).fill(quoi);
-      // Le mode de départ dépend de la partie ; on bascule si besoin.
-      const enChiffre = (await page.getByLabel("De combien").count()) === 1;
+      await page.getByRole("textbox", { name: "Décrivez votre objectif" }).fill(quoi);
+      // Un objectif personnel commence par la description ; « J'ai un chiffre » ouvre le chiffre et son unité.
+      const enChiffre = (await perso.locator("input[id$='-ampleur']").count()) === 1;
       if (mode === "phrase" && enChiffre) await page.locator("[data-sans-chiffre]").click();
       if (mode === "chiffre" && !enChiffre) await page.locator("[data-avec-chiffre]").click();
       await page.waitForTimeout(200);
-      if (mode === "chiffre") await page.getByLabel("De combien").fill("10");
+      if (mode === "chiffre") await perso.locator("input[id$='-ampleur']").fill("10");
       else await page.getByLabel(/Comment saurez-vous/).fill("je le constate chaque semaine");
       await page.getByLabel(/En combien de temps/).fill("6");
       await page.getByRole("button", { name: /Enregistrer mon objectif/ }).click();
       await page.waitForTimeout(1500);
       // La phrase de l'objectif, et la structure : la description (« reussite ») est gardée à part de la phrase.
       const enregistre = sql(`select o."texteBrut" || ' ¦ ' || o.structure::text from "Objectif" o join "User" u on u.id=o."userId" where u.email='${c.email}' and o.agent='${agent}' and o.statut='ACTIF'`);
-      verifier(ou, "objectif enregistré avec le texte précisé", enregistre.includes(quoi), enregistre || "rien en base");
+      verifier(ou, "objectif enregistré avec le texte écrit, origine « personnel »", enregistre.includes(quoi) && /"origine": "personnel"/.test(enregistre) && (!g || enregistre.includes(`"partie": "${g}"`)), enregistre || "rien en base");
       verifier(ou, mode === "chiffre" ? "le chiffre est enregistré" : "la description est enregistrée", mode === "chiffre" ? /"valeur": 10/.test(enregistre) : /"reussite": "je le constate chaque semaine"/.test(enregistre), enregistre);
       verifier(ou, "aucune erreur JavaScript", c.erreurs.length === 0, c.erreurs.join(" | "));
       await c.contexte.close();

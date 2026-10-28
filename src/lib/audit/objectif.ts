@@ -50,11 +50,24 @@ export const objectifSaisieSchema = z
   .refine((o) => o.ampleur !== undefined || o.reussite !== undefined, { message: "Indiquez un chiffre, ou décrivez ce que vous voulez constater.", path: ["reussite"] });
 export type ObjectifSaisie = z.infer<typeof objectifSaisieSchema>;
 
-// Ce qui est enregistré : la saisie, l'indicateur rattaché (ou rien) et l'échéance.
+// D'où vient un objectif : une proposition de la liste de l'agent (RH, Comm), un objectif écrit par le dirigeant
+// (« Définir mon propre objectif »), ou les trois champs libres (Acquisition, Finance).
+export type OrigineObjectif = "proposition" | "personnel" | "libre";
+
+// Ce qui est enregistré : la saisie, son origine, l'indicateur rattaché (ou rien) et l'échéance. Les objectifs enregistrés
+// avant le 28 octobre n'ont pas d'origine : elle se déduit de `choix` (origineDe).
 export type ObjectifEnregistre = ObjectifSaisie & {
+  origine?: OrigineObjectif;
   indicateur: { code: string; nom: string } | null;
   echeance: string; // AAAA-MM-JJ
 };
+
+export function origineDe(o: Pick<ObjectifEnregistre, "origine" | "choix">, avecListe: boolean): OrigineObjectif {
+  return o.origine ?? (o.choix ? "proposition" : avecListe ? "personnel" : "libre");
+}
+
+// Phrase d'un objectif dont le chiffre est un nombre ou un taux visé (« obtenir {n} nouveaux avis clients »).
+export type GabaritObjectif = { singulier: string; pluriel: string };
 
 const LIBELLE_UNITE: Record<UniteAmpleur, string> = { pourcent: "%", euros: "€", unites: "" };
 
@@ -62,13 +75,18 @@ function formaterNombre(n: number): string {
   return new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2 }).format(n);
 }
 
-// « baisser le turnover de 5 % sur les 3 prochains mois ».
-export function phraseObjectif(o: ObjectifSaisie): string {
+// « baisser le turnover de 5 % sur les 3 prochains mois » ; avec un gabarit : « obtenir 10 nouveaux avis clients sur les
+// 3 prochains mois ».
+export function phraseObjectif(o: ObjectifSaisie, gabarit?: GabaritObjectif): string {
   // Sans chiffre : « clarifier les rôles et les responsabilités en 3 mois » ; ce que le dirigeant veut constater se garde à part.
   if (!o.ampleur) return `${o.quoi.replace(/[.\s]+$/, "")} en ${o.delaiMois} mois`;
+  const delai = o.delaiMois === 1 ? "le mois prochain" : `les ${o.delaiMois} prochains mois`;
+  if (gabarit) {
+    const forme = o.ampleur.valeur === 1 ? gabarit.singulier : gabarit.pluriel;
+    return `${forme.replace("{n}", formaterNombre(o.ampleur.valeur))} sur ${delai}`;
+  }
   const unite = LIBELLE_UNITE[o.ampleur.unite];
   const ampleur = `${formaterNombre(o.ampleur.valeur)}${unite ? ` ${unite}` : ""}`;
-  const delai = o.delaiMois === 1 ? "le mois prochain" : `les ${o.delaiMois} prochains mois`;
   return `${o.quoi.replace(/[.\s]+$/, "")} de ${ampleur} sur ${delai}`;
 }
 
@@ -129,11 +147,13 @@ export function enregistrerObjectif(
   saisie: ObjectifSaisie,
   themesDeLAgent: Pick<Theme, "code" | "nom">[],
   maintenant: Date,
-  themesChoisis: string[] = []
+  themesChoisis: string[] = [],
+  origine?: OrigineObjectif
 ): ObjectifEnregistre {
   const choisi = themesChoisis.length > 0 ? themesDeLAgent.find((t) => t.code === themesChoisis[0]) : undefined;
   return {
     ...saisie,
+    ...(origine ? { origine } : {}),
     indicateur: choisi ? { code: choisi.code, nom: choisi.nom } : rattacherIndicateur(saisie.quoi, themesDeLAgent),
     echeance: calculerEcheance(maintenant, saisie.delaiMois),
   };

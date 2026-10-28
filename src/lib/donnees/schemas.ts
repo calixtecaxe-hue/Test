@@ -558,20 +558,41 @@ export type TableauxLies = z.infer<typeof tableauxLies>;
 // Pour les agents dont l'objectif n'a pas forcément de chiffre (RH, Comm) : une liste d'objectifs écrits à
 // l'avance, rattachés à des thèmes de l'agent, plus « Autre ». Un objectif « chiffre » se mesure (unité), un
 // objectif « phrase » se décrit par ce que le dirigeant veut constater.
+const uniteObjectif = z.enum(["pourcent", "euros", "unites"]);
 export const objectifAgent = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
+  // Titre court de la carte ; `detail` : une précision, seulement quand elle aide à choisir.
   libelle: z.string().min(3),
+  detail: z.string().optional(),
   groupe: z.string().optional(),
   mesure: z.enum(["chiffre", "phrase"]),
-  unite: z.enum(["pourcent", "euros", "unites"]).optional(),
+  // Unité proposée d'abord, et unités entre lesquelles le dirigeant choisit (par défaut, la seule `unite`).
+  unite: uniteObjectif.optional(),
+  unites: z.array(uniteObjectif).min(1).optional(),
+  // Le chiffre est un nombre ou un taux visé (« obtenir {n} nouveaux avis clients ») : la phrase de l'objectif suit ce
+  // gabarit, l'unité est fixe et `question` intitule le champ du chiffre.
+  gabarit: z.object({ singulier: z.string().min(3), pluriel: z.string().includes("{n}") }).optional(),
+  question: z.string().optional(),
   themes: z.array(z.string()).min(1),
-  exemple: z.object({ valeur: z.number().positive().optional(), reussite: z.string().optional(), delaiMois: z.number().int().min(1) }),
+  // Exemples affichés dans les champs : la phrase de réussite et le délai, jamais un chiffre à viser.
+  exemple: z.object({ reussite: z.string().optional(), delaiMois: z.number().int().min(1) }),
 });
 export type ObjectifAgent = z.infer<typeof objectifAgent>;
+// Objectif écrit par le dirigeant (« Définir mon propre objectif ») : aide et exemples propres à l'agent.
+export const objectifPersonnel = z.object({ aide: z.string().min(3), exemple: z.string().min(3), exempleReussite: z.string().min(3) });
+export type ObjectifPersonnel = z.infer<typeof objectifPersonnel>;
 export const objectifsAgents = z.object({
   source: z.string(),
   aValider: z.boolean(),
-  agents: z.record(z.string(), z.object({ intro: z.string().optional(), objectifs: z.array(objectifAgent).min(1) })),
+  agents: z.record(
+    z.string(),
+    z.object({
+      // Parties de la liste (Comm : « Améliorer ce que j'ai déjà », « Mettre en place ma présence en ligne »), avec leur précision.
+      parties: z.array(z.object({ nom: z.string().min(3), detail: z.string().optional() })).optional(),
+      personnel: objectifPersonnel,
+      objectifs: z.array(objectifAgent).min(1),
+    }),
+  ),
 });
 export type ObjectifsAgents = z.infer<typeof objectifsAgents>;
 

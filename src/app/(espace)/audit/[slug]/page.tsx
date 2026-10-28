@@ -14,6 +14,7 @@ import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
 import { ancragesDesReponses, reponsesDuCompte, reponsesPreremplies } from "@/lib/audit/compte";
 import { moisDe } from "@/lib/audit/periodes";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
+import { objectifTransmis, objectifsPourLaTaille } from "@/lib/audit/objectifs-proposes";
 import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifActif, ObjectifEdition } from "./objectif-actif";
 import { ObjectifChoix } from "./objectif-choix";
@@ -80,11 +81,14 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   // Objectifs en cours : un seul (Acquisition, Finance), un ou plusieurs (RH, Comm), dans l'ordre où ils ont été choisis.
   const actifs = objectifs.filter((o) => o.statut === "ACTIF");
   const actif = actifs[0] ?? null;
-  // RH et Comm : l'objectif se choisit dans une liste écrite à l'avance, avec ou sans chiffre.
-  const propositions = ENSEMBLE.objectifsAgents.agents[agent.code] ?? null;
   const historique = objectifs.filter((o) => o.statut !== "ACTIF");
   const profils = utilisateur.profils.filter((p): p is ProfilId => (PROFILS as readonly string[]).includes(p));
   const taille = tailleDepuisEffectif(utilisateur.nombreCollaborateurs);
+  // RH et Comm : une proposition de la liste écrite à l'avance, ou un objectif écrit par le dirigeant, avec ou sans chiffre.
+  // Seules les propositions dont un thème s'applique à la taille de l'entreprise sont montrées (celles déjà choisies restent).
+  const liste = ENSEMBLE.objectifsAgents.agents[agent.code] ?? null;
+  const dejaChoisis = actifs.map((o) => (o.structure as unknown as ObjectifEnregistre).choix).filter((c): c is string => Boolean(c));
+  const propositions = liste ? objectifsPourLaTaille(liste, ENSEMBLE.themes, ENSEMBLE.reglesAffichage, taille, dejaChoisis) : null;
   // « Autre » seul = activité par défaut : sert aux questions des modules métier et au vocabulaire du métier.
   const metier = metierDuCompte(ENSEMBLE.routage, utilisateur);
 
@@ -137,7 +141,9 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
 
   const structure = actif ? (actif.structure as unknown as ObjectifEnregistre) : null;
   const structures = actifs.map((o) => o.structure as unknown as ObjectifEnregistre);
-  const affiches = actifs.map((o, i) => ({ phrase: o.texteBrut, echeance: formaterDate(o.echeance), indicateur: structures[i].indicateur?.nom ?? null, reussite: structures[i].reussite ?? null }));
+  // Ce que reçoivent les étapes suivantes : l'objectif tel qu'il a été choisi ou écrit, avec son origine (objectifs-proposes.ts).
+  const transmis = actifs.map((o, i) => objectifTransmis(o.texteBrut, structures[i], liste?.objectifs ?? null));
+  const affiches = transmis.map((t, i) => ({ phrase: t.phrase, echeance: formaterDate(actifs[i].echeance), indicateur: t.indicateur?.nom ?? null, reussite: t.reussite, origine: t.origine, chiffre: t.mesure === "chiffre" }));
   // Ce qui a été saisi, sans ce que le serveur a ajouté (indicateur, échéance) : repris pour modifier les objectifs.
   const saisies = structures.map(({ quoi, ampleur, reussite, choix, partie, delaiMois }) => ({ quoi, ampleur, reussite, choix, partie, delaiMois }));
 
@@ -185,11 +191,11 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       ) : (
         <section aria-labelledby="objectif" className="audit-entree mt-8" style={{ "--d": "480ms" } as React.CSSProperties}>
           <h2 id="objectif" className="text-2xl">
-            Votre objectif
+            {propositions ? "Quel objectif souhaitez-vous atteindre ?" : "Votre objectif"}
           </h2>
           <p className="mt-2 text-[var(--text-muted)]">
             {propositions
-              ? "Avant toute question, dites ce que vous voulez obtenir avec cet agent. Toute l'analyse part de là."
+              ? "Choisissez une proposition ou décrivez votre propre objectif. Toute l'analyse part de là."
               : "Avant toute question, dites ce que vous voulez obtenir avec cet agent : ce que vous voulez changer, de combien, et en combien de temps. Toute l'analyse part de là."}
           </p>
           {propositions ? (

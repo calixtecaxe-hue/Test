@@ -1,6 +1,6 @@
 // Contrôle des boutons des écrans d'un agent (hors questions), dans le navigateur, sur les quatre agents : formulaire d'objectif
 // (champs vides, valeurs fausses, objectif irréaliste, unités, enregistrement), liste d'objectifs RH et Comm (avec ou sans chiffre,
-// « Autre »), niveau (choix, passage essentiel ↔ approfondi), étapes cliquables, « Changer d'objectif » et historique, compte rendu
+// « Définir mon propre objectif »), niveau (choix, passage essentiel ↔ approfondi), étapes cliquables, « Changer d'objectif » et historique, compte rendu
 // (onglets), tableau de bord, bascule jour / nuit et déconnexion.
 //
 //   (serveur lancé : AUTH_TRUST_HOST=true PAIEMENT_MODE=demonstration RESULTATS_MAQUETTE=1 npx next start -p 3100)
@@ -55,23 +55,24 @@ const objectifs = (email, agent) => sql(`select o.statut||'|'||o."texteBrut" fro
 const niveauDb = (email) => sql(`select coalesce("niveauAudit"::text,'') from "User" where email='${email}'`);
 const texteErreurs = (page) => page.locator(".text-\\[var\\(--red-1\\)\\]").allInnerTexts();
 const nbQuestions = (page) => page.locator("li[data-question]").count();
-// Objectif de la liste (RH, Comm) : chaque partie a son menu déroulant ; on ouvre celui de la partie de l'objectif et on le choisit.
+// Objectif de la liste (RH, Comm, 28 octobre) : des cartes à un choix ; la Comm demande d'abord la partie (« Où en êtes-vous ? »).
+const ouvert = (page) => page.locator("[data-objectif-choix] fieldset[data-emplacement]");
 async function choisirObjectif(page, code, o) {
-  const groupes = [...new Set(PROP[code].objectifs.map((x) => x.groupe ?? ""))];
-  await page.locator("[data-objectif-choix] .menu-declencheur").nth(groupes.indexOf(o.groupe ?? "")).click();
-  await page.getByRole("option", { name: o.libelle, exact: true }).click();
+  if (o.groupe) {
+    const partie = page.locator(`[data-objectif-choix] li[data-partie="${o.groupe}"]`);
+    if (!(await partie.locator("input").isChecked())) await partie.locator(".objectif-carte-tete").click();
+  }
+  await ouvert(page).locator(`li[data-carte="${o.id}"] .objectif-carte-tete`).click();
+  await page.waitForTimeout(200);
 }
 
-// Remplit chaque objectif choisi : un chiffre ou une description, et un délai.
-async function remplirEntrees(page, descriptions) {
-  const entrees = page.locator("[data-objectif-choix] [data-detail]");
-  for (let i = 0; i < (await entrees.count()); i++) {
-    const e = entrees.nth(i);
-    if (await e.getByLabel("De combien").count()) await e.getByLabel("De combien").fill("5");
-    else await e.getByLabel(/Comment saurez-vous/).fill(descriptions[i % descriptions.length]);
-    if (await e.getByLabel("Votre objectif").count()) await e.getByLabel("Votre objectif").fill(`objectif précisé ${i}`);
-    await e.getByLabel(/En combien de temps/).fill(String(2 + i));
-  }
+// Remplit l'objectif ouvert : un chiffre ou une description, et un délai.
+async function remplirOuvert(page, description, i) {
+  const e = ouvert(page).locator("[data-detail]");
+  if (await e.locator("input[id$='-ampleur']").count()) await e.locator("input[id$='-ampleur']").fill("5");
+  else await e.getByLabel(/Comment saurez-vous/).fill(description);
+  if (await e.getByLabel("Décrivez votre objectif").count()) await e.getByLabel("Décrivez votre objectif").fill(`objectif précisé ${i}`);
+  await e.getByLabel(/En combien de temps/).fill(String(2 + i));
 }
 
 for (const cle of CHOIX) {
@@ -111,42 +112,51 @@ for (const cle of CHOIX) {
     await page.getByText("Jusqu'où voulez-vous aller ?").waitFor({ timeout: 8000 }).catch(() => {});
     verifier(cle, "objectif : enregistré en base (ACTIF)", objectifs(email, A.code).some((o) => o.startsWith("ACTIF|")), JSON.stringify(objectifs(email, A.code)));
   } else {
-    // RH et Comm : un ou plusieurs objectifs, chacun complet ; Comm : tous dans la même partie (décision du 27 octobre).
+    // RH et Comm : une proposition ou un objectif personnel, et d'autres objectifs si besoin ; Comm : tous dans la même partie.
     const liste = PROP[A.code].objectifs;
     const parties = [...new Set(liste.map((x) => x.groupe ?? ""))];
     const memePartie = liste.filter((x) => (x.groupe ?? "") === (liste[0].groupe ?? ""));
-    const entrees = page.locator("[data-objectif-choix] [data-detail]");
-    await envoyer.click().catch(() => {});
-    verifier(cle, "objectif (liste) : bouton inactif tant qu'aucun objectif n'est choisi", await envoyer.isDisabled());
-    await choisirObjectif(page, A.code, memePartie[0]);
-    await page.waitForTimeout(300);
-    verifier(cle, "objectif (liste) : choisir un objectif ouvre son détail", (await entrees.count()) === 1);
-    await choisirObjectif(page, A.code, memePartie[1]);
-    await page.waitForTimeout(300);
-    verifier(cle, "objectifs (liste) : un deuxième objectif s'ajoute au premier", (await entrees.count()) === 2);
-    verifier(cle, "objectifs (liste) : le bouton dit « Enregistrer mes objectifs »", (await page.getByRole("button", { name: "Enregistrer mes objectifs" }).count()) === 1);
-    if (parties.length > 1) verifier(cle, "objectifs (Comm) : l'autre partie est fermée tant qu'un objectif est choisi", (await page.locator("[data-fermee='oui']").count()) === parties.length - 1);
-    await entrees.nth(1).getByRole("button", { name: /^Retirer l'objectif/ }).click();
-    await page.waitForTimeout(200);
-    verifier(cle, "objectifs (liste) : « Retirer cet objectif » l'enlève", (await entrees.count()) === 1);
-    // « Autre (précisez) » termine chaque partie de la liste : celui de la partie choisie.
-    await page.locator("label.case-option:has-text('Autre (précisez)')").first().click();
-    await page.waitForTimeout(300);
-    verifier(cle, "objectifs (« Autre ») : un objectif à préciser s'ajoute", (await entrees.count()) === 2);
+    const emplacements = page.locator("[data-objectif-choix] [data-emplacement]");
     await envoyer.click();
-    verifier(cle, "objectif (« Autre », vide) : messages d'erreur", (await texteErreurs(page)).length >= 1);
-    await page.locator("label.case-option:has-text('Autre (précisez)')").first().click();
+    await page.waitForTimeout(300);
+    // Comm : sans partie choisie, le message renvoie d'abord à « Où en êtes-vous ? ».
+    const attendu = parties.length > 1 ? /Choisissez d'abord où vous en êtes/ : /proposition ou décrivez votre propre objectif/;
+    verifier(cle, "objectif (liste) : rien de choisi → message qui dit quoi faire, rien en base", (await texteErreurs(page)).some((t) => attendu.test(t)) && objectifs(email, A.code).length === 0, JSON.stringify(await texteErreurs(page)));
+    await choisirObjectif(page, A.code, memePartie[0]);
+    verifier(cle, "objectif (liste) : choisir une proposition ouvre son détail dans la carte", (await ouvert(page).locator(`li[data-carte="${memePartie[0].id}"] [data-detail]`).count()) === 1);
+    await remplirOuvert(page, "je constate le résultat chaque semaine", 0);
+    await page.locator("[data-objectif-choix] [data-ajouter]").click();
     await page.waitForTimeout(200);
-    verifier(cle, "objectifs (« Autre ») : décocher l'enlève", (await entrees.count()) === 1);
-    if (parties.length > 1) verifier(cle, "objectifs (Comm) : sans objectif de l'autre partie, toutes les parties s'ouvrent de nouveau", (await page.locator("[data-fermee='oui']").count()) === parties.length - 1);
+    await choisirObjectif(page, A.code, memePartie[1]);
+    verifier(cle, "objectifs (liste) : « Ajouter un autre objectif » ajoute un deuxième objectif, le premier se replie", (await emplacements.count()) === 2 && (await page.locator("[data-replie]").count()) === 1);
+    verifier(cle, "objectifs (liste) : le bouton dit « Enregistrer mes objectifs »", (await page.getByRole("button", { name: "Enregistrer mes objectifs" }).count()) === 1);
+    if (parties.length > 1) {
+      await page.locator(`[data-objectif-choix] li[data-partie="${parties[1]}"] .objectif-carte-tete`).click();
+      await page.waitForTimeout(200);
+      verifier(cle, "objectifs (Comm) : changer de partie quand un autre objectif est dans la première est refusé et expliqué", (await texteErreurs(page)).some((t) => /Retirez-les d'abord/.test(t)));
+    }
+    await page.getByRole("button", { name: "Retirer l'objectif 2" }).click();
+    await page.waitForTimeout(200);
+    verifier(cle, "objectifs (liste) : « Retirer cet objectif » l'enlève", (await emplacements.count()) === 1);
+    // « Définir mon propre objectif » : vide → messages ; puis retour à une proposition.
+    await page.locator("[data-replie] button", { hasText: "Modifier" }).click().catch(() => {});
+    await ouvert(page).locator("li[data-carte='personnel'] .objectif-carte-tete").click();
+    await page.waitForTimeout(200);
+    verifier(cle, "objectif personnel : le champ « Décrivez votre objectif » s'ouvre", (await page.getByLabel("Décrivez votre objectif").count()) === 1);
+    await envoyer.click();
+    verifier(cle, "objectif personnel vide : messages d'erreur", (await texteErreurs(page)).some((t) => /Décrivez votre objectif/.test(t)));
+    await choisirObjectif(page, A.code, memePartie[0]);
+    verifier(cle, "objectif personnel : revenir à une proposition ferme le champ personnel", (await page.getByLabel("Décrivez votre objectif").count()) === 0);
     // Bascule avec / sans chiffre.
     const sans = page.locator("[data-sans-chiffre]"), avec = page.locator("[data-avec-chiffre]");
     if (await sans.count()) { await sans.click(); await page.waitForTimeout(200); verifier(cle, "objectif : « sans chiffre » ouvre « Comment saurez-vous que c'est atteint ? »", (await page.getByLabel(/Comment saurez-vous/).count()) === 1); }
-    if (await avec.count()) { await avec.click(); await page.waitForTimeout(200); verifier(cle, "objectif : « avec chiffre » ramène le champ « De combien »", (await page.getByLabel("De combien").count()) === 1); }
+    if (await avec.count()) { await avec.click(); await page.waitForTimeout(200); verifier(cle, "objectif : « avec chiffre » ramène le champ du chiffre", (await ouvert(page).locator("input[id$='-ampleur']").count()) === 1); }
     // Deux objectifs complets, enregistrés ensemble.
+    await remplirOuvert(page, "je constate le résultat chaque semaine", 0);
+    await page.locator("[data-objectif-choix] [data-ajouter]").click();
+    await page.waitForTimeout(200);
     await choisirObjectif(page, A.code, memePartie[1]);
-    await page.waitForTimeout(300);
-    await remplirEntrees(page, ["je constate le résultat chaque semaine", "je le vois dans mes chiffres"]);
+    await remplirOuvert(page, "je le vois dans mes chiffres", 1);
     await page.getByRole("button", { name: "Enregistrer mes objectifs" }).click();
     await page.getByText("Jusqu'où voulez-vous aller ?").waitFor({ timeout: 8000 }).catch(() => {});
     verifier(cle, "objectifs (liste) : les deux sont enregistrés en base (ACTIF)", objectifs(email, A.code).filter((o) => o.startsWith("ACTIF|")).length === 2, JSON.stringify(objectifs(email, A.code)));
@@ -186,7 +196,7 @@ for (const cle of CHOIX) {
   const actifsAvant = A.chiffre ? 1 : 2;
   const garder = A.chiffre ? "Garder l'objectif actuel" : "Garder mes objectifs actuels";
   verifier(cle, "étape « Objectif » : rouvre le changement d'objectif", (await page.getByRole("heading", { name: A.chiffre ? "Changer d'objectif" : "Changer mes objectifs" }).count()) === 1);
-  if (!A.chiffre) verifier(cle, "étape « Objectif » : les objectifs en cours sont repris dans le formulaire", (await page.locator("[data-objectif-choix] [data-detail]").count()) === 2);
+  if (!A.chiffre) verifier(cle, "étape « Objectif » : les objectifs en cours sont repris dans le formulaire", (await page.locator("[data-objectif-choix] [data-emplacement]").count()) === 2);
   await page.getByRole("button", { name: garder }).click();
   await page.waitForURL((u) => !u.search.includes("etape=1"), { timeout: 8000 }).catch(() => {});
   verifier(cle, `« ${garder} » : retour à l'audit sans changer l'objectif`, objectifs(email, A.code).filter((o) => o.startsWith("ACTIF|")).length === actifsAvant && !page.url().includes("etape=1"), page.url());
@@ -219,12 +229,16 @@ for (const cle of CHOIX) {
     // Les deux objectifs en cours sont repris : on retire le second, on en ajoute un troisième de la même partie.
     const liste = PROP[A.code].objectifs;
     const memePartie = liste.filter((x) => (x.groupe ?? "") === (liste[0].groupe ?? ""));
-    const entrees = page.locator("[data-objectif-choix] [data-detail]");
-    verifier(cle, "changer : les objectifs en cours sont repris, avec leurs réponses", (await entrees.count()) === 2 && (await entrees.nth(0).locator("input").first().inputValue()) !== "");
-    await entrees.nth(1).getByRole("button", { name: /^Retirer l'objectif/ }).click();
+    // Repris repliés, chacun avec sa phrase ; « Modifier » rouvre le premier avec ses réponses.
+    const replies = page.locator("[data-objectif-choix] [data-replie]");
+    verifier(cle, "changer : les objectifs en cours sont repris, chacun avec sa phrase", (await replies.count()) === 2 && !(await replies.nth(0).innerText()).includes("à compléter"));
+    await page.getByRole("button", { name: "Retirer l'objectif 2" }).click();
+    await page.waitForTimeout(200);
+    verifier(cle, "changer : le premier objectif rouvert garde ses réponses", (await ouvert(page).locator("[data-detail] input[id$='-delaiMois']").inputValue()) !== "");
+    await page.locator("[data-objectif-choix] [data-ajouter]").click();
+    await page.waitForTimeout(200);
     await choisirObjectif(page, A.code, memePartie[2]);
-    await page.waitForTimeout(300);
-    await remplirEntrees(page, ["je le vois dans mes chiffres"]);
+    await remplirOuvert(page, "je le vois dans mes chiffres", 2);
   }
   await page.getByRole("button", { name: A.chiffre ? "Enregistrer mon objectif" : "Enregistrer mes objectifs" }).click();
   await page.waitForTimeout(2500);

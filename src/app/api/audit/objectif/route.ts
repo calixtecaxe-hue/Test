@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { ENSEMBLE } from "@/lib/audit/donnees-audit";
 import { agentsActifs } from "@/lib/audit/compte";
-import { enregistrerObjectif, phraseObjectif } from "@/lib/audit/objectif";
+import { enregistrerObjectif } from "@/lib/audit/objectif";
 import { controlerObjectifs } from "@/lib/audit/objectifs-agent";
 import { codeAgent } from "@/lib/donnees/schemas";
 
@@ -14,7 +14,8 @@ const corps = z.object({ agent: codeAgent, objectif: z.unknown().optional(), obj
 
 // Enregistre l'objectif d'un agent (ou ses objectifs, RH et Comm) : ce que le dirigeant veut changer, de combien, en
 // combien de temps. Les nouveaux objectifs remplacent ensemble les objectifs actifs du même agent, qui restent en
-// historique ; les objectifs des autres agents ne sont pas touchés.
+// historique ; les objectifs des autres agents ne sont pas touchés. Chaque objectif garde son origine (proposition de la
+// liste, objectif écrit par le dirigeant, ou trois champs libres) : c'est ce que reprennent le compte rendu et l'analyse.
 export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ erreur: "Connexion requise." }, { status: 401 });
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
 
   const maintenant = new Date();
   const themes = ENSEMBLE.themes.filter((t) => t.agent === agent);
-  const enregistres = controle.objectifs.map((o) => ({ saisie: o.saisie, objectif: enregistrerObjectif(o.saisie, themes, maintenant, o.choisi?.themes) }));
+  const enregistres = controle.objectifs.map((o) => ({ phrase: o.phrase, objectif: enregistrerObjectif(o.saisie, themes, maintenant, o.choisi?.themes, o.origine) }));
   const crees = await prisma.$transaction(async (tx) => {
     await tx.objectif.updateMany({ where: { userId, agent, statut: "ACTIF" }, data: { statut: "REMPLACE", clotureLe: maintenant } });
     const ids: string[] = [];
@@ -46,7 +47,7 @@ export async function POST(request: Request) {
         data: {
           userId,
           agent,
-          texteBrut: phraseObjectif(e.saisie),
+          texteBrut: e.phrase,
           structure: e.objectif as unknown as Prisma.InputJsonValue,
           echeance: new Date(e.objectif.echeance),
           creeLe: maintenant,
@@ -61,7 +62,7 @@ export async function POST(request: Request) {
     ok: true,
     id: crees[0],
     ids: crees,
-    phrase: phraseObjectif(enregistres[0].saisie),
+    phrase: enregistres[0].phrase,
     indicateur: enregistres[0].objectif.indicateur,
     echeance: enregistres[0].objectif.echeance,
   });

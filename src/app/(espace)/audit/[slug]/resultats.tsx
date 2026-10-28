@@ -148,9 +148,11 @@ export function Resultats({ agent, vue, objectifs, questionnaire }: { agent: Age
           {objectifs.map((o, i) => (
             <div key={i} className={`audit-objectif-actif rounded-xl border border-[var(--line)] bg-[var(--panel)] p-6${i > 0 ? " mt-4" : ""}`} data-objectif-resultat>
               <p className="text-xs font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)]">{plusieurs ? `Objectif ${i + 1}` : "Votre objectif"}</p>
-              <p className="mt-2 text-lg text-[var(--text)]">{o.phrase}</p>
+              <p className="mt-2 text-lg text-[var(--text)]" data-objectif-phrase>{o.phrase}</p>
               {o.reussite ? <p className="mt-2 text-sm text-[var(--text)]">Réussite : {o.reussite}</p> : null}
-              <p className="mt-2 text-sm text-[var(--text-muted)]">Échéance : {o.echeance}</p>
+              <p className="mt-2 text-sm text-[var(--text-muted)]">
+                {o.origine === "personnel" ? <>Objectif personnel · </> : null}Échéance : {o.echeance}
+              </p>
               <div className="mt-5">
                 <div className="flex items-baseline justify-between gap-3 text-sm">
                   <span className="text-[var(--text)]">Avancement déclaré</span>
