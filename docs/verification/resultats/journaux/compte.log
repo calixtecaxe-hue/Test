@@ -17,3 +17,21 @@ ok   3 agents annoncés mais 1 envoyé : refus (400)
 ok   offre à 1 agent : refus (400)
 ok   sans connexion : 401
 ok   l'ancienne route ne change pas une formule en cours (409)
+ok   confirmation demandée avant l'arrêt
+ok   « Garder » referme sans rien changer
+ok   arrêt programmé enregistré avec une date de fin
+ok   le bandeau annonce la date d'accès
+ok   changer d'offre n'est plus proposé
+ok   le serveur refuse aussi le changement pendant l'arrêt (409)
+ok   les agents restent ouverts jusqu'à la fin de la période
+ok   reprise enregistrée
+ok   fin de période dépassée : l'agent n'est plus ouvert
+ok   fin de période dépassée : l'API de l'audit refuse (403)
+ok   fin de période dépassée : le tableau de bord ramène au paiement
+ok   réglementée : pas d'offre à 4 agents
+ok   réglementée : l'agent Comm n'est pas proposé
+ok   réglementée : le serveur refuse l'agent Comm (400)
+ok   320 px : aucun débordement horizontal
+ok   320 px : confirmation d'arrêt sans débordement
+
+Tout est conforme.

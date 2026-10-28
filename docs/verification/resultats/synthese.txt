@@ -14,3 +14,4 @@ retours                      code 0  5 contrôles, 5 conformes, 0 écart(s).
 rapides                      code 0  7 contrôles, 7 conformes, 0 écart(s).
 prereponse                   code 0  Tout est conforme.
 autre                        code 0  168 vérifications, 0 échec(s).
+compte                       code 0  Tout est conforme.

@@ -1,0 +1,16 @@
+conforme  P-01  Inscription · un envoi vide explique ce qui manque
+conforme  P-02  Inscription · un double clic ne crée qu'un compte et mène au métier
+conforme  P-03  Inscription · la même adresse (en majuscules) est reconnue et l'écran le dit
+conforme  M-01  Métier · « electricien » propose Électricien
+conforme  M-01  Métier · « électricienne » propose Électricien
+conforme  M-01  Métier · « coiffeuse » propose Coiffeur
+conforme  M-01  Métier · « garagiste » propose Garage
+conforme  M-01  Métier · « plombier chauffagiste » propose Plombier
+conforme  M-01  Métier · « boulangerie » propose Boulanger
+conforme  M-01  Métier · « infirmière » propose Infirmier
+conforme  M-01  Métier · « resto » propose Restaurant
+conforme  P-04  Paiement · après le paiement (démonstration), le dossier d'entreprise s'ouvre
+conforme  D-01  Dossier · « 60k » est refusé avec une explication, ou lu tel que le dirigeant l'entend
+conforme  D-01  Dossier · « -5000 » est refusé avec une explication, ou lu tel que le dirigeant l'entend
+conforme  D-01  Dossier · « 1.250,75 » est refusé avec une explication, ou lu tel que le dirigeant l'entend
+conforme  D-01  Dossier · « -5000 » : Continuer explique que le chiffre d'affaires ne peut pas être négatif
