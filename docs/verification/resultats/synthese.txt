@@ -17,3 +17,4 @@ objectifs                    code 0  50 contrôles, 50 conformes, 0 écart(s).
 listes                       code 0  17 contrôles, 17 conformes, 0 écart(s).
 prereponse                   code 0  Tout est conforme.
 autre                        code 0  168 vérifications, 0 échec(s).
+compte                       code 0  Tout est conforme.
