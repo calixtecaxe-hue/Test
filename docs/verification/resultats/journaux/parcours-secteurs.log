@@ -4,3 +4,25 @@ To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 
 == Agence immobilière · Transaction (b2b, seul, agents : ACQ FIN RH_ COM)
+
+== Agence de voyage · Particuliers (b2b, equipe_2_5, agents : ACQ FIN RH_ COM)
+
+== Hôtel · Hébergement (chambres) (location, structure_6_plus, agents : ACQ FIN RH_ COM)
+
+== Traiteur · Boutique et plats à emporter (restaurant, seul, agents : ACQ FIN RH_ COM)
+
+== Paysagiste · Création (chantier, equipe_2_5, agents : ACQ FIN RH_ COM)
+
+== Électricien (chantier, structure_6_plus, agents : ACQ FIN RH_ COM)
+
+== Fleuriste · Boutique (commerce, seul, agents : ACQ FIN RH_ COM)
+
+== Boulanger-pâtissier (commerce, equipe_2_5, agents : ACQ FIN RH_ COM)
+
+== Communication et marketing · Projets ponctuels (b2b, structure_6_plus, agents : ACQ FIN RH_)
+
+== Numérique et tech · ESN et régie de consultants (b2b, seul, agents : ACQ FIN RH_ COM)
+
+== Coach · Sportif (rdv, equipe_2_5, agents : ACQ FIN RH_ COM)
+
+== Photographe · Particuliers, mariages et portraits (rdv, structure_6_plus, agents : ACQ FIN RH_ COM)
