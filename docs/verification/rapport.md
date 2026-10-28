@@ -16,7 +16,7 @@ Les chiffres de ce rapport sont recalculés par `node scripts/verification/chiff
 ## 1. Chiffres
 
 <!-- CHIFFRES : section écrite par node scripts/verification/chiffres.mjs -->
-Calculés le 2026-10-27 à 23:47 UTC.
+Calculés le 2026-10-28 à 01:15 UTC.
 
 | Mesure | Nombre | Écart expliqué |
 |---|---|---|
@@ -24,33 +24,68 @@ Calculés le 2026-10-27 à 23:47 UTC.
 | Questions relues | 561 | Toutes. 26 corrigées (texte, aide, choix ou règle), 2 à arbitrer (section 5). |
 | Contrôle automatique du texte (période, bornes, ton, choix) | 551 sans constat | 5 montants sans période écrite, vérifiés un par un (la base est dans la question). 0 constat ouvert. |
 | Questions atteignables par le vrai moteur d'assemblage | 541 sur 556 | 15 questions COM-57 : posées à la première création de contenu, jamais pendant l'audit, par conception. |
-| Questions affichées et manipulées dans le navigateur | 93 | Les autres questions atteignables sont vérifiées par le moteur d'assemblage sur des réponses simulées, pas à l'écran. Les contrôles navigateur utilisent un compte par règle ou par agent (électricien pour les boutons). |
+| Questions affichées et manipulées dans le navigateur | 470 | Les autres questions atteignables sont vérifiées par le moteur d'assemblage sur des réponses simulées, pas à l'écran. Les contrôles navigateur utilisent un compte par règle ou par agent (électricien pour les boutons). |
 | Liens de dépendance recensés | 1 088 | Dont 470 liens de calcul (croisements, scénarios), non exécutables tant que leurs formules sont en texte libre. Les autres liens portent sur l'affichage, les lignes, les données partagées et les pré-réponses. |
 | Règles d'affichage | 95 | 79 conditions et 16 masquages. Elles portent les 286 liens « condition » et les 94 liens « masquage ». |
-| Règles jouées dans le navigateur, dans les deux sens | 29 | 4 hors plan : « Pas posée si les agents Acquisition et Comm sont faits : calculée » (toujours posée, pas une dépendance) ; « D30 · avant la première création de contenu » (jamais pendant l'audit) ; « Vente immédiate (commerce) » (à préciser : aucune réponse ne la déclenche) ; « Sans travaux en cours » (à préciser : aucune réponse ne la déclenche). 62 règle(s) du plan non encore jouée(s). |
-| Règles entièrement conformes | 29 | Aucun écart. Aucune règle bloquée. |
-| Contrôles navigateur de la vérification (canaux, règles, résultats, séparation, départs de page, changements rapides) | 190 | 190 conformes, 0 écart(s), 0 bloqué(s). |
+| Règles jouées dans le navigateur, dans les deux sens | 91 | 4 hors plan : « Pas posée si les agents Acquisition et Comm sont faits : calculée » (toujours posée, pas une dépendance) ; « D30 · avant la première création de contenu » (jamais pendant l'audit) ; « Vente immédiate (commerce) » (à préciser : aucune réponse ne la déclenche) ; « Sans travaux en cours » (à préciser : aucune réponse ne la déclenche). |
+| Règles entièrement conformes | 91 | Aucun écart. Aucune règle bloquée. |
+| Contrôles navigateur de la vérification (canaux, règles, résultats, séparation, départs de page, changements rapides) | 554 | 554 conformes, 0 écart(s), 0 bloqué(s). |
 
 Contrôles navigateur de la vérification, par script :
 
 | Script | Contrôles | Conformes | Écarts | Bloqués |
 |---|---|---|---|---|
 | `canaux` | 26 | 26 | aucun | aucun |
-| `dependances` | 164 | 164 | aucun | aucun |
+| `resultats` | 11 | 11 | aucun | aucun |
+| `separation` | 9 | 9 | aucun | aucun |
+| `retours` | 5 | 5 | aucun | aucun |
+| `rapides` | 7 | 7 | aucun | aucun |
+| `dependances` | 496 | 496 | aucun | aucun |
 
 Dernière exécution complète (`resultats/synthese.txt`), un contrôle par ligne :
 
 | Contrôle | Résultat | Dernière ligne du journal |
 |---|---|---|
+| `canaux` | réussi | compte de test : verif.1793144535127.30889@example.com |
+| `dependances` | réussi | 91 règles jouées, 496 contrôles : 496 conformes, 0 écart(s), 0 bloqué(s). |
 | `typescript` | réussi |  |
 | `lint` | réussi |  |
-| `tests-unitaires` | réussi | # duration_ms 13001.036938 |
+| `tests-unitaires` | réussi | # duration_ms 20655.137388 |
 | `controle-donnees` | réussi | Contrôle réussi : aucune erreur. |
 | `balayage-secteurs` | réussi | POINTS D'ATTENTION : 0 |
 | `inventaire` | réussi | scénario (calcul) : 31 |
 | `plan-dependances` | réussi | M-092 Ne publie pas (parcours mise en place) : des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage) → COM-10.03, COM-10.04, COM-10.05 |
-| `canaux` | réussi | compte de test : verif.1793144535127.30889@example.com |
+| `resultats` | réussi | 11 contrôles, 11 conformes, 0 écart(s). |
+| `separation` | réussi | 9 contrôles, 9 conformes, 0 écart(s). |
+| `retours` | réussi | 5 contrôles, 5 conformes, 0 écart(s). |
+| `rapides` | réussi | 7 contrôles, 7 conformes, 0 écart(s). |
+| `prereponse` | réussi | Tout est conforme. |
+| `autre` | réussi | 168 vérifications, 0 échec(s). |
+| `compte` | réussi | Tout est conforme. |
+| `audit-client` | **code 1** | 38 contrôles, 37 conformes, 1 écart(s) : R-01. |
+| `boutons-pages` | réussi | 156 vérifications, 0 échec(s). |
+| `complementaire` | réussi | Erreurs : 0 · points d'attention : 0 |
+| `captures` | réussi | 7 captures écrites dans docs/verification/captures |
+| `parcours-secteurs` | réussi | Erreurs : 0 · points d'attention : 0 |
+| `boutons-acq` | réussi | 656 vérifications, 0 échec(s). |
+| `boutons-fin` | réussi | 398 vérifications, 0 échec(s). |
+| `boutons-rh` | réussi | 716 vérifications, 0 échec(s). |
+| `boutons-com` | **code 1** | 749 vérifications, 1 échec(s). |
 <!-- /CHIFFRES -->
+
+**Exécution finale.** Lancée le 27 octobre à 23 h 58 UTC, terminée le 28 octobre à 1 h 15 UTC. Le conteneur de travail a redémarré
+pendant une première exécution complète. `canaux` et `dependances` reprennent donc leurs résultats de cette première exécution
+(27 octobre, 23 h 42 et 23 h 55 UTC). Elle tournait sur la construction précédente, qui ne diffère de la construction finale que par
+la page 404 : aucun code du questionnaire n'a changé entre les deux. Tous les autres contrôles ont été rejoués sur la construction finale.
+
+Lecture des contrôles sortis en code 1 :
+
+- `audit-client` : un seul écart, R-01 (compte rendu sans priorités ni plan). C'est normal tant que vous concevez le compte rendu
+  (section 4). Q-03 et L-03, en écart avant cette vérification, sont maintenant conformes (corrections m3 et m7).
+- `boutons-com` : 1 échec sur 749, COM-12.01. Cause : l'outil de test ne remplissait que la première colonne à 100 %. Depuis la
+  correction M4, chacune des trois colonnes doit faire 100 % : la saisie restait donc en brouillon, ce qui est le comportement voulu
+  du produit. L'outil remplit maintenant toutes les colonnes soumises au total (`remplirTableau` lit `total.colonnes`), sans changer
+  l'assertion. Relance du contrôle Comm en cours.
 
 ---
 

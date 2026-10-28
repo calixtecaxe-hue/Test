@@ -1,5 +1,5 @@
 {
- "calculeLe": "2026-10-27T23:47:01.879Z",
+ "calculeLe": "2026-10-28T01:15:37.378Z",
  "questions": {
   "recensees": 561,
   "posables": 556,
@@ -28,8 +28,8 @@
    "COM-57.15 : condition sur D30 (« avant la première création de contenu ») : posée à la première création de contenu, jamais pendant l'audit",
    "COM-57.16 : condition sur D30 (« avant la première création de contenu ») : posée à la première création de contenu, jamais pendant l'audit"
   ],
-  "affichees_et_testees_navigateur": 93,
-  "dont_exercees_par_controle_boutons": 0
+  "affichees_et_testees_navigateur": 470,
+  "dont_exercees_par_controle_boutons": 321
  },
  "dependances": {
   "liens_recenses": 1088,
@@ -51,11 +51,11 @@
    "Pas posée si les agents Acquisition et Comm sont faits : calculée",
    "D30 · avant la première création de contenu"
   ],
-  "regles_jouees_navigateur": 29,
-  "regles_entierement_conformes": 29,
+  "regles_jouees_navigateur": 91,
+  "regles_entierement_conformes": 91,
   "regles_avec_ecart": [],
   "regles_bloquees": [],
-  "questions_cibles_des_regles_jouees": 109,
+  "questions_cibles_des_regles_jouees": 323,
   "regles_affichage": {
    "conditions": 79,
    "masquages": 16
@@ -67,21 +67,58 @@
    "conformes": 26,
    "ecarts": []
   },
+  "resultats": {
+   "controles": 11,
+   "conformes": 11,
+   "ecarts": []
+  },
+  "separation": {
+   "controles": 9,
+   "conformes": 9,
+   "ecarts": []
+  },
+  "retours": {
+   "controles": 5,
+   "conformes": 5,
+   "ecarts": []
+  },
+  "rapides": {
+   "controles": 7,
+   "conformes": 7,
+   "ecarts": []
+  },
   "dependances": {
-   "controles": 164,
-   "conformes": 164,
+   "controles": 496,
+   "conformes": 496,
    "ecarts": [],
    "bloques": []
   },
   "synthese_des_contrôles": [
+   "canaux                       code 0  compte de test : verif.1793144535127.30889@example.com",
+   "dependances                  code 0  91 règles jouées, 496 contrôles : 496 conformes, 0 écart(s), 0 bloqué(s).",
    "typescript                   code 0  ",
    "lint                         code 0  ",
-   "tests-unitaires              code 0  # duration_ms 13001.036938",
+   "tests-unitaires              code 0  # duration_ms 20655.137388",
    "controle-donnees             code 0  Contrôle réussi : aucune erreur.",
    "balayage-secteurs            code 0  POINTS D'ATTENTION : 0",
    "inventaire                   code 0    scénario (calcul) : 31",
    "plan-dependances             code 0    M-092 Ne publie pas (parcours mise en place) : des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage) → COM-10.03, COM-10.04, COM-10.05",
-   "canaux                       code 0  compte de test : verif.1793144535127.30889@example.com"
+   "resultats                    code 0  11 contrôles, 11 conformes, 0 écart(s).",
+   "separation                   code 0  9 contrôles, 9 conformes, 0 écart(s).",
+   "retours                      code 0  5 contrôles, 5 conformes, 0 écart(s).",
+   "rapides                      code 0  7 contrôles, 7 conformes, 0 écart(s).",
+   "prereponse                   code 0  Tout est conforme.",
+   "autre                        code 0  168 vérifications, 0 échec(s).",
+   "compte                       code 0  Tout est conforme.",
+   "audit-client                 code 1  38 contrôles, 37 conformes, 1 écart(s) : R-01.",
+   "boutons-pages                code 0  156 vérifications, 0 échec(s).",
+   "complementaire               code 0  Erreurs : 0 · points d'attention : 0",
+   "captures                     code 0  7 captures écrites dans docs/verification/captures",
+   "parcours-secteurs            code 0  Erreurs : 0 · points d'attention : 0",
+   "boutons-acq                  code 0  656 vérifications, 0 échec(s).",
+   "boutons-fin                  code 0  398 vérifications, 0 échec(s).",
+   "boutons-rh                   code 0  716 vérifications, 0 échec(s).",
+   "boutons-com                  code 1  749 vérifications, 1 échec(s)."
   ]
  }
 }

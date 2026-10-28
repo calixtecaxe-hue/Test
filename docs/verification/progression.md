@@ -25,4 +25,9 @@ code**, ce qui a été **simulé** (réponses fabriquées passées au vrai code)
    par une modification faite pendant l'exécution, un par une réponse de départ refusée ; corrigés et rejoués : 40 contrôles conformes).
 6. Captures : elles ont révélé le message d'erreur avec l'identifiant technique de la ligne (m4, corrigé) et la note du brouillon (m6).
 7. Contrôles ajoutés : résultats (11), séparation (9), départs de page (5), changements rapides (7). Page 404 en français (m7).
-8. Exécution complète finale : `bash scripts/verification/tout.sh`, synthèse dans `resultats/synthese.txt`.
+8. Exécution complète finale : `bash scripts/verification/tout.sh`, synthèse dans `resultats/synthese.txt`. Le conteneur a redémarré
+   pendant une première exécution : reprise avec `SAUTER="canaux dependances"` (27 octobre 23 h 58 → 28 octobre 1 h 15 UTC). Résultat :
+   tous les contrôles en code 0, sauf `audit-client` (R-01, normal) et `boutons-com` (1 échec sur 749, COM-12.01). Cause de ce dernier :
+   l'outil de test ne remplissait que la première colonne à 100 % alors que les trois colonnes de COM-12.01 doivent faire 100 % (M4) ;
+   la saisie restait en brouillon, comme prévu par le produit. Outil corrigé (`remplirTableau` lit `total.colonnes`), assertion inchangée,
+   contrôle Comm relancé seul.

@@ -106,8 +106,11 @@ async function remplirTableau(carte, marque = "1") {
   const lignes = carte.locator("tbody tr");
   const n = await lignes.count();
   // Colonnes de la banque : une valeur de remplacement (marque) reste dans les bornes de sa colonne.
-  const colonnes = BANQUE[await carte.getAttribute("data-question")]?.colonnes ?? [];
-  let colTotal = null;
+  const rep = BANQUE[await carte.getAttribute("data-question")];
+  const colonnes = rep?.colonnes ?? [];
+  // Colonnes soumises au total : toutes celles de `total.colonnes` (COM-12.01 : chaque colonne fait 100 %), sinon la seule `total.colonne`.
+  const idsTotal = rep?.total ? (rep.total.colonnes ?? [rep.total.colonne]) : [];
+  const estTotal = (j) => (idsTotal.length ? idsTotal.includes(colonnes[j]?.id) : j === 0);
   for (let i = 0; i < n; i++) {
     const cellules = lignes.nth(i).locator("td");
     const m = await cellules.count();
@@ -130,9 +133,8 @@ async function remplirTableau(carte, marque = "1") {
       if (type === "month") { await champ.fill("2020-01"); continue; }
       const spec = colonnes[j]?.spec;
       const borne = spec?.type === "nombre" && spec.max !== undefined && Number(marque) > spec.max ? valeurDans(spec) : marque;
-      const valeur = cible !== null ? (i === 0 && colTotal === null ? String(cible) : "0") : borne;
+      const valeur = cible !== null ? (i === 0 && estTotal(j) ? String(cible) : "0") : borne;
       await champ.fill(valeur);
-      if (cible !== null && i === 0) colTotal = j;
     }
     // Nom de ligne libre.
     const nom = lignes.nth(i).locator("th input");

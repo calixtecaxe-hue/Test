@@ -19,3 +19,9 @@ audit-client                 code 1  38 contrôles, 37 conformes, 1 écart(s) : 
 boutons-pages                code 0  156 vérifications, 0 échec(s).
 complementaire               code 0  Erreurs : 0 · points d'attention : 0
 captures                     code 0  7 captures écrites dans docs/verification/captures
+parcours-secteurs            code 0  Erreurs : 0 · points d'attention : 0
+boutons-acq                  code 0  656 vérifications, 0 échec(s).
+boutons-fin                  code 0  398 vérifications, 0 échec(s).
+boutons-rh                   code 0  716 vérifications, 0 échec(s).
+boutons-com                  code 1  749 vérifications, 1 échec(s).
+fin 01:15Z
