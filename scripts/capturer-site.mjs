@@ -1022,10 +1022,18 @@ const SCRIPT_PARCOURS = String.raw`
     var ajout=[].slice.call(srcListe.querySelectorAll('button')).filter(function(b){ return b.textContent.trim()==='Ajouter un élément'; })[0];
     if (ajout) ajout.addEventListener('click', function(){
       var champs=champsListe(); if (champs.length>=4) { ajout.style.display='none'; return; }
-      var groupe=champs[champs.length-1].parentElement; var neuf=groupe.cloneNode(true);
+      var groupe=champs[champs.length-1].closest('.champ-groupe'); var neuf=groupe.cloneNode(true);
       var champ=neuf.querySelector('input'); champ.value=''; champ.placeholder='Élément '+(champs.length+1);
       groupe.insertAdjacentElement('afterend', neuf); champ.focus();
       if (champs.length+1>=4) ajout.style.display='none';
+    });
+    // « Retirer » : l'élément disparaît (le dernier champ est seulement vidé), et les tableaux suivent.
+    srcListe.addEventListener('click', function(e){
+      var b=e.target.closest('button'); if (!b || b.textContent.trim()!=='Retirer') return;
+      var groupe=b.closest('.champ-groupe'); var champs=champsListe();
+      if (champs.length>1) groupe.remove(); else groupe.querySelector('input').value='';
+      if (ajout) ajout.style.display='';
+      synchroTableaux();
     });
   }
 })();`;

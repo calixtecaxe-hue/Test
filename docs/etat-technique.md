@@ -203,6 +203,9 @@ Chiffres au 28 octobre 2026.
   (`validerReponse`).
 - `lireNombre` (`src/lib/audit/nombre.ts`) accepte le symbole final (« 50 % », « 1 200 € »). Texte libre : 8 000 caractères (COM-44.04).
 - Option exclusive : `optionsExclusives` (écran et serveur).
+- Liste (`liste`) : bouton « Retirer » sur chaque élément (`.ligne-retirer`, comme les lignes d'un tableau), le dernier champ est
+  vidé ; le curseur va au champ ajouté ou à celui qui prend la place de l'élément retiré. Les identifiants des éléments viennent
+  de leur texte (`idsDeListe`) : retirer un élément ne décale pas les lignes des tableaux qui en dépendent.
 - Renvoi après coupure réseau : `src/app/(espace)/audit/[slug]/enregistrer.ts`. La réponse est gardée dans la page avec le message « Pas de connexion… », repart
   seule au retour du réseau et à intervalles, dans l'ordre ; le navigateur prévient si l'on ferme la page avant l'envoi.
 - Confirmation : « Réponse enregistrée » avec une coche (`.etat-enregistre`, `role="status"`), affichée aussi en quittant un champ.
@@ -367,6 +370,7 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 | `node scripts/controle-boutons.mjs [--agents ACQ,FIN,RH,COM] [--apercu <dossier>]` | Chaque question : chiffre exact, estimation, « je ne sais pas », « je ne suis pas cette donnée », « Effacer ma réponse », cases, choix, listes, tableaux, texte, mois, cartes partagées, mise à jour des questions suivantes, rechargement ; sur l'application ou l'aperçu |
 | `node scripts/controle-boutons-pages.mjs` | Écrans d'un agent : objectif, niveau, étapes, changement d'objectif, résultats, tableau de bord, jour / nuit, déconnexion |
 | `node scripts/controle-autre.mjs` | Chaque « Autre » : activités des 16 métiers à plusieurs activités, « Définir mon propre objectif » de RH et Comm dans chaque partie, options « Autre » des questions ; relit la base |
+| `node scripts/verification/listes.mjs [--sortie dossier]` | Listes « Ajouter un élément » (17 contrôles, ACQ-01.01) : retirer un champ vide ou un élément enregistré, réponse en base, lignes du tableau qui en dépend, actualisation, clavier, dernier élément, limite de 4, téléphone 360 px ; captures dans `docs/verification/captures-listes` |
 | `node scripts/verification/objectifs.mjs [--sortie dossier]` | Choix de l'objectif RH et Comm (50 contrôles) : propositions et objectif personnel, un seul mode actif, brouillon gardé, saisie vide, enregistrement et origine, actualisation, reconnexion, retour, modification, compte rendu, plusieurs objectifs, clavier, dirigeant seul, téléphone ; captures dans `docs/objectifs/captures` |
 | `node scripts/controle-compte.mjs` | Page « Mon compte » |
 | `node scripts/controle-prereponse.mjs` | Total pré-rempli de FIN-05.02 |

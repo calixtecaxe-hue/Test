@@ -354,6 +354,8 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
 - **Bornes (28 octobre)** : tout nombre a un minimum et toute part en % a des bornes. Seuls le résultat de l'année (FIN-05.04) et la
   trésorerie (FIN-11.01) peuvent être négatifs.
 - Un message d'erreur nomme la ligne d'un tableau comme l'écran, jamais par un identifiant technique.
+- **Listes (« Ajouter un élément », 28 octobre)** : chaque élément a un bouton « Retirer », pour enlever un élément ajouté par
+  erreur. Le dernier champ n'est pas retiré, il est vidé. Les tableaux dont les lignes viennent de la liste perdent la ligne.
 
 ### Données partagées et périodes
 

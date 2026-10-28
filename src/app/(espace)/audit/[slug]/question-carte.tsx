@@ -221,16 +221,41 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
     case "liste": {
       const elements = saisie.liste && saisie.liste.length > 0 ? saisie.liste : [""];
       const maj = (i: number, v: string) => surSaisie({ ...saisie, liste: elements.map((x, k) => (k === i ? v : x)) });
+      // Le champ visé reçoit le focus une fois la liste redessinée (clavier : on ne se retrouve pas en haut de la page).
+      const viser = (i: number) => requestAnimationFrame(() => document.getElementById(`${id}-el${i}`)?.focus());
+      // Retirer un élément l'enlève de la réponse ; les tableaux dont les lignes en viennent perdent cette ligne. Le dernier champ
+      // n'est pas retiré, il est vidé.
+      const retirerElement = (i: number) => {
+        const reste = elements.filter((_, k) => k !== i);
+        surSaisie({ ...saisie, liste: reste.length > 0 ? reste : [""] });
+        viser(Math.min(i, Math.max(reste.length - 1, 0)));
+      };
       return (
         <div className="mt-3 flex flex-col gap-2">
           {elements.map((el, i) => (
             <div key={i} className="champ-groupe">
               <label htmlFor={`${id}-el${i}`} className="sr-only">Élément {i + 1}</label>
-              <input id={`${id}-el${i}`} type="text" value={el} maxLength={80} placeholder={`Élément ${i + 1}`} onChange={(e) => maj(i, e.target.value)} onBlur={vider} className="champ-saisie" />
+              <div className="flex items-center gap-3">
+                <input id={`${id}-el${i}`} type="text" value={el} maxLength={80} placeholder={`Élément ${i + 1}`} onChange={(e) => maj(i, e.target.value)} onBlur={vider} className="champ-saisie min-w-0 flex-1" />
+                {elements.length > 1 || el.trim() !== "" ? (
+                  <button type="button" className="ligne-retirer shrink-0" aria-label={el.trim() ? `Retirer « ${el.trim()} »` : `Retirer l'élément ${i + 1}`} onClick={() => retirerElement(i)}>
+                    Retirer
+                  </button>
+                ) : null}
+              </div>
             </div>
           ))}
           {elements.length < spec.max ? (
-            <button type="button" onClick={() => setSaisie({ ...saisie, liste: [...elements, ""] })} className="audit-lien w-fit text-sm text-[var(--blue-1)] hover:underline">Ajouter un élément</button>
+            <button
+              type="button"
+              onClick={() => {
+                setSaisie({ ...saisie, liste: [...elements, ""] });
+                viser(elements.length);
+              }}
+              className="audit-lien w-fit text-sm text-[var(--blue-1)] hover:underline"
+            >
+              Ajouter un élément
+            </button>
           ) : (
             <p className="champ-aide">{spec.max} éléments au plus.</p>
           )}

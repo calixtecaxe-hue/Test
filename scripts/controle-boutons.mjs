@@ -351,6 +351,14 @@ async function exercer(page, agent, T, code, completPour) {
     await pause(page, 900);
     const r = await T.ligne(code);
     verifier(agent, code, "liste : deux éléments enregistrés", /Catégorie A/.test(r) && /Catégorie B/.test(r), r);
+    // Un élément ajouté par erreur se retire : la réponse enregistrée ne le garde pas, un champ vide ajouté disparaît.
+    await carte.getByRole("button", { name: "Retirer « Catégorie B »" }).click();
+    await pause(page, 900);
+    const r2 = await T.ligne(code);
+    verifier(agent, code, "liste : « Retirer » enlève l'élément enregistré", /Catégorie A/.test(r2) && !/Catégorie B/.test(r2) && (await carte.locator('input[type="text"]').count()) === 1, r2);
+    await liste.click();
+    await carte.getByRole("button", { name: "Retirer l'élément 2" }).click();
+    verifier(agent, code, "liste : « Retirer » enlève un champ vide ajouté par erreur", (await carte.locator('input[type="text"]').count()) === 1);
   } else if (await tableau.count()) {
     type = "tableau";
     complet = completPour(type);
