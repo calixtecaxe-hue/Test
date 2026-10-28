@@ -64,8 +64,8 @@ prompts des agents, qui concernent les clients et leurs entreprises.
 2. **Vidéo d'accueil retouchée** : fin « Commencer mon audit » et offre fondateur au lieu de « Recevoir un accès prioritaire », mention
    « exemple fictif » sur les gains affichés, prix à la fin.
 3. **Page d'accueil (trois changements validés par le propriétaire le 28 octobre)** : un bouton vers la page de vente ; « Venez les
-   essayer » remplacé, puisqu'il n'y a pas d'essai gratuit (**texte de remplacement à fournir par le propriétaire**) ; « Nous faisons
-   régulièrement le point » remplacé par « CAXE fait le point ».
+   essayer » remplacé, puisqu'il n'y a pas d'essai gratuit (texte fixé par le propriétaire au moment de créer la page de vente) ; «
+   Nous faisons régulièrement le point » remplacé par « CAXE fait le point ».
 4. **Résiliation affichée clairement** sur les offres et au paiement (D10).
 5. **Offre fondateur** (D3) et, à partir de J+30, **parrainage** : un mois offert au parrain et au filleul pour chaque nouvel abonnement
    payé.
@@ -706,7 +706,8 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 - Mots du vocabulaire « consultation » des professions de santé.
 - Clé `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt).
 - Correction du document de règles : prix du palier 4 à 99,99 €.
-- Texte qui remplace « Venez les essayer » sur la page d'accueil.
+- Texte qui remplace « Venez les essayer » sur la page d'accueil : le propriétaire le fixera au moment de créer la page de vente, avec
+  les trois changements de l'accueil (ne pas le redemander d'ici là).
 - `CAXE_Questionnaire_Grille_Pilote.xlsx` et le classeur des thèmes, s'ils doivent vivre dans le dépôt.
 
 <!-- BEGIN:nextjs-agent-rules -->
