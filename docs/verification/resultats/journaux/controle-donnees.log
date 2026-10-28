@@ -4,10 +4,10 @@ Statistiques
   thèmes Finance : 48
   thèmes RH : 49
   thèmes Comm : 63
-  données : 932
-  données demandées : 556
-  questions écrites : 556
-  données posées dont la réponse se déduit du format : 556
+  données : 937
+  données demandées : 561
+  questions écrites : 561
+  données posées dont la réponse se déduit du format : 561
   données posées dont la réponse reste à définir dans la banque : 0
   questions manquantes : 0
   croisements : 157
@@ -20,12 +20,12 @@ Statistiques
   métiers avec agent Comm à trancher : 13
   seuils : 0
   thèmes notés sans seuil : 170
-  thèmes notés avec moins de 2 questions : 69
+  thèmes notés avec moins de 2 questions : 68
   thèmes avec recherche de référence : 21
   effets d'actions au catalogue : 6
   indicateurs de référence en brouillon : 0
 
-90 avertissement(s) (15 premiers, --tout pour la liste complète)
+89 avertissement(s) (15 premiers, --tout pour la liste complète)
   - L'activité consultant/conseil-juridique : profil d'entreprise non précisé par le document : rapproché d'avocat (B2B).
   - Le métier commissaire-de-justice : profil d'entreprise non précisé par le document : rapproché d'avocat et de notaire.
   - Le métier commissaire-aux-comptes : profil d'entreprise non précisé par le document : rapproché d'expert-comptable (mission) ; à confirmer.
@@ -43,7 +43,7 @@ Statistiques
   - 13 métier(s) ou activité(s) ont l'agent Comm « à trancher » : l'agent reste proposé tant que la décision est ouverte.
 
 Contrôle réussi : aucune erreur.
-(node:1062) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+(node:7611) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)

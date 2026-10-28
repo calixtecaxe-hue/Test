@@ -1,12 +1,12 @@
-100/561
-200/561
-300/561
-400/561
-500/561
-Questions recensées : 561
-  posables : 556 · avec texte de la banque : 556
+100/566
+200/566
+300/566
+400/566
+500/566
+Questions recensées : 566
+  posables : 561 · avec texte de la banque : 561
   retirées : 0 · en attente : 5 · non posées : 0
-  atteignables (témoin trouvé) : 541 · NON atteignables : 15
+  atteignables (témoin trouvé) : 546 · NON atteignables : 15
     COM-57.01 : condition sur D30 (« avant la première création de contenu ») : posée à la première création de contenu, jamais pendant l'audit
     COM-57.02 : condition sur D30 (« avant la première création de contenu ») : posée à la première création de contenu, jamais pendant l'audit
     COM-57.03 : condition sur D30 (« avant la première création de contenu ») : posée à la première création de contenu, jamais pendant l'audit
@@ -22,11 +22,11 @@ Questions recensées : 561
     COM-57.14 : condition sur D30 (« avant la première création de contenu ») : posée à la première création de contenu, jamais pendant l'audit
     COM-57.15 : condition sur D30 (« avant la première création de contenu ») : posée à la première création de contenu, jamais pendant l'audit
     COM-57.16 : condition sur D30 (« avant la première création de contenu ») : posée à la première création de contenu, jamais pendant l'audit
-Dépendances recensées : 1088
+Dépendances recensées : 1101
   lignes du tableau : 29
-  ancienneté : 15
-  condition d'affichage : 286
-  donnée partagée : 34
+  ancienneté : 25
+  condition d'affichage : 287
+  donnée partagée : 36
   taille : 128
   masquage du thème : 94
   tableau lié : 26
@@ -34,7 +34,7 @@ Dépendances recensées : 1088
   pré-réponse (total) : 5
   croisement (calcul) : 439
   scénario (calcul) : 31
-(node:1256) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/audit/assemblage.ts is not specified and it doesn't parse as CommonJS.
+(node:7856) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/audit/assemblage.ts is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)

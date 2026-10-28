@@ -3,2248 +3,2312 @@
 > node --test tests/*.test.mts
 
 TAP version 13
-# (node:768) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7354) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: paliers et prix : 2, 3 et 4 agents à 59,99 / 79,99 / 99,99 € HT, pas d'offre à 1 agent
 ok 1 - paliers et prix : 2, 3 et 4 agents à 59,99 / 79,99 / 99,99 € HT, pas d'offre à 1 agent
   ---
-  duration_ms: 2.226675
+  duration_ms: 3.047371
   type: 'test'
   ...
 # Subtest: annuel : le prix par mois affiché est celui de la remise, et comparé au prix mensuel
 ok 2 - annuel : le prix par mois affiché est celui de la remise, et comparé au prix mensuel
   ---
-  duration_ms: 235.290196
+  duration_ms: 28.577584
   type: 'test'
   ...
 # Subtest: un compte ordinaire peut souscrire 2, 3 ou 4 agents, tous proposés
 ok 3 - un compte ordinaire peut souscrire 2, 3 ou 4 agents, tous proposés
   ---
-  duration_ms: 0.343026
+  duration_ms: 0.402412
   type: 'test'
   ...
 # Subtest: profession réglementée : pas d'agent Comm, 3 agents au maximum
 ok 4 - profession réglementée : pas d'agent Comm, 3 agents au maximum
   ---
-  duration_ms: 0.146018
+  duration_ms: 0.167922
   type: 'test'
   ...
 # Subtest: un choix correct est accepté, sans doublon
 ok 5 - un choix correct est accepté, sans doublon
   ---
-  duration_ms: 0.395426
+  duration_ms: 0.442209
   type: 'test'
   ...
 # Subtest: aucun agent n'est coché d'avance : un choix vide ou incomplet est refusé
 ok 6 - aucun agent n'est coché d'avance : un choix vide ou incomplet est refusé
   ---
-  duration_ms: 0.184153
+  duration_ms: 0.251823
   type: 'test'
   ...
 # Subtest: refuse une formule à 1 agent, inconnue, une période ou un agent inconnus
 ok 7 - refuse une formule à 1 agent, inconnue, une période ou un agent inconnus
   ---
-  duration_ms: 0.139069
+  duration_ms: 0.249242
   type: 'test'
   ...
 # Subtest: profession réglementée : l'agent Comm et la formule à 4 agents sont refusés côté serveur
 ok 8 - profession réglementée : l'agent Comm et la formule à 4 agents sont refusés côté serveur
   ---
-  duration_ms: 0.273017
+  duration_ms: 0.299002
   type: 'test'
   ...
 # Subtest: un métier de la communication n'a pas l'agent Comm sans être une profession réglementée : 3 agents au plus
 ok 9 - un métier de la communication n'a pas l'agent Comm sans être une profession réglementée : 3 agents au plus
   ---
-  duration_ms: 0.529895
+  duration_ms: 0.645896
   type: 'test'
   ...
 # Subtest: une activité cochée sans agent Comm l'enlève pour tout le compte (règle la plus prudente)
 ok 10 - une activité cochée sans agent Comm l'enlève pour tout le compte (règle la plus prudente)
   ---
-  duration_ms: 0.557367
+  duration_ms: 0.955184
   type: 'test'
   ...
-# (node:769) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7355) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: un chiffre exact est utilisé tel quel, zéro compris
 ok 11 - un chiffre exact est utilisé tel quel, zéro compris
   ---
-  duration_ms: 2.750399
+  duration_ms: 2.496719
   type: 'test'
   ...
 # Subtest: une estimation prend le milieu de la fourchette, marqué « estimé »
 ok 12 - une estimation prend le milieu de la fourchette, marqué « estimé »
   ---
-  duration_ms: 0.155026
+  duration_ms: 0.199802
   type: 'test'
   ...
 # Subtest: « je ne sais pas », « je ne suis pas cette donnée » et une question sautée sont retirés du calcul, jamais zéro
 ok 13 - « je ne sais pas », « je ne suis pas cette donnée » et une question sautée sont retirés du calcul, jamais zéro
   ---
-  duration_ms: 0.199244
+  duration_ms: 0.279793
   type: 'test'
   ...
 # Subtest: 0, inconnu et non suivi sont trois réponses distinctes
 ok 14 - 0, inconnu et non suivi sont trois réponses distinctes
   ---
-  duration_ms: 0.186021
+  duration_ms: 0.17253
   type: 'test'
   ...
 # Subtest: seul « je ne sais pas » appelle une question de repli
 ok 15 - seul « je ne sais pas » appelle une question de repli
   ---
-  duration_ms: 0.229228
+  duration_ms: 0.192351
   type: 'test'
   ...
 # Subtest: une saisie vide ne compte pas comme une réponse
 ok 16 - une saisie vide ne compte pas comme une réponse
   ---
-  duration_ms: 0.126272
+  duration_ms: 0.121238
   type: 'test'
   ...
 # Subtest: le schéma refuse une fourchette inversée et un nombre invalide
 ok 17 - le schéma refuse une fourchette inversée et un nombre invalide
   ---
-  duration_ms: 1.356135
+  duration_ms: 1.358557
   type: 'test'
   ...
 # Subtest: les quatre réponses ne valent que pour un chiffre
 ok 18 - les quatre réponses ne valent que pour un chiffre
   ---
-  duration_ms: 0.533083
+  duration_ms: 0.452877
   type: 'test'
   ...
 # Subtest: un thème n'est noté qu'avec au moins 50 % de réponses ; inconnu et non suivi comptent pour rien
 ok 19 - un thème n'est noté qu'avec au moins 50 % de réponses ; inconnu et non suivi comptent pour rien
   ---
-  duration_ms: 0.438466
+  duration_ms: 0.606357
   type: 'test'
   ...
 # Subtest: au-delà d'un quart de données essentielles non suivies, un conseil de pilotage s'ajoute
 ok 20 - au-delà d'un quart de données essentielles non suivies, un conseil de pilotage s'ajoute
   ---
-  duration_ms: 0.533168
+  duration_ms: 0.510499
   type: 'test'
   ...
 # Subtest: l'exemple du document : « baisser le turnover de 5 % sur les 3 prochains mois »
 ok 21 - l'exemple du document : « baisser le turnover de 5 % sur les 3 prochains mois »
   ---
-  duration_ms: 116.060433
+  duration_ms: 14.760017
   type: 'test'
   ...
 # Subtest: l'objectif refuse un champ vide, un chiffre nul et un délai hors limites
 ok 22 - l'objectif refuse un champ vide, un chiffre nul et un délai hors limites
   ---
-  duration_ms: 0.957757
+  duration_ms: 27.167504
   type: 'test'
   ...
 # Subtest: l'échéance tombe le même jour, ou le dernier jour du mois s'il n'existe pas
 ok 23 - l'échéance tombe le même jour, ou le dernier jour du mois s'il n'existe pas
   ---
-  duration_ms: 0.499307
+  duration_ms: 0.582312
   type: 'test'
   ...
 # Subtest: ce que le dirigeant veut changer se rattache à un indicateur de l'agent, sinon rien
 ok 24 - ce que le dirigeant veut changer se rattache à un indicateur de l'agent, sinon rien
   ---
-  duration_ms: 0.825211
+  duration_ms: 0.893386
   type: 'test'
   ...
 # Subtest: un objectif enregistré garde la saisie, l'indicateur rattaché et l'échéance
 ok 25 - un objectif enregistré garde la saisie, l'indicateur rattaché et l'échéance
   ---
-  duration_ms: 0.432765
+  duration_ms: 0.436191
   type: 'test'
   ...
 # Subtest: l'effectif déclaré donne la taille du filtre
 ok 26 - l'effectif déclaré donne la taille du filtre
   ---
-  duration_ms: 0.098771
+  duration_ms: 0.12249
   type: 'test'
   ...
 # Subtest: une règle sans réponse au déclencheur reste en attente
 ok 27 - une règle sans réponse au déclencheur reste en attente
   ---
-  duration_ms: 0.518813
+  duration_ms: 0.446319
   type: 'test'
   ...
 # Subtest: l'investissement qui n'existe pas rend la question « en service » sans objet
 ok 28 - l'investissement qui n'existe pas rend la question « en service » sans objet
   ---
-  duration_ms: 0.202773
+  duration_ms: 0.163353
   type: 'test'
   ...
 # Subtest: une règle à préciser ne tranche pas
 ok 29 - une règle à préciser ne tranche pas
   ---
-  duration_ms: 0.083644
+  duration_ms: 0.076842
   type: 'test'
   ...
 # Subtest: sans réponse aux déclencheurs, l'assemblage demande d'abord ceux dont dépend le questionnaire
 ok 30 - sans réponse aux déclencheurs, l'assemblage demande d'abord ceux dont dépend le questionnaire
   ---
-  duration_ms: 9.819771
+  duration_ms: 20.814489
   type: 'test'
   ...
 # Subtest: répondre « non » à un déclencheur masque le thème, « oui » ouvre le bloc
 ok 31 - répondre « non » à un déclencheur masque le thème, « oui » ouvre le bloc
   ---
-  duration_ms: 12.25833
+  duration_ms: 10.350958
   type: 'test'
   ...
 # Subtest: seul, l'agent RH masque les thèmes d'équipe et ne pose aucune question salariés
 ok 32 - seul, l'agent RH masque les thèmes d'équipe et ne pose aucune question salariés
   ---
-  duration_ms: 12.399006
+  duration_ms: 13.482741
   type: 'test'
   ...
 # Subtest: « ne publie pas » masque les thèmes de performance Comm (ex. réseaux actifs)
 ok 33 - « ne publie pas » masque les thèmes de performance Comm (ex. réseaux actifs)
   ---
-  duration_ms: 6.168949
+  duration_ms: 7.198572
   type: 'test'
   ...
 # Subtest: COM-10.07 décide du masquage de son propre thème : sans réponse, elle est posée et le reste attend (pas d'impasse)
 ok 34 - COM-10.07 décide du masquage de son propre thème : sans réponse, elle est posée et le reste attend (pas d'impasse)
   ---
-  duration_ms: 6.505216
+  duration_ms: 5.05736
   type: 'test'
   ...
 # Subtest: une question d'un autre agent dont dépend le questionnaire est posée en préalable, une seule fois
 ok 35 - une question d'un autre agent dont dépend le questionnaire est posée en préalable, une seule fois
   ---
-  duration_ms: 15.969103
+  duration_ms: 12.729071
   type: 'test'
   ...
 # Subtest: un tableau dont les lignes viennent des jours d'ouverture fait poser la question des jours (D20 = ACQ-22.01), jamais un cadrage en double
 ok 36 - un tableau dont les lignes viennent des jours d'ouverture fait poser la question des jours (D20 = ACQ-22.01), jamais un cadrage en double
   ---
-  duration_ms: 6.427306
+  duration_ms: 7.764628
   type: 'test'
   ...
 # Subtest: l'offre d'appel se demande une seule fois (D25 = COM-21.01) : « Non, rien » masque la suite
 ok 37 - l'offre d'appel se demande une seule fois (D25 = COM-21.01) : « Non, rien » masque la suite
   ---
-  duration_ms: 12.382178
+  duration_ms: 14.387368
   type: 'test'
   ...
 # Subtest: le niveau approfondi pose plus de questions que le niveau essentiel
 ok 38 - le niveau approfondi pose plus de questions que le niveau essentiel
   ---
-  duration_ms: 11.406243
+  duration_ms: 13.12702
   type: 'test'
   ...
 # Subtest: aucune question n'est inventée : sans banque, les questions sont signalées manquantes
 ok 39 - aucune question n'est inventée : sans banque, les questions sont signalées manquantes
   ---
-  duration_ms: 1.891919
+  duration_ms: 2.236307
   type: 'test'
   ...
 # Subtest: la banque réelle : une question écrite n'est comptée écrite que si sa donnée est posée, les autres restent manquantes
 ok 40 - la banque réelle : une question écrite n'est comptée écrite que si sa donnée est posée, les autres restent manquantes
   ---
-  duration_ms: 3.944217
+  duration_ms: 2.835462
   type: 'test'
   ...
 # Subtest: une question écrite dans la banque prend les mots du métier
 ok 41 - une question écrite dans la banque prend les mots du métier
   ---
-  duration_ms: 18.113506
+  duration_ms: 15.404583
   type: 'test'
   ...
 # Subtest: une donnée partagée déjà posée par un autre agent n'est jamais redemandée
 ok 42 - une donnée partagée déjà posée par un autre agent n'est jamais redemandée
   ---
-  duration_ms: 4.918486
+  duration_ms: 3.514546
   type: 'test'
   ...
 # Subtest: un thème sans donnée pour ce profil n'apparaît pas
 ok 43 - un thème sans donnée pour ce profil n'apparaît pas
   ---
-  duration_ms: 3.683784
+  duration_ms: 4.891247
   type: 'test'
   ...
 # Subtest: le budget marketing et communication (FIN-05.02) est toujours posé, déjà rempli avec le total du détail donné aux autres agents
 ok 44 - le budget marketing et communication (FIN-05.02) est toujours posé, déjà rempli avec le total du détail donné aux autres agents
   ---
-  duration_ms: 40.648
+  duration_ms: 48.776056
   type: 'test'
   ...
 # Subtest: le budget marketing n'est lié à aucun autre : le détail Comm reste demandé même si le total est connu
 ok 45 - le budget marketing n'est lié à aucun autre : le détail Comm reste demandé même si le total est connu
   ---
-  duration_ms: 0.483685
+  duration_ms: 0.443938
   type: 'test'
   ...
 # Subtest: une réponse de déclencheur doit correspondre à ce qui est posé
 ok 46 - une réponse de déclencheur doit correspondre à ce qui est posé
   ---
-  duration_ms: 2.225194
+  duration_ms: 2.056256
   type: 'test'
   ...
 # Subtest: une réponse de donnée : seul un chiffre admet exact et estimation, tout admet « je ne sais pas »
 ok 47 - une réponse de donnée : seul un chiffre admet exact et estimation, tout admet « je ne sais pas »
   ---
-  duration_ms: 0.647203
+  duration_ms: 0.651925
   type: 'test'
   ...
 # Subtest: on ne répond pas à une donnée calculée ni à une donnée qui n'existe pas
 ok 48 - on ne répond pas à une donnée calculée ni à une donnée qui n'existe pas
   ---
-  duration_ms: 0.195326
+  duration_ms: 0.215721
   type: 'test'
   ...
 # Subtest: un nombre tapé à la française est lu comme le dirigeant l'entend
 ok 49 - un nombre tapé à la française est lu comme le dirigeant l'entend
   ---
-  duration_ms: 0.9137
+  duration_ms: 1.08168
   type: 'test'
   ...
 # Subtest: pour une profession réglementée, ni publicité payante, ni prospection, ni partenaires ne sont demandés
 ok 50 - pour une profession réglementée, ni publicité payante, ni prospection, ni partenaires ne sont demandés
   ---
-  duration_ms: 23.286575
+  duration_ms: 27.757847
   type: 'test'
   ...
 # Subtest: les exclusions ne touchent que l'agent Acquisition
 ok 51 - les exclusions ne touchent que l'agent Acquisition
   ---
-  duration_ms: 17.514796
+  duration_ms: 15.836147
   type: 'test'
   ...
 # Subtest: le serveur refuse à une profession réglementée les réponses qu'on ne lui pose pas
 ok 52 - le serveur refuse à une profession réglementée les réponses qu'on ne lui pose pas
   ---
-  duration_ms: 0.536554
+  duration_ms: 0.535287
   type: 'test'
   ...
 # Subtest: une réponse donnée avant l'exclusion (canal « publicité » coché) est ignorée à l'assemblage
 ok 53 - une réponse donnée avant l'exclusion (canal « publicité » coché) est ignorée à l'assemblage
   ---
-  duration_ms: 4.388844
+  duration_ms: 3.830873
   type: 'test'
   ...
 # Subtest: le sens d'un objectif se lit dans le verbe
 ok 54 - le sens d'un objectif se lit dans le verbe
   ---
-  duration_ms: 0.5344
+  duration_ms: 0.399331
   type: 'test'
   ...
 # Subtest: +300 % est impossible sur peu de temps et acceptable sur 10 ans
 ok 55 - +300 % est impossible sur peu de temps et acceptable sur 10 ans
   ---
-  duration_ms: 2.09178
+  duration_ms: 1.773589
   type: 'test'
   ...
 # Subtest: le message dit ce qui serait accepté : l'ampleur maximale et le délai minimal
 ok 56 - le message dit ce qui serait accepté : l'ampleur maximale et le délai minimal
   ---
-  duration_ms: 0.656382
+  duration_ms: 1.047978
   type: 'test'
   ...
 # Subtest: une baisse se juge dans son sens ; 100 % de baisse supprime l'indicateur
 ok 57 - une baisse se juge dans son sens ; 100 % de baisse supprime l'indicateur
   ---
-  duration_ms: 0.549814
+  duration_ms: 0.395016
   type: 'test'
   ...
 # Subtest: sans sens reconnu, on retient la lecture la plus indulgente (hausse)
 ok 58 - sans sens reconnu, on retient la lecture la plus indulgente (hausse)
   ---
-  duration_ms: 0.265602
+  duration_ms: 0.504993
   type: 'test'
   ...
 # Subtest: un objectif en euros ou en nombre n'est pas comparé : aucune valeur de départ
 ok 59 - un objectif en euros ou en nombre n'est pas comparé : aucune valeur de départ
   ---
-  duration_ms: 0.089461
+  duration_ms: 0.104746
   type: 'test'
   ...
 # Subtest: le total proposé additionne les chiffres donnés, estimation au milieu, et se tait s'il manque un chiffre exigé
 ok 60 - le total proposé additionne les chiffres donnés, estimation au milieu, et se tait s'il manque un chiffre exigé
   ---
-  duration_ms: 0.156828
+  duration_ms: 0.148493
   type: 'test'
   ...
 # Subtest: un objectif sans chiffre se décrit par une phrase de réussite, et un des deux est obligatoire
 ok 61 - un objectif sans chiffre se décrit par une phrase de réussite, et un des deux est obligatoire
   ---
-  duration_ms: 0.824678
+  duration_ms: 0.774333
   type: 'test'
   ...
 # Subtest: un objectif sans chiffre n'est pas comparé aux limites de vraisemblance
 ok 62 - un objectif sans chiffre n'est pas comparé aux limites de vraisemblance
   ---
-  duration_ms: 0.126441
+  duration_ms: 0.092026
   type: 'test'
   ...
 # Subtest: un objectif choisi dans la liste de l'agent prend le premier thème de l'objectif pour indicateur
 ok 63 - un objectif choisi dans la liste de l'agent prend le premier thème de l'objectif pour indicateur
   ---
-  duration_ms: 0.31589
+  duration_ms: 0.194589
   type: 'test'
   ...
 # Subtest: les objectifs proposés par agent existent pour la RH et la Comm, avec un exemple et des thèmes de l'agent
 ok 64 - les objectifs proposés par agent existent pour la RH et la Comm, avec un exemple et des thèmes de l'agent
   ---
-  duration_ms: 1.116891
+  duration_ms: 1.10164
   type: 'test'
   ...
 # Subtest: les doublons retirés n'existent plus au classeur, et les données conservées sont posées ; le mécanisme de retrait reste disponible
 ok 65 - les doublons retirés n'existent plus au classeur, et les données conservées sont posées ; le mécanisme de retrait reste disponible
   ---
-  duration_ms: 10.735577
+  duration_ms: 10.296849
   type: 'test'
   ...
 # Subtest: « Avez-vous un site internet ? » n'est posée que si « site internet » n'est pas coché dans les canaux
 ok 66 - « Avez-vous un site internet ? » n'est posée que si « site internet » n'est pas coché dans les canaux
   ---
-  duration_ms: 28.881312
+  duration_ms: 26.535781
   type: 'test'
   ...
 # Subtest: une question de module métier n'est posée qu'aux métiers ou activités listés (« Autre » seul = activité par défaut)
 ok 67 - une question de module métier n'est posée qu'aux métiers ou activités listés (« Autre » seul = activité par défaut)
   ---
-  duration_ms: 52.692011
+  duration_ms: 55.505014
   type: 'test'
   ...
 # Subtest: une profession réglementée n'a aucun module métier : le contrôle refuse de lui réserver une donnée
 ok 68 - une profession réglementée n'a aucun module métier : le contrôle refuse de lui réserver une donnée
   ---
-  duration_ms: 20.559493
+  duration_ms: 31.736848
   type: 'test'
   ...
-# (node:775) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7361) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: balayage : tous les comptes possibles respectent les invariants de l'assemblage
 ok 69 - balayage : tous les comptes possibles respectent les invariants de l'assemblage
   ---
-  duration_ms: 15272.636912
+  duration_ms: 17249.897236
   type: 'test'
   ...
 # Subtest: balayage : le constat ne plante jamais et ne note jamais un thème masqué ou de contexte
 ok 70 - balayage : le constat ne plante jamais et ne note jamais un thème masqué ou de contexte
   ---
-  duration_ms: 1180.275432
+  duration_ms: 1523.499667
   type: 'test'
   ...
 # Subtest: balayage : chaque donnée demandée est posable pour au moins un profil, une taille et un jeu de réponses
 ok 71 - balayage : chaque donnée demandée est posable pour au moins un profil, une taille et un jeu de réponses
   ---
-  duration_ms: 3664.030907
+  duration_ms: 4216.523639
   type: 'test'
   ...
 # Subtest: balayage : les équivalences entre données partagées sont symétriques et ne sortent pas de la liste des données posables
 ok 72 - balayage : les équivalences entre données partagées sont symétriques et ne sortent pas de la liste des données posables
   ---
-  duration_ms: 0.783823
+  duration_ms: 0.963853
   type: 'test'
   ...
-# (node:796) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7376) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: le gabarit est généré avec une ligne par donnée posée, dont celles à réponse déjà déduite
 ok 73 - le gabarit est généré avec une ligne par donnée posée, dont celles à réponse déjà déduite
   ---
-  duration_ms: 1.385115
+  duration_ms: 1.243289
   type: 'test'
   ...
 # Subtest: aller-retour : ce que l'import produit pour les réponses préremplies est exactement ce que le code déduit du format
 ok 74 - aller-retour : ce que l'import produit pour les réponses préremplies est exactement ce que le code déduit du format
   ---
-  duration_ms: 1127.867223
+  duration_ms: 772.992756
   type: 'test'
   ...
 # Subtest: toutes les grammaires de réponse s'importent en spécifications valides
 ok 75 - toutes les grammaires de réponse s'importent en spécifications valides
   ---
-  duration_ms: 752.523189
+  duration_ms: 855.656928
   type: 'test'
   ...
 # Subtest: l'import signale chaque erreur avec son numéro de ligne et n'écrit rien
 ok 76 - l'import signale chaque erreur avec son numéro de ligne et n'écrit rien
   ---
-  duration_ms: 673.478591
+  duration_ms: 810.304898
   type: 'test'
   ...
 # Subtest: une ligne sans question est ignorée, une question sans type de réponse reste en saisie libre
 ok 77 - une ligne sans question est ignorée, une question sans type de réponse reste en saisie libre
   ---
-  duration_ms: 659.114933
+  duration_ms: 764.248462
   type: 'test'
   ...
 # Subtest: un classeur dont les colonnes ont été déplacées est refusé
 ok 78 - un classeur dont les colonnes ont été déplacées est refusé
   ---
-  duration_ms: 672.237833
+  duration_ms: 824.70545
   type: 'test'
   ...
 # Subtest: nettoyage
 ok 79 - nettoyage
   ---
-  duration_ms: 2.404771
+  duration_ms: 3.267706
   type: 'test'
   ...
-# (node:803) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/audit/compte-rendu.ts is not specified and it doesn't parse as CommonJS.
+# (node:7384) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/audit/compte-rendu.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: chaque constat va dans son groupe, sans rien inventer
 ok 80 - chaque constat va dans son groupe, sans rien inventer
   ---
-  duration_ms: 2.814641
+  duration_ms: 2.663444
   type: 'test'
   ...
 # Subtest: sans seuil ni référence, aucune couleur n'apparaît et les mots techniques restent cachés
 ok 81 - sans seuil ni référence, aucune couleur n'apparaît et les mots techniques restent cachés
   ---
-  duration_ms: 0.541692
+  duration_ms: 0.515546
   type: 'test'
   ...
-# (node:811) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/compte.ts is not specified and it doesn't parse as CommonJS.
+# (node:7398) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/compte.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: un compte qui vient d'être créé n'a ni métier ni dossier : on le ramène à l'étape métier
 ok 82 - un compte qui vient d'être créé n'a ni métier ni dossier : on le ramène à l'étape métier
   ---
-  duration_ms: 0.938183
+  duration_ms: 0.751631
   type: 'test'
   ...
 # Subtest: avec son métier, il lui manque le dossier d'entreprise, demandé après le paiement
 ok 83 - avec son métier, il lui manque le dossier d'entreprise, demandé après le paiement
   ---
-  duration_ms: 0.160287
+  duration_ms: 0.189403
   type: 'test'
   ...
 # Subtest: un compte complet n'a plus d'étape à faire ; une ville vide compte comme manquante
 ok 84 - un compte complet n'a plus d'étape à faire ; une ville vide compte comme manquante
   ---
-  duration_ms: 0.135537
+  duration_ms: 0.099995
   type: 'test'
   ...
 # Subtest: le routage du compte n'existe qu'une fois le métier connu
 ok 85 - le routage du compte n'existe qu'une fois le métier connu
   ---
-  duration_ms: 1.356979
+  duration_ms: 1.346196
   type: 'test'
   ...
-# (node:818) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7405) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: les fichiers du dépôt passent le contrôle sans erreur ; seules les règles à préciser sont signalées
 ok 86 - les fichiers du dépôt passent le contrôle sans erreur ; seules les règles à préciser sont signalées
   ---
-  duration_ms: 27.557242
+  duration_ms: 32.026792
   type: 'test'
   ...
 # Subtest: une condition ou un masquage du classeur sans règle d'affichage est une erreur
 ok 87 - une condition ou un masquage du classeur sans règle d'affichage est une erreur
   ---
-  duration_ms: 27.029116
+  duration_ms: 35.108209
   type: 'test'
   ...
 # Subtest: une règle d'affichage qui porte sur une réponse inconnue est une erreur
 ok 88 - une règle d'affichage qui porte sur une réponse inconnue est une erreur
   ---
-  duration_ms: 25.305578
+  duration_ms: 27.105409
   type: 'test'
   ...
 # Subtest: le nombre de thèmes par agent est celui du document de règles
 ok 89 - le nombre de thèmes par agent est celui du document de règles
   ---
-  duration_ms: 0.45456
+  duration_ms: 0.324869
   type: 'test'
   ...
 # Subtest: Finance : le bloc Stock compte 9 thèmes, masqués sans stock
 ok 90 - Finance : le bloc Stock compte 9 thèmes, masqués sans stock
   ---
-  duration_ms: 0.653628
+  duration_ms: 0.294804
   type: 'test'
   ...
 # Subtest: les quatre natures de notation, et seulement elles
 ok 91 - les quatre natures de notation, et seulement elles
   ---
-  duration_ms: 0.280812
+  duration_ms: 0.232191
   type: 'test'
   ...
 # Subtest: RH se règle sur la taille, les autres agents sur le profil
 ok 92 - RH se règle sur la taille, les autres agents sur le profil
   ---
-  duration_ms: 2.173351
+  duration_ms: 3.407457
   type: 'test'
   ...
 # Subtest: le classeur contient 65 déclencheurs, 13 scénarios, 14 problèmes de communication
 ok 93 - le classeur contient 65 déclencheurs, 13 scénarios, 14 problèmes de communication
   ---
-  duration_ms: 0.261048
+  duration_ms: 0.184394
   type: 'test'
   ...
 # Subtest: le routage compte 11 catégories (10 + Fabrication à créer) ; l'agriculture n'existe pas
 ok 94 - le routage compte 11 catégories (10 + Fabrication à créer) ; l'agriculture n'existe pas
   ---
-  duration_ms: 0.474583
+  duration_ms: 0.509255
   type: 'test'
   ...
 # Subtest: professions réglementées : pas de Comm, 3 agents au maximum, un profil par métier
 ok 95 - professions réglementées : pas de Comm, 3 agents au maximum, un profil par métier
   ---
-  duration_ms: 0.532799
+  duration_ms: 0.451777
   type: 'test'
   ...
 # Subtest: une donnée demandée sans question écrite est signalée manquante, jamais inventée
 ok 96 - une donnée demandée sans question écrite est signalée manquante, jamais inventée
   ---
-  duration_ms: 21.825514
+  duration_ms: 25.875541
   type: 'test'
   ...
 # Subtest: refuse un code de donnée en double
 ok 97 - refuse un code de donnée en double
   ---
-  duration_ms: 25.179379
+  duration_ms: 30.790525
   type: 'test'
   ...
 # Subtest: refuse une donnée dont le thème n'existe pas
 ok 98 - refuse une donnée dont le thème n'existe pas
   ---
-  duration_ms: 29.844735
+  duration_ms: 35.909396
   type: 'test'
   ...
 # Subtest: refuse un déclencheur inconnu
 ok 99 - refuse un déclencheur inconnu
   ---
-  duration_ms: 25.468229
+  duration_ms: 36.236438
   type: 'test'
   ...
 # Subtest: refuse un thème Contexte qui porte un impact
 ok 100 - refuse un thème Contexte qui porte un impact
   ---
-  duration_ms: 29.581953
+  duration_ms: 33.318908
   type: 'test'
   ...
 # Subtest: refuse un thème noté sans impact
 ok 101 - refuse un thème noté sans impact
   ---
-  duration_ms: 23.403198
+  duration_ms: 32.069852
   type: 'test'
   ...
 # Subtest: refuse une donnée demandée sans format de réponse
 ok 102 - refuse une donnée demandée sans format de réponse
   ---
-  duration_ms: 25.615066
+  duration_ms: 34.815413
   type: 'test'
   ...
 # Subtest: refuse un métier d'une catégorie inconnue
 ok 103 - refuse un métier d'une catégorie inconnue
   ---
-  duration_ms: 23.799914
+  duration_ms: 26.210909
   type: 'test'
   ...
 # Subtest: signale une référence vers un code qui n'existe pas
 ok 104 - signale une référence vers un code qui n'existe pas
   ---
-  duration_ms: 25.984965
+  duration_ms: 19.992409
   type: 'test'
   ...
 # Subtest: banque : une question doit viser une donnée demandée, une seule fois
 ok 105 - banque : une question doit viser une donnée demandée, une seule fois
   ---
-  duration_ms: 21.709302
+  duration_ms: 22.051747
   type: 'test'
   ...
-# (node:825) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/effets/potentiel.ts is not specified and it doesn't parse as CommonJS.
+# (node:7413) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/effets/potentiel.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: avec un taux sourcé, le potentiel est une fourchette appliquée au montant en jeu du client
 ok 106 - avec un taux sourcé, le potentiel est une fourchette appliquée au montant en jeu du client
   ---
-  duration_ms: 2.731391
+  duration_ms: 3.675431
   type: 'test'
   ...
 # Subtest: sans bornes dans la source, la fourchette se réduit à la valeur centrale
 ok 107 - sans bornes dans la source, la fourchette se réduit à la valeur centrale
   ---
-  duration_ms: 0.346699
+  duration_ms: 0.374749
   type: 'test'
   ...
 # Subtest: sans taux sourcé, seul le montant en jeu est donné, jamais un gain
 ok 108 - sans taux sourcé, seul le montant en jeu est donné, jamais un gain
   ---
-  duration_ms: 0.324927
+  duration_ms: 0.334275
   type: 'test'
   ...
 # Subtest: le taux d'un autre métier ne s'applique pas ; celui de la famille, si
 ok 109 - le taux d'un autre métier ne s'applique pas ; celui de la famille, si
   ---
-  duration_ms: 0.219452
+  duration_ms: 0.30515
   type: 'test'
   ...
 # Subtest: un taux jamais appliqué à l'échelle nationale (un effet ne se transpose pas d'un secteur à l'autre)
 ok 110 - un taux jamais appliqué à l'échelle nationale (un effet ne se transpose pas d'un secteur à l'autre)
   ---
-  duration_ms: 0.204054
+  duration_ms: 0.202937
   type: 'test'
   ...
 # Subtest: une échéance dépassée : le taux reste utilisé et est signalé à revérifier
 ok 111 - une échéance dépassée : le taux reste utilisé et est signalé à revérifier
   ---
-  duration_ms: 0.173213
+  duration_ms: 0.232285
   type: 'test'
   ...
 # Subtest: un volume inconnu ou invalide : aucun chiffre
 ok 112 - un volume inconnu ou invalide : aucun chiffre
   ---
-  duration_ms: 0.22915
+  duration_ms: 0.409448
   type: 'test'
   ...
 # Subtest: on n'additionne jamais les effets de plusieurs actions : la borne basse de l'ensemble est le plus grand effet, pas la somme
 ok 113 - on n'additionne jamais les effets de plusieurs actions : la borne basse de l'ensemble est le plus grand effet, pas la somme
   ---
-  duration_ms: 0.388308
+  duration_ms: 0.596197
   type: 'test'
   ...
-# (node:832) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7421) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: le catalogue réel : six effets, tous en brouillon, un par croisement à « part récupérable prudente »
 ok 114 - le catalogue réel : six effets, tous en brouillon, un par croisement à « part récupérable prudente »
   ---
-  duration_ms: 28.074677
+  duration_ms: 45.297213
   type: 'test'
   ...
 # Subtest: un effet en brouillon n'est jamais cherché ; validé, il est cherché une fois puis jamais tant qu'il est valable
 ok 115 - un effet en brouillon n'est jamais cherché ; validé, il est cherché une fois puis jamais tant qu'il est valable
   ---
-  duration_ms: 0.433014
+  duration_ms: 0.70178
   type: 'test'
   ...
 # Subtest: la demande d'effet ne contient que le métier, l'action et l'effet cherché, jamais une donnée du client
 ok 116 - la demande d'effet ne contient que le métier, l'action et l'effet cherché, jamais une donnée du client
   ---
-  duration_ms: 0.601304
+  duration_ms: 0.981277
   type: 'test'
   ...
 # Subtest: un effet trouvé et vérifié dans la page est enregistré pour ce métier, avec sa source et son échéance
 ok 117 - un effet trouvé et vérifié dans la page est enregistré pour ce métier, avec sa source et son échéance
   ---
-  duration_ms: 9.96232
+  duration_ms: 10.970456
   type: 'test'
   ...
 # Subtest: un chiffre que la page ne contient pas : aucun effet enregistré, donc aucun chiffre dans le rapport
 ok 118 - un chiffre que la page ne contient pas : aucun effet enregistré, donc aucun chiffre dans le rapport
   ---
-  duration_ms: 1.692935
+  duration_ms: 2.621999
   type: 'test'
   ...
 # Subtest: un éditeur de logiciel qui vante son outil n'est jamais retenu, même avec une page vérifiable
 ok 119 - un éditeur de logiciel qui vante son outil n'est jamais retenu, même avec une page vérifiable
   ---
-  duration_ms: 0.791349
+  duration_ms: 6.328191
   type: 'test'
   ...
 # Subtest: un effet au-dessus de 100 %, une autre période ou une autre unité sont rejetés par le code
 ok 120 - un effet au-dessus de 100 %, une autre période ou une autre unité sont rejetés par le code
   ---
-  duration_ms: 1.871543
+  duration_ms: 5.322884
   type: 'test'
   ...
 # Subtest: un effet mesuré sur une définition différente est rejeté
 ok 121 - un effet mesuré sur une définition différente est rejeté
   ---
-  duration_ms: 0.540598
+  duration_ms: 0.819028
   type: 'test'
   ...
 # Subtest: le contrôle refuse un effet rattaché à un mauvais agent ou à un croisement inconnu
 ok 122 - le contrôle refuse un effet rattaché à un mauvais agent ou à un croisement inconnu
   ---
-  duration_ms: 28.441692
+  duration_ms: 34.04108
   type: 'test'
   ...
-# (node:852) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/formule-url.ts is not specified and it doesn't parse as CommonJS.
+# (node:7430) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/formule-url.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: la préférence se reporte d'une étape à l'autre et se relit à l'identique
 ok 123 - la préférence se reporte d'une étape à l'autre et se relit à l'identique
   ---
-  duration_ms: 2.212034
+  duration_ms: 2.996923
   type: 'test'
   ...
 # Subtest: sans préférence, l'adresse reste nue
 ok 124 - sans préférence, l'adresse reste nue
   ---
-  duration_ms: 0.214815
+  duration_ms: 0.281044
   type: 'test'
   ...
 # Subtest: une adresse falsifiée ou incohérente est ignorée, jamais devinée
 ok 125 - une adresse falsifiée ou incohérente est ignorée, jamais devinée
   ---
-  duration_ms: 0.331777
+  duration_ms: 0.544209
   type: 'test'
   ...
-# (node:859) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7437) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: périodes : les formulations du classeur se lisent, les mois exacts s'écrivent
+ok 126 - périodes : les formulations du classeur se lisent, les mois exacts s'écrivent
+  ---
+  duration_ms: 2.991572
+  type: 'test'
+  ...
+# Subtest: tableau mois par mois : chaque ligne porte son mois, ceux d'avant la création ne sont pas posés
+ok 127 - tableau mois par mois : chaque ligne porte son mois, ceux d'avant la création ne sont pas posés
+  ---
+  duration_ms: 1.963372
+  type: 'test'
+  ...
+# Subtest: ancienneté : une question sur le passé n'est posée qu'à une entreprise qui existait alors
+ok 128 - ancienneté : une question sur le passé n'est posée qu'à une entreprise qui existait alors
+  ---
+  duration_ms: 92.225091
+  type: 'test'
+  ...
+# Subtest: évolution établie : deux chiffres, leurs mois, l'écart et l'écart en %, sans jugement
+ok 129 - évolution établie : deux chiffres, leurs mois, l'écart et l'écart en %, sans jugement
+  ---
+  duration_ms: 4.536658
+  type: 'test'
+  ...
+# Subtest: valeur de départ nulle, estimation, réponses manquantes : jamais de zéro inventé
+ok 130 - valeur de départ nulle, estimation, réponses manquantes : jamais de zéro inventé
+  ---
+  duration_ms: 5.524822
+  type: 'test'
+  ...
+# Subtest: périodes non alignées, entreprise trop jeune, périmètre changé : la comparaison n'est pas faite
+ok 131 - périodes non alignées, entreprise trop jeune, périmètre changé : la comparaison n'est pas faite
+  ---
+  duration_ms: 4.220585
+  type: 'test'
+  ...
+# Subtest: taux de marge : écart en points, pas en %
+ok 132 - taux de marge : écart en points, pas en %
+  ---
+  duration_ms: 1.910256
+  type: 'test'
+  ...
+# Subtest: masse salariale : l'effectif d'il y a un an est affiché à côté
+ok 133 - masse salariale : l'effectif d'il y a un an est affiché à côté
+  ---
+  duration_ms: 2.381051
+  type: 'test'
+  ...
+# Subtest: une réponse devenue inapplicable ne compte plus dans une évolution
+ok 134 - une réponse devenue inapplicable ne compte plus dans une évolution
+  ---
+  duration_ms: 2.003248
+  type: 'test'
+  ...
+# Subtest: contrôle des données : une période mal décalée ou un masquage trop court est refusé
+ok 135 - contrôle des données : une période mal décalée ou un masquage trop court est refusé
+  ---
+  duration_ms: 63.007541
+  type: 'test'
+  ...
+# (node:7446) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: lignes numérotées : « Offre 1, 2, 3 » et « Meilleure 1… Moins bonne 3 » sont reconnues, pas « Moins de 5 km »
-ok 126 - lignes numérotées : « Offre 1, 2, 3 » et « Meilleure 1… Moins bonne 3 » sont reconnues, pas « Moins de 5 km »
+ok 136 - lignes numérotées : « Offre 1, 2, 3 » et « Meilleure 1… Moins bonne 3 » sont reconnues, pas « Moins de 5 km »
   ---
-  duration_ms: 2.763504
+  duration_ms: 3.305904
   type: 'test'
   ...
 # Subtest: tous les tableaux à lignes numérotées de la banque sont réglables, et chaque lien porte sur l'un d'eux
-ok 127 - tous les tableaux à lignes numérotées de la banque sont réglables, et chaque lien porte sur l'un d'eux
+ok 137 - tous les tableaux à lignes numérotées de la banque sont réglables, et chaque lien porte sur l'un d'eux
   ---
-  duration_ms: 0.733545
+  duration_ms: 0.964202
   type: 'test'
   ...
 # Subtest: le serveur accepte une 10e offre, refuse une 11e, et accepte une offre retirée
-ok 128 - le serveur accepte une 10e offre, refuse une 11e, et accepte une offre retirée
+ok 138 - le serveur accepte une 10e offre, refuse une 11e, et accepte une offre retirée
   ---
-  duration_ms: 1.123196
+  duration_ms: 1.340325
   type: 'test'
   ...
 # Subtest: lignes affichées : celles de la banque sans réponse, celles qui ont une valeur sinon, au moins une par groupe
-ok 129 - lignes affichées : celles de la banque sans réponse, celles qui ont une valeur sinon, au moins une par groupe
+ok 139 - lignes affichées : celles de la banque sans réponse, celles qui ont une valeur sinon, au moins une par groupe
   ---
-  duration_ms: 0.604271
+  duration_ms: 0.833884
   type: 'test'
   ...
 # Subtest: ajouter une ligne : un numéro neuf, jamais celui d'une ligne retirée encore employée ailleurs ; 10 au plus
-ok 130 - ajouter une ligne : un numéro neuf, jamais celui d'une ligne retirée encore employée ailleurs ; 10 au plus
+ok 140 - ajouter une ligne : un numéro neuf, jamais celui d'une ligne retirée encore employée ailleurs ; 10 au plus
   ---
-  duration_ms: 0.401579
+  duration_ms: 0.558249
   type: 'test'
   ...
 # Subtest: retirer une ligne : ses cases partent, les autres gardent leur identifiant
-ok 131 - retirer une ligne : ses cases partent, les autres gardent leur identifiant
+ok 141 - retirer une ligne : ses cases partent, les autres gardent leur identifiant
   ---
-  duration_ms: 0.20936
+  duration_ms: 0.290049
   type: 'test'
   ...
 # Subtest: une case d'une ligne qui n'est plus affichée n'est pas envoyée
-ok 132 - une case d'une ligne qui n'est plus affichée n'est pas envoyée
+ok 142 - une case d'une ligne qui n'est plus affichée n'est pas envoyée
   ---
-  duration_ms: 0.84672
+  duration_ms: 1.16046
   type: 'test'
   ...
 # Subtest: un tableau qui suit un autre prend la première question suivie qui a une réponse
-ok 133 - un tableau qui suit un autre prend la première question suivie qui a une réponse
+ok 143 - un tableau qui suit un autre prend la première question suivie qui a une réponse
   ---
-  duration_ms: 0.184013
+  duration_ms: 0.216337
   type: 'test'
   ...
-# (node:873) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/mot-de-passe/reinitialisation.ts is not specified and it doesn't parse as CommonJS.
+# (node:7467) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/mot-de-passe/reinitialisation.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: un jeton neuf est bien formé et la base n'en garde que l'empreinte
-ok 134 - un jeton neuf est bien formé et la base n'en garde que l'empreinte
+ok 144 - un jeton neuf est bien formé et la base n'en garde que l'empreinte
   ---
-  duration_ms: 1.893075
+  duration_ms: 1.6161
   type: 'test'
   ...
 # Subtest: une chaîne qui ne peut pas être un jeton est refusée sans lecture en base
-ok 135 - une chaîne qui ne peut pas être un jeton est refusée sans lecture en base
+ok 145 - une chaîne qui ne peut pas être un jeton est refusée sans lecture en base
   ---
-  duration_ms: 0.290107
+  duration_ms: 0.253352
   type: 'test'
   ...
 # Subtest: état d'une demande : valide une heure, une seule fois
-ok 136 - état d'une demande : valide une heure, une seule fois
+ok 146 - état d'une demande : valide une heure, une seule fois
   ---
-  duration_ms: 0.237468
+  duration_ms: 0.198579
   type: 'test'
   ...
 # Subtest: le message contient le lien, en texte et en HTML échappé
-ok 137 - le message contient le lien, en texte et en HTML échappé
+ok 147 - le message contient le lien, en texte et en HTML échappé
   ---
-  duration_ms: 0.366208
+  duration_ms: 0.890739
   type: 'test'
   ...
 # Subtest: mode d'envoi : SMTP s'il est configuré, démonstration hors production, rien en production sans SMTP
-ok 138 - mode d'envoi : SMTP s'il est configuré, démonstration hors production, rien en production sans SMTP
+ok 148 - mode d'envoi : SMTP s'il est configuré, démonstration hors production, rien en production sans SMTP
   ---
-  duration_ms: 0.161686
+  duration_ms: 0.265484
   type: 'test'
   ...
 # Subtest: le nouveau mot de passe suit la règle de l'inscription
-ok 139 - le nouveau mot de passe suit la règle de l'inscription
+ok 149 - le nouveau mot de passe suit la règle de l'inscription
   ---
-  duration_ms: 0.714307
+  duration_ms: 0.858934
   type: 'test'
   ...
-# (node:880) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7475) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: la moyenne du marché est orange, le vert est au-dessus
-ok 140 - la moyenne du marché est orange, le vert est au-dessus
+ok 150 - la moyenne du marché est orange, le vert est au-dessus
   ---
-  duration_ms: 1.3187
+  duration_ms: 1.264745
   type: 'test'
   ...
 # Subtest: un indicateur où plus bas vaut mieux se note à l'envers
-ok 141 - un indicateur où plus bas vaut mieux se note à l'envers
+ok 151 - un indicateur où plus bas vaut mieux se note à l'envers
   ---
-  duration_ms: 0.174289
+  duration_ms: 0.15514
   type: 'test'
   ...
 # Subtest: deux sens : fourchette verte, orange à moins d'un point, rouge au-delà
-ok 142 - deux sens : fourchette verte, orange à moins d'un point, rouge au-delà
+ok 152 - deux sens : fourchette verte, orange à moins d'un point, rouge au-delà
   ---
-  duration_ms: 0.135799
+  duration_ms: 0.148628
   type: 'test'
   ...
 # Subtest: une pratique est absente, partielle ou en place
-ok 143 - une pratique est absente, partielle ou en place
+ok 153 - une pratique est absente, partielle ou en place
   ---
-  duration_ms: 0.119273
+  duration_ms: 0.112659
   type: 'test'
   ...
 # Subtest: noter refuse une valeur du mauvais genre au lieu de deviner
-ok 144 - noter refuse une valeur du mauvais genre au lieu de deviner
+ok 154 - noter refuse une valeur du mauvais genre au lieu de deviner
   ---
-  duration_ms: 0.232824
+  duration_ms: 0.208412
   type: 'test'
   ...
 # Subtest: le seuil le plus précis (zone, taille) l'emporte ; sans seuil, rien
-ok 145 - le seuil le plus précis (zone, taille) l'emporte ; sans seuil, rien
+ok 155 - le seuil le plus précis (zone, taille) l'emporte ; sans seuil, rien
   ---
-  duration_ms: 0.314725
+  duration_ms: 0.189257
   type: 'test'
   ...
 # Subtest: une valeur par jour est ramenée au mois : par jour × jours ouverts par semaine × 4,3
-ok 146 - une valeur par jour est ramenée au mois : par jour × jours ouverts par semaine × 4,3
+ok 156 - une valeur par jour est ramenée au mois : par jour × jours ouverts par semaine × 4,3
   ---
-  duration_ms: 0.263915
+  duration_ms: 0.272101
   type: 'test'
   ...
 # Subtest: sans jours d'ouverture valides, une valeur par jour n'est pas ramenée au mois
-ok 147 - sans jours d'ouverture valides, une valeur par jour n'est pas ramenée au mois
+ok 157 - sans jours d'ouverture valides, une valeur par jour n'est pas ramenée au mois
   ---
-  duration_ms: 0.395548
+  duration_ms: 0.368966
   type: 'test'
   ...
 # Subtest: le volume final est le produit des taux de la chaîne
-ok 148 - le volume final est le produit des taux de la chaîne
+ok 158 - le volume final est le produit des taux de la chaîne
   ---
-  duration_ms: 0.439315
+  duration_ms: 0.313555
   type: 'test'
   ...
 # Subtest: deux leviers d'étapes différentes se multiplient, ils ne s'additionnent pas
-ok 149 - deux leviers d'étapes différentes se multiplient, ils ne s'additionnent pas
+ok 159 - deux leviers d'étapes différentes se multiplient, ils ne s'additionnent pas
   ---
-  duration_ms: 0.623598
+  duration_ms: 0.549985
   type: 'test'
   ...
 # Subtest: deux leviers sur la même étape : aucun chiffre inventé, la règle est à préciser
-ok 150 - deux leviers sur la même étape : aucun chiffre inventé, la règle est à préciser
+ok 160 - deux leviers sur la même étape : aucun chiffre inventé, la règle est à préciser
   ---
-  duration_ms: 2.23096
+  duration_ms: 1.331019
   type: 'test'
   ...
 # Subtest: un levier sur une étape inconnue est refusé
-ok 151 - un levier sur une étape inconnue est refusé
+ok 161 - un levier sur une étape inconnue est refusé
   ---
-  duration_ms: 0.176519
+  duration_ms: 0.213691
   type: 'test'
   ...
 # Subtest: la capacité plafonne le gain immédiat ; deux chiffres quand elle bloque
-ok 152 - la capacité plafonne le gain immédiat ; deux chiffres quand elle bloque
+ok 162 - la capacité plafonne le gain immédiat ; deux chiffres quand elle bloque
   ---
-  duration_ms: 0.16298
+  duration_ms: 0.152853
   type: 'test'
   ...
 # Subtest: sans seuil ni référence, un thème noté ne reçoit jamais une couleur inventée
-ok 153 - sans seuil ni référence, un thème noté ne reçoit jamais une couleur inventée
+ok 163 - sans seuil ni référence, un thème noté ne reçoit jamais une couleur inventée
   ---
-  duration_ms: 14.611764
+  duration_ms: 22.408764
   type: 'test'
   ...
 # Subtest: avec un seuil et au moins 50 % de réponses, le thème est noté
-ok 154 - avec un seuil et au moins 50 % de réponses, le thème est noté
+ok 164 - avec un seuil et au moins 50 % de réponses, le thème est noté
   ---
-  duration_ms: 6.975132
+  duration_ms: 9.715577
   type: 'test'
   ...
 # Subtest: un seuil sans source est « à valider »
-ok 155 - un seuil sans source est « à valider »
+ok 165 - un seuil sans source est « à valider »
   ---
-  duration_ms: 7.854018
+  duration_ms: 7.76822
   type: 'test'
   ...
 # Subtest: une estimation note avec le milieu et le dit
-ok 156 - une estimation note avec le milieu et le dit
+ok 166 - une estimation note avec le milieu et le dit
   ---
-  duration_ms: 5.051844
+  duration_ms: 14.806577
   type: 'test'
   ...
 # Subtest: moins de 50 % de réponses : « non évalué » ; « je ne sais pas » compte comme sans réponse
-ok 157 - moins de 50 % de réponses : « non évalué » ; « je ne sais pas » compte comme sans réponse
+ok 167 - moins de 50 % de réponses : « non évalué » ; « je ne sais pas » compte comme sans réponse
   ---
-  duration_ms: 5.232377
+  duration_ms: 7.045016
   type: 'test'
   ...
 # Subtest: la donnée notée en « je ne sais pas » ne donne jamais de couleur, même si le thème est couvert
-ok 158 - la donnée notée en « je ne sais pas » ne donne jamais de couleur, même si le thème est couvert
+ok 168 - la donnée notée en « je ne sais pas » ne donne jamais de couleur, même si le thème est couvert
   ---
-  duration_ms: 5.020765
+  duration_ms: 7.575837
   type: 'test'
   ...
 # Subtest: deux indicateurs notés dans un même thème : la règle d'agrégation est à préciser
-ok 159 - deux indicateurs notés dans un même thème : la règle d'agrégation est à préciser
+ok 169 - deux indicateurs notés dans un même thème : la règle d'agrégation est à préciser
   ---
-  duration_ms: 4.206352
+  duration_ms: 6.842039
   type: 'test'
   ...
 # Subtest: un thème de contexte n'est pas noté ; un thème masqué est masqué, pas « non évalué »
-ok 160 - un thème de contexte n'est pas noté ; un thème masqué est masqué, pas « non évalué »
+ok 170 - un thème de contexte n'est pas noté ; un thème masqué est masqué, pas « non évalué »
   ---
-  duration_ms: 5.210423
+  duration_ms: 10.197771
   type: 'test'
   ...
 # Subtest: le constat ne produit aucun score global
-ok 161 - le constat ne produit aucun score global
+ok 171 - le constat ne produit aucun score global
   ---
-  duration_ms: 4.563161
+  duration_ms: 7.200374
   type: 'test'
   ...
 # Subtest: l'ancienneté se compte en mois révolus
-ok 162 - l'ancienneté se compte en mois révolus
+ok 172 - l'ancienneté se compte en mois révolus
   ---
-  duration_ms: 0.217675
+  duration_ms: 0.277433
   type: 'test'
   ...
 # Subtest: la période « si plus de N mois d'existence » est lue, les autres formulations ne masquent rien
-ok 163 - la période « si plus de N mois d'existence » est lue, les autres formulations ne masquent rien
+ok 173 - la période « si plus de N mois d'existence » est lue, les autres formulations ne masquent rien
   ---
-  duration_ms: 0.091515
+  duration_ms: 0.150564
   type: 'test'
   ...
 # Subtest: une entreprise récente ne se voit pas poser les questions qui exigent 12 mois d'existence
-ok 164 - une entreprise récente ne se voit pas poser les questions qui exigent 12 mois d'existence
+ok 174 - une entreprise récente ne se voit pas poser les questions qui exigent 12 mois d'existence
   ---
-  duration_ms: 12.439885
+  duration_ms: 18.437792
   type: 'test'
   ...
-# (node:892) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7483) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: RH : plusieurs objectifs de la liste, et un « Autre », sont acceptés ensemble
-ok 165 - RH : plusieurs objectifs de la liste, et un « Autre », sont acceptés ensemble
+ok 175 - RH : plusieurs objectifs de la liste, et un « Autre », sont acceptés ensemble
   ---
-  duration_ms: 4.127294
+  duration_ms: 5.454308
   type: 'test'
   ...
 # Subtest: Acquisition et Finance (sans liste) : un seul objectif
-ok 166 - Acquisition et Finance (sans liste) : un seul objectif
+ok 176 - Acquisition et Finance (sans liste) : un seul objectif
   ---
-  duration_ms: 0.391808
+  duration_ms: 0.487642
   type: 'test'
   ...
 # Subtest: Comm : tous les objectifs dans la même partie ; un « Autre » porte sa partie
-ok 167 - Comm : tous les objectifs dans la même partie ; un « Autre » porte sa partie
+ok 177 - Comm : tous les objectifs dans la même partie ; un « Autre » porte sa partie
   ---
-  duration_ms: 1.180812
+  duration_ms: 1.514057
   type: 'test'
   ...
 # Subtest: deux fois le même objectif, aucun objectif, ou trop d'objectifs : refusé, avec le rang du fautif quand il y en a un
-ok 168 - deux fois le même objectif, aucun objectif, ou trop d'objectifs : refusé, avec le rang du fautif quand il y en a un
+ok 178 - deux fois le même objectif, aucun objectif, ou trop d'objectifs : refusé, avec le rang du fautif quand il y en a un
   ---
-  duration_ms: 1.204768
+  duration_ms: 2.329437
   type: 'test'
   ...
 # Subtest: un objectif en pourcentage impossible reste refusé, au bon rang
-ok 169 - un objectif en pourcentage impossible reste refusé, au bon rang
+ok 179 - un objectif en pourcentage impossible reste refusé, au bon rang
   ---
-  duration_ms: 13.697268
+  duration_ms: 18.192185
   type: 'test'
   ...
-# (node:900) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/offres.ts is not specified and it doesn't parse as CommonJS.
+# (node:7491) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/offres.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: le montant facturé est le prix du palier, avec la remise de 15 % à l'année
-ok 170 - le montant facturé est le prix du palier, avec la remise de 15 % à l'année
+ok 180 - le montant facturé est le prix du palier, avec la remise de 15 % à l'année
   ---
-  duration_ms: 1.211884
+  duration_ms: 2.019637
   type: 'test'
   ...
 # Subtest: le mode de paiement : réel avec une clé, démonstration en développement, jamais gratuit par défaut en production
-ok 171 - le mode de paiement : réel avec une clé, démonstration en développement, jamais gratuit par défaut en production
+ok 181 - le mode de paiement : réel avec une clé, démonstration en développement, jamais gratuit par défaut en production
   ---
-  duration_ms: 0.176908
+  duration_ms: 0.27386
   type: 'test'
   ...
 # Subtest: l'accès aux agents suit l'abonnement : ouvert tant qu'il est actif, puis jusqu'à la fin de la période payée
-ok 172 - l'accès aux agents suit l'abonnement : ouvert tant qu'il est actif, puis jusqu'à la fin de la période payée
+ok 182 - l'accès aux agents suit l'abonnement : ouvert tant qu'il est actif, puis jusqu'à la fin de la période payée
   ---
-  duration_ms: 0.236655
+  duration_ms: 0.211683
   type: 'test'
   ...
 # Subtest: une résiliation programmée garde l'accès jusqu'à la fin de la période payée, puis le ferme
-ok 173 - une résiliation programmée garde l'accès jusqu'à la fin de la période payée, puis le ferme
+ok 183 - une résiliation programmée garde l'accès jusqu'à la fin de la période payée, puis le ferme
   ---
-  duration_ms: 0.143295
+  duration_ms: 0.161739
   type: 'test'
   ...
 # Subtest: l'arrêt demandé chez le fournisseur est repris, et annulé s'il est retiré
-ok 174 - l'arrêt demandé chez le fournisseur est repris, et annulé s'il est retiré
+ok 184 - l'arrêt demandé chez le fournisseur est repris, et annulé s'il est retiré
   ---
-  duration_ms: 1.580012
+  duration_ms: 0.574238
   type: 'test'
   ...
 # Subtest: le nom du produit et la fin de période de démonstration sont déterministes
-ok 175 - le nom du produit et la fin de période de démonstration sont déterministes
+ok 185 - le nom du produit et la fin de période de démonstration sont déterministes
   ---
-  duration_ms: 2.833231
+  duration_ms: 2.43113
   type: 'test'
   ...
 # Subtest: un paiement terminé active l'abonnement du compte désigné par nous, jamais un autre
-ok 176 - un paiement terminé active l'abonnement du compte désigné par nous, jamais un autre
+ok 186 - un paiement terminé active l'abonnement du compte désigné par nous, jamais un autre
   ---
-  duration_ms: 2.029706
+  duration_ms: 2.053551
   type: 'test'
   ...
 # Subtest: une session non payée, hors abonnement ou sans compte n'active rien
-ok 177 - une session non payée, hors abonnement ou sans compte n'active rien
+ok 187 - une session non payée, hors abonnement ou sans compte n'active rien
   ---
-  duration_ms: 0.178958
+  duration_ms: 0.23241
   type: 'test'
   ...
 # Subtest: une facture payée prolonge la période, une facture échouée passe l'abonnement en impayé
-ok 178 - une facture payée prolonge la période, une facture échouée passe l'abonnement en impayé
+ok 188 - une facture payée prolonge la période, une facture échouée passe l'abonnement en impayé
   ---
-  duration_ms: 1.007636
+  duration_ms: 0.726077
   type: 'test'
   ...
 # Subtest: les changements d'abonnement chez le fournisseur sont traduits dans nos statuts
-ok 179 - les changements d'abonnement chez le fournisseur sont traduits dans nos statuts
+ok 189 - les changements d'abonnement chez le fournisseur sont traduits dans nos statuts
   ---
-  duration_ms: 0.958953
+  duration_ms: 0.698672
   type: 'test'
   ...
 # Subtest: un événement sans effet sur l'abonnement est ignoré
-ok 180 - un événement sans effet sur l'abonnement est ignoré
+ok 190 - un événement sans effet sur l'abonnement est ignoré
   ---
-  duration_ms: 0.295418
+  duration_ms: 0.223965
   type: 'test'
   ...
 # Subtest: un numéro de TVA se lit avec ou sans espaces, points et casse
-ok 181 - un numéro de TVA se lit avec ou sans espaces, points et casse
+ok 191 - un numéro de TVA se lit avec ou sans espaces, points et casse
   ---
-  duration_ms: 0.570439
+  duration_ms: 0.410879
   type: 'test'
   ...
 # Subtest: la clé de contrôle d'un numéro de TVA français est vérifiée
-ok 182 - la clé de contrôle d'un numéro de TVA français est vérifiée
+ok 192 - la clé de contrôle d'un numéro de TVA français est vérifiée
   ---
-  duration_ms: 0.31711
+  duration_ms: 0.294824
   type: 'test'
   ...
 # Subtest: les numéros mal formés ou hors de l'Union européenne sont refusés avec une explication
-ok 183 - les numéros mal formés ou hors de l'Union européenne sont refusés avec une explication
+ok 193 - les numéros mal formés ou hors de l'Union européenne sont refusés avec une explication
   ---
-  duration_ms: 0.230823
+  duration_ms: 0.150431
   type: 'test'
   ...
 # Subtest: des numéros d'autres pays de l'Union européenne sont acceptés selon leur forme
-ok 184 - des numéros d'autres pays de l'Union européenne sont acceptés selon leur forme
+ok 194 - des numéros d'autres pays de l'Union européenne sont acceptés selon leur forme
   ---
-  duration_ms: 0.493986
+  duration_ms: 0.342024
   type: 'test'
   ...
 # Subtest: la facturation est facultative ; un numéro de TVA exige le nom de l'entreprise
-ok 185 - la facturation est facultative ; un numéro de TVA exige le nom de l'entreprise
+ok 195 - la facturation est facultative ; un numéro de TVA exige le nom de l'entreprise
   ---
-  duration_ms: 0.401835
+  duration_ms: 0.498005
   type: 'test'
   ...
 # Subtest: la TVA affichée au paiement est une estimation de 20 % arrondie au centime, jamais ajoutée au montant facturé
-ok 186 - la TVA affichée au paiement est une estimation de 20 % arrondie au centime, jamais ajoutée au montant facturé
+ok 196 - la TVA affichée au paiement est une estimation de 20 % arrondie au centime, jamais ajoutée au montant facturé
   ---
-  duration_ms: 0.226107
+  duration_ms: 0.153533
   type: 'test'
   ...
-# (node:908) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/recherche-metier.ts is not specified and it doesn't parse as CommonJS.
+# (node:7498) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/recherche-metier.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: les mots du dirigeant trouvent son métier (audit client M-01)
-ok 187 - les mots du dirigeant trouvent son métier (audit client M-01)
+ok 197 - les mots du dirigeant trouvent son métier (audit client M-01)
   ---
-  duration_ms: 14.812247
+  duration_ms: 25.159095
   type: 'test'
   ...
 # Subtest: formes féminines, noms de commerce, accents et frappe en cours
-ok 188 - formes féminines, noms de commerce, accents et frappe en cours
+ok 198 - formes féminines, noms de commerce, accents et frappe en cours
   ---
-  duration_ms: 25.483866
+  duration_ms: 28.276279
   type: 'test'
   ...
 # Subtest: activités et mots de recherche comptent, avec l'indice affiché
-ok 189 - activités et mots de recherche comptent, avec l'indice affiché
+ok 199 - activités et mots de recherche comptent, avec l'indice affiché
   ---
-  duration_ms: 18.357502
+  duration_ms: 16.181908
   type: 'test'
   ...
 # Subtest: un mot inconnu n'empêche pas de trouver les autres ; le métier qui reconnaît le plus de mots passe devant
-ok 190 - un mot inconnu n'empêche pas de trouver les autres ; le métier qui reconnaît le plus de mots passe devant
+ok 200 - un mot inconnu n'empêche pas de trouver les autres ; le métier qui reconnaît le plus de mots passe devant
   ---
-  duration_ms: 3.719262
+  duration_ms: 9.092978
   type: 'test'
   ...
 # Subtest: rien ne correspond : liste vide ; champ vide : toute la liste
-ok 191 - rien ne correspond : liste vide ; champ vide : toute la liste
+ok 201 - rien ne correspond : liste vide ; champ vide : toute la liste
   ---
-  duration_ms: 2.264848
+  duration_ms: 5.95273
   type: 'test'
   ...
 # Subtest: racine : une seule terminaison retirée, quatre lettres au moins restent
-ok 192 - racine : une seule terminaison retirée, quatre lettres au moins restent
+ok 202 - racine : une seule terminaison retirée, quatre lettres au moins restent
   ---
-  duration_ms: 0.138763
+  duration_ms: 0.205464
   type: 'test'
   ...
-# (node:916) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7505) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: les nombres se lisent à la française comme à l'anglaise
-ok 193 - les nombres se lisent à la française comme à l'anglaise
+ok 203 - les nombres se lisent à la française comme à l'anglaise
   ---
-  duration_ms: 3.069926
+  duration_ms: 3.106298
   type: 'test'
   ...
 # Subtest: la comparaison de textes ignore accents, casse et espaces insécables
-ok 194 - la comparaison de textes ignore accents, casse et espaces insécables
+ok 204 - la comparaison de textes ignore accents, casse et espaces insécables
   ---
-  duration_ms: 0.760981
+  duration_ms: 0.380511
   type: 'test'
   ...
 # Subtest: A. un chiffre absent de la page est rejeté, même si l'agent est sûr de lui
-ok 195 - A. un chiffre absent de la page est rejeté, même si l'agent est sûr de lui
+ok 205 - A. un chiffre absent de la page est rejeté, même si l'agent est sûr de lui
   ---
-  duration_ms: 0.822228
+  duration_ms: 0.879492
   type: 'test'
   ...
 # Subtest: l'extrait cité doit figurer dans la page et le chiffre dans l'extrait
-ok 196 - l'extrait cité doit figurer dans la page et le chiffre dans l'extrait
+ok 206 - l'extrait cité doit figurer dans la page et le chiffre dans l'extrait
   ---
-  duration_ms: 0.581107
+  duration_ms: 0.65006
   type: 'test'
   ...
 # Subtest: le HTML est réduit à son texte, sans scripts ni styles
-ok 197 - le HTML est réduit à son texte, sans scripts ni styles
+ok 207 - le HTML est réduit à son texte, sans scripts ni styles
   ---
-  duration_ms: 0.290014
+  duration_ms: 0.279709
   type: 'test'
   ...
 # Subtest: D. une instruction cachée dans une page est signalée, jamais suivie
-ok 198 - D. une instruction cachée dans une page est signalée, jamais suivie
+ok 208 - D. une instruction cachée dans une page est signalée, jamais suivie
   ---
-  duration_ms: 1.947804
+  duration_ms: 1.918648
   type: 'test'
   ...
 # Subtest: une adresse non https, interne ou avec identifiants n'est jamais lue
-ok 199 - une adresse non https, interne ou avec identifiants n'est jamais lue
+ok 209 - une adresse non https, interne ou avec identifiants n'est jamais lue
   ---
-  duration_ms: 4.720819
+  duration_ms: 5.572599
   type: 'test'
   ...
 # Subtest: un PDF est lu comme une page
-ok 200 - un PDF est lu comme une page
+ok 210 - un PDF est lu comme une page
   ---
-  duration_ms: 152.32096
+  duration_ms: 112.119638
   type: 'test'
   ...
 # Subtest: la sortie de l'agent est un JSON validé ; le texte autour est ignoré
-ok 201 - la sortie de l'agent est un JSON validé ; le texte autour est ignoré
+ok 211 - la sortie de l'agent est un JSON validé ; le texte autour est ignoré
   ---
-  duration_ms: 1.831367
+  duration_ms: 2.775658
   type: 'test'
   ...
 # Subtest: une sortie sans JSON, incomplète, sans URL ou sans extrait est rejetée
-ok 202 - une sortie sans JSON, incomplète, sans URL ou sans extrait est rejetée
+ok 212 - une sortie sans JSON, incomplète, sans URL ou sans extrait est rejetée
   ---
-  duration_ms: 1.777703
+  duration_ms: 1.805564
   type: 'test'
   ...
 # Subtest: A. une source officielle récente et vérifiée est acceptée au niveau 1
-ok 203 - A. une source officielle récente et vérifiée est acceptée au niveau 1
+ok 213 - A. une source officielle récente et vérifiée est acceptée au niveau 1
   ---
-  duration_ms: 0.672593
+  duration_ms: 0.845449
   type: 'test'
   ...
 # Subtest: A. un blog d'éditeur de logiciel, un forum, un article de presse ou un contenu généré sont exclus
-ok 204 - A. un blog d'éditeur de logiciel, un forum, un article de presse ou un contenu généré sont exclus
+ok 214 - A. un blog d'éditeur de logiciel, un forum, un article de presse ou un contenu généré sont exclus
   ---
-  duration_ms: 1.048327
+  duration_ms: 1.296764
   type: 'test'
   ...
 # Subtest: A. un domaine exclu ou publié par CAXE est rejeté quelle que soit la catégorie annoncée
-ok 205 - A. un domaine exclu ou publié par CAXE est rejeté quelle que soit la catégorie annoncée
+ok 215 - A. un domaine exclu ou publié par CAXE est rejeté quelle que soit la catégorie annoncée
   ---
-  duration_ms: 0.372894
+  duration_ms: 4.727902
   type: 'test'
   ...
 # Subtest: A. une source de 2017 est rejetée ; de plus de 3 ans, elle est seulement indicative
-ok 206 - A. une source de 2017 est rejetée ; de plus de 3 ans, elle est seulement indicative
+ok 216 - A. une source de 2017 est rejetée ; de plus de 3 ans, elle est seulement indicative
   ---
-  duration_ms: 0.405866
+  duration_ms: 0.41242
   type: 'test'
   ...
 # Subtest: A. le niveau 1 n'est jamais accordé sur la seule parole de l'agent
-ok 207 - A. le niveau 1 n'est jamais accordé sur la seule parole de l'agent
+ok 217 - A. le niveau 1 n'est jamais accordé sur la seule parole de l'agent
   ---
-  duration_ms: 0.256254
+  duration_ms: 0.490833
   type: 'test'
   ...
 # Subtest: A. une étude de niveau 2 sans méthodologie, ou sans auteur identifiable, est rejetée
-ok 208 - A. une étude de niveau 2 sans méthodologie, ou sans auteur identifiable, est rejetée
+ok 218 - A. une étude de niveau 2 sans méthodologie, ou sans auteur identifiable, est rejetée
   ---
-  duration_ms: 0.167748
+  duration_ms: 0.181836
   type: 'test'
   ...
 # Subtest: A. une source étrangère est plafonnée à « indicatif »
-ok 209 - A. une source étrangère est plafonnée à « indicatif »
+ok 219 - A. une source étrangère est plafonnée à « indicatif »
   ---
-  duration_ms: 0.155382
+  duration_ms: 0.116772
   type: 'test'
   ...
 # Subtest: B. une page où le chiffre ne figure pas fait rejeter la référence
-ok 210 - B. une page où le chiffre ne figure pas fait rejeter la référence
+ok 220 - B. une page où le chiffre ne figure pas fait rejeter la référence
   ---
-  duration_ms: 0.12156
+  duration_ms: 0.096071
   type: 'test'
   ...
 # Subtest: B. une définition différente est rejetée, une définition proche plafonne
-ok 211 - B. une définition différente est rejetée, une définition proche plafonne
+ok 221 - B. une définition différente est rejetée, une définition proche plafonne
   ---
-  duration_ms: 0.221087
+  duration_ms: 0.292593
   type: 'test'
   ...
 # Subtest: B. même unité, même période : jamais de conversion d'un taux
-ok 212 - B. même unité, même période : jamais de conversion d'un taux
+ok 222 - B. même unité, même période : jamais de conversion d'un taux
   ---
-  duration_ms: 0.218283
+  duration_ms: 0.216694
   type: 'test'
   ...
 # Subtest: B. un montant annuel est ramené au mois par le code, et la conversion est la seule permise
-ok 213 - B. un montant annuel est ramené au mois par le code, et la conversion est la seule permise
+ok 223 - B. un montant annuel est ramené au mois par le code, et la conversion est la seule permise
   ---
-  duration_ms: 0.182293
+  duration_ms: 0.264828
   type: 'test'
   ...
 # Subtest: B. une valeur hors des bornes de vraisemblance est rejetée
-ok 214 - B. une valeur hors des bornes de vraisemblance est rejetée
+ok 224 - B. une valeur hors des bornes de vraisemblance est rejetée
   ---
-  duration_ms: 0.274956
+  duration_ms: 0.308748
   type: 'test'
   ...
 # Subtest: B. une population de grandes entreprises ou un petit échantillon plafonnent la confiance
-ok 215 - B. une population de grandes entreprises ou un petit échantillon plafonnent la confiance
+ok 225 - B. une population de grandes entreprises ou un petit échantillon plafonnent la confiance
   ---
-  duration_ms: 0.390667
+  duration_ms: 0.469126
   type: 'test'
   ...
 # Subtest: B. une valeur très éloignée des autres métiers de la famille passe en revue sans être rejetée
-ok 216 - B. une valeur très éloignée des autres métiers de la famille passe en revue sans être rejetée
+ok 226 - B. une valeur très éloignée des autres métiers de la famille passe en revue sans être rejetée
   ---
-  duration_ms: 0.278688
+  duration_ms: 1.720976
   type: 'test'
   ...
 # Subtest: C. une source officielle sans plafond est « solide »
-ok 217 - C. une source officielle sans plafond est « solide »
+ok 227 - C. une source officielle sans plafond est « solide »
   ---
-  duration_ms: 0.334894
+  duration_ms: 0.592145
   type: 'test'
   ...
 # Subtest: C. une source de niveau 2 non recoupée est « indicatif » ; recoupée par une source indépendante, « solide »
-ok 218 - C. une source de niveau 2 non recoupée est « indicatif » ; recoupée par une source indépendante, « solide »
+ok 228 - C. une source de niveau 2 non recoupée est « indicatif » ; recoupée par une source indépendante, « solide »
   ---
-  duration_ms: 0.382696
+  duration_ms: 0.533802
   type: 'test'
   ...
 # Subtest: B. deux sources qui divergent : fourchette enregistrée, « indicatif », revue demandée
-ok 219 - B. deux sources qui divergent : fourchette enregistrée, « indicatif », revue demandée
+ok 229 - B. deux sources qui divergent : fourchette enregistrée, « indicatif », revue demandée
   ---
-  duration_ms: 0.292914
+  duration_ms: 0.276039
   type: 'test'
   ...
 # Subtest: B. une seconde source qui cite la première, ou du même organisme, ne confirme rien
-ok 220 - B. une seconde source qui cite la première, ou du même organisme, ne confirme rien
+ok 230 - B. une seconde source qui cite la première, ou du même organisme, ne confirme rien
   ---
-  duration_ms: 0.403219
+  duration_ms: 0.604817
   type: 'test'
   ...
 # Subtest: C. rien ne passe les contrôles : « aucune_reference » avec le motif
-ok 221 - C. rien ne passe les contrôles : « aucune_reference » avec le motif
+ok 231 - C. rien ne passe les contrôles : « aucune_reference » avec le motif
   ---
-  duration_ms: 0.16623
+  duration_ms: 0.218064
   type: 'test'
   ...
 # Subtest: les petits outils de domaine
-ok 222 - les petits outils de domaine
+ok 232 - les petits outils de domaine
   ---
-  duration_ms: 0.149073
+  duration_ms: 0.096311
   type: 'test'
   ...
 # Subtest: D. la demande ne contient que le métier, l'indicateur et le type de zone, jamais une donnée du client
-ok 223 - D. la demande ne contient que le métier, l'indicateur et le type de zone, jamais une donnée du client
+ok 233 - D. la demande ne contient que le métier, l'indicateur et le type de zone, jamais une donnée du client
   ---
-  duration_ms: 0.315103
+  duration_ms: 0.481731
   type: 'test'
   ...
 # Subtest: le coût d'une recherche est compté au centime supérieur
-ok 224 - le coût d'une recherche est compté au centime supérieur
+ok 234 - le coût d'une recherche est compté au centime supérieur
   ---
-  duration_ms: 0.179014
+  duration_ms: 0.221054
   type: 'test'
   ...
 # Subtest: un couple trouvé et vérifié est enregistré « solide », avec sa source, son échéance à 3 mois et son coût
-ok 225 - un couple trouvé et vérifié est enregistré « solide », avec sa source, son échéance à 3 mois et son coût
+ok 235 - un couple trouvé et vérifié est enregistré « solide », avec sa source, son échéance à 3 mois et son coût
   ---
-  duration_ms: 1.558532
+  duration_ms: 2.061277
   type: 'test'
   ...
 # Subtest: un chiffre absent de la page : aucune référence enregistrée, motif au journal
-ok 226 - un chiffre absent de la page : aucune référence enregistrée, motif au journal
+ok 236 - un chiffre absent de la page : aucune référence enregistrée, motif au journal
   ---
-  duration_ms: 0.558144
+  duration_ms: 0.708932
   type: 'test'
   ...
 # Subtest: une page illisible (404) rejette la source
-ok 227 - une page illisible (404) rejette la source
+ok 237 - une page illisible (404) rejette la source
   ---
-  duration_ms: 0.313342
+  duration_ms: 0.589463
   type: 'test'
   ...
 # Subtest: un blog d'éditeur de logiciel, même avec une page vérifiable, n'est jamais retenu
-ok 228 - un blog d'éditeur de logiciel, même avec une page vérifiable, n'est jamais retenu
+ok 238 - un blog d'éditeur de logiciel, même avec une page vérifiable, n'est jamais retenu
   ---
-  duration_ms: 0.550985
+  duration_ms: 0.616457
   type: 'test'
   ...
 # Subtest: une source de 2017 est rejetée ; la seconde, valable, devient la principale sans recoupement
-ok 229 - une source de 2017 est rejetée ; la seconde, valable, devient la principale sans recoupement
+ok 239 - une source de 2017 est rejetée ; la seconde, valable, devient la principale sans recoupement
   ---
-  duration_ms: 5.082565
+  duration_ms: 1.912267
   type: 'test'
   ...
 # Subtest: deux sources qui divergent : « a_revoir », inactive, avec la fourchette
-ok 230 - deux sources qui divergent : « a_revoir », inactive, avec la fourchette
+ok 240 - deux sources qui divergent : « a_revoir », inactive, avec la fourchette
   ---
-  duration_ms: 0.666032
+  duration_ms: 0.952992
   type: 'test'
   ...
 # Subtest: une valeur hors bornes est rejetée par le code même si l'agent et la page sont d'accord
-ok 231 - une valeur hors bornes est rejetée par le code même si l'agent et la page sont d'accord
+ok 241 - une valeur hors bornes est rejetée par le code même si l'agent et la page sont d'accord
   ---
-  duration_ms: 0.437856
+  duration_ms: 4.695448
   type: 'test'
   ...
 # Subtest: une définition différente : aucune référence
-ok 232 - une définition différente : aucune référence
+ok 242 - une définition différente : aucune référence
   ---
-  duration_ms: 0.419267
+  duration_ms: 0.68711
   type: 'test'
   ...
 # Subtest: « aucune_reference » annoncée par l'agent est enregistrée avec son motif et bloque les recherches pendant 90 jours
-ok 233 - « aucune_reference » annoncée par l'agent est enregistrée avec son motif et bloque les recherches pendant 90 jours
+ok 243 - « aucune_reference » annoncée par l'agent est enregistrée avec son motif et bloque les recherches pendant 90 jours
   ---
-  duration_ms: 0.339921
+  duration_ms: 0.622151
   type: 'test'
   ...
 # Subtest: D. une instruction trouvée dans une page est signalée au journal et n'a aucun effet
-ok 234 - D. une instruction trouvée dans une page est signalée au journal et n'a aucun effet
+ok 244 - D. une instruction trouvée dans une page est signalée au journal et n'a aucun effet
   ---
-  duration_ms: 0.535393
+  duration_ms: 0.922031
   type: 'test'
   ...
 # Subtest: une sortie invalide de l'agent est rejetée sans rien enregistrer
-ok 235 - une sortie invalide de l'agent est rejetée sans rien enregistrer
+ok 245 - une sortie invalide de l'agent est rejetée sans rien enregistrer
   ---
-  duration_ms: 0.181955
+  duration_ms: 0.395258
   type: 'test'
   ...
 # Subtest: un refus de sécurité ou une erreur d'appel ne produisent aucune référence et ne bloquent pas
-ok 236 - un refus de sécurité ou une erreur d'appel ne produisent aucune référence et ne bloquent pas
+ok 246 - un refus de sécurité ou une erreur d'appel ne produisent aucune référence et ne bloquent pas
   ---
-  duration_ms: 0.322392
+  duration_ms: 0.420931
   type: 'test'
   ...
 # Subtest: aucune recherche ne part sans raison : brouillon, thème sans comparaison, référence existante, verrou, plafonds
-ok 237 - aucune recherche ne part sans raison : brouillon, thème sans comparaison, référence existante, verrou, plafonds
+ok 247 - aucune recherche ne part sans raison : brouillon, thème sans comparaison, référence existante, verrou, plafonds
   ---
-  duration_ms: 0.466434
+  duration_ms: 3.771244
   type: 'test'
   ...
 # Subtest: une valeur atypique face aux autres métiers de la famille passe en revue
-ok 238 - une valeur atypique face aux autres métiers de la famille passe en revue
+ok 248 - une valeur atypique face aux autres métiers de la famille passe en revue
   ---
-  duration_ms: 0.425347
+  duration_ms: 1.00645
   type: 'test'
   ...
 # Subtest: le catalogue réel est validé : la recherche peut partir pour les 36 indicateurs
-ok 239 - le catalogue réel est validé : la recherche peut partir pour les 36 indicateurs
+ok 249 - le catalogue réel est validé : la recherche peut partir pour les 36 indicateurs
   ---
-  duration_ms: 0.145283
+  duration_ms: 0.211639
   type: 'test'
   ...
-# (node:924) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7512) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: le catalogue a une fiche par thème, et seuls les thèmes de nature Marché cherchent une référence
-ok 240 - le catalogue a une fiche par thème, et seuls les thèmes de nature Marché cherchent une référence
+ok 250 - le catalogue a une fiche par thème, et seuls les thèmes de nature Marché cherchent une référence
   ---
-  duration_ms: 3.323145
+  duration_ms: 4.291624
   type: 'test'
   ...
 # Subtest: un volume absolu qui dépend de la taille ne se compare pas à un marché
-ok 241 - un volume absolu qui dépend de la taille ne se compare pas à un marché
+ok 251 - un volume absolu qui dépend de la taille ne se compare pas à un marché
   ---
-  duration_ms: 0.242827
+  duration_ms: 0.355384
   type: 'test'
   ...
 # Subtest: tout indicateur du catalogue est validé, avec un sens, et ses bornes ne reposent que sur la logique
-ok 242 - tout indicateur du catalogue est validé, avec un sens, et ses bornes ne reposent que sur la logique
+ok 252 - tout indicateur du catalogue est validé, avec un sens, et ses bornes ne reposent que sur la logique
   ---
-  duration_ms: 0.478381
+  duration_ms: 0.700306
   type: 'test'
   ...
 # Subtest: le contrôle des données accepte le catalogue validé
-ok 243 - le contrôle des données accepte le catalogue validé
+ok 253 - le contrôle des données accepte le catalogue validé
   ---
-  duration_ms: 32.414597
+  duration_ms: 47.024383
   type: 'test'
   ...
 # Subtest: aucune valeur de marché sans source citée
-ok 244 - aucune valeur de marché sans source citée
+ok 254 - aucune valeur de marché sans source citée
   ---
-  duration_ms: 4.619923
+  duration_ms: 4.505009
   type: 'test'
   ...
 # Subtest: « aucune_reference » n'a pas de valeur et dit pourquoi
-ok 245 - « aucune_reference » n'a pas de valeur et dit pourquoi
+ok 255 - « aucune_reference » n'a pas de valeur et dit pourquoi
   ---
-  duration_ms: 0.589451
+  duration_ms: 0.603449
   type: 'test'
   ...
 # Subtest: bornes inversées et niveau sans clé sont refusés
-ok 246 - bornes inversées et niveau sans clé sont refusés
+ok 256 - bornes inversées et niveau sans clé sont refusés
   ---
-  duration_ms: 0.878948
+  duration_ms: 1.129835
   type: 'test'
   ...
 # Subtest: la référence la plus précise l'emporte : métier + zone + taille avant métier seul
-ok 247 - la référence la plus précise l'emporte : métier + zone + taille avant métier seul
+ok 257 - la référence la plus précise l'emporte : métier + zone + taille avant métier seul
   ---
-  duration_ms: 1.148287
+  duration_ms: 1.401465
   type: 'test'
   ...
 # Subtest: une référence d'une autre zone, d'une autre taille ou d'une autre activité ne s'applique pas
-ok 248 - une référence d'une autre zone, d'une autre taille ou d'une autre activité ne s'applique pas
+ok 258 - une référence d'une autre zone, d'une autre taille ou d'une autre activité ne s'applique pas
   ---
-  duration_ms: 0.670774
+  duration_ms: 0.772575
   type: 'test'
   ...
 # Subtest: sans référence au niveau métier, on retombe sur la famille ; le national seulement si l'indicateur l'autorise
-ok 249 - sans référence au niveau métier, on retombe sur la famille ; le national seulement si l'indicateur l'autorise
+ok 259 - sans référence au niveau métier, on retombe sur la famille ; le national seulement si l'indicateur l'autorise
   ---
-  duration_ms: 0.760906
+  duration_ms: 0.657601
   type: 'test'
   ...
 # Subtest: le métier passe avant la famille, même moins précis
-ok 250 - le métier passe avant la famille, même moins précis
+ok 260 - le métier passe avant la famille, même moins précis
   ---
-  duration_ms: 0.297601
+  duration_ms: 0.381225
   type: 'test'
   ...
 # Subtest: un métier absent de la liste n'utilise que la famille
-ok 251 - un métier absent de la liste n'utilise que la famille
+ok 261 - un métier absent de la liste n'utilise que la famille
   ---
-  duration_ms: 0.179582
+  duration_ms: 0.24194
   type: 'test'
   ...
 # Subtest: rejetée, à revoir, inactive, sans valeur ou d'un autre indicateur : jamais utilisée
-ok 252 - rejetée, à revoir, inactive, sans valeur ou d'un autre indicateur : jamais utilisée
+ok 262 - rejetée, à revoir, inactive, sans valeur ou d'un autre indicateur : jamais utilisée
   ---
-  duration_ms: 0.313472
+  duration_ms: 0.225535
   type: 'test'
   ...
 # Subtest: à précision égale, la plus confiante puis la plus récente
-ok 253 - à précision égale, la plus confiante puis la plus récente
+ok 263 - à précision égale, la plus confiante puis la plus récente
   ---
-  duration_ms: 7.363862
+  duration_ms: 8.717928
   type: 'test'
   ...
 # Subtest: une référence périmée reste utilisée mais est signalée à revérifier
-ok 254 - une référence périmée reste utilisée mais est signalée à revérifier
+ok 264 - une référence périmée reste utilisée mais est signalée à revérifier
   ---
-  duration_ms: 0.270529
+  duration_ms: 2.029907
   type: 'test'
   ...
 # Subtest: une recherche part pour un couple indicateur + métier validé, sans référence ni échec récent
-ok 255 - une recherche part pour un couple indicateur + métier validé, sans référence ni échec récent
+ok 265 - une recherche part pour un couple indicateur + métier validé, sans référence ni échec récent
   ---
-  duration_ms: 0.210457
+  duration_ms: 0.245549
   type: 'test'
   ...
 # Subtest: aucune recherche pour un thème sans comparaison, un indicateur en brouillon ou un métier inconnu
-ok 256 - aucune recherche pour un thème sans comparaison, un indicateur en brouillon ou un métier inconnu
+ok 266 - aucune recherche pour un thème sans comparaison, un indicateur en brouillon ou un métier inconnu
   ---
-  duration_ms: 0.118081
+  duration_ms: 0.188071
   type: 'test'
   ...
 # Subtest: pas de recherche quand une référence de métier existe, qu'un verrou est pris ou que le plafond est atteint
-ok 257 - pas de recherche quand une référence de métier existe, qu'un verrou est pris ou que le plafond est atteint
+ok 267 - pas de recherche quand une référence de métier existe, qu'un verrou est pris ou que le plafond est atteint
   ---
-  duration_ms: 0.177251
+  duration_ms: 0.203063
   type: 'test'
   ...
 # Subtest: un échec récent bloque la recherche 90 jours, pas davantage
-ok 258 - un échec récent bloque la recherche 90 jours, pas davantage
+ok 268 - un échec récent bloque la recherche 90 jours, pas davantage
   ---
-  duration_ms: 0.189139
+  duration_ms: 0.150544
   type: 'test'
   ...
 # Subtest: mise à jour tous les 3 mois par défaut, réglable par catégorie, sans débordement de fin de mois
-ok 259 - mise à jour tous les 3 mois par défaut, réglable par catégorie, sans débordement de fin de mois
+ok 269 - mise à jour tous les 3 mois par défaut, réglable par catégorie, sans débordement de fin de mois
   ---
-  duration_ms: 0.221181
+  duration_ms: 0.157461
   type: 'test'
   ...
 # Subtest: l'activité principale : celle par défaut si elle est cochée, « Autre » seule la prend, sinon la première cochée
-ok 260 - l'activité principale : celle par défaut si elle est cochée, « Autre » seule la prend, sinon la première cochée
+ok 270 - l'activité principale : celle par défaut si elle est cochée, « Autre » seule la prend, sinon la première cochée
   ---
-  duration_ms: 0.218477
+  duration_ms: 0.173618
   type: 'test'
   ...
 # Subtest: le contexte d'un compte donne famille, zone et taille ; un métier absent n'a que sa famille
-ok 261 - le contexte d'un compte donne famille, zone et taille ; un métier absent n'a que sa famille
+ok 271 - le contexte d'un compte donne famille, zone et taille ; un métier absent n'a que sa famille
   ---
-  duration_ms: 0.175727
+  duration_ms: 0.221839
   type: 'test'
   ...
 # Subtest: un thème de nature Marché sans référence reste affiché, sans comparaison et sans message d'erreur
-ok 262 - un thème de nature Marché sans référence reste affiché, sans comparaison et sans message d'erreur
+ok 272 - un thème de nature Marché sans référence reste affiché, sans comparaison et sans message d'erreur
   ---
-  duration_ms: 2.289145
+  duration_ms: 1.830069
   type: 'test'
   ...
 # Subtest: avec une référence applicable, le thème porte son repère : organisme, année, niveau, confiance
-ok 263 - avec une référence applicable, le thème porte son repère : organisme, année, niveau, confiance
+ok 273 - avec une référence applicable, le thème porte son repère : organisme, année, niveau, confiance
   ---
-  duration_ms: 1.264321
+  duration_ms: 1.235449
   type: 'test'
   ...
 # Subtest: un thème de nature Pratique ou Cohérence garde « règle manquante » en interne, et un texte neutre pour le client
-ok 264 - un thème de nature Pratique ou Cohérence garde « règle manquante » en interne, et un texte neutre pour le client
+ok 274 - un thème de nature Pratique ou Cohérence garde « règle manquante » en interne, et un texte neutre pour le client
   ---
-  duration_ms: 0.668953
+  duration_ms: 1.966898
   type: 'test'
   ...
 # Subtest: aucun statut ne montre au client un mot technique
-ok 265 - aucun statut ne montre au client un mot technique
+ok 275 - aucun statut ne montre au client un mot technique
   ---
-  duration_ms: 0.663076
+  duration_ms: 0.691254
   type: 'test'
   ...
-# (node:933) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7519) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: D27 : « la personne la plus chargée, est-ce vous ? » n'est plus posée deux fois ; RH-08.01 décide
-ok 266 - D27 : « la personne la plus chargée, est-ce vous ? » n'est plus posée deux fois ; RH-08.01 décide
+ok 276 - D27 : « la personne la plus chargée, est-ce vous ? » n'est plus posée deux fois ; RH-08.01 décide
   ---
-  duration_ms: 33.367242
+  duration_ms: 33.869071
   type: 'test'
   ...
 # Subtest: D13 : le recrutement n'est plus demandé deux fois ; RH-28.01 ouvre ou ferme la partie recrutement
-ok 267 - D13 : le recrutement n'est plus demandé deux fois ; RH-28.01 ouvre ou ferme la partie recrutement
+ok 277 - D13 : le recrutement n'est plus demandé deux fois ; RH-28.01 ouvre ou ferme la partie recrutement
   ---
-  duration_ms: 18.903201
+  duration_ms: 16.884774
   type: 'test'
   ...
 # Subtest: COM-12.01 : chaque colonne de répartition doit faire 100 %
-ok 268 - COM-12.01 : chaque colonne de répartition doit faire 100 %
+ok 278 - COM-12.01 : chaque colonne de répartition doit faire 100 %
   ---
-  duration_ms: 2.634298
+  duration_ms: 2.492423
   type: 'test'
   ...
 # Subtest: bornes : un nombre de clients, d'heures ou de jours négatif est refusé ; le résultat de l'année peut être une perte
-ok 269 - bornes : un nombre de clients, d'heures ou de jours négatif est refusé ; le résultat de l'année peut être une perte
+ok 279 - bornes : un nombre de clients, d'heures ou de jours négatif est refusé ; le résultat de l'année peut être une perte
   ---
-  duration_ms: 0.652863
+  duration_ms: 0.669042
   type: 'test'
   ...
 # Subtest: choix complétés : on peut répondre « Les deux » ou « Aucun changement récent »
-ok 270 - choix complétés : on peut répondre « Les deux » ou « Aucun changement récent »
+ok 280 - choix complétés : on peut répondre « Les deux » ou « Aucun changement récent »
   ---
-  duration_ms: 0.834525
+  duration_ms: 0.776827
   type: 'test'
   ...
-# (node:941) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7526) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: les options « Aucun », « Aucune … », « Rien … » sont exclusives ; les autres non
-ok 271 - les options « Aucun », « Aucune … », « Rien … » sont exclusives ; les autres non
+ok 281 - les options « Aucun », « Aucune … », « Rien … » sont exclusives ; les autres non
   ---
-  duration_ms: 2.236402
+  duration_ms: 3.268935
   type: 'test'
   ...
 # Subtest: cocher « Aucun » décoche le reste ; cocher une autre option décoche « Aucun »
-ok 272 - cocher « Aucun » décoche le reste ; cocher une autre option décoche « Aucun »
+ok 282 - cocher « Aucun » décoche le reste ; cocher une autre option décoche « Aucun »
   ---
-  duration_ms: 0.24951
+  duration_ms: 0.454259
   type: 'test'
   ...
 # Subtest: le serveur refuse « Aucun » coché avec une autre option
-ok 273 - le serveur refuse « Aucun » coché avec une autre option
+ok 283 - le serveur refuse « Aucun » coché avec une autre option
   ---
-  duration_ms: 0.457418
+  duration_ms: 0.742341
   type: 'test'
   ...
-# (node:949) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7533) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: un format simple donne une spécification sûre
-ok 274 - un format simple donne une spécification sûre
+ok 284 - un format simple donne une spécification sûre
   ---
-  duration_ms: 2.548668
+  duration_ms: 3.211443
   type: 'test'
   ...
 # Subtest: les tranches du classeur deviennent des options ; « je ne sais pas » n'en est pas une
-ok 275 - les tranches du classeur deviennent des options ; « je ne sais pas » n'en est pas une
+ok 285 - les tranches du classeur deviennent des options ; « je ne sais pas » n'en est pas une
   ---
-  duration_ms: 0.976048
+  duration_ms: 1.342022
   type: 'test'
   ...
 # Subtest: un format ambigu n'est jamais deviné : « Choix » sans liste, tableaux, plusieurs champs
-ok 276 - un format ambigu n'est jamais deviné : « Choix » sans liste, tableaux, plusieurs champs
+ok 286 - un format ambigu n'est jamais deviné : « Choix » sans liste, tableaux, plusieurs champs
   ---
-  duration_ms: 1.847329
+  duration_ms: 2.450881
   type: 'test'
   ...
 # Subtest: sur les données réelles, toute spécification proposée est valide et sans option en double
-ok 277 - sur les données réelles, toute spécification proposée est valide et sans option en double
+ok 287 - sur les données réelles, toute spécification proposée est valide et sans option en double
   ---
-  duration_ms: 3.387981
+  duration_ms: 3.887138
   type: 'test'
   ...
 # Subtest: une spécification mal formée est refusée
-ok 278 - une spécification mal formée est refusée
+ok 288 - une spécification mal formée est refusée
   ---
-  duration_ms: 0.914472
+  duration_ms: 0.889983
   type: 'test'
   ...
 # Subtest: un nombre respecte ses bornes ; exact et fourchette passent, un texte non
-ok 279 - un nombre respecte ses bornes ; exact et fourchette passent, un texte non
+ok 289 - un nombre respecte ses bornes ; exact et fourchette passent, un texte non
   ---
-  duration_ms: 0.50944
+  duration_ms: 0.448335
   type: 'test'
   ...
 # Subtest: « je ne sais pas » et « je ne suis pas cette donnée » passent pour toute spécification
-ok 280 - « je ne sais pas » et « je ne suis pas cette donnée » passent pour toute spécification
+ok 290 - « je ne sais pas » et « je ne suis pas cette donnée » passent pour toute spécification
   ---
-  duration_ms: 0.209239
+  duration_ms: 0.226289
   type: 'test'
   ...
 # Subtest: un choix refuse une option qui n'existe pas ; des cases refusent un doublon et respectent leurs bornes
-ok 281 - un choix refuse une option qui n'existe pas ; des cases refusent un doublon et respectent leurs bornes
+ok 291 - un choix refuse une option qui n'existe pas ; des cases refusent un doublon et respectent leurs bornes
   ---
-  duration_ms: 0.424698
+  duration_ms: 0.459936
   type: 'test'
   ...
 # Subtest: une date est un mois réel, pas dans le futur
-ok 282 - une date est un mois réel, pas dans le futur
+ok 292 - une date est un mois réel, pas dans le futur
   ---
-  duration_ms: 0.696952
+  duration_ms: 0.669919
   type: 'test'
   ...
 # Subtest: plusieurs champs : chaque valeur est contrôlée, un champ peut rester vide, un champ inconnu est refusé
-ok 283 - plusieurs champs : chaque valeur est contrôlée, un champ peut rester vide, un champ inconnu est refusé
+ok 293 - plusieurs champs : chaque valeur est contrôlée, un champ peut rester vide, un champ inconnu est refusé
   ---
-  duration_ms: 0.552401
+  duration_ms: 0.805001
   type: 'test'
   ...
 # Subtest: un tableau dont les lignes viennent d'un cadrage : seules les lignes cochées existent, le total est contrôlé
-ok 284 - un tableau dont les lignes viennent d'un cadrage : seules les lignes cochées existent, le total est contrôlé
+ok 294 - un tableau dont les lignes viennent d'un cadrage : seules les lignes cochées existent, le total est contrôlé
   ---
-  duration_ms: 0.671969
+  duration_ms: 0.935235
   type: 'test'
   ...
 # Subtest: un tableau à lignes libres accepte des noms et limite le nombre de lignes
-ok 285 - un tableau à lignes libres accepte des noms et limite le nombre de lignes
+ok 295 - un tableau à lignes libres accepte des noms et limite le nombre de lignes
   ---
-  duration_ms: 0.195425
+  duration_ms: 0.298287
   type: 'test'
   ...
 # Subtest: la réponse structurée est reconnue comme une réponse seulement si une valeur est renseignée
-ok 286 - la réponse structurée est reconnue comme une réponse seulement si une valeur est renseignée
+ok 296 - la réponse structurée est reconnue comme une réponse seulement si une valeur est renseignée
   ---
-  duration_ms: 1.501242
+  duration_ms: 1.488299
   type: 'test'
   ...
 # Subtest: la spécification de la banque l'emporte sur celle du classeur ; sinon celle du classeur ; sinon aucune
-ok 287 - la spécification de la banque l'emporte sur celle du classeur ; sinon celle du classeur ; sinon aucune
+ok 297 - la spécification de la banque l'emporte sur celle du classeur ; sinon celle du classeur ; sinon aucune
   ---
-  duration_ms: 14.583522
+  duration_ms: 18.463871
   type: 'test'
   ...
 # Subtest: le serveur refuse une réponse qui ne correspond pas à la spécification, et accepte une qui correspond
-ok 288 - le serveur refuse une réponse qui ne correspond pas à la spécification, et accepte une qui correspond
+ok 298 - le serveur refuse une réponse qui ne correspond pas à la spécification, et accepte une qui correspond
   ---
-  duration_ms: 15.918662
+  duration_ms: 23.718249
   type: 'test'
   ...
 # Subtest: le serveur contrôle les lignes d'un tableau avec les réponses déjà données au cadrage
-ok 289 - le serveur contrôle les lignes d'un tableau avec les réponses déjà données au cadrage
+ok 299 - le serveur contrôle les lignes d'un tableau avec les réponses déjà données au cadrage
   ---
-  duration_ms: 12.710033
+  duration_ms: 17.077541
   type: 'test'
   ...
 # Subtest: l'assemblage transmet la spécification et en précise l'origine
-ok 290 - l'assemblage transmet la spécification et en précise l'origine
+ok 300 - l'assemblage transmet la spécification et en précise l'origine
   ---
-  duration_ms: 26.334253
+  duration_ms: 34.111478
   type: 'test'
   ...
 # Subtest: le contrôle signale une réponse de banque qui s'écarte du format du classeur ou dont le cadrage n'existe pas
-ok 291 - le contrôle signale une réponse de banque qui s'écarte du format du classeur ou dont le cadrage n'existe pas
+ok 301 - le contrôle signale une réponse de banque qui s'écarte du format du classeur ou dont le cadrage n'existe pas
   ---
-  duration_ms: 57.606261
+  duration_ms: 63.38719
   type: 'test'
   ...
 # Subtest: les chiffres du contrôle : ce que le classeur permet de déduire et ce que la banque doit définir
-ok 292 - les chiffres du contrôle : ce que le classeur permet de déduire et ce que la banque doit définir
+ok 302 - les chiffres du contrôle : ce que le classeur permet de déduire et ce que la banque doit définir
   ---
-  duration_ms: 12.327802
+  duration_ms: 12.581562
   type: 'test'
   ...
 # Subtest: la saisie d'un chiffre devient une réponse exacte ou une fourchette, un champ vide ne devient rien
-ok 293 - la saisie d'un chiffre devient une réponse exacte ou une fourchette, un champ vide ne devient rien
+ok 303 - la saisie d'un chiffre devient une réponse exacte ou une fourchette, un champ vide ne devient rien
   ---
-  duration_ms: 1.160782
+  duration_ms: 1.17135
   type: 'test'
   ...
 # Subtest: un tableau saisi devient des valeurs « ligne.colonne » contrôlées ; le total est vérifié avant l'envoi
-ok 294 - un tableau saisi devient des valeurs « ligne.colonne » contrôlées ; le total est vérifié avant l'envoi
+ok 304 - un tableau saisi devient des valeurs « ligne.colonne » contrôlées ; le total est vérifié avant l'envoi
   ---
-  duration_ms: 0.804821
+  duration_ms: 1.354001
   type: 'test'
   ...
 # Subtest: un champ à plusieurs valeurs : les champs vides sont ignorés
-ok 295 - un champ à plusieurs valeurs : les champs vides sont ignorés
+ok 305 - un champ à plusieurs valeurs : les champs vides sont ignorés
   ---
-  duration_ms: 0.199694
+  duration_ms: 0.182003
   type: 'test'
   ...
 # Subtest: sans spécification, un texte libre ; une réponse enregistrée se réaffiche à l'identique
-ok 296 - sans spécification, un texte libre ; une réponse enregistrée se réaffiche à l'identique
+ok 306 - sans spécification, un texte libre ; une réponse enregistrée se réaffiche à l'identique
   ---
-  duration_ms: 0.409577
+  duration_ms: 0.530683
   type: 'test'
   ...
 # Subtest: une liste libre : bornes, doublons, éléments vides
-ok 297 - une liste libre : bornes, doublons, éléments vides
+ok 307 - une liste libre : bornes, doublons, éléments vides
   ---
-  duration_ms: 0.202621
+  duration_ms: 0.253153
   type: 'test'
   ...
 # Subtest: des identifiants de ligne stables, sans accent, uniques
-ok 298 - des identifiants de ligne stables, sans accent, uniques
+ok 308 - des identifiants de ligne stables, sans accent, uniques
   ---
-  duration_ms: 0.164128
+  duration_ms: 0.14593
   type: 'test'
   ...
 # Subtest: un tableau dont les lignes sont les éléments d'une liste précédente
-ok 299 - un tableau dont les lignes sont les éléments d'une liste précédente
+ok 309 - un tableau dont les lignes sont les éléments d'une liste précédente
   ---
-  duration_ms: 0.400153
+  duration_ms: 0.766144
   type: 'test'
   ...
 # Subtest: le contrôle exige que la liste source d'un tableau soit une liste dans la banque
-ok 300 - le contrôle exige que la liste source d'un tableau soit une liste dans la banque
+ok 310 - le contrôle exige que la liste source d'un tableau soit une liste dans la banque
   ---
-  duration_ms: 49.885019
+  duration_ms: 40.743643
   type: 'test'
   ...
 # Subtest: une case d'une ligne qui n'existe plus (canal décoché) est ignorée au lieu de bloquer le tableau
-ok 301 - une case d'une ligne qui n'existe plus (canal décoché) est ignorée au lieu de bloquer le tableau
+ok 311 - une case d'une ligne qui n'existe plus (canal décoché) est ignorée au lieu de bloquer le tableau
   ---
-  duration_ms: 0.506168
+  duration_ms: 0.569739
   type: 'test'
   ...
 # Subtest: message d'erreur d'une case de tableau : la ligne est nommée comme à l'écran, jamais par son identifiant
-ok 302 - message d'erreur d'une case de tableau : la ligne est nommée comme à l'écran, jamais par son identifiant
+ok 312 - message d'erreur d'une case de tableau : la ligne est nommée comme à l'écran, jamais par son identifiant
   ---
-  duration_ms: 0.46465
+  duration_ms: 0.417777
   type: 'test'
   ...
-# (node:956) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7540) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: chaîne A → B → C : quand A ferme B, la réponse à B ne garde pas C ouverte
-ok 303 - chaîne A → B → C : quand A ferme B, la réponse à B ne garde pas C ouverte
+ok 313 - chaîne A → B → C : quand A ferme B, la réponse à B ne garde pas C ouverte
   ---
-  duration_ms: 29.550417
+  duration_ms: 40.065362
   type: 'test'
   ...
 # Subtest: source sans réponse et inapplicable : la question qui la lit est écartée, pas « en attente »
-ok 304 - source sans réponse et inapplicable : la question qui la lit est écartée, pas « en attente »
+ok 314 - source sans réponse et inapplicable : la question qui la lit est écartée, pas « en attente »
   ---
-  duration_ms: 5.417114
+  duration_ms: 9.168737
   type: 'test'
   ...
 # Subtest: répartition par canal : un canal retiré sort de la réponse, la répartition n'est plus juste et ne compte plus
-ok 305 - répartition par canal : un canal retiré sort de la réponse, la répartition n'est plus juste et ne compte plus
+ok 315 - répartition par canal : un canal retiré sort de la réponse, la répartition n'est plus juste et ne compte plus
   ---
-  duration_ms: 1.60287
+  duration_ms: 2.790242
   type: 'test'
   ...
 # Subtest: répartition par canal : un canal ajouté sans valeur rend la répartition à revoir ; une case laissée vide à l'enregistrement ne l'est pas
-ok 306 - répartition par canal : un canal ajouté sans valeur rend la répartition à revoir ; une case laissée vide à l'enregistrement ne l'est pas
+ok 316 - répartition par canal : un canal ajouté sans valeur rend la répartition à revoir ; une case laissée vide à l'enregistrement ne l'est pas
   ---
-  duration_ms: 1.097303
+  duration_ms: 1.823875
   type: 'test'
   ...
 # Subtest: état d'un tableau : lignes nouvelles, lignes retirées, total
-ok 307 - état d'un tableau : lignes nouvelles, lignes retirées, total
+ok 317 - état d'un tableau : lignes nouvelles, lignes retirées, total
   ---
-  duration_ms: 0.527941
+  duration_ms: 0.665845
   type: 'test'
   ...
 # Subtest: coût par canal : le coût d'un canal décoché sort du total proposé à la Finance (FIN-05.02)
-ok 308 - coût par canal : le coût d'un canal décoché sort du total proposé à la Finance (FIN-05.02)
+ok 318 - coût par canal : le coût d'un canal décoché sort du total proposé à la Finance (FIN-05.02)
   ---
-  duration_ms: 1.88549
+  duration_ms: 8.020935
   type: 'test'
   ...
 # Subtest: taille : une réponse RH réservée aux 6 personnes et plus ne compte plus quand l'entreprise passe à 4
-ok 309 - taille : une réponse RH réservée aux 6 personnes et plus ne compte plus quand l'entreprise passe à 4
+ok 319 - taille : une réponse RH réservée aux 6 personnes et plus ne compte plus quand l'entreprise passe à 4
   ---
-  duration_ms: 2.754445
+  duration_ms: 1.580691
   type: 'test'
   ...
 # Subtest: sous-question de cadrage : « en service ? » gardé d'avant ne compte plus quand l'investissement repasse à « non »
-ok 310 - sous-question de cadrage : « en service ? » gardé d'avant ne compte plus quand l'investissement repasse à « non »
+ok 320 - sous-question de cadrage : « en service ? » gardé d'avant ne compte plus quand l'investissement repasse à « non »
   ---
-  duration_ms: 12.347608
+  duration_ms: 19.386203
   type: 'test'
   ...
-# (node:976) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7547) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: la liste du document : 149 métiers dont 16 à sous-parties (54 sous-parties), 11 catégories
-ok 311 - la liste du document : 149 métiers dont 16 à sous-parties (54 sous-parties), 11 catégories
+ok 321 - la liste du document : 149 métiers dont 16 à sous-parties (54 sous-parties), 11 catégories
   ---
-  duration_ms: 1.411419
+  duration_ms: 1.397393
   type: 'test'
   ...
 # Subtest: agence immobilière : transaction → B2B / cycle long, catégorie 4
-ok 312 - agence immobilière : transaction → B2B / cycle long, catégorie 4
+ok 322 - agence immobilière : transaction → B2B / cycle long, catégorie 4
   ---
-  duration_ms: 1.832989
+  duration_ms: 2.37439
   type: 'test'
   ...
 # Subtest: agence immobilière : gestion locative → Abonnement ; les deux cochées → les deux profils, sans doublon
-ok 313 - agence immobilière : gestion locative → Abonnement ; les deux cochées → les deux profils, sans doublon
+ok 323 - agence immobilière : gestion locative → Abonnement ; les deux cochées → les deux profils, sans doublon
   ---
-  duration_ms: 0.237972
+  duration_ms: 0.936086
   type: 'test'
   ...
 # Subtest: une activité cochée deux fois ne compte qu'une fois
-ok 314 - une activité cochée deux fois ne compte qu'une fois
+ok 324 - une activité cochée deux fois ne compte qu'une fois
   ---
-  duration_ms: 0.213955
+  duration_ms: 0.377732
   type: 'test'
   ...
 # Subtest: « Autre » seule donne le questionnaire de l'activité par défaut ; avec d'autres cases elle ne change rien
-ok 315 - « Autre » seule donne le questionnaire de l'activité par défaut ; avec d'autres cases elle ne change rien
+ok 325 - « Autre » seule donne le questionnaire de l'activité par défaut ; avec d'autres cases elle ne change rien
   ---
-  duration_ms: 0.471365
+  duration_ms: 0.460652
   type: 'test'
   ...
 # Subtest: chaque métier à activités a exactement une activité par défaut
-ok 316 - chaque métier à activités a exactement une activité par défaut
+ok 326 - chaque métier à activités a exactement une activité par défaut
   ---
-  duration_ms: 0.391855
+  duration_ms: 0.529129
   type: 'test'
   ...
 # Subtest: paysagiste : création → chantier, entretien → abonnement
-ok 317 - paysagiste : création → chantier, entretien → abonnement
+ok 327 - paysagiste : création → chantier, entretien → abonnement
   ---
-  duration_ms: 0.238481
+  duration_ms: 0.220738
   type: 'test'
   ...
 # Subtest: communication et marketing : contrats mensuels → Abonnement ; pas d'agent Comm pour les métiers de la communication
-ok 318 - communication et marketing : contrats mensuels → Abonnement ; pas d'agent Comm pour les métiers de la communication
+ok 328 - communication et marketing : contrats mensuels → Abonnement ; pas d'agent Comm pour les métiers de la communication
   ---
-  duration_ms: 0.18234
+  duration_ms: 0.124693
   type: 'test'
   ...
 # Subtest: un boulanger n'a pas d'activité : commerce, stock, e-commerce conditionnel
-ok 319 - un boulanger n'a pas d'activité : commerce, stock, e-commerce conditionnel
+ok 329 - un boulanger n'a pas d'activité : commerce, stock, e-commerce conditionnel
   ---
-  duration_ms: 0.404243
+  duration_ms: 0.404337
   type: 'test'
   ...
 # Subtest: le stock : oui, non, ou une question à l'inscription ; plusieurs activités → le plus présent l'emporte
-ok 320 - le stock : oui, non, ou une question à l'inscription ; plusieurs activités → le plus présent l'emporte
+ok 330 - le stock : oui, non, ou une question à l'inscription ; plusieurs activités → le plus présent l'emporte
   ---
-  duration_ms: 0.466274
+  duration_ms: 0.441087
   type: 'test'
   ...
 # Subtest: agent Comm : la règle la plus prudente l'emporte quand plusieurs activités sont cochées
-ok 321 - agent Comm : la règle la plus prudente l'emporte quand plusieurs activités sont cochées
+ok 331 - agent Comm : la règle la plus prudente l'emporte quand plusieurs activités sont cochées
   ---
-  duration_ms: 0.413827
+  duration_ms: 0.387491
   type: 'test'
   ...
 # Subtest: professions réglementées : profil du métier, pas d'agent Comm, 3 agents au maximum
-ok 322 - professions réglementées : profil du métier, pas d'agent Comm, 3 agents au maximum
+ok 332 - professions réglementées : profil du métier, pas d'agent Comm, 3 agents au maximum
   ---
-  duration_ms: 0.319081
+  duration_ms: 0.341528
   type: 'test'
   ...
 # Subtest: fabrication : catégorie nouvelle, questionnaire à créer, aucun profil rattaché
-ok 323 - fabrication : catégorie nouvelle, questionnaire à créer, aucun profil rattaché
+ok 333 - fabrication : catégorie nouvelle, questionnaire à créer, aucun profil rattaché
   ---
-  duration_ms: 0.116337
+  duration_ms: 0.092913
   type: 'test'
   ...
 # Subtest: « Mon métier n'est pas dans la liste » : la catégorie vient du client, le stock est demandé, une profession réglementée est refusée
-ok 324 - « Mon métier n'est pas dans la liste » : la catégorie vient du client, le stock est demandé, une profession réglementée est refusée
+ok 334 - « Mon métier n'est pas dans la liste » : la catégorie vient du client, le stock est demandé, une profession réglementée est refusée
   ---
-  duration_ms: 0.183906
+  duration_ms: 0.189462
   type: 'test'
   ...
 # Subtest: le routage d'un compte se recalcule d'après les données ; un identifiant ancien retombe sur la catégorie
-ok 325 - le routage d'un compte se recalcule d'après les données ; un identifiant ancien retombe sur la catégorie
+ok 335 - le routage d'un compte se recalcule d'après les données ; un identifiant ancien retombe sur la catégorie
   ---
-  duration_ms: 0.427157
+  duration_ms: 0.410698
   type: 'test'
   ...
 # Subtest: les synonymes du document mènent au bon métier
-ok 326 - les synonymes du document mènent au bon métier
+ok 336 - les synonymes du document mènent au bon métier
   ---
-  duration_ms: 0.229876
+  duration_ms: 0.199512
   type: 'test'
   ...
 # Subtest: refuse un métier inconnu, une activité manquante, inconnue ou superflue
-ok 327 - refuse un métier inconnu, une activité manquante, inconnue ou superflue
+ok 337 - refuse un métier inconnu, une activité manquante, inconnue ou superflue
   ---
-  duration_ms: 0.133829
+  duration_ms: 0.098513
   type: 'test'
   ...
 # Subtest: la liste des métiers est triée en français
-ok 328 - la liste des métiers est triée en français
+ok 338 - la liste des métiers est triée en français
   ---
-  duration_ms: 7.787762
+  duration_ms: 8.419406
   type: 'test'
   ...
 # Subtest: une clé de lexique est en minuscules, sans accent
-ok 329 - une clé de lexique est en minuscules, sans accent
+ok 339 - une clé de lexique est en minuscules, sans accent
   ---
-  duration_ms: 0.316284
+  duration_ms: 0.309472
   type: 'test'
   ...
 # Subtest: la même question prend les mots du métier
-ok 330 - la même question prend les mots du métier
+ok 340 - la même question prend les mots du métier
   ---
-  duration_ms: 0.478173
+  duration_ms: 0.382689
   type: 'test'
   ...
 # Subtest: un mot absent pour le profil (« — ») rend la question sans objet
-ok 331 - un mot absent pour le profil (« — ») rend la question sans objet
+ok 341 - un mot absent pour le profil (« — ») rend la question sans objet
   ---
-  duration_ms: 0.13018
+  duration_ms: 0.114799
   type: 'test'
   ...
 # Subtest: avec plusieurs profils, le premier qui a le mot l'emporte
-ok 332 - avec plusieurs profils, le premier qui a le mot l'emporte
+ok 342 - avec plusieurs profils, le premier qui a le mot l'emporte
   ---
-  duration_ms: 0.112204
+  duration_ms: 0.144107
   type: 'test'
   ...
 # Subtest: libellé d'inscription : formulation propre au profil, sinon gabarit commun
-ok 333 - libellé d'inscription : formulation propre au profil, sinon gabarit commun
+ok 343 - libellé d'inscription : formulation propre au profil, sinon gabarit commun
   ---
-  duration_ms: 0.197224
+  duration_ms: 0.174645
   type: 'test'
   ...
 # Subtest: le contrôle refuse un mot de lexique inconnu dans une question d'inscription
-ok 334 - le contrôle refuse un mot de lexique inconnu dans une question d'inscription
+ok 344 - le contrôle refuse un mot de lexique inconnu dans une question d'inscription
   ---
-  duration_ms: 53.63447
+  duration_ms: 45.032531
   type: 'test'
   ...
 # Subtest: le contrôle refuse un mot de lexique inconnu dans une question de la banque
-ok 335 - le contrôle refuse un mot de lexique inconnu dans une question de la banque
+ok 345 - le contrôle refuse un mot de lexique inconnu dans une question de la banque
   ---
-  duration_ms: 48.417302
+  duration_ms: 28.227773
   type: 'test'
   ...
 # Subtest: un mot du lexique peut porter une clé explicite, qui l'emporte sur celle du libellé
-ok 336 - un mot du lexique peut porter une clé explicite, qui l'emporte sur celle du libellé
+ok 346 - un mot du lexique peut porter une clé explicite, qui l'emporte sur celle du libellé
   ---
-  duration_ms: 0.451527
+  duration_ms: 0.412847
   type: 'test'
   ...
 # Subtest: une inscription complète est acceptée et normalisée
-ok 337 - une inscription complète est acceptée et normalisée
+ok 347 - une inscription complète est acceptée et normalisée
   ---
-  duration_ms: 2.500915
+  duration_ms: 2.641955
   type: 'test'
   ...
 # Subtest: un métier sans activité n'a pas besoin de sous-variante
-ok 338 - un métier sans activité n'a pas besoin de sous-variante
+ok 348 - un métier sans activité n'a pas besoin de sous-variante
   ---
-  duration_ms: 0.664991
+  duration_ms: 0.655844
   type: 'test'
   ...
 # Subtest: refuse une inscription incohérente
-ok 339 - refuse une inscription incohérente
+ok 349 - refuse une inscription incohérente
   ---
-  duration_ms: 2.455416
+  duration_ms: 2.392237
   type: 'test'
   ...
 # Subtest: le routage envoyé par le navigateur est ignoré
-ok 340 - le routage envoyé par le navigateur est ignoré
+ok 350 - le routage envoyé par le navigateur est ignoré
   ---
-  duration_ms: 0.2144
+  duration_ms: 0.336688
   type: 'test'
   ...
 # Subtest: l'inscription refuse les valeurs qui feraient échouer la base ou tronquer le mot de passe
-ok 341 - l'inscription refuse les valeurs qui feraient échouer la base ou tronquer le mot de passe
+ok 351 - l'inscription refuse les valeurs qui feraient échouer la base ou tronquer le mot de passe
   ---
-  duration_ms: 1.710768
+  duration_ms: 1.106949
   type: 'test'
   ...
 # Subtest: « Autre » cochée seule exige un texte ; le texte est gardé
-ok 342 - « Autre » cochée seule exige un texte ; le texte est gardé
+ok 352 - « Autre » cochée seule exige un texte ; le texte est gardé
   ---
-  duration_ms: 0.472752
+  duration_ms: 0.428512
   type: 'test'
   ...
 # Subtest: métier absent de la liste : le client écrit son métier et choisit la catégorie la plus proche
-ok 343 - métier absent de la liste : le client écrit son métier et choisit la catégorie la plus proche
+ok 353 - métier absent de la liste : le client écrit son métier et choisit la catégorie la plus proche
   ---
-  duration_ms: 0.661847
+  duration_ms: 0.865585
   type: 'test'
   ...
 # Subtest: le stock « à demander » impose une réponse ; un métier au stock connu n'en pose pas
-ok 344 - le stock « à demander » impose une réponse ; un métier au stock connu n'en pose pas
+ok 354 - le stock « à demander » impose une réponse ; un métier au stock connu n'en pose pas
   ---
-  duration_ms: 0.305912
+  duration_ms: 0.598006
   type: 'test'
   ...
 # Subtest: camping, gîte, chambre d'hôtes et location de véhicules ont le profil location, et eux seuls
-ok 345 - camping, gîte, chambre d'hôtes et location de véhicules ont le profil location, et eux seuls
+ok 355 - camping, gîte, chambre d'hôtes et location de véhicules ont le profil location, et eux seuls
   ---
-  duration_ms: 0.287147
+  duration_ms: 0.435202
   type: 'test'
   ...
 # Subtest: hôtel : une case par activité, hébergement → location, restaurant → restaurant, les deux cochées → les deux profils
-ok 346 - hôtel : une case par activité, hébergement → location, restaurant → restaurant, les deux cochées → les deux profils
+ok 356 - hôtel : une case par activité, hébergement → location, restaurant → restaurant, les deux cochées → les deux profils
   ---
-  duration_ms: 0.269086
+  duration_ms: 0.489712
   type: 'test'
   ...
-# (node:983) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/saisie-nombre.ts is not specified and it doesn't parse as CommonJS.
+# (node:7554) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/saisie-nombre.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: « 60k » vaut 60 000 (audit client D-01)
-ok 347 - « 60k » vaut 60 000 (audit client D-01)
+ok 357 - « 60k » vaut 60 000 (audit client D-01)
   ---
-  duration_ms: 2.697187
+  duration_ms: 3.997734
   type: 'test'
   ...
 # Subtest: « 1.250,75 » vaut 1 250,75 : le point sépare les milliers quand une virgule suit
-ok 348 - « 1.250,75 » vaut 1 250,75 : le point sépare les milliers quand une virgule suit
+ok 358 - « 1.250,75 » vaut 1 250,75 : le point sépare les milliers quand une virgule suit
   ---
-  duration_ms: 0.387423
+  duration_ms: 0.78553
   type: 'test'
   ...
 # Subtest: frappe d'un point : provisoire jusqu'à trois chiffres, puis séparateur de milliers
-ok 349 - frappe d'un point : provisoire jusqu'à trois chiffres, puis séparateur de milliers
+ok 359 - frappe d'un point : provisoire jusqu'à trois chiffres, puis séparateur de milliers
   ---
-  duration_ms: 0.268377
+  duration_ms: 0.45643
   type: 'test'
   ...
 # Subtest: fin de saisie : le point provisoire devient la virgule
-ok 350 - fin de saisie : le point provisoire devient la virgule
+ok 360 - fin de saisie : le point provisoire devient la virgule
   ---
-  duration_ms: 0.289955
+  duration_ms: 0.467539
   type: 'test'
   ...
 # Subtest: le signe moins est gardé et le chiffre d'affaires négatif est refusé avec un message
-ok 351 - le signe moins est gardé et le chiffre d'affaires négatif est refusé avec un message
+ok 361 - le signe moins est gardé et le chiffre d'affaires négatif est refusé avec un message
   ---
-  duration_ms: 0.277544
+  duration_ms: 0.481593
   type: 'test'
   ...
 # Subtest: nombre entier (personnes) : chiffres seulement, signe gardé
-ok 352 - nombre entier (personnes) : chiffres seulement, signe gardé
+ok 362 - nombre entier (personnes) : chiffres seulement, signe gardé
   ---
-  duration_ms: 0.190581
+  duration_ms: 0.225585
   type: 'test'
   ...
-# (node:990) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+# (node:7561) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 # To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: un mot du vocabulaire du métier passe avant celui du profil, et un mot sans forme garde celle du profil
-ok 353 - un mot du vocabulaire du métier passe avant celui du profil, et un mot sans forme garde celle du profil
+ok 363 - un mot du vocabulaire du métier passe avant celui du profil, et un mot sans forme garde celle du profil
   ---
-  duration_ms: 2.500878
+  duration_ms: 2.918683
   type: 'test'
   ...
 # Subtest: le vocabulaire d'un compte : aucun tant que le fichier n'est pas validé, puis par métier ou par activité
-ok 354 - le vocabulaire d'un compte : aucun tant que le fichier n'est pas validé, puis par métier ou par activité
+ok 364 - le vocabulaire d'un compte : aucun tant que le fichier n'est pas validé, puis par métier ou par activité
   ---
-  duration_ms: 0.329541
+  duration_ms: 0.511218
   type: 'test'
   ...
 # Subtest: le fichier de vocabulaires est cohérent avec le routage et le lexique
-ok 355 - le fichier de vocabulaires est cohérent avec le routage et le lexique
+ok 365 - le fichier de vocabulaires est cohérent avec le routage et le lexique
   ---
-  duration_ms: 0.843311
+  duration_ms: 0.885904
   type: 'test'
   ...
 # Subtest: avec un vocabulaire, aucune question n'apparaît ni ne disparaît, aucun mot n'est laissé entre accolades
-ok 356 - avec un vocabulaire, aucune question n'apparaît ni ne disparaît, aucun mot n'est laissé entre accolades
+ok 366 - avec un vocabulaire, aucune question n'apparaît ni ne disparaît, aucun mot n'est laissé entre accolades
   ---
-  duration_ms: 1057.712049
+  duration_ms: 1193.085351
   type: 'test'
   ...
-1..356
-# tests 356
+1..366
+# tests 366
 # suites 0
-# pass 356
+# pass 366
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 20655.137388
+# duration_ms 23626.063853
