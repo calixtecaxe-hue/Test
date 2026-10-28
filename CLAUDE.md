@@ -12,6 +12,7 @@ Lis ce fichier en entier avant toute modification. Si une demande contredit les 
 - **Ce fichier** : ce qu'est CAXE, ses règles, les décisions du propriétaire et ce qui reste à décider (section 15).
 - **`docs/etat-technique.md`** : ce qui est construit, dans quels fichiers, avec quelles commandes et quels contrôles. Il est chargé
   avec celui-ci : @docs/etat-technique.md
+- **`docs/strategie-lancement.md`** : la stratégie de lancement du propriétaire (promotion seulement), résumée en section 1.
 
 Quand une décision change, mets à jour ce fichier. Quand le code change, mets à jour `docs/etat-technique.md`.
 
@@ -27,12 +28,65 @@ d'affaires**, **Finance & Rentabilité**, **RH & Organisation**, **Comm & Créat
   sérieux et premium, jamais comme un gadget.
 - **Règle fondatrice : le moteur diagnostique, l'IA prescrit.**
 
-**Promotion de CAXE (19 octobre).** Le dossier « Client idéal & stratégie de contenu organique » (octobre 2026) définit le dirigeant
-à convaincre (2 à 30 salariés, 300 k€ à 5 M€ de CA, qui sait que son entreprise pourrait mieux fonctionner sans savoir quoi traiter
-en premier) et la stratégie de contenu de CAXE. Il sert **uniquement à la promotion de CAXE** : ne jamais l'intégrer aux fichiers de
-données, au moteur, aux questionnaires ni aux prompts des agents, qui concernent les clients et leurs entreprises.
+### Promotion et lancement
 
-**Page d'accueil : la direction artistique et le contenu ne changent pas.** Seuls des boutons de conversion ont été ajoutés :
+**Deux documents, pour la promotion seulement** : le dossier V2 « Client idéal, contenus & visuels organiques » (20 octobre) et la
+« Stratégie de lancement organique » (règles fixées le 23 octobre ; copie : `docs/strategie-lancement.md`). Ils servent **uniquement à
+la promotion de CAXE** (règle du 19 octobre) : ne jamais les intégrer aux fichiers de données, au moteur, aux questionnaires ni aux
+prompts des agents, qui concernent les clients et leurs entreprises.
+
+**Le dirigeant à convaincre (dossier V2)** :
+
+- fondateur ou gérant qui décide seul : 2 à 30 salariés, 300 k€ à 5 M€ de CA, 2 à 15 ans d'activité ;
+- à l'aise avec les outils, idéalement déjà utilisateur d'IA ; pas de DAF, DRH ni directeur commercial ;
+- il sent que ça bloque, mais ne sait pas où agir en premier ;
+- son vrai concurrent pour CAXE : le consultant ou le coach cher, ou de qualité inégale, pas l'absence d'outil ;
+- à ne pas viser en premier : activité tout juste lancée, micro-activité occasionnelle, PME déjà très structurée, dirigeant opposé à
+  l'IA.
+
+**Le lancement (règles du 23 octobre)** :
+
+- 0 € de publicité ; un seul réseau, Meta (Instagram et Facebook, groupes Facebook au nom de la Page CAXE) ; marque seule (ni visage
+  ni voix du fondateur) ; ni prospection écrite ni démarchage téléphonique ; pas de partenariats au lancement.
+- **Achat direct** : ni version gratuite, ni essai, ni mini-diagnostic, ni capture d'e-mail. Des vidéos qui trient (chaque vidéo vise
+  un métier, en rotation), une **page de vente dédiée**, puis l'abonnement.
+- Objectif de départ : 50 abonnés à J+60, refixé à J+21 sur les vrais chiffres.
+- Décisions validées : D1 (tous les métiers, une vidéo = un métier), D2 (Meta), D4 (achat direct), D5 (partenariats plus tard, avec
+  des créateurs de la niche). Six restent à valider (section 15).
+
+**Ce que le lancement demande au produit : à faire, rien n'est encore construit.**
+
+1. **Page de vente** dédiée, distincte de la page d'accueil. **Priorité n° 1**, prête à J-14 pour être testée sur 5 dirigeants.
+   Contenu : vidéo de 60 à 90 secondes (motion design, vrais écrans, voix de marque) ; pour qui c'est fait et pour qui ça ne l'est pas ;
+   exemple chiffré **marqué fictif** (objectif, leviers classés avec leur impact en euros, plan, suivi) ; les 4 agents, une ligne
+   chacun ; prix et offre fondateur avec un **compteur réel** ; objections en questions-réponses ; un seul bouton, vers l'inscription
+   avec la formule 3 agents déjà sélectionnée (le palier seulement : aucun agent n'est coché d'avance).
+2. **Vidéo d'accueil retouchée** : fin « Commencer mon audit » et offre fondateur au lieu de « Recevoir un accès prioritaire », mention
+   « exemple fictif » sur les gains affichés, prix à la fin.
+3. **Page d'accueil** : un bouton vers la page de vente ; « Venez les essayer » remplacé (pas d'essai gratuit) ; « Nous faisons
+   régulièrement le point » remplacé par « CAXE fait le point ».
+4. **Résiliation affichée clairement** sur les offres et au paiement (D10).
+5. **Offre fondateur** (D3) et, à partir de J+30, **parrainage** : un mois offert au parrain et au filleul pour chaque nouvel abonnement
+   payé.
+6. Avant l'ouverture : paiement réel branché, conditions générales de vente, mentions légales et politique de confidentialité en ligne.
+7. Pixel Meta et bannière de consentement aux cookies (D9) ; liens de suivi par surface (UTM).
+8. À partir de J+30 (D8) : une page par semaine sur caxe.fr pour Google, tirée d'un carrousel, qui finit sur la page de vente.
+
+**Règles de fond des contenus de promotion** (elles valent aussi pour la page de vente et la vidéo) :
+
+- jamais de « score sur 100 » : des leviers chiffrés et l'avancement vers l'objectif ;
+- tout cas inventé porte « exemple fictif », avec les mêmes chiffres d'un format à l'autre ;
+- **pas de durée d'audit annoncée** tant qu'elle n'est pas mesurée : « à votre rythme, sauvegarde continue » ;
+- toujours distinguer « obtenir un diagnostic » de « gagner des clients » ;
+- agents sans prénom, représentés par leurs bustes comme sur le site ;
+- ni « fiable » ni superlatifs ; charte du site, pas d'or ;
+- les professions réglementées et les agences de communication restent hors des messages sur l'agent Comm.
+
+### Page d'accueil (état actuel)
+
+**La direction artistique et le contenu ne changent pas.** Le plan de lancement prévoit trois changements de contenu (point 3
+ci-dessus) : ils reviennent sur cette règle et sont **à confirmer avant d'y toucher** (section 15). Seuls des boutons de conversion ont
+été ajoutés :
 
 - « Commencer mon audit » dans l'en-tête ;
 - « Fixer mon objectif » après « Comment ça marche » ;
@@ -45,7 +99,8 @@ seul bouton : il clignote et mène à `/inscription` (le bouton « Créer un com
 
 **Idée gardée pour plus tard, pas construite** : une page « Audit Express » où le visiteur saisit ses propres chiffres (CA, prospects,
 rendez-vous, clients) et voit son entonnoir étape par étape avant de créer un compte, sans jugement « bon » ou « mauvais » tant
-qu'aucune référence n'existe.
+qu'aucune référence n'existe. Au lancement, la décision D4 (achat direct, ni mini-diagnostic) l'exclut : ne pas la construire avant
+d'en reparler.
 
 ## 2. Les trois réflexes (à tout moment)
 
@@ -552,8 +607,9 @@ avec ajout en un clic. Agents nommés par leur fonction, **sans prénom ni perso
 - **Ne jamais écrire une couleur en dur** : utiliser les jetons ou leurs canaux (détail : `docs/etat-technique.md`).
 
 **Ton** : **vouvoiement, français de France, sobre et factuel, sans superlatif, sans point d'exclamation ni émoji.** Le mot
-« fiable » est accepté (19 octobre). Un bouton dit ce qui va se passer. Un écran vide est une invitation à agir. Une erreur explique
-et corrige. La confirmation d'une réponse s'écrit « Réponse enregistrée », avec une coche.
+« fiable » est accepté dans le produit (19 octobre) ; les contenus de promotion ne l'emploient pas (stratégie du 23 octobre). Un
+bouton dit ce qui va se passer. Un écran vide est une invitation à agir. Une erreur explique et corrige. La confirmation d'une
+réponse s'écrit « Réponse enregistrée », avec une coche.
 
 ## 13. Qualité
 
@@ -608,6 +664,15 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
       (brouillons) » (Claude Docs) ;
     - les couleurs vert / orange / rouge sont gardées pour la phase d'essai (à supprimer sur demande).
 11. **À construire plus tard** : mini-questionnaire anonyme RH aux salariés ; connexion Meta pour l'agent Comm.
+12. **Lancement** (`docs/strategie-lancement.md`, recommandation de la stratégie entre parenthèses) :
+    - D3 offre fondateur (palier 3 agents au prix du palier 2, 50 places, jusqu'à J+30 ; autres choix : -30 % à vie, ou pas d'offre) ;
+    - D6 date d'ouverture (J0), avec une page de vente prête à J-14 ;
+    - D7 message au réseau personnel (une fois, à J0 ; ou aucun) ;
+    - D8 pages pour Google (une par semaine à partir de J+30 ; ou après J+60) ;
+    - D9 pixel Meta (dès l'ouverture, avec bannière de consentement ; ou plus tard, avec le budget) ;
+    - D10 résiliation (abonnement mensuel sans engagement, résiliable en un clic ; ou engagement de 3 mois).
+13. **Page d'accueil** : confirmer les trois changements de contenu prévus par le lancement (bouton vers la page de vente,
+    « Venez les essayer » remplacé, « CAXE fait le point »), qui reviennent sur la règle « le contenu de l'accueil ne change pas ».
 
 ### À valider (propositions déjà en place)
 
