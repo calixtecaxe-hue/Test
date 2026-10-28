@@ -54,3 +54,18 @@ To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 == Traiteur · toutes les activités (restaurant+b2b+abonnement, seul, agents : ACQ FIN RH_ COM)
 
 == Fleuriste · toutes les activités (commerce+b2b+abonnement, equipe_2_5, agents : ACQ FIN RH_ COM)
+
+== Module métier · VTC et taxi (b2b, structure_6_plus, agents : ACQ FIN RH_ COM)
+
+== Module métier · Grossiste alimentaire (b2b, seul, agents : ACQ FIN RH_ COM)
+
+== Module métier · Vente de véhicules (b2b, equipe_2_5, agents : ACQ FIN RH_ COM)
+
+== Module métier · Marchand de biens (b2b, structure_6_plus, agents : ACQ FIN RH_ COM)
+
+== Électricien · métier de chantier (chantier, seul, agents : ACQ FIN RH_ COM)
+
+== Métier absent de la liste · commerce de détail (commerce, equipe_2_5, agents : ACQ FIN RH_ COM)
+
+Comptes : 32 · pages vérifiées : 709 · réponses envoyées : 7309 (refusées : 0)
+Erreurs : 0 · points d'attention : 0
