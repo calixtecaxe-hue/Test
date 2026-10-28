@@ -1,0 +1,59 @@
+{
+ "le": "2026-10-28T00:02:12.130Z",
+ "resultats": [
+  {
+   "id": "S-01",
+   "attendu": "compte B : la réponse de A (42) n'apparaît pas dans son questionnaire",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "S-02",
+   "attendu": "compte B : aucune réponse enregistrée à son nom pour cette question",
+   "conforme": true,
+   "observe": "null"
+  },
+  {
+   "id": "S-03",
+   "attendu": "B répond 7 : la réponse de A reste 42, celle de B est 7",
+   "conforme": true,
+   "observe": "A {\"genre\":\"exact\",\"valeur\":42} B {\"genre\":\"exact\",\"valeur\":7}"
+  },
+  {
+   "id": "S-04",
+   "attendu": "tableau de bord de B : rien du compte A (adresse e-mail de A absente)",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "S-05",
+   "attendu": "A sur son téléphone : la réponse 42 donnée sur l'ordinateur est là",
+   "conforme": true,
+   "observe": "42"
+  },
+  {
+   "id": "S-06",
+   "attendu": "page restée ouverte sur l'ordinateur (42 affiché) : répondre à une autre question n'écrase pas le 43 donné sur le téléphone",
+   "conforme": true,
+   "observe": "{\"genre\":\"exact\",\"valeur\":43}"
+  },
+  {
+   "id": "S-07",
+   "attendu": "ordinateur actualisé : il affiche 43",
+   "conforme": true,
+   "observe": "43"
+  },
+  {
+   "id": "S-08",
+   "attendu": "sans session : la page d'un agent renvoie à la connexion, sans montrer de réponse",
+   "conforme": true,
+   "observe": "http://127.0.0.1:3100/connexion?depuis=%2Faudit%2Facquisition-chiffre-affaires"
+  },
+  {
+   "id": "S-09",
+   "attendu": "sans session : l'enregistrement d'une réponse est refusé (401) et rien ne change",
+   "conforme": true,
+   "observe": "401 {\"genre\":\"exact\",\"valeur\":43}"
+  }
+ ]
+}

@@ -9,3 +9,4 @@ balayage-secteurs            code 0  POINTS D'ATTENTION : 0
 inventaire                   code 0    scénario (calcul) : 31
 plan-dependances             code 0    M-092 Ne publie pas (parcours mise en place) : des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage) → COM-10.03, COM-10.04, COM-10.05
 resultats                    code 0  11 contrôles, 11 conformes, 0 écart(s).
+separation                   code 0  9 contrôles, 9 conformes, 0 écart(s).
