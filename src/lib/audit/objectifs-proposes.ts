@@ -11,7 +11,8 @@
 // reçoivent l'étape Objectif, le compte rendu et, quand elle sera branchée, l'analyse de l'IA.
 import { evaluer, lecteurDeclencheurs, type TailleId } from "./affichage.ts";
 import { origineDe, type ObjectifEnregistre, type OrigineObjectif } from "./objectif.ts";
-import type { ObjectifAgent, ReglesAffichage, Theme } from "../donnees/schemas.ts";
+import type { SuiviParcours } from "./objectifs-agent.ts";
+import type { ObjectifAgent, ObjectifsAgents, Question, ReglesAffichage, Theme } from "../donnees/schemas.ts";
 
 export function themeMasquePourLaTaille(theme: Pick<Theme, "masquePour"> | undefined, regles: ReglesAffichage, taille: TailleId): boolean {
   if (!theme?.masquePour) return false;
@@ -57,5 +58,20 @@ export function objectifTransmis(texteBrut: string, structure: ObjectifEnregistr
     indicateur: structure.indicateur,
     themes: p?.themes ?? (structure.indicateur ? [structure.indicateur.code] : []),
     partie: structure.partie ?? null,
+  };
+}
+
+// Comm : ce qu'il faut pour comparer la partie de l'objectif au parcours du questionnaire (ecartDeParcours) : la question qui
+// donne le parcours, ses réponses et la partie à laquelle chacune correspond. Null pour un agent sans parties.
+export function suiviParcours(def: ObjectifsAgents["agents"][string] | undefined, banque: Question[]): SuiviParcours | null {
+  const parties = (def?.parties ?? []).filter((p) => p.parcours);
+  const donnee = parties[0]?.parcours?.donnee;
+  const q = donnee ? banque.find((x) => x.donnee === donnee) : undefined;
+  if (!q || q.reponse?.type !== "choix") return null;
+  return {
+    donnee: q.donnee,
+    question: q.texte,
+    options: Object.fromEntries(q.reponse.options.map((o) => [o.id, o.libelle])),
+    parties: parties.map((p) => ({ nom: p.nom, reponses: p.parcours!.reponses })),
   };
 }

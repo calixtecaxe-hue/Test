@@ -1,20 +1,20 @@
-// Objectifs d'un agent enregistrés ensemble (décision du propriétaire, 27 octobre) : RH et Comm acceptent plusieurs
-// objectifs à la fois, chacun complet (son chiffre ou ce que le dirigeant veut constater, son délai, son avancement) ;
-// Acquisition et Finance gardent un seul objectif. Quand la liste de l'agent a des parties (Comm : « Améliorer ce que
-// j'ai déjà », « Mettre en place ma présence en ligne »), tous les objectifs viennent de la même partie.
+// Objectif d'un agent. Acquisition et Finance : un objectif libre en trois champs. RH et Comm : un objectif par agent
+// (décision du propriétaire du 28 octobre, option 1B, qui remplace la possibilité de plusieurs objectifs du 27 octobre),
+// complet : son chiffre ou ce que le dirigeant veut constater, son délai, son avancement. Quand la liste de l'agent a des
+// parties (Comm : « Améliorer ce que j'ai déjà », « Mettre en place ma présence en ligne »), l'objectif vient d'une partie.
 //
-// Chaque objectif est soit une proposition de la liste, soit un objectif écrit par le dirigeant (« Définir mon propre
-// objectif », 28 octobre) : jamais les deux. Une proposition prend le texte de la liste, quel que soit le texte reçu ; un
-// objectif personnel garde le texte du dirigeant tel qu'il l'a écrit (aux espaces de début et de fin près), même s'il
-// ressemble à une proposition.
+// L'objectif est soit une proposition de la liste, soit un objectif écrit par le dirigeant (« Écrire mon propre
+// objectif ») : jamais les deux. Une proposition prend le texte de la liste, quel que soit le texte reçu ; un objectif
+// personnel garde le texte du dirigeant tel qu'il l'a écrit (aux espaces de début et de fin près), même s'il ressemble à
+// une proposition.
 //
 // Contrôle commun à la route de l'application et à l'aperçu. Ce fichier n'importe que zod et des types.
 
 import { objectifSaisieSchema, phraseObjectif, verifierVraisemblance, type ObjectifSaisie, type OrigineObjectif, type UniteAmpleur } from "./objectif.ts";
 import type { ObjectifAgent } from "../donnees/schemas.ts";
 
-// Garde-fou technique : au-delà, le suivi perd son sens. À ajuster par le propriétaire.
-export const MAX_OBJECTIFS = 10;
+// Un objectif par agent (décision du 28 octobre, option 1B ; le plafond de 10 du 27 octobre n'a plus d'objet).
+export const MAX_OBJECTIFS = 1;
 
 export type ObjectifControle = { saisie: ObjectifSaisie; choisi: ObjectifAgent | undefined; origine: OrigineObjectif; phrase: string };
 export type ControleObjectifs = { ok: true; objectifs: ObjectifControle[] } | { ok: false; erreur: string; champ?: string; rang?: number };
@@ -27,14 +27,15 @@ export const quoiDeProposition = (o: Pick<ObjectifAgent, "libelle">) => o.libell
 // Unités entre lesquelles le dirigeant choisit pour une proposition chiffrée (une seule quand le chiffre est un nombre visé).
 export const unitesDe = (o: Pick<ObjectifAgent, "unite" | "unites">): UniteAmpleur[] => o.unites ?? (o.unite ? [o.unite] : []);
 
-// Phrase d'un objectif, avec le gabarit de la proposition quand le chiffre est un nombre ou un taux visé.
-export const phraseDe = (saisie: ObjectifSaisie, choisi: Pick<ObjectifAgent, "gabarit"> | undefined) => phraseObjectif(saisie, choisi?.gabarit);
+// Phrase d'un objectif : celle que la proposition a écrite pour l'unité choisie (nombre ou taux visé, hausse ou baisse).
+export const gabaritDe = (saisie: Pick<ObjectifSaisie, "ampleur">, choisi: Pick<ObjectifAgent, "gabarit" | "phrases"> | undefined) =>
+  choisi?.gabarit ?? (saisie.ampleur ? choisi?.phrases?.[saisie.ampleur.unite] : undefined);
+export const phraseDe = (saisie: ObjectifSaisie, choisi: Pick<ObjectifAgent, "gabarit" | "phrases"> | undefined) => phraseObjectif(saisie, gabaritDe(saisie, choisi));
 
 // `liste` : objectifs proposés pour l'agent (null : objectif libre en trois champs, un seul).
 export function controlerObjectifs(saisies: unknown[], liste: ObjectifAgent[] | null, facteurAnnuelMax: number): ControleObjectifs {
-  if (saisies.length === 0) return { ok: false, erreur: "Choisissez une proposition ou décrivez votre propre objectif.", champ: "choix" };
-  if (!liste && saisies.length > 1) return { ok: false, erreur: "Cet agent suit un seul objectif à la fois.", champ: "choix" };
-  if (saisies.length > MAX_OBJECTIFS) return { ok: false, erreur: `${MAX_OBJECTIFS} objectifs au plus.`, champ: "choix" };
+  if (saisies.length === 0) return { ok: false, erreur: "Choisissez un objectif proposé ou écrivez votre propre objectif.", champ: "choix" };
+  if (saisies.length > MAX_OBJECTIFS) return { ok: false, erreur: "Cet agent suit un seul objectif à la fois.", champ: "choix" };
   const parties = liste ? [...new Set(liste.map((o) => o.groupe ?? ""))].filter((g) => g !== "") : [];
   const objectifs: ObjectifControle[] = [];
   for (const [rang, recu] of saisies.entries()) {
@@ -75,4 +76,17 @@ export function controlerObjectifs(saisies: unknown[], liste: ObjectifAgent[] | 
     if (vues.size > 1) return { ok: false, erreur: `Choisissez vos objectifs dans une seule partie : « ${[...vues].join(" » ou « ")} ».`, champ: "choix" };
   }
   return { ok: true, objectifs };
+}
+
+// Comm (décision du 28 octobre, option 6C) : la partie choisie pour l'objectif et le parcours du questionnaire restent
+// séparés. Le parcours suit la réponse à une question (COM-10.07 « Publiez-vous… ? ») ; quand cette réponse correspond à
+// l'autre partie, le dirigeant en est averti. Rien n'est bloqué ni changé à sa place.
+export type SuiviParcours = { donnee: string; question: string; options: Record<string, string>; parties: { nom: string; reponses: string[] }[] };
+
+export function ecartDeParcours(suivi: SuiviParcours | null, partie: string | null | undefined, valeur: unknown): string | null {
+  if (!suivi || !partie || typeof valeur !== "string") return null;
+  const choisie = suivi.parties.find((p) => p.nom === partie);
+  const suivie = suivi.parties.find((p) => p.reponses.includes(valeur));
+  if (!choisie || !suivie || suivie.nom === choisie.nom) return null;
+  return `Votre objectif est dans la partie « ${choisie.nom} ». Votre questionnaire, lui, suit votre réponse à « ${suivi.question} » (« ${suivi.options[valeur] ?? valeur} ») : il vous pose les questions de la partie « ${suivie.nom} ». Rien n'est bloqué : vous pouvez garder cet objectif ou le changer.`;
 }

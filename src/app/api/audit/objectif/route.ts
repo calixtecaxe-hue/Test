@@ -9,13 +9,14 @@ import { enregistrerObjectif } from "@/lib/audit/objectif";
 import { controlerObjectifs } from "@/lib/audit/objectifs-agent";
 import { codeAgent } from "@/lib/donnees/schemas";
 
-// Un objectif (`objectif`), ou plusieurs pour les agents RH et Comm (`objectifs`, décision du 27 octobre).
+// Un objectif : `objectif`, ou `objectifs` (un tableau, gardé pour l'écran des agents RH et Comm ; un seul objectif par
+// agent depuis la décision du 28 octobre, option 1B, contrôlée par controlerObjectifs).
 const corps = z.object({ agent: codeAgent, objectif: z.unknown().optional(), objectifs: z.array(z.unknown()).max(50).optional() });
 
-// Enregistre l'objectif d'un agent (ou ses objectifs, RH et Comm) : ce que le dirigeant veut changer, de combien, en
-// combien de temps. Les nouveaux objectifs remplacent ensemble les objectifs actifs du même agent, qui restent en
-// historique ; les objectifs des autres agents ne sont pas touchés. Chaque objectif garde son origine (proposition de la
-// liste, objectif écrit par le dirigeant, ou trois champs libres) : c'est ce que reprennent le compte rendu et l'analyse.
+// Enregistre l'objectif d'un agent : ce que le dirigeant veut changer, de combien (ou ce qu'il veut constater), en combien
+// de temps. Le nouvel objectif remplace les objectifs actifs du même agent, qui restent en historique ; les objectifs des
+// autres agents ne sont pas touchés. L'objectif garde son origine (proposition de la liste, objectif écrit par le
+// dirigeant, ou trois champs libres) : c'est ce que reprennent le compte rendu et, quand elle sera branchée, l'analyse.
 export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ erreur: "Connexion requise." }, { status: 401 });
@@ -30,7 +31,7 @@ export async function POST(request: Request) {
   }
 
   const saisies = parsed.data.objectifs ?? (parsed.data.objectif !== undefined ? [parsed.data.objectif] : []);
-  // Un objectif choisi dans la liste de l'agent doit exister pour cet agent ; plusieurs objectifs, seulement avec une liste.
+  // Un objectif choisi dans la liste de l'agent doit exister pour cet agent ; un seul objectif par agent.
   const liste = ENSEMBLE.objectifsAgents.agents[agent]?.objectifs ?? null;
   const controle = controlerObjectifs(saisies, liste, ENSEMBLE.limitesObjectif.facteurAnnuelMax);
   if (!controle.ok) return NextResponse.json({ erreur: controle.erreur, champ: controle.champ, rang: controle.rang }, { status: 400 });

@@ -6,6 +6,7 @@ import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifChoix } from "./objectif-choix";
 import type { Propositions } from "./objectif-choix";
 import type { ObjectifSaisie, OrigineObjectif } from "@/lib/audit/objectif";
+import type { SuiviParcours } from "@/lib/audit/objectifs-agent";
 
 // Un objectif en cours, tel qu'il s'affiche. Un objectif écrit par le dirigeant est signalé comme tel ; le thème lié se dit
 // « indicateur suivi » pour un objectif chiffré, « thème lié » pour un objectif décrit.
@@ -24,7 +25,8 @@ function Precisions({ o }: { o: ObjectifAffiche }) {
   );
 }
 
-// Les objectifs en cours de l'agent (un seul pour l'Acquisition et la Finance, un ou plusieurs pour RH et Comm).
+// L'objectif en cours de l'agent (un seul par agent ; un compte enregistré avant le 28 octobre peut en avoir plusieurs en RH
+// et en Comm, jusqu'à son prochain changement d'objectif).
 export function ListeObjectifs({ objectifs }: { objectifs: ObjectifAffiche[] }) {
   if (objectifs.length === 1) {
     const o = objectifs[0];
@@ -57,19 +59,23 @@ type Props = {
   // Les objectifs en cours tels qu'ils ont été saisis : repris dans le formulaire pour les modifier (RH, Comm).
   saisies: ObjectifSaisie[];
   propositions: Propositions | null;
+  // Comm (6C) : de quoi comparer la partie de l'objectif au parcours du questionnaire, et l'écart constaté.
+  suivi?: SuiviParcours | null;
+  publication?: string | null;
+  ecart?: string | null;
 };
 
-// Objectifs en cours de l'agent, avec la possibilité de les changer (les précédents restent dans l'historique).
-export function ObjectifActif({ agent, facteurAnnuelMax, objectifs, saisies, propositions }: Props) {
+// Objectif en cours de l'agent, avec la possibilité de le changer (les précédents restent dans l'historique).
+export function ObjectifActif({ agent, facteurAnnuelMax, objectifs, saisies, propositions, suivi, publication, ecart }: Props) {
   const [edition, setEdition] = useState(false);
   const plusieurs = objectifs.length > 1;
   if (edition) {
     return (
       <div className="mt-6">
-        <h2 className="text-xl">{propositions ? "Changer mes objectifs" : "Changer d'objectif"}</h2>
+        <h2 className="text-xl">Changer d&apos;objectif</h2>
         <p className="mt-1 text-sm text-[var(--text-muted)]">{plusieurs ? "Vos objectifs actuels resteront dans votre historique." : "L'objectif actuel restera dans votre historique."}</p>
         {propositions ? (
-          <ObjectifChoix agent={agent} propositions={propositions} facteurAnnuelMax={facteurAnnuelMax} initiaux={saisies} annulable onAnnuler={() => setEdition(false)} onEnregistre={() => setEdition(false)} />
+          <ObjectifChoix agent={agent} propositions={propositions} facteurAnnuelMax={facteurAnnuelMax} initiaux={saisies} annulable onAnnuler={() => setEdition(false)} onEnregistre={() => setEdition(false)} suivi={suivi} publication={publication} />
         ) : (
           <ObjectifFormulaire agent={agent} facteurAnnuelMax={facteurAnnuelMax} annulable onAnnuler={() => setEdition(false)} onEnregistre={() => setEdition(false)} />
         )}
@@ -82,25 +88,26 @@ export function ObjectifActif({ agent, facteurAnnuelMax, objectifs, saisies, pro
         {plusieurs ? "Vos objectifs" : "Votre objectif"}
       </p>
       <ListeObjectifs objectifs={objectifs} />
+      {ecart ? <p className="note-ecart mt-4" role="note" data-ecart-partie>{ecart}</p> : null}
       <button type="button" onClick={() => setEdition(true)} className="audit-kicker mt-4 text-sm hover:underline">
-        {propositions ? (plusieurs ? "Changer mes objectifs" : "Changer ou ajouter un objectif") : "Changer d'objectif"}
+        Changer d&apos;objectif
       </button>
     </section>
   );
 }
 
 // Étape « Objectif » rouverte depuis le parcours : le formulaire s'ouvre directement, et on revient à l'audit en
-// l'enregistrant ou en gardant les objectifs actuels.
-export function ObjectifEdition({ agent, facteurAnnuelMax, propositions, saisies, retour }: { agent: string; facteurAnnuelMax: number; propositions: Propositions | null; saisies: ObjectifSaisie[]; retour: string }) {
+// l'enregistrant ou en gardant l'objectif actuel.
+export function ObjectifEdition({ agent, facteurAnnuelMax, propositions, saisies, retour, suivi, publication }: { agent: string; facteurAnnuelMax: number; propositions: Propositions | null; saisies: ObjectifSaisie[]; retour: string; suivi?: SuiviParcours | null; publication?: string | null }) {
   const router = useRouter();
   const revenir = () => router.push(retour);
   const plusieurs = saisies.length > 1;
   return (
     <section className="audit-entree mt-6" style={{ "--d": "480ms" } as React.CSSProperties} aria-labelledby="objectif-edition">
-      <h2 id="objectif-edition" className="text-2xl">{propositions ? "Changer mes objectifs" : "Changer d'objectif"}</h2>
+      <h2 id="objectif-edition" className="text-2xl">Changer d&apos;objectif</h2>
       <p className="mt-2 text-[var(--text-muted)]">{plusieurs ? "Vos objectifs actuels resteront dans votre historique." : "L'objectif actuel restera dans votre historique."}</p>
       {propositions ? (
-        <ObjectifChoix agent={agent} propositions={propositions} facteurAnnuelMax={facteurAnnuelMax} initiaux={saisies} annulable onAnnuler={revenir} onEnregistre={revenir} />
+        <ObjectifChoix agent={agent} propositions={propositions} facteurAnnuelMax={facteurAnnuelMax} initiaux={saisies} annulable onAnnuler={revenir} onEnregistre={revenir} suivi={suivi} publication={publication} />
       ) : (
         <ObjectifFormulaire agent={agent} facteurAnnuelMax={facteurAnnuelMax} annulable onAnnuler={revenir} onEnregistre={revenir} />
       )}

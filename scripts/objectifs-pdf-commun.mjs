@@ -21,12 +21,16 @@ export const NOM_THEME = new Map(THEMES.map((t) => [t.code, t.nom]));
 
 export const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
-// Ce que le dirigeant donne pour mesurer l'objectif.
+// Ce que le dirigeant donne pour mesurer l'objectif : la question posée et la phrase enregistrée (N : son chiffre, X : son
+// délai en mois), ou, sans chiffre, ce qu'il veut constater.
 const UNITE = { pourcent: "en %", unites: "en nombre", euros: "en €" };
+const modele = (t) => (t.includes("{dici}") ? t.replace("{n}", "N").replace("{dici}", "d'ici X mois") : `${t.replace("{n}", "N")} sur les X prochains mois`);
 export const mesure = (o) => {
   if (o.mesure === "phrase") return "Sans chiffre : « Comment saurez-vous que c'est atteint ? »";
-  if (o.gabarit) return `Nombre visé : « ${o.gabarit.pluriel.replace("{n}", "N")} »`;
-  return `Chiffre ${(o.unites ?? [o.unite]).map((u) => UNITE[u] ?? u).join(" ou ")}`;
+  const unites = o.unites ?? [o.unite];
+  const phrases = o.gabarit ? [o.gabarit.pluriel] : unites.map((u) => o.phrases?.[u]?.pluriel).filter(Boolean);
+  const choix = o.gabarit || unites.length === 1 ? "" : ` (${unites.map((u) => o.libellesUnites?.[u] ?? UNITE[u]).join(" ou ")})`;
+  return `« ${o.question} »${choix} → ${phrases.map((p) => `« ${modele(p)} »`).join(" ou ")}`;
 };
 
 // Objectifs qu'un dirigeant seul ne voit pas : tous leurs thèmes lui sont masqués (règle de l'application).
@@ -35,6 +39,9 @@ const cachesPour = (def, taille) => {
   return def.objectifs.filter((o) => !gardes.has(o.id));
 };
 export const CACHES_SEUL = new Set([...cachesPour(RH, "seul"), ...cachesPour(COM, "seul")].map((o) => o.id));
+// Objectifs qu'une équipe ne voit pas (« Me faire aider dans mon travail » : ses thèmes ne sont posés qu'au dirigeant seul).
+export const CACHES_EQUIPE = new Set([...cachesPour(RH, "equipe_2_5"), ...cachesPour(COM, "equipe_2_5")].map((o) => o.id));
+export const proposeA = (id) => (CACHES_SEUL.has(id) ? "Pas au dirigeant seul" : CACHES_EQUIPE.has(id) ? "Dirigeant seul seulement" : "Tous");
 
 // Imprime une page HTML en PDF A4, avec un pied de page numéroté.
 export async function imprimer(html, sortie, { titre, paysage = false }) {

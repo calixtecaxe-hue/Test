@@ -161,8 +161,8 @@ const email = `audit.client.${Date.now()}@example.com`;
   await page.goto(B + "/audit/rh-organisation", { waitUntil: "networkidle" });
   let n = 0;
   for (; n < 40; n++) { await page.keyboard.press("Tab"); if (await page.evaluate(() => /menu-declencheur|INPUT/.test(document.activeElement?.className + document.activeElement?.tagName))) break; }
-  // Une carte d'objectif (bouton radio masqué) montre le focus sur la carte elle-même.
-  controle("A-02", "Clavier", "le premier choix de l'objectif s'atteint au clavier, focus visible", n < 40 && (await page.evaluate(() => { const el = document.activeElement.closest(".objectif-carte") ?? document.activeElement; const s = getComputedStyle(el); return s.outlineStyle !== "none" || s.boxShadow !== "none"; })), `${n + 1} tabulations`);
+  // Un choix d'objectif (bouton radio masqué) montre le focus sur sa carte : « Choisir un objectif proposé » vient en premier.
+  controle("A-02", "Clavier", "le premier choix de l'objectif s'atteint au clavier, focus visible", n < 40 && (await page.evaluate(() => { const el = document.activeElement.closest(".objectif-mode, .objectif-carte") ?? document.activeElement; const s = getComputedStyle(el); return s.outlineStyle !== "none" || s.boxShadow !== "none"; })), `${n + 1} tabulations`);
 }
 
 // --- 5. Connexion et pages d'erreur ----------------------------------------------------------------------------------------------

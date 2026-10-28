@@ -1,74 +1,213 @@
 # Choix de l'objectif des agents RH et Comm (28 octobre 2026)
 
-Ce document décrit le fonctionnement livré, la relecture des objectifs proposés (avant et après), les tests exécutés et ce qui reste à
-décider. La liste des objectifs (`data/objectifs-agents.json`) reste un **brouillon à valider**.
+Ce document décrit les décisions du propriétaire du 28 octobre et leur application, l'écran livré, les formulations avant et après,
+les tests exécutés et ce qui reste. Les textes des objectifs (`data/objectifs-agents.json`) restent **à relire** par le propriétaire.
+Documents à télécharger : `CAXE-decisions-objectifs.pdf` (les choix, cochés) et `CAXE-objectifs-proposes.pdf` (les 54 objectifs).
 
-## 1. Ce qui est livré
+## 1. Décisions du 28 octobre et ce qui en découle
 
-**L'écran.** Il s'ouvre sur « Quel objectif souhaitez-vous atteindre ? » et « Choisissez une proposition ou décrivez votre propre
-objectif. ».
+La numérotation est celle du document de décision. Le propriétaire a écrit « 2A, 2B, 2C, 4A, 4B » : ce sont les points 2a, 2b, 2c,
+4a et 4b du document.
 
-- **Un seul ensemble de cartes.** Les propositions viennent d'abord. La dernière carte, en pointillés, est « Définir mon propre
-  objectif ». Un lien « Rien ne correspond ? Définir mon propre objectif » la rend visible dès le haut de la liste.
-- **Un seul choix actif par objectif.** Ce sont des boutons radio : choisir une carte désélectionne l'autre.
-- **État choisi visible sans la couleur** : coche dans le rond, mot « Choisi », bordure gauche épaisse.
-- **Les champs utiles s'ouvrent dans la carte choisie** :
-  - pour une proposition : son chiffre (avec le bon intitulé et, si besoin, l'unité), ou « Comment saurez-vous que c'est atteint ? » ;
-    puis le délai en mois ;
-  - pour l'objectif personnel : « Décrivez votre objectif », avec une aide et un exemple propres à l'agent, puis la réussite (ou un
-    chiffre avec « J'ai un chiffre ») et le délai.
-- **Comm.** La question « Où en êtes-vous ? » vient d'abord : « Améliorer ce que j'ai déjà » ou « Mettre en place ma présence en
-  ligne », chacune avec une ligne d'explication. Les propositions de la partie choisie s'affichent ensuite. Tous les objectifs restent
-  dans la même partie (décision du 27 octobre).
-- **Plusieurs objectifs** (décision du 27 octobre). « + Ajouter un autre objectif » replie le premier en une ligne (« Objectif 1 :
-  … », « Modifier », « Retirer ») et ouvre un second choix. Une proposition déjà prise y est indisponible (« Déjà parmi vos
-  objectifs »).
-- **Bouton toujours visible.** « Enregistrer mon objectif » reste en bas de l'écran pendant qu'on parcourt la liste, sur ordinateur
-  comme sur téléphone.
-- **Messages qui disent comment continuer** :
-  - rien de choisi : « Choisissez une proposition ou décrivez votre propre objectif. » ;
-  - Comm sans partie : « Choisissez d'abord où vous en êtes, puis une proposition ou votre propre objectif. » ;
-  - texte vide ou fait d'espaces : « Décrivez votre objectif en quelques mots pour continuer. » ;
-  - réussite, chiffre ou délai manquant : un message sous le champ concerné, qui reçoit le focus.
-- **Ce qui est proposé dépend de la taille.** Une proposition dont tous les thèmes sont masqués pour la taille de l'entreprise n'est
-  pas proposée. Par exemple, un dirigeant seul ne voit pas « Réduire les départs de salariés », « Réduire les absences dans l'équipe »
-  ni « Alléger la charge de travail de l'équipe ». La règle de masquage existante est appliquée telle quelle. Un objectif déjà choisi
-  reste toujours proposé.
+| Point | Choix | Appliqué |
+|---|---|---|
+| 1. Un objectif ou plusieurs | **1B** | Un objectif par agent en RH et en Comm. « Ajouter un autre objectif » est retiré ; le serveur refuse un deuxième objectif (« Cet agent suit un seul objectif à la fois. »). |
+| 2a. « Relancer les personnes intéressées » | **2a-1** | Mesuré en clients en plus : « obtenir 3 clients de plus en relançant les personnes intéressées ». |
+| 2b. Parcours de conversion (Comm) | **Aucune des trois options** : le propriétaire a clarifié le périmètre de l'agent Comm | L'objectif retrouve son intention : « Construire un parcours qui transforme mes visiteurs en clients ». Le périmètre est écrit dans `CLAUDE.md`, section 9 (voir plus bas). |
+| 2c. Taux de conversion | **2c-1** | Le dirigeant donne le taux visé : « porter mon taux de conversion à 4 % d'ici 3 mois ». |
+| 3. Filtre selon la taille | **Explication demandée**, pas de choix | Le filtre reste en place en attendant (voir section 7). |
+| 4a. « Libérer du temps pour piloter l'entreprise » | **4a-1**, formulation concrète | Ajouté. « Combien d'heures par semaine voulez-vous libérer ? » → « libérer 5 heures par semaine pour piloter l'entreprise d'ici 3 mois ». |
+| 4b. « Me faire aider » | **4b-1**, même clarté | Ajouté : « Me faire aider dans mon travail », précisé par « Par un salarié, un apprenti, un freelance ou un associé. » ; sans chiffre. Proposé au seul dirigeant seul. |
+| 5. Plafond et liste entière | « Appliquer la recommandation » | La recommandation ne fixait pas de nombre. Avec 1B, le plafond est d'un objectif (option 5C) : c'est la conséquence du point 1, signalée comme telle. La liste entière est gardée et clarifiée. |
+| 6. Partie Comm et parcours du questionnaire | **6C** | Les deux restent séparés ; un écart est expliqué au dirigeant, sans rien bloquer. |
 
-**La sauvegarde.**
+**Périmètre de l'agent Comm (point 2b).** L'agent Comm conseille sur l'acquisition de clients obtenue grâce à la communication :
+canaux et contenus, parcours de conversion lié à la communication, dispositifs à mettre en place, amélioration de l'existant.
+L'agent Acquisition garde les processus internes (réactivité, rendez-vous, devis et relances commerciales, transformation, prix,
+fidélisation). Les objectifs relus avec cette clarification :
 
-- **Seul le mode actif est transmis.** Le brouillon de l'autre mode reste dans la page : le texte personnel est retrouvé tel quel si
-  le dirigeant revient à « Définir mon propre objectif ».
-- **Une proposition prend toujours le texte de la liste.** Le serveur l'impose, quel que soit le texte reçu.
-- **Un objectif personnel garde le texte du dirigeant**, aux espaces de début et de fin près. Il n'est jamais transformé en
-  proposition, même s'il lui ressemble.
-- **L'origine est enregistrée** (`origine` : `proposition`, `personnel` ou `libre` pour Acquisition et Finance). Les objectifs
-  enregistrés avant le 28 octobre la déduisent de leur `choix`.
-- **Le serveur refuse** :
-  - un texte vide ou fait d'espaces ;
-  - un objectif personnel qui reprend mot pour mot une proposition choisie dans le même envoi ;
-  - une unité que la proposition ne prévoit pas ;
-  - deux parties mélangées (Comm).
-- **Un nouvel enregistrement remplace les objectifs en cours.** Ils passent en historique (« Remplacé ») : un seul jeu d'objectifs
-  est actif à la fois.
+- « Construire un parcours qui transforme mes visiteurs en clients » (au lieu de « Guider les visiteurs jusqu'à me contacter ») ; deux
+  thèmes ajoutés : COM-60 « Arriver au bon endroit » et COM-61 « Relancer les intéressés » ;
+- « Améliorer mon taux de conversion » : « Sur 100 visiteurs de votre site ou de vos profils, combien vous contactent ou achètent. »
+  (au lieu de « … qui deviennent des demandes ») ;
+- « Augmenter les demandes venues des réseaux et d'internet » : les commandes en font partie ;
+- « Récupérer plus de contacts avec mon offre gratuite » et « Mettre en place le suivi de mes chiffres » : la réussite parle des
+  clients, pas seulement des contacts.
 
-**La restitution et la transmission.**
+Le document de règles du 15 octobre dit encore que le funnel de l'agent Comm « s'arrête […] au moment où quelqu'un devient un contact
+identifié ». La correction est listée dans `CLAUDE.md`, section 15 (« À fournir »). Les données du classeur suivaient déjà la
+clarification : demandes et clients venus de la communication (COM-22.02), contacts devenus clients (COM-21.06), personnes relancées
+devenues clientes (COM-61.02).
 
-- L'objectif personnel s'affiche comme une proposition : sa phrase, sa réussite, son échéance, et la mention « Objectif personnel ».
-- On le retrouve après actualisation, après déconnexion et reconnexion, et en revenant à l'étape Objectif, où le formulaire se rouvre
-  avec le texte, la réussite et le délai.
-- Le compte rendu (onglet Objectif) reprend les objectifs en cours.
-- `objectifTransmis` (`src/lib/audit/objectifs-proposes.ts`) donne pour chaque objectif ce que les étapes suivantes reçoivent :
-  origine, phrase, texte, proposition, mesure (chiffre ou réussite), délai, échéance, indicateur et thèmes liés.
+**Coordination Acquisition et Comm** (`CLAUDE.md`, section 9) : une donnée commune est posée une fois ; chaque agent parle de ses
+leviers (relancer les personnes qui ont réagi ou écrit sans demander de devis relève de la Comm, COM-61 ; relancer un devis envoyé
+relève de l'Acquisition, ACQ-10) ; les deux rapports lisent les mêmes chiffres du moteur. Ces règles sont à écrire dans les prompts
+des agents, qui ne sont pas encore branchés.
 
-**Reste à brancher** (aucune de ces étapes n'existe encore) :
+## 2. L'écran livré
 
-- l'analyse de l'IA : `objectifTransmis` est prêt, aucun prompt n'est branché ;
-- l'avancement déclaré aux points d'étape : il reste à 0 % ;
-- le lien entre la partie choisie en Comm et le parcours du questionnaire. Ce parcours est décidé par la réponse à COM-10.07
-  (« Publiez-vous… »), pas par la partie de l'objectif.
+**D'abord deux choix de même importance.** Sous « Quel objectif souhaitez-vous atteindre ? » et « Choisissez un objectif proposé ou
+écrivez le vôtre. Toute l'analyse part de là. » :
 
-## 2. Relecture des objectifs proposés
+- « Choisir un objectif proposé » — « Parcourez les suggestions adaptées à cet agent. » ;
+- « Écrire mon propre objectif » — « Décrivez le résultat que vous souhaitez obtenir. ».
+
+Les deux cartes ont la même taille, le même style et le même titre. Elles sont côte à côte sur ordinateur et l'une sous l'autre sur
+téléphone. Aucune n'est choisie d'avance. Aucun formulaire ne s'affiche avant le choix. L'objectif personnel n'est plus une carte
+« Définir mon propre objectif » en fin de liste.
+
+**Le mode choisi s'ouvre dessous.**
+
+- « Choisir un objectif proposé » : en Comm, « Où en êtes-vous ? » d'abord (« Améliorer ce que j'ai déjà » ou « Mettre en place ma
+  présence en ligne ») ; puis les propositions de la partie (RH : toutes celles qui conviennent à la taille de l'entreprise). La
+  proposition choisie s'ouvre sur ses champs : son chiffre, avec sa question et, s'il y a lieu, le choix de l'unité, ou « Comment
+  saurez-vous que c'est atteint ? » ; puis le délai en mois.
+- « Écrire mon propre objectif » : directement le champ « Votre objectif », avec l'aide et l'exemple de l'agent, puis la réussite (ou
+  un chiffre avec « J'ai un chiffre ») et le délai.
+- Sous les champs, la phrase qui sera enregistrée s'écrit au fur et à mesure (« Votre objectif : … »).
+
+**Sélection visible et clavier.** L'état choisi se lit sans la couleur : coche, mot « Choisi », bordure gauche épaisse. Au clavier,
+Tab atteint le premier choix sans rien choisir ; Espace choisit ; les flèches passent d'un choix à l'autre sans que le curseur saute
+ailleurs ; Tab mène ensuite au contenu ouvert. À la souris, le curseur se place dans le contenu qui vient de s'ouvrir.
+
+**Messages quand il manque quelque chose** (le curseur va sur ce qui manque) :
+
+- rien de choisi : « Choisissez un objectif proposé, ou écrivez votre propre objectif. » ;
+- Comm, objectif proposé sans partie : « Choisissez d'abord où vous en êtes : les objectifs proposés s'afficheront ensuite. » ;
+- aucune proposition choisie : « Choisissez un des objectifs proposés, ou écrivez votre propre objectif. » ;
+- texte vide ou fait d'espaces : « Décrivez votre objectif en quelques mots pour continuer. » ;
+- chiffre, réussite ou délai manquant : un message sous le champ concerné.
+
+**Écart Comm (6C).** Le parcours du questionnaire suit la réponse à « Publiez-vous pour votre entreprise sur les réseaux sociaux ? »
+(COM-10.07). Quand elle correspond à l'autre partie que celle de l'objectif, un message l'explique, par exemple : « Votre objectif est
+dans la partie « Mettre en place ma présence en ligne ». Votre questionnaire, lui, suit votre réponse à « Publiez-vous pour votre
+entreprise sur les réseaux sociaux ? » (« Oui, au moins une fois par mois ») : il vous pose les questions de la partie « Améliorer ce
+que j'ai déjà ». Rien n'est bloqué : vous pouvez garder cet objectif ou le changer. » Il s'affiche sous l'objectif en cours, sous la question COM-10.07 et
+à l'étape Objectif. La correspondance (« Oui, au moins une fois par mois » → « Améliorer… » ; « Rarement ou plus du tout » et « Non,
+jamais » → « Mettre en place… ») reprend les règles d'affichage existantes du questionnaire ; elle est écrite dans
+`data/objectifs-agents.json` (« parcours ») et reste à confirmer par le propriétaire.
+
+**Ce qui est proposé selon la taille** (point 3, en attente) : un dirigeant seul ne voit pas « Réduire les départs de salariés »,
+« Réduire les absences dans l'équipe » ni « Alléger la charge de travail de l'équipe » ; « Me faire aider dans mon travail » n'est
+proposé qu'à lui. Aucun objectif Comm ne dépend de la taille.
+
+## 3. Sauvegarde, restitution et transmission
+
+- **Un seul mode est transmis.** Le brouillon de l'autre mode reste dans la page : en revenant à « Écrire mon propre objectif », le
+  texte écrit est retrouvé ; en revenant à « Choisir un objectif proposé », la proposition et son chiffre aussi.
+- **Une proposition prend toujours le texte de la liste**, quel que soit le texte reçu par le serveur. **Un objectif personnel garde
+  le texte du dirigeant**, aux espaces de début et de fin près, même s'il ressemble à une proposition : jamais de remplacement
+  silencieux.
+- **L'origine est enregistrée** (`proposition` ou `personnel`) ; un objectif personnel ne porte plus de partie Comm.
+- **Un nouvel enregistrement remplace l'objectif en cours**, qui passe en historique (« Remplacé »). « Garder l'objectif actuel »
+  revient à l'audit sans rien changer.
+- L'objectif est retrouvé après actualisation, après déconnexion et reconnexion, et en revenant à l'étape Objectif, où le formulaire
+  se rouvre sur le bon mode avec ses réponses.
+- Le compte rendu (onglet Objectif) reprend l'objectif en cours. `objectifTransmis` donne aux étapes suivantes : origine, phrase,
+  texte, proposition, mesure, délai, échéance, indicateur et thèmes liés.
+- **Pas encore branché** : l'analyse de l'IA (aucun prompt n'est branché ; le compte rendu dit « pas encore » au lieu d'un chiffre) et
+  l'avancement déclaré aux points d'étape (0 %).
+- Un compte enregistré avant le 28 octobre avec plusieurs objectifs les garde affichés jusqu'à son prochain changement d'objectif ;
+  seuls des comptes de test sont dans ce cas.
+
+## 4. Les 54 objectifs : avant et après (28 octobre, après les décisions)
+
+**Règles d'écriture appliquées à toute la liste.**
+
+- Les 52 objectifs gardent leur identifiant et leur intention ; deux sont ajoutés (4a-1, 4b-1).
+- **Chaque objectif chiffré a sa question et sa phrase finale écrites à l'avance**, pour chaque unité proposée. Le chiffre vient
+  toujours de la saisie ; aucun n'est suggéré. Les phrases ne s'écrivent plus « titre de N », qui ne disait pas de quoi (« augmenter
+  les visites de mon profil de 300 »).
+- **« par mois »** quand le chiffre est un flux (visites, clics, messages, demandes, appels) ; **« d'ici N mois »** quand il s'agit
+  d'atteindre un niveau ; **« sur les N prochains mois »** quand il s'agit d'un nombre à cumuler sur la période (avis, recrutements,
+  départs, contacts récupérés, clients obtenus par la relance).
+- **Sans chiffre** : « titre, d'ici N mois » (avec une virgule : « pouvoir m'absenter sans que l'activité s'arrête, d'ici 6 mois »
+  pouvait se lire comme si l'activité s'arrêtait dans 6 mois). La réussite reste à part.
+- Le nom de l'unité est dit quand « en nombre » ne suffit pas (« en nombre d'abonnés », « en heures par semaine »).
+- Une précision est ajoutée quand le titre ne dit pas ce qui est compté ; aucun chiffre n'est imposé à un objectif qui ne s'y prête
+  pas.
+
+**RH & Organisation (11)** — phrases données pour 5 et le délai d'exemple.
+
+| Objectif | Avant | Après |
+|---|---|---|
+| Réduire les départs de salariés | Sans précision ; « réduire les départs de salariés de 5 sur les 3 prochains mois » | Précision « Les salariés qui quittent l'entreprise, quelle qu'en soit la raison. » ; question « De combien voulez-vous réduire les départs ? » ; « réduire de 5 le nombre de départs de salariés sur les 12 prochains mois » ou « réduire de 5 % les départs de salariés… » ; délai d'exemple 12 mois (des départs se comptent sur l'année) |
+| Réduire les absences dans l'équipe | « réduire les absences dans l'équipe de 5 % sur les 6 prochains mois » | « Les jours d'absence de vos salariés, hors congés. » ; « réduire de 5 % les jours d'absence de l'équipe sur les 6 prochains mois » |
+| Recruter et intégrer de nouvelles personnes | « Combien de personnes ? » | « De l'annonce jusqu'au moment où la personne travaille seule. » ; « Combien de personnes voulez-vous recruter ? » |
+| Clarifier qui fait quoi | « … en 3 mois » | « clarifier qui fait quoi, d'ici 3 mois » |
+| Confier des tâches sans devoir les reprendre | Sans précision | « Les tâches confiées sont faites jusqu'au bout, sans que vous ayez à les refaire. » ; réussite « je n'ai plus à refaire ni à corriger les tâches que je confie » |
+| Alléger la charge de travail de l'équipe | Sans précision | « Moins d'heures faites au-delà des horaires prévus. » |
+| Mieux faire circuler l'information | Sans précision | « Dossiers clients, accès, consignes et décisions prises en réunion. » |
+| Développer les compétences de l'équipe | Sans précision | « Former l'équipe aux savoir-faire qui manquent ou qu'une seule personne maîtrise. » |
+| Pouvoir m'absenter sans que l'activité s'arrête | « … s'arrête en 6 mois » (ambigu) | « Vos clients sont servis et l'équipe avance pendant votre absence. » ; « …, d'ici 6 mois » |
+| **Libérer du temps pour piloter l'entreprise** (nouveau, 4a-1) | Proposé : « Des heures rendues au développement, aux clients ou à l'équipe. » (jugé trop abstrait) | « Des heures que vous ne passez plus sur des tâches qu'une autre personne ou un outil pourrait faire. » ; « Combien d'heures par semaine voulez-vous libérer ? » ; « libérer 5 heures par semaine pour piloter l'entreprise d'ici 3 mois » ; réussite d'exemple « je bloque ces heures dans mon agenda chaque semaine pour piloter l'entreprise » |
+| **Me faire aider dans mon travail** (nouveau, 4b-1) | Proposé : « Me faire aider » | « Par un salarié, un apprenti, un freelance ou un associé. » ; sans chiffre ; « me faire aider dans mon travail, d'ici 6 mois » ; réussite d'exemple « une personne prend en charge chaque semaine des tâches que je faisais seul » ; dirigeant seul seulement |
+
+**Comm & Création de contenu · Améliorer ce que j'ai déjà (22)**
+
+| Objectif | Avant | Après |
+|---|---|---|
+| Augmenter mon nombre d'abonnés | « augmenter mon nombre d'abonnés de 200 sur… » | « Sur vos réseaux sociaux. » ; « gagner 200 abonnés d'ici 6 mois » ou « augmenter de 20 % mon nombre d'abonnés d'ici 6 mois » |
+| Augmenter la portée de mes publications | « augmenter la portée de mes publications de 20 % » | « augmenter de 20 % le nombre de personnes qui voient chaque publication d'ici 3 mois » |
+| Augmenter les réactions à mes publications | « … de 20 % sur… » | « augmenter de 20 % les réactions à mes publications d'ici 3 mois » |
+| Augmenter les visites de mon profil | « … de 300 sur… » (300 au total ou par mois ?) | « Les personnes qui ouvrent votre profil sur vos réseaux, chaque mois. » ; « obtenir 300 visites de plus par mois sur mon profil d'ici 3 mois » |
+| Augmenter les clics vers mon site ou ma prise de rendez-vous | « … de 50 sur… » | « obtenir 50 clics de plus par mois vers mon site ou ma prise de rendez-vous d'ici 3 mois » |
+| Augmenter les messages de clients potentiels | « … de 10 sur… » | « recevoir 10 messages de clients potentiels de plus par mois d'ici 3 mois » |
+| Augmenter les demandes venues des réseaux et d'internet | Sans précision | « Demandes de devis, de rendez-vous ou commandes venues de vos réseaux, de votre site ou de votre fiche Google, chaque mois. » ; « recevoir 10 demandes de plus par mois venues des réseaux et d'internet d'ici 6 mois » |
+| Améliorer mon taux de conversion | « … qui deviennent des demandes » ; « porter mon taux de conversion à 4 % sur les 3 prochains mois » | « Sur 100 visiteurs de votre site ou de vos profils, combien vous contactent ou achètent. » ; « porter mon taux de conversion à 4 % d'ici 3 mois » |
+| Récupérer plus de contacts avec mon offre gratuite | « Combien de nouveaux contacts ? » ; réussite sur les contacts | « Les coordonnées laissées en échange d'un guide, d'un diagnostic ou d'un essai gratuit. » ; « Combien de nouveaux contacts voulez-vous récupérer ? » ; réussite « … des contacts qui deviennent clients » |
+| Relancer les personnes intéressées | « Combien de clients en plus ? » | « Combien de clients de plus voulez-vous obtenir ? » (2a-1) |
+| Augmenter les visites de mon site | « … de 500 sur… » | « obtenir 500 visites de plus par mois sur mon site d'ici 6 mois » |
+| Mieux apparaître sur Google quand on cherche mon métier | Sans précision | « Dans les résultats de recherche, sans publicité. » |
+| Augmenter les appels et itinéraires depuis ma fiche Google | « … de 20 sur… » | « obtenir 20 appels et itinéraires de plus par mois depuis ma fiche Google d'ici 3 mois » |
+| Réduire le coût de chaque demande venue de mes annonces Google | « … de 5 € sur… » | « Votre budget d'annonces divisé par le nombre de demandes qu'elles vous apportent. » ; « réduire de 5 € le coût de chaque demande venue de mes annonces Google d'ici 3 mois » |
+| Obtenir plus d'avis clients | « Combien de nouveaux avis ? » | « Sur votre fiche Google ou sur la plateforme d'avis de votre métier. » ; « Combien de nouveaux avis voulez-vous obtenir ? » |
+| Améliorer ma note sur Google | Sans précision | « La note moyenne de vos avis, sur 5. » |
+| Être recommandé par des partenaires | « Par combien de partenaires ? » | « Par combien de partenaires voulez-vous être recommandé ? » ; « être recommandé par 3 partenaires d'ici 6 mois » |
+| Publier davantage les contenus qui m'apportent des demandes | Sans précision | « Repérer ce qui vous amène des demandes et des clients, et en faire plus. » |
+| Rendre mes publications plus convaincantes | Sans précision | « Accroche, bénéfice pour le client, preuve et action à faire. » |
+| Réduire le coût de mes demandes | Titre ambigu | « Réduire le coût de chaque demande » ; « réduire de 5 € le coût de chaque demande obtenue par ma communication d'ici 6 mois » |
+| Réduire le temps passé sur ma communication | En % seulement | En % ou en heures par semaine : « passer 3 heures de moins par semaine sur ma communication d'ici 3 mois » |
+| Écrire régulièrement à mes contacts | « … en 3 mois » | « …, d'ici 3 mois » |
+
+**Comm & Création de contenu · Mettre en place ma présence en ligne (21)**
+
+| Objectif | Avant | Après |
+|---|---|---|
+| Guider les visiteurs jusqu'à me contacter | Le parcours s'arrêtait au contact | **« Construire un parcours qui transforme mes visiteurs en clients »** — « Le chemin prévu de vos publications et de votre site jusqu'à l'achat : message, appel, rendez-vous ou commande, puis relance. » ; réussite « chaque publication mène à un moyen simple de me contacter ou d'acheter, et je sais combien de visiteurs deviennent clients » (2b) |
+| Définir précisément à qui je m'adresse | Sans précision | « Le client que vous voulez attirer : qui il est et ce qu'il cherche. » |
+| Rassembler mes preuves | « Avis, réalisations, chiffres. » | « Avis, photos de réalisations, chiffres qui montrent votre sérieux. » |
+| Choisir le réseau adapté à mes clients | Sans précision | « Celui où vos clients passent du temps. » |
+| Obtenir mes premiers avis clients | « Combien d'avis visez-vous ? » ; « … sur les 3 prochains mois » | « Combien de premiers avis visez-vous ? » ; « obtenir mes 5 premiers avis clients d'ici 3 mois » |
+| Publier mes premiers contenus | « Combien de contenus ? » | « Combien de contenus voulez-vous publier ? » ; « publier mes 12 premiers contenus d'ici 3 mois » |
+| Créer une offre gratuite pour récupérer des contacts | « Un guide, un diagnostic ou un essai. » | « …, en échange des coordonnées. » |
+| Constituer mon fichier de contacts | « Combien de contacts ? » | « Les clients et futurs clients à qui vous pouvez écrire, avec leur accord. » ; « Combien de contacts voulez-vous réunir ? » ; « réunir 100 contacts dans mon fichier d'ici 6 mois » |
+| Mettre en place le suivi de mes chiffres | Sans précision ; réussite sans les clients | « Vues, clics, demandes et clients venus de votre communication. » ; réussite « … mes demandes et mes clients » |
+| Trouver qui s'occupera de ma communication | Sans précision | « Vous, un salarié, un freelance ou une agence. » |
+
+Les autres objectifs de cette partie (promesse, identité visuelle, comptes, profil, site, fiche Google, sujets, calendrier,
+régularité, photos et vidéos, positionnement) ne changent que par la forme de la phrase sans chiffre (« …, d'ici N mois »).
+
+## 5. Tests exécutés (28 octobre, soir)
+
+- `npx tsc --noEmit`, `npm run lint` : sans erreur. `npm test` : 376 tests, 0 échec. `npm run donnees:controle` : aucune erreur.
+- `node scripts/verification/objectifs.mjs` (application construite, base réelle, comptes fictifs) : **68 contrôles, 68 conformes**
+  (RH et Comm : deux choix, aucune présélection, mode proposé, mode personnel, changement de mode avec brouillons gardés, saisie vide,
+  enregistrement et origine, actualisation, reconnexion, retour à l'étape Objectif, modification abandonnée puis retour en arrière,
+  modification enregistrée, compte rendu ; serveur : deux objectifs refusés, texte de la liste imposé ; phrases finales ; clavier ;
+  écart Comm 6C ; dirigeant seul ; téléphones 360 et 390 px). Captures dans `docs/objectifs/captures/`.
+- `node scripts/controle-boutons-pages.mjs` : 154 vérifications, **1 échec en cours d'analyse** (contrôle « tableau de bord : chaque
+  agent montre son objectif » : une seule étiquette « Votre objectif » trouvée sur le tableau de bord pour quatre agents ; passe
+  quand seul l'agent Comm est contrôlé). À comprendre avant de conclure.
+- Pas encore relancés sur le nouvel écran : `controle-autre.mjs`, `audit-client.mjs` (A-02 adapté), la série complète.
+
+## 6. Limites
+
+- L'aperçu publié de l'application (« Mes agents — CAXE ») montre encore l'ancien écran : il n'a pas été régénéré.
+- Sur téléphone, l'étape « Questionnaire » de l'en-tête de l'agent se coupe en « Questionnair / e » à 360 px (défaut antérieur,
+  non traité ici).
+
+## Annexe : première relecture (28 octobre, matin)
 
 **Recensement.** 52 objectifs, organisés comme dans `data/objectifs-agents.json` :
 
@@ -108,7 +247,7 @@ Chacun a été relu sur six points : compréhension, utilité, cohérence avec l
 - « Préparer un calendrier » et « Publier régulièrement » : un outil et une habitude ;
 - « Réduire le coût de chaque demande venue de mes annonces Google » et « Réduire le coût de mes demandes » : un canal et l'ensemble.
 
-**Avant et après.** Les identifiants sont gardés : les objectifs déjà enregistrés restent reliés.
+**Avant et après (matin).** Les identifiants sont gardés : les objectifs déjà enregistrés restent reliés.
 
 **RH & Organisation**
 
@@ -181,78 +320,3 @@ Chacun a été relu sur six points : compréhension, utilité, cohérence avec l
 imposaient un nombre sans raison ont été réécrits, par exemple « la moitié de mes publications… » et « au moins dix preuves ». Les
 exemples de délai (« Ex. : 3 ») restent : ce sont des durées, pas des résultats.
 
-## 3. Tests exécutés
-
-**Dans l'application** (serveur construit, base réelle, comptes fictifs) :
-
-- `node scripts/verification/objectifs.mjs` : **50 contrôles, 50 conformes**.
-  - Pour RH et Comm, chaque fois :
-    - écran et introduction ;
-    - propositions et carte personnelle ;
-    - rien de choisi ;
-    - sélection (coche, « Choisi », champs) ;
-    - objectif personnel (aide, exemple, focus) ;
-    - passage d'un mode à l'autre, avec le brouillon gardé ;
-    - texte fait d'espaces ;
-    - enregistrement en base (origine, texte intact) ;
-    - affichage, actualisation, déconnexion et reconnexion ;
-    - retour à l'étape Objectif ;
-    - modification (un seul actif, l'ancien en historique) ;
-    - compte rendu.
-  - Cas particuliers :
-    - Comm sans partie choisie ;
-    - phrase d'un nombre visé, au pluriel et au singulier ;
-    - plusieurs objectifs ;
-    - partie verrouillée ;
-    - objectif personnel identique à une proposition, refusé ;
-    - texte imposé par le serveur ;
-    - unité ;
-    - clavier (flèches, puis saisie dans le champ personnel) ;
-    - dirigeant seul ;
-    - téléphones de 360 et 390 px (pas de défilement horizontal, bouton visible, champ à la bonne taille).
-  - Un contrôle a d'abord échoué : il supposait que la touche Fin fait passer à la dernière carte, ce que les boutons radio du
-    navigateur ne font pas (seules les flèches les parcourent). Il a été remplacé par le vrai parcours au clavier : les flèches
-    jusqu'à « Définir mon propre objectif », puis la saisie directe dans le champ.
-- `node scripts/controle-boutons-pages.mjs --agents RH,COM` : **89 vérifications, 0 échec**. C'est le contrôle des écrans d'agent,
-  adapté aux cartes. Il a trouvé un défaut, corrigé : en Comm, « Enregistrer » avant de choisir la partie affichait un message général
-  sans dire quoi faire.
-- `node scripts/controle-autre.mjs` : **168 vérifications, 0 échec**. « Définir mon propre objectif » y est exercé dans chaque partie,
-  avec et sans chiffre, en relisant la base.
-- `node scripts/audit-client.mjs` : **38 contrôles, 37 conformes**. Le contrôle A-02 (clavier) mesure maintenant le focus sur la
-  carte. Le seul écart est R-01 : compte rendu sans priorités, déjà connu.
-
-**Tests automatisés** : `npm test`, **373 tests, 0 échec**. `tests/objectifs-agent.test.mts` contrôle :
-
-- le texte imposé pour une proposition ;
-- le texte personnel gardé ;
-- le refus d'un texte vide ou fait d'espaces ;
-- le refus d'un objectif personnel identique à une proposition choisie ;
-- le gabarit au singulier et au pluriel, sans test de vraisemblance ;
-- les unités ;
-- le filtre par taille ;
-- la transmission, y compris pour les objectifs enregistrés avant ce changement.
-
-**Examiné dans le code seulement** :
-
-- l'aperçu de l'application (`scripts/apercu/entree.tsx`), mis à jour mais pas regénéré ;
-- le thème clair (jetons de couleur, rien en dur), sans capture.
-
-**Captures** (`docs/objectifs/captures/`) : sur ordinateur et sur téléphone, les propositions (`-1-propositions`), une sélection
-(`-2-selection`) et la saisie d'un objectif personnel (`-3-personnel`), pour RH et pour Comm.
-
-## 4. À décider par le propriétaire
-
-1. **Un ou plusieurs objectifs.** La demande du 28 octobre parle d'un seul choix actif (proposé ou personnel). La décision du
-   27 octobre permet plusieurs objectifs pour RH et Comm. Aujourd'hui, chaque objectif est soit une proposition, soit un objectif
-   personnel, et « Ajouter un autre objectif » reste possible. Si un seul objectif par agent est voulu, il suffit de retirer ce bouton.
-2. **Changements de sens à valider** :
-   - « Relancer les personnes intéressées » se mesure en clients en plus, et non plus en % ;
-   - « Guider les visiteurs jusqu'à me contacter » remplace « transformer les visiteurs en clients » (périmètre de l'agent Comm) ;
-   - « Améliorer mon taux de conversion » demande le taux visé.
-3. **Filtre selon la taille.** Il applique la règle de masquage des thèmes aux propositions. Le garder ou montrer tout à tous.
-4. **Objectifs absents de la liste, proposés sans être ajoutés** :
-   - « Libérer du temps pour piloter l'entreprise » (RH-05, temps du dirigeant) ;
-   - pour un dirigeant seul, « Me faire aider : salarié, apprenti, freelance ou associé » (RH-41 à RH-45, la partie « S'entourer »
-     qui ne lui est posée qu'à lui).
-5. **La liste entière** : titres, précisions, exemples de réussite, thèmes rattachés. Et le plafond technique de 10 objectifs.
-6. **Comm** : la partie choisie pour l'objectif doit-elle décider du parcours du questionnaire, aujourd'hui décidé par COM-10.07 ?

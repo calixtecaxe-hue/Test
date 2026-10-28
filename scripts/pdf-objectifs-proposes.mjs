@@ -3,7 +3,7 @@
 // docs/objectifs/CAXE-objectifs-proposes.pdf. À relancer après toute modification de la liste.
 //   node scripts/pdf-objectifs-proposes.mjs           (HTML_SORTIE=fichier.html pour garder aussi la page)
 import { writeFileSync } from "node:fs";
-import { OBJECTIFS, RH, COM, PARTIES, COM_PAR_PARTIE, TOTAL, CACHES_SEUL, NOM_THEME, esc, mesure, imprimer } from "./objectifs-pdf-commun.mjs";
+import { OBJECTIFS, RH, COM, PARTIES, COM_PAR_PARTIE, TOTAL, NOM_THEME, esc, mesure, proposeA, imprimer } from "./objectifs-pdf-commun.mjs";
 
 const SORTIE = "docs/objectifs/CAXE-objectifs-proposes.pdf";
 const TITRE = `Les ${TOTAL} objectifs proposés`;
@@ -12,14 +12,13 @@ let numero = 0;
 const ligne = (o) => {
   numero += 1;
   const themes = o.themes.map((c) => `<span class="theme"><b>${esc(c)}</b> ${esc(NOM_THEME.get(c) ?? "")}</span>`).join("");
-  const question = o.question ? `<br><span class="p">Question posée : « ${esc(o.question)} »</span>` : "";
-  const pourQui = CACHES_SEUL.has(o.id) ? "Pas au dirigeant seul" : "Tous";
-  return `<tr><td class="n">${numero}</td><td><b>${esc(o.libelle)}</b>${o.detail ? `<br><span class="p">${esc(o.detail)}</span>` : ""}</td><td>${esc(mesure(o))}${question}</td><td>${esc(o.exemple?.reussite ?? "")}</td><td class="d">${o.exemple?.delaiMois ? `${o.exemple.delaiMois} mois` : ""}</td><td>${themes}</td><td>${pourQui}</td></tr>`;
+  const pourQui = proposeA(o.id);
+  return `<tr><td class="n">${numero}</td><td><b>${esc(o.libelle)}</b>${o.detail ? `<br><span class="p">${esc(o.detail)}</span>` : ""}</td><td>${esc(mesure(o))}</td><td>${esc(o.exemple?.reussite ?? "")}</td><td class="d">${o.exemple?.delaiMois ? `${o.exemple.delaiMois} mois` : ""}</td><td>${themes}</td><td>${pourQui}</td></tr>`;
 };
 const tableau = (objectifs) =>
   `<table><thead><tr><th class="n">N°</th><th>Objectif</th><th>Mesure</th><th>Exemple de réussite</th><th class="d">Délai (ex.)</th><th>Thèmes rattachés</th><th>Proposé à</th></tr></thead><tbody>${objectifs.map(ligne).join("")}</tbody></table>`;
 const personnel = (def) =>
-  `<p class="perso"><b>« Définir mon propre objectif »</b>, en dernière carte : « ${esc(def.personnel.aide)} » Exemple affiché : « ${esc(def.personnel.exemple)} » ; réussite : « ${esc(def.personnel.exempleReussite)} ».</p>`;
+  `<p class="perso"><b>« Écrire mon propre objectif »</b>, à côté de « Choisir un objectif proposé » : « ${esc(def.personnel.aide)} » Exemple affiché : « ${esc(def.personnel.exemple)} » ; réussite : « ${esc(def.personnel.exempleReussite)} ».</p>`;
 
 const html = `<!doctype html><html lang="fr"><meta charset="utf-8"><title>${esc(TITRE)}</title><style>
 @page { size: A4 landscape; }
@@ -47,11 +46,11 @@ th:nth-child(2) { width: 22%; } th:nth-child(3) { width: 20%; } th:nth-child(4) 
 .pied { margin-top: 10pt; font-size: 8pt; color: var(--gris); }
 </style><body>
 <h1>${esc(TITRE)}</h1>
-<p class="sous-titre">CAXE · agents RH &amp; Organisation et Comm &amp; Création de contenu · liste au 28 octobre 2026 · brouillon à valider</p>
+<p class="sous-titre">CAXE · agents RH &amp; Organisation et Comm &amp; Création de contenu · liste au 28 octobre 2026, après vos choix · textes à relire</p>
 <div class="bandeau"></div>
 <div class="intro">
-<p>Au début de l'agent RH ou Comm, le dirigeant choisit un objectif parmi ces propositions, ou décrit le sien avec « Définir mon propre objectif ». En Comm, il dit d'abord où il en est : « ${esc(PARTIES[0])} » ou « ${esc(PARTIES[1])} » ; seules les propositions de cette partie s'affichent.</p>
-<p><b>Mesure</b> : ce que le dirigeant donne après avoir choisi. Un chiffre (avec l'unité indiquée), un nombre visé (la phrase enregistrée, où N est son nombre), ou, sans chiffre, ce qu'il veut constater. Aucun chiffre ne lui est suggéré. <b>Délai (ex.)</b> : l'exemple affiché dans le champ du délai. <b>Thèmes rattachés</b> : les thèmes de l'agent auxquels l'objectif est relié ; le premier sert d'indicateur suivi. <b>Proposé à</b> : un objectif dont tous les thèmes sont masqués pour un dirigeant seul ne lui est pas proposé.</p>
+<p>Au début de l'agent RH ou Comm, le dirigeant voit deux choix de même importance : « Choisir un objectif proposé » ou « Écrire mon propre objectif ». Un seul objectif par agent. En Comm, pour un objectif proposé, il dit d'abord où il en est : « ${esc(PARTIES[0])} » ou « ${esc(PARTIES[1])} » ; seules les propositions de cette partie s'affichent.</p>
+<p><b>Mesure</b> : ce que le dirigeant donne après avoir choisi. Pour un objectif chiffré, la question posée, l'unité au choix entre parenthèses, puis la phrase enregistrée (N : son chiffre, X : son délai en mois) ; sans chiffre, ce qu'il veut constater. Aucun chiffre ne lui est suggéré. <b>Délai (ex.)</b> : l'exemple affiché dans le champ du délai. <b>Thèmes rattachés</b> : les thèmes de l'agent auxquels l'objectif est relié ; le premier sert d'indicateur suivi. <b>Proposé à</b> : un objectif dont tous les thèmes sont masqués pour la taille de l'entreprise n'est pas proposé (trois objectifs d'équipe ne sont pas proposés au dirigeant seul ; « Me faire aider dans mon travail » ne l'est qu'à lui).</p>
 </div>
 <h2 class="premier">RH &amp; Organisation (${RH.objectifs.length})</h2>
 ${personnel(RH)}
@@ -60,7 +59,7 @@ ${COM_PAR_PARTIE.map(
   (liste, i) =>
     `<h2>Comm &amp; Création de contenu · ${esc(PARTIES[i])} (${liste.length})</h2><p class="partie">${esc(COM.parties[i].detail)}</p>${i === 0 ? personnel(COM) : ""}${tableau(liste)}`,
 ).join("")}
-<p class="pied">Liste tirée de data/objectifs-agents.json (${OBJECTIFS.aValider ? "brouillon à valider" : "validée"}). Avant / après et raisons des changements du 28 octobre : docs/objectifs/objectifs-rh-comm.md. Choix en attente : docs/objectifs/CAXE-decisions-objectifs.pdf.</p>
+<p class="pied">Liste tirée de data/objectifs-agents.json (${OBJECTIFS.aValider ? "textes à relire" : "validée"}). Avant / après et raisons des changements du 28 octobre : docs/objectifs/objectifs-rh-comm.md. Vos choix : docs/objectifs/CAXE-decisions-objectifs.pdf.</p>
 </body></html>`;
 
 if (process.env.HTML_SORTIE) writeFileSync(process.env.HTML_SORTIE, html);

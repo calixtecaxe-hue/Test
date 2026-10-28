@@ -66,7 +66,8 @@ export function origineDe(o: Pick<ObjectifEnregistre, "origine" | "choix">, avec
   return o.origine ?? (o.choix ? "proposition" : avecListe ? "personnel" : "libre");
 }
 
-// Phrase d'un objectif dont le chiffre est un nombre ou un taux visé (« obtenir {n} nouveaux avis clients »).
+// Phrase écrite à l'avance pour un objectif chiffré : « obtenir {n} nouveaux avis clients », « gagner {n} abonnés {dici} ».
+// `{dici}` place « d'ici N mois » ; sans lui, « sur les N prochains mois » est ajouté à la fin.
 export type GabaritObjectif = { singulier: string; pluriel: string };
 
 const LIBELLE_UNITE: Record<UniteAmpleur, string> = { pourcent: "%", euros: "€", unites: "" };
@@ -75,19 +76,20 @@ function formaterNombre(n: number): string {
   return new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2 }).format(n);
 }
 
-// « baisser le turnover de 5 % sur les 3 prochains mois » ; avec un gabarit : « obtenir 10 nouveaux avis clients sur les
-// 3 prochains mois ».
+// « baisser le turnover de 5 % sur les 3 prochains mois » ; avec une phrase écrite à l'avance : « obtenir 10 nouveaux avis
+// clients sur les 3 prochains mois », « libérer 5 heures par semaine pour piloter l'entreprise d'ici 3 mois ». Sans chiffre :
+// « clarifier qui fait quoi, d'ici 3 mois » (ce que le dirigeant veut constater se garde à part).
 export function phraseObjectif(o: ObjectifSaisie, gabarit?: GabaritObjectif): string {
-  // Sans chiffre : « clarifier les rôles et les responsabilités en 3 mois » ; ce que le dirigeant veut constater se garde à part.
-  if (!o.ampleur) return `${o.quoi.replace(/[.\s]+$/, "")} en ${o.delaiMois} mois`;
-  const delai = o.delaiMois === 1 ? "le mois prochain" : `les ${o.delaiMois} prochains mois`;
+  const dici = `d'ici ${o.delaiMois} mois`;
+  if (!o.ampleur) return `${o.quoi.replace(/[.\s]+$/, "")}, ${dici}`;
+  const sur = o.delaiMois === 1 ? "sur le mois prochain" : `sur les ${o.delaiMois} prochains mois`;
   if (gabarit) {
-    const forme = o.ampleur.valeur === 1 ? gabarit.singulier : gabarit.pluriel;
-    return `${forme.replace("{n}", formaterNombre(o.ampleur.valeur))} sur ${delai}`;
+    const forme = (o.ampleur.valeur === 1 ? gabarit.singulier : gabarit.pluriel).replace("{n}", formaterNombre(o.ampleur.valeur));
+    return forme.includes("{dici}") ? forme.replace("{dici}", dici) : `${forme} ${sur}`;
   }
   const unite = LIBELLE_UNITE[o.ampleur.unite];
   const ampleur = `${formaterNombre(o.ampleur.valeur)}${unite ? ` ${unite}` : ""}`;
-  return `${o.quoi.replace(/[.\s]+$/, "")} de ${ampleur} sur ${delai}`;
+  return `${o.quoi.replace(/[.\s]+$/, "")} de ${ampleur} ${sur}`;
 }
 
 // Échéance : même jour du mois, `delaiMois` mois plus tard (en UTC). Le 31 janvier + 1 mois

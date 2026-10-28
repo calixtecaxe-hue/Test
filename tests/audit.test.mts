@@ -596,7 +596,7 @@ test("le total proposé additionne les chiffres donnés, estimation au milieu, e
 test("un objectif sans chiffre se décrit par une phrase de réussite, et un des deux est obligatoire", () => {
   const sansChiffre = { quoi: "clarifier les rôles et les responsabilités", reussite: "chacun sait ce qu'il doit faire sans me solliciter", delaiMois: 3 };
   const o = objectifSaisieSchema.parse(sansChiffre);
-  assert.equal(phraseObjectif(o), "clarifier les rôles et les responsabilités en 3 mois");
+  assert.equal(phraseObjectif(o), "clarifier les rôles et les responsabilités, d'ici 3 mois");
   assert.equal(o.ampleur, undefined);
   // Ni chiffre ni phrase de réussite : refusé, avec le message sur la phrase.
   const vide = objectifSaisieSchema.safeParse({ quoi: "clarifier les rôles", delaiMois: 3 });

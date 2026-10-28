@@ -556,9 +556,10 @@ export type TableauxLies = z.infer<typeof tableauxLies>;
 // --- Objectifs proposés par agent ---------------------------------------------------------
 
 // Pour les agents dont l'objectif n'a pas forcément de chiffre (RH, Comm) : une liste d'objectifs écrits à
-// l'avance, rattachés à des thèmes de l'agent, plus « Autre ». Un objectif « chiffre » se mesure (unité), un
-// objectif « phrase » se décrit par ce que le dirigeant veut constater.
+// l'avance, rattachés à des thèmes de l'agent ; le dirigeant peut aussi écrire son propre objectif. Un objectif « chiffre »
+// se mesure (unité), un objectif « phrase » se décrit par ce que le dirigeant veut constater.
 const uniteObjectif = z.enum(["pourcent", "euros", "unites"]);
+const gabaritObjectif = z.object({ singulier: z.string().min(3), pluriel: z.string().includes("{n}") });
 export const objectifAgent = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   // Titre court de la carte ; `detail` : une précision, seulement quand elle aide à choisir.
@@ -569,10 +570,17 @@ export const objectifAgent = z.object({
   // Unité proposée d'abord, et unités entre lesquelles le dirigeant choisit (par défaut, la seule `unite`).
   unite: uniteObjectif.optional(),
   unites: z.array(uniteObjectif).min(1).optional(),
-  // Le chiffre est un nombre ou un taux visé (« obtenir {n} nouveaux avis clients ») : la phrase de l'objectif suit ce
-  // gabarit, l'unité est fixe et `question` intitule le champ du chiffre.
-  gabarit: z.object({ singulier: z.string().min(3), pluriel: z.string().includes("{n}") }).optional(),
+  // Phrase finale d'un objectif chiffré, écrite à l'avance (28 octobre : chaque phrase enregistrée doit se comprendre seule).
+  // `{n}` : le chiffre du dirigeant ; `{dici}` : « d'ici N mois » ; sans `{dici}`, « sur les N prochains mois » est ajouté.
+  //   - `gabarit` : le chiffre est un nombre ou un taux visé (« obtenir {n} nouveaux avis clients ») ; une seule unité, pas de
+  //     contrôle de vraisemblance (rien à comparer) ;
+  //   - `phrases` : le chiffre est une hausse ou une baisse, une phrase par unité proposée (« gagner {n} abonnés {dici} »).
+  gabarit: gabaritObjectif.optional(),
+  phrases: z.object({ pourcent: gabaritObjectif.optional(), euros: gabaritObjectif.optional(), unites: gabaritObjectif.optional() }).optional(),
+  // Intitulé du champ du chiffre (« Combien d'heures par semaine voulez-vous libérer ? ») et, au besoin, nom de chaque unité
+  // dans le choix (« en nombre d'abonnés »).
   question: z.string().optional(),
+  libellesUnites: z.object({ pourcent: z.string().optional(), euros: z.string().optional(), unites: z.string().optional() }).optional(),
   themes: z.array(z.string()).min(1),
   // Exemples affichés dans les champs : la phrase de réussite et le délai, jamais un chiffre à viser.
   exemple: z.object({ reussite: z.string().optional(), delaiMois: z.number().int().min(1) }),
@@ -588,7 +596,12 @@ export const objectifsAgents = z.object({
     z.string(),
     z.object({
       // Parties de la liste (Comm : « Améliorer ce que j'ai déjà », « Mettre en place ma présence en ligne »), avec leur précision.
-      parties: z.array(z.object({ nom: z.string().min(3), detail: z.string().optional() })).optional(),
+      // `parcours` : les réponses à une question de la banque qui donnent le parcours du questionnaire correspondant (Comm :
+      // COM-10.07). La partie et le parcours restent séparés ; quand ils ne correspondent pas, le dirigeant en est averti
+      // (décision du propriétaire du 28 octobre, option 6C).
+      parties: z
+        .array(z.object({ nom: z.string().min(3), detail: z.string().optional(), parcours: z.object({ donnee: z.string(), reponses: z.array(z.string()).min(1) }).optional() }))
+        .optional(),
       personnel: objectifPersonnel,
       objectifs: z.array(objectifAgent).min(1),
     }),

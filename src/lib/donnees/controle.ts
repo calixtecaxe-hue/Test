@@ -480,13 +480,45 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
       if (o.mesure === "chiffre" && !o.unite) erreurs.push(`Objectif ${o.id} : un objectif chiffré a une unité.`);
       if (o.unite && o.unites && !o.unites.includes(o.unite)) erreurs.push(`Objectif ${o.id} : l'unité proposée d'abord (${o.unite}) n'est pas parmi ses unités.`);
       if (o.gabarit && (o.mesure !== "chiffre" || (o.unites ?? [o.unite]).length !== 1 || !o.question)) erreurs.push(`Objectif ${o.id} : un gabarit va avec un objectif chiffré, une seule unité et l'intitulé du chiffre (« question »).`);
+      // Chaque phrase finale d'un objectif chiffré est écrite à l'avance (28 octobre) : un gabarit, ou une phrase par unité.
+      if (o.mesure === "chiffre") {
+        const unitesO = o.unites ?? (o.unite ? [o.unite] : []);
+        if (!o.question) erreurs.push(`Objectif ${o.id} : un objectif chiffré a l'intitulé de son chiffre (« question »).`);
+        if (o.gabarit && o.phrases) erreurs.push(`Objectif ${o.id} : un gabarit ou des phrases par unité, pas les deux.`);
+        if (!o.gabarit && unitesO.some((u) => !o.phrases?.[u])) erreurs.push(`Objectif ${o.id} : une phrase finale par unité proposée (« phrases »).`);
+        for (const u of Object.keys(o.phrases ?? {})) if (!unitesO.includes(u as (typeof unitesO)[number])) erreurs.push(`Objectif ${o.id} : phrase pour l'unité ${u}, qui n'est pas proposée.`);
+        for (const g of [o.gabarit, ...Object.values(o.phrases ?? {})]) {
+          if (g && [g.singulier, g.pluriel].some((t) => (t.match(/\{dici\}/g) ?? []).length > 1 || /\{(?!n\}|dici\})[^}]*\}/.test(t))) erreurs.push(`Objectif ${o.id} : une phrase finale n'emploie que {n} et au plus un {dici}.`);
+        }
+      }
       if (!o.exemple.reussite) erreurs.push(`Objectif ${o.id} : une phrase de réussite en exemple (ce que le dirigeant veut constater).`);
-      if (o.mesure === "phrase" && (o.unite || o.unites || o.gabarit)) erreurs.push(`Objectif ${o.id} : un objectif sans chiffre n'a ni unité ni gabarit.`);
+      if (o.mesure === "phrase" && (o.unite || o.unites || o.gabarit || o.phrases || o.libellesUnites)) erreurs.push(`Objectif ${o.id} : un objectif sans chiffre n'a ni unité ni phrase chiffrée.`);
       const parties = (def.parties ?? []).map((p) => p.nom);
       if (parties.length > 0 && !parties.includes(o.groupe ?? "")) erreurs.push(`Objectif ${o.id} : sa partie « ${o.groupe ?? ""} » n'est pas dans les parties de l'agent.`);
       if (parties.length === 0 && o.groupe) erreurs.push(`Objectif ${o.id} : partie « ${o.groupe} » sans liste des parties de l'agent.`);
     }
     for (const d of doublons(def.objectifs.map((o) => o.libelle.toLowerCase()))) erreurs.push(`Objectifs proposés (${agent}) : titre en double « ${d} ».`);
+    // Parcours du questionnaire de chaque partie (Comm, 6C) : une question à choix de la banque, des réponses qui existent,
+    // chacune rattachée à une seule partie.
+    const vues = new Map<string, string>();
+    for (const p of def.parties ?? []) {
+      if (!p.parcours) continue;
+      const q = banqueParDonnee.get(p.parcours.donnee);
+      if (!q) {
+        avertissements.push(`Objectifs proposés (${agent}) : la partie « ${p.nom} » suit ${p.parcours.donnee}, absente de la banque (aucun écart signalé tant qu'elle manque).`);
+        continue;
+      }
+      const spec = q.reponse;
+      if (spec?.type !== "choix") {
+        erreurs.push(`Objectifs proposés (${agent}) : la partie « ${p.nom} » suit ${p.parcours.donnee}, qui n'est pas une question à choix de la banque.`);
+        continue;
+      }
+      for (const r of p.parcours.reponses) {
+        if (!spec.options.some((x) => x.id === r)) erreurs.push(`Objectifs proposés (${agent}) : la réponse ${r} de ${p.parcours.donnee} n'existe pas (partie « ${p.nom} »).`);
+        if (vues.has(r)) erreurs.push(`Objectifs proposés (${agent}) : la réponse ${r} donne deux parties (« ${vues.get(r)} » et « ${p.nom} »).`);
+        vues.set(r, p.nom);
+      }
+    }
   }
   if (e.objectifsAgents.aValider) avertissements.push("Objectifs proposés par agent (RH, Comm) : brouillon à valider par le propriétaire.");
   // Retraits (doublons) : la donnée existe, est posée, et n'alimente ni un calcul ni une règle d'affichage ; la donnée conservée existe.

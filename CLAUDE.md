@@ -275,26 +275,36 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
   « baisser le turnover de 5 % sur les 3 prochains mois »). Chiffre et délai sont utilisés directement. Ce qu'il veut changer est
   rattaché à un indicateur de l'agent quand c'est possible ; sinon, l'objectif est gardé tel quel et l'avancement se mesure à ce qu'il
   déclare aux points d'étape. **Un objectif par agent**, conservé avec son historique.
-- **RH et Comm : une proposition ou un objectif personnel, un ou plusieurs objectifs (décisions du 22, du 27 et du 28 octobre)**.
-  Chaque objectif est complet : son chiffre ou sa description, son délai, son avancement. Le compte rendu et le plan les reprennent
-  tous. Détail, avant / après et tests : `docs/objectifs/objectifs-rh-comm.md`.
-  - **Un seul ensemble de cartes** : « Quel objectif souhaitez-vous atteindre ? » / « Choisissez une proposition ou décrivez votre
-    propre objectif. ». Les propositions viennent d'abord, puis **« Définir mon propre objectif »**, qui ouvre « Décrivez votre
-    objectif » avec une aide et un exemple propres à l'agent.
-  - **Un seul mode actif par objectif** (proposition ou objectif personnel). Le brouillon de l'autre mode est gardé dans la page,
-    jamais transmis. L'état choisi se voit sans la couleur (coche, mot « Choisi »).
+- **RH et Comm : un objectif par agent, proposé ou personnel (décisions du 22 et du 28 octobre ; option 1B du 28 octobre, qui
+  remplace la possibilité de plusieurs objectifs du 27 octobre)**. L'objectif est complet : son chiffre ou sa description, son délai,
+  son avancement. Détail, avant / après et tests : `docs/objectifs/objectifs-rh-comm.md` ; décisions : `docs/objectifs/CAXE-decisions-objectifs.pdf`.
+  - **D'abord deux choix de même importance, sans présélection (28 octobre)** : « Choisir un objectif proposé » (« Parcourez les
+    suggestions adaptées à cet agent. ») et « Écrire mon propre objectif » (« Décrivez le résultat que vous souhaitez obtenir. »).
+    Côte à côte sur ordinateur, l'un sous l'autre sur téléphone. L'objectif personnel n'est jamais caché en fin de liste ni présenté
+    comme « Autre ».
+  - Le premier ouvre les propositions, puis les champs de celle qui est choisie ; le second ouvre directement « Votre objectif », avec
+    une aide et un exemple propres à l'agent.
+  - **Un seul mode actif.** Le brouillon de l'autre mode est gardé dans la page, jamais transmis. L'état choisi se voit sans la couleur
+    (coche, mot « Choisi », bordure épaisse). Au clavier, les flèches passent d'un choix à l'autre.
   - Ensuite, **un chiffre s'il en a un, ou ce qu'il veut constater** (« Comment saurez-vous que c'est atteint ? »), plus le délai en
-    mois. Une proposition dit son unité, ou l'intitulé du nombre visé (« Combien de nouveaux avis ? »). **Aucun chiffre n'est suggéré.**
+    mois. **Aucun chiffre n'est suggéré** ; un objectif qui ne s'y prête pas n'a pas de chiffre imposé.
+  - **Chaque objectif chiffré a sa question et sa phrase finale écrites à l'avance (28 octobre)**, pour chaque unité proposée : le
+    chiffre vient de la saisie (« Combien d'heures par semaine voulez-vous libérer ? » → « libérer 5 heures par semaine pour piloter
+    l'entreprise d'ici 3 mois »). Sans chiffre : « clarifier qui fait quoi, d'ici 3 mois », avec la réussite à part.
   - **Une proposition prend toujours le texte de la liste ; un objectif personnel garde le texte du dirigeant**, même s'il ressemble à
     une proposition. L'origine est enregistrée (proposition, personnel) et transmise aux étapes suivantes.
-  - Comm : **« Où en êtes-vous ? »** d'abord (« Améliorer ce que j'ai déjà », 22 objectifs, ou « Mettre en place ma présence en
-    ligne », 21 objectifs). **Tous les objectifs sont dans la même partie.**
-  - « Ajouter un autre objectif » garde la possibilité de plusieurs objectifs (27 octobre). **Un ou plusieurs : à trancher**
-    (section 15).
-  - Une proposition dont tous les thèmes sont masqués pour la taille de l'entreprise n'est pas proposée (un dirigeant seul ne voit
-    pas les objectifs d'équipe).
-  - **La liste est un brouillon à valider par le propriétaire** (titres, précisions, exemples, thèmes rattachés). Plafond technique de
-    10 objectifs, **à confirmer**.
+  - Comm, objectif proposé : **« Où en êtes-vous ? »** d'abord (« Améliorer ce que j'ai déjà », 22 objectifs, ou « Mettre en place ma
+    présence en ligne », 21 objectifs), puis les propositions de cette partie.
+  - **Comm : la partie de l'objectif et le parcours du questionnaire restent séparés (option 6C du 28 octobre).** Le parcours suit la
+    réponse à COM-10.07 (« Publiez-vous… ? »). Quand elle correspond à l'autre partie, un message l'explique sous l'objectif et sous la
+    question ; rien n'est bloqué ni changé. La correspondance réponse → partie est écrite dans `data/objectifs-agents.json`
+    (« parcours »), d'après les règles d'affichage existantes.
+  - Une proposition dont tous les thèmes sont masqués pour la taille de l'entreprise n'est pas proposée : un dirigeant seul ne voit
+    pas les trois objectifs d'équipe ; « Me faire aider dans mon travail » n'est proposé qu'à lui. **Filtre gardé en attendant le choix
+    du propriétaire (point 3A, explication demandée le 28 octobre).**
+  - **54 objectifs** : les 52 de la liste du 27 octobre (identifiants et intentions gardés, textes clarifiés le 28 octobre) et deux
+    ajoutés le 28 octobre (4a-1 « Libérer du temps pour piloter l'entreprise », 4b-1 « Me faire aider dans mon travail »). **Textes à
+    relire par le propriétaire** (`docs/objectifs/CAXE-objectifs-proposes.pdf`).
 - Le moteur ne juge pas le réalisme d'un objectif sans chiffre (rien à comparer) ; l'avancement se mesure à ce que le dirigeant déclare.
 
 ### Assemblage du questionnaire
@@ -536,7 +546,29 @@ avec ajout en un clic. Agents nommés par leur fonction, **sans prénom ni perso
 | Acquisition & CA | Quels leviers comblent l'écart à l'objectif ? | 29 thèmes : 23 en 5 étapes, plus 6 ajoutés le 27 octobre (dont 4 modules métier) en « Contexte », à valider. Reste factuel sur la communication |
 | Finance & Rentabilité | L'objectif est-il rentable et finançable ? | 48 thèmes, dont un bloc Stock de 9 ; 13 scénarios. Jamais fiscalité ni comptabilité |
 | RH & Organisation | L'organisation peut-elle porter l'objectif ? | 49 thèmes en 8 blocs ; verdict Oui / Sous conditions / Pas en l'état. Jamais droit du travail |
-| Comm & Création de contenu | La présence en ligne génère-t-elle assez de contacts ? | 63 thèmes : 61 en 8 groupes, plus COM-62 (référencement) et COM-63 (annonces Google) du 27 octobre, en « Contexte », à valider. Deux parcours (amélioration, mise en place) ; qualité notée sur une grille fixe de 6 critères. Pas proposé aux professions réglementées |
+| Comm & Création de contenu | La présence en ligne génère-t-elle assez de contacts ? (document de règles ; périmètre clarifié le 28 octobre, ci-dessous) | 63 thèmes : 61 en 8 groupes, plus COM-62 (référencement) et COM-63 (annonces Google) du 27 octobre, en « Contexte », à valider. Deux parcours (amélioration, mise en place) ; qualité notée sur une grille fixe de 6 critères. Pas proposé aux professions réglementées |
+
+### Périmètre de l'agent Comm et coordination avec l'Acquisition (décision du propriétaire du 28 octobre)
+
+- **L'agent Comm conseille sur l'acquisition de clients obtenue grâce à la communication**, notamment : les canaux et les contenus ;
+  le funnel et le parcours de conversion liés à la communication ; les dispositifs à mettre en place ; l'amélioration des actions et
+  des supports existants. Il ne se réduit pas à la visibilité ni à la prise de contact : un objectif d'acquisition ou de funnel est
+  pertinent quand il repose sur des leviers de communication.
+- **L'agent Acquisition travaille sur les processus internes d'acquisition** de son périmètre : réactivité, rendez-vous, devis et
+  relances commerciales, transformation, prix, panier, fidélisation, pilotage commercial.
+- Cette clarification remplace la phrase du document de règles « son funnel […] s'arrête là où commence celui de l'agent
+  Acquisition, au moment où quelqu'un devient un contact identifié » (correction du document : section 15, « À fournir »). Les
+  données du classeur la suivaient déjà (demandes et clients venus de la communication COM-22.02, contacts devenus clients COM-21.06,
+  personnes intéressées relancées devenues clientes COM-61.02).
+- **Coordination** :
+  - une donnée commune aux deux agents est posée une seule fois (données partagées, section 6) ; les paires gardées exprès pour un
+    calcul ou un contrôle de cohérence ne sont pas des doublons (relecture du 27 octobre) ;
+  - quand un sujet touche les deux agents, chacun parle de ses leviers : relancer les personnes qui ont réagi ou écrit sans demander
+    de devis (COM-61) relève de la Comm ; relancer un devis envoyé (ACQ-10) relève de l'Acquisition ;
+  - les deux rapports lisent les mêmes chiffres calculés par le moteur, sans les recalculer ; un agent ne recommande rien sur les
+    leviers de l'autre et y renvoie (aperçu de l'agent manquant, comme aujourd'hui).
+  - **À écrire dans les prompts des agents** quand ils seront branchés (section 15, point 10) ; aucune règle de prompt n'est branchée
+    aujourd'hui.
 
 ## 10. Abonnement et compte
 
@@ -753,15 +785,13 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 - Profils et conditions posés par défaut pour les questions ajoutées : ACQ-07.15 posée si « plateformes » est coché (profils de
   ACQ-07.02) ; ACQ-11.38 restaurant ; ACQ-11.39 e-commerce et restaurant ; COM-13.11 et COM-62 si le dirigeant a un site ;
   COM-63.02 à .08 si COM-63.01 = oui ; les autres, tous les profils.
-- Liste des objectifs RH et Comm, relue le 28 octobre, et plafond de 10 objectifs (`docs/objectifs/objectifs-rh-comm.md`,
-  section 4 ; document de décision à cocher : `docs/objectifs/CAXE-decisions-objectifs.pdf`) :
-  - un seul objectif actif ou plusieurs ;
-  - trois changements de sens (« Relancer les personnes intéressées » en clients en plus ; « Guider les visiteurs jusqu'à me
-    contacter » ; taux de conversion visé) ;
-  - filtre des propositions selon la taille ;
-  - deux objectifs proposés sans être ajoutés (« Libérer du temps pour piloter l'entreprise », « Me faire aider » pour un dirigeant
-    seul) ;
-  - lien entre la partie choisie en Comm et le parcours du questionnaire (COM-10.07).
+- Objectifs RH et Comm : décisions du 28 octobre appliquées (1B, 2a-1, périmètre Comm clarifié pour 2b, 2c-1, 4a-1, 4b-1, plafond
+  d'un objectif, 6C ; `docs/objectifs/CAXE-decisions-objectifs.pdf`). Restent :
+  - **point 3A** (filtre des propositions selon la taille) : explication demandée par le propriétaire, filtre gardé en attendant ;
+  - les textes des 54 objectifs (`docs/objectifs/CAXE-objectifs-proposes.pdf`), dont la nouvelle définition du taux de conversion
+    (« Sur 100 visiteurs de votre site ou de vos profils, combien vous contactent ou achètent. ») ;
+  - la règle de l'écart entre la partie Comm et COM-10.07 (6C) : une partie « Améliorer » avec « Rarement ou plus du tout » ou « Non,
+    jamais », une partie « Mettre en place » avec « Oui, au moins une fois par mois » ; d'après les règles d'affichage existantes.
 - Limite de vraisemblance d'un objectif en % : ramené à une année, il ne peut multiplier ou diviser l'indicateur par plus de 4
   (`data/objectif-limites.json`, valeur de travail qu'aucune source ne fixe).
 - Profils déduits de 13 métiers ou activités ajoutés à la liste (marqués `aConfirmer` dans `routage.json`) : commissaire de justice,
@@ -788,7 +818,9 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 - Abréviations et autres noms des métiers pour la recherche.
 - Mots du vocabulaire « consultation » des professions de santé.
 - Clé `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt).
-- Correction du document de règles : prix du palier 4 à 99,99 €.
+- Correction du document de règles : prix du palier 4 à 99,99 € ; agent Comm (partie 2), la phrase « son funnel […] s'arrête […] au
+  moment où quelqu'un devient un contact identifié » à remplacer par la clarification du 28 octobre (section 9), et sa question
+  (« … assez de contacts ? ») à revoir si le propriétaire le souhaite.
 - Texte qui remplace « Venez les essayer » sur la page d'accueil : le propriétaire le fixera au moment de créer la page de vente, avec
   les trois changements de l'accueil (ne pas le redemander d'ici là).
 - `CAXE_Questionnaire_Grille_Pilote.xlsx`, s'il doit vivre dans le dépôt.

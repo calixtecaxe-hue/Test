@@ -32,6 +32,8 @@ export type QuestionClient = {
   periode?: string | null;
   // Réponse donnée un mois antérieur : les mois sur lesquels elle porte, à mettre à jour si besoin.
   periodeAncienne?: string | null;
+  // Comm (6C) : la partie de l'objectif ne correspond pas au parcours que donne cette réponse (COM-10.07).
+  ecartObjectif?: string | null;
 } & LignesVenues;
 
 // Question où se règlent les lignes d'un tableau : sur cette page (ancre « #q-CODE ») ou dans l'audit d'un autre agent.
@@ -785,6 +787,7 @@ export function QuestionCarte({
       {q.aide ? <p className="mt-1 text-sm text-[var(--text-muted)]">{q.aide}</p> : null}
       {q.periode ? <p className="mt-1 text-sm text-[var(--text)]" data-periode>{q.periode}</p> : null}
       {q.periodeAncienne ? <p className="mt-1 text-sm text-[var(--text-muted)]" data-periode-ancienne>{q.periodeAncienne}</p> : null}
+      {q.ecartObjectif ? <p className="note-ecart mt-3" role="note" data-ecart-partie>{q.ecartObjectif}</p> : null}
       {partageAvec ? <p className="mt-2 text-sm text-[var(--text-muted)]">Cette réponse est partagée avec l&apos;audit {partageAvec} : la modifier la change aussi là-bas.</p> : null}
 
       {q.dejaPosee ? (

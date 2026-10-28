@@ -1,275 +1,377 @@
 {
- "le": "2026-10-28T21:41:43.726Z",
+ "le": "2026-10-28T23:02:00.887Z",
  "resultats": [
   {
    "id": "RH-01",
-   "attendu": "l'écran s'ouvre sur « Quel objectif souhaitez-vous atteindre ? » et « Choisissez une proposition ou décrivez votre propre objectif. »",
+   "attendu": "l'écran s'ouvre sur « Quel objectif souhaitez-vous atteindre ? » et « Choisissez un objectif proposé ou écrivez le vôtre. »",
    "conforme": true,
    "observe": ""
+  },
+  {
+   "id": "RH-02",
+   "attendu": "deux choix visibles avant tout formulaire, avec leur aide : « Choisir un objectif proposé » et « Écrire mon propre objectif »",
+   "conforme": true,
+   "observe": "Choisir un objectif proposé | Écrire mon propre objectif"
   },
   {
    "id": "RH-03",
-   "attendu": "les 9 propositions et « Définir mon propre objectif » sont dans le même ensemble",
+   "attendu": "aucune présélection, ni « Autre », ni « Ajouter un autre objectif »",
    "conforme": true,
-   "observe": "10"
+   "observe": ""
   },
   {
    "id": "RH-04",
-   "attendu": "rien de choisi : « Choisissez une proposition ou décrivez votre propre objectif. », rien en base",
+   "attendu": "ordinateur : les deux choix côte à côte, de même taille, titres de même corps",
    "conforme": true,
-   "observe": ""
+   "observe": "[{\"x\":280,\"y\":490,\"l\":354,\"h\":133,\"bas\":623,\"titre\":\"17px\"},{\"x\":646,\"y\":490,\"l\":354,\"h\":133,\"bas\":623,\"titre\":\"17px\"}]"
   },
   {
    "id": "RH-05",
-   "attendu": "proposition « Réduire les départs de salariés » : coche, mot « Choisi », bouton radio coché, champs ouverts dans la carte",
+   "attendu": "rien de choisi : « Choisissez un objectif proposé, ou écrivez votre propre objectif. », le focus revient aux deux choix, rien en base",
    "conforme": true,
-   "observe": ""
+   "observe": "_R_1mlubsnqbtb_-mode-legende"
   },
   {
    "id": "RH-06",
-   "attendu": "« Définir mon propre objectif » : champ « Décrivez votre objectif », aide et exemple propres à l'agent, une seule modalité active",
-   "conforme": true,
-   "observe": "En une phrase, ce que vous voulez obtenir pour votre organisation. Exemple : que l'équipe ouvre seule le magasin le samedi."
-  },
-  {
-   "id": "RH-07",
-   "attendu": "le champ personnel reçoit le focus à l'ouverture",
-   "conforme": true,
-   "observe": ""
-  },
-  {
-   "id": "RH-08",
-   "attendu": "en passant à une proposition, le champ personnel disparaît et rien n'est transmis pour lui",
+   "attendu": "« Choisir un objectif proposé » : coché, « Choisi » écrit, l'autre choix reste visible et non coché, aucun champ de rédaction",
    "conforme": true,
    "observe": ""
   },
   {
    "id": "RH-09",
-   "attendu": "en revenant à l'objectif personnel, le texte écrit est retrouvé tel quel",
+   "attendu": "les 10 propositions pertinentes, et rien d'autre (« Me faire aider dans mon travail » n'est pas proposé à une équipe)",
    "conforme": true,
-   "observe": "Que l'équipe ouvre seule le magasin le samedi"
+   "observe": "rh-turnover, rh-absences, rh-recruter, rh-roles, rh-deleguer, rh-charge, rh-information, rh-competences, rh-absence-dirigeant, rh-temps"
   },
   {
    "id": "RH-10",
-   "attendu": "texte fait d'espaces : « Décrivez votre objectif en quelques mots pour continuer. », le champ reçoit le focus, rien en base",
+   "attendu": "proposition « Libérer du temps pour piloter l'entreprise » : coche, « Choisi », champs ouverts dans la carte, intitulé « Combien d'heures par semaine voulez-vous libérer ? »",
    "conforme": true,
    "observe": ""
   },
   {
    "id": "RH-11",
-   "attendu": "objectif personnel enregistré : un seul objectif actif, origine « personnel », sans proposition, texte du dirigeant intact",
+   "attendu": "la phrase finale vient de la saisie : « libérer 5 heures par semaine pour piloter l'entreprise d'ici 3 mois »",
    "conforme": true,
-   "observe": "[{\"statut\":\"ACTIF\",\"phrase\":\"Que l'équipe ouvre seule le magasin le samedi en 4 mois\",\"origine\":\"personnel\",\"choix\":\"\",\"quoi\":\"Que l'équipe ouvre seule le magasin le samedi\"}]"
+   "observe": "Votre objectif : libérer 5 heures par semaine pour piloter l'entreprise d'ici 3 mois"
   },
   {
    "id": "RH-12",
-   "attendu": "écran suivant : la phrase de l'objectif personnel et la mention « Objectif personnel »",
+   "attendu": "« Écrire mon propre objectif » : champ « Votre objectif » ouvert directement, aide et exemple de l'agent, les propositions disparaissent",
    "conforme": true,
-   "observe": "Que l'équipe ouvre seule le magasin le samedi en 4 mois"
+   "observe": "En une phrase, ce que vous voulez obtenir pour votre organisation. Exemple : que l'équipe ouvre seule le magasin le samedi."
   },
   {
    "id": "RH-13",
-   "attendu": "après actualisation : même objectif",
+   "attendu": "choisi à la souris, le champ « Votre objectif » reçoit le focus",
    "conforme": true,
    "observe": ""
   },
   {
    "id": "RH-14",
-   "attendu": "après déconnexion et reconnexion : même objectif",
+   "attendu": "retour au mode « proposé » : la proposition et son chiffre sont retrouvés, le champ personnel n'est plus affiché",
    "conforme": true,
-   "observe": ""
+   "observe": "5"
   },
   {
    "id": "RH-15",
-   "attendu": "retour à l'étape Objectif : « Définir mon propre objectif » est choisi, avec le texte, la réussite et le délai",
+   "attendu": "retour au mode « personnel » : le texte écrit est retrouvé tel quel",
    "conforme": true,
    "observe": ""
   },
   {
    "id": "RH-16",
-   "attendu": "objectif modifié : un seul actif (la proposition), l'objectif personnel passe en historique « remplacé »",
-   "conforme": true,
-   "observe": "[{\"statut\":\"REMPLACE\",\"phrase\":\"Que l'équipe ouvre seule le magasin le samedi en 4 mois\",\"origine\":\"personnel\",\"choix\":\"\",\"quoi\":\"Que l'équipe ouvre seule le magasin le samedi\"},{\"statut\":\"ACTIF\",\"phrase\":\"réduire les départs de salariés de 15 % sur les 6 prochains mois\",\"origine\":\"proposition\",\"choix\":\"rh-turnover\",\"quoi\":\"réduire les départs de salariés\"}]"
-  },
-  {
-   "id": "RH-17",
-   "attendu": "compte rendu : l'objectif en cours est celui qui vient d'être choisi",
-   "conforme": true,
-   "observe": "réduire les départs de salariés de 15 % sur les 6 prochains mois"
-  },
-  {
-   "id": "COM-01",
-   "attendu": "l'écran s'ouvre sur « Quel objectif souhaitez-vous atteindre ? » et « Choisissez une proposition ou décrivez votre propre objectif. »",
-   "conforme": true,
-   "observe": ""
-  },
-  {
-   "id": "COM-02",
-   "attendu": "Comm : deux parties à choisir, aucune proposition affichée avant ce choix",
-   "conforme": true,
-   "observe": ""
-  },
-  {
-   "id": "COM-03",
-   "attendu": "les 22 propositions et « Définir mon propre objectif » sont dans le même ensemble",
-   "conforme": true,
-   "observe": "23"
-  },
-  {
-   "id": "COM-04",
-   "attendu": "rien de choisi : « Choisissez une proposition ou décrivez votre propre objectif. », rien en base",
-   "conforme": true,
-   "observe": ""
-  },
-  {
-   "id": "COM-05",
-   "attendu": "proposition « Augmenter mon nombre d'abonnés » : coche, mot « Choisi », bouton radio coché, champs ouverts dans la carte",
-   "conforme": true,
-   "observe": ""
-  },
-  {
-   "id": "COM-06",
-   "attendu": "« Définir mon propre objectif » : champ « Décrivez votre objectif », aide et exemple propres à l'agent, une seule modalité active",
-   "conforme": true,
-   "observe": "En une phrase, ce que vous voulez obtenir de votre communication. Exemple : être connu dans ma ville pour la rénovation de salles de bain."
-  },
-  {
-   "id": "COM-07",
-   "attendu": "le champ personnel reçoit le focus à l'ouverture",
-   "conforme": true,
-   "observe": ""
-  },
-  {
-   "id": "COM-08",
-   "attendu": "en passant à une proposition, le champ personnel disparaît et rien n'est transmis pour lui",
-   "conforme": true,
-   "observe": ""
-  },
-  {
-   "id": "COM-09",
-   "attendu": "en revenant à l'objectif personnel, le texte écrit est retrouvé tel quel",
-   "conforme": true,
-   "observe": "Être connu dans ma ville pour la rénovation de salles de bain"
-  },
-  {
-   "id": "COM-10",
    "attendu": "texte fait d'espaces : « Décrivez votre objectif en quelques mots pour continuer. », le champ reçoit le focus, rien en base",
    "conforme": true,
    "observe": ""
   },
   {
-   "id": "COM-11",
-   "attendu": "objectif personnel enregistré : un seul objectif actif, origine « personnel », sans proposition, texte du dirigeant intact",
+   "id": "RH-17",
+   "attendu": "objectif personnel enregistré : un seul actif, origine « personnel », sans proposition, texte du dirigeant intact (rien du mode « proposé » n'est transmis)",
    "conforme": true,
-   "observe": "[{\"statut\":\"ACTIF\",\"phrase\":\"Être connu dans ma ville pour la rénovation de salles de bain en 4 mois\",\"origine\":\"personnel\",\"choix\":\"\",\"quoi\":\"Être connu dans ma ville pour la rénovation de salles de bain\"}]"
+   "observe": "[{\"statut\":\"ACTIF\",\"phrase\":\"Que l'équipe ouvre seule le magasin le samedi, d'ici 4 mois\",\"origine\":\"personnel\",\"choix\":\"\",\"quoi\":\"Que l'équipe ouvre seule le magasin le samedi\"}]"
   },
   {
-   "id": "COM-12",
+   "id": "RH-18",
    "attendu": "écran suivant : la phrase de l'objectif personnel et la mention « Objectif personnel »",
    "conforme": true,
-   "observe": "Être connu dans ma ville pour la rénovation de salles de bain en 4 mois"
+   "observe": "Que l'équipe ouvre seule le magasin le samedi, d'ici 4 mois"
   },
   {
-   "id": "COM-13",
+   "id": "RH-19",
    "attendu": "après actualisation : même objectif",
    "conforme": true,
    "observe": ""
   },
   {
-   "id": "COM-14",
+   "id": "RH-20",
    "attendu": "après déconnexion et reconnexion : même objectif",
    "conforme": true,
    "observe": ""
   },
   {
+   "id": "RH-21",
+   "attendu": "retour à l'étape Objectif : « Écrire mon propre objectif » est choisi, avec le texte et le délai ; pas de second objectif possible",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RH-22",
+   "attendu": "modification abandonnée (« Garder l'objectif actuel ») : retour à l'audit, l'objectif personnel reste le seul actif",
+   "conforme": true,
+   "observe": "Que l'équipe ouvre seule le magasin le samedi, d'ici 4 mois"
+  },
+  {
+   "id": "RH-23",
+   "attendu": "retour en arrière du navigateur vers l'étape Objectif : le formulaire montre l'objectif enregistré, pas la modification abandonnée",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RH-24",
+   "attendu": "objectif modifié : un seul actif (la proposition, avec sa phrase), l'objectif personnel passe en historique « remplacé »",
+   "conforme": true,
+   "observe": "[{\"statut\":\"REMPLACE\",\"phrase\":\"Que l'équipe ouvre seule le magasin le samedi, d'ici 4 mois\",\"origine\":\"personnel\",\"choix\":\"\",\"quoi\":\"Que l'équipe ouvre seule le magasin le samedi\"},{\"statut\":\"ACTIF\",\"phrase\":\"libérer 5 heures par semaine pour piloter l'entreprise d'ici 3 mois\",\"origine\":\"proposition\",\"choix\":\"rh-temps\",\"quoi\":\"libérer du temps pour piloter l'entreprise\"}]"
+  },
+  {
+   "id": "RH-25",
+   "attendu": "compte rendu : l'objectif transmis est celui qui vient d'être choisi",
+   "conforme": true,
+   "observe": "libérer 5 heures par semaine pour piloter l'entreprise d'ici 3 mois"
+  },
+  {
+   "id": "COM-01",
+   "attendu": "l'écran s'ouvre sur « Quel objectif souhaitez-vous atteindre ? » et « Choisissez un objectif proposé ou écrivez le vôtre. »",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "COM-02",
+   "attendu": "deux choix visibles avant tout formulaire, avec leur aide : « Choisir un objectif proposé » et « Écrire mon propre objectif »",
+   "conforme": true,
+   "observe": "Choisir un objectif proposé | Écrire mon propre objectif"
+  },
+  {
+   "id": "COM-03",
+   "attendu": "aucune présélection, ni « Autre », ni « Ajouter un autre objectif »",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "COM-04",
+   "attendu": "ordinateur : les deux choix côte à côte, de même taille, titres de même corps",
+   "conforme": true,
+   "observe": "[{\"x\":280,\"y\":490,\"l\":354,\"h\":133,\"bas\":623,\"titre\":\"17px\"},{\"x\":646,\"y\":490,\"l\":354,\"h\":133,\"bas\":623,\"titre\":\"17px\"}]"
+  },
+  {
+   "id": "COM-05",
+   "attendu": "rien de choisi : « Choisissez un objectif proposé, ou écrivez votre propre objectif. », le focus revient aux deux choix, rien en base",
+   "conforme": true,
+   "observe": "_R_1mlubsnqbtb_-mode-legende"
+  },
+  {
+   "id": "COM-06",
+   "attendu": "« Choisir un objectif proposé » : coché, « Choisi » écrit, l'autre choix reste visible et non coché, aucun champ de rédaction",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "COM-07",
+   "attendu": "Comm : deux parties à choisir, aucune proposition avant ce choix",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "COM-08",
+   "attendu": "Comm sans partie : « Choisissez d'abord où vous en êtes… », le focus va sur « Où en êtes-vous ? »",
+   "conforme": true,
+   "observe": "_R_1mlubsnqbtb_-partie-legende"
+  },
+  {
+   "id": "COM-09",
+   "attendu": "les 22 propositions pertinentes, et rien d'autre",
+   "conforme": true,
+   "observe": "com-audience, com-portee, com-engagement, com-visites-profil, com-clics, com-messages, com-demandes, com-conversion, com-contacts-offre, com-relance, com-visites-site, com-google-recherche, com-fiche-google, com-annonces, com-avis, com-note, com-fichier, com-partenaires, com-contenus-performants, com-qualite, com-cout-demande, com-temps"
+  },
+  {
+   "id": "COM-10",
+   "attendu": "proposition « Augmenter mon nombre d'abonnés » : coche, « Choisi », champs ouverts dans la carte, intitulé « De combien voulez-vous augmenter vos abonnés ? »",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "COM-11",
+   "attendu": "la phrase finale vient de la saisie : « gagner 200 abonnés d'ici 6 mois »",
+   "conforme": true,
+   "observe": "Votre objectif : gagner 200 abonnés d'ici 6 mois"
+  },
+  {
+   "id": "COM-12",
+   "attendu": "« Écrire mon propre objectif » : champ « Votre objectif » ouvert directement, aide et exemple de l'agent, les propositions disparaissent",
+   "conforme": true,
+   "observe": "En une phrase, ce que vous voulez obtenir de votre communication. Exemple : être connu dans ma ville pour la rénovation de salles de bain."
+  },
+  {
+   "id": "COM-13",
+   "attendu": "choisi à la souris, le champ « Votre objectif » reçoit le focus",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "COM-14",
+   "attendu": "retour au mode « proposé » : la proposition et son chiffre sont retrouvés, le champ personnel n'est plus affiché",
+   "conforme": true,
+   "observe": "200"
+  },
+  {
    "id": "COM-15",
-   "attendu": "retour à l'étape Objectif : « Définir mon propre objectif » est choisi, avec le texte, la réussite et le délai",
+   "attendu": "retour au mode « personnel » : le texte écrit est retrouvé tel quel",
    "conforme": true,
    "observe": ""
   },
   {
    "id": "COM-16",
-   "attendu": "objectif modifié : un seul actif (la proposition), l'objectif personnel passe en historique « remplacé »",
-   "conforme": true,
-   "observe": "[{\"statut\":\"REMPLACE\",\"phrase\":\"Être connu dans ma ville pour la rénovation de salles de bain en 4 mois\",\"origine\":\"personnel\",\"choix\":\"\",\"quoi\":\"Être connu dans ma ville pour la rénovation de salles de bain\"},{\"statut\":\"ACTIF\",\"phrase\":\"augmenter mon nombre d'abonnés de 15 % sur les 6 prochains mois\",\"origine\":\"proposition\",\"choix\":\"com-audience\",\"quoi\":\"augmenter mon nombre d'abonnés\"}]"
-  },
-  {
-   "id": "COM-17",
-   "attendu": "compte rendu : l'objectif en cours est celui qui vient d'être choisi",
-   "conforme": true,
-   "observe": "augmenter mon nombre d'abonnés de 15 % sur les 6 prochains mois"
-  },
-  {
-   "id": "X-00",
-   "attendu": "Comm : enregistrer avant de choisir où l'on en est → « Choisissez d'abord où vous en êtes… », le focus va sur cette question",
+   "attendu": "texte fait d'espaces : « Décrivez votre objectif en quelques mots pour continuer. », le champ reçoit le focus, rien en base",
    "conforme": true,
    "observe": ""
   },
   {
+   "id": "COM-17",
+   "attendu": "objectif personnel enregistré : un seul actif, origine « personnel », sans proposition, texte du dirigeant intact (rien du mode « proposé » n'est transmis)",
+   "conforme": true,
+   "observe": "[{\"statut\":\"ACTIF\",\"phrase\":\"Être connu dans ma ville pour la rénovation de salles de bain, d'ici 4 mois\",\"origine\":\"personnel\",\"choix\":\"\",\"quoi\":\"Être connu dans ma ville pour la rénovation de salles de bain\"}]"
+  },
+  {
+   "id": "COM-18",
+   "attendu": "écran suivant : la phrase de l'objectif personnel et la mention « Objectif personnel »",
+   "conforme": true,
+   "observe": "Être connu dans ma ville pour la rénovation de salles de bain, d'ici 4 mois"
+  },
+  {
+   "id": "COM-19",
+   "attendu": "après actualisation : même objectif",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "COM-20",
+   "attendu": "après déconnexion et reconnexion : même objectif",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "COM-21",
+   "attendu": "retour à l'étape Objectif : « Écrire mon propre objectif » est choisi, avec le texte et le délai ; pas de second objectif possible",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "COM-22",
+   "attendu": "modification abandonnée (« Garder l'objectif actuel ») : retour à l'audit, l'objectif personnel reste le seul actif",
+   "conforme": true,
+   "observe": "Être connu dans ma ville pour la rénovation de salles de bain, d'ici 4 mois"
+  },
+  {
+   "id": "COM-23",
+   "attendu": "retour en arrière du navigateur vers l'étape Objectif : le formulaire montre l'objectif enregistré, pas la modification abandonnée",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "COM-24",
+   "attendu": "objectif modifié : un seul actif (la proposition, avec sa phrase), l'objectif personnel passe en historique « remplacé »",
+   "conforme": true,
+   "observe": "[{\"statut\":\"REMPLACE\",\"phrase\":\"Être connu dans ma ville pour la rénovation de salles de bain, d'ici 4 mois\",\"origine\":\"personnel\",\"choix\":\"\",\"quoi\":\"Être connu dans ma ville pour la rénovation de salles de bain\"},{\"statut\":\"ACTIF\",\"phrase\":\"gagner 200 abonnés d'ici 6 mois\",\"origine\":\"proposition\",\"choix\":\"com-audience\",\"quoi\":\"augmenter mon nombre d'abonnés\"}]"
+  },
+  {
+   "id": "COM-25",
+   "attendu": "compte rendu : l'objectif transmis est celui qui vient d'être choisi",
+   "conforme": true,
+   "observe": "gagner 200 abonnés d'ici 6 mois"
+  },
+  {
    "id": "X-01",
-   "attendu": "« Obtenir plus d'avis clients » : le chiffre s'intitule « Combien de nouveaux avis ? », sans choix d'unité",
+   "attendu": "serveur : deux objectifs envoyés ensemble sont refusés (« Cet agent suit un seul objectif à la fois. »), rien en base",
    "conforme": true,
    "observe": ""
   },
   {
    "id": "X-02",
-   "attendu": "aperçu : « obtenir 10 nouveaux avis clients sur les 3 prochains mois »",
+   "attendu": "serveur : une proposition reçue avec un autre texte est enregistrée avec le texte de la liste",
+   "conforme": true,
+   "observe": "[{\"statut\":\"ACTIF\",\"phrase\":\"clarifier qui fait quoi, d'ici 3 mois\",\"origine\":\"proposition\",\"choix\":\"rh-roles\",\"quoi\":\"clarifier qui fait quoi\"}]"
+  },
+  {
+   "id": "X-03",
+   "attendu": "« Obtenir plus d'avis clients » : « Combien de nouveaux avis voulez-vous obtenir ? », sans choix d'unité ; « obtenir 10 nouveaux avis clients sur les 3 prochains mois »",
    "conforme": true,
    "observe": "Votre objectif : obtenir 10 nouveaux avis clients sur les 3 prochains mois"
   },
   {
-   "id": "X-03",
-   "attendu": "« Ajouter un autre objectif » : le premier se replie avec sa phrase, le second s'ouvre, la proposition déjà choisie y est indisponible",
-   "conforme": true,
-   "observe": ""
-  },
-  {
    "id": "X-04",
-   "attendu": "Comm : changer de partie quand un autre objectif est déjà dans la première est refusé et expliqué",
+   "attendu": "taux de conversion (2c-1) : la phrase dit le taux visé, « porter mon taux de conversion à 4 % d'ici 3 mois »",
    "conforme": true,
-   "observe": ""
+   "observe": "Votre objectif : porter mon taux de conversion à 4 % d'ici 3 mois"
   },
   {
    "id": "X-05",
-   "attendu": "un objectif personnel qui reprend une proposition déjà choisie est refusé par le serveur, avec un message",
+   "attendu": "« Réduire les absences dans l'équipe » : « De combien voulez-vous réduire les jours d'absence, en % ? », sans choix d'unité",
    "conforme": true,
    "observe": ""
   },
   {
    "id": "X-06",
-   "attendu": "deux objectifs enregistrés ensemble : une proposition et un objectif personnel, chacun avec son origine",
+   "attendu": "clavier : Tab atteint « Choisir un objectif proposé » sans rien choisir, avec un focus visible",
    "conforme": true,
-   "observe": "[{\"statut\":\"ACTIF\",\"phrase\":\"obtenir 10 nouveaux avis clients sur les 3 prochains mois\",\"origine\":\"proposition\",\"choix\":\"com-avis\",\"quoi\":\"obtenir plus d'avis clients\"},{\"statut\":\"ACTIF\",\"phrase\":\"être connu des architectes de ma ville en 2 mois\",\"origine\":\"personnel\",\"choix\":\"\",\"quoi\":\"être connu des architectes de ma ville\"}]"
+   "observe": "proposition après 1 Tab, visible true"
   },
   {
    "id": "X-07",
-   "attendu": "serveur : une proposition reçue avec un autre texte est enregistrée avec le texte de la liste",
+   "attendu": "clavier : Espace choisit le mode ; le curseur reste sur ce choix",
    "conforme": true,
-   "observe": "[{\"statut\":\"ACTIF\",\"phrase\":\"clarifier qui fait quoi en 3 mois\",\"origine\":\"proposition\",\"choix\":\"rh-roles\",\"quoi\":\"clarifier qui fait quoi\"}]"
+   "observe": ""
   },
   {
    "id": "X-08",
-   "attendu": "« Réduire les absences dans l'équipe » : « De combien, en % ? », sans choix d'unité",
+   "attendu": "clavier : la flèche passe à « Écrire mon propre objectif », qui s'ouvre ; le curseur reste sur le choix",
    "conforme": true,
    "observe": ""
   },
   {
    "id": "X-09",
-   "attendu": "clavier : les flèches passent d'une carte à la suivante, qui devient la carte choisie, focus visible",
+   "attendu": "clavier : Tab mène au champ « Votre objectif », où le texte s'écrit",
    "conforme": true,
-   "observe": "rh-deleguer true"
+   "observe": "Mieux préparer les saisons"
   },
   {
    "id": "X-10",
-   "attendu": "clavier : depuis la dernière proposition, la flèche atteint « Définir mon propre objectif » et le texte s'écrit dans son champ",
+   "attendu": "clavier : retour au mode « proposé », Tab entre dans les propositions et la flèche en choisit une, qui s'ouvre",
    "conforme": true,
-   "observe": "personnel « Mieux préparer les saisons »"
+   "observe": "rh-absences"
+  },
+  {
+   "id": "X-11",
+   "attendu": "Comm (6C) : objectif dans « Mettre en place… », réponse « Oui, au moins une fois par mois » → l'écart est expliqué sous l'objectif et sous la question, sans blocage",
+   "conforme": true,
+   "observe": "Votre objectif est dans la partie « Mettre en place ma présence en ligne ». Votre questionnaire, lui, suit votre réponse à « Publiez-vous pour votre entreprise sur les réseaux sociaux ? » (« Oui, au moins une fois par mois ») : il vous pose les questions de la partie « Améliorer ce que j'ai déjà ». Rien n'est bloqué : vous pouvez garder cet objectif ou le changer."
+  },
+  {
+   "id": "X-12",
+   "attendu": "Comm (6C) : à l'étape Objectif, la partie choisie montre aussi l'écart",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "X-13",
+   "attendu": "Comm (6C) : quand la réponse correspond à la partie (« Non, jamais »), aucun message",
+   "conforme": true,
+   "observe": ""
   },
   {
    "id": "T-01",
-   "attendu": "dirigeant seul : ni « Réduire les départs de salariés », ni « Réduire les absences dans l'équipe », ni « Alléger la charge de travail de l'équipe »",
+   "attendu": "téléphone 360 px : les deux choix empilés, de même largeur et de même corps de titre",
    "conforme": true,
-   "observe": "rh-recruter, rh-roles, rh-deleguer, rh-information, rh-competences, rh-absence-dirigeant, personnel"
+   "observe": "[{\"x\":24,\"y\":710,\"l\":312,\"h\":108,\"bas\":818,\"titre\":\"17px\"},{\"x\":24,\"y\":830,\"l\":312,\"h\":108,\"bas\":937,\"titre\":\"17px\"}]"
   },
   {
    "id": "T-02",
@@ -279,24 +381,30 @@
   },
   {
    "id": "T-03",
-   "attendu": "téléphone : le bouton « Enregistrer mon objectif » reste visible pendant le défilement de la liste",
+   "attendu": "dirigeant seul : ni départs, ni absences, ni charge de l'équipe ; « Libérer du temps… » et « Me faire aider dans mon travail » sont proposés",
+   "conforme": true,
+   "observe": "rh-recruter, rh-roles, rh-deleguer, rh-information, rh-competences, rh-absence-dirigeant, rh-temps, rh-aide"
+  },
+  {
+   "id": "T-04",
+   "attendu": "téléphone : « Enregistrer mon objectif » reste visible pendant le défilement des propositions",
    "conforme": true,
    "observe": "{\"x\":24,\"y\":702,\"width\":231.984375,\"height\":46}"
   },
   {
-   "id": "T-04",
-   "attendu": "téléphone : le champ personnel tient dans la largeur et mesure au moins 40 px de haut",
-   "conforme": true,
-   "observe": "{\"x\":44,\"y\":355.5,\"width\":275,\"height\":48}"
-  },
-  {
    "id": "T-05",
-   "attendu": "un seul avis visé : « obtenir mon premier avis client sur les 2 prochains mois »",
+   "attendu": "téléphone : le champ « Votre objectif » tient dans la largeur et mesure au moins 40 px de haut",
    "conforme": true,
-   "observe": "Votre objectif : obtenir mon premier avis client sur les 2 prochains mois"
+   "observe": "{\"x\":47,\"y\":438.5,\"width\":268,\"height\":48}"
   },
   {
    "id": "T-06",
+   "attendu": "un seul avis visé : « obtenir mon premier avis client d'ici 2 mois »",
+   "conforme": true,
+   "observe": "Votre objectif : obtenir mon premier avis client d'ici 2 mois"
+  },
+  {
+   "id": "T-07",
    "attendu": "téléphone 390 px (Comm) : aucune barre de défilement horizontale",
    "conforme": true,
    "observe": "390"

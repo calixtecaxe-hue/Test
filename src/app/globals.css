@@ -4194,7 +4194,7 @@ h3,
   border-left: 3px solid var(--agent);
 }
 
-/* Un objectif choisi (RH, Comm : plusieurs possibles), avec ses champs. */
+/* Objectif personnel (RH, Comm) : le champ de rédaction et ses précisions, sous « Écrire mon propre objectif ». */
 .objectif-entree {
   border: 1px solid var(--line);
   border-left: 3px solid var(--agent);
@@ -4209,9 +4209,9 @@ h3,
   padding-top: 14px;
 }
 
-/* Choix d'un objectif (RH, Comm) : des cartes à un seul choix, puis « Définir mon propre objectif » en pointillés. La carte
-   choisie s'ouvre sur ses champs. L'état choisi se lit sans la couleur : coche dans la marque, mot « Choisi », bordure gauche
-   épaisse. Le bouton d'enregistrement reste visible en bas de l'écran pendant qu'on parcourt la liste. */
+/* Objectifs proposés (RH, Comm) et parties de la Comm : des cartes à un seul choix. La carte choisie s'ouvre sur ses champs.
+   L'état choisi se lit sans la couleur : coche dans la marque, mot « Choisi », bordure gauche épaisse. Le bouton
+   d'enregistrement reste visible en bas de l'écran pendant qu'on parcourt la liste. */
 .objectif-cartes {
   display: flex;
   flex-direction: column;
@@ -4233,7 +4233,7 @@ h3,
   transition: border-color 0.2s ease, background 0.2s ease;
   scroll-margin: 96px 0 120px;
 }
-.objectif-carte:hover:not(.desactivee) {
+.objectif-carte:hover {
   border-color: rgb(var(--ink) / 0.32);
 }
 .objectif-carte:has(.case-entree:focus-visible) {
@@ -4244,18 +4244,6 @@ h3,
   border-color: var(--agent, var(--blue-1));
   border-left-width: 4px;
   background: rgb(var(--agent-rgb, var(--blue-rgb)) / 0.07);
-}
-.objectif-carte.desactivee {
-  opacity: 0.55;
-}
-.objectif-carte.desactivee .objectif-carte-tete {
-  cursor: not-allowed;
-}
-.objectif-perso {
-  border-style: dashed;
-}
-.objectif-perso.choisie {
-  border-style: solid;
 }
 .objectif-carte-tete {
   display: flex;
@@ -4311,17 +4299,88 @@ h3,
     padding-left: 16px;
   }
 }
-.objectif-resume {
+/* Les deux façons de définir l'objectif (RH, Comm, 28 octobre) : « Choisir un objectif proposé » et « Écrire mon propre
+   objectif », de même taille et de même style, côte à côte sur ordinateur, l'une sous l'autre sur téléphone. Aucune n'est
+   choisie d'avance ; le choix se lit sans la couleur (coche, « Choisi », bordure épaisse). */
+.objectif-modes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 640px) {
+  .objectif-modes {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.objectif-mode {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px 16px;
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--agent, var(--blue-1));
+  border: 1px solid rgb(var(--ink) / 0.24);
   border-radius: 12px;
   background: var(--panel);
-  padding: 14px 16px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.objectif-mode:hover {
+  border-color: rgb(var(--ink) / 0.4);
+}
+.objectif-mode:has(.case-entree:focus-visible) {
+  outline: 2px solid var(--agent, var(--blue-1));
+  outline-offset: 2px;
+}
+.objectif-mode.choisi {
+  border-color: var(--agent, var(--blue-1));
+  border-left-width: 4px;
+  background: rgb(var(--agent-rgb, var(--blue-rgb)) / 0.07);
+}
+.objectif-mode-tete {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 92px;
+  padding: 18px 18px 18px 16px;
+  cursor: pointer;
+}
+.objectif-mode-tete .objectif-marque {
+  margin-top: 2px;
+}
+/* Ordinateur : la place de « Choisi » est réservée sur les deux cartes, pour que le titre ne change pas de ligne au choix. */
+@media (min-width: 640px) {
+  .objectif-mode-tete {
+    position: relative;
+    padding-right: 92px;
+  }
+  .objectif-mode-tete .objectif-pastille {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+  }
+}
+.objectif-mode.choisi .objectif-marque {
+  border-color: var(--agent, var(--blue-1));
+  background: var(--agent, var(--blue-1));
+  color: var(--bg);
+}
+.objectif-mode-titre {
+  font-family: var(--titre);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+.objectif-champs-perso {
+  padding: 0;
+}
+/* Comm : la partie de l'objectif ne correspond pas au parcours du questionnaire (décision 6C) ; information, jamais un blocage. */
+.note-ecart {
+  border-left: 3px solid rgb(var(--amber-rgb));
+  border-radius: 4px;
+  background: rgb(var(--amber-rgb) / 0.08);
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--text);
 }
 .objectif-actions {
   position: sticky;

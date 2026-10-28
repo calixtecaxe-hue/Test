@@ -14,7 +14,8 @@ import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
 import { ancragesDesReponses, reponsesDuCompte, reponsesPreremplies } from "@/lib/audit/compte";
 import { moisDe } from "@/lib/audit/periodes";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
-import { objectifTransmis, objectifsPourLaTaille } from "@/lib/audit/objectifs-proposes";
+import { objectifTransmis, objectifsPourLaTaille, suiviParcours } from "@/lib/audit/objectifs-proposes";
+import { ecartDeParcours } from "@/lib/audit/objectifs-agent";
 import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifActif, ObjectifEdition } from "./objectif-actif";
 import { ObjectifChoix } from "./objectif-choix";
@@ -78,7 +79,8 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   // Le dossier d'entreprise se complète après le paiement : tant qu'il manque, on y ramène le dirigeant.
   if (!estComplet(utilisateur)) redirect("/bienvenue");
 
-  // Objectifs en cours : un seul (Acquisition, Finance), un ou plusieurs (RH, Comm), dans l'ordre où ils ont été choisis.
+  // Objectif en cours : un seul par agent (RH et Comm depuis le 28 octobre ; un compte enregistré avant peut en garder
+  // plusieurs, affichés dans l'ordre où ils ont été choisis jusqu'à son prochain changement d'objectif).
   const actifs = objectifs.filter((o) => o.statut === "ACTIF");
   const actif = actifs[0] ?? null;
   const historique = objectifs.filter((o) => o.statut !== "ACTIF");
@@ -89,6 +91,14 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   const liste = ENSEMBLE.objectifsAgents.agents[agent.code] ?? null;
   const dejaChoisis = actifs.map((o) => (o.structure as unknown as ObjectifEnregistre).choix).filter((c): c is string => Boolean(c));
   const propositions = liste ? objectifsPourLaTaille(liste, ENSEMBLE.themes, ENSEMBLE.reglesAffichage, taille, dejaChoisis) : null;
+  // Comm (décision 6C du 28 octobre) : la partie choisie pour l'objectif et le parcours du questionnaire (réponse à
+  // COM-10.07) restent séparés ; quand ils ne correspondent pas, le dirigeant en est averti.
+  const suivi = suiviParcours(liste ?? undefined, ENSEMBLE.banque);
+  const reponseParcours = suivi ? await prisma.reponseAudit.findUnique({ where: { userId_cle: { userId, cle: suivi.donnee } } }) : null;
+  const lue = reponseParcours?.reponse as { genre?: string; valeur?: unknown } | undefined;
+  const publication = lue?.genre === "saisie" && typeof lue.valeur === "string" ? lue.valeur : null;
+  const partieActive = actifs.map((o) => (o.structure as unknown as ObjectifEnregistre).partie).find(Boolean) ?? null;
+  const ecart = ecartDeParcours(suivi, partieActive, publication);
   // « Autre » seul = activité par défaut : sert aux questions des modules métier et au vocabulaire du métier.
   const metier = metierDuCompte(ENSEMBLE.routage, utilisateur);
 
@@ -130,7 +140,7 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       <Questionnaire
         donneesLues={prep.donneesLues}
         declencheurs={prep.declencheurs}
-        themes={prep.themes}
+        themes={ecart && suivi ? prep.themes.map((t) => ({ ...t, questions: t.questions.map((q) => (q.code === suivi.donnee ? { ...q, ecartObjectif: ecart } : q)) })) : prep.themes}
         reponsesInitiales={prep.reponsesInitiales}
         masques={prep.masques}
         manquantes={prep.manquantes}
@@ -177,15 +187,15 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
           <Resultats agent={agent} vue={vueCompteRendu!} objectifs={affiches} questionnaire={retourAudit} />
         )
       ) : rouvre && vue === 1 ? (
-        <ObjectifEdition agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} propositions={propositions} saisies={saisies} retour={retourAudit} />
+        <ObjectifEdition agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} propositions={propositions} saisies={saisies} retour={retourAudit} suivi={suivi} publication={publication} />
       ) : rouvre && vue === 2 && actif && structure ? (
         <>
-          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} saisies={saisies} propositions={propositions} />
+          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} saisies={saisies} propositions={propositions} suivi={suivi} publication={publication} ecart={ecart} />
           <NiveauChoix essentielles={nCompte.essentielles} approfondies={nCompte.total} actuel={utilisateur.niveauAudit} retour={retourAudit} />
         </>
       ) : actif && structure ? (
         <>
-          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} saisies={saisies} propositions={propositions} />
+          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} saisies={saisies} propositions={propositions} suivi={suivi} publication={publication} ecart={ecart} />
           {corps}
         </>
       ) : (
@@ -195,11 +205,11 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
           </h2>
           <p className="mt-2 text-[var(--text-muted)]">
             {propositions
-              ? "Choisissez une proposition ou décrivez votre propre objectif. Toute l'analyse part de là."
+              ? "Choisissez un objectif proposé ou écrivez le vôtre. Toute l'analyse part de là."
               : "Avant toute question, dites ce que vous voulez obtenir avec cet agent : ce que vous voulez changer, de combien, et en combien de temps. Toute l'analyse part de là."}
           </p>
           {propositions ? (
-            <ObjectifChoix agent={agent.code} propositions={propositions} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} />
+            <ObjectifChoix agent={agent.code} propositions={propositions} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} suivi={suivi} publication={publication} />
           ) : (
             <ObjectifFormulaire agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} />
           )}

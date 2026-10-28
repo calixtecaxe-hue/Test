@@ -49,7 +49,7 @@ Chiffres au 28 octobre 2026.
 | `routage.json` | 11 catégories, 8 profils, 149 métiers, 54 activités, synonymes, mots de recherche, stock, agent Comm, professions réglementées | `python3 scripts/ecrire-routage-metiers.py` |
 | `inscription.json` | Questions du dossier d'inscription, avec mots du lexique | d'après le document de règles |
 | `vocabulaires-metiers.json` | 10 vocabulaires, 47 métiers, 8 activités, 11 `profilConserve`, 11 `aTrancher` ; `valide: true` | `python3 scripts/ecrire-vocabulaires-metiers.py` |
-| `objectifs-agents.json` | Objectifs RH et Comm (brouillon `aValider`) | à la main |
+| `objectifs-agents.json` | 54 objectifs RH (11) et Comm (43), textes à relire (`aValider`) ; parties de la Comm avec leur `parcours` (COM-10.07) | à la main |
 | `prereponses.json` | 1 règle (FIN-05.02) | à la main |
 | `implications.json` | 1 réponse déduite (COM-13.10) | à la main |
 | `retraits.json` | Vide depuis le 27 octobre (mécanisme gardé) | à la main |
@@ -151,27 +151,40 @@ Chiffres au 28 octobre 2026.
 ### Fichiers, tables, routes
 
 - `src/lib/audit/` : `reponse.ts` (les quatre réponses, règle des 50 %, règle du quart), `objectif.ts` (objectif en trois champs,
-  échéance, rattachement à un indicateur, phrase avec gabarit, origine), `objectifs-agent.ts` (`controlerObjectifs`, `MAX_OBJECTIFS` = 10 ;
-  texte d'une proposition imposé, texte personnel gardé, unités), `objectifs-proposes.ts` (propositions selon la taille,
-  `objectifTransmis`), `affichage.ts` (règles
+  échéance, rattachement à un indicateur, phrase avec gabarit, origine), `objectifs-agent.ts` (`controlerObjectifs`, `MAX_OBJECTIFS` = 1 ;
+  texte d'une proposition imposé, texte personnel gardé, unités, phrase finale `phraseDe` / `gabaritDe`, écart Comm
+  `ecartDeParcours`), `objectifs-proposes.ts` (propositions selon la taille, `objectifTransmis`, `suiviParcours`), `affichage.ts` (règles
   d'affichage, effectif → taille, sous-questions de cadrage), `assemblage.ts` (assemblage par profil, taille, niveau, déclencheurs,
   module métier `pourLeMetier`), `validation.ts` (contrôle serveur des réponses), `saisie.ts` (même contrôle dans le navigateur),
   `lignes.ts` (`idsDesLignes`, `groupesNumerotes`), `reponses-actives.ts`, `contexte-compte.ts`, `prereponse.ts`, `preparation.ts`
   (ce que l'écran reçoit, partagé avec l'aperçu), `constat-compte.ts`, `compte-rendu.ts`, `progression.ts`.
-- Tables : `ReponseAudit` (réponses du compte, tous agents confondus ; champ `preremplie`), `BrouillonReponse`, `Objectif` (plusieurs
-  lignes `ACTIF` pour RH et Comm ; champ `partie` dans la structure), `User.niveauAudit`.
-- Routes : `PUT /api/audit/reponses`, `POST /api/audit/objectif` (accepte `objectifs`, un tableau, et remplace ensemble les objectifs
-  actifs), `PUT /api/audit/niveau`, `PUT /api/audit/brouillon`.
+- Tables : `ReponseAudit` (réponses du compte, tous agents confondus ; champ `preremplie`), `BrouillonReponse`, `Objectif` (une ligne
+  `ACTIF` par agent ; un compte enregistré avant le 28 octobre peut en garder plusieurs jusqu'à son prochain changement ; champ
+  `partie` dans la structure pour une proposition de la Comm), `User.niveauAudit`.
+- Routes : `PUT /api/audit/reponses`, `POST /api/audit/objectif` (`objectif`, ou `objectifs` à un seul élément ; un deuxième objectif
+  est refusé ; remplace les objectifs actifs de l'agent), `PUT /api/audit/niveau`, `PUT /api/audit/brouillon`.
 - Écran : `src/app/(espace)/audit/[slug]/` (`questionnaire.tsx`, `question-carte.tsx`, `objectif-choix.tsx`, `resultats.tsx`,
-  `resultats-maquette.tsx`). « Changer mes objectifs » reprend ceux en cours dans le formulaire. Un objectif enregistré garde
+  `resultats-maquette.tsx`). « Changer d'objectif » reprend l'objectif en cours dans le formulaire. Un objectif enregistré garde
   `choix`, `reussite`, un chiffre facultatif et son `origine`.
-- Choix de l'objectif (RH, Comm, 28 octobre) : `objectif-choix.tsx`. Des cartes à un choix par objectif (`fieldset[data-emplacement]`,
-  `li.objectif-carte[data-carte]`, la carte `personnel` en dernier) ; Comm : « Où en êtes-vous ? » (`[data-parties]`). Les champs
-  s'ouvrent dans la carte choisie (`[data-detail]`) ; brouillon de chaque mode gardé dans l'état ; objectifs repliés
-  (`[data-replie]`) ; « Ajouter un autre objectif » (`[data-ajouter]`) ; bouton d'enregistrement collant (`.objectif-actions`).
-  Styles : `.objectif-carte`, `.objectif-perso`, `.objectif-pastille`, `.objectif-champs`, `.objectif-resume` dans `globals.css`.
-  Données : `data/objectifs-agents.json` (`parties`, `personnel` {aide, exemple, exempleReussite}, par objectif `detail`,
-  `unites`, `gabarit` {singulier, pluriel} et `question` pour un nombre visé). Avant / après : `docs/objectifs/objectifs-rh-comm.md`.
+- Choix de l'objectif (RH, Comm, 28 octobre) : `objectif-choix.tsx`.
+  - Deux choix de même importance, sans présélection (`fieldset[data-modes]`, `li.objectif-mode[data-mode="proposition"|"personnel"]`,
+    titres `.objectif-mode-titre`), côte à côte dès 640 px, empilés en dessous ; puis le contenu du mode (`[data-mode-contenu]`).
+  - Mode « proposé » : Comm, « Où en êtes-vous ? » (`[data-parties]`, `li[data-partie]`) ; propositions (`[data-propositions]`,
+    `li.objectif-carte[data-carte]`), champs dans la carte choisie (`[data-detail]`).
+  - Mode « personnel » : `.objectif-entree` avec le champ « Votre objectif » (`[data-objectif="personnel"]`).
+  - Brouillon de chaque mode et de chaque proposition gardé dans l'état ; seul le mode actif part. Un choix fait à la souris place le
+    curseur dans son contenu ; au clavier, les flèches parcourent les choix sans déplacer le curseur.
+  - Aperçu de la phrase (`[data-apercu]`), bouton d'enregistrement collant (`.objectif-actions`).
+  - Écart Comm (6C) : `.note-ecart[data-ecart-partie]`, à l'étape Objectif (mode « proposé »), sous l'objectif en cours
+    (`objectif-actif.tsx`) et sous COM-10.07 (`QuestionClient.ecartObjectif`, posé par `page.tsx`).
+  - Styles : `.objectif-modes`, `.objectif-mode`, `.objectif-carte`, `.objectif-pastille`, `.objectif-champs`, `.note-ecart` dans
+    `globals.css`.
+  - Données : `data/objectifs-agents.json` : `parties` (avec `parcours` : donnée et réponses qui donnent le parcours du questionnaire
+    de chaque partie), `personnel` {aide, exemple, exempleReussite}, par objectif `detail`, `unites`, `question` (intitulé du chiffre),
+    `libellesUnites`, et la phrase finale : `gabarit` (nombre ou taux visé) ou `phrases` par unité (hausse ou baisse) ; `{n}` =
+    chiffre du dirigeant, `{dici}` = « d'ici N mois », sinon « sur les N prochains mois » est ajouté. Un objectif sans chiffre donne
+    « titre, d'ici N mois ». Le contrôle des données exige une question et une phrase par unité pour chaque objectif chiffré.
+  - Avant / après : `docs/objectifs/objectifs-rh-comm.md`.
 
 ### Assemblage
 
@@ -343,7 +356,8 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 - Liste des objectifs proposés RH et Comm : `docs/objectifs/CAXE-objectifs-proposes.pdf` (`node scripts/pdf-objectifs-proposes.mjs`, à relancer
   après toute modification de `data/objectifs-agents.json`). Outils communs aux deux documents : `scripts/objectifs-pdf-commun.mjs`.
 - Décisions sur les objectifs RH et Comm : `docs/objectifs/CAXE-decisions-objectifs.pdf` (`node scripts/pdf-decisions-objectifs.mjs`).
-  Les décisions et les recommandations sont écrites dans le script (champ `decide` une fois le choix fait) ; l'annexe vient de
+  Les décisions et les recommandations sont écrites dans le script (champ `decide` une fois le choix fait, `attente` pour un point
+  à clarifier ; décisions du 28 octobre reportées) ; l'annexe vient de
   `data/objectifs-agents.json`, avec le filtre selon la taille calculé par `objectifsPourLaTaille`.
 
 ## 11. Thème jour / nuit

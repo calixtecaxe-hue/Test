@@ -134,8 +134,8 @@ function Apercu({ agent }: { agent: CodeAgent }) {
 const racine = document.getElementById("apercu-questionnaire");
 if (racine) createRoot(racine).render(<Apercu agent={racine.getAttribute("data-agent") as CodeAgent} />);
 
-// Écran « Votre objectif » des agents RH et Comm : le vrai formulaire (un ou plusieurs objectifs), repris d'après ce qui a
-// déjà été choisi dans l'onglet ; une fois enregistré, la copie passe au choix du niveau.
+// Écran « Votre objectif » des agents RH et Comm : le vrai formulaire (un objectif proposé ou écrit par le dirigeant), repris
+// d'après ce qui a déjà été choisi dans l'onglet ; une fois enregistré, la copie passe au choix du niveau.
 const racineObjectif = document.getElementById("apercu-objectif");
 if (racineObjectif) {
   const agent = racineObjectif.getAttribute("data-agent") as CodeAgent;
