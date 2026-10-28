@@ -7,8 +7,9 @@ comprendre les douze derniers mois et de comparer les indicateurs pertinents à 
 
 **Avant les corrections : partiellement.**
 
-- **Ce qui existait.** Pour 13 des 14 analyses d'évolution prévues dans le classeur, une question sur le passé existait. Une entreprise
-  de trois ans les voyait toutes, au niveau approfondi.
+- **Ce qui existait.** Le classeur prévoit 13 évolutions (données « Évolution… »). Pour 12 d'entre elles, une question sur le passé
+  existait. Pour la treizième, le montant moyen d'une vente (ACQ-15.07), il manquait les ventes de l'année précédente. Une entreprise
+  de trois ans pouvait recevoir toutes ces questions au niveau approfondi, selon ses réponses (publicité, site, stock, impayés).
 - **Ce qui manquait.**
   - **Le chiffre d'affaires de l'année précédente** (ACQ-23.03) n'était posé qu'au niveau approfondi, et seulement par l'agent
     Acquisition. Au niveau essentiel, et pour un compte sans l'agent Acquisition, l'évolution du chiffre d'affaires sur un an ne
@@ -29,25 +30,29 @@ comprendre les douze derniers mois et de comparer les indicateurs pertinents à 
   montrait aucune. CAXE n'affichait donc pas de fausse conclusion. Mais les phrases prévues (« Vos charges ont augmenté de X % en
   un an, votre CA de Y % ») auraient reposé sur ces données incomplètes ou incomparables.
 - **Les entreprises plus jeunes recevaient des questions sur des mois antérieurs à leur création.**
-  - La règle « depuis la création si moins de 12 mois » du classeur, écrite pour 73 données, n'était pas appliquée.
+  - La règle « depuis la création si moins de N mois » du classeur, écrite pour 61 données (et 4 « depuis l'ouverture du compte ou
+    de la fiche »), n'était pas appliquée.
   - « L'année d'avant » (ACQ-16.03) était posée dès la création.
   - « Plus ou moins que l'année d'avant » (ACQ-03.06) était posée avant 24 mois.
   - « Par rapport à il y a 12 mois » (FIN-10.05) était posée avant 12 mois.
+  - Les visites du site « il y a 6 mois » (COM-13.06) n'étaient jamais masquées : leur condition n'était pas lisible par le code.
   - Plusieurs masquages étaient trop courts : ACQ-02.02 dès 6 mois pour des mois situés jusqu'à 9 mois en arrière ; ACQ-02.03,
     ACQ-11.02, FIN-06.03 et FIN-07.02 dès 12 mois pour des mois situés jusqu'à 15 mois en arrière.
 
 **Après les corrections**, une entreprise de trois ans fournit, dès le niveau essentiel, toutes les données des évolutions prévues
-sur un an. Les seules exceptions restent au niveau approfondi : montant moyen d'une vente, budget marketing, trafic du site, stock
-et impayés. Chaque évolution est calculée sur deux périodes de même longueur, décalées d'un an (ou de 6 mois). Les mois sont écrits
+sur un an. Six restent au niveau approfondi : montant moyen d'une vente, budget marketing et communication, trafic du site, stock,
+impayés et charges fixes. Pour les charges fixes, la valeur d'il y a 12 mois (FIN-05.03) est posée au niveau essentiel, alors que
+le total actuel a besoin du détail des abonnements (FIN-09.01), posé seulement au niveau approfondi : c'est une décision à prendre
+(section 7). Chaque évolution est calculée sur deux périodes de même longueur, décalées d'un an (ou de 6 mois). Les mois sont écrits
 à l'écran, et le compte rendu dit précisément ce qui manque quand une comparaison ne peut pas être faite.
 
 ---
 
 ## 1. Les analyses d'évolution, avant et après
 
-Le classeur prévoit 13 données calculées « Évolution… » (plus FIN-04.02, étape de la marge, et ACQ-16.07, par client). Chacune est
-reprise ci-dessous : question de la valeur récente et sa période, question de la valeur passée et sa période, condition selon
-l'ancienneté, calcul, ce qui n'allait pas, ce qui est fait.
+Le classeur prévoit 13 données calculées « Évolution… ». Trois autres données comparent aussi au passé : FIN-04.02 (étape de la
+marge), COM-37.02 (audience) et ACQ-16.07 (gros clients). Chacune est reprise ci-dessous : question de la valeur récente et sa
+période, question de la valeur passée et sa période, condition selon l'ancienneté, calcul, ce qui n'allait pas, ce qui est fait.
 
 | Évolution | Valeur récente | Valeur passée | Ancienneté exigée (avant → après) | Ce qui n'allait pas | Après |
 |---|---|---|---|---|---|
@@ -61,7 +66,7 @@ l'ancienneté, calcul, ce qui n'allait pas, ce qui est fait.
 | Budget marketing et communication (COM-32.07) | COM-32.04 (sans la publicité) → **ACQ-07.06 + COM-32.02** | ACQ-07.05 (avec la publicité) + COM-32.03 | 12 mois | **Deux définitions différentes** | Même périmètre des deux côtés |
 | Visites du site (COM-13.09) | ACQ-06.07, 3 derniers mois | COM-13.06 « il y a 6 mois » → **3 mois, six mois plus tôt** | Condition non lisible par le code (jamais masquée) → **9 mois** | Posée à une entreprise de 2 mois | Calculée |
 | Taux de marge (FIN-04.03, FIN-04.02) | CA des 3 derniers mois (FIN-14.01) et charges variables (FIN-06.01 + FIN-08.01 + FIN-08.02) | CA des mêmes 3 mois un an plus tôt (FIN-14.03) et FIN-06.03 | 12 → **15 mois** | CA d'un seul mois, 11 mois avant le dernier, face à des charges d'une autre période | Calculée, **en points** |
-| Charges fixes (FIN-05.10) | FIN-05.08 = FIN-05.01 + abonnements (FIN-09.01) + masse salariale + marketing | FIN-05.03, il y a 12 mois | 12 mois | L'aide du passé comptait les crédits, le total actuel non | Aide alignée sur les mêmes postes ; calculée |
+| Charges fixes (FIN-05.10) | FIN-05.08 = FIN-05.01 + abonnements (FIN-09.01) + masse salariale + marketing | FIN-05.03, il y a 12 mois | 12 mois | L'aide du passé comptait les crédits, le total actuel non | Aide alignée sur les mêmes postes ; calculée au niveau approfondi seulement (abonnements FIN-09.01) |
 | Masse salariale (FIN-07.15) | FIN-07.01, 3 derniers mois | FIN-07.02 « il y a 12 mois » → **mêmes 3 mois, un an plus tôt** | 12 → **15 mois** | Un mois face à une moyenne de 3 ; évolution du CA lue sur un seul mois ; effectif d'il y a un an inconnu | Calculée ; **effectif d'il y a 12 mois (FIN-07.17, nouvelle)** affiché à côté ; CA par ACQ-23.10 |
 | Valeur du stock (FIN-37.06) | FIN-37.01, aujourd'hui | FIN-37.02, il y a 12 mois | 12 mois | Évolution du CA lue sur un seul mois | Calculée ; CA par ACQ-23.10 |
 | Factures abandonnées (FIN-18.12) | FIN-18.05, 12 derniers mois | FIN-18.06, 12 mois précédents | 24 mois | Valeur passée nulle non traitée (division par zéro) | Calculée ; pourcentage non calculé si le passé vaut 0, et dit |
@@ -85,10 +90,14 @@ d'un calcul ; ces réponses restent lues par l'IA.
 3. Les ventes de l'année précédente, l'effectif d'il y a un an et les changements de périmètre n'étaient demandés nulle part.
 4. Plusieurs paires de questions ne portaient pas sur des périodes comparables : longueurs différentes, mois non dits, décalage de
    11 mois au lieu de 12, définitions différentes.
-5. Les règles de période du classeur selon l'ancienneté n'étaient appliquées que dans un cas (« si plus de N mois d'existence »).
-   73 données « depuis la création si moins de N mois » et 5 formulations particulières étaient ignorées.
-6. Trois questions sur le passé étaient posées à des entreprises trop jeunes (ACQ-16.03, ACQ-03.06, FIN-10.05), et six avec un
-   masquage trop court.
+5. Les règles de période du classeur selon l'ancienneté n'étaient appliquées que dans un cas : « si plus de N mois d'existence
+   (sinon masquée) », 15 données. Ignorées :
+   - 61 données « depuis la création si moins de N mois » ;
+   - 4 « depuis l'ouverture du compte ou de la fiche » ;
+   - 6 formulations particulières : colonnes 6 et 12 mois d'ACQ-17.12, site et outil de mesure de COM-13.06, réseaux de COM-37.01,
+     premier exercice clos de FIN-05.04, investissements de FIN-25.01, durées plus courtes que l'ancienneté de FIN-39.01.
+6. Quatre questions sur le passé étaient posées à des entreprises trop jeunes (ACQ-16.03, ACQ-03.06, FIN-10.05, COM-13.06), et
+   cinq avec un masquage trop court (ACQ-02.02, ACQ-02.03, ACQ-11.02, FIN-06.03, FIN-07.02).
 7. Rien ne disait sur quels mois exacts répondre : « il y a un an, à la même période », « par rapport à il y a 12 mois ».
 8. Une réponse donnée un mois, puis relue le mois suivant, changeait de sens en silence, surtout pour les tableaux mois par mois.
 
@@ -116,7 +125,9 @@ d'un calcul ; ces réponses restent lues par l'IA.
 ### Calculs
 
 - `data/evolutions.json` (écrit d'après le classeur) et `src/lib/moteur/evolution.ts` calculent 16 évolutions, qui couvrent
-  12 des 13 données « Évolution… ». La treizième, COM-37.02, est listée avec la raison pour laquelle elle n'est pas encore calculée.
+  les 13 données « Évolution… » (trois d'entre elles donnent deux comparaisons : 6 et 12 mois, ou 12 mois et dernier mois).
+  FIN-04.02 est calculée avec FIN-04.03. COM-37.02 et ACQ-16.07 sont listées avec la raison pour laquelle elles ne sont pas encore
+  calculées.
 - **Écart dans l'unité, et écart en %** ; **en points** pour un taux. Le pourcentage n'est pas calculé, et l'écran le dit, quand la
   valeur de départ est nulle.
 - **Une fourchette compte pour son milieu**, marquée « estimée ». « Je ne sais pas », « je ne suis pas cette donnée », une question
@@ -142,12 +153,12 @@ ACQ-02.02, ACQ-02.03, ACQ-11.02, ACQ-03.06, ACQ-16.03, ACQ-23.01 (aide), ACQ-23.
 FIN-06.03, FIN-07.02, FIN-10.05, FIN-14.01 (aide), FIN-17.04, FIN-18.06, FIN-37.02 (aide), FIN-40.02, RH-05.05, RH-11.01 (aide),
 ACQ-07.05 (aide), COM-32.02 (aide), COM-32.03 (aide).
 
-Chaque aide dit maintenant :
+Selon la question, l'aide dit désormais :
 
-- que les mois exacts sont indiqués sous la question ;
-- qu'une fourchette est acceptée, quand elle l'est ;
-- que 0 se distingue d'une case laissée vide (« 0 pour un mois sans chiffre d'affaires ; laissez vide un mois que vous ne
-  connaissez pas : il ne compte pas pour zéro »).
+- que les mois exacts sont indiqués sous la question, ou sur chaque ligne d'un tableau (21 des 23) ;
+- qu'un ordre de grandeur ou une fourchette suffit (6) ;
+- que 0 se distingue d'une case laissée vide (8). Par exemple : « 0 pour un mois sans chiffre d'affaires ; laissez vide un mois que
+  vous ne connaissez pas : il ne compte pas pour zéro ».
 
 ## 4. Questions ajoutées ou adaptées
 
@@ -239,26 +250,32 @@ erreur.
 
 ## 7. Décisions qui restent au propriétaire
 
-1. **ACQ-23.03 au niveau essentiel** : 12 montants de plus pour une entreprise de plus de 13 mois. Autre choix possible : un seul
+1. **Charges fixes au niveau essentiel** : FIN-05.03 (il y a 12 mois) est posée au niveau essentiel, mais le total actuel (FIN-05.08)
+   a besoin des abonnements et contrats (FIN-09.01), posés au niveau approfondi. Au niveau essentiel, l'évolution dit donc qu'elle
+   n'est pas encore possible. Trois choix :
+   - poser FIN-09.01 au niveau essentiel ;
+   - demander au niveau essentiel un seul total des abonnements ;
+   - passer FIN-05.03 au niveau approfondi.
+2. **ACQ-23.03 au niveau essentiel** : 12 montants de plus pour une entreprise de plus de 13 mois. Autre choix possible : un seul
    total annuel au niveau essentiel, le détail mois par mois restant au niveau approfondi.
-2. **Textes des nouvelles questions** : ACQ-23.12, ACQ-23.13 et FIN-14.04 (choix proposés pour le périmètre), FIN-07.17. Et
+3. **Textes des nouvelles questions** : ACQ-23.12, ACQ-23.13 et FIN-14.04 (choix proposés pour le périmètre), FIN-07.17. Et
    présentation du bloc « Ce qui a changé, d'après vos chiffres ».
-3. **Comptes sans l'agent Acquisition** : l'évolution du budget de communication (COM-32.07) a besoin du budget d'il y a 12 mois
+4. **Comptes sans l'agent Acquisition** : l'évolution du budget de communication (COM-32.07) a besoin du budget d'il y a 12 mois
    (ACQ-07.05), posé par l'Acquisition. Le classeur le dit « partagé avec Comm », mais aucune ligne Comm ne le pose. Faut-il le
    poser à l'agent Comm ?
-4. **Audience par réseau (COM-37.02) et chiffre d'affaires par gros client (ACQ-16.07)** : comparaisons par ligne, à construire
+5. **Audience par réseau (COM-37.02) et chiffre d'affaires par gros client (ACQ-16.07)** : comparaisons par ligne, à construire
    ou non.
-5. **FIN-05.04, « si un premier exercice est clos »** : CAXE ne connaît pas la date de clôture. La question reste posée, avec une
+6. **FIN-05.04, « si un premier exercice est clos »** : CAXE ne connaît pas la date de clôture. La question reste posée, avec une
    note. Faut-il demander la date de clôture ?
-6. **ACQ-17.02**, part des clients de l'année d'avant revenus : posée dès 12 mois, alors que « l'année d'avant » est incomplète
+7. **ACQ-17.02**, part des clients de l'année d'avant revenus : posée dès 12 mois, alors que « l'année d'avant » est incomplète
    avant 24 mois. Faut-il la garder ainsi ou la masquer jusqu'à 24 mois ?
-7. **Estimation dans un tableau** : une case de tableau ne peut pas être marquée « estimée ». Le chiffre d'affaires mois par mois
+8. **Estimation dans un tableau** : une case de tableau ne peut pas être marquée « estimée ». Le chiffre d'affaires mois par mois
    est donc compté comme exact.
-8. **Réponses de mois différents** : une évolution attend que ses deux réponses aient été données le même mois. Faut-il tolérer un
+9. **Réponses de mois différents** : une évolution attend que ses deux réponses aient été données le même mois. Faut-il tolérer un
    mois d'écart ?
-9. **Couleur d'une évolution** : aucune règle ne dit quand une évolution est rouge, orange ou verte, donc aucune couleur n'est
+10. **Couleur d'une évolution** : aucune règle ne dit quand une évolution est rouge, orange ou verte, donc aucune couleur n'est
    affichée (option B du 28 octobre).
-10. **Classeur** : la version corrigée est `docs/CAXE_Themes_Chiffres_4_agents_12.xlsx`, avec l'onglet « Modifications 28 oct. »
+11. **Classeur** : la version corrigée est `docs/CAXE_Themes_Chiffres_4_agents_12.xlsx`, avec l'onglet « Modifications 28 oct. »
     (59 changements). C'est elle qu'il faut modifier ensuite. Réimporter une version plus ancienne effacerait ces corrections,
     mais le contrôle des données le signalerait.
 

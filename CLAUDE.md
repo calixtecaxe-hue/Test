@@ -712,6 +712,9 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
     - D9 pixel Meta (dès l'ouverture, avec bannière de consentement ; ou plus tard, avec le budget) ;
     - D10 résiliation (abonnement mensuel sans engagement, résiliable en un clic ; ou engagement de 3 mois).
 13. **Historique et évolutions (28 octobre)** (`docs/verification/historique.md`, section 7) :
+    - charges fixes au niveau essentiel : FIN-05.03 (il y a 12 mois) y est posée, mais le total actuel a besoin des abonnements
+      (FIN-09.01, niveau approfondi). Trois choix : poser FIN-09.01 en essentiel, demander un seul total des abonnements, ou passer
+      FIN-05.03 en approfondi ;
     - ACQ-23.03 au niveau essentiel (12 montants de plus) ou un seul total annuel au niveau essentiel, le détail restant en
       approfondi ;
     - COM-32.07 pour un compte sans l'agent Acquisition : poser ACQ-07.05 à l'agent Comm ou non ;

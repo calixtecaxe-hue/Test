@@ -59,7 +59,7 @@ Chiffres au 28 octobre 2026.
 | `parametres-references.json` | Paramètres des recherches (voir section 9) | à la main |
 | `sources-reconnues.json` | Domaines de niveau 1 (9) et domaines exclus (10) | à la main |
 | `objectif-limites.json` | Vraisemblance d'un objectif en % : ramené à une année, il ne peut multiplier ou diviser l'indicateur par plus de 4 (valeur de travail, `aValider`) | à la main |
-| `evolutions.json` | 16 évolutions (valeur récente, valeur passée, écart, unité, % ou points, périmètre) et 3 données « Évolution… » non calculées, avec leur raison | **à la main**, d'après le classeur (section 7, « Historique et évolutions ») |
+| `evolutions.json` | 16 évolutions pour les 13 données « Évolution… » (valeur récente, valeur passée, écart, unité, % ou points, périmètre) ; `nonCalculables` : FIN-04.02, COM-37.02, ACQ-16.07, avec leur raison | **à la main**, d'après le classeur (section 7, « Historique et évolutions ») |
 
 - Schémas : `src/lib/donnees/schemas.ts`. Routage : `src/lib/routage.ts`. Lexique : `src/lib/donnees/lexique.ts` (un mot du lexique
   s'écrit `{demande}`, `{nouveau_client}` dans un gabarit ; les formes sont au singulier).
@@ -222,6 +222,57 @@ Chiffres au 28 octobre 2026.
   (`reponsesDuCompte`) et ne bouge plus dès que le dirigeant donne ou corrige un chiffre (le serveur revérifie qu'un chiffre
   « préparé » est bien le total calculé). FIN-05.02 n'a plus d'équivalent dans `donneesPrerepondues`. Contrôle :
   `node scripts/controle-prereponse.mjs`.
+
+### Historique et évolutions
+
+Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verification/historique.md`.
+
+- **Périodes** : `src/lib/audit/periodes.ts` lit la colonne « Période » du classeur (`reglePeriode`).
+  - Fenêtres :
+    - « N derniers mois » ;
+    - « Mêmes N mois, un an plus tôt » ;
+    - « N mois précédents » ;
+    - « N mois, K mois plus tôt » ;
+    - « Il y a K mois » ;
+    - « Aujourd'hui ».
+  - Options : « depuis la création si plus récente » et « masquée avant N mois d'existence ». Les anciennes formulations restent
+    comprises.
+  - Mois complets : le mois en cours est exclu. Une réponse porte sur les mois qui précèdent son **ancrage**, le mois de
+    `ReponseAudit.modifieLe` (`ancragesDesReponses`, `compte.ts`).
+- **Masquage** : `moisMinimumDExistence` (`affichage.ts`) renvoie `minimumMois`. Le contrôle des données exige qu'une fenêtre décalée
+  soit masquée au moins `ancienneteExigee` mois, sauf formulation « adaptée » (COM-37.01 : « sinon, à l'ouverture du compte »).
+- **Écran** : `preparation.ts` reçoit `creation`, `aujourdhui` et `ancrages`.
+  - `texteDePeriode` donne la ligne « Période : … » (`[data-periode]`).
+  - Un tableau mois par mois (lignes `le_mois_dernier`, `il_y_a_N_mois`) nomme ses mois et ne pose pas ceux qui précèdent la création
+    (`lignesDuMois`).
+  - Un tableau répondu un mois antérieur est replacé sur ses vrais mois (`decalerLignesDuMois`).
+  - Des champs « depuis N mois » plus longs que l'ancienneté ne sont pas posés (`champsTropLongs`).
+  - Une autre réponse donnée un mois antérieur affiche `[data-periode-ancienne]`, sur la question comme sur la carte « déjà
+    renseignée ».
+- **Calcul** : `src/lib/moteur/evolution.ts` (`calculerEvolutions`, `calculerEvolution`).
+  - Sources d'une évolution (`SourceEvolution`, `schemas.ts`) :
+    - `nombre` (une donnée, ou un champ) ;
+    - `mois` (lignes d'un tableau mois par mois) ;
+    - `colonne` (somme d'une colonne) ;
+    - `somme` ;
+    - `rapport` ;
+    - `marge` (chiffre d'affaires moins charges variables).
+  - Statuts :
+    - `etablie` ;
+    - `non_etablie`, avec ce qui manque : réponse, mois vide, question non posée à cet âge, mois antérieurs à la création, réponses
+      d'ancrages différents ;
+    - `non_comparable` : périmètre changé entre les deux périodes (ACQ-23.13 = FIN-14.04).
+  - Écart dans l'unité, `ecartRelatif` en % (null pour un taux, en points, ou si le passé vaut 0) ; une fourchette compte pour son
+    milieu et marque le côté « estimé ».
+  - Effectif d'il y a 12 mois (FIN-07.17) en note de la masse salariale.
+  - `controlerEvolution` vérifie que les deux côtés ont la même longueur et l'écart annoncé ; des périodes imposées par l'évolution (`periodes`, charges fixes) portent leur `justification`.
+- **Données** :
+  - le classeur 12 (`docs/CAXE_Themes_Chiffres_4_agents_12.xlsx`, onglet « Modifications 28 oct. ») s'importe avec
+    `python3 scripts/importer-classeur.py` ;
+  - les textes de la banque viennent de `python3 scripts/verification/appliquer-historique.py` : il est idempotent et vérifie le texte
+    d'origine avant de le remplacer ;
+  - lancer ensuite `python3 scripts/exporter-modele-banque.py --avec-questions`.
+- Tests : `tests/historique.test.mts` ; navigateur : `node scripts/verification/historique.mjs`.
 
 ### Compte rendu
 
