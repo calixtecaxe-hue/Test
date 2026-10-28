@@ -64,8 +64,8 @@ prompts des agents, qui concernent les clients et leurs entreprises.
 2. **Vidéo d'accueil retouchée** : fin « Commencer mon audit » et offre fondateur au lieu de « Recevoir un accès prioritaire », mention
    « exemple fictif » sur les gains affichés, prix à la fin.
 3. **Page d'accueil (trois changements validés par le propriétaire le 28 octobre)** : un bouton vers la page de vente ; « Venez les
-   essayer » remplacé, puisqu'il n'y a pas d'essai gratuit (texte fixé par le propriétaire au moment de créer la page de vente) ; «
-   Nous faisons régulièrement le point » remplacé par « CAXE fait le point ».
+   essayer » remplacé, puisqu'il n'y a pas d'essai gratuit (texte fixé par le propriétaire au moment de créer la page de vente) ;
+   « Nous faisons régulièrement le point » remplacé par « CAXE fait le point ».
 4. **Résiliation affichée clairement** sur les offres et au paiement (D10).
 5. **Offre fondateur** (D3) et, à partir de J+30, **parrainage** : un mois offert au parrain et au filleul pour chaque nouvel abonnement
    payé.
