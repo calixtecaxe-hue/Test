@@ -415,6 +415,7 @@ export function CartePartagee({ q, reponse, onModifier }: { q: QuestionClient; r
     <li id={`q-${q.code}`} className="rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5" data-question={q.code} data-traitee="oui" data-partagee="oui">
       <p className="text-[var(--text)]">{q.texte ?? q.libelle}</p>
       {q.periode ? <p className="mt-1 text-sm text-[var(--text)]" data-periode>{q.periode}</p> : null}
+      {q.periodeAncienne ? <p className="mt-1 text-sm text-[var(--text-muted)]" data-periode-ancienne>{q.periodeAncienne}</p> : null}
       <p className="mt-3 text-sm text-[var(--text-muted)]">
         Déjà renseigné pour l&apos;audit {q.source?.agent ?? "d'un autre agent"} : vous n&apos;avez pas à le saisir de nouveau.
       </p>

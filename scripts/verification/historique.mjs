@@ -160,6 +160,13 @@ const poser = (api, cle, reponse) => api.put(B + "/api/audit/reponses", { data: 
   ev = await evolutions(page, ACQ);
   controle("H-23", `périmètre changé en ${nom(milieu)} : chiffre d'affaires et demandes « non comparables », sans pourcentage`, ev["chiffre-affaires-12-mois"]?.statut === "non_comparable" && ev["demandes-12-mois"]?.statut === "non_comparable" && !/soit/.test(ev["chiffre-affaires-12-mois"].texte), `${ev["chiffre-affaires-12-mois"]?.texte} || ${ev["demandes-12-mois"]?.texte}`);
   await poser(api, "ACQ-23.13", { genre: "valeurs", valeurs: { changement: "aucun_changement", mois_du_changement_le_plus_recent: null } });
+  // Réponse partagée donnée le mois précédent (périmètre, ACQ-23.13 = FIN-14.04) : la carte « déjà renseignée » de la Finance le dit.
+  sql(`update "ReponseAudit" set "modifieLe" = "modifieLe" - interval '35 days' where cle = 'ACQ-23.13' and "userId" = (select id from "User" where email = '${email}')`);
+  await page.goto(FIN, { waitUntil: "networkidle" });
+  const cartePerimetre = carte(page, "FIN-14.04");
+  const ancienneFin = await cartePerimetre.locator("[data-periode-ancienne]").innerText({ timeout: 5000 }).catch(() => "");
+  controle("H-32", "Finance : la carte « déjà renseignée » du périmètre (FIN-14.04, répondu dans l'Acquisition le mois précédent) dit sur quels mois porte la réponse", (await cartePerimetre.getAttribute("data-partagee")) === "oui" && /Votre réponse, donnée en .* porte sur .*Mettez-la à jour/.test(ancienneFin), ancienneFin);
+  await poser(api, "ACQ-23.13", { genre: "valeurs", valeurs: { changement: "aucun_changement", mois_du_changement_le_plus_recent: null } });
 
   // Réponses de mois différents : la plus ancienne est signalée, la comparaison attend sa mise à jour.
   sql(`update "ReponseAudit" set "modifieLe" = "modifieLe" - interval '35 days' where cle = 'ACQ-02.03' and "userId" = (select id from "User" where email = '${email}')`);

@@ -358,6 +358,43 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
 - **Jamais deux périodes mélangées dans un calcul.** CA au mois ; ventes dans l'unité du métier, ramenées au mois par le moteur avec
   les jours d'ouverture (par jour × jours ouverts par semaine × 4,3). Le nombre de ventes compte les achats, pas les articles.
 
+### Historique et évolutions (28 octobre)
+
+Vérification et règles détaillées : `docs/verification/historique.md`.
+
+- **Chaque question dit sa période**, et l'écran écrit les mois exacts sous la question (« Période : juillet à septembre 2025, les
+  mêmes mois un an plus tôt. »). Mois complets seulement : le mois en cours n'est jamais compris. La période vient de la colonne
+  « Période » du classeur, dans un vocabulaire que le code lit et que le contrôle des données vérifie.
+- **Périodes comparables seulement** :
+  - 3 derniers mois face aux mêmes 3 mois un an plus tôt (ou 6 mois plus tôt) ;
+  - 12 derniers mois face aux 12 mois précédents ;
+  - dernier mois face au même mois un an plus tôt ;
+  - aujourd'hui face à il y a 12 mois.
+
+  Jamais un mois face à une année, une année incomplète face à une année complète, ni deux définitions ou deux périmètres
+  différents.
+- **Entreprise jeune** : aucune question sur des mois antérieurs à la création. Une question sur le passé est masquée tant que
+  l'entreprise n'a pas l'âge de la période demandée (par exemple 15 mois pour « les mêmes 3 mois, un an plus tôt »). « Les 12 derniers
+  mois » devient « depuis la création ». Un tableau mois par mois ne montre que les mois écoulés depuis la création.
+- **Ajouts du 28 octobre**, chacun justifié par une analyse prévue (`historique.md`, section 4) :
+  - le chiffre d'affaires des 12 mois précédents (ACQ-23.03) passe au niveau essentiel et est partagé avec la Finance (FIN-14.03) ;
+  - ventes des 12 mois précédents (ACQ-23.12) ;
+  - changement de périmètre sur 24 mois (ACQ-23.13 = FIN-14.04) ;
+  - effectif il y a 12 mois (FIN-07.17).
+
+  **Aucune question historique n'est ajoutée par principe.**
+- **Une évolution compare l'entreprise à elle-même.** Elle se distingue de l'avancement vers l'objectif et du repère de marché, et
+  n'est jamais remplacée par l'un d'eux.
+  - Écart dans l'unité, et en % ; en points pour un taux. Pas de % quand la valeur passée vaut 0, et l'écran le dit.
+  - Une fourchette compte pour son milieu, marquée « estimée ». Une case vide, « je ne sais pas » ou une réponse inapplicable ne
+    valent jamais zéro : l'évolution est « pas encore possible », avec ce qui manque.
+  - Si le périmètre a changé entre les deux périodes : « non comparable », sans pourcentage.
+  - Les deux réponses doivent avoir été données le même mois. Une réponse plus ancienne est signalée sous la question, et un tableau
+    mois par mois replace chaque montant en face de son vrai mois.
+  - **Aucun jugement ni couleur** sur une évolution : aucune règle ne la fixe (section 15).
+- Les évolutions calculées sont décrites dans `data/evolutions.json`, écrit à la main d'après le classeur. Chaque donnée
+  « Évolution… » du classeur y est calculée, ou listée avec la raison pour laquelle elle ne l'est pas.
+
 ### Tableaux
 
 - **Lignes réglables (27 octobre)** :
@@ -558,8 +595,8 @@ avec ajout en un clic. Agents nommés par leur fonction, **sans prénom ni perso
 ## 11. Données
 
 - Tout le contenu vit dans `data/` (détail des fichiers et des chiffres : `docs/etat-technique.md`). Au 28 octobre : 189 thèmes,
-  932 données, 157 croisements, 13 scénarios, 65 déclencheurs, 556 questions écrites dans la banque et 5 en attente (ACQ-26,
-  catégorie Fabrication).
+  937 données, 157 croisements, 13 scénarios, 65 déclencheurs, 16 évolutions, 561 questions écrites dans la banque et 5 en attente
+  (ACQ-26, catégorie Fabrication).
 - **Le classeur reste l'outil d'écriture : on le modifie, on relance l'import, on ne modifie pas les JSON à la main.** Exceptions,
   écrites à la main d'après le classeur ou le document : les règles d'affichage (`regles-affichage.json`) et les tableaux liés
   (`tableaux-lies.json`) ; le routage et l'inscription sont écrits par script d'après le document de règles et la liste des métiers.
@@ -567,7 +604,9 @@ avec ajout en un clic. Agents nommés par leur fonction, **sans prénom ni perso
   questions ; au moins 2 questions par thème noté ; lexique complet ; bornes ; conditions du classeur toutes couvertes).
 - **Banque de questions** : la page HTML « Banque de questions » du propriétaire fait foi en cas de doute. Une version Excel
   (`CAXE_Banque_Questions.xlsx`) est régénérée à partir de la banque écrite et redonne exactement la banque quand on la réimporte.
-- Classeur des thèmes : dernière version `CAXE_Themes_Chiffres_4_agents_11`, corrigée le 27 octobre. **Il n'est pas dans le dépôt.**
+- Classeur des thèmes : dernière version **`docs/CAXE_Themes_Chiffres_4_agents_12.xlsx`** (version 11 corrigée le 27 octobre, puis
+  périodes et historique le 28 octobre, onglet « Modifications 28 oct. »). **C'est la base des prochaines modifications** : réimporter
+  une version plus ancienne effacerait les corrections du 28 octobre.
 - Secteur pilote : agence immobilière indépendante (transaction), agent Acquisition. Le fichier `CAXE_Questionnaire_Grille_Pilote.xlsx`
   n'est **pas dans le dépôt** ; il utilise encore les types A / B / C : ne pas les reprendre tels quels.
 - **Ordre de travail décidé** : les 4 agents d'abord (thèmes, données, croisements, moteur), puis la **banque de questions** (rédaction
@@ -672,6 +711,16 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
     - D8 pages pour Google (une par semaine à partir de J+30 ; ou après J+60) ;
     - D9 pixel Meta (dès l'ouverture, avec bannière de consentement ; ou plus tard, avec le budget) ;
     - D10 résiliation (abonnement mensuel sans engagement, résiliable en un clic ; ou engagement de 3 mois).
+13. **Historique et évolutions (28 octobre)** (`docs/verification/historique.md`, section 7) :
+    - ACQ-23.03 au niveau essentiel (12 montants de plus) ou un seul total annuel au niveau essentiel, le détail restant en
+      approfondi ;
+    - COM-32.07 pour un compte sans l'agent Acquisition : poser ACQ-07.05 à l'agent Comm ou non ;
+    - comparaisons par ligne (audience par réseau COM-37.02, chiffre d'affaires par gros client ACQ-16.07) : à construire ou non ;
+    - FIN-05.04 « si un premier exercice est clos » : demander la date de clôture ou non ;
+    - ACQ-17.02 (clients de l'année d'avant revenus) : posée dès 12 mois, ou masquée jusqu'à 24 mois ;
+    - estimation par case dans un tableau (aujourd'hui, un chiffre d'affaires mois par mois compte comme exact) ;
+    - deux réponses données à un mois d'écart : tolérer ou non (aujourd'hui, l'évolution attend une mise à jour) ;
+    - couleur d'une évolution : aucune règle, donc aucune couleur.
 
 ### À valider (propositions déjà en place)
 
@@ -696,6 +745,10 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
   recherche avant validation.
 - Affichage d'une TVA estimée au paiement.
 - Seuils « à valider » : test sur 5 à 10 cas réels.
+- Questions ajoutées le 28 octobre :
+  - textes de ACQ-23.12, ACQ-23.13 = FIN-14.04 (choix du périmètre) et FIN-07.17 ;
+  - 23 textes et aides reformulés pour la période (liste : `docs/verification/historique.md`, section 3) ;
+  - présentation du bloc « Ce qui a changé, d'après vos chiffres » du compte rendu.
 
 ### À fournir
 
@@ -708,7 +761,7 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 - Correction du document de règles : prix du palier 4 à 99,99 €.
 - Texte qui remplace « Venez les essayer » sur la page d'accueil : le propriétaire le fixera au moment de créer la page de vente, avec
   les trois changements de l'accueil (ne pas le redemander d'ici là).
-- `CAXE_Questionnaire_Grille_Pilote.xlsx` et le classeur des thèmes, s'ils doivent vivre dans le dépôt.
+- `CAXE_Questionnaire_Grille_Pilote.xlsx`, s'il doit vivre dans le dépôt.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

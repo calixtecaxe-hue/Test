@@ -36,13 +36,13 @@ Chiffres au 28 octobre 2026.
 | Fichier | Contenu (28 octobre) | Écrit par |
 |---|---|---|
 | `themes.json` | 189 thèmes : Acquisition 29, Finance 48, RH 49, Comm 63. Natures : Pratique 90, Cohérence 58, Marché 22, Contexte 19 | `python3 scripts/importer-classeur.py <classeur.xlsx>` |
-| `donnees-*.json` | 932 données : Acquisition 321, Finance 236, RH 172, Comm 203 | idem |
+| `donnees-*.json` | 937 données : Acquisition 323, Finance 239, RH 172, Comm 203 | idem |
 | `croisements.json` | 157 croisements (formules en texte libre) | idem |
 | `scenarios.json` | 13 scénarios | idem |
 | `diagnostic-comm.json` | 14 problèmes | idem |
 | `declencheurs.json` | 65 déclencheurs (D01 à D65) | idem |
 | `lexique.json` | Formes de chaque mot pour les 8 profils (dont Location) et 10 lexiques par métier (champ `metiers`) ; champ `cle` quand la clé du classeur diffère du mot | idem |
-| `banque/questions.json` | 556 questions écrites, chacune avec sa spécification de réponse | `python3 scripts/importer-banque.py <classeur>` |
+| `banque/questions.json` | 561 questions écrites, chacune avec sa spécification de réponse | `python3 scripts/importer-banque.py <classeur>` |
 | `banque/en-attente.json` | 5 questions en attente (ACQ-26, Fabrication) | idem |
 | `regles-affichage.json` | 79 conditions, 16 masquages, réponses attendues de 23 déclencheurs | **à la main**, d'après le classeur |
 | `tableaux-lies.json` | 15 liens entre tableaux | **à la main**, d'après le texte des questions |
@@ -59,12 +59,17 @@ Chiffres au 28 octobre 2026.
 | `parametres-references.json` | Paramètres des recherches (voir section 9) | à la main |
 | `sources-reconnues.json` | Domaines de niveau 1 (9) et domaines exclus (10) | à la main |
 | `objectif-limites.json` | Vraisemblance d'un objectif en % : ramené à une année, il ne peut multiplier ou diviser l'indicateur par plus de 4 (valeur de travail, `aValider`) | à la main |
+| `evolutions.json` | 16 évolutions (valeur récente, valeur passée, écart, unité, % ou points, périmètre) et 3 données « Évolution… » non calculées, avec leur raison | **à la main**, d'après le classeur (section 7, « Historique et évolutions ») |
 
 - Schémas : `src/lib/donnees/schemas.ts`. Routage : `src/lib/routage.ts`. Lexique : `src/lib/donnees/lexique.ts` (un mot du lexique
   s'écrit `{demande}`, `{nouveau_client}` dans un gabarit ; les formes sont au singulier).
 - Contrôle : `npm run donnees:controle` (et `npm test`). Il compare aussi la réponse de la banque au format du classeur (avertissement,
   la banque l'emporte), refuse une condition du classeur sans règle dans `regles-affichage.json`, un nombre sans minimum, une part en %
-  sans bornes, un retrait qui alimente un calcul, un croisement ou une règle.
+  sans bornes, un retrait qui alimente un calcul, un croisement ou une règle. Depuis le 28 octobre, il refuse aussi :
+  - une période du classeur illisible ;
+  - une question sur des mois passés masquée moins longtemps que la période qu'elle demande ;
+  - une évolution dont les deux périodes n'ont pas la même longueur ou le bon décalage ;
+  - une donnée « Évolution… » ni calculée ni listée dans `nonCalculables`.
 - **Banque en Excel** : `python3 scripts/exporter-modele-banque.py --avec-questions` régénère `CAXE_Banque_Questions.xlsx` (questions
   écrites, puis celles en attente en fin de feuille) ; `python3 scripts/importer-banque.py <classeur> [--ecarter-inconnues]` le
   reconvertit et n'écrit rien s'il reste une erreur. L'aller-retour redonne exactement la banque.
@@ -223,6 +228,10 @@ Chiffres au 28 octobre 2026.
 - `constat-compte.ts` assemble le questionnaire du compte, charge les références de marché actives en base et appelle
   `constaterAgent` ; `compte-rendu.ts` classe les constats (thèmes notés du rouge au vert avec repère de marché sourcé, analysés avec
   les seuls chiffres du dirigeant, à compléter, comptes des thèmes masqués et de contexte) ; `resultats.tsx` les affiche.
+- Évolutions : `constat-compte.ts` calcule aussi `evolutions` (`calculerEvolutions`, section « Historique et évolutions »), sur les
+  réponses actives du compte et les questions posées par l'un de ses agents. L'onglet « Priorités » les montre en tête, dans le bloc
+  « Ce qui a changé, d'après vos chiffres » (`[data-evolution][data-statut]`), avec les comparaisons pas encore possibles dans un
+  `<details>`. Phrase : `phraseEvolution` (`compte-rendu.ts`).
 - Maquette : `resultats-maquette.tsx` et `src/lib/audit/resultats-exemple.ts`, visible seulement avec `RESULTATS_MAQUETTE=1` et
   `?exemple=1`. Un compte de test se remplit avec `scripts/reponses-demonstration.mts` (réponses neutres, jamais de vrais clients).
 
@@ -292,7 +301,7 @@ Chiffres au 28 octobre 2026.
 
 | Commande | Ce qu'elle contrôle |
 |---|---|
-| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 356 tests unitaires, données |
+| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 366 tests unitaires, données |
 | `node scripts/balayage-secteurs.mts` | Assemble et remplit le questionnaire de chaque métier, activité, taille, niveau et agent (229 scénarios, 7 704 questionnaires) : textes, lexique, tableaux, règles en attente, exclusions des professions réglementées, constat |
 | `node scripts/controle-parcours-secteurs.mjs`, `node scripts/controle-complementaire.mjs` | Parcours par secteur dans un navigateur |
 | `node scripts/controle-boutons.mjs [--agents ACQ,FIN,RH,COM] [--apercu <dossier>]` | Chaque question : chiffre exact, estimation, « je ne sais pas », « je ne suis pas cette donnée », « Effacer ma réponse », cases, choix, listes, tableaux, texte, mois, cartes partagées, mise à jour des questions suivantes, rechargement ; sur l'application ou l'aperçu |
@@ -301,6 +310,7 @@ Chiffres au 28 octobre 2026.
 | `node scripts/controle-compte.mjs` | Page « Mon compte » |
 | `node scripts/controle-prereponse.mjs` | Total pré-rempli de FIN-05.02 |
 | `node scripts/audit-client.mjs [--sortie dossier]` | Parcours d'un dirigeant (inscription, recherche du métier, dossier, objectif, questionnaire, coupure réseau, reprise sur téléphone, droits, mobile 360 px, clavier, connexion, mot de passe oublié, page 404). Identifiants du rapport « Audit client de CAXE (27 octobre 2026) » (Claude Docs) ; « ÉCART » et code 1 tant qu'un défaut reste |
+| `node scripts/verification/historique.mjs [--sortie dossier]` | Historique et évolutions (32 contrôles H-01 à H-32) : périodes écrites, seuils d'ancienneté, entreprise jeune, baisse, hausse, stabilité, zéro, données partielles, périmètre, réponses de mois différents, changement du dossier, autre appareil |
 | `scripts/verification/*` | Vérification du questionnaire (inventaire, dépendances, canaux, résultats, séparation, départs de page, changements rapides, captures) : voir `docs/verification/rapport.md`, section 7 |
 
 **Derniers résultats (exécution complète du 27 au 28 octobre)** : tous les contrôles réussis, sauf `audit-client` (38 contrôles, un
@@ -315,9 +325,14 @@ sur COM-12.01 par un défaut de l'outil de test ; outil corrigé, relancé seul 
   à ACQ-30, COM-62 « Référencement (SEO) » et COM-63 « Annonces Google (SEA) », plus ACQ-07.15, ACQ-11.38, ACQ-11.39, ACQ-13.12 à
   13.14, COM-13.11) ; une question en attente revient seule dès que le classeur contient sa donnée comme « Demandée ». Le 27 octobre, 42 d'entre elles ont été insérées au classeur (41 après la suppression
   d'ACQ-24.01 ; liste dans `docs/Ajouts_au_classeur_des_4_agents.xlsx`, lignes marquées « Nouveau ») ; les 5 d'ACQ-26 attendent la
-  catégorie Fabrication. Aujourd'hui : 556 questions et 5 en attente.
+  catégorie Fabrication. Le 28 octobre, 5 questions ajoutées pour l'historique (ACQ-23.12, ACQ-23.13, FIN-07.17, FIN-14.03,
+  FIN-14.04). Aujourd'hui : 561 questions et 5 en attente.
 - **Classeur « 11 »** (onglet « Modifications 20 oct. ») : importé le 20 octobre ; 181 thèmes (19 nouveaux : FIN-46 à 48, RH-41 à 49,
   COM-55 à 61), 891 données. Le 27 octobre : 8 thèmes et 41 données de plus (189 thèmes, 932 données).
+- **Classeur « 12 »** (`docs/CAXE_Themes_Chiffres_4_agents_12.xlsx`, onglet « Modifications 28 oct. », 59 changements) : périodes
+  précises, masquages selon l'ancienneté, 5 données ajoutées (937 données). Il a été construit par script à partir du 11 corrigé :
+  c'est la base des prochaines modifications.
+- **Historique et évolutions (28 octobre)** : `docs/verification/historique.md`.
 - **Relecture du 23 octobre** (balayage de tous les secteurs) : trois corrections — la question qui décide du masquage de son propre
   thème reste posée (COM-10.07, sinon une cinquantaine de questions Comm n'arrivaient jamais) ; les préalables ; un tableau dont les
   lignes viennent d'un cadrage (D20) fait poser ce cadrage.
