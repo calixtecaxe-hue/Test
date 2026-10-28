@@ -1,0 +1,29 @@
+conforme  RH-01   l'écran s'ouvre sur « Quel objectif souhaitez-vous atteindre ? » et « Choisissez une proposition ou décrivez votre propre objectif. »
+conforme  RH-03   les 9 propositions et « Définir mon propre objectif » sont dans le même ensemble
+conforme  RH-04   rien de choisi : « Choisissez une proposition ou décrivez votre propre objectif. », rien en base
+conforme  RH-05   proposition « Réduire les départs de salariés » : coche, mot « Choisi », bouton radio coché, champs ouverts dans la carte
+conforme  RH-06   « Définir mon propre objectif » : champ « Décrivez votre objectif », aide et exemple propres à l'agent, une seule modalité active
+conforme  RH-07   le champ personnel reçoit le focus à l'ouverture
+conforme  RH-08   en passant à une proposition, le champ personnel disparaît et rien n'est transmis pour lui
+conforme  RH-09   en revenant à l'objectif personnel, le texte écrit est retrouvé tel quel
+conforme  RH-10   texte fait d'espaces : « Décrivez votre objectif en quelques mots pour continuer. », le champ reçoit le focus, rien en base
+conforme  RH-11   objectif personnel enregistré : un seul objectif actif, origine « personnel », sans proposition, texte du dirigeant intact
+conforme  RH-12   écran suivant : la phrase de l'objectif personnel et la mention « Objectif personnel »
+conforme  RH-13   après actualisation : même objectif
+conforme  RH-14   après déconnexion et reconnexion : même objectif
+conforme  RH-15   retour à l'étape Objectif : « Définir mon propre objectif » est choisi, avec le texte, la réussite et le délai
+conforme  RH-16   objectif modifié : un seul actif (la proposition), l'objectif personnel passe en historique « remplacé »
+conforme  RH-17   compte rendu : l'objectif en cours est celui qui vient d'être choisi
+conforme  COM-01  l'écran s'ouvre sur « Quel objectif souhaitez-vous atteindre ? » et « Choisissez une proposition ou décrivez votre propre objectif. »
+conforme  COM-02  Comm : deux parties à choisir, aucune proposition affichée avant ce choix
+conforme  COM-03  les 22 propositions et « Définir mon propre objectif » sont dans le même ensemble
+conforme  COM-04  rien de choisi : « Choisissez une proposition ou décrivez votre propre objectif. », rien en base
+conforme  COM-05  proposition « Augmenter mon nombre d'abonnés » : coche, mot « Choisi », bouton radio coché, champs ouverts dans la carte
+conforme  COM-06  « Définir mon propre objectif » : champ « Décrivez votre objectif », aide et exemple propres à l'agent, une seule modalité active
+conforme  COM-07  le champ personnel reçoit le focus à l'ouverture
+conforme  COM-08  en passant à une proposition, le champ personnel disparaît et rien n'est transmis pour lui
+conforme  COM-09  en revenant à l'objectif personnel, le texte écrit est retrouvé tel quel
+conforme  COM-10  texte fait d'espaces : « Décrivez votre objectif en quelques mots pour continuer. », le champ reçoit le focus, rien en base
+conforme  COM-11  objectif personnel enregistré : un seul objectif actif, origine « personnel », sans proposition, texte du dirigeant intact
+conforme  COM-12  écran suivant : la phrase de l'objectif personnel et la mention « Objectif personnel »
+conforme  COM-13  après actualisation : même objectif
