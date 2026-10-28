@@ -46,3 +46,11 @@ To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 == Notaire (b2b, structure_6_plus, agents : ACQ FIN RH_)
 
 == Hôtel · toutes les activités (restaurant+location, seul, agents : ACQ FIN RH_ COM)
+
+== Agence immobilière · toutes les activités (b2b+abonnement, equipe_2_5, agents : ACQ FIN RH_ COM)
+
+== Coach · toutes les activités (rdv+b2b, structure_6_plus, agents : ACQ FIN RH_ COM)
+
+== Traiteur · toutes les activités (restaurant+b2b+abonnement, seul, agents : ACQ FIN RH_ COM)
+
+== Fleuriste · toutes les activités (commerce+b2b+abonnement, equipe_2_5, agents : ACQ FIN RH_ COM)
