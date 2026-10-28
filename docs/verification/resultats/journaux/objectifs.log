@@ -27,3 +27,26 @@ conforme  COM-10  texte fait d'espaces : « Décrivez votre objectif en quelques
 conforme  COM-11  objectif personnel enregistré : un seul objectif actif, origine « personnel », sans proposition, texte du dirigeant intact
 conforme  COM-12  écran suivant : la phrase de l'objectif personnel et la mention « Objectif personnel »
 conforme  COM-13  après actualisation : même objectif
+conforme  COM-14  après déconnexion et reconnexion : même objectif
+conforme  COM-15  retour à l'étape Objectif : « Définir mon propre objectif » est choisi, avec le texte, la réussite et le délai
+conforme  COM-16  objectif modifié : un seul actif (la proposition), l'objectif personnel passe en historique « remplacé »
+conforme  COM-17  compte rendu : l'objectif en cours est celui qui vient d'être choisi
+conforme  X-00    Comm : enregistrer avant de choisir où l'on en est → « Choisissez d'abord où vous en êtes… », le focus va sur cette question
+conforme  X-01    « Obtenir plus d'avis clients » : le chiffre s'intitule « Combien de nouveaux avis ? », sans choix d'unité
+conforme  X-02    aperçu : « obtenir 10 nouveaux avis clients sur les 3 prochains mois »
+conforme  X-03    « Ajouter un autre objectif » : le premier se replie avec sa phrase, le second s'ouvre, la proposition déjà choisie y est indisponible
+conforme  X-04    Comm : changer de partie quand un autre objectif est déjà dans la première est refusé et expliqué
+conforme  X-05    un objectif personnel qui reprend une proposition déjà choisie est refusé par le serveur, avec un message
+conforme  X-06    deux objectifs enregistrés ensemble : une proposition et un objectif personnel, chacun avec son origine
+conforme  X-07    serveur : une proposition reçue avec un autre texte est enregistrée avec le texte de la liste
+conforme  X-08    « Réduire les absences dans l'équipe » : « De combien, en % ? », sans choix d'unité
+conforme  X-09    clavier : les flèches passent d'une carte à la suivante, qui devient la carte choisie, focus visible
+conforme  X-10    clavier : depuis la dernière proposition, la flèche atteint « Définir mon propre objectif » et le texte s'écrit dans son champ
+conforme  T-01    dirigeant seul : ni « Réduire les départs de salariés », ni « Réduire les absences dans l'équipe », ni « Alléger la charge de travail de l'équipe »
+conforme  T-02    téléphone 360 px : aucune barre de défilement horizontale
+conforme  T-03    téléphone : le bouton « Enregistrer mon objectif » reste visible pendant le défilement de la liste
+conforme  T-04    téléphone : le champ personnel tient dans la largeur et mesure au moins 40 px de haut
+conforme  T-05    un seul avis visé : « obtenir mon premier avis client sur les 2 prochains mois »
+conforme  T-06    téléphone 390 px (Comm) : aucune barre de défilement horizontale
+
+50 contrôles, 50 conformes, 0 écart(s).

@@ -1,0 +1,14 @@
+conforme  LI-01   Un seul champ vide : pas de bouton « Retirer »
+conforme  LI-02   Le premier élément est enregistré
+conforme  LI-03   « Ajouter un élément » ouvre un deuxième champ et y place le curseur
+conforme  LI-04   Un champ vide ajouté par erreur se retire, le curseur revient au champ précédent
+conforme  LI-05   Retirer un champ vide ne change pas la réponse enregistrée
+conforme  LI-06   Trois éléments enregistrés
+conforme  LI-07   Le tableau qui dépend de la liste a trois lignes
+conforme  LI-08   « Retirer » enlève l'élément de l'écran, dans l'ordre
+conforme  LI-09   … et de la réponse enregistrée
+conforme  LI-10   … et des lignes du tableau qui en dépend, sans actualiser la page
+conforme  LI-11   Le curseur se place sur le champ qui a pris la place de l'élément retiré
+conforme  LI-12   Après actualisation, la liste est celle qui reste
+conforme  LI-13   Au clavier, « Retirer » se joint par Tab et s'actionne par Entrée
+conforme  LI-14   Retirer le dernier élément vide le champ et efface la réponse
