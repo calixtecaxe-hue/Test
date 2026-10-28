@@ -16,20 +16,20 @@ Les chiffres de ce rapport sont recalculés par `node scripts/verification/chiff
 ## 1. Chiffres
 
 <!-- CHIFFRES : section écrite par node scripts/verification/chiffres.mjs -->
-Calculés le 2026-10-28 à 10:41 UTC.
+Calculés le 2026-10-28 à 22:58 UTC.
 
 | Mesure | Nombre | Écart expliqué |
 |---|---|---|
-| Questions recensées | 561 | 556 dans la banque, 5 en attente (ACQ-26, catégorie Fabrication). |
-| Questions relues | 561 | Toutes. 26 corrigées (texte, aide, choix ou règle), 2 à arbitrer (section 5). |
-| Contrôle automatique du texte (période, bornes, ton, choix) | 551 sans constat | 5 montants sans période écrite, vérifiés un par un (la base est dans la question). 0 constat ouvert. |
-| Questions atteignables par le vrai moteur d'assemblage | 541 sur 556 | 15 questions COM-57 : posées à la première création de contenu, jamais pendant l'audit, par conception. |
-| Questions affichées et manipulées dans le navigateur | 470 | Les autres questions atteignables sont vérifiées par le moteur d'assemblage sur des réponses simulées, pas à l'écran. Les contrôles navigateur utilisent un compte par règle ou par agent (électricien pour les boutons). |
-| Liens de dépendance recensés | 1 088 | Dont 470 liens de calcul (croisements, scénarios), non exécutables tant que leurs formules sont en texte libre. Les autres liens portent sur l'affichage, les lignes, les données partagées et les pré-réponses. |
-| Règles d'affichage | 95 | 79 conditions et 16 masquages. Elles portent les 286 liens « condition » et les 94 liens « masquage ». |
+| Questions recensées | 566 | 561 dans la banque, 5 en attente (ACQ-26, catégorie Fabrication). |
+| Questions relues | 566 | Toutes. 26 corrigées (texte, aide, choix ou règle), 2 à arbitrer (section 5). |
+| Contrôle automatique du texte (période, bornes, ton, choix) | 556 sans constat | 5 montants sans période écrite, vérifiés un par un (la base est dans la question). 0 constat ouvert. |
+| Questions atteignables par le vrai moteur d'assemblage | 546 sur 561 | 15 questions COM-57 : posées à la première création de contenu, jamais pendant l'audit, par conception. |
+| Questions affichées et manipulées dans le navigateur | 475 | Les autres questions atteignables sont vérifiées par le moteur d'assemblage sur des réponses simulées, pas à l'écran. Les contrôles navigateur utilisent un compte par règle ou par agent (électricien pour les boutons). |
+| Liens de dépendance recensés | 1 101 | Dont 470 liens de calcul (croisements, scénarios), non exécutables tant que leurs formules sont en texte libre. Les autres liens portent sur l'affichage, les lignes, les données partagées et les pré-réponses. |
+| Règles d'affichage | 95 | 79 conditions et 16 masquages. Elles portent les 287 liens « condition » et les 94 liens « masquage ». |
 | Règles jouées dans le navigateur, dans les deux sens | 91 | 4 hors plan : « Pas posée si les agents Acquisition et Comm sont faits : calculée » (toujours posée, pas une dépendance) ; « D30 · avant la première création de contenu » (jamais pendant l'audit) ; « Vente immédiate (commerce) » (à préciser : aucune réponse ne la déclenche) ; « Sans travaux en cours » (à préciser : aucune réponse ne la déclenche). |
 | Règles entièrement conformes | 91 | Aucun écart. Aucune règle bloquée. |
-| Contrôles navigateur de la vérification (canaux, règles, résultats, séparation, départs de page, changements rapides) | 554 | 554 conformes, 0 écart(s), 0 bloqué(s). |
+| Contrôles navigateur de la vérification (canaux, règles, résultats, séparation, départs de page, changements rapides, historique) | 586 | 586 conformes, 0 écart(s), 0 bloqué(s). |
 
 Contrôles navigateur de la vérification, par script :
 
@@ -40,37 +40,41 @@ Contrôles navigateur de la vérification, par script :
 | `separation` | 9 | 9 | aucun | aucun |
 | `retours` | 5 | 5 | aucun | aucun |
 | `rapides` | 7 | 7 | aucun | aucun |
+| `historique` | 32 | 32 | aucun | aucun |
 | `dependances` | 496 | 496 | aucun | aucun |
 
 Dernière exécution complète (`resultats/synthese.txt`), un contrôle par ligne :
 
 | Contrôle | Résultat | Dernière ligne du journal |
 |---|---|---|
-| `canaux` | réussi | compte de test : verif.1793144535127.30889@example.com |
-| `dependances` | réussi | 91 règles jouées, 496 contrôles : 496 conformes, 0 écart(s), 0 bloqué(s). |
 | `typescript` | réussi |  |
 | `lint` | réussi |  |
-| `tests-unitaires` | réussi | # duration_ms 20655.137388 |
+| `tests-unitaires` | réussi | # duration_ms 20583.054858 |
 | `controle-donnees` | réussi | Contrôle réussi : aucune erreur. |
 | `balayage-secteurs` | réussi | POINTS D'ATTENTION : 0 |
 | `inventaire` | réussi | scénario (calcul) : 31 |
 | `plan-dependances` | réussi | M-092 Ne publie pas (parcours mise en place) : des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage) → COM-10.03, COM-10.04, COM-10.05 |
+| `canaux` | réussi | compte de test : verif.1793222610744.93475@example.com |
+| `dependances` | réussi | 91 règles jouées, 496 contrôles : 496 conformes, 0 écart(s), 0 bloqué(s). |
 | `resultats` | réussi | 11 contrôles, 11 conformes, 0 écart(s). |
 | `separation` | réussi | 9 contrôles, 9 conformes, 0 écart(s). |
 | `retours` | réussi | 5 contrôles, 5 conformes, 0 écart(s). |
 | `rapides` | réussi | 7 contrôles, 7 conformes, 0 écart(s). |
+| `historique` | réussi | 32 contrôles, 32 conformes, 0 écart(s). |
+| `objectifs` | réussi | 50 contrôles, 50 conformes, 0 écart(s). |
+| `listes` | réussi | 17 contrôles, 17 conformes, 0 écart(s). |
 | `prereponse` | réussi | Tout est conforme. |
 | `autre` | réussi | 168 vérifications, 0 échec(s). |
 | `compte` | réussi | Tout est conforme. |
 | `audit-client` | **code 1** | 38 contrôles, 37 conformes, 1 écart(s) : R-01. |
-| `boutons-pages` | réussi | 156 vérifications, 0 échec(s). |
+| `boutons-pages` | réussi | 157 vérifications, 0 échec(s). |
 | `complementaire` | réussi | Erreurs : 0 · points d'attention : 0 |
 | `captures` | réussi | 7 captures écrites dans docs/verification/captures |
 | `parcours-secteurs` | réussi | Erreurs : 0 · points d'attention : 0 |
-| `boutons-acq` | réussi | 656 vérifications, 0 échec(s). |
-| `boutons-fin` | réussi | 398 vérifications, 0 échec(s). |
+| `boutons-acq` | réussi | 670 vérifications, 0 échec(s). |
+| `boutons-fin` | réussi | 415 vérifications, 0 échec(s). |
 | `boutons-rh` | réussi | 716 vérifications, 0 échec(s). |
-| `boutons-com` | réussi | 752 vérifications, 0 échec(s). (relancé seul le 28 octobre à 10 h 41 UTC, outil de test corrigé) |
+| `boutons-com` | réussi | 756 vérifications, 0 échec(s). |
 <!-- /CHIFFRES -->
 
 **Exécution finale.** Lancée le 27 octobre à 23 h 58 UTC, terminée le 28 octobre à 1 h 15 UTC. Le conteneur de travail a redémarré

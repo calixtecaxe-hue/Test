@@ -24,3 +24,7 @@ complementaire               code 0  Erreurs : 0 · points d'attention : 0
 captures                     code 0  7 captures écrites dans docs/verification/captures
 parcours-secteurs            code 0  Erreurs : 0 · points d'attention : 0
 boutons-acq                  code 0  670 vérifications, 0 échec(s).
+boutons-fin                  code 0  415 vérifications, 0 échec(s).
+boutons-rh                   code 0  716 vérifications, 0 échec(s).
+boutons-com                  code 0  756 vérifications, 0 échec(s).
+fin 22:58Z
