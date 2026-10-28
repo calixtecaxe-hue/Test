@@ -1,5 +1,5 @@
 {
- "le": "2026-10-28T21:27:23.088Z",
+ "le": "2026-10-28T21:27:41.506Z",
  "resultats": [
   {
    "item": "D-001",
@@ -768,6 +768,90 @@
    "item": "D-020",
    "id": "D-020-e",
    "attendu": "D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-a",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : règle vraie, 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-b",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-c",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : la réponse à ACQ-18.03 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-d",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-d2",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : la réponse gardée à ACQ-18.03 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-021",
+   "id": "D-021-e",
+   "attendu": "D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-a",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : règle vraie, 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-b",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-c",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : la réponse à ACQ-19.01 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-d",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-d2",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : la réponse gardée à ACQ-19.01 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-022",
+   "id": "D-022-e",
+   "attendu": "D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : après actualisation, même état",
    "statut": "conforme",
    "observe": ""
   }
