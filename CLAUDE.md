@@ -63,7 +63,8 @@ prompts des agents, qui concernent les clients et leurs entreprises.
    avec la formule 3 agents déjà sélectionnée (le palier seulement : aucun agent n'est coché d'avance).
 2. **Vidéo d'accueil retouchée** : fin « Commencer mon audit » et offre fondateur au lieu de « Recevoir un accès prioritaire », mention
    « exemple fictif » sur les gains affichés, prix à la fin.
-3. **Page d'accueil** : un bouton vers la page de vente ; « Venez les essayer » remplacé (pas d'essai gratuit) ; « Nous faisons
+3. **Page d'accueil (trois changements validés par le propriétaire le 28 octobre)** : un bouton vers la page de vente ; « Venez les
+   essayer » remplacé, puisqu'il n'y a pas d'essai gratuit (**texte de remplacement à fournir par le propriétaire**) ; « Nous faisons
    régulièrement le point » remplacé par « CAXE fait le point ».
 4. **Résiliation affichée clairement** sur les offres et au paiement (D10).
 5. **Offre fondateur** (D3) et, à partir de J+30, **parrainage** : un mois offert au parrain et au filleul pour chaque nouvel abonnement
@@ -79,14 +80,14 @@ prompts des agents, qui concernent les clients et leurs entreprises.
 - **pas de durée d'audit annoncée** tant qu'elle n'est pas mesurée : « à votre rythme, sauvegarde continue » ;
 - toujours distinguer « obtenir un diagnostic » de « gagner des clients » ;
 - agents sans prénom, représentés par leurs bustes comme sur le site ;
-- ni « fiable » ni superlatifs ; charte du site, pas d'or ;
+- ni « fiable » ni superlatifs (dans la promotion seulement : le produit et l'IA peuvent employer « fiable ») ; charte du site, pas
+  d'or ;
 - les professions réglementées et les agences de communication restent hors des messages sur l'agent Comm.
 
 ### Page d'accueil (état actuel)
 
-**La direction artistique et le contenu ne changent pas.** Le plan de lancement prévoit trois changements de contenu (point 3
-ci-dessus) : ils reviennent sur cette règle et sont **à confirmer avant d'y toucher** (section 15). Seuls des boutons de conversion ont
-été ajoutés :
+**La direction artistique ne change pas. Le contenu non plus, sauf les trois changements validés le 28 octobre** (point 3 ci-dessus,
+pas encore faits). Seuls des boutons de conversion ont été ajoutés :
 
 - « Commencer mon audit » dans l'en-tête ;
 - « Fixer mon objectif » après « Comment ça marche » ;
@@ -96,11 +97,10 @@ ci-dessus) : ils reviennent sur cette règle et sont **à confirmer avant d'y to
 Tous les boutons d'appel mènent à la création du compte (`/inscription`) et portent un halo qui respire et un éclat qui traverse,
 arrêtés au survol et sous `prefers-reduced-motion`. Seule exception : « Voir les offres ». Dans le héros, « Venez les essayer » est le
 seul bouton : il clignote et mène à `/inscription` (le bouton « Créer un compte » du héros a été supprimé à la demande du propriétaire).
+Son texte sera remplacé (point 3 ci-dessus).
 
-**Idée gardée pour plus tard, pas construite** : une page « Audit Express » où le visiteur saisit ses propres chiffres (CA, prospects,
-rendez-vous, clients) et voit son entonnoir étape par étape avant de créer un compte, sans jugement « bon » ou « mauvais » tant
-qu'aucune référence n'existe. Au lancement, la décision D4 (achat direct, ni mini-diagnostic) l'exclut : ne pas la construire avant
-d'en reparler.
+L'idée d'une page « Audit Express » (le visiteur saisit ses chiffres avant de créer un compte) est **abandonnée** (28 octobre,
+section 14).
 
 ## 2. Les trois réflexes (à tout moment)
 
@@ -191,11 +191,11 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
 
 ### Métiers et activités
 
-- **Liste des métiers** (document « CAXE — Liste des métiers » du 15 octobre) : 149 métiers, dont 16 à plusieurs activités (54 activités en tout). Recherche par synonymes,
-  **renforcée le 27 octobre** : accents, tirets et majuscules ignorés ; mots de la même famille rapprochés (« coiffeuse » → Coiffeur,
-  « boulangerie » → Boulanger-pâtissier, « garagiste » → Garage et mécanicien) ; mot en cours de frappe ; nom des activités ; plusieurs
-  mots. Les abréviations et autres noms d'un métier servent à la recherche seulement, jamais au routage ; **leur liste est à
-  compléter par le propriétaire**.
+- **Liste des métiers** (document « CAXE — Liste des métiers » du 15 octobre) : 149 métiers, dont 16 à plusieurs activités (54
+  activités en tout). Recherche par synonymes, **renforcée le 27 octobre** : accents, tirets et majuscules ignorés ; mots de la même
+  famille rapprochés (« coiffeuse » → Coiffeur, « boulangerie » → Boulanger-pâtissier, « garagiste » → Garage et mécanicien) ; mot en
+  cours de frappe ; nom des activités ; plusieurs mots. Les abréviations et autres noms d'un métier servent à la recherche seulement,
+  jamais au routage ; **leur liste est à compléter par le propriétaire**.
 - **Activités (sous-variantes)** : elles n'apparaissent **qu'après le choix du métier**, et seulement s'il regroupe plusieurs
   activités (agence immobilière : transaction / gestion locative / syndic / conciergerie saisonnière ; paysagiste : création /
   entretien régulier ; agence de voyage : particuliers / entreprises ou groupes ; agence web, com ou marketing : projets ponctuels /
@@ -279,13 +279,12 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
   délai, son avancement ; le compte rendu et le plan les reprennent tous.
   - Le dirigeant **choisit dans une liste d'objectifs écrite à l'avance** (ou « Autre (précisez) »), puis donne **un chiffre s'il en a
     un, ou décrit ce qu'il veut constater** (« Comment saurez-vous que c'est atteint ? »), plus le délai en mois.
-  - Comm : deux parties (complétées le 27 octobre ; les huit objectifs d'origine sont gardés). « Améliorer ce que j'ai déjà » :
-    22 objectifs chiffrés (portée, visites du profil, clics, messages, demandes,
-    conversion, relance, puis site, Google, fiche, annonces, avis, fichier de contacts, partenaires, qualité, coût, temps).
-    « Mettre en place ma présence en ligne » : 21 objectifs, surtout sans chiffre (cible, positionnement, promesse, identité, preuves, réseau,
-    comptes, profil, site, fiche Google, premiers avis, sujets, calendrier, régularité, premières publications, formats, parcours,
-    offre gratuite, fichier, suivi, qui s'en occupe). **Tous les objectifs sont dans la même partie** : l'autre se ferme tant qu'un
-    objectif est choisi.
+  - Comm : deux parties (complétées le 27 octobre ; les huit objectifs d'origine sont gardés). « Améliorer ce que j'ai déjà » : 22
+    objectifs chiffrés (portée, visites du profil, clics, messages, demandes, conversion, relance, puis site, Google, fiche, annonces,
+    avis, fichier de contacts, partenaires, qualité, coût, temps). « Mettre en place ma présence en ligne » : 21 objectifs, surtout
+    sans chiffre (cible, positionnement, promesse, identité, preuves, réseau, comptes, profil, site, fiche Google, premiers avis,
+    sujets, calendrier, régularité, premières publications, formats, parcours, offre gratuite, fichier, suivi, qui s'en occupe).
+    **Tous les objectifs sont dans la même partie** : l'autre se ferme tant qu'un objectif est choisi.
   - Chaque partie est un menu déroulant (l'invitation « Choisissez un objectif » n'est pas un choix), suivi de « Autre (précisez) »,
     toujours visible.
   - **La liste est un brouillon à valider par le propriétaire** (libellés, exemples, thèmes rattachés). Plafond technique de
@@ -336,8 +335,9 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
 - Au-delà d'**un quart des données essentielles** en « je ne suis pas cette donnée », un conseil général de pilotage est ajouté, **sans
   remplacer** les autres.
 - **Réponses actives (28 octobre).** Une réponse devenue inapplicable (question fermée par une autre, thème masqué, taille, case d'un
-  canal décoché, sous-question de cadrage qui n'est plus posée comme D12 « déjà en service ? » après « non ») reste en base mais ne compte plus : ni dans les conditions, ni dans
-  le calcul, ni dans l'avancement, ni dans le total pré-rempli. Elle revient si le dirigeant revient à son premier choix.
+  canal décoché, sous-question de cadrage qui n'est plus posée comme D12 « déjà en service ? » après « non ») reste en base mais ne
+  compte plus : ni dans les conditions, ni dans le calcul, ni dans l'avancement, ni dans le total pré-rempli. Elle revient si le
+  dirigeant revient à son premier choix.
 - Une question de cadrage répondue peut être effacée (« Effacer ma réponse »), comme les autres. Un second clic sur « Je ne sais
   pas » ou « Je ne suis pas cette donnée » l'annule.
 - **Option « aucun » exclusive (27 octobre)** : une option « Aucun… », « Aucune… » ou « Rien… » se coche seule. Ajoutée à COM-10.03
@@ -402,8 +402,8 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
 
 ### Compte rendu (étape « Résultats », décisions du 22 octobre)
 
-- Trois onglets : objectif, priorités, plan d'action. Ouvert dès que le niveau est choisi (étape « 4 Résultats » cliquable). Branché sur le vrai moteur pour ce qui
-  existe. **Le compte rendu est en conception par le propriétaire.**
+- Trois onglets : objectif, priorités, plan d'action. Ouvert dès que le niveau est choisi (étape « 4 Résultats » cliquable). Branché
+  sur le vrai moteur pour ce qui existe. **Le compte rendu est en conception par le propriétaire.**
 - **Rien n'est inventé** : tant que les seuils de marché sont vides et que les règles de notation Pratique et Cohérence ne sont pas
   écrites, aucun thème n'est noté (« sans repère de marché »). Le réalisme de l'objectif, la réponse de l'agent, l'ordre de priorité,
   l'impact et le plan d'action (IA non branchée) disent « pas encore » au lieu d'un chiffre. Avancement : 0 % tant qu'aucun point
@@ -606,10 +606,10 @@ avec ajout en un clic. Agents nommés par leur fonction, **sans prénom ni perso
   thèmes.
 - **Ne jamais écrire une couleur en dur** : utiliser les jetons ou leurs canaux (détail : `docs/etat-technique.md`).
 
-**Ton** : **vouvoiement, français de France, sobre et factuel, sans superlatif, sans point d'exclamation ni émoji.** Le mot
-« fiable » est accepté dans le produit (19 octobre) ; les contenus de promotion ne l'emploient pas (stratégie du 23 octobre). Un
-bouton dit ce qui va se passer. Un écran vide est une invitation à agir. Une erreur explique et corrige. La confirmation d'une
-réponse s'écrit « Réponse enregistrée », avec une coche.
+**Ton** : **vouvoiement, français de France, sobre et factuel, sans superlatif, sans point d'exclamation ni émoji.** Le mot « fiable »
+est accepté dans le produit, **y compris dans ce que l'IA écrit** : compte rendu, rapport, plan (19 octobre, confirmé le 28 octobre).
+Seuls les contenus de promotion ne l'emploient pas (stratégie du 23 octobre). Un bouton dit ce qui va se passer. Un écran vide est une
+invitation à agir. Une erreur explique et corrige. La confirmation d'une réponse s'écrit « Réponse enregistrée », avec une coche.
 
 ## 13. Qualité
 
@@ -629,6 +629,7 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 | Forfait unique / offre à 1 agent | Paliers de 2 à 4 agents |
 | Objectif demandé à l'inscription | Objectif demandé au début de chaque agent |
 | Agents personnifiés | Noms fonctionnels |
+| Page « Audit Express » : le visiteur saisit ses chiffres avant de créer un compte (abandonnée le 28 octobre) | Achat direct depuis la page de vente (décision D4 du lancement) |
 
 ## 15. Ce qui reste au propriétaire (ne rien trancher seul)
 
@@ -671,8 +672,6 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
     - D8 pages pour Google (une par semaine à partir de J+30 ; ou après J+60) ;
     - D9 pixel Meta (dès l'ouverture, avec bannière de consentement ; ou plus tard, avec le budget) ;
     - D10 résiliation (abonnement mensuel sans engagement, résiliable en un clic ; ou engagement de 3 mois).
-13. **Page d'accueil** : confirmer les trois changements de contenu prévus par le lancement (bouton vers la page de vente,
-    « Venez les essayer » remplacé, « CAXE fait le point »), qui reviennent sur la règle « le contenu de l'accueil ne change pas ».
 
 ### À valider (propositions déjà en place)
 
@@ -707,6 +706,7 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 - Mots du vocabulaire « consultation » des professions de santé.
 - Clé `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt).
 - Correction du document de règles : prix du palier 4 à 99,99 €.
+- Texte qui remplace « Venez les essayer » sur la page d'accueil.
 - `CAXE_Questionnaire_Grille_Pilote.xlsx` et le classeur des thèmes, s'ils doivent vivre dans le dépôt.
 
 <!-- BEGIN:nextjs-agent-rules -->
