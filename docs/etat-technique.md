@@ -372,6 +372,7 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 | `node scripts/controle-prereponse.mjs` | Total pré-rempli de FIN-05.02 |
 | `node scripts/audit-client.mjs [--sortie dossier]` | Parcours d'un dirigeant (inscription, recherche du métier, dossier, objectif, questionnaire, coupure réseau, reprise sur téléphone, droits, mobile 360 px, clavier, connexion, mot de passe oublié, page 404). Identifiants du rapport « Audit client de CAXE (27 octobre 2026) » (Claude Docs) ; « ÉCART » et code 1 tant qu'un défaut reste |
 | `node scripts/verification/historique.mjs [--sortie dossier]` | Historique et évolutions (32 contrôles H-01 à H-32) : périodes écrites, seuils d'ancienneté, entreprise jeune, baisse, hausse, stabilité, zéro, données partielles, périmètre, réponses de mois différents, changement du dossier, autre appareil |
+| `node scripts/verification/utilite-extraire.mjs`, puis `node scripts/verification/utilite-rapport.mjs` | Audit d'utilité de la banque : tout ce qui lit chaque question (`docs/audit-utilite/usages.json`), évaluations écrites à la main (`docs/audit-utilite/evaluations/*.txt`), tableau complet (`questions.csv`) et blocs générés du rapport ; code 1 si une question n'a pas d'évaluation |
 | `scripts/verification/*` | Vérification du questionnaire (inventaire, dépendances, canaux, résultats, séparation, départs de page, changements rapides, captures) : voir `docs/verification/rapport.md`, section 7 |
 
 **Derniers résultats (exécution complète du 27 au 28 octobre)** : tous les contrôles réussis, sauf `audit-client` (38 contrôles, un
@@ -407,3 +408,6 @@ sur COM-12.01 par un défaut de l'outil de test ; outil corrigé, relancé seul 
   8 mineures, problèmes restants, décisions, limites, commandes), inventaire des 561 questions et matrice des dépendances
   (`inventaire-questions.csv`, `matrice-dependances.csv`), 29 constats de relecture (`docs/verification/relecture-questions.json`,
   appliqués par `scripts/verification/appliquer-relecture.py`).
+- **Audit d'utilité de la banque (28 octobre)** : `docs/audit-utilite/rapport.md`. 566 questions et 17 questions de cadrage évaluées
+  une à une (usage prévu par le classeur, usage exécuté par le code, test « si la réponse change, qu'est-ce qui change »). Aucune
+  modification de la banque ; arbitrages dans `CLAUDE.md`, section 15.

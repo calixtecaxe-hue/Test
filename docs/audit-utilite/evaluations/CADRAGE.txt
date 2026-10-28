@@ -1,0 +1,45 @@
+# Questions de cadrage (déclencheurs posés en « Pour commencer » ou à l'inscription)
+# Les déclencheurs qui lisent une question de la banque (D03, D13, D17, D20 à D27) sont évalués avec cette question.
+
+D01 | conserver | justifiee
+  j: Date de création (dossier) : fixe les périodes possibles ; aucune question sur des mois antérieurs à la création, masquage selon l'ancienneté (règles exécutées le 28 octobre).
+D02 | conserver | justifiee
+  j: Effectif (dossier) : masque 31 thèmes pour un dirigeant seul et ouvre le bloc « S'entourer » (règles exécutées). Plusieurs questions RH devraient aussi en dépendre (RH-02.01, RH-10.04, RH-14.01, RH-15.01, RH-37.01).
+D04 | conditionnelle | conditions
+  p: Les canaux payants cochés dans ACQ-03.01 (publicité en ligne, publicité locale, plateformes…) disent déjà, pour la plupart des dirigeants, s'ils font de la publicité payante : la question est alors redemandée.
+  j: Publicité payante ou agence : ouvre le coût par canal payant, le coût de l'agence et le budget d'il y a 12 mois (règle exécutée).
+  c: Réponse déduite « oui » quand un canal payant est coché dans ACQ-03.01 (mécanisme existant des réponses déduites) ; posée sinon, pour l'agence seule.
+D05 | conserver | justifiee
+  j: Activité sur rendez-vous : ouvre 8 questions et masque le thème ACQ-09 sinon (règle exécutée).
+D06 | conserver | justifiee
+  j: Devis ou propositions : ouvre 14 questions et masque le thème ACQ-10 sinon.
+D07 | preciser | formulation
+  p: Vérification dans le code : la réponse sur le stock donnée à l'inscription (métier dont le stock est « à demander ») ou fixée par le métier n'est pas reprise ; D07 est reposée dans la Finance. Le dirigeant peut répondre deux fois à la même question.
+  j: Stock : ouvre 18 questions et masque le bloc Stock (FIN-37 à 45) sinon.
+  m: Pré-remplir D07 par la réponse du compte (métier « stock oui » ou réponse de l'inscription), comme une réponse déduite.
+D08 | conserver | justifiee
+  j: Achats, sous-traitance, fournisseurs réguliers (trois oui / non) : ouvre 9 questions et masque deux thèmes.
+D09 | conserver | justifiee
+  j: Paiement après facture : ouvre 14 questions et masque quatre thèmes (encaissement immédiat).
+D10 | conserver | justifiee
+  j: Crédit ou leasing en cours : ouvre le tableau des crédits, masque le thème FIN-22 sinon.
+D11 | preciser | formulation
+  p: « Sur la période » ne dit pas de quelle période il s'agit ; les questions qu'elle ouvre portent sur les 12 derniers mois (FIN-24.01, 24.03).
+  j: Découvert : ouvre 5 questions (jours, montants, agios, cause, mois) ; sert aussi de condition proposée pour FIN-11.03 et FIN-48.01.
+  t: Avez-vous été à découvert au cours des 12 derniers mois ?
+D12 | conserver | justifiee
+  j: Investissement prévu ou récent, puis en service : ouvre 6 questions et masque cinq thèmes.
+D14 | conserver | justifiee
+  j: Non posée : l'abonnement vient du métier (profil Abonnement). Les questions d'abonnés sont filtrées par ce profil.
+D15 | conserver | justifiee
+  j: Clients professionnels réguliers : ouvre le tableau des cinq plus gros clients et ses tableaux liés.
+D16 | conserver | a_justifier
+  p: Non posée (vient du métier). L'effet annoncé (masquer zone, fiche Google, jours fermés, boutique) n'a aucune règle dans `regles-affichage.json` ; il est en pratique porté par les profils des questions (e-commerce).
+  j: Activité 100 % en ligne : utile seulement si un métier hors profil e-commerce peut être entièrement en ligne.
+  m: Confirmer que le profil e-commerce suffit, ou écrire la règle.
+D18 | conserver | justifiee
+  j: Facturation au temps passé : ouvre 5 questions (tarif, heures facturées, coût et marge par heure).
+D19 | conserver | justifiee
+  j: Travail planifié à l'avance : ouvre 5 questions et masque le thème ACQ-19 sinon.
+D30 | conserver | justifiee
+  j: Pas une question : moment de la première création de contenu, qui ouvre le brief COM-57 ; toujours « non » pendant l'audit (règle exécutée).

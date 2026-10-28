@@ -1,0 +1,358 @@
+# Comm & Création de contenu
+# Rappel : l'agent Comm n'est pas proposé aux professions réglementées. Plusieurs calculs du classeur sont « appliqués par l'IA »
+# (COM-01.02, COM-20.01, COM-44.05, grille des publications) : voir le rapport, section des points à signaler.
+
+# Parcours
+COM-10.07 | conserver | justifiee
+  j: Publie ou non sur les réseaux : choisit le parcours (amélioration ou mise en place), ouvre 23 questions et masque 35 thèmes (règles exécutées). Le lien avec la partie choisie dans l'objectif reste à trancher (section 15).
+COM-10.08 | conserver | justifiee
+  j: Réseaux où le dirigeant publie : lignes de dix tableaux par réseau (règle exécutée).
+COM-13.10 | conserver | justifiee
+  j: Site internet ou non : ouvre douze questions sur le site et le référencement ; déduite « oui » quand « Site internet » est coché dans les canaux (règle exécutée, à confirmer, section 15).
+COM-15.12 | conserver | justifiee
+  j: Fichier de contacts ou non : ouvre quatre questions (règle exécutée).
+COM-39.07 | conserver | justifiee
+  j: Accès aux statistiques des publications : ouvre COM-39.01 et 39.03 ; sans statistiques, ces tableaux ne peuvent pas être remplis.
+
+# COM-01 à COM-09 Identité et offre
+COM-01.01 | preciser | formulation
+  p: Une seule phrase pour trois questions (quoi, pour qui, différence). Le classeur la fait noter par « une grille fixe de 3 critères appliquée par l'IA » (COM-01.02) : c'est l'IA qui juge et produit une couleur, ce que la règle fondatrice interdit (réflexe 1). La cible est déjà demandée en COM-02.01 et la raison du choix des clients en ACQ-13.14.
+  j: Positionnement dit par le dirigeant : sert de matière à la création de contenu et au conseil de message ; sa présence ou son absence se contrôle sans jugement si les trois parties sont séparées.
+  t: Que faites-vous, pour qui, et qu'est-ce qui vous rend différent ? (trois champs courts : ce que vous faites / pour qui / ce qui vous rend différent)
+  m: Notation à remplacer par une règle de code (les trois champs remplis) ou par la nature Contexte ; décision du propriétaire.
+COM-02.01 | conserver | justifiee
+  j: Cible prioritaire de la communication par catégorie de clients : comparée aux clients qui rapportent (XC27), aux réseaux utilisés (COM-11.01) ; diagnostics « mauvais ciblage » et « mauvais canal ». Contrôle de cohérence avec ACQ-01.05 voulu (27 octobre).
+COM-03.01 | conserver | exploitation
+  p: Texte libre « notée directement » : seule l'IA pourrait juger qu'une promesse est concrète, ce qui revient à lui faire produire une couleur.
+  j: Résultat promis aux clients : matière de la communication et du conseil de message ; distinct de COM-04.01 (décision du 27 octobre).
+  m: À lire comme contexte (création de contenu, conseil), pas à noter ; ou à noter par une règle de code sur une réponse fermée.
+COM-04.01 | conserver | justifiee
+  j: Preuve, délai et effort demandé pour l'offre principale, lue par l'IA : précise ce qui rend l'offre crédible. Texte reformulé à valider (section 15).
+COM-05.01 | conserver | exploitation
+  p: « Notée directement » : « Aucune » garantie deviendrait un défaut, alors que toutes les activités ne s'y prêtent pas.
+  j: Garantie proposée : lue avec les affaires perdues face à un concurrent ou sur le prix (ACQ-11.04) ou l'hésitation des clients, désigne un argument à ajouter ; ouvre COM-05.02.
+  g: « Proposez une garantie satisfait ou remboursé », sans hésitation constatée ; une garantie engage juridiquement l'entreprise, le rapport ne doit pas en proposer la forme.
+  m: Lecture avec ACQ-11.04 à écrire.
+COM-05.02 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Ce qui est garanti exactement (texte libre) : matière pour les contenus qui présentent la garantie.
+  m: Déclarer l'usage : création de contenu et contexte de l'IA.
+COM-07.01 | conserver | justifiee
+  j: Logo, couleurs et ton identiques partout : « Non » désigne une action précise et peu coûteuse (harmoniser les supports nommés).
+  m: Règle de notation Pratique à écrire.
+COM-08.01 | conserver | justifiee
+  j: Labels, assurances, réseaux affichés : éléments de réassurance visibles (COM-08.02).
+COM-09.01 | conserver | justifiee
+  j: Témoignages, cas clients et photos disponibles et publiés : preuves exploitables (COM-09.04), part publiée (COM-09.05), contenu réutilisable (XC15), diagnostic « absence de preuve » (DC09). Tableau lourd (18 cases) mais au cœur du thème.
+COM-09.02 | conserver | justifiee
+  j: Date de la preuve la plus récente : une preuve ancienne désigne une action précise (en produire une nouvelle).
+  m: Aucun seuil d'ancienneté n'est écrit ; règle de notation à écrire sans l'inventer.
+COM-09.03 | conserver | justifiee
+  j: Preuve par catégorie de clients : offres et types de clients sans preuve (COM-09.07).
+COM-09.08 | conserver | exploitation
+  p: Aucun usage écrit, alors que « Offres et types de clients sans aucune preuve » (COM-09.07) annonce les offres et ne lit que la question par catégorie (COM-09.03).
+  j: Preuve par offre : désigne l'offre qui n'a rien à montrer.
+  m: Ajouter COM-09.08 aux entrées de COM-09.07.
+
+# COM-10 Réseaux actifs et démarrage
+COM-10.01 | conserver | justifiee
+  j: Par réseau : ancienneté, rythme, format, dernière publication, qui publie : réseaux tenus ou non (COM-10.06), réseaux face à la cible (COM-11.01), portée par publication, diagnostics « manque de contenu » et « mauvais canal ».
+COM-10.03 | conserver | justifiee
+  j: Réseaux où se trouvent les clients (parcours mise en place), lue par l'IA : désigne le réseau par lequel commencer.
+COM-10.04 | conserver | justifiee
+  j: Heures disponibles pour communiquer (parcours mise en place) : potentiel du réseau existant (XC33, EFF-COM-01) ; le plan de démarrage suit ce temps.
+COM-10.05 | conserver | justifiee
+  j: Personnes à prévenir au lancement : potentiel du réseau existant (XC33).
+COM-56.01 | conserver | justifiee
+  j: Comptes déjà ouverts (thème Contexte, lu par l'IA) : reprendre un compte existant ou en ouvrir un change le plan de démarrage.
+  m: Écrire « Lue par l'IA » dans le classeur (colonne « Utilisée dans » vide).
+COM-56.02 | conserver | justifiee
+  j: Ce qui a empêché de publier (thème Contexte) : manque de temps, d'idées, peur de se montrer ou doute sur l'effet appellent des plans de démarrage différents. Libellé « Rien de particulier » à valider (section 15).
+  m: Écrire « Lue par l'IA » dans le classeur.
+COM-56.03 | conserver | justifiee
+  j: Qui s'occuperait des publications (thème Contexte) : le plan diffère si c'est le dirigeant ou un prestataire.
+  m: Écrire « Lue par l'IA » dans le classeur.
+COM-56.04 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Budget mensuel pour lancer la communication (thème Contexte) : borne ce que le plan peut proposer.
+  g: Un coût de prestataire avancé par l'IA : aucun coût n'est sourcé, le plan doit rester dans le budget donné sans chiffrer ce qu'il ne connaît pas.
+  m: Écrire « Lue par l'IA » dans le classeur.
+
+# COM-12 à COM-16 Canaux
+COM-12.01 | conserver | justifiee
+  j: Partagée avec ACQ-03.02 à 03.04 (posée une fois) : demandes, clients et chiffre d'affaires par canal ; conversion du trafic social (COM-19.03), chaîne de la communication (XC01).
+COM-13.01 | conserver | justifiee
+  j: Partagée avec ACQ-06.07 (posée une fois) : conversion du site (XC08), « attirer plus ou convertir mieux » (COM-13.08).
+COM-13.02 | conserver | justifiee
+  j: Outil de mesure du site : « Aucun » désigne une action précise (activer les statistiques) et ferme les trois questions qui en dépendent (règle exécutée).
+COM-13.03 | conserver | justifiee
+  j: Demandes reçues par le site, par type : demandes venant de la communication (COM-22.02), chaîne de la communication (XC01).
+COM-13.04 | conserver | justifiee
+  j: Origine des visites du site, lue par l'IA : peu de visites venues de Google oriente vers le référencement (COM-62), beaucoup venues des réseaux vers la conversion.
+COM-13.05 | retirer | a_justifier
+  p: Lue par l'IA seulement ; liste libre de pages, sans chiffre. Les demandes par type (COM-13.03) et l'origine des visites (COM-13.04) disent déjà où le site travaille.
+  j: À situation identique, une autre liste de pages ne change ni le diagnostic ni la priorité ; au mieux un exemple dans le texte du rapport.
+COM-13.06 | conserver | justifiee
+  j: Visites six mois plus tôt : évolution du trafic (exécutée).
+COM-13.11 | retirer | a_justifier
+  p: Lue par l'IA, mais l'IA du rapport ne consulte aucune page et aucun outil n'analyse le site : l'adresse ne sert à rien aujourd'hui.
+  j: À situation identique, l'adresse ne change aucun calcul ni aucune priorité.
+  d: La garder seulement si une analyse du site est prévue (outil à construire).
+COM-14.01 | conserver | justifiee
+  j: Contenu de la fiche Google : complétude (COM-14.03), fiche et actions (XC29) ; désigne l'élément à compléter.
+COM-14.02 | conserver | justifiee
+  j: Partagée avec ACQ-06.04 (posée une fois) : vues et actions de la fiche (XC29).
+COM-15.01 | conserver | justifiee
+  j: Contacts par catégorie : taille du fichier et contacts joignables (COM-15.07), potentiel d'un envoi (COM-15.11). Paire avec ACQ-17.06 voulue (27 octobre).
+COM-15.02 | conserver | justifiee
+  j: Nouveaux contacts par mois et leur source, lue par l'IA : un fichier qui ne grandit pas oriente vers la collecte, la source désigne le canal qui l'alimente.
+COM-15.03 | conserver | justifiee
+  j: Dernier envoi et envois sur 6 mois : fichier inexploité (XC10) ; ouvre COM-15.04 et 15.06.
+COM-15.04 | conserver | justifiee
+  j: Demandes et clients apportés par les envois : demandes et ventes par envoi (COM-15.10).
+COM-15.05 | conserver | justifiee
+  j: Part des contacts joignables : contacts joignables (COM-15.07), potentiel d'un envoi. L'accord des contacts relève du RGPD : le rapport n'en fait pas un conseil juridique.
+COM-15.06 | conserver | justifiee
+  j: Ouvertures, clics, désinscriptions et réponses : potentiel d'un envoi (COM-15.11, XC10).
+COM-16.01 | conserver | justifiee
+  j: Position sur « métier + ville » : fiche Google et actions (XC29) ; « Je n'apparais pas » change la priorité.
+
+# COM-58, COM-27, COM-17 à COM-23, COM-55, COM-59 à COM-61 Le chemin du contact (funnel)
+COM-58.01 | conserver | exploitation
+  p: Aucun usage écrit ; les calculs du funnel Comm sont dans la liste des calculs à écrire (CLAUDE.md, section 11).
+  j: Ce que doit faire quelqu'un qui veut aller plus loin : « Rien de prévu pour l'instant » désigne l'étape manquante, action précise.
+  m: Règle de notation Pratique ou calcul du funnel (COM-58.03, à écrire).
+COM-58.02 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Moyens de contact, de réservation ou d'achat en ligne : « Aucun de ces moyens » est un frein direct entre l'audience et la demande.
+  m: Même calcul du funnel à écrire.
+COM-27.02 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: À quoi ont servi les publications (se faire connaître, prouver, vendre) : un mélange sans publication qui vend explique une audience sans demandes (XC07).
+  m: Lecture avec XC07 et la part des publications avec un appel à l'action (COM-20.01) à écrire.
+COM-17.01 | conserver | justifiee
+  j: Abonnés et personnes touchées par réseau : portée moyenne, engagement, taux de clic, chaîne de la communication (XC01), visibilité sans action (XC06) ; comparable au marché.
+COM-37.01 | conserver | justifiee
+  j: Abonnés il y a 6 mois : croissance de l'audience (XC18), audience qui grandit sans demandes (XC07). Comparaison par réseau à construire ou non (section 15).
+COM-17.02 | retirer | peu_utile
+  p: Lue par l'IA seulement. La croissance nette de l'audience est déjà calculée (COM-37.02, à partir de COM-37.01) ; sans repère, l'IA ne peut pas dire qu'un nombre de désabonnements est élevé.
+  j: À situation identique, les flux bruts d'abonnés ne changent ni la croissance mesurée ni la priorité.
+COM-17.03 | conserver | justifiee
+  j: Part des personnes touchées qui ne suivaient pas encore, lue par l'IA : dit si les publications atteignent de nouvelles personnes ou seulement les abonnés.
+COM-18.01 | conserver | justifiee
+  j: Réactions par réseau : réactions par publication, part des réactions fortes (comparable au marché), diagnostic « mauvais contenu » (DC02).
+COM-59.01 | conserver | exploitation
+  p: Aucun usage écrit (calculs du funnel à écrire).
+  j: Visites du profil par réseau : l'étape entre la réaction et le clic ; sépare un contenu qui n'intéresse pas d'un profil qui ne convainc pas.
+  m: Calcul du passage portée → visites du profil → clics à écrire.
+COM-55.01 | conserver | exploitation
+  p: Aucun usage écrit ; seize cases au niveau essentiel.
+  j: Contenu du profil sur chaque réseau (description, lien, bouton, publications épinglées) : désigne l'élément à ajouter, action précise et rapide.
+  m: Règle de notation Pratique à écrire (thème COM-55).
+COM-19.01 | conserver | justifiee
+  j: Clics par réseau et leur destination : taux de clic, conversion du trafic social (XC09), diagnostic « appel à l'action faible » (DC08).
+COM-23.01 | conserver | justifiee
+  j: Messages privés par messagerie, dont demandes commerciales : messages → ventes (XC12), comparable au marché ; ouvre COM-23.02 et 23.03.
+COM-23.02 | conserver | justifiee
+  j: Délai de réponse aux messages : chiffre d'affaires perdu (COM-23.06), diagnostic « réponse trop lente » (DC14).
+COM-23.03 | conserver | justifiee
+  j: Messages commerciaux devenus rendez-vous et clients : conversion (COM-23.05, XC12).
+COM-60.01 | conserver | exploitation
+  p: Aucun usage écrit ; ouvre COM-60.02.
+  j: Page d'arrivée du lien du profil : « Il n'y a pas de lien » ou la page d'accueil désignent une action précise (une page pour l'offre).
+  m: Règle de notation Pratique à écrire.
+COM-60.02 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Ce qu'on voit sans faire défiler sur cette page : désigne l'élément qui manque (offre en une phrase, preuve, bouton unique).
+  m: Règle de notation Pratique à écrire.
+COM-21.01 | conserver | justifiee
+  j: Offre gratuite pour obtenir des coordonnées (déclencheur D25) : objectif et dispositif cohérents (COM-24.02, XC28), diagnostics « appel à l'action faible » et « audience sous-exploitée » ; ouvre trois questions.
+COM-21.02 | conserver | justifiee
+  j: Visiteurs, contacts, rendez-vous et clients de l'offre gratuite : conversion et valeur d'un contact (COM-21.05 à 21.08, XC11).
+COM-21.03 | conserver | justifiee
+  j: Publicité pour cette offre : coût d'un contact (COM-21.08, XC11).
+COM-21.04 | conserver | justifiee
+  j: Origine des contacts récoltés, lue par l'IA : désigne le canal qui alimente l'offre.
+COM-22.04 | conserver | exploitation
+  p: Aucun usage écrit, alors que les demandes venant de la communication sont « réparties par réseau quand c'est connu » (COM-22.02) et que XC02 compare la part de chaque réseau dans les demandes. Sens « mesurée sur les demandes » à trancher (section 15).
+  j: Part des demandes venues de chaque réseau : seul chiffre qui dit quel réseau apporte des demandes.
+  m: Ajouter COM-22.04 aux entrées de COM-22.02.
+COM-22.01 | conserver | justifiee
+  j: Clients venus par les réseaux ou Google parmi les 20 derniers (commerce, restaurant) : attribution locale (XC31), quand les demandes ne sont pas comptées.
+COM-61.01 | conserver | exploitation
+  p: Aucun usage écrit ; ouvre COM-61.02.
+  j: Ce qui est fait des personnes intéressées qui n'achètent pas : « Rien de particulier » désigne une étape manquante (relance), liée à l'objectif proposé « Relancer les personnes intéressées ».
+  m: Calcul COM-61.03 à écrire (liste des calculs à écrire).
+COM-61.02 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Personnes relancées et devenues clientes : mesure l'effet de la relance.
+  m: Calcul COM-61.03 à écrire.
+
+# COM-24 à COM-29 Stratégie de contenu
+COM-24.01 | fusionner | peu_utile
+  p: Redemande l'objectif de l'agent : depuis le 22 octobre, le dirigeant choisit ses objectifs Comm au début de l'agent. ACQ-24.01 a été retirée le 27 octobre pour la même raison.
+  j: Sa seule utilité est le contrôle « objectif et dispositif » (COM-24.02, XC28), qui pourrait lire la finalité des objectifs choisis.
+  f: Objectifs de l'agent Comm (`data/objectifs-agents.json`).
+  m: Donner à chaque objectif Comm sa finalité (trouver des clients, se faire connaître, faire revenir, recruter, lancer une offre) et faire lire cette finalité par COM-24.02 ; ne poser COM-24.01 que pour un objectif personnel, ou plus du tout.
+COM-25.01 | conserver | justifiee
+  j: Sujets les plus fréquents (texte libre), lue par l'IA : matière pour la ligne éditoriale et la création de contenu.
+COM-26.01 | conserver | justifiee
+  j: Publications par format sur 3 mois : mix réel (COM-27.01), écart entre ce qui marche et ce qui est publié (XC04) ; ouvre COM-39.03.
+COM-28.01 | conserver | justifiee
+  j: Calendrier de publication : semaines d'avance (XC17), diagnostic « manque de régularité » (DC05).
+COM-29.01 | conserver | justifiee
+  j: Concurrents suivis et ce qui marche chez eux (texte libre), lue par l'IA : matière d'idées de contenu ; jamais un jugement sur les concurrents.
+
+# COM-31 à COM-35 Production
+COM-31.01 | conserver | justifiee
+  j: Heures par tâche de communication : heures par semaine, publications et demandes par heure (COM-31.07), valeur du temps passé (COM-31.08) ; le plan suit ce temps.
+COM-31.02 | conserver | justifiee
+  j: Répartition des heures entre dirigeant, salariés et prestataires : qui produit le contenu (COM-30.01).
+COM-31.03 | conserver | justifiee
+  j: Répartition des heures par réseau : temps face aux demandes par réseau (XC02), diagnostic « temps mal alloué » (DC11).
+COM-31.04 | conserver | justifiee
+  j: Répartition des heures par format : contenus produits en vain (COM-41.01), formats qui prennent du temps sans résultat (XC03).
+COM-32.01 | conserver | justifiee
+  j: Partagée avec ACQ-07.01, 07.03 et 07.04 (posée une fois) : budget communication total (COM-32.04), coût par contenu et par client.
+COM-32.02 | conserver | justifiee
+  j: Autres frais de communication : budget total, coût de la communication (XC22), total pré-rempli de FIN-05.02 (exécuté).
+COM-32.03 | conserver | justifiee
+  j: Ces frais il y a 12 mois : évolution du budget (exécutée), budget mal alloué (DC12).
+COM-33.01 | conserver | justifiee
+  j: Semaines avec publication et plus longue pause : régularité éditoriale (XC16), diagnostic « manque de régularité ».
+COM-34.01 | conserver | justifiee
+  j: Déclinaison d'un contenu sur plusieurs réseaux ou formats : « Jamais » désigne une action qui libère du temps (section 8).
+  m: Règle de notation Pratique à écrire.
+COM-34.02 | conserver | justifiee
+  j: Contenus réutilisables : contenu réutilisable sans nouvelle production (XC15).
+COM-35.01 | conserver | justifiee
+  j: Contenus d'avance : semaines d'avance (XC17), diagnostic « manque de contenu » (DC01).
+COM-35.02 | conserver | justifiee
+  j: Ressources déjà disponibles pour créer, lue par l'IA : le plan part de ce qui existe avant de proposer de produire.
+
+# COM-39 à COM-43 Performance
+COM-39.01 | preciser | formulation
+  p: Quarante-deux cases au niveau essentiel (six publications × sept colonnes) : effort disproportionné. Le classement des publications (COM-39.06) lit d'abord les clics et les contacts, puis la portée ; réactions, visites du profil et nouveaux abonnés y sont secondaires.
+  j: Résultats des meilleures et des moins bonnes publications : ce qui marche (COM-39.05, 39.06), contenus réutilisables, diagnostics « manque de contenu » et « temps mal alloué ».
+  r: Proposition : garder quatre colonnes (Réseau, Personnes touchées, Clics, Messages ou demandes), soit 24 cases ; les trois autres en approfondi.
+  d: Réduire les colonnes, ou passer le tableau complet en approfondi.
+COM-39.02 | conserver | justifiee
+  j: Texte et lien des mêmes publications : grille de qualité (accroche, ton, appel à l'action, COM-49 à COM-54), part des publications avec un appel à l'action (COM-20.01).
+  p: La grille est « appliquée par l'IA » : voir le point à signaler du rapport (l'IA ne doit produire aucune couleur).
+COM-39.03 | conserver | justifiee
+  j: Vues, durée regardée et part vue jusqu'au bout des vidéos (posée si statistiques et vidéos), lue par l'IA : dit si le début ou la longueur des vidéos pose problème.
+COM-42.01 | conserver | justifiee
+  j: Fois où l'on a parlé de l'entreprise sans le demander (thème Contexte), lue par l'IA : signal de notoriété qui change le message à mettre en avant.
+COM-42.02 | conserver | justifiee
+  j: Publications de clients qui mentionnent l'entreprise (thème Contexte), lue par l'IA : contenus de clients à reprendre comme preuves.
+COM-43.01 | conserver | justifiee
+  j: Partagée avec ACQ-20.02 (posée une fois) : pilotage de la communication (XC30), diagnostic « mauvais suivi » (DC10).
+COM-43.03 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Moyen de savoir quels clients viennent des publications : « Aucun moyen » rend les demandes attribuées aux réseaux (COM-22.02) estimées, et fait du suivi une action préalable précise.
+  m: Lire avec COM-22.02 ; proche de ACQ-20.06 (origine notée pour chaque client) côté Acquisition.
+
+# COM-44 à COM-48 Vitrines et relation
+COM-44.01 | conserver | justifiee
+  j: Partagée avec ACQ-06.01 (posée une fois) : avis, note et rythme (XC24), thèmes des avis (COM-44.05), réponse aux avis (XC23).
+COM-44.02 | conserver | justifiee
+  j: Avis sur d'autres plateformes, lue par l'IA : complète la fiche Google quand les clients notent ailleurs.
+  f: ACQ-06.08 (note et avis de la plateforme principale) pour les profils qui vendent par plateforme.
+COM-44.03 | conserver | justifiee
+  j: Répartition des étoiles, lue par l'IA : une même note moyenne peut cacher des avis négatifs nombreux, à traiter en premier.
+COM-44.04 | conserver | justifiee
+  j: Ce que disent les 20 derniers avis (texte libre) : thèmes positifs et motifs négatifs (COM-44.05, XC25), contexte pour l'IA.
+COM-45.01 | conserver | justifiee
+  j: Demande d'avis aux clients : vitesse de constitution des avis (XC24) ; « Jamais » désigne une action précise ; ouvre COM-45.02.
+COM-45.02 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Façon de demander un avis (oral, lien, QR code, message automatique) : une demande seulement orale explique peu d'avis malgré des demandes ; désigne l'outil à ajouter.
+  m: Ajouter à la lecture de XC24.
+COM-46.01 | conserver | justifiee
+  j: Part des avis avec réponse et délai : réponse aux avis (XC23).
+COM-46.02 | conserver | justifiee
+  j: Qui répond et avec quelle règle : réponse aux avis (XC23).
+COM-47.01 | conserver | justifiee
+  j: Part des commentaires qui reçoivent une réponse : « Peu » ou « Aucun » désigne une action précise.
+  m: Règle de notation Pratique à écrire.
+COM-48.01 | conserver | justifiee
+  j: Retombées obtenues (presse, associations, créateurs, entreprises), lue par l'IA : relais existants à réactiver.
+COM-48.02 | conserver | justifiee
+  j: Collaborations avec des créateurs et ventes suivies : influence (XC32).
+
+# COM-57 Brief de création (posé à la première création de contenu, jamais pendant l'audit : D30)
+COM-57.01 | conserver | exploitation
+  p: Hors audit : posée à la première création de contenu, fonction pas encore construite.
+  j: Client idéal en deux ou trois phrases : oriente le contenu produit ; complète COM-02.01 (cible) par les mots du dirigeant.
+COM-57.02 | conserver | exploitation
+  j: Hors audit. Tutoiement ou vouvoiement : règle de rédaction des contenus produits.
+COM-57.03 | conserver | exploitation
+  j: Hors audit. Ton voulu : règle de rédaction.
+COM-57.04 | conserver | exploitation
+  j: Hors audit. Mots à employer et à éviter : règle de rédaction.
+COM-57.05 | conserver | exploitation
+  j: Hors audit. Apparaître ou non en photo ou vidéo : change les formats proposés.
+COM-57.06 | conserver | exploitation
+  j: Hors audit. Logo, charte et couleurs : règle graphique des visuels.
+COM-57.07 | conserver | exploitation
+  j: Hors audit. Contenus voulus : ce que la création produit.
+COM-57.08 | conserver | exploitation
+  j: Hors audit. Validation avant publication : règle de fonctionnement de la création.
+COM-57.10 | conserver | exploitation
+  j: Hors audit. Offre à mettre en avant : sujet prioritaire des contenus.
+COM-57.11 | conserver | exploitation
+  j: Hors audit. Questions fréquentes des clients : sujets de contenus.
+COM-57.12 | conserver | exploitation
+  j: Hors audit. Hésitations avant achat : sujets de contenus qui lèvent les objections.
+COM-57.13 | conserver | exploitation
+  j: Hors audit. Dates qui comptent dans l'année : calendrier des contenus.
+COM-57.14 | conserver | exploitation
+  j: Hors audit. Règles de communication imposées par le métier : garde-fou des contenus produits ; CAXE ne les établit pas lui-même (aucun conseil juridique).
+COM-57.15 | conserver | exploitation
+  j: Hors audit. Comptes ou publications appréciés : références de style.
+COM-57.16 | conserver | exploitation
+  j: Hors audit. Langues de publication : règle de rédaction.
+
+# COM-62 Référencement du site (SEO, ajout du 27 octobre, en Contexte, à valider)
+COM-62.01 | conserver | justifiee
+  j: Site relié à Google Search Console : sans cet outil, les chiffres de COM-62.02 et 62.03 ne peuvent pas être lus ; « non » est aussi une action précise.
+COM-62.02 | conditionnelle | conditions
+  p: Posée à tout dirigeant qui a un site, y compris quand COM-62.01 dit qu'il n'a pas l'outil qui donne ces chiffres.
+  j: Apparitions, clics et position moyenne dans Google, lue par l'IA : visibilité réelle du site dans la recherche.
+  c: Posée si COM-62.01 = oui.
+COM-62.03 | conditionnelle | conditions
+  p: Même problème que COM-62.02 ; tableau libre de cinq lignes.
+  j: Recherches qui amènent le plus de visites, lue par l'IA : mots sur lesquels le site est déjà trouvé.
+  c: Posée si COM-62.01 = oui.
+COM-62.04 | conserver | justifiee
+  j: Place du site sur la recherche de chaque offre principale, lue par l'IA : désigne l'offre invisible dans Google.
+COM-62.05 | conserver | justifiee
+  j: Page propre à chaque offre, lue par l'IA : une offre sans page explique souvent son absence dans Google (COM-62.04) ; action précise.
+COM-62.06 | conserver | justifiee
+  j: Pages ou articles ajoutés en 12 mois, lue par l'IA : un site figé explique une visibilité qui ne progresse pas.
+COM-62.07 | conserver | justifiee
+  j: Sites qui renvoient vers le site, lue par l'IA : désigne les liens faciles à obtenir (annuaires, fédération, partenaires).
+COM-62.08 | conserver | justifiee
+  j: Qui s'occupe du référencement, lue par l'IA : le plan diffère si personne ne s'en occupe ou si un prestataire est payé pour cela.
+
+# COM-63 Annonces Google (SEA, ajout du 27 octobre, en Contexte, à valider)
+COM-63.01 | conditionnelle | conditions
+  p: Posée à tous, alors que D04 (publicité payante ou agence) dit déjà si l'entreprise fait de la publicité payante : si D04 = non, la réponse est forcément « non ».
+  j: Publicité Google ou non : ouvre sept questions.
+  c: Posée si D04 = oui ; si D04 = non, réponse déduite « non » (mécanisme existant des réponses déduites).
+COM-63.02 | conserver | justifiee
+  j: Dépense mensuelle en publicité Google, lue par l'IA : base du coût d'une demande venue de Google.
+  f: ACQ-03.05 (coût de chaque canal payant, ligne « Publicité en ligne ») : à pré-remplir ou à rapprocher pour ne pas demander deux fois un montant voisin.
+COM-63.03 | conserver | justifiee
+  j: Clics et demandes apportés par les annonces, lue par l'IA : coût par demande et rendement des annonces.
+  f: ACQ-03.02 (part des demandes par canal) : même source pour la ligne « Publicité en ligne ».
+COM-63.04 | conserver | justifiee
+  j: Appels et formulaires comptés automatiquement : dit si les demandes de COM-63.03 sont mesurées ; « Non » est une action préalable précise.
+COM-63.05 | conserver | justifiee
+  j: Recherches qui déclenchent le plus de clics, avec dépense et demandes (approfondi), lue par l'IA : désigne les mots qui coûtent sans rapporter.
+COM-63.06 | conserver | justifiee
+  j: Page d'arrivée des annonces, lue par l'IA : la page d'accueil au lieu d'une page d'offre est une cause fréquente de clics sans demande.
+COM-63.07 | conserver | justifiee
+  j: Zone de diffusion, lue par l'IA : comparée à la distance des clients (ACQ-01.06), montre une diffusion trop large ou trop étroite.
+COM-63.08 | conserver | justifiee
+  j: Qui gère les annonces, lue par l'IA : le plan diffère selon que le dirigeant ou un prestataire s'en occupe.

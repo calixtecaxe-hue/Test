@@ -730,6 +730,17 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
     - estimation par case dans un tableau (aujourd'hui, un chiffre d'affaires mois par mois compte comme exact) ;
     - deux réponses données à un mois d'écart : tolérer ou non (aujourd'hui, l'évolution attend une mise à jour) ;
     - couleur d'une évolution : aucune règle, donc aucune couleur.
+14. **Audit d'utilité de la banque (28 octobre)** (`docs/audit-utilite/rapport.md`, section 8 ; la banque n'a pas été modifiée) :
+    - FIN-48.01 (banquier) : remplacer par une question sur le besoin de financement, posée seulement si un besoin est établi
+      (recommandé), retirer, ou garder ;
+    - règle commune des pratiques « notées directement » : une pratique absente n'est un défaut que si le problème qu'elle traite est
+      constaté ;
+    - grilles de qualité Comm « appliquées par l'IA » (COM-01.02, COM-20.01, COM-44.05, COM-49 à 54) : qui les applique ;
+    - 20 retraits, 4 fusions, 20 conditions et 7 textes à préciser proposés, question par question ;
+    - 13 questions posées mais absentes des entrées du calcul qui en a besoin (dont FIN-09.10 pour les charges fixes, FIN-46 pour
+      XF03 et XF38) ;
+    - 5 questions RH hors périmètre (droit du travail, rémunération, financement de la formation) ;
+    - COM-24.01 redemande l'objectif de l'agent Comm ; D07 (stock) redemande ce que le compte connaît.
 
 ### À valider (propositions déjà en place)
 

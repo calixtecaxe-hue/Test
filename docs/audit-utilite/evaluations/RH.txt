@@ -1,0 +1,433 @@
+# RH & Organisation
+# Rappel du périmètre : jamais de droit du travail. Plusieurs questions ci-dessous touchent à ce périmètre ; elles sont signalées.
+
+# RH-46 Composition de l'équipe
+RH-46.01 | conserver | justifiee
+  j: Partagée avec ACQ-21.01 (posée une fois) : personnes par domaine ; donne l'équivalent temps plein au contact des clients (ACQ-21.10, 21.11).
+RH-46.02 | retirer | a_justifier
+  p: Aucun usage écrit ; tableau de six lignes. Les types de contrat (CDD, intérim, apprentis…) touchent au droit du travail, hors du périmètre de l'agent : l'IA ne peut pas en tirer un conseil sans en sortir.
+  j: À situation identique, une autre répartition des contrats ne change aucun calcul ; seul un commentaire sur les contrats, interdit, pourrait en sortir.
+  d: La garder seulement si un usage hors droit du travail est écrit (par exemple : part de l'équipe en contrat court comme facteur d'instabilité, lu avec les départs RH-32).
+
+# RH-01 Clarté des missions
+RH-01.01 | conditionnelle | conditions
+  p: « Notée directement » : des missions non écrites deviennent un défaut même dans une équipe de trois personnes où chacun sait quoi faire. Le problème que la pratique doit résoudre est mesuré par RH-01.02 (tâches sans responsable), posée seulement en approfondi.
+  j: Missions écrites : utile quand des tâches n'ont pas de responsable ; désigne alors une action précise (écrire qui fait quoi pour ces tâches).
+  g: « Écrivez des fiches de poste » ou « Organisez-vous mieux », sans problème constaté.
+  c: Posée si RH-01.02 n'est pas « Aucune ».
+  d: Passer RH-01.02 au niveau essentiel, pour que la condition soit décidable à ce niveau.
+RH-01.02 | conserver | justifiee
+  j: Tâches sans responsable, lue par l'IA : mesure le problème lui-même ; « 3 à 5 » ou « Plus de 5 » change la priorité du thème.
+
+# RH-02 Répartition des responsabilités
+RH-02.01 | conditionnelle | conditions
+  p: Le thème n'est pas masqué pour un dirigeant seul : « Aucune » y devient un défaut alors qu'il n'a personne à qui confier une décision.
+  j: Décisions confiées : pour une équipe, montre quelles décisions remontent toutes au dirigeant ; lue avec les sollicitations (RH-03), elle désigne la décision à confier en premier.
+  c: Posée si D02 n'est pas « Seul » (condition « D02 · si au moins un salarié », existante).
+  m: Règle de notation Pratique à écrire.
+RH-02.02 | conserver | justifiee
+  j: Heures de prestataires extérieurs par domaine : dépendance totale au dirigeant (XR23) ; un dirigeant seul qui ne s'appuie sur aucun prestataire porte tout.
+
+# RH-03 Autonomie
+RH-03.01 | conserver | justifiee
+  j: Sollicitations par jour : temps du dirigeant consommé (RH-03.06, XR01), heures récupérables (RH-03.07).
+RH-03.02 | conserver | justifiee
+  j: Durée d'une sollicitation : temps consommé (XR01).
+RH-03.03 | conserver | justifiee
+  j: Sujets des sollicitations : sollicitations évitables (XR02) ; désigne le sujet sur lequel écrire une règle.
+RH-03.04 | conserver | justifiee
+  j: Part des sollicitations évitables : heures récupérables (RH-03.07, RH-05.08).
+RH-03.05 | conserver | justifiee
+  j: Qui sollicite le plus : sollicitations évitables (XR02) ; désigne la partie de l'équipe à rendre autonome.
+
+# RH-04 Délégation réelle
+RH-04.01 | conserver | justifiee
+  j: Tâches confiées en 3 mois : taux de délégation réussie (RH-04.06, XR06) ; ouvre RH-04.02.
+RH-04.02 | conserver | justifiee
+  j: Tâches reprises en main : taux de délégation réussie ; ouvre RH-04.03 à 04.05.
+RH-04.03 | conserver | justifiee
+  j: Raison de la reprise : origine du problème de délégation (RH-04.07) ; compétence, consignes ou procédure appellent des actions différentes.
+RH-04.04 | conserver | justifiee
+  j: Tâches le plus souvent reprises (texte libre) : contexte pour l'IA, qui nomme la tâche dans le plan ; jamais dans le calcul.
+RH-04.05 | conserver | justifiee
+  j: Heures passées à reprendre ce qui a été délégué : efficacité de la délégation (XR06).
+
+# RH-05 Temps du dirigeant
+RH-05.01 | conserver | justifiee
+  j: Jours et heures travaillés : base des heures récupérables (XR04), du temps de développement (XR05), du temps en urgence (RH-09.05) ; comparable au marché.
+RH-05.02 | conserver | justifiee
+  j: Répartition de la semaine : heures réellement consacrées au développement (RH-05.07), quoi déléguer en premier (XR07).
+RH-05.03 | conserver | justifiee
+  j: Heures sur des tâches délégables : heures récupérables (RH-05.08, XR04), quand un recrutement devient nécessaire (XR27). Le plan suit le temps libéré (section 8).
+RH-05.04 | conserver | justifiee
+  j: Soirs et week-ends travaillés : temps consacré au développement (XR05) ; signale une charge qui n'est pas visible dans les heures de semaine.
+RH-05.05 | conserver | justifiee
+  j: Charge plus forte ou plus faible qu'il y a 12 mois, lue par l'IA : une hausse rend la libération de temps plus urgente.
+RH-05.10 | conserver | exploitation
+  p: Aucun usage écrit. Or la dépendance totale au dirigeant (XR23) annonce « absence possible du dirigeant » et lit à la place RH-38.01, qui porte sur les autres personnes clés (« En dehors de vous »).
+  j: Durée d'absence possible du dirigeant sans retard pour les clients : la mesure directe de sa dépendance ; « Moins d'1 jour » change la priorité du plan (relais, consignes écrites).
+  m: Brancher RH-05.10 sur XR23 à la place de RH-38.01 (voir RH-38.01).
+RH-05.11 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Semaines de congés du dirigeant : avec RH-05.01 et RH-05.10, montre une charge que les heures hebdomadaires ne montrent pas (aucun congé possible).
+  m: Écrire sa lecture : avec XR05 (temps de développement) et XR23 (dépendance au dirigeant). Aucun seuil n'est écrit ; ne pas en inventer.
+
+# RH-06 Volume de travail
+RH-06.01 | conserver | justifiee
+  j: Heures prévues par les contrats : écart avec les heures réelles (RH-06.08), surcharge (XR08), goulot (XR12).
+RH-06.02 | conserver | justifiee
+  j: Heures réellement travaillées par salarié : écart avec les contrats, temps en urgence, comparable au marché.
+RH-06.03 | conserver | justifiee
+  j: Partagée avec FIN-07.05 (posée une fois) : heures supplémentaires face à un recrutement (XR28).
+RH-06.04 | conserver | justifiee
+  j: Partagée avec FIN-07.01 (posée une fois) : coût des reprises (XR14), heures supplémentaires face à un recrutement (XR28).
+RH-06.05 | conserver | justifiee
+  j: Semaines avec heures supplémentaires : surcharge ponctuelle ou durable (RH-06.09, XR08), mois forts sans renfort (XR30) ; ouvre RH-06.06 et 06.07.
+RH-06.06 | retirer | a_justifier
+  p: Lue par l'IA, sans lecture écrite. La réponse « Ni l'un ni l'autre » porte sur le respect du droit du travail (paiement ou récupération des heures supplémentaires) : l'agent RH ne peut rien en dire sans sortir de son périmètre.
+  j: À situation identique, « payées » ou « récupérées » ne change ni la surcharge mesurée ni le choix entre heures supplémentaires et recrutement (XR28, qui lit le coût, déjà demandé en RH-06.03).
+  d: Retirer ; ou la garder avec l'avis de l'avocat sur ce que le rapport peut dire de « Ni l'un ni l'autre ».
+RH-06.07 | conserver | justifiee
+  j: Partie de l'équipe qui fait le plus d'heures supplémentaires, lue par l'IA : désigne où ajouter de la capacité.
+
+# RH-07 Capacité disponible
+RH-07.01 | conserver | justifiee
+  j: Heures en plus acceptables par domaine : capacité réellement utile pour vendre plus (XR09), ventes absorbables sans recruter (RH-07.05), objectif absorbable.
+RH-07.02 | conserver | exploitation
+  p: Lue par l'IA, sans lecture écrite.
+  j: Heures absorbables pendant un pic : dit si les mois forts (RH-11) se passent sans renfort ; une faible réserve rend le renfort prioritaire.
+  m: Ajouter RH-07.02 aux entrées de XR30 (mois forts sans renfort).
+
+# RH-08 Répartition de la charge
+RH-08.01 | conserver | justifiee
+  j: Personne la plus chargée (déclencheur D27) : goulot d'étranglement (XR12) ; ouvre RH-08.02 et 08.04 quand ce n'est pas le dirigeant.
+RH-08.02 | conserver | justifiee
+  j: Heures réelles de cette personne : sa charge face à la moyenne (RH-08.07).
+RH-08.03 | conserver | justifiee
+  j: Personnes qui attendent son travail : ampleur du goulot (RH-08.08, XR12).
+RH-08.04 | conserver | justifiee
+  j: Heures de son travail délégables : quoi déléguer en premier (XR07).
+RH-08.05 | conserver | justifiee
+  j: Surcharge ponctuelle ou à l'année : goulot (XR12) ; un pic appelle un renfort temporaire, une surcharge à l'année une réorganisation ou un recrutement.
+RH-08.06 | conserver | justifiee
+  j: Travail en retard devant la personne la plus chargée, lue par l'IA : rend le goulot urgent ou non.
+
+# RH-47 Planning de l'équipe (thème ajouté par le classeur 11, à valider)
+RH-47.01 | conserver | exploitation
+  p: Aucun usage écrit ; thème Pratique sans règle.
+  j: Qui fait le planning et en combien d'heures : si c'est le dirigeant, ce temps entre dans ses heures récupérables ; « Il n'y a pas de planning » explique des urgences (RH-09) quand elles existent.
+  m: Relier aux heures récupérables du dirigeant (XR04) et lire avec les causes d'urgence (RH-09.02).
+RH-47.02 | fusionner | peu_utile
+  p: Aucun usage écrit. Le délai de prévenance du planning est encadré par le droit du travail pour certains contrats : l'IA ne peut pas en juger. Le problème opérationnel est mesuré par RH-47.03 (changements de dernière minute).
+  j: À situation identique, elle n'ajoute rien à RH-47.03 pour le diagnostic ou le plan.
+  f: RH-47.03.
+RH-47.03 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Changements de planning au dernier moment : cause directe d'urgences et d'interruptions ; désigne une action précise quand ils sont fréquents.
+  m: Lire avec RH-09 (urgences, cause « Manque de planification ») et XR13.
+
+# RH-09 Urgences
+RH-09.01 | conserver | justifiee
+  j: Part du temps en urgence : heures en urgence (RH-09.05), anticipation ou réaction permanente (XR13).
+RH-09.02 | conserver | justifiee
+  j: Causes des urgences : XR13 ; demande client, erreur interne, fournisseur ou absence appellent des actions différentes.
+RH-09.03 | conserver | justifiee
+  j: Urgences évitables : heures évitables (RH-09.06), XR13, XR27.
+RH-09.04 | conserver | justifiee
+  j: Sort du travail prévu quand une urgence tombe, lue par l'IA : « Abandonné » rend le thème prioritaire.
+
+# RH-10 Interruptions
+RH-10.01 | conserver | justifiee
+  j: Interruptions par jour : temps fragmenté (RH-10.07, XR03), heures récupérables (RH-10.08).
+RH-10.02 | conserver | justifiee
+  j: Temps perdu par interruption : temps fragmenté (XR03).
+RH-10.03 | conserver | justifiee
+  j: Source des interruptions : XR03 ; téléphone, messages ou collègues appellent des actions différentes.
+RH-10.04 | conditionnelle | conditions
+  p: Le thème n'est pas masqué pour un dirigeant seul, mais la question porte sur « un membre de votre équipe ».
+  j: Interruptions d'un membre de l'équipe, lue par l'IA : montre si le problème touche toute l'équipe ou le seul dirigeant.
+  c: Posée si D02 n'est pas « Seul » (condition existante « D02 · si au moins un salarié »).
+RH-10.05 | conserver | justifiee
+  j: Interruptions qui auraient pu attendre : heures récupérables en les regroupant (RH-10.08).
+RH-10.06 | conserver | justifiee
+  j: Moment des interruptions : XR03 ; désigne le créneau à protéger.
+
+# RH-11 Pics et creux
+RH-11.01 | conserver | justifiee
+  j: Partagée avec ACQ-23.01 (posée une fois) : mois forts et faibles, affichés dans le rapport.
+RH-11.02 | conserver | justifiee
+  j: Ce qui est fait pendant les mois chargés : mois forts sans renfort (RH-11.03, XR30).
+
+# RH-12 Méthodes reproductibles
+RH-12.01 | conserver | justifiee
+  j: Tâches clés et tâches décrites par écrit : part décrite (RH-12.02), savoir-faire non écrit (XR24), dépendance (XR21, XR23).
+
+# RH-13 Passage de relais
+RH-13.01 | conserver | justifiee
+  j: Reprise du travail d'un absent : « Il n'est pas repris » est un risque concret pour les clients et appelle une action précise (consignes écrites pour ce poste).
+  m: Règle de notation Pratique à écrire.
+
+# RH-14 Accès à l'information
+RH-14.01 | conditionnelle | conditions
+  p: Posée au dirigeant seul (« un espace que tout le monde peut consulter »), alors que sa situation est couverte par RH-45.02 (informations notées pour qu'une autre personne puisse s'en servir).
+  j: Informations rangées dans un espace commun : temps perdu à chercher (XR25).
+  c: Posée si D02 n'est pas « Seul ».
+RH-14.02 | conserver | justifiee
+  j: Temps perdu à chercher une information : temps perdu pour toute l'équipe (RH-14.03, XR25).
+
+# RH-15 Outils
+RH-15.01 | conditionnelle | conditions+exploitation
+  p: « Notée directement », posée aussi au dirigeant seul (planning partagé, messagerie d'équipe). Un outil absent n'est pas un défaut en soi dans une petite équipe.
+  j: Outils d'organisation et qui s'en sert : explique des urgences, des recherches d'information ou des changements de planning quand ils existent.
+  g: « Équipez-vous d'un outil de gestion des tâches », sans problème constaté.
+  c: Posée si D02 n'est pas « Seul ».
+  m: Lecture avec RH-09.02, RH-14.02 et RH-47.03 à écrire.
+RH-15.02 | conserver | justifiee
+  j: Matériel qui ralentit : ouvre RH-15.03 ; matériel qui ralentit (XR29).
+RH-15.03 | conserver | exploitation
+  p: Aucun usage écrit, alors que XR29 calcule « heures perdues à cause du matériel × coût d'une heure » : ses entrées citent la question oui / non (RH-15.02), pas les heures.
+  j: Heures perdues par semaine : seul chiffre qui permet de valoriser le matériel qui ralentit.
+  m: Ajouter RH-15.03 aux entrées de XR29.
+
+# RH-16 Erreurs et reprises
+RH-16.01 | conserver | justifiee
+  j: Partagée avec FIN-10.01 (posée une fois) : temps perdu en reprises (RH-16.05, XR14) ; ouvre RH-16.02 à 16.04.
+RH-16.02 | conserver | justifiee
+  j: Cause des reprises dans l'organisation : XR14 ; consignes, procédure, information ou formation appellent des actions différentes.
+RH-16.03 | retirer | peu_utile
+  p: Lue par l'IA seulement. La gravité des reprises est déjà mesurée par leur durée (RH-16.01, temps moyen d'une reprise ; FIN-10.03, heures par reprise).
+  j: À situation identique, la part de reprises complètes ne change ni le temps perdu ni l'action.
+RH-16.04 | conserver | justifiee
+  j: Partie de l'équipe qui fait le plus de reprises, lue par l'IA : désigne où agir.
+
+# RH-17 Tâches répétitives
+RH-17.01 | conserver | justifiee
+  j: Trois tâches répétitives les plus longues : chaque tâche classée (supprimer, automatiser, confier, RH-17.03), heures récupérables (XR15, effet EFF-RH-01). Désigne la tâche par son nom. Texte « vos 3 tâches » déjà à revoir (section 15).
+RH-17.02 | conserver | justifiee
+  j: Heures de tâches répétitives : part du temps de l'équipe (RH-17.05), potentiel d'automatisation (XR15).
+
+# RH-18 Priorités
+RH-18.01 | conserver | justifiee
+  j: Partage des priorités de la semaine : « Pas vraiment » explique des urgences et des sollicitations quand elles existent ; action précise (priorités écrites en début de semaine).
+  g: « Partagez vos priorités » : à n'écrire que si des urgences (RH-09) ou des sollicitations (RH-03) sont constatées.
+  m: Règle de notation Pratique à écrire.
+
+# RH-19 Échanges individuels et collectifs
+RH-19.01 | conserver | justifiee
+  j: Réunions (nombre, durée, participants) : temps passé en réunion (RH-19.05, XR16) ; ouvre RH-19.02 et 19.04.
+RH-19.02 | conserver | justifiee
+  j: Ordre du jour et décisions notées : réunions utiles ou non (RH-19.06, XR16).
+RH-19.03 | conserver | justifiee
+  j: Entretiens individuels (fréquence, dernier) : absence de communication ou surcharge de réunions (RH-19.06, XR16).
+  p: Certains entretiens sont encadrés par le droit du travail : le rapport doit rester sur le management, sans rappel d'obligation.
+RH-19.04 | conserver | justifiee
+  j: Part des réunions utiles : XR16.
+
+# RH-20 Retours sur le travail
+RH-20.01 | conserver | justifiee
+  j: Fréquence des retours sur le travail : « Rarement » explique des reprises ou des délégations ratées quand elles existent.
+  g: « Faites des retours réguliers » : à relier aux reprises (RH-16) ou aux délégations reprises en main (RH-04.02).
+  m: Règle de notation Pratique à écrire.
+
+# RH-21 Disponibilité du responsable
+RH-21.01 | preciser | formulation+exploitation
+  p: « Notée directement », mais le sens de la note n'est pas évident : répondre « dans l'heure » peut signifier des interruptions permanentes (RH-10) et des sollicitations évitables (RH-03), répondre « le lendemain » peut bloquer l'équipe. Indicateur à deux sens, sans règle.
+  j: Délai de réponse du responsable : lu avec les sollicitations et les interruptions, il dit si le dirigeant est un goulot ou au contraire trop interrompu.
+  m: Ne pas la noter seule ; écrire sa lecture avec RH-03.01, RH-10.01 et RH-08 (goulot).
+
+# RH-22 Remontées de terrain
+RH-22.01 | conserver | justifiee
+  j: Moyen de remonter un problème et idées appliquées (équipes de 6 personnes ou plus) : sans moyen prévu ni idée appliquée, les problèmes du terrain n'arrivent pas au dirigeant.
+  g: « Mettez en place une boîte à idées » : à relier à un problème constaté (reprises, départs).
+  m: Règle de notation Pratique à écrire.
+
+# RH-48 Objectifs individuels (classeur 11, à valider)
+RH-48.01 | conserver | exploitation
+  p: Aucun usage écrit ; thème Pratique sans règle ; posée dès deux personnes.
+  j: Objectifs individuels clairs : explique des délégations ratées ou des reprises quand elles existent ; ouvre RH-48.02.
+  g: « Fixez des objectifs individuels » dans une équipe de deux ou trois personnes, sans problème constaté.
+  m: Lecture avec RH-04 et RH-16 à écrire.
+RH-48.02 | retirer | a_justifier
+  p: Aucun usage écrit. Une rémunération liée aux objectifs relève de la politique de rémunération et du droit du travail : l'agent ne peut pas en faire un conseil.
+  j: À situation identique, la réponse ne change aucun calcul ; seul un conseil sur la rémunération, hors périmètre, pourrait en sortir.
+
+# RH-49 Encadrement (classeur 11, à valider)
+RH-49.01 | conserver | exploitation
+  p: Aucun usage écrit ; ouvre RH-49.02.
+  j: Responsables et nombre de personnes suivies par chacun (équipes de 6 ou plus) : un responsable qui suit beaucoup de personnes est un goulot possible.
+  m: Aucun seuil n'est écrit ; à lire avec RH-08 (goulot) sans en inventer.
+RH-49.02 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Responsables formés à l'encadrement : lu avec les départs (RH-32.03, cause « Management ») ou les reprises, désigne une action précise.
+  g: « Formez vos responsables » sans problème constaté.
+  m: Lecture avec RH-32.03 à écrire.
+
+# RH-23 Couverture des savoir-faire
+RH-23.01 | conserver | justifiee
+  j: Compétences qui manquent et comment elles sont couvertes : « Pas fait » sur une compétence nécessaire est un manque direct, nommé par le dirigeant.
+
+# RH-24 Besoins de développement
+RH-24.01 | conserver | exploitation
+  p: « Notée directement », sans règle ; « Non » deviendrait un défaut même sans manque de compétence.
+  j: Besoins de formation identifiés (équipes de 6 ou plus) : utile quand des compétences manquent (RH-23.01) ou que des reprises viennent d'un manque de formation (RH-16.02).
+  g: « Identifiez les besoins de formation de chacun ».
+  m: Lecture avec RH-23.01 et RH-16.02 à écrire.
+
+# RH-25 Apprentissage
+RH-25.01 | conserver | exploitation
+  p: « Notée directement » ; aucun repère ne dit combien de jours de formation sont attendus, et zéro n'est pas un défaut en soi.
+  j: Jours de formation et transmission entre collègues : utile avec les compétences qui manquent (RH-23.01) et la polyvalence (RH-27.01) ; ouvre RH-26.01.
+  g: « Formez votre équipe ».
+  m: Aucun seuil sourcé ; lecture avec RH-23.01 et RH-27.01 à écrire.
+RH-25.02 | retirer | a_justifier
+  p: Aucun usage écrit. Les financements de la formation (opérateurs de compétences) relèvent de la réglementation de la formation professionnelle, proche du droit du travail ; la réponse « Je ne connais pas ce financement » pousse l'IA à expliquer un dispositif réglementé.
+  j: À situation identique, la réponse ne change ni le manque de compétence ni sa priorité.
+  d: Retirer, ou faire valider par l'avocat ce que le rapport peut dire de ces financements.
+
+# RH-26 Application
+RH-26.01 | conserver | justifiee
+  j: Formation appliquée ensuite, lue par l'IA (posée si l'équipe a été formée) : « Rarement » oriente vers la mise en pratique plutôt que vers plus de formation.
+
+# RH-27 Polyvalence
+RH-27.01 | conserver | justifiee
+  j: Tâches clés maîtrisées par une seule personne : part sans deuxième personne capable (RH-27.02), savoir-faire non écrit (XR24), dépendance (XR21).
+
+# RH-28 Besoin (recrutement)
+RH-28.01 | conserver | justifiee
+  j: Recrutement fait ou prévu (déclencheur D13) : ouvre 13 questions et masque les thèmes RH-28 à 31 sinon (règles exécutées).
+RH-28.02 | conserver | justifiee
+  j: Postes ouverts et leur état : postes vacants et capacité manquante (RH-28.07), échec d'intégration (XR18).
+RH-28.03 | conserver | justifiee
+  j: Délai entre annonce et arrivée : délai avant une recrue productive (RH-31.04), quand recruter pour l'objectif (XR19).
+RH-28.04 | conserver | justifiee
+  j: Candidatures, entretiens et refus, lue par l'IA : peu de candidatures oriente vers la recherche de candidats, beaucoup de refus vers l'offre elle-même.
+RH-28.05 | conserver | justifiee
+  j: Coût et heures d'un recrutement : coût complet (RH-28.08), coût de montée en compétence (XR20).
+RH-28.06 | conserver | justifiee
+  j: Poste le plus difficile à pourvoir (texte libre, lue par l'IA) : nomme le poste dans le plan.
+RH-28.09 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Moyens de recrutement utilisés : lus avec le nombre de candidatures (RH-28.04), ils disent si le manque de candidats vient de canaux trop peu nombreux.
+  m: Lecture avec RH-28.04 à écrire.
+RH-28.10 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Moyen qui a apporté les meilleures recrues : désigne où concentrer l'effort de recrutement.
+  m: Lecture avec RH-28.09 et RH-28.04 à écrire.
+
+# RH-29 à RH-31 Intégration
+RH-29.01 | conserver | justifiee
+  j: Ce qui est prêt à l'arrivée d'une recrue : origine probable des départs précoces (RH-33.03, XR18).
+RH-30.01 | conserver | justifiee
+  j: Suivi désigné pour chaque recrue : origine probable des départs précoces (XR18).
+RH-31.01 | conserver | justifiee
+  j: Temps pour devenir autonome : délai avant une recrue productive comparé à l'échéance de l'objectif (XR19), coût de montée en compétence (XR20).
+RH-31.02 | conserver | justifiee
+  j: Heures consacrées à la recrue : coût de montée en compétence (RH-31.05, XR20).
+RH-31.03 | conserver | justifiee
+  j: Poste le plus long à maîtriser : quand recruter pour l'objectif (XR19).
+
+# RH-32 Mouvements d'équipe
+RH-32.01 | conserver | justifiee
+  j: Départs par motif : taux de départ (RH-32.05, comparable au marché, XR17) ; ouvre RH-32.03 et 32.04. Les motifs sont des catégories juridiques : le rapport ne les commente pas en droit.
+RH-32.02 | conserver | justifiee
+  j: Départs sur un poste clé et remplacement : taux de départ (XR17) ; un poste clé non remplacé change la priorité.
+RH-32.03 | conserver | justifiee
+  j: Cause principale des départs, lue par l'IA : rémunération, charge, management ou évolution appellent des actions différentes.
+RH-32.04 | conserver | justifiee
+  j: Poste le plus touché et ancienneté au départ, lue par l'IA : des départs précoces sur un poste désignent l'accueil ou le poste lui-même.
+RH-32.06 | conditionnelle | conditions+exploitation
+  p: Aucun usage écrit ; posée même quand personne n'est parti (aucune condition), alors que RH-32.03 et 32.04 attendent un départ.
+  j: Transmission avant un départ : un savoir-faire perdu au départ est un risque concret, proche du savoir-faire non écrit (XR24).
+  c: Posée s'il y a eu des départs (condition existante « D54 · s'il y a eu des départs »).
+  m: Ajouter à la lecture de XR24.
+
+# RH-33 Départs précoces
+RH-33.01 | conserver | justifiee
+  j: Recrues parties dans l'année, quand et à l'initiative de qui : taux d'échec d'intégration (RH-33.02, XR18).
+
+# RH-34 Absences
+RH-34.01 | conserver | justifiee
+  j: Jours d'absence hors congés : taux d'absence (RH-34.04, comparable au marché), effet des absences (XR26).
+RH-34.02 | conserver | justifiee
+  j: Absences qui obligent à remplacer ou décaler des clients : effet des absences (XR26).
+RH-34.03 | conserver | justifiee
+  j: Part des absences longues, lue par l'IA : distingue des absences courtes répétées (organisation, charge) d'absences longues, sur lesquelles l'agent ne dit rien de médical ni de juridique.
+
+# RH-35 Retours sur les conditions de travail
+RH-35.01 | conserver | exploitation
+  p: « Notée directement », sans règle.
+  j: Recueil de l'avis de l'équipe (6 personnes ou plus) : utile quand départs ou absences sont élevés ; « Jamais » désigne alors une action précise.
+  g: « Recueillez l'avis de votre équipe » sans départ ni absence constatés.
+  m: Lecture avec RH-32 et RH-34 à écrire. Le mini-questionnaire anonyme aux salariés (section 15) répondra mieux à ce besoin.
+
+# RH-36 Reconnaissance
+RH-36.01 | conditionnelle | conditions
+  p: Contexte lu par l'IA, posé à toute équipe de 6 personnes ou plus. « Rien de particulier » pousse un conseil général de reconnaissance, sans lien avec un problème.
+  j: Formes de reconnaissance : utile pour expliquer des départs dont la cause est le management ou le manque d'évolution.
+  g: « Reconnaissez le travail bien fait ».
+  c: Posée s'il y a eu des départs (D54).
+
+# RH-37 Dépendance aux personnes clés
+RH-37.01 | conditionnelle | conditions
+  p: Le thème n'est pas masqué pour un dirigeant seul, alors que la question exclut le dirigeant (« En dehors de vous ») : pour lui, le tableau reste vide.
+  j: Personnes clés, ce qu'elles seules savent faire, remplaçant, procédure : personnes critiques sans remplaçant (RH-37.03), savoir-faire non écrit (XR24), résilience (XR22) ; ouvre RH-37.02 et RH-38.
+  c: Posée si D02 n'est pas « Seul ».
+RH-37.02 | conserver | justifiee
+  j: Semaines pour former un remplaçant, lue par l'IA : rend le risque d'une personne clé plus ou moins urgent.
+
+# RH-38 Absence du dirigeant
+RH-38.01 | preciser | formulation
+  p: Le thème s'appelle « Absence du dirigeant » et la dépendance totale au dirigeant (XR23) lit cette question comme « absence possible du dirigeant », mais elle porte sur les personnes clés désignées en RH-37.01, hors dirigeant. L'absence possible du dirigeant est demandée ailleurs (RH-05.10), sans usage.
+  j: Absence possible de chaque personne clé : fonction la plus fragile (RH-38.03), CA exposé (RH-38.04), résilience (XR22).
+  m: Dans le classeur, renommer le thème (« Absence des personnes clés ») et remplacer RH-38.01 par RH-05.10 dans les entrées de XR23.
+RH-38.02 | conserver | justifiee
+  j: Ce qui arrive en premier au-delà de cette durée : résilience (XR22).
+
+# RH-39 Changements d'organisation
+RH-39.01 | conserver | exploitation
+  p: « Notée directement », sans règle.
+  j: Façon de mener les changements (équipes de 6 ou plus) : le plan d'action est lui-même un changement ; la réponse dit comment le présenter à l'équipe.
+  g: « Associez l'équipe aux changements ».
+  m: Lue par l'IA pour la mise en œuvre du plan, pas notée seule.
+
+# RH-40 Indicateurs de suivi
+RH-40.01 | conserver | justifiee
+  j: Chiffres d'organisation suivis : ce que dit l'absence de données (XR31).
+
+# RH-41 à RH-45 S'entourer (dirigeant seul, classeur 11, à valider)
+RH-41.01 | conserver | justifiee
+  j: Envie d'être aidé et échéance : ouvre neuf questions (règle exécutée) ; « Non, je préfère rester seul » ferme ce bloc et oriente le plan vers l'organisation du dirigeant seul.
+RH-41.02 | conserver | justifiee
+  j: Forme d'aide envisagée, lue par l'IA : un salarié, un apprenti ou un freelance changent le coût, le délai et ce qui est à préparer. Aucun conseil sur le contrat lui-même.
+RH-41.03 | conserver | justifiee
+  j: Raison principale d'être aidé, lue par l'IA : libérer du temps, répondre à plus de demandes ou pouvoir s'absenter orientent vers des tâches à confier différentes.
+RH-42.01 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Tâches à confier, heures, apprentissage rapide, méthode écrite : donne les heures libérables et la première tâche à confier (celle qui s'apprend vite et a une méthode).
+  m: Calcul des heures libérables à écrire, sur le modèle de XR04 (heures du dirigeant récupérables).
+RH-42.02 | conserver | justifiee
+  j: Tâches impossibles à confier et pourquoi (texte libre, contexte pour l'IA) : borne ce que le plan peut proposer.
+RH-43.01 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Budget mensuel pour une aide : comparé à la valeur des clients perdus faute de temps (RH-43.02 × panier moyen), dit si l'aide se paie par le chiffre d'affaires récupéré.
+  g: « Embauchez un apprenti » ou un montant de salaire inventé : aucun coût d'une forme d'aide n'est sourcé ; l'IA ne doit pas en avancer.
+  m: Croisement budget et chiffre d'affaires perdu à écrire (nature Cohérence du thème RH-43).
+RH-43.02 | conserver | justifiee
+  j: Partagée avec ACQ-22.10 (posée une fois) : clients perdus faute de pouvoir les prendre ; valeur de ce qu'une aide permettrait de récupérer.
+RH-43.03 | conserver | justifiee
+  j: Ce qu'il faudrait prévoir en plus (véhicule, outillage, poste), lue par l'IA : signale un coût d'accueil qui change la forme d'aide la plus adaptée.
+RH-44.01 | conserver | justifiee
+  j: Ce qui retient de se faire aider, lue par l'IA : le coût, les démarches, la peur de mal choisir ou le temps de formation appellent des réponses différentes. Les démarches ne donnent lieu à aucun conseil juridique.
+RH-44.02 | conserver | justifiee
+  j: Expérience passée d'un salarié ou d'un freelance : ouvre RH-44.03 si elle s'est mal passée.
+RH-44.03 | conserver | justifiee
+  j: Ce qui n'a pas fonctionné, lue par l'IA : évite de reproposer la même forme d'aide sans traiter la cause.
+RH-45.01 | conserver | justifiee
+  j: Qui s'occuperait des clients pendant deux semaines : « Personne » est un risque concret pour un dirigeant seul et appelle une action précise (un relais nommé).
+RH-45.02 | conserver | justifiee
+  j: Clients, accès et informations clés notés : condition pour qu'un relais puisse agir ; « tout est dans ma tête » désigne une action précise.
+RH-45.03 | fusionner | peu_utile
+  p: Aucun usage écrit. Le relais par un confrère, un sous-traitant ou un freelance est déjà une réponse de RH-45.01.
+  j: À situation identique, elle n'ajoute que l'appartenance à un réseau, sans dire si ce réseau peut reprendre des clients.
+  g: « Rejoignez un réseau de professionnels ».
+  f: RH-45.01.
