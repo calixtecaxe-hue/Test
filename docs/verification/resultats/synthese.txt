@@ -16,3 +16,4 @@ prereponse                   code 0  Tout est conforme.
 autre                        code 0  168 vérifications, 0 échec(s).
 compte                       code 0  Tout est conforme.
 audit-client                 code 1  38 contrôles, 37 conformes, 1 écart(s) : R-01.
+boutons-pages                code 0  156 vérifications, 0 échec(s).
