@@ -18,3 +18,4 @@ compte                       code 0  Tout est conforme.
 audit-client                 code 1  38 contrôles, 37 conformes, 1 écart(s) : R-01.
 boutons-pages                code 0  156 vérifications, 0 échec(s).
 complementaire               code 0  Erreurs : 0 · points d'attention : 0
+captures                     code 0  7 captures écrites dans docs/verification/captures
