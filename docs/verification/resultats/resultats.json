@@ -1,5 +1,5 @@
 {
- "le": "2026-10-28T00:01:54.602Z",
+ "le": "2026-10-28T21:38:49.293Z",
  "resultats": [
   {
    "id": "R-01",
@@ -27,21 +27,21 @@
   },
   {
    "id": "R-05",
-   "attendu": "avancement : 4 questions traitées sur 67 affichées dans le questionnaire, soit 6 %",
+   "attendu": "avancement : 4 questions traitées sur 69 affichées dans le questionnaire, soit 6 %",
    "conforme": true,
-   "observe": "{\"traitees\":4,\"questions\":67,\"pourcent\":6}"
+   "observe": "{\"traitees\":4,\"questions\":69,\"pourcent\":6}"
   },
   {
    "id": "R-06",
-   "attendu": "appels manqués = 5 : la question qui en dépend (ACQ-08.03) est affichée et répondue ; avancement 6 sur 68",
+   "attendu": "appels manqués = 5 : la question qui en dépend (ACQ-08.03) est affichée et répondue ; avancement 6 sur 70",
    "conforme": true,
-   "observe": "{\"traitees\":6,\"questions\":68,\"pourcent\":9}"
+   "observe": "{\"traitees\":6,\"questions\":70,\"pourcent\":9}"
   },
   {
    "id": "R-07",
-   "attendu": "appels manqués = 0 : ACQ-08.03 disparaît (68 → 67 questions) et sa réponse ne compte plus dans les traitées (6 → 5)",
+   "attendu": "appels manqués = 0 : ACQ-08.03 disparaît (70 → 69 questions) et sa réponse ne compte plus dans les traitées (6 → 5)",
    "conforme": true,
-   "observe": "{\"apres\":{\"questions\":67,\"traitees\":5,\"pourcent\":7},\"affApres\":{\"traitees\":5,\"questions\":67,\"pourcent\":7}}"
+   "observe": "{\"apres\":{\"questions\":69,\"traitees\":5,\"pourcent\":7},\"affApres\":{\"traitees\":5,\"questions\":69,\"pourcent\":7}}"
   },
   {
    "id": "R-08",
