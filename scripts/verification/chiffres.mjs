@@ -35,7 +35,7 @@ if (dep && plan) {
   const ok = new Set(dep.resultats.filter((r) => /-a$/.test(r.id) && r.statut === "conforme").map((r) => r.item));
   for (const it of [...plan.items, ...(plan.tailles ?? [])]) if (ok.has(it.id)) for (const c of it.attenduVrai) vues.add(c);
 }
-for (const [f, codes] of [["canaux", ["ACQ-03.01", "ACQ-03.02", "ACQ-03.05"]], ["resultats", ["ACQ-02.01", "ACQ-02.02", "ACQ-02.03", "ACQ-02.04", "ACQ-02.05", "ACQ-08.02", "ACQ-08.03", "FIN-05.02", "ACQ-03.01"]], ["separation", ["ACQ-02.01", "ACQ-02.02"]], ["retours", ["ACQ-02.01", "ACQ-02.02", "ACQ-02.03", "ACQ-02.04"]], ["rapides", ["ACQ-03.01", "ACQ-03.02", "ACQ-08.02", "ACQ-08.03", "ACQ-03.05"]]]) {
+for (const [f, codes] of [["canaux", ["ACQ-03.01", "ACQ-03.02", "ACQ-03.05"]], ["resultats", ["ACQ-02.01", "ACQ-02.02", "ACQ-02.03", "ACQ-02.04", "ACQ-02.05", "ACQ-08.02", "ACQ-08.03", "FIN-05.02", "ACQ-03.01"]], ["separation", ["ACQ-02.01", "ACQ-02.02"]], ["retours", ["ACQ-02.01", "ACQ-02.02", "ACQ-02.03", "ACQ-02.04"]], ["rapides", ["ACQ-03.01", "ACQ-03.02", "ACQ-08.02", "ACQ-08.03", "ACQ-03.05"]], ["historique", ["ACQ-02.01", "ACQ-02.03", "ACQ-23.01", "ACQ-23.03", "ACQ-01.03", "FIN-14.03"]]]) {
   const r = lire(`${R}/${f}.json`);
   if (r && r.resultats.every((x) => x.conforme)) for (const c of codes) vues.add(c);
 }
@@ -77,7 +77,7 @@ if (dep) {
 
 // --- Scénarios (contrôles navigateur et scripts) -----------------------------------------------------------------------
 const scenarios = {};
-for (const f of ["canaux", "resultats", "separation", "retours", "rapides"]) {
+for (const f of ["canaux", "resultats", "separation", "retours", "rapides", "historique"]) {
   const r = lire(`${R}/${f}.json`);
   if (r) scenarios[f] = { controles: r.resultats.length, conformes: r.resultats.filter((x) => x.conforme).length, ecarts: r.resultats.filter((x) => !x.conforme).map((x) => x.id) };
 }
@@ -114,7 +114,7 @@ const t = [
   `| Règles d'affichage | ${n(totalRegles)} | ${dependances.regles_affichage.conditions} conditions et ${dependances.regles_affichage.masquages} masquages. Elles portent les ${n(parType["condition d'affichage"] ?? 0)} liens « condition » et les ${n(parType["masquage du thème"] ?? 0)} liens « masquage ». |`,
   `| Règles jouées dans le navigateur, dans les deux sens | ${n(dependances.regles_jouees_navigateur ?? 0)} | ${horsPlan.length} hors plan : ${horsPlan.join(" ; ")}.${(dependances.regles_jouees_navigateur ?? 0) + horsPlan.length < totalRegles ? ` ${totalRegles - horsPlan.length - (dependances.regles_jouees_navigateur ?? 0)} règle(s) du plan non encore jouée(s).` : ""} |`,
   `| Règles entièrement conformes | ${n(dependances.regles_entierement_conformes ?? 0)} | ${dependances.regles_avec_ecart?.length ? `Écarts : ${dependances.regles_avec_ecart.join(", ")}.` : "Aucun écart."} ${dependances.regles_bloquees?.length ? `Bloquées : ${dependances.regles_bloquees.join(", ")}.` : "Aucune règle bloquée."} |`,
-  `| Contrôles navigateur de la vérification (canaux, règles, résultats, séparation, départs de page, changements rapides) | ${n(totNav.c)} | ${n(totNav.ok)} conformes, ${n(totNav.e)} écart(s), ${n(totNav.b)} bloqué(s). |`,
+  `| Contrôles navigateur de la vérification (canaux, règles, résultats, séparation, départs de page, changements rapides, historique) | ${n(totNav.c)} | ${n(totNav.ok)} conformes, ${n(totNav.e)} écart(s), ${n(totNav.b)} bloqué(s). |`,
 ];
 const parScript = lignesNav.map(([k, v]) => `| \`${k}\` | ${v.controles} | ${v.conformes} | ${v.ecarts.length ? v.ecarts.join(", ") : "aucun"} | ${v.bloques?.length ? v.bloques.join(", ") : "aucun"} |`);
 const autres = scenarios.synthese_des_contrôles.map((l) => {
