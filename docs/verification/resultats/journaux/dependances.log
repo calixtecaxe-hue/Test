@@ -1,3 +1,21 @@
 conforme  D-001-a   D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : règle vraie, 4 question(s) affichée(s)
 conforme  D-001-b   D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
 conforme  D-001-d   D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : retour au premier choix, les questions reviennent
+conforme  D-001-e   D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : après actualisation, même état
+conforme  D-002-a   D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-002-b   D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-002-d   D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-002-e   D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-003-a   D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : règle vraie, 5 question(s) affichée(s)
+conforme  D-003-b   D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-003-c   D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : la réponse à ACQ-04.01 ne compte plus et reste gardée
+conforme  D-003-d   D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : retour au premier choix, les questions reviennent
+conforme  D-003-d2  D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : la réponse gardée à ACQ-04.01 compte de nouveau
+conforme  D-003-e   D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : après actualisation, même état
+conforme  D-004-a   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : règle vraie, 4 question(s) affichée(s)
+conforme  D-004-b   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-004-c   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : la réponse à ACQ-05.01 ne compte plus et reste gardée
+conforme  D-004-d   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : retour au premier choix, les questions reviennent
+conforme  D-004-d2  D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : la réponse gardée à ACQ-05.01 compte de nouveau
+conforme  D-004-e   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : après actualisation, même état
+conforme  D-005-a   D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : règle vraie, 5 question(s) affichée(s)
