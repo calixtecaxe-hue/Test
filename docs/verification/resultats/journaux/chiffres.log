@@ -1,5 +1,5 @@
 {
- "calculeLe": "2026-10-28T01:15:37.378Z",
+ "calculeLe": "2026-10-28T10:41:23.106Z",
  "questions": {
   "recensees": 561,
   "posables": 556,
@@ -118,7 +118,7 @@
    "boutons-acq                  code 0  656 vérifications, 0 échec(s).",
    "boutons-fin                  code 0  398 vérifications, 0 échec(s).",
    "boutons-rh                   code 0  716 vérifications, 0 échec(s).",
-   "boutons-com                  code 1  749 vérifications, 1 échec(s)."
+   "boutons-com                  code 0  752 vérifications, 0 échec(s). (relancé seul le 28 octobre à 10 h 41 UTC, outil de test corrigé)"
   ]
  }
 }

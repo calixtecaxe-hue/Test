@@ -11,7 +11,7 @@ code**, ce qui a été **simulé** (réponses fabriquées passées au vrai code)
 | V3 Cas de référence des canaux | fait, 26 contrôles conformes | `node scripts/verification/canaux.mjs` |
 | V4 Relecture des questions | fait : 29 constats, 229 modifications de la banque, statut de relecture et contrôles automatiques du texte dans l'inventaire | `relecture-questions.json`, `appliquer-relecture.py` |
 | V5 Dépendances dans le navigateur | fait : 91 règles jouées dans les deux sens (plan + exécution) ; 4 règles hors plan, expliquées | `plan-dependances.json`, `dependances.mjs` |
-| V6 Parcours, cas difficiles, résultats | fait : cohérence des résultats, séparation, départs de page, changements rapides, parcours existants relancés | `resultats.mjs`, `separation.mjs`, `retours.mjs`, `rapides.mjs`, `tout.sh` |
+| V6 Parcours, cas difficiles, résultats | fait (exécution complète du 28 octobre) : cohérence des résultats, séparation, départs de page, changements rapides, parcours existants relancés | `resultats.mjs`, `separation.mjs`, `retours.mjs`, `rapides.mjs`, `tout.sh` |
 | V7 Rapport | fait | `rapport.md`, `chiffres.json`, `resultats/`, `captures/` |
 
 ## Étapes de la journée
@@ -31,4 +31,4 @@ code**, ce qui a été **simulé** (réponses fabriquées passées au vrai code)
    l'outil de test cherchait « Total : … sur 100 », que l'écran n'écrit plus quand le total porte sur plusieurs colonnes (M4) ; il
    remplissait donc des valeurs quelconques et la saisie restait en brouillon, comme prévu par le produit. Premier correctif de
    l'outil insuffisant (il ne réglait que le choix des colonnes) ; second correctif : total lu dans la banque. Assertion inchangée,
-   contrôle Comm relancé seul.
+   contrôle Comm relancé seul : 752 vérifications, 0 échec. Seul écart restant de toute la série : R-01 (normal).

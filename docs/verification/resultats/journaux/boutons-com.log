@@ -89,3 +89,18 @@
   COM-39.03 composite (6.1 s)
   COM-59.01 tableau (6.0 s)
   COM-60.02 cases (5.4 s)
+  COM-61.02 composite (6.0 s)
+  COM-62.01 choix (5.4 s)
+  COM-62.02 composite (6.0 s)
+  COM-62.03 tableau (9.1 s)
+  COM-62.04 tableau (9.6 s)
+  COM-62.05 tableau (96.5 s)
+  COM-62.06 nombre (4.7 s)
+  COM-62.07 cases (5.5 s)
+  COM-62.08 choix (5.5 s)
+  COM-13.04 tableau (6.6 s)
+  COM-13.05 liste (9.0 s)
+  COM-13.06 nombre (4.7 s)
+questions exercées : 101 {"liste":2,"cases":9,"texte":6,"tableau":34,"composite":19,"choix":24,"mois":1,"nombre":6}
+
+752 vérifications, 0 échec(s).

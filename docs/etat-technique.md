@@ -304,8 +304,9 @@ Chiffres au 28 octobre 2026.
 | `scripts/verification/*` | Vérification du questionnaire (inventaire, dépendances, canaux, résultats, séparation, départs de page, changements rapides, captures) : voir `docs/verification/rapport.md`, section 7 |
 
 **Derniers résultats (exécution complète du 27 au 28 octobre)** : tous les contrôles réussis, sauf `audit-client` (38 contrôles, un
-écart : R-01, compte rendu sans priorités ni plan, normal tant que le compte rendu est en conception) et `boutons-com` (un échec de
-l'outil de test sur COM-12.01, corrigé ; relance en cours). Détail : `docs/verification/rapport.md`, section 1.
+écart : R-01, compte rendu sans priorités ni plan, normal tant que le compte rendu est en conception). `boutons-com` a d'abord échoué
+sur COM-12.01 par un défaut de l'outil de test ; outil corrigé, relancé seul : 752 vérifications, 0 échec. Détail :
+`docs/verification/rapport.md`, section 1.
 
 ## 14. Historique utile
 

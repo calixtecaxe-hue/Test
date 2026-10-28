@@ -16,7 +16,7 @@ Les chiffres de ce rapport sont recalculés par `node scripts/verification/chiff
 ## 1. Chiffres
 
 <!-- CHIFFRES : section écrite par node scripts/verification/chiffres.mjs -->
-Calculés le 2026-10-28 à 01:15 UTC.
+Calculés le 2026-10-28 à 10:41 UTC.
 
 | Mesure | Nombre | Écart expliqué |
 |---|---|---|
@@ -70,7 +70,7 @@ Dernière exécution complète (`resultats/synthese.txt`), un contrôle par lign
 | `boutons-acq` | réussi | 656 vérifications, 0 échec(s). |
 | `boutons-fin` | réussi | 398 vérifications, 0 échec(s). |
 | `boutons-rh` | réussi | 716 vérifications, 0 échec(s). |
-| `boutons-com` | **code 1** | 749 vérifications, 1 échec(s). |
+| `boutons-com` | réussi | 752 vérifications, 0 échec(s). (relancé seul le 28 octobre à 10 h 41 UTC, outil de test corrigé) |
 <!-- /CHIFFRES -->
 
 **Exécution finale.** Lancée le 27 octobre à 23 h 58 UTC, terminée le 28 octobre à 1 h 15 UTC. Le conteneur de travail a redémarré
@@ -78,7 +78,7 @@ pendant une première exécution complète. `canaux` et `dependances` reprennent
 (27 octobre, 23 h 42 et 23 h 55 UTC). Elle tournait sur la construction précédente, qui ne diffère de la construction finale que par
 la page 404 : aucun code du questionnaire n'a changé entre les deux. Tous les autres contrôles ont été rejoués sur la construction finale.
 
-Lecture des contrôles sortis en code 1 :
+Lecture des contrôles sortis en code 1 pendant l'exécution finale :
 
 - `audit-client` : un seul écart, R-01 (compte rendu sans priorités ni plan). C'est normal tant que vous concevez le compte rendu
   (section 4). Q-03 et L-03, en écart avant cette vérification, sont maintenant conformes (corrections m3 et m7).
@@ -86,7 +86,9 @@ Lecture des contrôles sortis en code 1 :
   100 %, et l'écran écrit le total colonne par colonne (« Part des demandes : 0 sur 100 · … ») au lieu de « Total : 0 sur 100 ».
   L'outil, qui cherchait « Total : », ne voyait plus de total imposé et remplissait des valeurs quelconques. La saisie restait donc
   en brouillon, ce qui est le comportement voulu du produit. L'outil lit maintenant le total dans la banque et remplit à 100 % chaque
-  colonne soumise au total (`remplirTableau`), sans changer l'assertion. Relance du contrôle Comm en cours.
+  colonne soumise au total (`remplirTableau`), sans changer l'assertion. Contrôle Comm relancé seul le 28 octobre (10 h 21 à
+  10 h 41 UTC, même construction) : 752 vérifications, 0 échec. Les 3 vérifications de plus qu'en première exécution sont celles
+  qui suivent l'enregistrement de COM-12.01, que l'outil n'atteignait pas.
 
 ---
 
