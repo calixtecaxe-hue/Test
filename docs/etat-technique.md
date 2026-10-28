@@ -151,7 +151,9 @@ Chiffres au 28 octobre 2026.
 ### Fichiers, tables, routes
 
 - `src/lib/audit/` : `reponse.ts` (les quatre réponses, règle des 50 %, règle du quart), `objectif.ts` (objectif en trois champs,
-  échéance, rattachement à un indicateur), `objectifs-agent.ts` (`controlerObjectifs`, `MAX_OBJECTIFS` = 10), `affichage.ts` (règles
+  échéance, rattachement à un indicateur, phrase avec gabarit, origine), `objectifs-agent.ts` (`controlerObjectifs`, `MAX_OBJECTIFS` = 10 ;
+  texte d'une proposition imposé, texte personnel gardé, unités), `objectifs-proposes.ts` (propositions selon la taille,
+  `objectifTransmis`), `affichage.ts` (règles
   d'affichage, effectif → taille, sous-questions de cadrage), `assemblage.ts` (assemblage par profil, taille, niveau, déclencheurs,
   module métier `pourLeMetier`), `validation.ts` (contrôle serveur des réponses), `saisie.ts` (même contrôle dans le navigateur),
   `lignes.ts` (`idsDesLignes`, `groupesNumerotes`), `reponses-actives.ts`, `contexte-compte.ts`, `prereponse.ts`, `preparation.ts`
@@ -160,9 +162,16 @@ Chiffres au 28 octobre 2026.
   lignes `ACTIF` pour RH et Comm ; champ `partie` dans la structure), `User.niveauAudit`.
 - Routes : `PUT /api/audit/reponses`, `POST /api/audit/objectif` (accepte `objectifs`, un tableau, et remplace ensemble les objectifs
   actifs), `PUT /api/audit/niveau`, `PUT /api/audit/brouillon`.
-- Écran : `src/app/(espace)/audit/[slug]/` (`questionnaire.tsx`, `question-carte.tsx`, `objectif-choix.tsx` avec `MenuDeroulant`,
-  `resultats.tsx`, `resultats-maquette.tsx`). « Changer mes objectifs » reprend ceux en cours dans le formulaire. Un objectif
-  enregistré garde `choix`, `reussite` et un chiffre facultatif.
+- Écran : `src/app/(espace)/audit/[slug]/` (`questionnaire.tsx`, `question-carte.tsx`, `objectif-choix.tsx`, `resultats.tsx`,
+  `resultats-maquette.tsx`). « Changer mes objectifs » reprend ceux en cours dans le formulaire. Un objectif enregistré garde
+  `choix`, `reussite`, un chiffre facultatif et son `origine`.
+- Choix de l'objectif (RH, Comm, 28 octobre) : `objectif-choix.tsx`. Des cartes à un choix par objectif (`fieldset[data-emplacement]`,
+  `li.objectif-carte[data-carte]`, la carte `personnel` en dernier) ; Comm : « Où en êtes-vous ? » (`[data-parties]`). Les champs
+  s'ouvrent dans la carte choisie (`[data-detail]`) ; brouillon de chaque mode gardé dans l'état ; objectifs repliés
+  (`[data-replie]`) ; « Ajouter un autre objectif » (`[data-ajouter]`) ; bouton d'enregistrement collant (`.objectif-actions`).
+  Styles : `.objectif-carte`, `.objectif-perso`, `.objectif-pastille`, `.objectif-champs`, `.objectif-resume` dans `globals.css`.
+  Données : `data/objectifs-agents.json` (`parties`, `personnel` {aide, exemple, exempleReussite}, par objectif `detail`,
+  `unites`, `gabarit` {singulier, pluriel} et `question` pour un nombre visé). Avant / après : `docs/objectifs/objectifs-rh-comm.md`.
 
 ### Assemblage
 
@@ -352,12 +361,13 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 
 | Commande | Ce qu'elle contrôle |
 |---|---|
-| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 366 tests unitaires, données |
+| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 373 tests unitaires, données |
 | `node scripts/balayage-secteurs.mts` | Assemble et remplit le questionnaire de chaque métier, activité, taille, niveau et agent (229 scénarios, 7 704 questionnaires) : textes, lexique, tableaux, règles en attente, exclusions des professions réglementées, constat |
 | `node scripts/controle-parcours-secteurs.mjs`, `node scripts/controle-complementaire.mjs` | Parcours par secteur dans un navigateur |
 | `node scripts/controle-boutons.mjs [--agents ACQ,FIN,RH,COM] [--apercu <dossier>]` | Chaque question : chiffre exact, estimation, « je ne sais pas », « je ne suis pas cette donnée », « Effacer ma réponse », cases, choix, listes, tableaux, texte, mois, cartes partagées, mise à jour des questions suivantes, rechargement ; sur l'application ou l'aperçu |
 | `node scripts/controle-boutons-pages.mjs` | Écrans d'un agent : objectif, niveau, étapes, changement d'objectif, résultats, tableau de bord, jour / nuit, déconnexion |
-| `node scripts/controle-autre.mjs` | Chaque « Autre » : activités des 16 métiers à plusieurs activités, objectifs RH et Comm, options « Autre » des questions ; relit la base |
+| `node scripts/controle-autre.mjs` | Chaque « Autre » : activités des 16 métiers à plusieurs activités, « Définir mon propre objectif » de RH et Comm dans chaque partie, options « Autre » des questions ; relit la base |
+| `node scripts/verification/objectifs.mjs [--sortie dossier]` | Choix de l'objectif RH et Comm (50 contrôles) : propositions et objectif personnel, un seul mode actif, brouillon gardé, saisie vide, enregistrement et origine, actualisation, reconnexion, retour, modification, compte rendu, plusieurs objectifs, clavier, dirigeant seul, téléphone ; captures dans `docs/objectifs/captures` |
 | `node scripts/controle-compte.mjs` | Page « Mon compte » |
 | `node scripts/controle-prereponse.mjs` | Total pré-rempli de FIN-05.02 |
 | `node scripts/audit-client.mjs [--sortie dossier]` | Parcours d'un dirigeant (inscription, recherche du métier, dossier, objectif, questionnaire, coupure réseau, reprise sur téléphone, droits, mobile 360 px, clavier, connexion, mot de passe oublié, page 404). Identifiants du rapport « Audit client de CAXE (27 octobre 2026) » (Claude Docs) ; « ÉCART » et code 1 tant qu'un défaut reste |

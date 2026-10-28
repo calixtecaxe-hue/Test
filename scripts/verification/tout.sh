@@ -53,6 +53,7 @@ lancer separation node scripts/verification/separation.mjs --sortie $R
 lancer retours node scripts/verification/retours.mjs --sortie $R
 lancer rapides node scripts/verification/rapides.mjs --sortie $R
 lancer historique node scripts/verification/historique.mjs --sortie $R
+lancer objectifs node scripts/verification/objectifs.mjs --sortie $R
 lancer prereponse node scripts/controle-prereponse.mjs
 lancer autre node scripts/controle-autre.mjs
 lancer compte node scripts/controle-compte.mjs

@@ -275,19 +275,25 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
   « baisser le turnover de 5 % sur les 3 prochains mois »). Chiffre et délai sont utilisés directement. Ce qu'il veut changer est
   rattaché à un indicateur de l'agent quand c'est possible ; sinon, l'objectif est gardé tel quel et l'avancement se mesure à ce qu'il
   déclare aux points d'étape. **Un objectif par agent**, conservé avec son historique.
-- **RH et Comm : un ou plusieurs objectifs (décisions du 22 et du 27 octobre)**, chacun complet : son chiffre ou sa description, son
-  délai, son avancement ; le compte rendu et le plan les reprennent tous.
-  - Le dirigeant **choisit dans une liste d'objectifs écrite à l'avance** (ou « Autre (précisez) »), puis donne **un chiffre s'il en a
-    un, ou décrit ce qu'il veut constater** (« Comment saurez-vous que c'est atteint ? »), plus le délai en mois.
-  - Comm : deux parties (complétées le 27 octobre ; les huit objectifs d'origine sont gardés). « Améliorer ce que j'ai déjà » : 22
-    objectifs chiffrés (portée, visites du profil, clics, messages, demandes, conversion, relance, puis site, Google, fiche, annonces,
-    avis, fichier de contacts, partenaires, qualité, coût, temps). « Mettre en place ma présence en ligne » : 21 objectifs, surtout
-    sans chiffre (cible, positionnement, promesse, identité, preuves, réseau, comptes, profil, site, fiche Google, premiers avis,
-    sujets, calendrier, régularité, premières publications, formats, parcours, offre gratuite, fichier, suivi, qui s'en occupe).
-    **Tous les objectifs sont dans la même partie** : l'autre se ferme tant qu'un objectif est choisi.
-  - Chaque partie est un menu déroulant (l'invitation « Choisissez un objectif » n'est pas un choix), suivi de « Autre (précisez) »,
-    toujours visible.
-  - **La liste est un brouillon à valider par le propriétaire** (libellés, exemples, thèmes rattachés). Plafond technique de
+- **RH et Comm : une proposition ou un objectif personnel, un ou plusieurs objectifs (décisions du 22, du 27 et du 28 octobre)**.
+  Chaque objectif est complet : son chiffre ou sa description, son délai, son avancement. Le compte rendu et le plan les reprennent
+  tous. Détail, avant / après et tests : `docs/objectifs/objectifs-rh-comm.md`.
+  - **Un seul ensemble de cartes** : « Quel objectif souhaitez-vous atteindre ? » / « Choisissez une proposition ou décrivez votre
+    propre objectif. ». Les propositions viennent d'abord, puis **« Définir mon propre objectif »**, qui ouvre « Décrivez votre
+    objectif » avec une aide et un exemple propres à l'agent.
+  - **Un seul mode actif par objectif** (proposition ou objectif personnel). Le brouillon de l'autre mode est gardé dans la page,
+    jamais transmis. L'état choisi se voit sans la couleur (coche, mot « Choisi »).
+  - Ensuite, **un chiffre s'il en a un, ou ce qu'il veut constater** (« Comment saurez-vous que c'est atteint ? »), plus le délai en
+    mois. Une proposition dit son unité, ou l'intitulé du nombre visé (« Combien de nouveaux avis ? »). **Aucun chiffre n'est suggéré.**
+  - **Une proposition prend toujours le texte de la liste ; un objectif personnel garde le texte du dirigeant**, même s'il ressemble à
+    une proposition. L'origine est enregistrée (proposition, personnel) et transmise aux étapes suivantes.
+  - Comm : **« Où en êtes-vous ? »** d'abord (« Améliorer ce que j'ai déjà », 22 objectifs, ou « Mettre en place ma présence en
+    ligne », 21 objectifs). **Tous les objectifs sont dans la même partie.**
+  - « Ajouter un autre objectif » garde la possibilité de plusieurs objectifs (27 octobre). **Un ou plusieurs : à trancher**
+    (section 15).
+  - Une proposition dont tous les thèmes sont masqués pour la taille de l'entreprise n'est pas proposée (un dirigeant seul ne voit
+    pas les objectifs d'équipe).
+  - **La liste est un brouillon à valider par le propriétaire** (titres, précisions, exemples, thèmes rattachés). Plafond technique de
     10 objectifs, **à confirmer**.
 - Le moteur ne juge pas le réalisme d'un objectif sans chiffre (rien à comparer) ; l'avancement se mesure à ce que le dirigeant déclare.
 
@@ -734,7 +740,15 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 - Profils et conditions posés par défaut pour les questions ajoutées : ACQ-07.15 posée si « plateformes » est coché (profils de
   ACQ-07.02) ; ACQ-11.38 restaurant ; ACQ-11.39 e-commerce et restaurant ; COM-13.11 et COM-62 si le dirigeant a un site ;
   COM-63.02 à .08 si COM-63.01 = oui ; les autres, tous les profils.
-- Liste des objectifs RH et Comm, et plafond de 10 objectifs.
+- Liste des objectifs RH et Comm, relue le 28 octobre, et plafond de 10 objectifs (`docs/objectifs/objectifs-rh-comm.md`,
+  section 4) :
+  - un seul objectif actif ou plusieurs ;
+  - trois changements de sens (« Relancer les personnes intéressées » en clients en plus ; « Guider les visiteurs jusqu'à me
+    contacter » ; taux de conversion visé) ;
+  - filtre des propositions selon la taille ;
+  - deux objectifs proposés sans être ajoutés (« Libérer du temps pour piloter l'entreprise », « Me faire aider » pour un dirigeant
+    seul) ;
+  - lien entre la partie choisie en Comm et le parcours du questionnaire (COM-10.07).
 - Limite de vraisemblance d'un objectif en % : ramené à une année, il ne peut multiplier ou diviser l'indicateur par plus de 4
   (`data/objectif-limites.json`, valeur de travail qu'aucune source ne fixe).
 - Profils déduits de 13 métiers ou activités ajoutés à la liste (marqués `aConfirmer` dans `routage.json`) : commissaire de justice,
