@@ -1,7 +1,3 @@
 conforme  B-01    réponse tapée puis lien « Mes agents » cliqué sans quitter le champ : la réponse est enregistrée
 conforme  B-02    réponse tapée puis page actualisée sans quitter le champ : la réponse est enregistrée, ou le navigateur prévient avant de quitter
 conforme  B-03    retour arrière du navigateur depuis le compte rendu : la réponse 4 est affichée
-conforme  B-04    réponse changée en 9, départ puis retour arrière : l'écran affiche 9 (pas l'ancienne valeur 4)
-conforme  B-05    réponse tapée puis onglet fermé sans quitter le champ : la réponse est enregistrée
-
-5 contrôles, 5 conformes, 0 écart(s).

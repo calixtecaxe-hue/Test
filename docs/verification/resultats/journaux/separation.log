@@ -2,3 +2,10 @@ conforme  S-01    compte B : la réponse de A (42) n'apparaît pas dans son ques
 conforme  S-02    compte B : aucune réponse enregistrée à son nom pour cette question
 conforme  S-03    B répond 7 : la réponse de A reste 42, celle de B est 7
 conforme  S-04    tableau de bord de B : rien du compte A (adresse e-mail de A absente)
+conforme  S-05    A sur son téléphone : la réponse 42 donnée sur l'ordinateur est là
+conforme  S-06    page restée ouverte sur l'ordinateur (42 affiché) : répondre à une autre question n'écrase pas le 43 donné sur le téléphone
+conforme  S-07    ordinateur actualisé : il affiche 43
+conforme  S-08    sans session : la page d'un agent renvoie à la connexion, sans montrer de réponse
+conforme  S-09    sans session : l'enregistrement d'une réponse est refusé (401) et rien ne change
+
+9 contrôles, 9 conformes, 0 écart(s).

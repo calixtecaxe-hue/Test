@@ -9,3 +9,4 @@ plan-dependances             code 0    M-092 Ne publie pas (parcours mise en pla
 canaux                       code 0  compte de test : verif.1793222610744.93475@example.com
 dependances                  code 0  91 règles jouées, 496 contrôles : 496 conformes, 0 écart(s), 0 bloqué(s).
 resultats                    code 0  11 contrôles, 11 conformes, 0 écart(s).
+separation                   code 0  9 contrôles, 9 conformes, 0 écart(s).
