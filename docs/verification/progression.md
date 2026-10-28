@@ -28,6 +28,7 @@ code**, ce qui a été **simulé** (réponses fabriquées passées au vrai code)
 8. Exécution complète finale : `bash scripts/verification/tout.sh`, synthèse dans `resultats/synthese.txt`. Le conteneur a redémarré
    pendant une première exécution : reprise avec `SAUTER="canaux dependances"` (27 octobre 23 h 58 → 28 octobre 1 h 15 UTC). Résultat :
    tous les contrôles en code 0, sauf `audit-client` (R-01, normal) et `boutons-com` (1 échec sur 749, COM-12.01). Cause de ce dernier :
-   l'outil de test ne remplissait que la première colonne à 100 % alors que les trois colonnes de COM-12.01 doivent faire 100 % (M4) ;
-   la saisie restait en brouillon, comme prévu par le produit. Outil corrigé (`remplirTableau` lit `total.colonnes`), assertion inchangée,
+   l'outil de test cherchait « Total : … sur 100 », que l'écran n'écrit plus quand le total porte sur plusieurs colonnes (M4) ; il
+   remplissait donc des valeurs quelconques et la saisie restait en brouillon, comme prévu par le produit. Premier correctif de
+   l'outil insuffisant (il ne réglait que le choix des colonnes) ; second correctif : total lu dans la banque. Assertion inchangée,
    contrôle Comm relancé seul.

@@ -82,10 +82,11 @@ Lecture des contrôles sortis en code 1 :
 
 - `audit-client` : un seul écart, R-01 (compte rendu sans priorités ni plan). C'est normal tant que vous concevez le compte rendu
   (section 4). Q-03 et L-03, en écart avant cette vérification, sont maintenant conformes (corrections m3 et m7).
-- `boutons-com` : 1 échec sur 749, COM-12.01. Cause : l'outil de test ne remplissait que la première colonne à 100 %. Depuis la
-  correction M4, chacune des trois colonnes doit faire 100 % : la saisie restait donc en brouillon, ce qui est le comportement voulu
-  du produit. L'outil remplit maintenant toutes les colonnes soumises au total (`remplirTableau` lit `total.colonnes`), sans changer
-  l'assertion. Relance du contrôle Comm en cours.
+- `boutons-com` : 1 échec sur 749, COM-12.01. Cause : l'outil de test. Depuis la correction M4, chacune des trois colonnes doit faire
+  100 %, et l'écran écrit le total colonne par colonne (« Part des demandes : 0 sur 100 · … ») au lieu de « Total : 0 sur 100 ».
+  L'outil, qui cherchait « Total : », ne voyait plus de total imposé et remplissait des valeurs quelconques. La saisie restait donc
+  en brouillon, ce qui est le comportement voulu du produit. L'outil lit maintenant le total dans la banque et remplit à 100 % chaque
+  colonne soumise au total (`remplirTableau`), sans changer l'assertion. Relance du contrôle Comm en cours.
 
 ---
 

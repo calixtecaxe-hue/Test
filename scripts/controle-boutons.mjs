@@ -100,14 +100,16 @@ const unique = () => String(1 + (++graine % 97));
 
 // Remplit un tableau : chaque cellule, avec un total imposé respecté quand il existe.
 async function remplirTableau(carte, marque = "1") {
-  const zoneTotal = carte.getByText(/Total : .* sur /);
-  const total = (await zoneTotal.count()) > 0 ? await zoneTotal.first().innerText() : null;
-  const cible = total ? Number(total.split(" sur ")[1].replace(/[^\d.,]/g, "").replace(",", ".")) : null;
-  const lignes = carte.locator("tbody tr");
-  const n = await lignes.count();
   // Colonnes de la banque : une valeur de remplacement (marque) reste dans les bornes de sa colonne.
   const rep = BANQUE[await carte.getAttribute("data-question")];
   const colonnes = rep?.colonnes ?? [];
+  // Total imposé : celui de la banque (l'écran l'écrit « Total : 0 sur 100 », ou « Part des demandes : 0 sur 100 · … » quand il porte
+  // sur plusieurs colonnes) ; à défaut, celui de l'écran.
+  const zoneTotal = carte.getByText(/Total : .* sur /);
+  const total = rep?.total ? null : (await zoneTotal.count()) > 0 ? await zoneTotal.first().innerText() : null;
+  const cible = rep?.total ? rep.total.valeur : total ? Number(total.split(" sur ")[1].replace(/[^\d.,]/g, "").replace(",", ".")) : null;
+  const lignes = carte.locator("tbody tr");
+  const n = await lignes.count();
   // Colonnes soumises au total : toutes celles de `total.colonnes` (COM-12.01 : chaque colonne fait 100 %), sinon la seule `total.colonne`.
   const idsTotal = rep?.total ? (rep.total.colonnes ?? [rep.total.colonne]) : [];
   const estTotal = (j) => (idsTotal.length ? idsTotal.includes(colonnes[j]?.id) : j === 0);
