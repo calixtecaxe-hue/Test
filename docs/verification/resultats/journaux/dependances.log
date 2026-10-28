@@ -19,3 +19,93 @@ conforme  D-004-d   D03 · si « partenaires » est coché [ACQ-03.01 (D03) cont
 conforme  D-004-d2  D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : la réponse gardée à ACQ-05.01 compte de nouveau
 conforme  D-004-e   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : après actualisation, même état
 conforme  D-005-a   D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : règle vraie, 5 question(s) affichée(s)
+conforme  D-005-b   D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-005-d   D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : retour au premier choix, les questions reviennent
+conforme  D-005-e   D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : après actualisation, même état
+conforme  D-006-a   D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-006-b   D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-006-c   D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : la réponse à ACQ-06.07 ne compte plus et reste gardée
+conforme  D-006-d   D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : retour au premier choix, les questions reviennent
+conforme  D-006-d2  D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : la réponse gardée à ACQ-06.07 compte de nouveau
+conforme  D-006-e   D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : après actualisation, même état
+conforme  D-007-a   D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : règle vraie, 3 question(s) affichée(s)
+conforme  D-007-b   D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-007-c   D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : la réponse à ACQ-07.15 ne compte plus et reste gardée
+conforme  D-007-d   D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : retour au premier choix, les questions reviennent
+conforme  D-007-d2  D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : la réponse gardée à ACQ-07.15 compte de nouveau
+conforme  D-007-e   D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : après actualisation, même état
+conforme  D-008-a   D04 · si publicité ou agence [D04 (cadrage) = « oui »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-008-b   D04 · si publicité ou agence [D04 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-008-c   D04 · si publicité ou agence [D04 (cadrage) = « oui »] : la réponse à ACQ-07.01 ne compte plus et reste gardée
+conforme  D-008-d   D04 · si publicité ou agence [D04 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-008-d2  D04 · si publicité ou agence [D04 (cadrage) = « oui »] : la réponse gardée à ACQ-07.01 compte de nouveau
+conforme  D-008-e   D04 · si publicité ou agence [D04 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-009-a   D37 · si vous manquez des appels [ACQ-08.02 > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-009-b   D37 · si vous manquez des appels [ACQ-08.02 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-009-c   D37 · si vous manquez des appels [ACQ-08.02 > 0] : la réponse à ACQ-08.03 ne compte plus et reste gardée
+conforme  D-009-d   D37 · si vous manquez des appels [ACQ-08.02 > 0] : retour au premier choix, les questions reviennent
+conforme  D-009-d2  D37 · si vous manquez des appels [ACQ-08.02 > 0] : la réponse gardée à ACQ-08.03 compte de nouveau
+conforme  D-009-e   D37 · si vous manquez des appels [ACQ-08.02 > 0] : après actualisation, même état
+conforme  D-010-a   D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : règle vraie, 5 question(s) affichée(s)
+conforme  D-010-b   D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-010-c   D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : la réponse à ACQ-09.01 ne compte plus et reste gardée
+conforme  D-010-d   D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-010-d2  D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : la réponse gardée à ACQ-09.01 compte de nouveau
+conforme  D-010-e   D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-011-a   D06 · si devis ou propositions [D06 (cadrage) = « oui »] : règle vraie, 10 question(s) affichée(s)
+conforme  D-011-b   D06 · si devis ou propositions [D06 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-011-c   D06 · si devis ou propositions [D06 (cadrage) = « oui »] : la réponse à ACQ-10.05 ne compte plus et reste gardée
+conforme  D-011-d   D06 · si devis ou propositions [D06 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-011-d2  D06 · si devis ou propositions [D06 (cadrage) = « oui »] : la réponse gardée à ACQ-10.05 compte de nouveau
+conforme  D-011-e   D06 · si devis ou propositions [D06 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-012-a   D36 · si vous relancez vos devis [ACQ-10.06 > 0] : règle vraie, 3 question(s) affichée(s)
+conforme  D-012-b   D36 · si vous relancez vos devis [ACQ-10.06 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-012-c   D36 · si vous relancez vos devis [ACQ-10.06 > 0] : la réponse à ACQ-10.07 ne compte plus et reste gardée
+conforme  D-012-d   D36 · si vous relancez vos devis [ACQ-10.06 > 0] : retour au premier choix, les questions reviennent
+conforme  D-012-d2  D36 · si vous relancez vos devis [ACQ-10.06 > 0] : la réponse gardée à ACQ-10.07 compte de nouveau
+conforme  D-012-e   D36 · si vous relancez vos devis [ACQ-10.06 > 0] : après actualisation, même état
+conforme  D-013-a   D18 · si facturation au temps [D18 (cadrage) = « oui »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-013-b   D18 · si facturation au temps [D18 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-013-d   D18 · si facturation au temps [D18 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-013-e   D18 · si facturation au temps [D18 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-014-a   D35 · si vous accordez des remises [ACQ-14.01 > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-014-b   D35 · si vous accordez des remises [ACQ-14.01 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-014-c   D35 · si vous accordez des remises [ACQ-14.01 > 0] : la réponse à ACQ-14.02 ne compte plus et reste gardée
+conforme  D-014-d   D35 · si vous accordez des remises [ACQ-14.01 > 0] : retour au premier choix, les questions reviennent
+conforme  D-014-d2  D35 · si vous accordez des remises [ACQ-14.01 > 0] : la réponse gardée à ACQ-14.02 compte de nouveau
+conforme  D-014-e   D35 · si vous accordez des remises [ACQ-14.01 > 0] : après actualisation, même état
+conforme  D-015-a   D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-015-b   D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-015-c   D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : la réponse à ACQ-15.02 ne compte plus et reste gardée
+conforme  D-015-d   D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : retour au premier choix, les questions reviennent
+conforme  D-015-d2  D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : la réponse gardée à ACQ-15.02 compte de nouveau
+conforme  D-015-e   D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : après actualisation, même état
+conforme  D-016-a   D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : règle vraie, 4 question(s) affichée(s)
+conforme  D-016-b   D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-016-c   D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : la réponse à ACQ-15.10 ne compte plus et reste gardée
+conforme  D-016-d   D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-016-d2  D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : la réponse gardée à ACQ-15.10 compte de nouveau
+conforme  D-016-e   D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : après actualisation, même état
+conforme  D-017-a   D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-017-b   D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-017-c   D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : la réponse à ACQ-15.14 ne compte plus et reste gardée
+conforme  D-017-d   D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-017-d2  D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : la réponse gardée à ACQ-15.14 compte de nouveau
+conforme  D-017-e   D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : après actualisation, même état
+conforme  D-018-a   D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : règle vraie, 3 question(s) affichée(s)
+conforme  D-018-b   D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-018-d   D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-018-e   D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-019-a   D38 · si des clients résilient [ACQ-17.13 > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-019-b   D38 · si des clients résilient [ACQ-17.13 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-019-c   D38 · si des clients résilient [ACQ-17.13 > 0] : la réponse à ACQ-17.14 ne compte plus et reste gardée
+conforme  D-019-d   D38 · si des clients résilient [ACQ-17.13 > 0] : retour au premier choix, les questions reviennent
+conforme  D-019-d2  D38 · si des clients résilient [ACQ-17.13 > 0] : la réponse gardée à ACQ-17.14 compte de nouveau
+conforme  D-019-e   D38 · si des clients résilient [ACQ-17.13 > 0] : après actualisation, même état
+conforme  D-020-a   D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-020-b   D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-020-c   D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : la réponse à ACQ-17.30 ne compte plus et reste gardée
+conforme  D-020-d   D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-020-d2  D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : la réponse gardée à ACQ-17.30 compte de nouveau
+conforme  D-020-e   D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : après actualisation, même état
+conforme  D-021-a   D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : règle vraie, 2 question(s) affichée(s)
