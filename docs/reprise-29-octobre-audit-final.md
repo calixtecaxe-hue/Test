@@ -14,11 +14,16 @@ Demande en cours : l'audit final de toutes les questions avant la conception de 
 - `docs/audit-final/anomalies.json` (A-01 à A-22), `docs/audit-final/revisions.txt` (12 questions), générateur
   `scripts/verification/audit-final-rapport.mjs` (inventaire.csv/json, chiffres.json, blocs de rapport.md), `rapport.md` rédigé.
 
-## En cours
+## Série complète arrêtée en cours de route (à relancer)
 
-- Série complète `bash scripts/verification/tout.sh`, lancée vers 09 h 26 UTC (environ 2 h 30). Résultats :
-  `docs/verification/resultats/synthese.txt`. Si le conteneur a été recyclé : `pg_ctlcluster 16 main start`, `npx next build`,
-  serveur de test sur le port 3100 (voir `docs/etat-technique.md`), puis relancer la série (ou `SAUTER=…` pour reprendre).
+Lancée à 09 h 26 UTC, arrêtée à 09 h 40 UTC pour enregistrer un état propre. Passés à code 0 : typescript, lint,
+tests-unitaires, controle-donnees, balayage-secteurs, inventaire, plan-dependances, plan-branches, canaux (lignes gardées dans
+`docs/verification/resultats/synthese.txt`). Relancer la suite sans les refaire :
+
+    SAUTER="typescript lint tests-unitaires controle-donnees balayage-secteurs inventaire plan-dependances plan-branches canaux" bash scripts/verification/tout.sh
+
+Prérequis si le conteneur a été recyclé : `pg_ctlcluster 16 main start`, `npx next build`, serveur de test sur le port 3100
+(`docs/etat-technique.md`, section 1). Pendant la série, ne pas lancer `npx next build`.
 
 ## Reste, dans l'ordre
 
