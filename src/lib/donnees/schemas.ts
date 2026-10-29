@@ -679,6 +679,23 @@ export const partages = z.object({
 });
 export type Partages = z.infer<typeof partages>;
 
+// --- Ce que le dirigeant a déjà essayé pour son objectif -----------------------------------
+
+// data/deja-tente.json (src/lib/audit/tentatives.ts) : la question posée au début de chaque agent, une fois l'objectif fixé
+// (décision du 29 octobre). Ses réponses n'entrent jamais dans le calcul.
+const optionTexte = z.object({ id: z.string().regex(/^[a-z0-9_]+$/), libelle: z.string().min(1) });
+export const dejaTente = z.object({
+  source: z.string(),
+  aValider: z.boolean(),
+  question: z.string().min(1),
+  aide: z.string().min(1),
+  reponses: z.tuple([z.object({ id: z.literal("oui"), libelle: z.string().min(1) }), z.object({ id: z.literal("non"), libelle: z.string().min(1) })]),
+  action: z.object({ question: z.string().min(1), aide: z.string().min(1), longueurMax: z.number().int().min(50).max(2000), max: z.number().int().min(1).max(10), ajouter: z.string().min(1), retirer: z.string().min(1) }),
+  resultat: z.object({ question: z.string().min(1), options: z.array(optionTexte).min(2) }),
+  duree: z.object({ question: z.string().min(1), options: z.array(optionTexte).min(2) }),
+});
+export type DejaTente = z.infer<typeof dejaTente>;
+
 // --- Vocabulaires par métier ----------------------------------------------------
 
 // Quel vocabulaire propre (hébergement, négoce, cabinet…) s'applique à quel métier ou activité. Tant que « valide » est faux,
@@ -720,6 +737,7 @@ export type EnsembleDonnees = {
   retraits: Retraits;
   implications: Implications;
   partages: Partages;
+  dejaTente: DejaTente;
   vocabulairesMetiers: VocabulairesMetiers;
   catalogue: FicheTheme[];
   catalogueEffets: EffetCatalogue[];
@@ -748,6 +766,7 @@ export const schemaFichiers = {
   retraits,
   implications,
   partages,
+  dejaTente,
   vocabulairesMetiers,
   catalogue: z.array(ficheTheme),
   catalogueEffets: z.array(effetCatalogue),

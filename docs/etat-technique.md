@@ -53,6 +53,7 @@ Chiffres au 28 octobre 2026.
 | `prereponses.json` | 1 règle (FIN-05.02) | à la main |
 | `implications.json` | 1 réponse déduite (COM-13.10) | à la main |
 | `partages.json` | Liens du classeur entre deux questions posées qui ne sont pas des jumelles exactes : 6 « pas un partage » (avec leur raison ; COM-13.01 et ACQ-02.01 partagés pour le seul profil e-commerce), 10 correspondances partie à partie | **à la main** (audit final du 29 octobre) |
+| `deja-tente.json` | Question « Avez-vous déjà essayé quelque chose pour atteindre cet objectif ? » : textes, choix du résultat et de la durée, 3 actions au plus (`aValider`) | à la main (décision du 29 octobre) |
 | `retraits.json` | Vide depuis le 27 octobre (mécanisme gardé) | à la main |
 | `seuils.json` | **Vide** (voir `seuils.README.md`) | — |
 | `catalogue-themes.json` | 189 fiches ; 36 indicateurs comparables pour les 22 thèmes Marché | `python3 scripts/ecrire-catalogue-themes.py` |
@@ -239,6 +240,19 @@ Chiffres au 28 octobre 2026.
   carte reprend une réponse changée ailleurs sur la page.
 - Brouillon : `BrouillonReponse`, `PUT /api/audit/brouillon`, supprimé dès la réponse complète.
 
+### Ce que le dirigeant a déjà essayé (29 octobre)
+
+- Écran : `deja-tente.tsx`, juste sous l'objectif en cours (`section[data-deja-tente]`), sur l'étape du questionnaire et sur
+  l'étape « Niveau et contexte » ; Oui / Non, puis jusqu'à 3 actions (`li[data-action]` : texte, résultat, durée facultative),
+  « Ajouter une autre action », « Retirer », « Effacer ma réponse ». Sauvegarde continue (choix tout de suite, texte après 1,2 s
+  ou en quittant le champ), renvoi seul au retour du réseau.
+- Données : `Objectif.tentatives` (migration `20261029150000_tentatives`) ; forme et contrôle dans `src/lib/audit/tentatives.ts`
+  (`validerTentatives`, `lireTentatives`, `tentativesTransmises` pour le compte rendu et l'IA). Route
+  `PUT /api/audit/tentatives` (droit d'accès à l'agent, objectif actif exigé). Un nouvel objectif reprend la réponse de celui qu'il
+  remplace (`POST /api/audit/objectif`).
+- Tests : `tests/tentatives.test.mts` ; navigateur : `node scripts/verification/tentatives.mjs` (captures dans
+  `docs/verification/captures-tentatives`).
+
 ### Données partagées (29 octobre)
 
 - `src/lib/audit/partages.ts` : `equivalences(e, compte?)` (jumelles du compte : liens du classeur, moins les données
@@ -404,7 +418,7 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 
 | Commande | Ce qu'elle contrôle |
 |---|---|
-| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 386 tests unitaires, données |
+| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 390 tests unitaires, données |
 | `node scripts/balayage-secteurs.mts` | Assemble et remplit le questionnaire de chaque métier, activité, taille, niveau et agent (229 scénarios, 7 704 questionnaires) : textes, lexique, tableaux, règles en attente, exclusions des professions réglementées, constat |
 | `node scripts/controle-parcours-secteurs.mjs`, `node scripts/controle-complementaire.mjs` | Parcours par secteur dans un navigateur |
 | `node scripts/controle-boutons.mjs [--agents ACQ,FIN,RH,COM] [--apercu <dossier>]` | Chaque question : chiffre exact, estimation, « je ne sais pas », « je ne suis pas cette donnée », « Effacer ma réponse », cases, choix, listes, tableaux, texte, mois, cartes partagées, mise à jour des questions suivantes, rechargement ; sur l'application ou l'aperçu |
@@ -417,6 +431,7 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 | `node scripts/audit-client.mjs [--sortie dossier]` | Parcours d'un dirigeant (inscription, recherche du métier, dossier, objectif, questionnaire, coupure réseau, reprise sur téléphone, droits, mobile 360 px, clavier, connexion, mot de passe oublié, page 404). Identifiants du rapport « Audit client de CAXE (27 octobre 2026) » (Claude Docs) ; « ÉCART » et code 1 tant qu'un défaut reste |
 | `node scripts/verification/historique.mjs [--sortie dossier]` | Historique et évolutions (32 contrôles H-01 à H-32) : périodes écrites, seuils d'ancienneté, entreprise jeune, baisse, hausse, stabilité, zéro, données partielles, périmètre, réponses de mois différents, changement du dossier, autre appareil |
 | `node scripts/verification/partages.mjs [--sortie dossier]` | Données partagées (36 contrôles P-01 à P-21) : les six liens qui ne sont pas des partages, jumelles, correspondances partie à partie dans les deux sens, valeurs reprises puis complétées, modification depuis l'autre agent, boutique en ligne, jumelles d'une même jumelle |
+| `node scripts/verification/tentatives.mjs [--sortie dossier]` | Question « déjà essayé » (T-01 à T-19) : place sous l'objectif dans les quatre agents, rien de coché d'avance, Oui / Non, texte, résultat, durée, ajout et retrait, trois actions au plus, actualisation, « Non » qui garde les actions, téléphone 360 px, coupure réseau, clavier, changement d'objectif, effacement, refus du serveur |
 | `node scripts/verification/plan-branches.mts`, puis `node scripts/verification/branches.mjs [--sortie dossier]` | Règles à plusieurs branches (14 règles, 94 contrôles) : chaque branche d'un « un » seule vraie, chaque condition d'un « tous » seule fausse, chaque valeur d'un « parmi » ; réponse d'une question ouverte gardée tant qu'une autre branche la garde ouverte, puis exclue et gardée en base |
 | `node scripts/verification/audit-final-controles.mts`, `node scripts/verification/audit-final-rapport.mjs`, `python3 scripts/verification/audit-final-xlsx.py` | Audit final des questions (29 octobre) : contrôles automatiques de clarté (`docs/audit-final/controles-auto.json`), inventaire d'une ligne par question (`inventaire.csv`, `inventaire.json`, `CAXE-inventaire-questions.xlsx`), chiffres et blocs de `docs/audit-final/rapport.md` ; anomalies et révisions écrites à la main (`anomalies.json`, `revisions.txt`) |
 | `node scripts/verification/utilite-extraire.mjs`, puis `node scripts/verification/utilite-rapport.mjs` | Audit d'utilité de la banque : tout ce qui lit chaque question (`docs/audit-utilite/usages.json`), évaluations écrites à la main (`docs/audit-utilite/evaluations/*.txt`), tableau complet (`questions.csv`) et blocs générés du rapport ; code 1 si une question n'a pas d'évaluation |

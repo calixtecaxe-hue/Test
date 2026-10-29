@@ -75,6 +75,8 @@ reprises en section 10 (A-12 à A-20, A-23).
 - **Le constat du moteur** tel qu'il existe : thème masqué, non évalué (moins de 50 % de réponses), contexte, règle manquante,
   sans repère de marché ; aucun chiffre inventé.
 - **Les évolutions** : 16 comparaisons de l'entreprise à elle-même, calculées, avec ce qui manque quand elles ne le sont pas.
+- **Ce que le dirigeant a déjà essayé** pour son objectif (question ajoutée le 29 octobre, section 11) : résultat de chaque action,
+  et règles de lecture et de ton pour l'IA écrites dans `CLAUDE.md` (section 6).
 - **Les textes libres et les questions de contexte** que l'IA lit : repérés dans l'inventaire (colonne « Implémentation » : « lu
   par l'IA du rapport »).
 - **Les périmètres** : agents étanches ; Comm et Acquisition clarifiés le 28 octobre (la Comm conseille sur l'acquisition par la
@@ -579,7 +581,16 @@ calculs du classeur qui éviteraient une question ne sont pas écrits (A-14) ; C
 
 <!-- fin:detail -->
 
-## 11. Fichiers et commandes
+## 11. Ajouté après l'audit : ce que le dirigeant a déjà essayé (décision du 29 octobre)
+
+Le propriétaire a décidé une question posée au début de chaque agent, sous l'objectif : « Avez-vous déjà essayé quelque chose pour
+atteindre cet objectif ? ». Si oui, jusqu'à 3 actions, chacune avec ce qu'elle a donné (Cela a fonctionné / En partie / Pas de
+résultat / Je l'ai arrêté avant de voir le résultat / Trop tôt pour le dire) et, facultatif, sa durée. Elle n'entre jamais dans le
+calcul ; elle évite de conseiller tel quel ce qui n'a rien donné et distingue « ça n'a pas marché » de « je ne l'ai pas tenu ».
+Textes à relire (`data/deja-tente.json`) ; règles de lecture et de ton pour l'IA dans `CLAUDE.md`, section 6. Elle n'est pas dans
+la banque de questions ni dans l'inventaire ci-dessus (elle accompagne l'objectif). Contrôle : `scripts/verification/tentatives.mjs`.
+
+## 12. Fichiers et commandes
 
 | Fichier | Contenu |
 |---|---|

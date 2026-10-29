@@ -171,6 +171,8 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
   formule (les agents proposés en dépendent).
 - La connexion reprend le parcours là où il s'est arrêté (métier, puis formule, puis paiement, puis dossier).
 - Dans un agent : Objectif → Niveau et contexte → Questionnaire → Résultats. **L'objectif est toujours demandé avant les questions.**
+  Juste sous l'objectif fixé, la question « Avez-vous déjà essayé quelque chose pour atteindre cet objectif ? » (29 octobre,
+  section 6).
 - **Pas d'écran de récapitulatif** ni de confirmation des chiffres avant le rapport.
 
 ## 5. Inscription, métier et profil
@@ -306,6 +308,29 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
     ajoutés le 28 octobre (4a-1 « Libérer du temps pour piloter l'entreprise », 4b-1 « Me faire aider dans mon travail »). **Textes à
     relire par le propriétaire** (`docs/objectifs/CAXE-objectifs-proposes.pdf`).
 - Le moteur ne juge pas le réalisme d'un objectif sans chiffre (rien à comparer) ; l'avancement se mesure à ce que le dirigeant déclare.
+
+### Ce que le dirigeant a déjà essayé (décision du 29 octobre)
+
+- **Au début de chaque agent, une fois l'objectif fixé**, juste sous lui : « Avez-vous déjà essayé quelque chose pour atteindre cet
+  objectif ? » Oui / Non. Facultative, comme toute question ; textes dans `data/deja-tente.json` (**à relire par le propriétaire**).
+- Si oui, jusqu'à **3 actions** : « Qu'avez-vous essayé ? » (texte court), « Qu'est-ce que cela a donné ? » (Cela a fonctionné / En
+  partie / Pas de résultat / Je l'ai arrêté avant de voir le résultat / Trop tôt pour le dire) et, facultatif, « Pendant combien de
+  temps l'avez-vous fait ? ».
+- La réponse se rattache à l'objectif en cours ; un nouvel objectif la reprend telle quelle, sous lui, où le dirigeant la corrige.
+  Avec « Non », les actions déjà écrites restent gardées mais ne comptent plus.
+- **Jamais dans le calcul** : contexte pour l'IA du rapport et du plan.
+- **Ce que l'IA en fait** :
+  - « Cela a fonctionné » : s'appuyer dessus (amplifier, rendre régulier), ne pas le présenter comme une nouveauté ;
+  - « Pas de résultat » : ne pas le reproposer tel quel ; s'il reste pertinent pour le secteur, dire ce qui change (cible, canal,
+    fréquence, manière), à partir des chiffres du questionnaire ;
+  - « Je l'ai arrêté avant de voir le résultat » : le problème est la tenue dans la durée ; garder l'action en l'adaptant au temps
+    réellement disponible du dirigeant ;
+  - « En partie » : améliorer ce qui existe ; « Trop tôt pour le dire » : le prévoir au point d'étape, sans conclure.
+- **Ton (demande du propriétaire)** : ne jamais dénigrer ce qui a été fait. L'IA peut dire ce qui a pu manquer, seulement d'après
+  les réponses, puis comment le remettre en place autrement : « Cette relance n'a sans doute pas donné de résultat parce que
+  [élément constaté dans les réponses]. Nous vous proposons de la reprendre en [ce qui change]. » Jamais d'affirmation sans
+  élément.
+- Professions réglementées : le texte libre passe par la même garde que le reste du rapport (zone interdite, message fixe).
 
 ### Assemblage du questionnaire
 
@@ -535,8 +560,10 @@ porte plusieurs indicateurs, et la règle de deux leviers sur la même étape.
 - **Le plan suit le temps réellement disponible du dirigeant** (heures par jour travaillé). Les actions qui libèrent du temps passent
   en premier ; les autres sont programmées après (« à lancer une fois 6 h libérées »). Augmenter la capacité ne se résume jamais à
   « libérez du temps » : tâches à déléguer, automatiser ou supprimer, puis recrutement.
-- **Tour « ce que vous avez déjà tenté »**, après le premier calcul, sur les 5 ou 6 axes faibles seulement (rien / en place et ça
-  marche / sans résultat / pas tenu dans la durée). Ces réponses n'entrent jamais dans le calcul.
+- **Ce que le dirigeant a déjà essayé** : posé au début de chaque agent, sous l'objectif (décision du 29 octobre, section 6). Le
+  **tour ciblé** prévu avant, après le premier calcul, sur les 5 ou 6 axes faibles (rien / en place et ça marche / sans résultat /
+  pas tenu dans la durée), dépend des leviers classés par le moteur : il attend les règles de notation (garder, ou abandonner si la
+  question du début suffit : section 15). Ces réponses n'entrent jamais dans le calcul.
 - **Effet attendu et avancement réel (19 octobre)** : l'IA ne choisit jamais un pourcentage ni un montant. L'effet potentiel d'une
   action vient d'un taux sourcé et vérifié par le code (section 3), appliqué par le moteur aux volumes du client ; sans taux sourcé,
   l'effet est écrit en mots. L'**avancement** se calcule uniquement sur ce que le dirigeant **déclare** au point d'étape (exemple du
@@ -802,6 +829,9 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
     - A-22 : faire lire au pré-remplissage de FIN-05.02 les dépenses connues par COM-32.01, ou garder la règle du 22 octobre.
 
 ### À valider (propositions déjà en place)
+
+- Question « déjà essayé » (29 octobre) : textes et choix (`data/deja-tente.json`), dont la durée facultative ; et le sort du tour
+  ciblé sur les axes faibles (section 8) : garder les deux, ou seulement la question du début.
 
 - Nature et impact des 19 thèmes ajoutés par le classeur 11 (FIN-46 à 48, RH-41 à 49, COM-55 à 61).
 - Les 8 thèmes ajoutés le 27 octobre (ACQ-24, 25, 27, 28, 29, 30, COM-62, COM-63) : en « Contexte » (non notés, lus par l'IA), étapes

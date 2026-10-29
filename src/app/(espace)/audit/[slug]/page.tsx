@@ -19,6 +19,8 @@ import { ecartDeParcours } from "@/lib/audit/objectifs-agent";
 import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifActif, ObjectifEdition } from "./objectif-actif";
 import { ObjectifChoix } from "./objectif-choix";
+import { DejaTente } from "./deja-tente";
+import { lireTentatives } from "@/lib/audit/tentatives";
 import { NiveauChoix } from "./niveau-choix";
 import { ResultatsMaquette } from "./resultats-maquette";
 import { Resultats } from "./resultats";
@@ -150,6 +152,8 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   }
 
   const structure = actif ? (actif.structure as unknown as ObjectifEnregistre) : null;
+  // Ce que le dirigeant a déjà essayé pour cet objectif : posé juste sous l'objectif, au début de l'agent (29 octobre).
+  const dejaTente = actif ? <DejaTente key={actif.id} agent={agent.code} def={ENSEMBLE.dejaTente} initiales={lireTentatives(ENSEMBLE.dejaTente, actif.tentatives)} /> : null;
   const structures = actifs.map((o) => o.structure as unknown as ObjectifEnregistre);
   // Ce que reçoivent les étapes suivantes : l'objectif tel qu'il a été choisi ou écrit, avec son origine (objectifs-proposes.ts).
   const transmis = actifs.map((o, i) => objectifTransmis(o.texteBrut, structures[i], liste?.objectifs ?? null));
@@ -191,11 +195,13 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
       ) : rouvre && vue === 2 && actif && structure ? (
         <>
           <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} saisies={saisies} propositions={propositions} suivi={suivi} publication={publication} ecart={ecart} />
+          {dejaTente}
           <NiveauChoix essentielles={nCompte.essentielles} approfondies={nCompte.total} actuel={utilisateur.niveauAudit} retour={retourAudit} />
         </>
       ) : actif && structure ? (
         <>
           <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} saisies={saisies} propositions={propositions} suivi={suivi} publication={publication} ecart={ecart} />
+          {dejaTente}
           {corps}
         </>
       ) : (

@@ -21,6 +21,7 @@ import objectifsAgents from "../../../data/objectifs-agents.json";
 import retraits from "../../../data/retraits.json";
 import implications from "../../../data/implications.json";
 import partages from "../../../data/partages.json";
+import dejaTente from "../../../data/deja-tente.json";
 import vocabulairesMetiers from "../../../data/vocabulaires-metiers.json";
 import catalogue from "../../../data/catalogue-themes.json";
 import catalogueEffets from "../../../data/catalogue-effets.json";
@@ -48,6 +49,7 @@ export const ENSEMBLE: EnsembleDonnees = {
   retraits: schemaFichiers.retraits.parse(retraits),
   implications: schemaFichiers.implications.parse(implications),
   partages: schemaFichiers.partages.parse(partages),
+  dejaTente: schemaFichiers.dejaTente.parse(dejaTente),
   vocabulairesMetiers: schemaFichiers.vocabulairesMetiers.parse(vocabulairesMetiers),
   catalogue: schemaFichiers.catalogue.parse(catalogue),
   catalogueEffets: schemaFichiers.catalogueEffets.parse(catalogueEffets),

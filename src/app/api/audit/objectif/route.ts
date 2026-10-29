@@ -40,6 +40,9 @@ export async function POST(request: Request) {
   const themes = ENSEMBLE.themes.filter((t) => t.agent === agent);
   const enregistres = controle.objectifs.map((o) => ({ phrase: o.phrase, objectif: enregistrerObjectif(o.saisie, themes, maintenant, o.choisi?.themes, o.origine) }));
   const crees = await prisma.$transaction(async (tx) => {
+    // Ce que le dirigeant a déjà essayé est repris par le nouvel objectif : il le voit sous l'objectif et le corrige au besoin.
+    const precedent = await tx.objectif.findFirst({ where: { userId, agent, statut: "ACTIF" }, orderBy: [{ creeLe: "desc" }, { id: "asc" }], select: { tentatives: true } });
+    const tentatives = precedent?.tentatives ?? undefined;
     await tx.objectif.updateMany({ where: { userId, agent, statut: "ACTIF" }, data: { statut: "REMPLACE", clotureLe: maintenant } });
     const ids: string[] = [];
     // Même instant de création, dans l'ordre choisi : l'ordre d'affichage suit l'identifiant.
@@ -52,6 +55,7 @@ export async function POST(request: Request) {
           structure: e.objectif as unknown as Prisma.InputJsonValue,
           echeance: new Date(e.objectif.echeance),
           creeLe: maintenant,
+          ...(tentatives !== undefined && tentatives !== null ? { tentatives: tentatives as Prisma.InputJsonValue } : {}),
         },
         select: { id: true },
       });
