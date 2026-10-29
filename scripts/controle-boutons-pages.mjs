@@ -252,9 +252,10 @@ for (const cle of CHOIX) {
     await page.goto(`${B}/tableau-de-bord`, { waitUntil: "networkidle" });
     const liens = await page.locator("a[href^='/audit/']").evaluateAll((a) => a.map((x) => x.getAttribute("href")));
     verifier("tous", "tableau de bord : un lien par agent ouvert", liens.length >= 4, JSON.stringify(liens));
-    // Un objectif par agent (28 octobre) : chaque carte montre « Votre objectif » et sa phrase, jamais une liste.
+    // Un objectif par agent (28 octobre). Chaque agent est contrôlé sur un compte neuf : sur ce compte, seul le dernier agent
+    // contrôlé a un objectif ; sa carte montre « Votre objectif » et sa phrase, jamais une liste, et les autres cartes n'en ont pas.
     const etiquettes = await page.locator(".carte-conseil-etiquette").allTextContents();
-    verifier("tous", "tableau de bord : chaque agent montre son objectif (un seul)", !etiquettes.some((t) => /^Vos \d+ objectifs$/.test(t.trim())) && etiquettes.filter((t) => t.trim() === "Votre objectif").length >= CHOIX.length, JSON.stringify(etiquettes));
+    verifier("tous", "tableau de bord : l'agent qui a un objectif le montre (un seul), les autres n'en affichent pas", !etiquettes.some((t) => /^Vos \d+ objectifs$/.test(t.trim())) && etiquettes.filter((t) => t.trim() === "Votre objectif").length === 1, JSON.stringify(etiquettes));
     for (const href of [...new Set(liens)]) {
       const r = await page.goto(B + href, { waitUntil: "load" });
       verifier("tous", `tableau de bord : le lien ${href} s'ouvre`, r.status() === 200);

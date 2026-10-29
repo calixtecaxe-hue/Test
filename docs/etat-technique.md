@@ -383,14 +383,14 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 
 | Commande | Ce qu'elle contrôle |
 |---|---|
-| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 373 tests unitaires, données |
+| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 376 tests unitaires, données |
 | `node scripts/balayage-secteurs.mts` | Assemble et remplit le questionnaire de chaque métier, activité, taille, niveau et agent (229 scénarios, 7 704 questionnaires) : textes, lexique, tableaux, règles en attente, exclusions des professions réglementées, constat |
 | `node scripts/controle-parcours-secteurs.mjs`, `node scripts/controle-complementaire.mjs` | Parcours par secteur dans un navigateur |
 | `node scripts/controle-boutons.mjs [--agents ACQ,FIN,RH,COM] [--apercu <dossier>]` | Chaque question : chiffre exact, estimation, « je ne sais pas », « je ne suis pas cette donnée », « Effacer ma réponse », cases, choix, listes, tableaux, texte, mois, cartes partagées, mise à jour des questions suivantes, rechargement ; sur l'application ou l'aperçu |
 | `node scripts/controle-boutons-pages.mjs` | Écrans d'un agent : objectif, niveau, étapes, changement d'objectif, résultats, tableau de bord, jour / nuit, déconnexion |
-| `node scripts/controle-autre.mjs` | Chaque « Autre » : activités des 16 métiers à plusieurs activités, « Définir mon propre objectif » de RH et Comm dans chaque partie, options « Autre » des questions ; relit la base |
+| `node scripts/controle-autre.mjs` | Chaque « Autre » : activités des 16 métiers à plusieurs activités, « Écrire mon propre objectif » de RH et Comm (avec et sans chiffre), options « Autre » des questions ; relit la base |
 | `node scripts/verification/listes.mjs [--sortie dossier]` | Listes « Ajouter un élément » (17 contrôles, ACQ-01.01) : retirer un champ vide ou un élément enregistré, réponse en base, lignes du tableau qui en dépend, actualisation, clavier, dernier élément, limite de 4, téléphone 360 px ; captures dans `docs/verification/captures-listes` |
-| `node scripts/verification/objectifs.mjs [--sortie dossier]` | Choix de l'objectif RH et Comm (50 contrôles) : propositions et objectif personnel, un seul mode actif, brouillon gardé, saisie vide, enregistrement et origine, actualisation, reconnexion, retour, modification, compte rendu, plusieurs objectifs, clavier, dirigeant seul, téléphone ; captures dans `docs/objectifs/captures` |
+| `node scripts/verification/objectifs.mjs [--sortie dossier]` | Choix de l'objectif RH et Comm (68 contrôles) : deux choix sans présélection, mode proposé et mode personnel, brouillons gardés, saisie vide, enregistrement et origine, actualisation, reconnexion, retour, modification abandonnée puis retour arrière, modification, compte rendu, un seul objectif (serveur), phrases finales, clavier, écart Comm 6C, dirigeant seul, téléphones 360 et 390 px ; captures dans `docs/objectifs/captures` |
 | `node scripts/controle-compte.mjs` | Page « Mon compte » |
 | `node scripts/controle-prereponse.mjs` | Total pré-rempli de FIN-05.02 |
 | `node scripts/audit-client.mjs [--sortie dossier]` | Parcours d'un dirigeant (inscription, recherche du métier, dossier, objectif, questionnaire, coupure réseau, reprise sur téléphone, droits, mobile 360 px, clavier, connexion, mot de passe oublié, page 404). Identifiants du rapport « Audit client de CAXE (27 octobre 2026) » (Claude Docs) ; « ÉCART » et code 1 tant qu'un défaut reste |
@@ -398,7 +398,11 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 | `node scripts/verification/utilite-extraire.mjs`, puis `node scripts/verification/utilite-rapport.mjs` | Audit d'utilité de la banque : tout ce qui lit chaque question (`docs/audit-utilite/usages.json`), évaluations écrites à la main (`docs/audit-utilite/evaluations/*.txt`), tableau complet (`questions.csv`) et blocs générés du rapport ; code 1 si une question n'a pas d'évaluation |
 | `scripts/verification/*` | Vérification du questionnaire (inventaire, dépendances, canaux, résultats, séparation, départs de page, changements rapides, captures) : voir `docs/verification/rapport.md`, section 7 |
 
-**Derniers résultats (exécution complète du 27 au 28 octobre)** : tous les contrôles réussis, sauf `audit-client` (38 contrôles, un
+**Après le nouvel écran d'objectif (29 octobre)** : `objectifs` 68/68, `controle-boutons-pages` 154 vérifications sans échec,
+`controle-autre` 158 sans échec, `audit-client` 37/38 (R-01), 376 tests unitaires. Série complète du 28 octobre (avant ce
+changement) : tout à code 0 sauf R-01.
+
+**Exécution complète précédente (27 au 28 octobre)** : tous les contrôles réussis, sauf `audit-client` (38 contrôles, un
 écart : R-01, compte rendu sans priorités ni plan, normal tant que le compte rendu est en conception). `boutons-com` a d'abord échoué
 sur COM-12.01 par un défaut de l'outil de test ; outil corrigé, relancé seul : 752 vérifications, 0 échec. Détail :
 `docs/verification/rapport.md`, section 1.

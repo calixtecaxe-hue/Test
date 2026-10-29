@@ -188,18 +188,64 @@ proposé qu'à lui. Aucun objectif Comm ne dépend de la taille.
 Les autres objectifs de cette partie (promesse, identité visuelle, comptes, profil, site, fiche Google, sujets, calendrier,
 régularité, photos et vidéos, positionnement) ne changent que par la forme de la phrase sans chiffre (« …, d'ici N mois »).
 
-## 5. Tests exécutés (28 octobre, soir)
+## 5. Tests exécutés (28 et 29 octobre)
 
-- `npx tsc --noEmit`, `npm run lint` : sans erreur. `npm test` : 376 tests, 0 échec. `npm run donnees:controle` : aucune erreur.
-- `node scripts/verification/objectifs.mjs` (application construite, base réelle, comptes fictifs) : **68 contrôles, 68 conformes**
-  (RH et Comm : deux choix, aucune présélection, mode proposé, mode personnel, changement de mode avec brouillons gardés, saisie vide,
-  enregistrement et origine, actualisation, reconnexion, retour à l'étape Objectif, modification abandonnée puis retour en arrière,
-  modification enregistrée, compte rendu ; serveur : deux objectifs refusés, texte de la liste imposé ; phrases finales ; clavier ;
-  écart Comm 6C ; dirigeant seul ; téléphones 360 et 390 px). Captures dans `docs/objectifs/captures/`.
-- `node scripts/controle-boutons-pages.mjs` : 154 vérifications, **1 échec en cours d'analyse** (contrôle « tableau de bord : chaque
-  agent montre son objectif » : une seule étiquette « Votre objectif » trouvée sur le tableau de bord pour quatre agents ; passe
-  quand seul l'agent Comm est contrôlé). À comprendre avant de conclure.
-- Pas encore relancés sur le nouvel écran : `controle-autre.mjs`, `audit-client.mjs` (A-02 adapté), la série complète.
+Sur l'application construite, la base réelle et des comptes fictifs :
+
+| Contrôle | Résultat |
+|---|---|
+| `npx tsc --noEmit`, `npm run lint` | Sans erreur |
+| `npm test` | 376 tests, 0 échec |
+| `npm run donnees:controle` | Aucune erreur |
+| `node scripts/verification/objectifs.mjs` | **68 contrôles, 68 conformes** |
+| `node scripts/controle-boutons-pages.mjs` (quatre agents) | 154 vérifications, 0 échec |
+| `node scripts/controle-autre.mjs` | 158 vérifications, 0 échec |
+| `node scripts/audit-client.mjs` | 38 contrôles, 37 conformes ; seul écart R-01, déjà connu (compte rendu en conception) ; A-02 (clavier) conforme sur le nouvel écran |
+
+**Ce que vérifie `objectifs.mjs`**, pour RH et pour Comm :
+
+- l'écran : les deux choix et leurs aides, aucune présélection, ni « Autre » ni « Ajouter un autre objectif », même taille côte à
+  côte sur ordinateur ;
+- rien de choisi : le message, et le curseur sur les deux choix ;
+- le mode « proposé » : en Comm, la partie demandée d'abord ; les propositions pertinentes ; la carte choisie et sa question ; la
+  phrase finale tirée de la saisie ;
+- le mode « personnel » : le champ ouvert directement, avec son aide et son exemple ; le curseur placé à la souris ;
+- le changement de mode : chaque brouillon retrouvé ;
+- une saisie vide ou faite d'espaces, refusée ;
+- l'enregistrement : origine, texte intact, rien du mode inactif transmis ;
+- la reprise : après actualisation, après reconnexion, et au retour à l'étape Objectif ;
+- une modification abandonnée (« Garder l'objectif actuel »), puis le bouton Retour du navigateur ;
+- une modification enregistrée, l'ancien objectif passant en historique ; le compte rendu.
+
+**Cas particuliers** :
+
+- le serveur refuse deux objectifs et impose le texte de la liste ;
+- les phrases d'un nombre visé, d'un taux visé et d'une seule unité ;
+- le clavier : Tab, Espace, flèches, Tab vers le contenu, retour aux propositions ;
+- l'écart Comm (6C) : sous l'objectif, sous COM-10.07 et à l'étape Objectif ; aucun message quand réponse et partie concordent ;
+- le dirigeant seul ;
+- les téléphones de 360 et 390 px : choix empilés, pas de défilement horizontal, bouton visible, champ lisible.
+
+**Corrigés en cours de route** :
+
+- le premier contrôle du tableau de bord attendait une étiquette « Votre objectif » par agent. Chaque agent est testé sur un compte
+  neuf : seul le dernier agent a un objectif sur le compte contrôlé. Le contrôle attend maintenant exactement une étiquette, et
+  aucune liste « Vos N objectifs » ;
+- sur ordinateur, la pastille « Choisi » faisait passer le titre de la carte choisie sur deux lignes : sa place est désormais
+  réservée sur les deux cartes ;
+- le message d'écart Comm dit « la partie « … » ».
+
+**Série complète du 28 octobre** (`bash scripts/verification/tout.sh`, lancée avant ce travail) : tout à code 0, sauf R-01.
+
+**Captures** (`docs/objectifs/captures/`) :
+
+| Écran | Ordinateur | Téléphone |
+|---|---|---|
+| Les deux choix | `rh-ordinateur-1-deux-choix`, `com-ordinateur-1-deux-choix` | `rh-telephone-1-deux-choix` (360 px), `com-telephone-1-deux-choix` (390 px) |
+| Mode « proposé » ouvert | `-2-mode-propose` | `-2-mode-propose` |
+| Proposition choisie | `-2b-proposition-choisie` | `-2b-proposition-choisie` |
+| Mode « personnel » ouvert | `-3-mode-personnel` | `-3-mode-personnel` |
+| Écart Comm (6C) | `com-ordinateur-4-ecart-partie` | — |
 
 ## 6. Limites
 
