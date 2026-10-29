@@ -7,6 +7,7 @@ import { createRoot } from "react-dom/client";
 import { Questionnaire } from "../../src/app/(espace)/audit/[slug]/questionnaire";
 import { ObjectifChoix } from "../../src/app/(espace)/audit/[slug]/objectif-choix";
 import { controlerObjectifs } from "../../src/lib/audit/objectifs-agent";
+import { objectifsPourLaTaille } from "../../src/lib/audit/objectifs-proposes";
 import type { ObjectifSaisie } from "../../src/lib/audit/objectif";
 import { ENSEMBLE } from "../../src/lib/audit/donnees-audit";
 import { preparerQuestionnaire } from "../../src/lib/audit/preparation";
@@ -97,6 +98,8 @@ window.fetch = async (entree: RequestInfo | URL, init?: RequestInit) => {
 };
 
 // --- L'écran --------------------------------------------------------------------------------------------------------------------
+// Compte de démonstration : électricien, 4 personnes.
+const TAILLE = "equipe_2_5" as const;
 function Apercu({ agent }: { agent: CodeAgent }) {
   const [version, setVersion] = useState(0);
   useEffect(() => surRafraichir(() => setVersion((v) => v + 1)), []);
@@ -106,7 +109,7 @@ function Apercu({ agent }: { agent: CodeAgent }) {
     return preparerQuestionnaire(ENSEMBLE, {
       agent,
       profils: [...PROFILS],
-      taille: "equipe_2_5",
+      taille: TAILLE,
       niveau: niveau(),
       reponses: etat.reponses,
       brouillons: new Map(Object.entries(etat.brouillons)),
@@ -145,7 +148,11 @@ if (racineObjectif) {
     const garde = JSON.parse(sessionStorage.getItem(`caxe-objectif-${court}`) ?? "null") as { objectifs?: { saisie: ObjectifSaisie }[] } | null;
     initiaux = garde?.objectifs?.map((o) => o.saisie) ?? [];
   } catch { /* rien de gardé */ }
-  const propositions = ENSEMBLE.objectifsAgents.agents[agent];
+  // Comme dans l'application : seules les propositions qui conviennent à la taille du compte de démonstration (celles déjà
+  // choisies restent).
+  const liste = ENSEMBLE.objectifsAgents.agents[agent];
+  const dejaChoisis = initiaux.map((s) => s.choix).filter((c): c is string => Boolean(c));
+  const propositions = liste ? objectifsPourLaTaille(liste, ENSEMBLE.themes, ENSEMBLE.reglesAffichage, TAILLE, dejaChoisis) : null;
   if (propositions) {
     createRoot(racineObjectif).render(
       <ObjectifChoix

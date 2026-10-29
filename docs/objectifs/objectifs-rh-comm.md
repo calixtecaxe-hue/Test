@@ -249,7 +249,8 @@ Sur l'application construite, la base réelle et des comptes fictifs :
 
 ## 6. Limites
 
-- L'aperçu publié de l'application (« Mes agents — CAXE ») montre encore l'ancien écran : il n'a pas été régénéré.
+- L'aperçu publié de l'application (« Mes agents — CAXE ») a été régénéré le 29 octobre avec le nouvel écran ; il applique le
+  filtre selon la taille du compte de démonstration (4 personnes) et ne montre pas l'écart Comm (6C), faute de vraie base.
 - Sur téléphone, l'étape « Questionnaire » de l'en-tête de l'agent se coupe en « Questionnair / e » à 360 px (défaut antérieur,
   non traité ici).
 

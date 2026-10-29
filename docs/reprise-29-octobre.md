@@ -1,7 +1,7 @@
 # Point de reprise (fin du 28 octobre 2026)
 
-**Terminé le 29 octobre** : les étapes 1 à 6 ci-dessous sont faites (résultats : `docs/objectifs/objectifs-rh-comm.md`,
-section 5). Reste l'étape 7 (aperçu publié), proposée au propriétaire.
+**Terminé le 29 octobre** : les étapes 1 à 7 ci-dessous sont faites (résultats : `docs/objectifs/objectifs-rh-comm.md`,
+section 5 ; aperçu « Mes agents — CAXE » republié le 29 octobre avec le nouvel écran).
 
 Demande en cours : les validations du propriétaire sur les objectifs RH et Comm (1B, 2a-1, périmètre Comm clarifié pour 2b, 2c-1,
 3A à expliquer, 4a-1, 4b-1, point 5, 6C), la clarté des 54 objectifs, le nouvel écran à deux choix, les tests, les captures et le
