@@ -15,7 +15,7 @@ import { groupesNumerotes, proposerSpec, type ReponseSpec } from "./reponse-spec
 import type { Regle, RegleSimple } from "./schemas.ts";
 import { cleDeDonnee } from "../audit/affichage.ts";
 import { ancienneteExigee, reglePeriode } from "../audit/periodes.ts";
-import { controlerEvolution } from "../moteur/evolution.ts";
+import { controlerEvolution, donneesDeLaSource, fenetresDeLaSource } from "../moteur/evolution.ts";
 import { liensDuClasseur } from "../audit/partages.ts";
 import type { SourceEvolution } from "./schemas.ts";
 
@@ -646,14 +646,62 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
   // Évolutions : codes connus, deux périodes de même longueur décalées de l'écart annoncé, et chaque donnée calculée
   // « Évolution… » du classeur est soit calculée, soit listée avec la raison pour laquelle elle ne l'est pas encore.
   const periodeDe = (code: string) => donnees.get(code)?.periode ?? null;
-  const citees = (src: SourceEvolution): string[] =>
-    src.type === "somme" ? src.termes.flatMap(citees) : src.type === "rapport" ? [...citees(src.numerateur), ...citees(src.denominateur)] : src.type === "marge" ? [...citees(src.ca), ...citees(src.chargesParMois)] : [src.donnee];
   for (const d of doublons(e.evolutions.evolutions.map((x) => x.id))) erreurs.push(`Évolutions : identifiant en double ${d}.`);
   for (const ev of e.evolutions.evolutions) {
     if (!donnees.has(ev.code)) erreurs.push(`Évolution ${ev.id} : donnée calculée inconnue ${ev.code}.`);
-    for (const c of [...citees(ev.actuel), ...citees(ev.passe)]) if (!donnees.has(c)) erreurs.push(`Évolution ${ev.id} : donnée inconnue ${c}.`);
+    for (const c of [...donneesDeLaSource(ev.actuel), ...donneesDeLaSource(ev.passe)]) if (!donnees.has(c)) erreurs.push(`Évolution ${ev.id} : donnée inconnue ${c}.`);
     erreurs.push(...controlerEvolution(ev, periodeDe));
   }
+  // Mesures de l'écran « Résultats » (data/mesures.json) : chaque donnée lue est la donnée de la mesure ou l'une de ses entrées
+  // dans le classeur (aucune formule ajoutée) ; colonnes et champs existent ; les mois d'une mesure s'accordent ; un objectif
+  // proposé n'est mesuré que par une seule mesure, avec des unités qu'il propose.
+  const entreesDe = (code: string, vues = new Set<string>()): Set<string> => {
+    for (const c of donnees.get(code)?.entrees ?? []) if (!vues.has(c)) { vues.add(c); entreesDe(c, vues); }
+    return vues;
+  };
+  const objectifsProposes = new Map(Object.values(e.objectifsAgents.agents).flatMap((a) => a?.objectifs ?? []).map((o) => [o.id, o]));
+  const objectifsMesures = new Map<string, string>();
+  for (const d of doublons(e.mesures.mesures.map((m) => m.id))) erreurs.push(`Mesures : identifiant en double ${d}.`);
+  const parcourir = (src: SourceEvolution, f: (x: SourceEvolution) => void) => {
+    f(src);
+    if (src.type === "somme") src.termes.forEach((t) => parcourir(t, f));
+    if (src.type === "rapport" || src.type === "taux") { parcourir(src.numerateur, f); parcourir(src.denominateur, f); }
+    if (src.type === "marge") { parcourir(src.ca, f); parcourir(src.chargesParMois, f); }
+  };
+  for (const m of e.mesures.mesures) {
+    if (!donnees.has(m.code)) { erreurs.push(`Mesure ${m.id} : donnée inconnue ${m.code}.`); continue; }
+    const permises = new Set([m.code, ...entreesDe(m.code)]);
+    for (const c of donneesDeLaSource(m.source)) {
+      if (!donnees.has(c)) erreurs.push(`Mesure ${m.id} : donnée inconnue ${c}.`);
+      else if (!permises.has(c)) erreurs.push(`Mesure ${m.id} : ${c} n'est ni ${m.code} ni l'une de ses entrées dans le classeur.`);
+    }
+    for (const t of m.themes) if (!e.themes.some((x) => x.code === t)) erreurs.push(`Mesure ${m.id} : thème inconnu ${t}.`);
+    parcourir(m.source, (x) => {
+      if (x.type !== "nombre" && x.type !== "colonne" && x.type !== "mois") return;
+      const spec = banqueParDonnee.get(x.donnee)?.reponse as ReponseSpec | undefined;
+      if (!spec) return;
+      if (x.type === "nombre" && x.champ && !(spec.type === "composite" && spec.champs.some((c) => c.id === x.champ))) erreurs.push(`Mesure ${m.id} : ${x.donnee} n'a pas de champ « ${x.champ} ».`);
+      if ((x.type === "colonne" || x.type === "mois") && !(spec.type === "tableau" && spec.colonnes.some((c) => c.id === x.colonne))) erreurs.push(`Mesure ${m.id} : ${x.donnee} n'a pas de colonne « ${x.colonne} ».`);
+      if (x.type === "colonne" && x.lignesVides === "ignorees" && !(spec.type === "tableau" && spec.lignes.source === "fixe"))
+        erreurs.push(`Mesure ${m.id} : les lignes vides ne s'ignorent que dans un tableau à lignes fixes (${x.donnee}).`);
+    });
+    if (m.periode) {
+      if (!reglePeriode(m.periode.texte).fenetre) erreurs.push(`Mesure ${m.id} : période « ${m.periode.texte} » illisible.`);
+    } else {
+      const fs = fenetresDeLaSource(m.source, periodeDe);
+      const mois = (f: NonNullable<typeof fs>[number]) => (f.type === "instant" ? `${f.decalage}-${f.decalage}` : `${f.mois + f.decalage}-${1 + f.decalage}`);
+      if (fs && fs.some((f) => mois(f) !== mois(fs[0]))) erreurs.push(`Mesure ${m.id} : ses données ne portent pas sur les mêmes mois ; indiquez la période retenue et pourquoi.`);
+    }
+    for (const o of m.objectifs ?? []) {
+      const prop = objectifsProposes.get(o.id);
+      if (!prop) { erreurs.push(`Mesure ${m.id} : objectif proposé inconnu ${o.id}.`); continue; }
+      const unites = prop.unites ?? (prop.unite ? [prop.unite] : []);
+      for (const u of o.unites) if (!unites.includes(u)) erreurs.push(`Mesure ${m.id} : l'objectif ${o.id} ne propose pas l'unité ${u}.`);
+      if (objectifsMesures.has(o.id)) erreurs.push(`L'objectif ${o.id} est mesuré par ${objectifsMesures.get(o.id)} et par ${m.id}.`);
+      objectifsMesures.set(o.id, m.id);
+    }
+  }
+
   const traitees = new Set([...e.evolutions.evolutions.map((x) => x.code), ...e.evolutions.nonCalculables.map((x) => x.code)]);
   for (const d of e.donnees) {
     if (d.mode === "calculee" && /^Évolution/.test(d.libelle) && !traitees.has(d.code)) erreurs.push(`La donnée calculée ${d.code} (« ${d.libelle} ») n'est ni dans data/evolutions.json, ni listée comme non calculable.`);

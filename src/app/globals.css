@@ -4861,6 +4861,105 @@ h3,
   }
 }
 
+/* Étape 4 d'un agent (29 octobre) : onglets Résultats, Rapport, Plan d'action, en liens (l'onglet ouvert est dans l'adresse).
+   Résultats sans couleur de jugement : seules les couleurs du texte et des lignes du site. */
+.res-onglets a {
+  flex: 0 0 auto;
+  padding: 0.7rem 1rem;
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.res-onglets a:hover {
+  color: var(--text);
+}
+.res-onglets a.actif {
+  color: var(--text);
+  border-bottom-color: var(--agent);
+}
+.res-onglets a:focus-visible {
+  outline: 2px solid var(--agent);
+  outline-offset: -2px;
+}
+.res-onglet-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+@media (max-width: 420px) {
+  .res-onglets {
+    gap: 0;
+  }
+  .res-onglets a {
+    padding: 0.65rem 0.6rem;
+    font-size: 0.875rem;
+  }
+}
+.res-faits {
+  margin-top: 0.75rem;
+  display: grid;
+}
+.res-fait {
+  border-top: 1px solid var(--line);
+  padding: 0.75rem 0;
+}
+.res-fait:last-child {
+  padding-bottom: 0;
+}
+.res-valeur {
+  color: var(--text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.rap-etiquette {
+  margin-top: 0.75rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.rap-conclusion + .rap-conclusion {
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+}
+.rap-perime {
+  border: 1px solid rgb(var(--blue-rgb) / 0.5);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  background: rgb(var(--blue-rgb) / 0.08);
+}
+.rap-attente {
+  position: relative;
+  height: 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--line);
+}
+.rap-attente span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 35%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--blue-2), var(--blue-1));
+  animation: rap-attente 1.6s ease-in-out infinite;
+}
+@keyframes rap-attente {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(290%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rap-attente span {
+    animation: none;
+    width: 100%;
+    opacity: 0.5;
+  }
+}
+
 /* Compte rendu d'un audit (étape 4, maquette) : trois onglets sans JavaScript, boutons radio et :checked. */
 .res-radio {
   position: absolute;

@@ -1,0 +1,1024 @@
+{
+  "source": "Écrit à la main le 29 octobre 2026 pour l'écran « Résultats » (décision du propriétaire du 29 octobre : les résultats présentent les faits disponibles, sans score, couleur, classement ni conseil). Chaque mesure lit une réponse du dirigeant, ou applique une formule écrite dans le classeur (code de la donnée calculée dans « code ») : aucune formule n'est ajoutée. Les côtés « actuels » des évolutions (data/evolutions.json) sont repris tels quels. « objectifs » : propositions de data/objectifs-agents.json dont la phrase mesure exactement la même chose, avec les unités pour lesquelles la cible se calcule sans hypothèse. « mots » : mots qui rattachent un objectif écrit librement (tous les mots d'une liste doivent y figurer ; à égalité entre deux mesures, aucune n'est retenue).",
+  "mesures": [
+    {
+      "id": "chiffre-affaires-12-mois",
+      "code": "ACQ-23.01",
+      "libelle": "Chiffre d'affaires des 12 derniers mois",
+      "explication": "Somme de vos chiffres d'affaires mois par mois.",
+      "unite": "euros",
+      "agents": [
+        "ACQUISITION_CA",
+        "FINANCE_RENTABILITE"
+      ],
+      "themes": [
+        "ACQ-23",
+        "FIN-14"
+      ],
+      "source": {
+        "type": "mois",
+        "donnee": "ACQ-23.01",
+        "colonne": "chiffre_d_affaires",
+        "lignes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "mots": [
+        [
+          "chiffre",
+          "affaires"
+        ],
+        [
+          "ca"
+        ]
+      ]
+    },
+    {
+      "id": "chiffre-affaires-dernier-mois",
+      "code": "ACQ-23.01",
+      "libelle": "Chiffre d'affaires du dernier mois complet",
+      "explication": "Votre chiffre d'affaires du mois dernier.",
+      "unite": "euros",
+      "agents": [
+        "ACQUISITION_CA",
+        "FINANCE_RENTABILITE"
+      ],
+      "themes": [
+        "ACQ-23",
+        "FIN-14"
+      ],
+      "source": {
+        "type": "mois",
+        "donnee": "ACQ-23.01",
+        "colonne": "chiffre_d_affaires",
+        "lignes": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "montant-moyen-vente",
+      "code": "ACQ-23.09",
+      "libelle": "Montant moyen d'une vente sur 12 mois",
+      "explication": "Chiffre d'affaires des 12 derniers mois divisé par le nombre de ventes des mêmes mois.",
+      "unite": "euros",
+      "agents": [
+        "ACQUISITION_CA"
+      ],
+      "themes": [
+        "ACQ-23",
+        "ACQ-15"
+      ],
+      "source": {
+        "type": "rapport",
+        "numerateur": {
+          "type": "mois",
+          "donnee": "ACQ-23.01",
+          "colonne": "chiffre_d_affaires",
+          "lignes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        "denominateur": {
+          "type": "mois",
+          "donnee": "ACQ-23.04",
+          "colonne": "nombre",
+          "lignes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        }
+      },
+      "mots": [
+        [
+          "panier",
+          "moyen"
+        ],
+        [
+          "montant",
+          "moyen"
+        ],
+        [
+          "ticket",
+          "moyen"
+        ]
+      ]
+    },
+    {
+      "id": "demandes-par-mois",
+      "code": "ACQ-02.01",
+      "libelle": "Demandes reçues par mois",
+      "explication": "Votre moyenne par mois sur les 3 derniers mois.",
+      "unite": "nombre",
+      "agents": [
+        "ACQUISITION_CA"
+      ],
+      "themes": [
+        "ACQ-02"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "ACQ-02.01"
+      },
+      "mots": [
+        [
+          "demandes"
+        ]
+      ]
+    },
+    {
+      "id": "nouveaux-clients-par-mois",
+      "code": "ACQ-11.01",
+      "libelle": "Nouveaux clients par mois",
+      "explication": "Votre moyenne par mois sur les 3 derniers mois.",
+      "unite": "nombre",
+      "agents": [
+        "ACQUISITION_CA"
+      ],
+      "themes": [
+        "ACQ-11"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "ACQ-11.01"
+      },
+      "mots": [
+        [
+          "nouveaux",
+          "clients"
+        ]
+      ]
+    },
+    {
+      "id": "taux-transformation",
+      "code": "ACQ-11.19",
+      "libelle": "Part des demandes qui deviennent clientes",
+      "explication": "Nouveaux clients par mois divisés par les demandes reçues par mois, sur les 3 derniers mois.",
+      "unite": "pourcent",
+      "agents": [
+        "ACQUISITION_CA"
+      ],
+      "themes": [
+        "ACQ-11",
+        "ACQ-02"
+      ],
+      "source": {
+        "type": "taux",
+        "numerateur": {
+          "type": "nombre",
+          "donnee": "ACQ-11.01"
+        },
+        "denominateur": {
+          "type": "nombre",
+          "donnee": "ACQ-02.01"
+        }
+      },
+      "mots": [
+        [
+          "transformation"
+        ],
+        [
+          "conversion"
+        ]
+      ]
+    },
+    {
+      "id": "devis-envoyes-par-mois",
+      "code": "ACQ-10.01",
+      "libelle": "Devis envoyés par mois",
+      "explication": "Votre moyenne par mois sur les 3 derniers mois.",
+      "unite": "nombre",
+      "agents": [
+        "ACQUISITION_CA"
+      ],
+      "themes": [
+        "ACQ-10"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "ACQ-10.01",
+        "champ": "nombre_par_mois"
+      },
+      "mots": [
+        [
+          "devis",
+          "envoyes"
+        ]
+      ]
+    },
+    {
+      "id": "devis-acceptes-par-mois",
+      "code": "ACQ-10.03",
+      "libelle": "Devis acceptés par mois",
+      "explication": "Votre moyenne par mois sur les 3 derniers mois.",
+      "unite": "nombre",
+      "agents": [
+        "ACQUISITION_CA"
+      ],
+      "themes": [
+        "ACQ-10"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "ACQ-10.03",
+        "champ": "nombre_par_mois"
+      },
+      "mots": [
+        [
+          "devis",
+          "acceptes"
+        ],
+        [
+          "devis",
+          "signes"
+        ]
+      ]
+    },
+    {
+      "id": "taux-acceptation-devis",
+      "code": "ACQ-10.13",
+      "libelle": "Part des devis acceptés",
+      "explication": "Devis acceptés par mois divisés par les devis envoyés par mois, sur les 3 derniers mois.",
+      "unite": "pourcent",
+      "agents": [
+        "ACQUISITION_CA"
+      ],
+      "themes": [
+        "ACQ-10"
+      ],
+      "source": {
+        "type": "taux",
+        "numerateur": {
+          "type": "nombre",
+          "donnee": "ACQ-10.03",
+          "champ": "nombre_par_mois"
+        },
+        "denominateur": {
+          "type": "nombre",
+          "donnee": "ACQ-10.01",
+          "champ": "nombre_par_mois"
+        }
+      },
+      "mots": [
+        [
+          "taux",
+          "devis"
+        ],
+        [
+          "acceptation"
+        ],
+        [
+          "signature"
+        ]
+      ]
+    },
+    {
+      "id": "revenu-recurrent-par-mois",
+      "code": "ACQ-17.10",
+      "libelle": "Revenu des abonnements et contrats, par mois",
+      "explication": "Ce que vos clients sous contrat ou abonnés vous paient par mois, au total, aujourd'hui.",
+      "unite": "euros",
+      "agents": [
+        "ACQUISITION_CA"
+      ],
+      "themes": [
+        "ACQ-17"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "ACQ-17.10",
+        "champ": "total_paye_par_mois"
+      },
+      "mots": [
+        [
+          "recurrent"
+        ]
+      ]
+    },
+    {
+      "id": "budget-marketing-par-mois",
+      "code": "ACQ-07.06",
+      "libelle": "Budget marketing par mois",
+      "explication": "Publicité, plateformes, agence, contenu et outils, additionnés d'après vos réponses.",
+      "unite": "euros",
+      "agents": [
+        "ACQUISITION_CA"
+      ],
+      "themes": [
+        "ACQ-07"
+      ],
+      "source": {
+        "type": "somme",
+        "termes": [
+          {
+            "type": "colonne",
+            "donnee": "ACQ-03.05",
+            "colonne": "depense_par_mois",
+            "facultatif": true
+          },
+          {
+            "type": "nombre",
+            "donnee": "ACQ-07.01",
+            "facultatif": true
+          },
+          {
+            "type": "nombre",
+            "donnee": "ACQ-07.03"
+          },
+          {
+            "type": "nombre",
+            "donnee": "ACQ-07.04"
+          }
+        ]
+      },
+      "mots": [
+        [
+          "budget",
+          "marketing"
+        ]
+      ]
+    },
+    {
+      "id": "visites-site-par-mois",
+      "code": "ACQ-06.07",
+      "libelle": "Visites de votre site par mois",
+      "explication": "Votre moyenne par mois sur les 3 derniers mois.",
+      "unite": "nombre",
+      "agents": [
+        "ACQUISITION_CA",
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "ACQ-06",
+        "COM-13"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "ACQ-06.07"
+      },
+      "mots": [
+        [
+          "visites",
+          "site"
+        ]
+      ],
+      "objectifs": [
+        {
+          "id": "com-visites-site",
+          "sens": "hausse",
+          "unites": [
+            "pourcent",
+            "unites"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "avis-google",
+      "code": "ACQ-06.01",
+      "libelle": "Avis sur votre fiche Google",
+      "explication": "Nombre total d'avis, aujourd'hui.",
+      "unite": "nombre",
+      "agents": [
+        "ACQUISITION_CA",
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "ACQ-06",
+        "COM-44"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "ACQ-06.01",
+        "champ": "avis_au_total"
+      },
+      "mots": [
+        [
+          "avis"
+        ]
+      ]
+    },
+    {
+      "id": "note-google",
+      "code": "ACQ-06.01",
+      "libelle": "Note de votre fiche Google",
+      "explication": "Note sur 5, aujourd'hui.",
+      "unite": "nombre",
+      "agents": [
+        "ACQUISITION_CA",
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "ACQ-06",
+        "COM-44",
+        "COM-46"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "ACQ-06.01",
+        "champ": "note_sur_5"
+      },
+      "mots": [
+        [
+          "note"
+        ]
+      ]
+    },
+    {
+      "id": "abonnes-reseaux",
+      "code": "COM-17.01",
+      "libelle": "Abonnés sur vos réseaux",
+      "explication": "Somme des abonnés de chaque réseau que vous utilisez, aujourd'hui.",
+      "unite": "nombre",
+      "agents": [
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "COM-17",
+        "COM-37"
+      ],
+      "source": {
+        "type": "colonne",
+        "donnee": "COM-17.01",
+        "colonne": "abonnes"
+      },
+      "mots": [
+        [
+          "abonnes"
+        ]
+      ],
+      "objectifs": [
+        {
+          "id": "com-audience",
+          "sens": "hausse",
+          "unites": [
+            "pourcent",
+            "unites"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personnes-touchees-par-mois",
+      "code": "COM-17.01",
+      "libelle": "Personnes touchées par vos publications, par mois",
+      "explication": "Somme des réseaux que vous utilisez, en moyenne sur les 3 derniers mois.",
+      "unite": "nombre",
+      "agents": [
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "COM-17"
+      ],
+      "source": {
+        "type": "colonne",
+        "donnee": "COM-17.01",
+        "colonne": "personnes_touchees_par_mois_moyenne_des_"
+      },
+      "mots": [
+        [
+          "portee"
+        ],
+        [
+          "personnes",
+          "touchees"
+        ]
+      ]
+    },
+    {
+      "id": "visites-profil-par-mois",
+      "code": "COM-59.01",
+      "libelle": "Visites de vos profils par mois",
+      "explication": "Somme des réseaux que vous utilisez, en moyenne sur les 3 derniers mois.",
+      "unite": "nombre",
+      "agents": [
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "COM-59"
+      ],
+      "source": {
+        "type": "colonne",
+        "donnee": "COM-59.01",
+        "colonne": "visites_du_profil_par_mois"
+      },
+      "mots": [
+        [
+          "visites",
+          "profil"
+        ]
+      ],
+      "objectifs": [
+        {
+          "id": "com-visites-profil",
+          "sens": "hausse",
+          "unites": [
+            "pourcent",
+            "unites"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clics-par-mois",
+      "code": "COM-19.01",
+      "libelle": "Clics depuis vos publications, par mois",
+      "explication": "Somme des réseaux que vous utilisez, en moyenne sur les 3 derniers mois, toutes destinations confondues.",
+      "unite": "nombre",
+      "agents": [
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "COM-19"
+      ],
+      "source": {
+        "type": "colonne",
+        "donnee": "COM-19.01",
+        "colonne": "clics_par_mois"
+      },
+      "mots": [
+        [
+          "clics"
+        ]
+      ]
+    },
+    {
+      "id": "messages-par-mois",
+      "code": "COM-23.01",
+      "libelle": "Messages privés reçus par mois",
+      "explication": "Somme des messageries que vous avez renseignées, en moyenne sur les 3 derniers mois.",
+      "unite": "nombre",
+      "agents": [
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "COM-23"
+      ],
+      "source": {
+        "type": "colonne",
+        "donnee": "COM-23.01",
+        "colonne": "messages_par_mois",
+        "lignesVides": "ignorees"
+      },
+      "mots": [
+        [
+          "messages"
+        ]
+      ]
+    },
+    {
+      "id": "demandes-commerciales-messages",
+      "code": "COM-23.01",
+      "libelle": "Demandes commerciales reçues en message, par mois",
+      "explication": "Somme des messageries que vous avez renseignées, en moyenne sur les 3 derniers mois.",
+      "unite": "nombre",
+      "agents": [
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "COM-23"
+      ],
+      "source": {
+        "type": "colonne",
+        "donnee": "COM-23.01",
+        "colonne": "dont_demandes_commerciales",
+        "lignesVides": "ignorees"
+      }
+    },
+    {
+      "id": "heures-communication-par-semaine",
+      "code": "COM-31.01",
+      "libelle": "Heures de communication par semaine",
+      "explication": "Somme des tâches de communication que vous avez renseignées, sur une semaine habituelle, vous et votre équipe.",
+      "unite": "heures",
+      "agents": [
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "COM-31"
+      ],
+      "source": {
+        "type": "colonne",
+        "donnee": "COM-31.01",
+        "colonne": "heures_par_semaine",
+        "lignesVides": "ignorees"
+      },
+      "mots": [
+        [
+          "temps",
+          "communication"
+        ],
+        [
+          "heures",
+          "communication"
+        ]
+      ],
+      "objectifs": [
+        {
+          "id": "com-temps",
+          "sens": "baisse",
+          "unites": [
+            "pourcent",
+            "unites"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contacts-fichier",
+      "code": "COM-15.01",
+      "libelle": "Contacts dans votre fichier",
+      "explication": "Somme des catégories que vous avez renseignées, aujourd'hui.",
+      "unite": "nombre",
+      "agents": [
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "COM-15"
+      ],
+      "source": {
+        "type": "colonne",
+        "donnee": "COM-15.01",
+        "colonne": "contacts",
+        "lignesVides": "ignorees"
+      },
+      "mots": [
+        [
+          "fichier"
+        ],
+        [
+          "contacts"
+        ]
+      ]
+    },
+    {
+      "id": "budget-communication-par-mois",
+      "code": "COM-32.04",
+      "libelle": "Budget marketing et communication par mois",
+      "explication": "Agence, contenu, outils et autres postes de communication, additionnés d'après vos réponses.",
+      "unite": "euros",
+      "agents": [
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "COM-32"
+      ],
+      "source": {
+        "type": "somme",
+        "termes": [
+          {
+            "type": "nombre",
+            "donnee": "ACQ-07.01",
+            "facultatif": true
+          },
+          {
+            "type": "nombre",
+            "donnee": "ACQ-07.03"
+          },
+          {
+            "type": "nombre",
+            "donnee": "ACQ-07.04"
+          },
+          {
+            "type": "colonne",
+            "donnee": "COM-32.02",
+            "colonne": "par_mois"
+          }
+        ]
+      },
+      "mots": [
+        [
+          "budget"
+        ]
+      ]
+    },
+    {
+      "id": "taux-de-marge",
+      "code": "FIN-04.03",
+      "libelle": "Taux de marge sur coûts variables, sur 3 mois",
+      "explication": "Chiffre d'affaires des 3 derniers mois, moins 3 mois de charges variables, divisé par ce chiffre d'affaires (calcul de l'évolution de la marge du classeur).",
+      "unite": "pourcent",
+      "agents": [
+        "FINANCE_RENTABILITE"
+      ],
+      "themes": [
+        "FIN-06",
+        "FIN-04"
+      ],
+      "source": {
+        "type": "marge",
+        "ca": {
+          "type": "mois",
+          "donnee": "FIN-14.01",
+          "colonne": "chiffre_d_affaires",
+          "lignes": [
+            1,
+            2,
+            3
+          ]
+        },
+        "chargesParMois": {
+          "type": "somme",
+          "termes": [
+            {
+              "type": "colonne",
+              "donnee": "FIN-06.01",
+              "colonne": "par_mois"
+            },
+            {
+              "type": "nombre",
+              "donnee": "FIN-08.01",
+              "facultatif": true
+            },
+            {
+              "type": "nombre",
+              "donnee": "FIN-08.02",
+              "facultatif": true
+            }
+          ]
+        },
+        "mois": 3
+      },
+      "mots": [
+        [
+          "marge"
+        ]
+      ]
+    },
+    {
+      "id": "charges-fixes-par-mois",
+      "code": "FIN-05.08",
+      "libelle": "Charges fixes par mois",
+      "explication": "Postes de charges fixes, abonnements et contrats, masse salariale et budget marketing, additionnés d'après vos réponses.",
+      "unite": "euros",
+      "agents": [
+        "FINANCE_RENTABILITE"
+      ],
+      "themes": [
+        "FIN-05"
+      ],
+      "source": {
+        "type": "somme",
+        "termes": [
+          {
+            "type": "colonne",
+            "donnee": "FIN-05.01",
+            "colonne": "par_mois"
+          },
+          {
+            "type": "colonne",
+            "donnee": "FIN-09.01",
+            "colonne": "cout_par_mois"
+          },
+          {
+            "type": "nombre",
+            "donnee": "FIN-07.01",
+            "facultatif": true
+          },
+          {
+            "type": "nombre",
+            "donnee": "FIN-05.02"
+          }
+        ]
+      },
+      "periode": {
+        "texte": "Aujourd'hui",
+        "justification": "Même lecture que l'évolution des charges fixes : des montants par mois d'aujourd'hui et la masse salariale moyenne des 3 derniers mois, lus comme un montant par mois actuel."
+      },
+      "mots": [
+        [
+          "charges",
+          "fixes"
+        ]
+      ]
+    },
+    {
+      "id": "masse-salariale-par-mois",
+      "code": "FIN-07.01",
+      "libelle": "Masse salariale par mois, charges patronales comprises",
+      "explication": "Votre moyenne par mois sur les 3 derniers mois, hors dirigeant.",
+      "unite": "euros",
+      "agents": [
+        "FINANCE_RENTABILITE"
+      ],
+      "themes": [
+        "FIN-07"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "FIN-07.01"
+      },
+      "mots": [
+        [
+          "masse",
+          "salariale"
+        ],
+        [
+          "salaires"
+        ]
+      ]
+    },
+    {
+      "id": "tresorerie",
+      "code": "FIN-11.01",
+      "libelle": "Trésorerie disponible",
+      "explication": "Ce que vous avez aujourd'hui sur vos comptes professionnels, caisse comprise.",
+      "unite": "euros",
+      "agents": [
+        "FINANCE_RENTABILITE"
+      ],
+      "themes": [
+        "FIN-11"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "FIN-11.01"
+      },
+      "mots": [
+        [
+          "tresorerie"
+        ]
+      ]
+    },
+    {
+      "id": "valeur-stock",
+      "code": "FIN-37.01",
+      "libelle": "Valeur du stock, au prix d'achat",
+      "explication": "Valeur de votre stock aujourd'hui.",
+      "unite": "euros",
+      "agents": [
+        "FINANCE_RENTABILITE"
+      ],
+      "themes": [
+        "FIN-37"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "FIN-37.01"
+      },
+      "mots": [
+        [
+          "stock"
+        ]
+      ]
+    },
+    {
+      "id": "pertes-impayes-12-mois",
+      "code": "FIN-18.05",
+      "libelle": "Factures abandonnées faute de paiement, sur 12 mois",
+      "explication": "Montant des factures que vous avez abandonnées sur les 12 derniers mois.",
+      "unite": "euros",
+      "agents": [
+        "FINANCE_RENTABILITE"
+      ],
+      "themes": [
+        "FIN-18"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "FIN-18.05",
+        "champ": "montant"
+      },
+      "mots": [
+        [
+          "impayes"
+        ]
+      ]
+    },
+    {
+      "id": "departs-12-mois",
+      "code": "RH-32.01",
+      "libelle": "Départs de salariés sur 12 mois",
+      "explication": "Somme des départs que vous avez renseignés, toutes raisons confondues, sur les 12 derniers mois.",
+      "unite": "nombre",
+      "agents": [
+        "RH_ORGANISATION"
+      ],
+      "themes": [
+        "RH-32"
+      ],
+      "source": {
+        "type": "colonne",
+        "donnee": "RH-32.01",
+        "colonne": "departs",
+        "lignesVides": "ignorees"
+      },
+      "mots": [
+        [
+          "departs"
+        ],
+        [
+          "turnover"
+        ]
+      ],
+      "objectifs": [
+        {
+          "id": "rh-turnover",
+          "sens": "baisse",
+          "unites": [
+            "pourcent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jours-absence-12-mois",
+      "code": "RH-34.01",
+      "libelle": "Jours d'absence de l'équipe sur 12 mois, hors congés",
+      "explication": "Toute l'équipe, sur les 12 derniers mois.",
+      "unite": "jours",
+      "agents": [
+        "RH_ORGANISATION"
+      ],
+      "themes": [
+        "RH-34"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "RH-34.01"
+      },
+      "mots": [
+        [
+          "absences"
+        ],
+        [
+          "absenteisme"
+        ]
+      ]
+    },
+    {
+      "id": "heures-dirigeant-par-semaine",
+      "code": "RH-05.01",
+      "libelle": "Vos heures de travail par semaine",
+      "explication": "Sur une semaine habituelle.",
+      "unite": "heures",
+      "agents": [
+        "ACQUISITION_CA",
+        "FINANCE_RENTABILITE",
+        "RH_ORGANISATION",
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "RH-05"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "RH-05.01",
+        "champ": "heures"
+      }
+    },
+    {
+      "id": "jours-dirigeant-par-semaine",
+      "code": "RH-05.01",
+      "libelle": "Vos jours de travail par semaine",
+      "explication": "Sur une semaine habituelle.",
+      "unite": "jours",
+      "agents": [
+        "ACQUISITION_CA",
+        "FINANCE_RENTABILITE",
+        "RH_ORGANISATION",
+        "COMM_CREATION"
+      ],
+      "themes": [
+        "RH-05"
+      ],
+      "source": {
+        "type": "nombre",
+        "donnee": "RH-05.01",
+        "champ": "jours"
+      }
+    }
+  ]
+}

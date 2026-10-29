@@ -35,6 +35,8 @@ export function chargerDepuisDisque(dossier: string): EnsembleDonnees {
     implications: schemaFichiers.implications.parse(lire(dossier, "implications.json")),
     partages: schemaFichiers.partages.parse(lire(dossier, "partages.json")),
     dejaTente: schemaFichiers.dejaTente.parse(lire(dossier, "deja-tente.json")),
+    mesures: schemaFichiers.mesures.parse(lire(dossier, "mesures.json")),
+    parametresRapport: schemaFichiers.parametresRapport.parse(lire(dossier, "rapport.json")),
     vocabulairesMetiers: schemaFichiers.vocabulairesMetiers.parse(lire(dossier, "vocabulaires-metiers.json")),
     catalogue: schemaFichiers.catalogue.parse(lire(dossier, "catalogue-themes.json")),
     catalogueEffets: schemaFichiers.catalogueEffets.parse(lire(dossier, "catalogue-effets.json")),

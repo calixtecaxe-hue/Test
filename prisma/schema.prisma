@@ -85,6 +85,7 @@ model User {
   reponses    ReponseAudit[]
   brouillons  BrouillonReponse[]
   reinitialisations ReinitialisationMotDePasse[]
+  rapports    Rapport[]
 
   @@index([metierPrecis])
 }
@@ -165,9 +166,69 @@ model Objectif {
   creeLe    DateTime  @default(now())
   clotureLe DateTime?
 
+  rapports Rapport[]
+
   // Un seul objectif actif par compte pour l'Acquisition et la Finance ; RH et Comm : un ou plusieurs (index partiel de la
   // migration 20261027150000_objectifs_multiples, non exprimable ici).
   @@index([userId, agent, creeLe])
+}
+
+// Rapport et plan d'action d'un agent, rédigés par l'IA à partir du dossier préparé par le code (src/lib/rapport/). Un rapport
+// est rattaché à l'objectif pour lequel il a été rédigé. `empreinte` : empreinte du dossier (réponses actives, objectif, ce que
+// le dirigeant a déjà essayé) ; un rapport dont l'empreinte diffère du dossier actuel est signalé comme ne tenant pas compte des
+// derniers changements. `mode` : « ia » (appel réel à l'API Claude) ou « simulation » (texte de test produit sans IA, hors
+// production seulement).
+model Rapport {
+  id         String        @id @default(cuid())
+  userId     String
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agent      AgentCode
+  objectifId String
+  objectif   Objectif      @relation(fields: [objectifId], references: [id], onDelete: Cascade)
+  statut     StatutRapport @default(EN_COURS)
+  empreinte  String
+  // Dossier transmis (sans adresse, nom ni identifiant de l'entreprise) et rapport contrôlé par le code (null tant qu'il n'est pas prêt).
+  dossier    Json
+  contenu    Json?
+  mode       String
+  modele     String?
+  // Message montré au dirigeant quand la rédaction n'a pas abouti ; le détail technique reste dans `detailErreur`.
+  erreur       String?
+  detailErreur String?
+  // Jetons consommés, essais, sections retirées par les contrôles.
+  journal    Json?
+  creeLe     DateTime      @default(now())
+  termineLe  DateTime?
+  actions    ActionPlan[]
+
+  @@index([userId, agent, creeLe])
+}
+
+enum StatutRapport {
+  EN_COURS
+  PRET
+  ECHEC
+}
+
+// Suivi d'une action du plan : où en est le dirigeant. Distinct de l'avancement de l'objectif, qui se mesure à ce qu'il déclare
+// aux points d'étape.
+model ActionPlan {
+  id        String       @id @default(cuid())
+  rapportId String
+  rapport   Rapport      @relation(fields: [rapportId], references: [id], onDelete: Cascade)
+  // Identifiant de l'action dans le rapport (A1, A2…).
+  cle       String
+  statut    StatutAction @default(A_FAIRE)
+  modifieLe DateTime     @updatedAt
+
+  @@unique([rapportId, cle])
+}
+
+enum StatutAction {
+  A_FAIRE
+  EN_COURS
+  FAITE
+  ABANDONNEE
 }
 
 enum PeriodeFacturation {

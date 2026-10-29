@@ -61,7 +61,8 @@ export type ResultatEvolution = {
   notes: string[];
 };
 
-type Lu = { valeur: number; estimee: boolean; ancrages: Mois[]; fenetres: Fenetre[] } | { manque: string };
+// `lignes` : pour une colonne dont les lignes vides sont ignorées, les lignes renseignées qui forment la somme.
+type Lu = { valeur: number; estimee: boolean; ancrages: Mois[]; fenetres: Fenetre[]; lignes?: string[] } | { manque: string };
 
 const PERIMETRE = ["ACQ-23.13", "FIN-14.04"];
 const EFFECTIF_PASSE = "FIN-07.17";
@@ -125,6 +126,12 @@ function lire(s: SourceEvolution, ctx: ContexteEvolution): Lu | null {
       }
       if (rep.r.genre !== "valeurs") return { manque: `Il manque votre réponse à « ${ctx.nomDe(s.donnee)} ».` };
       const valeurs = rep.r.valeurs;
+      if (s.lignesVides === "ignorees") {
+        // Tableau à catégories fixes : une ligne vide ne concerne pas le dirigeant. La somme porte sur les lignes renseignées.
+        const remplies = [...new Set(Object.keys(valeurs).filter((k) => k.endsWith(`.${s.colonne}`) && typeof valeurs[k] === "number").map((k) => k.slice(0, k.lastIndexOf("."))))];
+        if (remplies.length === 0) return { manque: `Il manque un chiffre dans votre réponse à « ${ctx.nomDe(s.donnee)} ».` };
+        return { valeur: remplies.reduce((t, l) => t + (valeurs[`${l}.${s.colonne}`] as number), 0), estimee: false, ancrages: [rep.ancre], fenetres: fenetreDe(s.donnee, ctx), lignes: remplies };
+      }
       const lignes = ctx.lignesActuelles(rep.code) ?? [...new Set(Object.keys(valeurs).filter((k) => k.endsWith(`.${s.colonne}`)).map((k) => k.slice(0, k.lastIndexOf("."))))];
       const vides = lignes.filter((l) => typeof valeurs[`${l}.${s.colonne}`] !== "number");
       if (lignes.length === 0 || vides.length > 0) return { manque: `Il manque ${vides.length > 1 ? `${vides.length} montants` : "un montant"} dans votre réponse à « ${ctx.nomDe(s.donnee)} » : une case vide ne compte pas pour zéro.` };
@@ -162,13 +169,16 @@ function lire(s: SourceEvolution, ctx: ContexteEvolution): Lu | null {
       if (lus.length === 0) return { manque: "Aucun des montants de ce total ne vous est demandé." };
       return { valeur: lus.reduce((t, l) => t + l.valeur, 0), estimee: lus.some((l) => l.estimee), ancrages: lus.flatMap((l) => l.ancrages), fenetres: lus.flatMap((l) => l.fenetres) };
     }
-    case "rapport": {
+    case "rapport":
+    case "taux": {
       const a = lire(s.numerateur, ctx);
       const b = lire(s.denominateur, ctx);
       if (!a || "manque" in a) return a;
       if (!b || "manque" in b) return b;
-      if (b.valeur === 0) return { manque: "Le nombre de ventes est nul sur la période : le montant moyen ne se calcule pas." };
-      return { valeur: a.valeur / b.valeur, estimee: a.estimee || b.estimee, ancrages: [...a.ancrages, ...b.ancrages], fenetres: [...a.fenetres, ...b.fenetres] };
+      if (b.valeur === 0)
+        return { manque: `Votre réponse à « ${ctx.nomDe(premiereDonnee(s.denominateur))} » vaut zéro sur la période : ${s.type === "rapport" ? "le montant moyen" : "le taux"} ne se calcule pas.` };
+      const valeur = s.type === "taux" ? (a.valeur / b.valeur) * 100 : a.valeur / b.valeur;
+      return { valeur, estimee: a.estimee || b.estimee, ancrages: [...a.ancrages, ...b.ancrages], fenetres: [...a.fenetres, ...b.fenetres] };
     }
     case "marge": {
       const ca = lire(s.ca, ctx);
@@ -183,6 +193,40 @@ function lire(s: SourceEvolution, ctx: ContexteEvolution): Lu | null {
         fenetres: [...ca.fenetres, ...charges.fenetres],
       };
     }
+  }
+}
+
+// Première donnée lue par une source, pour la nommer dans un message.
+function premiereDonnee(s: SourceEvolution): string {
+  switch (s.type) {
+    case "nombre":
+    case "colonne":
+    case "mois":
+      return s.donnee;
+    case "somme":
+      return premiereDonnee(s.termes[0]);
+    case "rapport":
+    case "taux":
+      return premiereDonnee(s.numerateur);
+    case "marge":
+      return premiereDonnee(s.ca);
+  }
+}
+
+// Toutes les données lues par une source (contrôle des données, « données utilisées » à l'écran).
+export function donneesDeLaSource(s: SourceEvolution): string[] {
+  switch (s.type) {
+    case "nombre":
+    case "colonne":
+    case "mois":
+      return [s.donnee];
+    case "somme":
+      return [...new Set(s.termes.flatMap(donneesDeLaSource))];
+    case "rapport":
+    case "taux":
+      return [...new Set([...donneesDeLaSource(s.numerateur), ...donneesDeLaSource(s.denominateur)])];
+    case "marge":
+      return [...new Set([...donneesDeLaSource(s.ca), ...donneesDeLaSource(s.chargesParMois)])];
   }
 }
 
@@ -207,6 +251,25 @@ function perimetreChange(debut: Mois, fin: Mois, ctx: ContexteEvolution): { chan
   const quand = Number(m[1]) * 12 + Number(m[2]) - 1;
   if (quand <= debut || quand > fin) return { change: null, inconnu: false };
   return { change: `Le périmètre de votre activité a changé en ${nomDuMois(quand)} : les deux périodes ne portent pas sur la même activité.`, inconnu: false };
+}
+
+// --- Mesure d'un seul côté : la valeur actuelle d'une mesure du dirigeant (écran « Résultats ») --------------------------------
+
+export type MesureCalculee =
+  | { statut: "mesuree"; valeur: number; estimee: boolean; periode: string; lignes: string[] | null }
+  | { statut: "manquante"; raison: string };
+
+// Même lecture que pour une évolution : aucune case vide ni « je ne sais pas » ne vaut zéro, une fourchette compte pour son
+// milieu (« estimée »), et deux réponses données à des mois différents ne se combinent pas (elles ne portent pas sur les mêmes
+// mois). `periode` : formulation de periodes.ts qui remplace celle du classeur quand une somme mêle plusieurs périodes.
+export function mesurer(s: SourceEvolution, ctx: ContexteEvolution, periode?: string): MesureCalculee {
+  const l = lire(s, ctx);
+  if (!l) return { statut: "manquante", raison: "Aucun des chiffres de cette mesure ne vous est demandé." };
+  if ("manque" in l) return { statut: "manquante", raison: l.manque };
+  const ancres = [...new Set(l.ancrages)].sort((a, b) => a - b);
+  if (ancres.length > 1)
+    return { statut: "manquante", raison: `Les réponses utilisées ont été données à des mois différents (${ancres.map(nomDuMois).join(", ")}) : elles ne portent pas sur les mêmes mois. Mettez à jour la plus ancienne.` };
+  return { statut: "mesuree", valeur: l.valeur, estimee: l.estimee, periode: periodeDuCote(l.fenetres, ancres[0] ?? ctx.aujourdhui, periode), lignes: l.lignes ?? null };
 }
 
 export function calculerEvolution(e: Evolution, ctx: ContexteEvolution): ResultatEvolution {
@@ -283,7 +346,8 @@ export function fenetresDeLaSource(s: SourceEvolution, periodes: (code: string) 
       const parties = s.termes.map((t) => fenetresDeLaSource(t, periodes));
       return parties.some((p) => p === null) ? null : parties.flat() as Fenetre[];
     }
-    case "rapport": {
+    case "rapport":
+    case "taux": {
       const a = fenetresDeLaSource(s.numerateur, periodes);
       const b = fenetresDeLaSource(s.denominateur, periodes);
       return a && b ? [...a, ...b] : null;

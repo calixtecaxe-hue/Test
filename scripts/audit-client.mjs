@@ -148,10 +148,10 @@ const email = `audit.client.${Date.now()}@example.com`;
   await p.waitForTimeout(300);
   controle("A-01", "Mobile", "à 360 px, la page ne défile pas de côté", await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), await p.evaluate(() => `${document.documentElement.scrollWidth} px pour ${innerWidth}`));
   // Compte rendu : au moins une priorité ou un chiffre du client.
+  // Depuis le 29 octobre, le classement des leviers par le moteur (étage 2) est attendu dans le rapport ; il n'existe pas encore.
   await page.goto(B + "/audit/acquisition-chiffre-affaires?etape=4", { waitUntil: "networkidle" });
-  await page.locator('label[for="res-o2"]').click();
-  const prio = await page.locator(".res-p2").innerText();
-  controle("R-01", "Résultats", "l'onglet Priorités classe au moins un thème", !/Aucun thème n'a encore de note/.test(prio), "« Aucun thème n'a encore de note » (repères de marché et règles de notation non écrits)");
+  const prio = await page.locator("[data-panneau=resultats]").innerText();
+  controle("R-01", "Résultats", "les leviers sont classés par le moteur selon leur effet sur l'objectif", !/classement des leviers par effet sur votre objectif/.test(prio), "« classement des leviers … pas encore calculés » (repères de marché et règles de notation non écrits)");
   // Séparation des comptes et droits.
   const r1 = await page.request.put(B + "/api/audit/reponses", { data: { cle: "COM-08.01", reponse: { genre: "inconnu" } } });
   controle("S-01", "Droits", "une question d'un agent non souscrit (Comm) est refusée (403)", r1.status() === 403, String(r1.status()));

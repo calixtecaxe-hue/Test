@@ -171,8 +171,10 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
   formule (les agents proposés en dépendent).
 - La connexion reprend le parcours là où il s'est arrêté (métier, puis formule, puis paiement, puis dossier).
 - Dans un agent : Objectif → Niveau et contexte → Questionnaire → Résultats. **L'objectif est toujours demandé avant les questions.**
-  Juste sous l'objectif fixé, la question « Avez-vous déjà essayé quelque chose pour atteindre cet objectif ? » (29 octobre,
-  section 6).
+  Juste sous l'objectif fixé, la question « Qu'avez-vous déjà essayé pour atteindre cet objectif ? » (29 octobre, section 6).
+- **L'étape Résultats a trois onglets distincts (décision du 29 octobre)** : « Résultats » présente les faits (écart à l'objectif,
+  chiffres en jeu, évolutions, comparaison au marché quand elle existe), **sans score, couleur, classement ni conseil** ;
+  « Rapport » apporte l'interprétation et la stratégie (IA) ; « Plan d'action » transforme cette stratégie en actions (section 8).
 - **Pas d'écran de récapitulatif** ni de confirmation des chiffres avant le rapport.
 
 ## 5. Inscription, métier et profil
@@ -311,13 +313,18 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
 
 ### Ce que le dirigeant a déjà essayé (décision du 29 octobre)
 
-- **Au début de chaque agent, une fois l'objectif fixé**, juste sous lui : « Avez-vous déjà essayé quelque chose pour atteindre cet
-  objectif ? » Oui / Non. Facultative, comme toute question ; textes dans `data/deja-tente.json` (**à relire par le propriétaire**).
-- Si oui, jusqu'à **3 actions** : « Qu'avez-vous essayé ? » (texte court), « Qu'est-ce que cela a donné ? » (Cela a fonctionné / En
-  partie / Pas de résultat / Je l'ai arrêté avant de voir le résultat / Trop tôt pour le dire) et, facultatif, « Pendant combien de
-  temps l'avez-vous fait ? ».
-- La réponse se rattache à l'objectif en cours ; un nouvel objectif la reprend telle quelle, sous lui, où le dirigeant la corrige.
-  Avec « Non », les actions déjà écrites restent gardées mais ne comptent plus.
+- **Au début de chaque agent, une fois l'objectif fixé**, juste sous lui : « Qu'avez-vous déjà essayé pour atteindre cet objectif ? »
+  (aide : « Vous pouvez préciser ce que vous avez fait, ce que cela a donné et les difficultés rencontrées. »). **Question légère**
+  (forme du 29 octobre, qui remplace le Oui / Non et les 3 actions) : une zone de texte, ou la case « Je n'ai encore rien essayé. » ;
+  deux précisions facultatives, repliées : « Dans l'ensemble, qu'est-ce que cela a donné ? » (Cela a fonctionné / En partie / Pas de
+  résultat / Je l'ai arrêté avant de voir le résultat / Trop tôt pour le dire) et « Pendant combien de temps ? ». Textes dans
+  `data/deja-tente.json` (**à relire par le propriétaire**).
+- **« Je n'ai encore rien essayé » n'est pas une question sans réponse** : une absence de réponse n'est jamais lue comme « rien
+  essayé », ni par le code ni par l'IA (le contrôle du rapport le refuse).
+- **La réponse est rattachée à un objectif précis.** Un nouvel objectif ne la reprend **jamais en silence** : l'ancienne réponse reste
+  sur l'ancien objectif (visible dans l'historique) et est **proposée** sous le nouveau (« Cela vaut-il aussi pour ce nouvel
+  objectif ? ») ; elle n'est copiée que si le dirigeant clique « Reprendre pour ce nouvel objectif » (origine gardée). Un compte qui a
+  encore plusieurs objectifs en cours a une question par objectif, nommé.
 - **Jamais dans le calcul** : contexte pour l'IA du rapport et du plan.
 - **Ce que l'IA en fait** :
   - « Cela a fonctionné » : s'appuyer dessus (amplifier, rendre régulier), ne pas le présenter comme une nouveauté ;
@@ -492,17 +499,51 @@ Vérification et règles détaillées : `docs/verification/historique.md`.
   - sans détail complet, le champ est vide ; le détail reste demandé.
   - À écrire aussi dans le classeur (colonne « Posée si » : toujours ; pré-remplie par la somme du détail).
 
-### Compte rendu (étape « Résultats », décisions du 22 octobre)
+### Résultats, rapport et plan d'action (étape 4, décisions du 29 octobre)
 
-- Trois onglets : objectif, priorités, plan d'action. Ouvert dès que le niveau est choisi (étape « 4 Résultats » cliquable). Branché
-  sur le vrai moteur pour ce qui existe. **Le compte rendu est en conception par le propriétaire.**
-- **Rien n'est inventé** : tant que les seuils de marché sont vides et que les règles de notation Pratique et Cohérence ne sont pas
-  écrites, aucun thème n'est noté (« sans repère de marché »). Le réalisme de l'objectif, la réponse de l'agent, l'ordre de priorité,
-  l'impact et le plan d'action (IA non branchée) disent « pas encore » au lieu d'un chiffre. Avancement : 0 % tant qu'aucun point
-  d'étape n'existe.
-- Une **maquette à chiffres fictifs** sert à valider la forme finale (bannière « Exemple de présentation »). Ses libellés de réalisme
-  (Réaliste / Réaliste sous conditions / Pas réaliste en l'état) sont des **propositions à valider** ; pas de verdict pour un objectif
-  sans chiffre.
+Remplace les trois onglets du 22 octobre (objectif, priorités, plan). Détail, liste exacte de ce qui se calcule et exemple complet :
+`docs/rapport/rapport.md`.
+
+- **« Résultats » : les faits disponibles, sans score, couleur, classement ni conseil.**
+  - L'objectif : phrase, échéance, origine, ce que le dirigeant veut constater ; la **mesure** qui le suit, la **situation de
+    départ**, la **cible** et l'**écart à combler** seulement quand ils se calculent sans hypothèse (sinon, la raison est écrite).
+    Un objectif sans chiffre n'a **aucun pourcentage fabriqué**. Avancement déclaré : aucun point d'étape pour l'instant.
+  - Les chiffres du dirigeant liés aux thèmes de son objectif, puis ses autres chiffres pour l'agent : unité, mois exacts, « estimé »
+    pour une fourchette, questions d'origine (« Données utilisées », sans identifiant technique).
+  - Les évolutions sur des périodes comparables (section 6, « Historique et évolutions »).
+  - La comparaison au marché, **seulement avec un repère vérifié enregistré pour le même indicateur** ; sinon, l'écran dit qu'elle
+    n'est pas disponible.
+  - Ce qui manque : mesures non calculables et pourquoi, thèmes à compléter, et ce qui n'est calculé pour aucun métier (réalisme,
+    classement des leviers). **Aucune valeur manquante ne vaut zéro.**
+  - Les mesures sont écrites à la main dans `data/mesures.json` : une réponse du dirigeant, ou une formule **déjà écrite dans le
+    classeur** (le contrôle des données refuse une mesure qui lit une donnée hors des entrées de sa formule). **Une cible se calcule** :
+    pour un objectif proposé dont la phrase mesure exactement la même chose (unités listées) ; pour un objectif écrit librement, en %
+    seulement, sur une mesure qui n'est pas un taux, et quand le sens (hausse, baisse) se lit. Un montant libre sans période, ou un %
+    sur un taux (points ou relatif ?), ne donne pas de cible.
+- **« Rapport » : l'interprétation et la stratégie, rédigées par l'IA** à partir d'un dossier préparé par le code (faits identifiés,
+  objectif, évolutions, repères, déjà essayé, réponses libres ; ni nom, ni e-mail, ni raison sociale, ni ville). Pour chaque point
+  clé : **faits établis, interprétation, hypothèses à vérifier, choix recommandé et justification** ; ce qui fonctionne, ce qui freine,
+  ce qui compte le plus, les pistes à vérifier ; ce que le dirigeant a déjà essayé ; contradictions ; manques ; renvois.
+  - Le moteur ne signale encore aucun levier (seuils et règles non écrits) : un point n'est présenté comme un frein que s'il est établi
+    par les faits du dossier ou par le dirigeant ; sinon c'est une piste à vérifier. **Pas de diagnostic négatif forcé** (règle
+    appliquée en attendant les seuils : section 15).
+  - **Garde côté code** avant tout affichage : chiffres présents dans le dossier (montants et % jamais inventés, même pour un budget),
+    références existantes, action sans fait cité refusée (conseil générique), verbe à l'infinitif, ton (ni « ! », ni émoji, ni
+    tutoiement, ni formule creuse, ni superlatif, ni code technique), renvois, « rien essayé » jamais déduit d'une absence de réponse,
+    zone interdite des professions réglementées (section retirée ; message fixe à écrire avec l'avocat). Un rapport refusé est
+    redemandé une fois avec la liste des défauts ; sinon, échec affiché avec « Relancer la rédaction ».
+  - Les textes du dirigeant sont transmis comme des données, jamais comme des consignes.
+  - **Rapport périmé** : l'empreinte du dossier (réponses actives, objectif, déjà essayé) est gardée avec le rapport ; quand elle
+    change, l'écran le dit (« ont changé depuis ce rapport ») et propose « Mettre à jour le rapport ». Cocher une action ne périme pas
+    le rapport. Un nouvel objectif n'hérite pas du rapport de l'ancien.
+  - États : à rédiger, en cours (la rédaction continue si le dirigeant quitte la page), échec et relance, prêt, périmé. Sans clé
+    d'API : **mode simulation** hors production (texte de test sans IA, annoncé comme tel), « pas encore ouvert » en production.
+- **« Plan d'action »** : chaque action a un intitulé qui commence par un verbe, le résultat recherché, pourquoi elle est prioritaire,
+  2 à 4 étapes, moyens, prérequis, dépendances, temps nécessaire, échéance et point d'étape, indicateur de suivi, effet attendu **en
+  mots**. Groupes « À lancer maintenant » et « Peut attendre ». Une action qui reprend un essai dit ce qui change. Le dirigeant
+  indique où il en est de chaque action (à faire, en cours, faite, abandonnée) : **c'est distinct de l'avancement de l'objectif**.
+- La **maquette à chiffres fictifs** (`?exemple=1`, `RESULTATS_MAQUETTE=1`) garde l'ancienne présentation du 22 octobre ; ses
+  libellés de réalisme restent des propositions à valider.
 
 ### Rédaction des questions
 
@@ -560,10 +601,12 @@ porte plusieurs indicateurs, et la règle de deux leviers sur la même étape.
 - **Le plan suit le temps réellement disponible du dirigeant** (heures par jour travaillé). Les actions qui libèrent du temps passent
   en premier ; les autres sont programmées après (« à lancer une fois 6 h libérées »). Augmenter la capacité ne se résume jamais à
   « libérez du temps » : tâches à déléguer, automatiser ou supprimer, puis recrutement.
-- **Ce que le dirigeant a déjà essayé** : posé au début de chaque agent, sous l'objectif (décision du 29 octobre, section 6). Le
-  **tour ciblé** prévu avant, après le premier calcul, sur les 5 ou 6 axes faibles (rien / en place et ça marche / sans résultat /
-  pas tenu dans la durée), dépend des leviers classés par le moteur : il attend les règles de notation (garder, ou abandonner si la
-  question du début suffit : section 15). Ces réponses n'entrent jamais dans le calcul.
+- **Ce que le dirigeant a déjà essayé** : posé au début de chaque agent, sous l'objectif (décision du 29 octobre, section 6) ; le
+  rapport et le plan en tiennent compte (section 6, « Résultats, rapport et plan d'action »). Le **tour ciblé** prévu avant, après le
+  premier calcul, sur les 5 ou 6 axes faibles, dépend des leviers classés par le moteur : il attend les règles de notation (garder, ou
+  abandonner si la question du début suffit : section 15). Ces réponses n'entrent jamais dans le calcul.
+- **Suivi des actions (29 octobre)** : l'état de chaque action du plan (à faire, en cours, faite, abandonnée) est gardé avec le
+  rapport et transmis au rapport suivant (ne pas reproposer ce qui a été abandonné). Il ne change pas l'avancement de l'objectif.
 - **Effet attendu et avancement réel (19 octobre)** : l'IA ne choisit jamais un pourcentage ni un montant. L'effet potentiel d'une
   action vient d'un taux sourcé et vérifié par le code (section 3), appliqué par le moteur aux volumes du client ; sans taux sourcé,
   l'effet est écrit en mots. L'**avancement** se calcule uniquement sur ce que le dirigeant **déclare** au point d'étape (exemple du
@@ -754,7 +797,9 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 ### À décider
 
 1. **Publicité des professions réglementées** : dernier point à trancher avant la publication du site, avec un avocat spécialisé. Le
-   propriétaire revient avec le retour de l'avocat : message fixe, liste des canaux, liste des termes interdits.
+   propriétaire revient avec le retour de l'avocat : message fixe, liste des canaux, liste des termes interdits. Le rapport applique
+   déjà la règle (29 octobre) : une section qui touche la zone interdite est retirée ; le message fixe et son intertitre restent vides
+   dans `data/rapport.json` tant qu'ils ne sont pas écrits, et la liste des termes est une première version à valider.
 2. **Agent Comm « à trancher »** pour 13 métiers ou activités (section 5), avec l'avocat.
 3. **Catégorie Fabrication** : questionnaire à créer (dont ACQ-26).
 4. **Modules métier ouverts** : transport de marchandises (ACQ-25), constructeur de maisons individuelles (ACQ-28), gestion
@@ -781,7 +826,13 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
       « 10 points ou +10 % » est sans objet ;
     - les brouillons Finance, RH et Comm sont dans le document « Prompts — Finance, RH et Comm : parties propres à l'agent
       (brouillons) » (Claude Docs) ;
-    - les couleurs vert / orange / rouge sont gardées pour la phase d'essai (à supprimer sur demande).
+    - les couleurs vert / orange / rouge sont gardées pour la phase d'essai (à supprimer sur demande) ; elles n'apparaissent pas dans
+      l'onglet « Résultats » (29 octobre) et ne sont transmises au rapport que si un thème est noté ;
+    - **fait le 29 octobre** : les consignes branchées (`src/lib/rapport/prompt.ts`) suivent l'option A (effet en mots, aucun
+      chiffre projeté) et le périmètre Comm du 28 octobre ; les deux documents d'origine restent à mettre à jour par le propriétaire
+      s'il veut les garder comme référence ; le verdict RH n'est jamais formulé tant que sa règle n'est pas écrite ;
+    - **aucun appel réel n'a encore été fait** (pas de clé dans l'environnement) : la qualité des rapports de l'IA est à juger sur de
+      vrais essais, avec la clé, avant l'ouverture.
 11. **À construire plus tard** : mini-questionnaire anonyme RH aux salariés ; connexion Meta pour l'agent Comm.
 12. **Lancement** (`docs/strategie-lancement.md`, recommandation de la stratégie entre parenthèses) :
     - D3 offre fondateur (palier 3 agents au prix du palier 2, 50 places, jusqu'à J+30 ; autres choix : -30 % à vie, ou pas d'offre) ;
@@ -830,8 +881,20 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 
 ### À valider (propositions déjà en place)
 
-- Question « déjà essayé » (29 octobre) : textes et choix (`data/deja-tente.json`), dont la durée facultative ; et le sort du tour
-  ciblé sur les axes faibles (section 8) : garder les deux, ou seulement la question du début.
+- Question « déjà essayé » (29 octobre) : textes et choix (`data/deja-tente.json`), dont la durée facultative et les textes de la
+  reprise proposée après un changement d'objectif ; et le sort du tour ciblé sur les axes faibles (section 8) : garder les deux, ou
+  seulement la question du début.
+- **Rapport et plan d'action (29 octobre)** (`docs/rapport/rapport.md`, section 7) :
+  - les consignes de l'IA (`src/lib/rapport/prompt.ts`), écrites d'après le prompt Acquisition et les brouillons Finance, RH et Comm,
+    mis à jour avec les décisions des 19, 28 et 29 octobre ;
+  - la règle appliquée tant que le moteur ne signale aucun levier : un frein doit être établi par les faits ou par le dirigeant,
+    sinon c'est une piste à vérifier ;
+  - le nombre d'actions (1 à 6 accepté par le contrôle ; « en général 3 à 6 » dans les consignes), 2 à 4 étapes, échéance de 52
+    semaines au plus (`data/rapport.json`) ;
+  - les listes du contrôle : superlatifs (filet) et termes interdits aux professions réglementées (à valider avec l'avocat) ;
+  - les mesures de `data/mesures.json` et les objectifs proposés qu'elles suivent (5 propositions chiffrées : com-audience,
+    com-visites-profil, com-visites-site, com-temps, rh-turnover en %) ;
+  - la présentation des trois onglets (captures dans `docs/rapport/captures` et `docs/rapport/exemple`).
 
 - Nature et impact des 19 thèmes ajoutés par le classeur 11 (FIN-46 à 48, RH-41 à 49, COM-55 à 61).
 - Les 8 thèmes ajoutés le 27 octobre (ACQ-24, 25, 27, 28, 29, 30, COM-62, COM-63) : en « Contexte » (non notés, lus par l'IA), étapes
@@ -872,7 +935,8 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 - Conditions générales de vente (avec l'avocat) ; textes cookies, confidentialité et RGPD.
 - Abréviations et autres noms des métiers pour la recherche.
 - Mots du vocabulaire « consultation » des professions de santé.
-- Clé `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt).
+- Clé `ANTHROPIC_API_KEY` (variable de l'environnement, jamais dans le dépôt) : elle ouvre la rédaction réelle des rapports
+  (`docs/rapport/rapport.md`, section 6) et la recherche des références de marché.
 - Correction du document de règles : prix du palier 4 à 99,99 € ; agent Comm (partie 2), la phrase « son funnel […] s'arrête […] au
   moment où quelqu'un devient un contact identifié » à remplacer par la clarification du 28 octobre (section 9), et sa question
   (« … assez de contacts ? ») à revoir si le propriétaire le souhaite.

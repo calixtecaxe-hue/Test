@@ -25,11 +25,11 @@ appelé hors navigateur) ou seulement **lu dans le code** est dit à chaque fois
 | Évaluées une à une (utilité, profils, conditions, usage) | 583 |
 | Relues (texte, aide, choix, unité, période) | 583 (dont 2 à arbitrer) |
 | Assemblées par le vrai code et contrôlées par le balayage | 546 |
-| Affichées et manipulées dans l'application | 397 (394 de la banque, 3 de cadrage) |
+| Affichées et manipulées dans l'application | 491 (479 de la banque, 12 de cadrage) |
 | Jamais posées pendant l'audit (brief de création de contenu) | 15 |
-| Assemblées mais non manipulées dans le navigateur : profil absent des comptes de test (électricien, profil chantier) | 37 |
-| Assemblées mais non manipulées dans le navigateur : condition non remplie par les réponses des contrôles | 78 |
-| Assemblées mais non manipulées dans le navigateur : taille absente des comptes de test (2 à 5 personnes) | 21 |
+| Assemblées mais non manipulées dans le navigateur : profil absent des comptes de test (électricien, profil chantier) | 34 |
+| Assemblées mais non manipulées dans le navigateur : condition non remplie par les réponses des contrôles | 14 |
+| Assemblées mais non manipulées dans le navigateur : taille absente des comptes de test (2 à 5 personnes) | 3 |
 | Assemblées mais non manipulées dans le navigateur : module métier (comptes de test : électricien) | 16 |
 
 | Statut (un seul par question) | Nombre | dont exploitation à développer |
@@ -203,7 +203,7 @@ Exécutés sur le serveur de test, avec des comptes fictifs (aucun paiement rée
 | historique | 32 | 0 |
 | partages | 36 | 0 |
 | branches | 94 | 0 |
-| dependances | 66 | 0 |
+| dependances | 496 | 0 |
 <!-- fin:scenarios -->
 
 (contrôle, nombre de contrôles, écarts). Série complète : `docs/verification/resultats/synthese.txt`.
@@ -279,7 +279,7 @@ calculs du classeur qui éviteraient une question ne sont pas écrits (A-14) ; C
 | A-13 | Liens manquants dans les entrées des calculs | donnée | à décider | 13 |
 | A-14 | Calculs décrits par le classeur et non écrits, qui remplaceraient une question | exploitation | à décider | 3 |
 | A-15 | Données recueillies sans exploitation exécutée, en attente d'une décision | exploitation | à décider | 3 |
-| A-16 | Règle du quart « je ne suis pas cette donnée » écrite mais non branchée | règle | à construire | toutes |
+| A-16 | Règle du quart « je ne suis pas cette donnée » écrite mais non branchée | règle | faite | toutes |
 | A-17 | Pratiques notées sans problème constaté (risque de conseil générique) | règle | à décider | 15 |
 | A-18 | Grilles de qualité Comm appliquées par l'IA | règle | à décider | 3 |
 | A-19 | Questions RH hors du périmètre de l'agent | périmètre | à décider | 5 |
@@ -474,8 +474,8 @@ calculs du classeur qui éviteraient une question ne sont pas écrits (A-14) ; C
 - **Questions** : toutes celles décrites ci-dessous.
 - **Problème** : bilanNonSuivi (src/lib/audit/reponse.ts) calcule la part des données essentielles « non suivies », mais rien ne l'appelle : le compte rendu n'ajoute pas le conseil général de pilotage prévu au-delà d'un quart.
 - **Conséquence** : Règle validée (CLAUDE.md, section 6) sans effet tant que le compte rendu n'est pas construit.
-- **Correction (à construire)** : Brancher bilanNonSuivi dans le constat transmis à l'IA du compte rendu ; le texte du conseil reste à écrire.
-- **Contrôle** : Recherche dans le code : aucun appel hors des tests.
+- **Correction (faite)** : Branché le 29 octobre : bilanNonSuivi alimente le dossier du rapport (suiviDonnees : nombre de données non suivies, données essentielles, déclenché au-delà d'un quart) ; les consignes demandent alors à l'IA un conseil général de pilotage qui complète les autres. Le texte du conseil est rédigé par l'IA ; aucun appel réel n'a encore été fait.
+- **Contrôle** : src/lib/rapport/rapport-compte.ts (preparerDuCompte) et src/lib/rapport/prompt.ts ; tests/rapport.test.mts (dossier). Appel réel non essayé.
 
 ### A-17 · Pratiques notées sans problème constaté (risque de conseil générique)
 
@@ -581,14 +581,20 @@ calculs du classeur qui éviteraient une question ne sont pas écrits (A-14) ; C
 
 <!-- fin:detail -->
 
-## 11. Ajouté après l'audit : ce que le dirigeant a déjà essayé (décision du 29 octobre)
+## 11. Ajouté après l'audit : ce que le dirigeant a déjà essayé, résultats, rapport et plan (décisions du 29 octobre)
 
-Le propriétaire a décidé une question posée au début de chaque agent, sous l'objectif : « Avez-vous déjà essayé quelque chose pour
-atteindre cet objectif ? ». Si oui, jusqu'à 3 actions, chacune avec ce qu'elle a donné (Cela a fonctionné / En partie / Pas de
-résultat / Je l'ai arrêté avant de voir le résultat / Trop tôt pour le dire) et, facultatif, sa durée. Elle n'entre jamais dans le
-calcul ; elle évite de conseiller tel quel ce qui n'a rien donné et distingue « ça n'a pas marché » de « je ne l'ai pas tenu ».
-Textes à relire (`data/deja-tente.json`) ; règles de lecture et de ton pour l'IA dans `CLAUDE.md`, section 6. Elle n'est pas dans
-la banque de questions ni dans l'inventaire ci-dessus (elle accompagne l'objectif). Contrôle : `scripts/verification/tentatives.mjs`.
+- **Ce que le dirigeant a déjà essayé** : une question légère, posée au début de chaque agent sous l'objectif (« Qu'avez-vous déjà
+  essayé pour atteindre cet objectif ? »). Elle se compose d'un texte, ou de « Je n'ai encore rien essayé. », et de deux précisions
+  facultatives. La réponse est rattachée à l'objectif ; un nouvel objectif ne la reprend jamais sans l'accord du dirigeant. Elle
+  n'entre jamais dans le calcul. Textes à relire (`data/deja-tente.json`) ; règles dans `CLAUDE.md`, section 6. Elle n'est pas dans
+  la banque de questions ni dans l'inventaire ci-dessus (elle accompagne l'objectif). Contrôle :
+  `scripts/verification/tentatives.mjs` (26/26).
+- **L'IA est conçue et branchée, sans appel réel** : onglets « Résultats » (faits), « Rapport » (interprétation et stratégie) et
+  « Plan d'action ». Le dossier transmis à l'IA, les consignes, les contrôles du code, la simulation et la liste exacte des mesures
+  calculables sont décrits dans `docs/rapport/rapport.md`. Ce qui est « lu par l'IA du rapport » dans l'inventaire (réponses
+  libres, contexte) est transmis dans le dossier. Les calculs que l'IA doit citer et qui ne sont pas écrits (section 2, point 1)
+  restent absents du dossier : l'IA ne les remplace pas, le rapport dit qu'ils manquent.
+- **A-16 corrigée** : la règle du quart alimente le dossier du rapport.
 
 ## 12. Fichiers et commandes
 

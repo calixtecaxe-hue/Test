@@ -23,8 +23,8 @@ import { DejaTente } from "./deja-tente";
 import { lireTentatives, resumeTentatives } from "@/lib/audit/tentatives";
 import { NiveauChoix } from "./niveau-choix";
 import { ResultatsMaquette } from "./resultats-maquette";
-import { Resultats } from "./resultats";
-import { compteRenduDuCompte } from "@/lib/audit/constat-compte";
+import { Resultats, type Onglet } from "./resultats";
+import { etatDuRapport, preparerDuCompte } from "@/lib/rapport/rapport-compte";
 import { Questionnaire } from "./questionnaire";
 import { TeteAgent, type EtapeParcours } from "./tete-agent";
 import { estComplet } from "@/lib/compte";
@@ -48,9 +48,9 @@ function formaterDate(date: Date): string {
 // Un audit commence par l'objectif du dirigeant pour cet agent, en trois champs. Vient
 // ensuite le questionnaire, assemblé selon son profil, sa taille et ses réponses ; il
 // se sauvegarde au fil des réponses et se reprend à tout moment.
-export default async function AuditPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ etape?: string; exemple?: string }> }) {
+export default async function AuditPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ etape?: string; exemple?: string; onglet?: string }> }) {
   const { slug } = await params;
-  const { etape: etapeDemandee, exemple: exempleDemande } = await searchParams;
+  const { etape: etapeDemandee, exemple: exempleDemande, onglet: ongletDemande } = await searchParams;
   const agent = AGENTS.find((a) => a.slug === slug);
   if (!agent) notFound();
 
@@ -185,7 +185,10 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   const rouvre = vue < etapeParcours;
   const retourAudit = `/audit/${agent.slug}`;
   const exemple = process.env.RESULTATS_MAQUETTE === "1" && exempleDemande === "1";
-  const vueCompteRendu = vue === 4 && actif && !exemple ? await compteRenduDuCompte(utilisateur, agent.code) : null;
+  // Résultats, rapport et plan : préparés à partir des réponses actives du compte ; l'état du rapport dit s'il est à jour.
+  const onglet: Onglet = ongletDemande === "rapport" || ongletDemande === "plan" ? ongletDemande : "resultats";
+  const preparation = vue === 4 && actif && !exemple ? await preparerDuCompte(utilisateur, agent.code, actifs) : null;
+  const etatRapport = preparation ? await etatDuRapport(actif!.id, preparation) : null;
   const nCompte = compterQuestions(ENSEMBLE, agent.code, profils, taille, exclusionsAcquisition(ENSEMBLE.routage, utilisateur), metier);
 
   return (
@@ -202,7 +205,7 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
         exemple ? (
           <ResultatsMaquette agent={agent} objectifs={affiches} />
         ) : (
-          <Resultats agent={agent} vue={vueCompteRendu!} objectifs={affiches} questionnaire={retourAudit} />
+          <Resultats agent={agent} onglet={onglet} vue={preparation!.resultats} etat={etatRapport!} base={retourAudit} />
         )
       ) : rouvre && vue === 1 ? (
         <ObjectifEdition agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} propositions={propositions} saisies={saisies} retour={retourAudit} suivi={suivi} publication={publication} />

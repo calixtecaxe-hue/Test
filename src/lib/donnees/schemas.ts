@@ -485,13 +485,17 @@ export type SourceEvolution =
   | { type: "nombre"; donnee: string; champ?: string; facultatif?: boolean }
   // Tableau mois par mois : somme des lignes « le mois dernier » (1) à « il y a N mois » demandées ; chaque mois est exigé.
   | { type: "mois"; donnee: string; colonne: string; lignes: number[] }
-  // Somme d'une colonne sur les lignes actuelles d'un tableau (une ligne par canal coché…) ; chaque case est exigée.
-  | { type: "colonne"; donnee: string; colonne: string; facultatif?: boolean }
+  // Somme d'une colonne sur les lignes actuelles d'un tableau (une ligne par canal coché…) ; chaque case est exigée. Pour un
+  // tableau à lignes fixes seulement, « lignesVides: ignorees » applique la règle du tableau à catégories fixes : une ligne qui ne
+  // concerne pas le dirigeant reste vide ; la somme porte alors sur les lignes renseignées, nommées à l'écran.
+  | { type: "colonne"; donnee: string; colonne: string; facultatif?: boolean; lignesVides?: "ignorees" }
   // Somme de plusieurs sources. Un terme « facultatif » qui n'est pas posé au compte (pas de publicité, pas de salarié) n'y entre
   // pas : la dépense n'existe pas. Tout autre terme est exigé.
   | { type: "somme"; termes: SourceEvolution[] }
   // a ÷ b (montant moyen d'une vente).
   | { type: "rapport"; numerateur: SourceEvolution; denominateur: SourceEvolution }
+  // a ÷ b × 100, en % (taux écrit dans le classeur, par exemple « Devis acceptés ÷ devis envoyés »).
+  | { type: "taux"; numerateur: SourceEvolution; denominateur: SourceEvolution }
   // Taux de marge en % : (chiffre d'affaires − charges par mois × mois) ÷ chiffre d'affaires.
   | { type: "marge"; ca: SourceEvolution; chargesParMois: SourceEvolution; mois: number };
 
@@ -499,9 +503,10 @@ const sourceEvolution: z.ZodType<SourceEvolution> = z.lazy(() =>
   z.union([
     z.object({ type: z.literal("nombre"), donnee: codeDonnee, champ: z.string().min(1).optional(), facultatif: z.boolean().optional() }),
     z.object({ type: z.literal("mois"), donnee: codeDonnee, colonne: z.string().min(1), lignes: z.array(z.number().int().min(1).max(24)).min(1) }),
-    z.object({ type: z.literal("colonne"), donnee: codeDonnee, colonne: z.string().min(1), facultatif: z.boolean().optional() }),
+    z.object({ type: z.literal("colonne"), donnee: codeDonnee, colonne: z.string().min(1), facultatif: z.boolean().optional(), lignesVides: z.literal("ignorees").optional() }),
     z.object({ type: z.literal("somme"), termes: z.array(sourceEvolution).min(1) }),
     z.object({ type: z.literal("rapport"), numerateur: sourceEvolution, denominateur: sourceEvolution }),
+    z.object({ type: z.literal("taux"), numerateur: sourceEvolution, denominateur: sourceEvolution }),
     z.object({ type: z.literal("marge"), ca: sourceEvolution, chargesParMois: sourceEvolution, mois: z.number().int().min(1) }),
   ])
 );
@@ -536,6 +541,70 @@ export const evolutions = z.object({
 });
 export type Evolutions = z.infer<typeof evolutions>;
 export type Evolution = Evolutions["evolutions"][number];
+
+// --- Mesures de l'écran « Résultats » ------------------------------------------------------
+
+// data/mesures.json (src/lib/resultats/) : la valeur actuelle d'une mesure du dirigeant, lue dans ses réponses ou calculée par
+// une formule écrite dans le classeur (code de la donnée calculée), avec la même lecture qu'une évolution. Rattachée aux thèmes
+// dont elle est un facteur, et aux objectifs proposés dont la phrase mesure exactement la même chose.
+const uniteMesure = z.enum(["nombre", "euros", "pourcent", "heures", "jours"]);
+export const mesures = z.object({
+  source: z.string(),
+  mesures: z.array(
+    z.object({
+      id: z.string().regex(/^[a-z0-9-]+$/),
+      // Donnée du classeur que la mesure lit (demandée) ou calcule (calculée) : toutes les données lues sont la sienne ou ses entrées.
+      code: codeDonnee,
+      libelle: z.string().min(1),
+      // Ce que c'est et sur quels mois, en mots simples, sans identifiant technique.
+      explication: z.string().min(1),
+      unite: uniteMesure,
+      agents: z.array(codeAgent).min(1),
+      themes: z.array(z.string().regex(/^(ACQ|FIN|RH|COM)-\d{2}$/)).min(1),
+      source: sourceEvolution,
+      // Période imposée (formulation de periodes.ts) quand une somme mêle plusieurs périodes, avec sa justification.
+      periode: z.object({ texte: z.string().min(1), justification: z.string().min(1) }).optional(),
+      // Objectif écrit librement : chaque liste est un groupe de mots qui doivent tous y figurer.
+      mots: z.array(z.array(z.string().regex(/^[a-z0-9]+$/)).min(1)).optional(),
+      // Objectifs proposés qui se mesurent exactement ainsi, sens du changement, unités pour lesquelles la cible se calcule.
+      objectifs: z.array(z.object({ id: z.string().regex(/^[a-z0-9-]+$/), sens: z.enum(["hausse", "baisse"]), unites: z.array(z.enum(["pourcent", "euros", "unites"])).min(1) })).optional(),
+    })
+  ),
+});
+export type Mesures = z.infer<typeof mesures>;
+export type Mesure = Mesures["mesures"][number];
+
+// --- Rapport et plan d'action ---------------------------------------------------------------
+
+// data/rapport.json (src/lib/rapport/) : paramètres de la rédaction et listes des contrôles faits par le code sur le rapport.
+export const parametresRapport = z.object({
+  source: z.string(),
+  generation: z.object({
+    modele: z.string().min(1),
+    effort: z.enum(["low", "medium", "high", "xhigh", "max"]),
+    maxTokens: z.number().int().min(1000),
+    essaisMax: z.number().int().min(1).max(5),
+    dureeMaxSecondes: z.number().int().min(30),
+  }),
+  actions: z.object({
+    min: z.number().int().min(1),
+    max: z.number().int().min(1),
+    etapesMin: z.number().int().min(1),
+    etapesMax: z.number().int().min(1),
+    motsIntituleMax: z.number().int().min(3),
+    delaiSemainesMax: z.number().int().min(1),
+  }),
+  formulesInterdites: z.array(z.string().min(1)),
+  superlatifs: z.array(z.string().min(1)),
+  reglementees: z.object({
+    aValider: z.string(),
+    termesInterdits: z.array(z.string().min(1)).min(1),
+    // Écrits par le propriétaire avec l'avocat ; null tant qu'ils manquent.
+    intertitre: z.string().min(1).nullable(),
+    messageFixe: z.string().min(1).nullable(),
+  }),
+});
+export type ParametresRapport = z.infer<typeof parametresRapport>;
 
 // --- Tableaux liés ------------------------------------------------------------------------
 
@@ -744,6 +813,8 @@ export type EnsembleDonnees = {
   implications: Implications;
   partages: Partages;
   dejaTente: DejaTente;
+  mesures: Mesures;
+  parametresRapport: ParametresRapport;
   vocabulairesMetiers: VocabulairesMetiers;
   catalogue: FicheTheme[];
   catalogueEffets: EffetCatalogue[];
@@ -773,6 +844,8 @@ export const schemaFichiers = {
   implications,
   partages,
   dejaTente,
+  mesures,
+  parametresRapport,
   vocabulairesMetiers,
   catalogue: z.array(ficheTheme),
   catalogueEffets: z.array(effetCatalogue),

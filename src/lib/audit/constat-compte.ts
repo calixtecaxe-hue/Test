@@ -1,6 +1,6 @@
 import type { UtilisateurComplet } from "../compte";
 import { ENSEMBLE } from "./donnees-audit";
-import { assemblerQuestionnaire } from "./assemblage";
+import { assemblerQuestionnaire, type Assemblage } from "./assemblage";
 import { equivalences, lecturePartagee, questionsLiees } from "./partages";
 import { ancienneteEnMois, tailleDepuisEffectif } from "./affichage";
 import { agentsActifs, ancragesDesReponses, reponsesDuCompte } from "./compte";
@@ -8,7 +8,9 @@ import { reponsesActivesDuCompte } from "./contexte-compte";
 import { lignesActuelles } from "./reponses-actives";
 import { specDeLaDonnee } from "./validation";
 import { moisDe } from "./periodes";
-import { calculerEvolutions } from "../moteur/evolution";
+import { calculerEvolutions, donneesDeLaSource, mesurer, type ContexteEvolution } from "../moteur/evolution";
+import type { SourceEvolution } from "../donnees/schemas";
+import type { MesureDuCompte } from "../resultats/resultats";
 import { formuler } from "../donnees/lexique";
 import { composerCompteRendu, type VueCompteRendu } from "./compte-rendu";
 import { PROFILS, type ProfilId } from "../donnees/schemas";
@@ -23,6 +25,32 @@ import type { AgentCode } from "@prisma/client";
 // Les références de marché lues sont celles enregistrées en base, jamais cherchées ici ; sans elles, un thème
 // de nature Marché s'affiche avec les chiffres du dirigeant et sans comparaison.
 export async function compteRenduDuCompte(utilisateur: UtilisateurComplet, agent: AgentCode): Promise<VueCompteRendu> {
+  return (await constatDuCompte(utilisateur, agent)).vue;
+}
+
+// Données lues obligatoirement par une mesure (un terme « facultatif » d'une somme peut ne pas être posé).
+function obligatoires(s: SourceEvolution): string[] {
+  switch (s.type) {
+    case "nombre":
+    case "colonne":
+      return s.facultatif ? [] : [s.donnee];
+    case "mois":
+      return [s.donnee];
+    case "somme":
+      return s.termes.flatMap(obligatoires);
+    case "rapport":
+    case "taux":
+      return [...obligatoires(s.numerateur), ...obligatoires(s.denominateur)];
+    case "marge":
+      return [...obligatoires(s.ca), ...obligatoires(s.chargesParMois)];
+  }
+}
+
+// Le compte rendu et, pour l'écran « Résultats », les mesures du dirigeant lues avec les mêmes réponses actives et la même
+// lecture que les évolutions.
+export type ConstatDuCompte = { vue: VueCompteRendu; mesures: MesureDuCompte[]; assemblage: Assemblage; nomDe: (code: string) => string };
+
+export async function constatDuCompte(utilisateur: UtilisateurComplet, agent: AgentCode): Promise<ConstatDuCompte> {
   const profils = utilisateur.profils.filter((p): p is ProfilId => (PROFILS as readonly string[]).includes(p));
   const taille = tailleDepuisEffectif(utilisateur.nombreCollaborateurs);
   const exclusions = exclusionsAcquisition(ENSEMBLE.routage, utilisateur);
@@ -76,7 +104,7 @@ export async function compteRenduDuCompte(utilisateur: UtilisateurComplet, agent
     const f = q ? formuler(q.texte, profils, ENSEMBLE.lexique, vocabulaire) : null;
     return f?.ok ? f.texte : ENSEMBLE.donnees.find((d) => d.code === code)?.libelle ?? code;
   };
-  const evolutions = calculerEvolutions(ENSEMBLE.evolutions.evolutions, agent, {
+  const ctx: ContexteEvolution = {
     reponses: actives,
     ancrages: await ancragesDesReponses(utilisateur.id),
     aujourdhui: moisDe(new Date()),
@@ -92,6 +120,26 @@ export async function compteRenduDuCompte(utilisateur: UtilisateurComplet, agent
     },
     nomDe,
     effectifActuel: utilisateur.nombreCollaborateurs,
-  });
-  return { ...composerCompteRendu(constats, blocs), evolutions };
+  };
+  const evolutions = calculerEvolutions(ENSEMBLE.evolutions.evolutions, agent, ctx);
+  const liees = questionsLiees(ENSEMBLE, equiv);
+  const estPosee = (c: string) => posees.has(c) || liees(c).some((x) => posees.has(x));
+  const mesures: MesureDuCompte[] = ENSEMBLE.mesures.mesures
+    .filter((m) => m.agents.includes(agent))
+    .map((m) => {
+      const lues = donneesDeLaSource(m.source);
+      const libellesLignes: Record<string, string> = {};
+      for (const c of lues) {
+        const spec = specDeLaDonnee(ENSEMBLE, c).spec;
+        if (spec?.type === "tableau" && spec.lignes.source === "fixe") for (const l of spec.lignes.items) libellesLignes[l.id] = l.libelle;
+      }
+      return {
+        mesure: m,
+        calcul: mesurer(m.source, ctx, m.periode?.texte),
+        posee: obligatoires(m.source).every(estPosee),
+        questions: lues.filter(estPosee).map(nomDe),
+        libellesLignes,
+      };
+    });
+  return { vue: { ...composerCompteRendu(constats, blocs), evolutions }, mesures, assemblage: a, nomDe };
 }

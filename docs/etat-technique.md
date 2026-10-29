@@ -14,7 +14,7 @@ Chiffres au 28 octobre 2026.
 
   ```
   npx next build
-  AUTH_TRUST_HOST=true PAIEMENT_MODE=demonstration EMAIL_MODE=demonstration RESULTATS_MAQUETTE=1 npx next start -p 3100
+  AUTH_TRUST_HOST=true PAIEMENT_MODE=demonstration EMAIL_MODE=demonstration RAPPORT_MODE=simulation RESULTATS_MAQUETTE=1 npx next start -p 3100
   ```
 
 - Variables d'environnement (jamais dans le dépôt) :
@@ -29,7 +29,9 @@ Chiffres au 28 octobre 2026.
   | `EMAIL_MODE=demonstration` | Force le mode démonstration des e-mails (serveur de test) |
   | `NEXT_PUBLIC_SITE_URL` | Adresse des liens envoyés par e-mail (à régler sur l'adresse publique) |
   | `RESULTATS_MAQUETTE=1` | Rend visible la maquette du compte rendu (`?exemple=1`) |
-  | `ANTHROPIC_API_KEY` | Agent de recherche des références et des effets |
+  | `ANTHROPIC_API_KEY` | Agent de recherche des références et des effets ; rédaction réelle des rapports et des plans d'action |
+  | `RAPPORT_MODE=simulation` | Force la rédaction de test, sans IA (serveur de test) ; `RAPPORT_MODE=ia` exige une clé |
+  | `RAPPORT_SIMULATION_DELAI_MS`, `RAPPORT_SIMULATION_ECHECS` | Simulation : durée d'une rédaction (1 500 ms par défaut) ; nombre de premières rédactions qui échouent (contrôle de la reprise) |
 
 ## 2. Données (`data/`)
 
@@ -53,7 +55,9 @@ Chiffres au 28 octobre 2026.
 | `prereponses.json` | 1 règle (FIN-05.02) | à la main |
 | `implications.json` | 1 réponse déduite (COM-13.10) | à la main |
 | `partages.json` | Liens du classeur entre deux questions posées qui ne sont pas des jumelles exactes : 6 « pas un partage » (avec leur raison ; COM-13.01 et ACQ-02.01 partagés pour le seul profil e-commerce), 10 correspondances partie à partie | **à la main** (audit final du 29 octobre) |
-| `deja-tente.json` | Question « Avez-vous déjà essayé quelque chose pour atteindre cet objectif ? » : textes, choix du résultat et de la durée, 3 actions au plus (`aValider`) | à la main (décision du 29 octobre) |
+| `deja-tente.json` | Question « Qu'avez-vous déjà essayé pour atteindre cet objectif ? » : question, aide, « Je n'ai encore rien essayé. », longueur maximale (1 500), deux précisions facultatives (résultat, durée), textes de la reprise proposée après un changement d'objectif (`aValider`) | à la main (décisions du 29 octobre) |
+| `mesures.json` | 33 mesures de l'écran « Résultats » : réponse du dirigeant ou formule du classeur (code de la donnée), unité, agents, thèmes, mots qui rattachent un objectif écrit librement, objectifs proposés suivis (5) | **à la main** (29 octobre ; `docs/rapport/rapport.md`, section 2) |
+| `rapport.json` | Rédaction du rapport : modèle (`claude-opus-5-5`), effort, jetons, essais (2), durée maximale ; nombre d'actions et d'étapes ; formules interdites et superlatifs ; termes interdits aux professions réglementées (à valider avec l'avocat), message fixe (vide) | **à la main** (29 octobre) |
 | `retraits.json` | Vide depuis le 27 octobre (mécanisme gardé) | à la main |
 | `seuils.json` | **Vide** (voir `seuils.README.md`) | — |
 | `catalogue-themes.json` | 189 fiches ; 36 indicateurs comparables pour les 22 thèmes Marché | `python3 scripts/ecrire-catalogue-themes.py` |
@@ -242,16 +246,20 @@ Chiffres au 28 octobre 2026.
 
 ### Ce que le dirigeant a déjà essayé (29 octobre)
 
-- Écran : `deja-tente.tsx`, juste sous l'objectif en cours (`section[data-deja-tente]`), sur l'étape du questionnaire et sur
-  l'étape « Niveau et contexte » ; Oui / Non, puis jusqu'à 3 actions (`li[data-action]` : texte, résultat, durée facultative),
-  « Ajouter une autre action », « Retirer », « Effacer ma réponse ». Sauvegarde continue (choix tout de suite, texte après 1,2 s
-  ou en quittant le champ), renvoi seul au retour du réseau.
-- Données : `Objectif.tentatives` (migration `20261029150000_tentatives`) ; forme et contrôle dans `src/lib/audit/tentatives.ts`
-  (`validerTentatives`, `lireTentatives`, `tentativesTransmises` pour le compte rendu et l'IA). Route
-  `PUT /api/audit/tentatives` (droit d'accès à l'agent, objectif actif exigé). Un nouvel objectif reprend la réponse de celui qu'il
-  remplace (`POST /api/audit/objectif`).
-- Tests : `tests/tentatives.test.mts` ; navigateur : `node scripts/verification/tentatives.mjs` (captures dans
-  `docs/verification/captures-tentatives`).
+- Écran : `deja-tente.tsx`, juste sous chaque objectif en cours (`section[data-deja-tente][data-objectif-id]`, nommé quand le
+  compte en a plusieurs), sur l'étape du questionnaire et sur l'étape « Niveau et contexte » : zone de texte
+  (`textarea[data-champ=texte]`), case « Je n'ai encore rien essayé. » (`label[data-champ=rien]`), précisions repliées
+  (`details[data-precisions]`, résultat et durée), « Effacer ma réponse ». Sauvegarde continue (case et précisions tout de suite,
+  texte après 1,2 s ou en quittant le champ), renvoi seul au retour du réseau, envoi en quittant la page.
+- Données : `Objectif.tentatives` (migration `20261029150000_tentatives`), forme `{ etat: "essaye", texte, resultat, duree,
+  reprisDe? }` ou `{ etat: "rien", texte? }` ; `null` = sans réponse. Contrôle dans `src/lib/audit/tentatives.ts`
+  (`validerTentatives`, `lireTentatives` qui lit encore la forme `{ deja, actions }` du premier essai, `tentativesTransmises` :
+  `sans_reponse`, `rien_essaye` ou `essaye`, `resumeTentatives`). Route `PUT /api/audit/tentatives` `{ objectifId, tentatives }` :
+  objectif du compte (404), agent ouvert (403), objectif en cours (409), `reprisDe` = objectif du compte, même agent (400).
+- Changement d'objectif : `POST /api/audit/objectif` ne copie plus rien ; `page.tsx` propose la réponse du dernier objectif remplacé
+  (`[data-reprise-proposee]`) tant que le nouvel objectif n'a pas de réponse ; historique : `[data-historique-tentatives]`.
+- Tests : `tests/tentatives.test.mts` ; navigateur : `node scripts/verification/tentatives.mjs` (26 contrôles T-01 à T-20 ; captures
+  dans `docs/verification/captures-tentatives`).
 
 ### Données partagées (29 octobre)
 
@@ -334,15 +342,42 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
   - lancer ensuite `python3 scripts/exporter-modele-banque.py --avec-questions`.
 - Tests : `tests/historique.test.mts` ; navigateur : `node scripts/verification/historique.mjs`.
 
-### Compte rendu
+### Résultats, rapport et plan d'action (29 octobre)
 
-- `constat-compte.ts` assemble le questionnaire du compte, charge les références de marché actives en base et appelle
-  `constaterAgent` ; `compte-rendu.ts` classe les constats (thèmes notés du rouge au vert avec repère de marché sourcé, analysés avec
-  les seuls chiffres du dirigeant, à compléter, comptes des thèmes masqués et de contexte) ; `resultats.tsx` les affiche.
-- Évolutions : `constat-compte.ts` calcule aussi `evolutions` (`calculerEvolutions`, section « Historique et évolutions »), sur les
-  réponses actives du compte et les questions posées par l'un de ses agents. L'onglet « Priorités » les montre en tête, dans le bloc
-  « Ce qui a changé, d'après vos chiffres » (`[data-evolution][data-statut]`), avec les comparaisons pas encore possibles dans un
-  `<details>`. Phrase : `phraseEvolution` (`compte-rendu.ts`).
+Conception, liste exacte de ce qui se calcule, configuration de l'IA et exemple complet : `docs/rapport/rapport.md`.
+
+- Onglets : `resultats.tsx` (liens `?etape=4&onglet=resultats|rapport|plan`, `nav.res-onglets`, `[data-onglet]`).
+- **Résultats** : `constat-compte.ts` (`constatDuCompte`) assemble le questionnaire, calcule le constat, les évolutions
+  (`calculerEvolutions`) et les mesures (`mesurer`, `evolution.ts`, même lecture qu'une évolution ; `posee` : toutes ses questions
+  obligatoires sont posées au compte) ; `src/lib/resultats/resultats.ts` (`rattacherMesure`, `composerResultats`, fonctions pures)
+  donne l'objectif (départ, cible, écart ou leurs limites), les facteurs, les manques et la comparaison au marché (repère du même
+  indicateur seulement). Écran : `resultats-factuels.tsx` (`[data-panneau=resultats]`, `[data-objectif-resultat]`, `[data-depart]`,
+  `[data-cible]`, `[data-ecart]`, `[data-fait]`, `[data-questions]`, `[data-evolutions]`, `[data-marche]`, `[data-sans-marche]`,
+  `[data-manques]`).
+- **Rapport et plan** (`src/lib/rapport/`) :
+  - `dossier.ts` : `composerDossier` (faits F1…, évolutions E1…, repères M1…, réponses libres L1…, objectif O, déjà essayé T,
+    constat C1… ; aucune donnée personnelle), `empreinteDossier` (SHA-256 du dossier sans l'historique des actions),
+    `dossierPourMessage` (chevrons échappés) ;
+  - `prompt.ts` : consignes par agent (socle commun et partie propre), message du dossier, message de correction ;
+  - `schema.ts` : sortie structurée (zod) ; `garde-fous.ts` : `controlerRapport` (chiffres, références, ton, verbes, plan, déjà
+    essayé, renvois, professions réglementées) ;
+  - `rediger.ts` : un appel, la forme, les contrôles, un nouvel essai avec la liste des défauts (`essaisMax`) ;
+    `client-rapport.ts` : appel réel (SDK Anthropic, `beta.messages.stream`, réflexion adaptative, sortie au format du schéma,
+    consignes en cache, repli serveur `fallbacks: "default"`) ; `simulation.ts` : rapport de test sans IA ; `mode.ts` ;
+  - `rapport-compte.ts` : `preparerDuCompte` (résultats et dossier d'un compte), `etatDuRapport` (en cours, prêt, échec, périmé,
+    interrompu au-delà de `dureeMaxSecondes`), `lancerRapport`, `executerRapport`.
+- Tables : `Rapport` (objectif, statut `EN_COURS` / `PRET` / `ECHEC`, empreinte, dossier, contenu, mode, modèle, erreur, journal) et
+  `ActionPlan` (état de chaque action : `A_FAIRE`, `EN_COURS`, `FAITE`, `ABANDONNEE`) ; migration `20261029170000_rapports`.
+- Routes : `POST /api/rapport` `{ agent }` (202 ; la rédaction continue après la réponse avec `after`, `maxDuration` 600 s ; 409 sans
+  objectif ou sans réponse, 503 si indisponible), `GET /api/rapport?id=` (suivi), `PUT /api/rapport/action`
+  `{ rapportId, cle, statut }`. Droit d'accès à l'agent vérifié à chaque appel.
+- Écran : `rapport-plan.tsx` (client) : `[data-rediger]`, `[data-redaction-en-cours]`, `[data-rapport-echec]`,
+  `[data-rapport-absent]`, `[data-rapport-insuffisant]`, `[data-rapport-indisponible]`, `[data-simulation]`,
+  `[data-rapport-perime]`, `[data-rapport-contenu]`, `[data-conclusions]`, `[data-essais]`, `[data-plan-contenu]`,
+  `[data-plan-groupe]`, `[data-action]`, `[data-suivi-action]`. Styles : `.res-onglets`, `.res-fait`, `.rap-*` dans `globals.css`.
+- Tests : `tests/resultats.test.mts`, `tests/rapport.test.mts` ; navigateur : `node scripts/verification/rapport.mjs` (29 contrôles
+  RP-00 à RP-28, son propre serveur sur le port 3101 ; captures dans `docs/rapport/captures`) ; exemple complet :
+  `node scripts/verification/exemple-complet.mjs` (`docs/rapport/exemple`).
 - Maquette : `resultats-maquette.tsx` et `src/lib/audit/resultats-exemple.ts`, visible seulement avec `RESULTATS_MAQUETTE=1` et
   `?exemple=1`. Un compte de test se remplit avec `scripts/reponses-demonstration.mts` (réponses neutres, jamais de vrais clients).
 
@@ -418,7 +453,7 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 
 | Commande | Ce qu'elle contrôle |
 |---|---|
-| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 390 tests unitaires, données |
+| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 412 tests unitaires, données (dont les mesures) |
 | `node scripts/balayage-secteurs.mts` | Assemble et remplit le questionnaire de chaque métier, activité, taille, niveau et agent (229 scénarios, 7 704 questionnaires) : textes, lexique, tableaux, règles en attente, exclusions des professions réglementées, constat |
 | `node scripts/controle-parcours-secteurs.mjs`, `node scripts/controle-complementaire.mjs` | Parcours par secteur dans un navigateur |
 | `node scripts/controle-boutons.mjs [--agents ACQ,FIN,RH,COM] [--apercu <dossier>]` | Chaque question : chiffre exact, estimation, « je ne sais pas », « je ne suis pas cette donnée », « Effacer ma réponse », cases, choix, listes, tableaux, texte, mois, cartes partagées, mise à jour des questions suivantes, rechargement ; sur l'application ou l'aperçu |
@@ -431,7 +466,8 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 | `node scripts/audit-client.mjs [--sortie dossier]` | Parcours d'un dirigeant (inscription, recherche du métier, dossier, objectif, questionnaire, coupure réseau, reprise sur téléphone, droits, mobile 360 px, clavier, connexion, mot de passe oublié, page 404). Identifiants du rapport « Audit client de CAXE (27 octobre 2026) » (Claude Docs) ; « ÉCART » et code 1 tant qu'un défaut reste |
 | `node scripts/verification/historique.mjs [--sortie dossier]` | Historique et évolutions (32 contrôles H-01 à H-32) : périodes écrites, seuils d'ancienneté, entreprise jeune, baisse, hausse, stabilité, zéro, données partielles, périmètre, réponses de mois différents, changement du dossier, autre appareil |
 | `node scripts/verification/partages.mjs [--sortie dossier]` | Données partagées (36 contrôles P-01 à P-21) : les six liens qui ne sont pas des partages, jumelles, correspondances partie à partie dans les deux sens, valeurs reprises puis complétées, modification depuis l'autre agent, boutique en ligne, jumelles d'une même jumelle |
-| `node scripts/verification/tentatives.mjs [--sortie dossier]` | Question « déjà essayé » (T-01 à T-19) : place sous l'objectif dans les quatre agents, rien de coché d'avance, Oui / Non, texte, résultat, durée, ajout et retrait, trois actions au plus, actualisation, « Non » qui garde les actions, téléphone 360 px, coupure réseau, clavier, changement d'objectif, effacement, refus du serveur |
+| `node scripts/verification/tentatives.mjs [--sortie dossier]` | Question « déjà essayé » (26 contrôles T-01 à T-20) : place sous l'objectif dans les quatre agents, rien d'avance, « rien essayé » distinct d'une absence de réponse, texte enregistré à la pause et en quittant le champ, précisions, actualisation, coupure réseau, clavier, téléphone 360 px, changement d'objectif sans reprise silencieuse (proposition, refus, reprise avec origine), historique, refus du serveur (409, 400, 404, 403), deux objectifs en cours, effacement |
+| `node scripts/verification/rapport.mjs [--sortie dossier]` | Résultats, rapport et plan (29 contrôles RP-00 à RP-28) : faits sans couleur ni score, départ, cible et écart, objectif sans chiffre, « Données utilisées », marché indisponible, rédaction en cours, échec provoqué et relance, rapport enregistré, actions suivies, réponse ou déjà essayé modifiés (périmé, mise à jour), page quittée pendant la rédaction, téléphone 360 px, changement d'objectif, données partielles, compte sans réponse, droits |
 | `node scripts/verification/plan-branches.mts`, puis `node scripts/verification/branches.mjs [--sortie dossier]` | Règles à plusieurs branches (14 règles, 94 contrôles) : chaque branche d'un « un » seule vraie, chaque condition d'un « tous » seule fausse, chaque valeur d'un « parmi » ; réponse d'une question ouverte gardée tant qu'une autre branche la garde ouverte, puis exclue et gardée en base |
 | `node scripts/verification/audit-final-controles.mts`, `node scripts/verification/audit-final-rapport.mjs`, `python3 scripts/verification/audit-final-xlsx.py` | Audit final des questions (29 octobre) : contrôles automatiques de clarté (`docs/audit-final/controles-auto.json`), inventaire d'une ligne par question (`inventaire.csv`, `inventaire.json`, `CAXE-inventaire-questions.xlsx`), chiffres et blocs de `docs/audit-final/rapport.md` ; anomalies et révisions écrites à la main (`anomalies.json`, `revisions.txt`) |
 | `node scripts/verification/utilite-extraire.mjs`, puis `node scripts/verification/utilite-rapport.mjs` | Audit d'utilité de la banque : tout ce qui lit chaque question (`docs/audit-utilite/usages.json`), évaluations écrites à la main (`docs/audit-utilite/evaluations/*.txt`), tableau complet (`questions.csv`) et blocs générés du rapport ; code 1 si une question n'a pas d'évaluation |

@@ -291,10 +291,10 @@
       "probleme": "bilanNonSuivi (src/lib/audit/reponse.ts) calcule la part des données essentielles « non suivies », mais rien ne l'appelle : le compte rendu n'ajoute pas le conseil général de pilotage prévu au-delà d'un quart.",
       "consequence": "Règle validée (CLAUDE.md, section 6) sans effet tant que le compte rendu n'est pas construit.",
       "correction": {
-        "etat": "à construire",
-        "texte": "Brancher bilanNonSuivi dans le constat transmis à l'IA du compte rendu ; le texte du conseil reste à écrire."
+        "etat": "faite",
+        "texte": "Branché le 29 octobre : bilanNonSuivi alimente le dossier du rapport (suiviDonnees : nombre de données non suivies, données essentielles, déclenché au-delà d'un quart) ; les consignes demandent alors à l'IA un conseil général de pilotage qui complète les autres. Le texte du conseil est rédigé par l'IA ; aucun appel réel n'a encore été fait."
       },
-      "controle": "Recherche dans le code : aucun appel hors des tests."
+      "controle": "src/lib/rapport/rapport-compte.ts (preparerDuCompte) et src/lib/rapport/prompt.ts ; tests/rapport.test.mts (dossier). Appel réel non essayé."
     },
     {
       "id": "A-17",

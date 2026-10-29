@@ -60,7 +60,7 @@ async function ligneCompteRendu(nom) {
     (lis, n) => {
       const li = lis.find((x) => x.querySelector("p")?.textContent.trim() === n);
       if (!li) return null;
-      const groupe = li.closest("section")?.querySelector("h3")?.textContent.replace(/\s*\(\d+\)\s*$/, "").trim();
+      const groupe = li.closest("section")?.querySelector("h4, h3")?.textContent.replace(/\s*\(\d+\)\s*$/, "").trim();
       return { groupe, texte: li.textContent.replace(/\s+/g, " ").trim() };
     },
     nom,
@@ -183,7 +183,7 @@ controle("R-10", "montant corrigé à 900 € par le dirigeant : il reste 900 �
 // --- 4. Compte rendu : aucun chiffre inventé -----------------------------------------------------------------------
 await page.goto(ACQ + "?etape=4", { waitUntil: "networkidle" });
 const cr = (await page.locator("main").innerText()).replace(/\s+/g, " ");
-controle("R-11", "compte rendu sans repère de marché ni règle de notation : aucune couleur, l'avancement de l'objectif à 0 %, réalisme « pas encore évalué »", !/(Rouge|Orange|Vert)( ·|$| )/.test(cr.replace(/Rouge : à corriger\. Orange : à améliorer\. Vert : point fort à conserver\./, "")) && /0 %/.test(cr) && /Pas encore évalué/.test(cr), cr.slice(0, 300));
+controle("R-11", "résultats sans repère de marché ni règle de notation : aucune couleur, aucun point d'étape déclaré, réalisme « pas encore calculé »", !/(Rouge|Orange|Vert)( ·|$| )/.test(cr) && /Aucun point d'étape pour l'instant/.test(cr) && /Pas encore calculés pour aucun métier : le réalisme de votre objectif/.test(cr), cr.slice(0, 300));
 
 await nav.close();
 process.exit(ecrire(sortie) ? 1 : 0);

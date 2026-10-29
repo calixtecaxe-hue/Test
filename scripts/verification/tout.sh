@@ -2,7 +2,8 @@
 # Relance tous les contrôles de la vérification du questionnaire et range les résultats dans docs/verification/resultats.
 #
 # Prérequis : base Postgres démarrée, application construite (npx next build) et lancée sur le port 3100 :
-#   AUTH_TRUST_HOST=true PAIEMENT_MODE=demonstration EMAIL_MODE=demonstration RESULTATS_MAQUETTE=1 npx next start -p 3100
+#   AUTH_TRUST_HOST=true PAIEMENT_MODE=demonstration EMAIL_MODE=demonstration RAPPORT_MODE=simulation RESULTATS_MAQUETTE=1 npx next start -p 3100
+# (le contrôle « rapport » lance en plus son propre serveur sur le port 3101.)
 #
 #   bash scripts/verification/tout.sh            # tout (environ deux heures, dont une pour controle-boutons)
 #   bash scripts/verification/tout.sh rapide     # sans les contrôles navigateur longs (boutons, secteurs)
@@ -58,6 +59,8 @@ lancer historique node scripts/verification/historique.mjs --sortie $R
 lancer objectifs node scripts/verification/objectifs.mjs --sortie $R
 lancer listes node scripts/verification/listes.mjs --sortie $R
 lancer partages node scripts/verification/partages.mjs --sortie $R
+lancer tentatives node scripts/verification/tentatives.mjs --sortie $R
+lancer rapport node scripts/verification/rapport.mjs --sortie $R
 lancer prereponse node scripts/controle-prereponse.mjs
 lancer autre node scripts/controle-autre.mjs
 lancer compte node scripts/controle-compte.mjs

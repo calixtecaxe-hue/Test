@@ -18,7 +18,7 @@ export type LigneTheme = {
   estimee: boolean;
   // Phrase sobre pour le dirigeant, ou null.
   message: string | null;
-  reperes: { libelle: string; organisme: string; annee: string; url: string; confiance: "solide" | "indicatif"; perimee: boolean }[];
+  reperes: { indicateur: string; libelle: string; organisme: string; annee: string; url: string; confiance: "solide" | "indicatif"; perimee: boolean }[];
   couverture: { repondues: number; posees: number } | null;
 };
 
@@ -59,7 +59,7 @@ export function composerCompteRendu(constats: Constat[], blocs: ReadonlyMap<stri
       aValider: c.aValider,
       estimee: c.estimee,
       message: presenterConstat(c).message,
-      reperes: c.reperes.map((r) => ({ libelle: r.libelle, organisme: r.organisme, annee: r.annee, url: r.url, confiance: r.confiance, perimee: r.perimee })),
+      reperes: c.reperes.map((r) => ({ indicateur: r.indicateur, libelle: r.libelle, organisme: r.organisme, annee: r.annee, url: r.url, confiance: r.confiance, perimee: r.perimee })),
       couverture: c.couverture ? { repondues: c.couverture.repondues, posees: c.couverture.posees } : null,
     };
     if (c.statut === "note") vue.notes.push(ligne);

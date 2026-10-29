@@ -1,5 +1,6 @@
-// Contrôle navigateur de la question « Avez-vous déjà essayé quelque chose pour atteindre cet objectif ? » (décision du
-// 29 octobre ; data/deja-tente.json, src/app/(espace)/audit/[slug]/deja-tente.tsx). Comptes fictifs, serveur de test.
+// Contrôle navigateur de « Qu'avez-vous déjà essayé pour atteindre cet objectif ? » (décisions du 29 octobre ; textes dans
+// data/deja-tente.json, écran src/app/(espace)/audit/[slug]/deja-tente.tsx, route PUT /api/audit/tentatives). Comptes fictifs,
+// serveur de test.
 //
 //   node scripts/verification/tentatives.mjs [--sortie docs/verification/resultats] [--captures docs/verification/captures-tentatives]
 import { mkdirSync } from "node:fs";
@@ -12,25 +13,29 @@ mkdirSync(captures, { recursive: true });
 const { controle, ecrire } = journal("tentatives");
 const nav = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium", args: ["--proxy-bypass-list=*"] });
 const url = (a) => `${B}/audit/${AGENTS[a].slug}`;
-// La base ne garde pas l'ordre des clés : comparaison après tri.
 const trie = (v) => (Array.isArray(v) ? v.map(trie) : v && typeof v === "object" ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, trie(v[k])])) : v);
 const meme = (a, b) => JSON.stringify(trie(a)) === JSON.stringify(trie(b));
-function enBase(email, agent, statut = "ACTIF") {
-  const t = sql(`select coalesce(o.tentatives::text, 'null') from "Objectif" o join "User" u on u.id=o."userId" where u.email='${email}' and o.agent='${AGENTS[agent].code}' and o.statut='${statut}' order by o."creeLe" desc limit 1`);
-  return t ? JSON.parse(t) : undefined;
-}
-const bloc = (page) => page.locator("section[data-deja-tente]");
-async function choisir(page, libelle) {
-  await bloc(page).locator("> div label.case-option", { hasText: new RegExp(`^${libelle}$`) }).first().click();
-  await attendreEnregistre(bloc(page));
-}
+const ligne = (email, agent, statut = "ACTIF") =>
+  sql(`select o.id || '|' || coalesce(o.tentatives::text, 'null') from "Objectif" o join "User" u on u.id=o."userId" where u.email='${email}' and o.agent='${AGENTS[agent].code}' and o.statut='${statut}' order by o."creeLe" desc limit 1`);
+const enBase = (email, agent, statut) => {
+  const t = ligne(email, agent, statut);
+  return t ? JSON.parse(t.slice(t.indexOf("|") + 1)) : undefined;
+};
+const idObjectif = (email, agent, statut) => ligne(email, agent, statut).split("|")[0];
+const bloc = (page) => page.locator("section[data-deja-tente]").first();
+const texte = (page) => bloc(page).locator("textarea[data-champ=texte]");
+const rien = (page) => bloc(page).locator("label[data-champ=rien]");
 async function attendre(f, ms = 8000) {
   const fin = Date.now() + ms;
-  while (Date.now() < fin) { if (f()) return true; await new Promise((r) => setTimeout(r, 300)); }
+  while (Date.now() < fin) {
+    if (f()) return true;
+    await new Promise((r) => setTimeout(r, 300));
+  }
   return f();
 }
+const TEXTE = "J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines.";
 
-// 1. Les quatre agents : la question est sous l'objectif, avant le questionnaire, sans réponse cochée.
+// 1. Les quatre agents : la question est juste sous l'objectif, avant le questionnaire, sans réponse.
 const { email, page, contexte, api } = await creerCompte(nav, { agents: ["ACQ", "FIN", "RH", "COM"] });
 for (const a of ["ACQ", "FIN", "RH", "COM"]) {
   await page.goto(url(a), { waitUntil: "networkidle" });
@@ -38,103 +43,145 @@ for (const a of ["ACQ", "FIN", "RH", "COM"]) {
     const els = [...document.querySelectorAll(".audit-objectif-actif, section[data-deja-tente], [data-question]")];
     return els.map((e) => (e.matches(".audit-objectif-actif") ? "objectif" : e.matches("section[data-deja-tente]") ? "deja" : "question")).filter((x, i, t) => t.indexOf(x) === i);
   });
-  controle(`T-01-${a}`, `${a} : la question « déjà essayé » est juste sous l'objectif, avant les questions`, JSON.stringify(ordre) === JSON.stringify(["objectif", "deja", "question"]), ordre.join(" → "));
-  const coches = await bloc(page).locator("input:checked").count();
-  controle(`T-02-${a}`, `${a} : aucune réponse cochée d'avance`, coches === 0, `${coches} cochée(s)`);
+  controle(`T-01-${a}`, `${a} : la question est juste sous l'objectif, avant les questions`, JSON.stringify(ordre) === JSON.stringify(["objectif", "deja", "question"]), ordre.join(" → "));
+  const vide = (await bloc(page).locator("input:checked").count()) === 0 && (await texte(page).inputValue()) === "";
+  const titre = await bloc(page).locator("h2").innerText();
+  controle(`T-02-${a}`, `${a} : « Qu'avez-vous déjà essayé pour atteindre cet objectif ? », rien de coché ni d'écrit d'avance, aucune réponse en base`, vide && titre === "Qu'avez-vous déjà essayé pour atteindre cet objectif ?" && enBase(email, a) === null, `${titre} ; base ${JSON.stringify(enBase(email, a))}`);
 }
 
-// 2. Réponses et sauvegarde continue (Acquisition).
+// 2. « Je n'ai encore rien essayé », distinct d'une question sans réponse.
 await page.goto(url("ACQ"), { waitUntil: "networkidle" });
-await choisir(page, "Non");
-controle("T-03", "« Non » s'enregistre tout de suite", meme(enBase(email, "ACQ"), { deja: "non", actions: [] }), JSON.stringify(enBase(email, "ACQ")));
-await choisir(page, "Oui");
-const cartes = () => bloc(page).locator("li[data-action]");
-controle("T-04", "« Oui » ouvre la description d'une action et s'enregistre", (await cartes().count()) === 1 && meme(enBase(email, "ACQ"), { deja: "oui", actions: [] }), `${await cartes().count()} action(s) ; ${JSON.stringify(enBase(email, "ACQ"))}`);
-await cartes().nth(0).locator("textarea").fill("Relancer chaque devis par téléphone une semaine après l'envoi");
-const texteGarde = await attendre(() => enBase(email, "ACQ")?.actions?.[0]?.quoi === "Relancer chaque devis par téléphone une semaine après l'envoi");
-controle("T-05", "le texte s'enregistre quand le dirigeant s'arrête d'écrire, sans quitter le champ", texteGarde, JSON.stringify(enBase(email, "ACQ")));
-await cartes().nth(0).locator("[data-champ=resultat] label.case-option", { hasText: "Pas de résultat" }).click();
-await cartes().nth(0).locator("[data-champ=duree] label.case-option", { hasText: "1 à 3 mois" }).click();
+await rien(page).click();
 await attendreEnregistre(bloc(page));
-const un = enBase(email, "ACQ")?.actions?.[0];
-controle("T-06", "résultat et durée s'enregistrent (« Pas de résultat », « 1 à 3 mois »)", un?.resultat === "sans_resultat" && un?.duree === "1_a_3_mois", JSON.stringify(un));
-await bloc(page).locator("[data-ajouter]").click();
-const focusAjout = await page.evaluate(() => document.activeElement?.closest("li[data-action]")?.getAttribute("data-action"));
-await cartes().nth(1).locator("textarea").fill("Publier un avis client chaque semaine");
-await cartes().nth(1).locator("textarea").blur();
-await cartes().nth(1).locator("[data-champ=resultat] label.case-option", { hasText: "Je l'ai arrêté avant de voir le résultat" }).click();
+controle("T-03", "« Je n'ai encore rien essayé » s'enregistre tout de suite ({ etat: rien }), alors qu'une question sans réponse reste vide en base", meme(enBase(email, "ACQ"), { etat: "rien" }) && enBase(email, "FIN") === null, JSON.stringify(enBase(email, "ACQ")));
+
+// 3. Le texte : enregistré quand le dirigeant s'arrête d'écrire ; écrire retire « rien essayé ».
+await texte(page).fill(TEXTE);
+const pause = await attendre(() => enBase(email, "ACQ")?.texte === TEXTE);
+controle("T-04", "le texte s'enregistre quand le dirigeant s'arrête d'écrire, sans quitter le champ ; « rien essayé » se décoche", pause && enBase(email, "ACQ")?.etat === "essaye" && !(await rien(page).locator("input").isChecked()), JSON.stringify(enBase(email, "ACQ")));
+await texte(page).fill(`${TEXTE} Le soir, je n'avais plus le temps.`);
+await texte(page).blur();
+const quitte = await attendre(() => enBase(email, "ACQ")?.texte?.endsWith("plus le temps."), 2500);
+controle("T-05", "une modification part dès que le dirigeant quitte le champ", quitte, JSON.stringify(enBase(email, "ACQ")));
+
+// 4. Précisions facultatives.
+const precisions = bloc(page).locator("details[data-precisions]");
+await precisions.locator("summary").click();
+await precisions.locator("[data-champ=resultat] label.case-option", { hasText: "Je l'ai arrêté avant de voir le résultat" }).click();
+await precisions.locator("[data-champ=duree] label.case-option", { hasText: "Moins d'1 mois" }).click();
 await attendreEnregistre(bloc(page));
-controle("T-07", "une deuxième action s'ajoute (curseur dans son champ) et s'enregistre", focusAjout === "2" && enBase(email, "ACQ")?.actions?.length === 2 && enBase(email, "ACQ").actions[1].resultat === "arrete_avant", `curseur action ${focusAjout} ; ${JSON.stringify(enBase(email, "ACQ"))}`);
-await bloc(page).locator("[data-ajouter]").click();
-const apresTrois = await bloc(page).locator("[data-ajouter]").count();
-controle("T-08", "trois actions au plus : le bouton « Ajouter » disparaît à la troisième", (await cartes().count()) === 3 && apresTrois === 0, `${await cartes().count()} actions, bouton ${apresTrois}`);
-await cartes().nth(2).getByRole("button", { name: /Retirer/ }).click();
-await cartes().nth(0).getByRole("button", { name: /Retirer/ }).click();
-await attendreEnregistre(bloc(page));
-const reste = enBase(email, "ACQ");
-const focusRetrait = await page.evaluate(() => document.activeElement?.tagName);
-controle("T-09", "retirer la première action garde la deuxième, en base comme à l'écran ; le curseur reste dans un champ", (await cartes().count()) === 1 && reste?.actions?.length === 1 && reste.actions[0].quoi === "Publier un avis client chaque semaine" && focusRetrait === "TEXTAREA", `${await cartes().count()} action(s) ; ${JSON.stringify(reste)} ; curseur ${focusRetrait}`);
+const avecPrecisions = enBase(email, "ACQ");
+controle("T-06", "résultat et durée, facultatifs, s'enregistrent", avecPrecisions?.resultat === "arrete_avant" && avecPrecisions?.duree === "moins_d_1_mois", JSON.stringify(avecPrecisions));
 await page.reload({ waitUntil: "networkidle" });
-const valeurRechargee = await cartes().nth(0).locator("textarea").inputValue();
-const resultatRecharge = await cartes().nth(0).locator("[data-champ=resultat] input:checked").getAttribute("value").catch(() => null);
-controle("T-10", "après actualisation, la réponse est reprise telle quelle", (await bloc(page).locator("> div input[value=oui]:checked").count()) === 1 && valeurRechargee === "Publier un avis client chaque semaine" && resultatRecharge === "arrete_avant", `${valeurRechargee} ; ${resultatRecharge}`);
-await choisir(page, "Non");
-const gardees = enBase(email, "ACQ");
-const cacheesNon = await cartes().count();
-await choisir(page, "Oui");
-controle("T-11", "« Non » cache les actions sans les perdre ; « Oui » les fait revenir", cacheesNon === 0 && gardees?.deja === "non" && gardees.actions.length === 1 && (await cartes().count()) === 1 && enBase(email, "ACQ")?.deja === "oui", `avec « Non » : ${cacheesNon} affichée(s), base ${JSON.stringify(gardees)}`);
-await page.setViewportSize({ width: 360, height: 800 });
-const largeur = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-await page.screenshot({ path: `${captures}/telephone-360.png`, fullPage: false, clip: undefined });
-await bloc(page).screenshot({ path: `${captures}/telephone-360-question.png` });
-controle("T-12", "téléphone 360 px : aucun défilement horizontal", largeur <= 0, `${largeur} px de trop`);
-await page.setViewportSize({ width: 1280, height: 1000 });
+const repris = (await texte(page).inputValue()).endsWith("plus le temps.") && (await precisions.evaluate((d) => d.open)) && (await precisions.locator("[data-champ=resultat] input:checked").getAttribute("value")) === "arrete_avant";
+controle("T-07", "après actualisation, texte et précisions sont repris tels quels", repris, await texte(page).inputValue());
 await bloc(page).screenshot({ path: `${captures}/ordinateur-question.png` });
 
-// 3. Coupure du réseau : la réponse attend dans la page et repart seule.
+// 5. « Rien essayé » après avoir écrit : le texte reste gardé mais ne compte plus ; écrire de nouveau le fait revenir.
+await rien(page).click();
+await attendreEnregistre(bloc(page));
+const rienAvecTexte = enBase(email, "ACQ");
+controle("T-08", "cocher « rien essayé » après avoir écrit garde le texte en base (sans qu'il compte) et masque les précisions", rienAvecTexte?.etat === "rien" && rienAvecTexte?.texte?.startsWith("J'ai relancé") && (await precisions.count()) === 0, JSON.stringify(rienAvecTexte));
+await texte(page).fill(TEXTE);
+await texte(page).blur();
+await attendre(() => enBase(email, "ACQ")?.etat === "essaye");
+
+// 6. Coupure du réseau : la réponse attend dans la page, repart seule au retour de la connexion.
 await contexte.setOffline(true);
-await cartes().nth(0).locator("textarea").fill("Publier un avis client chaque semaine, sur Instagram");
-await cartes().nth(0).locator("textarea").blur();
-const message = await bloc(page).locator(".etat-attente").isVisible({ timeout: 5000 }).catch(() => false);
+await texte(page).fill(`${TEXTE} (hors connexion)`);
+await texte(page).blur();
+const message = await bloc(page).locator(".etat-attente").isVisible({ timeout: 6000 }).catch(() => false);
 await contexte.setOffline(false);
-const repartie = await attendre(() => enBase(email, "ACQ")?.actions?.[0]?.quoi === "Publier un avis client chaque semaine, sur Instagram", 15000);
-controle("T-13", "sans réseau, la réponse attend (message) et repart seule au retour de la connexion", message && repartie, `message ${message}, base ${JSON.stringify(enBase(email, "ACQ"))}`);
+const repartie = await attendre(() => enBase(email, "ACQ")?.texte?.endsWith("(hors connexion)"), 15000);
+controle("T-09", "sans réseau, la réponse attend avec un message, puis repart seule", message && repartie, `message ${message} ; ${JSON.stringify(enBase(email, "ACQ"))}`);
 
-// 4. Clavier : les flèches changent la réponse, qui s'enregistre.
+// 7. Clavier : la case « rien essayé » se coche avec Espace.
 await page.reload({ waitUntil: "networkidle" });
-await bloc(page).locator("> div input[value=oui]").focus();
-await page.keyboard.press("ArrowDown");
+await rien(page).locator("input").focus();
+await page.keyboard.press("Space");
 await attendreEnregistre(bloc(page));
-controle("T-14", "au clavier, la flèche passe de « Oui » à « Non », enregistré", enBase(email, "ACQ")?.deja === "non", JSON.stringify(enBase(email, "ACQ")));
-await page.keyboard.press("ArrowUp");
+const clavier = enBase(email, "ACQ")?.etat === "rien";
+await page.keyboard.press("Space");
 await attendreEnregistre(bloc(page));
+controle("T-10", "au clavier, Espace coche et décoche « rien essayé », enregistré à chaque fois", clavier && enBase(email, "ACQ")?.etat === "essaye", JSON.stringify(enBase(email, "ACQ")));
 
-// 5. Changer d'objectif : ce qui a été essayé est repris par le nouvel objectif ; l'ancien le garde dans l'historique.
-const avant = enBase(email, "ACQ");
+// 8. Téléphone 360 px.
+await page.setViewportSize({ width: 360, height: 800 });
+await page.reload({ waitUntil: "networkidle" });
+const largeur = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+await bloc(page).screenshot({ path: `${captures}/telephone-360-question.png` });
+controle("T-11", "téléphone 360 px : aucun défilement horizontal", largeur <= 0, `${largeur} px de trop`);
+await page.setViewportSize({ width: 1280, height: 1000 });
+
+// 9. Changement d'objectif : la réponse reste attachée à l'ancien objectif ; elle est proposée, jamais reprise en silence.
+const ancien = enBase(email, "ACQ");
+const ancienId = idObjectif(email, "ACQ");
 const o = await api.post(`${B}/api/audit/objectif`, { data: { agent: AGENTS.ACQ.code, objectif: { quoi: "augmenter mon chiffre d'affaires", ampleur: { valeur: 15, unite: "pourcent" }, delaiMois: 12 } } });
 await page.goto(url("ACQ"), { waitUntil: "networkidle" });
-const affichee = await cartes().nth(0).locator("textarea").inputValue().catch(() => "");
-controle("T-15", "après un changement d'objectif, la réponse est reprise sous le nouvel objectif (base et écran)", o.ok() && meme(enBase(email, "ACQ"), avant) && meme(enBase(email, "ACQ", "REMPLACE"), avant) && affichee === avant?.actions?.[0]?.quoi, `nouvel objectif ${JSON.stringify(enBase(email, "ACQ"))} ; écran « ${affichee} »`);
+const proposition = bloc(page).locator("[data-reprise-proposee]");
+controle(
+  "T-12",
+  "nouvel objectif : aucune réponse reprise en base ; l'ancienne est proposée sous le nouvel objectif ; l'ancien objectif la garde",
+  o.ok() && enBase(email, "ACQ") === null && meme(enBase(email, "ACQ", "REMPLACE"), ancien) && (await proposition.isVisible()) && (await texte(page).inputValue()) === "",
+  `nouvel objectif ${JSON.stringify(enBase(email, "ACQ"))} ; proposition ${await proposition.isVisible()}`,
+);
+const historique = await page.locator("[data-historique-tentatives]").first().innerText().catch(() => "");
+controle("T-13", "l'historique des objectifs montre ce qui avait été essayé pour l'ancien objectif", historique.startsWith("Déjà essayé : J'ai relancé"), historique);
+await proposition.getByRole("button", { name: "Non, je réponds pour ce nouvel objectif" }).click();
+controle("T-14", "« Non, je réponds pour ce nouvel objectif » ferme la proposition sans rien enregistrer", (await proposition.count()) === 0 && enBase(email, "ACQ") === null, JSON.stringify(enBase(email, "ACQ")));
+await page.reload({ waitUntil: "networkidle" });
+await bloc(page).locator("[data-reprise-proposee]").getByRole("button", { name: "Reprendre pour ce nouvel objectif" }).click();
+await attendreEnregistre(bloc(page));
+const reprise = enBase(email, "ACQ");
+controle(
+  "T-15",
+  "« Reprendre pour ce nouvel objectif » copie la réponse avec son origine (reprisDe), à l'écran comme en base",
+  reprise?.texte === ancien?.texte && reprise?.reprisDe === ancienId && (await texte(page).inputValue()) === ancien?.texte,
+  JSON.stringify(reprise),
+);
 
-// 6. Effacer.
+// 10. Le serveur refuse ce qui ne va pas.
+const put = (data) => api.put(`${B}/api/audit/tentatives`, { data });
+const nouveauId = idObjectif(email, "ACQ");
+const remplace = await put({ objectifId: ancienId, tentatives: { etat: "rien" } });
+const inconnu = await put({ objectifId: nouveauId, tentatives: { etat: "peut-etre" } });
+const long = await put({ objectifId: nouveauId, tentatives: { etat: "essaye", texte: "x".repeat(1501), resultat: null, duree: null } });
+const resultatInconnu = await put({ objectifId: nouveauId, tentatives: { etat: "essaye", texte: "x", resultat: "bof", duree: null } });
+const autreAgent = await put({ objectifId: nouveauId, tentatives: { etat: "rien", reprisDe: idObjectif(email, "FIN") } });
+controle(
+  "T-16",
+  "refusés : objectif remplacé (409), état inconnu, texte de plus de 1 500 caractères, résultat inconnu, reprise depuis l'objectif d'un autre agent (400)",
+  remplace.status() === 409 && [inconnu, long, resultatInconnu, autreAgent].every((r) => r.status() === 400),
+  [remplace, inconnu, long, resultatInconnu, autreAgent].map((r) => r.status()).join(" "),
+);
+const deux = await creerCompte(nav, { agents: ["ACQ", "FIN"], objectifs: false });
+const etranger = await deux.api.put(`${B}/api/audit/tentatives`, { data: { objectifId: nouveauId, tentatives: { etat: "rien" } } });
+await deux.page.goto(url("ACQ"), { waitUntil: "networkidle" });
+const sansObjectif = await deux.page.locator("section[data-deja-tente]").count();
+controle("T-17", "l'objectif d'un autre compte est introuvable (404) ; sans objectif, la question n'est pas affichée", etranger.status() === 404 && sansObjectif === 0, `${etranger.status()} ; ${sansObjectif} bloc(s)`);
+await deux.contexte.close();
+sql(`update "AgentAccess" set actif=false where "userId"=(select id from "User" where email='${email}') and agent='FINANCE_RENTABILITE'`);
+const horsFormule = await put({ objectifId: idObjectif(email, "FIN"), tentatives: { etat: "rien" } });
+controle("T-18", "un agent qui n'est plus dans la formule est refusé (403)", horsFormule.status() === 403, String(horsFormule.status()));
+
+// 11. Plusieurs objectifs en cours (compte enregistré avant le 28 octobre) : une réponse par objectif, nommé.
+const rhId = idObjectif(email, "RH");
+sql(`insert into "Objectif" (id, "userId", agent, "texteBrut", structure, echeance, statut, "creeLe") select 'verif' || substr(md5(random()::text), 1, 20), "userId", agent, 'mieux faire circuler l''information, d''ici 3 mois', structure, echeance, statut, "creeLe" + interval '1 second' from "Objectif" where id='${rhId}'`);
+await page.goto(url("RH"), { waitUntil: "networkidle" });
+const sections = page.locator("section[data-deja-tente]");
+const pour = await sections.locator("p", { hasText: "Pour l'objectif :" }).count();
+await sections.nth(1).locator("label[data-champ=rien]").click();
+await attendreEnregistre(sections.nth(1));
+const parObjectif = sql(`select string_agg(coalesce(o.tentatives::text,'null'), ' ; ' order by o."creeLe") from "Objectif" o join "User" u on u.id=o."userId" where u.email='${email}' and o.agent='RH_ORGANISATION' and o.statut='ACTIF'`);
+controle("T-19", "deux objectifs en cours : deux questions nommées, la réponse ne vaut que pour son objectif", (await sections.count()) === 2 && pour === 2 && parObjectif.split(" ; ").filter((x) => x === "null").length === 1, `${await sections.count()} question(s), ${pour} nommée(s) ; base ${parObjectif}`);
+
+// 12. Effacer.
+await page.goto(url("ACQ"), { waitUntil: "networkidle" });
 await bloc(page).getByRole("button", { name: "Effacer ma réponse" }).click();
 await attendre(() => enBase(email, "ACQ") === null);
 await page.reload({ waitUntil: "networkidle" });
-controle("T-16", "« Effacer ma réponse » vide la réponse (base et écran)", enBase(email, "ACQ") === null && (await bloc(page).locator("input:checked").count()) === 0, JSON.stringify(enBase(email, "ACQ")));
-controle("T-17", "le questionnaire reste affiché sous la question", (await page.locator("[data-question]").count()) > 0, `${await page.locator("[data-question]").count()} question(s)`);
-
-// 7. Le serveur refuse ce qui ne va pas.
-const r4 = await api.put(`${B}/api/audit/tentatives`, { data: { agent: AGENTS.ACQ.code, tentatives: { deja: "oui", actions: [1, 2, 3, 4].map((n) => ({ quoi: `a${n}`, resultat: null, duree: null })) } } });
-const rInconnu = await api.put(`${B}/api/audit/tentatives`, { data: { agent: AGENTS.ACQ.code, tentatives: { deja: "oui", actions: [{ quoi: "x", resultat: "inconnu", duree: null }] } } });
-controle("T-18", "le serveur refuse 4 actions et un résultat inconnu", r4.status() === 400 && rInconnu.status() === 400, `${r4.status()} ${rInconnu.status()}`);
+controle("T-20", "« Effacer ma réponse » remet la question sans réponse (base et écran)", enBase(email, "ACQ") === null && (await texte(page).inputValue()) === "" && (await bloc(page).locator("input:checked").count()) === 0, JSON.stringify(enBase(email, "ACQ")));
 await contexte.close();
-const deux = await creerCompte(nav, { agents: ["ACQ", "FIN"], objectifs: false });
-const sansAgent = await deux.api.put(`${B}/api/audit/tentatives`, { data: { agent: AGENTS.RH.code, tentatives: { deja: "non", actions: [] } } });
-const sansObjectif = await deux.api.put(`${B}/api/audit/tentatives`, { data: { agent: AGENTS.ACQ.code, tentatives: { deja: "non", actions: [] } } });
-await deux.page.goto(url("ACQ"), { waitUntil: "networkidle" });
-const avantObjectif = await bloc(deux.page).count();
-controle("T-19", "agent hors formule refusé (403) ; sans objectif, refusé (400) et la question n'est pas affichée", sansAgent.status() === 403 && sansObjectif.status() === 400 && avantObjectif === 0, `${sansAgent.status()} ${sansObjectif.status()} ; ${avantObjectif} bloc(s)`);
-await deux.contexte.close();
 
 await nav.close();
 process.exit(ecrire(sortie) > 0 ? 1 : 0);

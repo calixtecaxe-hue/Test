@@ -230,13 +230,14 @@ for (const cle of CHOIX) {
 
   // --- 5. Compte rendu (onglets) --------------------------------------------------------------------------------------------------------
   await page.goto(`${B}/audit/${A.slug}?etape=4`, { waitUntil: "networkidle" });
-  verifier(cle, "résultats : l'écran s'ouvre avec ses onglets", (await page.locator("label[for^='res-o']").count()) === 3);
-  for (const [i, nom] of [[2, "Priorités"], [3, "Plan d'action"], [1, "Objectif"]]) {
-    await page.locator(`label[for="res-o${i}"]`).click();
-    await page.waitForTimeout(250);
-    verifier(cle, `résultats : l'onglet « ${nom} » s'affiche`, await page.locator(`.res-p${i}`).isVisible());
+  verifier(cle, "résultats : l'écran s'ouvre avec ses trois onglets (Résultats, Rapport, Plan d'action)", (await page.locator("[data-onglet]").count()) === 3);
+  verifier(cle, "résultats : un bloc pour l'objectif", (await page.locator("[data-objectif-resultat]").count()) === 1);
+  for (const [id, nom] of [["rapport", "Rapport"], ["plan", "Plan d'action"], ["resultats", "Résultats"]]) {
+    await page.locator(`[data-onglet="${id}"]`).click();
+    await page.waitForURL(new RegExp(`onglet=${id}`));
+    await page.waitForLoadState("networkidle");
+    verifier(cle, `résultats : l'onglet « ${nom} » s'affiche`, await page.locator(`[data-panneau="${id}"]`).isVisible());
   }
-  verifier(cle, "résultats : un bloc d'avancement pour l'objectif", (await page.locator("[data-objectif-resultat]").count()) === 1);
   await page.goto(`${B}/audit/${A.slug}?etape=4&exemple=1`, { waitUntil: "networkidle" });
   if (await page.locator(".res-exemple").count()) {
     for (const i of [2, 3, 1]) { await page.locator(`label[for="res-o${i}"]`).click(); await page.waitForTimeout(250); verifier(cle, `maquette : onglet ${i}`, await page.locator(`.res-p${i}`).isVisible()); }
