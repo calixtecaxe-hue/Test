@@ -1,0 +1,432 @@
+{
+  "source": "Audit final des questions, 29 octobre 2026. Écrit à la main ; le texte exact de chaque question citée est ajouté par scripts/verification/audit-final-rapport.mjs depuis la banque. « constatee » : trouvée le 29 octobre ; « reprise » : signalée par l'audit d'utilité du 28 octobre et revérifiée le 29.",
+  "anomalies": [
+    {
+      "id": "A-01",
+      "titre": "Liens du classeur pris pour des données partagées",
+      "type": "défaut technique",
+      "origine": "constatee",
+      "codes": [
+        "ACQ-21.03",
+        "RH-07.01",
+        "ACQ-21.04",
+        "RH-06.02",
+        "RH-05.01",
+        "FIN-06.02",
+        "ACQ-11.07",
+        "COM-13.01",
+        "ACQ-02.01",
+        "COM-44.01",
+        "ACQ-06.08"
+      ],
+      "probleme": "La colonne « Données utilisées » d'une donnée partagée liste aussi des données qui servent seulement à la calculer. Le code les traitait comme la même question chez un autre agent : capacité de ventes (ACQ-21.03) et heures en plus par fonction (RH-07.01) ; heures de l'équipe (ACQ-21.04) et heures d'un salarié (RH-06.02) ou du dirigeant (RH-05.01) ; ventes par mois (FIN-06.02) et couverts par service (ACQ-11.07) ; visites du site (COM-13.01) et demandes de devis (ACQ-02.01) ; avis Google (COM-44.01) et avis de la plateforme (ACQ-06.08).",
+      "consequence": "Une fois l'une répondue, l'autre s'affichait « déjà renseignée » avec une réponse qui n'est pas la sienne : la donnée n'était jamais recueillie, et le moteur lisait une valeur fausse (des heures pour un nombre de ventes, des couverts par service pour des ventes par mois). Reproduit dans le navigateur le 29 octobre (7 écarts sur 13 contrôles).",
+      "correction": {
+        "etat": "faite",
+        "texte": "data/partages.json décrit chaque lien du classeur entre deux questions différentes : six liens « pas un partage », avec leur raison ; COM-13.01 et ACQ-02.01 restent la même donnée pour une boutique en ligne, où ACQ-02.01 se lit « visiteurs de votre site » (partageSeulementPour). Le contrôle des données refuse désormais un lien non décrit."
+      },
+      "controle": "Navigateur : scripts/verification/partages.mjs, P-01 à P-12 et P-20 conformes. Tests : tests/partages.test.mts (10 tests). Contrôle des données : un lien retiré de data/partages.json est refusé (test)."
+    },
+    {
+      "id": "A-02",
+      "titre": "Regroupements « déjà renseignés » avec une partie seulement des réponses",
+      "type": "défaut technique",
+      "origine": "constatee",
+      "codes": [
+        "COM-32.01",
+        "ACQ-07.01",
+        "ACQ-07.03",
+        "ACQ-07.04",
+        "COM-12.01",
+        "ACQ-03.02",
+        "ACQ-03.03",
+        "ACQ-03.04",
+        "FIN-34.02",
+        "COM-43.01",
+        "ACQ-20.02",
+        "RH-16.01",
+        "FIN-10.01",
+        "FIN-10.03"
+      ],
+      "probleme": "Une question qui regroupe plusieurs questions d'un autre agent (COM-32.01 et les trois dépenses de l'Acquisition, COM-12.01 et les trois répartitions par canal, une ligne du tableau ACQ-20.02, deux champs de RH-16.01) était liée à chacune comme si c'était la même question.",
+      "consequence": "COM-32.01 passait pour « déjà renseignée » dès qu'une seule dépense était connue, et les deux autres n'étaient jamais demandées à la Comm ; le moteur lisait un nombre là où il attend trois champs, ou un tableau là où il attend un choix. Dans l'autre sens, des questions entières étaient reposées alors que leurs valeurs étaient connues.",
+      "correction": {
+        "etat": "faite",
+        "texte": "Correspondances partie à partie (data/partages.json, src/lib/audit/partages.ts) : une question entièrement couverte par des réponses données ailleurs n'est pas reposée et le moteur lit la valeur de chaque partie ; couverte en partie, elle s'affiche avec les valeurs connues reprises, à vérifier et compléter, sans rien enregistrer à la place du dirigeant. « Modifier cette réponse » ouvre chaque question d'origine."
+      },
+      "controle": "Navigateur : P-07a à P-07d, P-13 à P-19b conformes (dont la reprise non enregistrée, la question complétée puis enregistrée, la modification depuis l'autre agent et après actualisation). Tests : 5 tests de correspondances, dont la lecture du moteur."
+    },
+    {
+      "id": "A-03",
+      "titre": "Chiffre d'affaires mois par mois demandé deux fois (Finance et RH sans l'Acquisition)",
+      "type": "défaut technique",
+      "origine": "constatee",
+      "codes": [
+        "ACQ-23.01",
+        "FIN-14.01",
+        "RH-11.01"
+      ],
+      "probleme": "Les trois questions sont identiques ; le classeur lie FIN-14.01 et RH-11.01 à ACQ-23.01 seulement. Le code ne reliait pas les jumelles d'une même jumelle.",
+      "consequence": "Un compte avec la Finance et la RH, sans l'Acquisition, saisissait deux fois douze montants.",
+      "correction": {
+        "etat": "faite",
+        "texte": "Les jumelles d'un même groupe sont toutes reliées (equivalences, partages.ts). Le contrôle des données garantit que ces liens ne relient que des questions identiques. Un seul groupe de trois existe aujourd'hui."
+      },
+      "controle": "Navigateur : P-21 conforme. Test : « une jumelle de ma jumelle est ma jumelle »."
+    },
+    {
+      "id": "A-04",
+      "titre": "Carte « déjà renseigné » : identifiants de choix et nombres sans unité",
+      "type": "défaut technique",
+      "origine": "constatee",
+      "codes": [],
+      "probleme": "La réponse reprise d'un autre agent s'affichait avec l'identifiant technique d'un choix (« chaque_trimestre ») et sans unité (« 300 » pour 300 €) ; un groupe de champs se résumait à « 3 valeurs renseignées ».",
+      "consequence": "Mot technique montré au dirigeant (CLAUDE.md, section 12 : une erreur ou un écran ne montre jamais un identifiant), lecture difficile de la réponse partagée.",
+      "correction": {
+        "etat": "faite",
+        "texte": "resumeReponse lit le libellé du choix, ajoute l'unité, et détaille un groupe de champs (libellé, montant, unité)."
+      },
+      "controle": "Navigateur : P-14b, P-16b, P-18b et P-19b conformes."
+    },
+    {
+      "id": "A-05",
+      "titre": "Montants sans « hors taxes » ni « toutes taxes comprises »",
+      "type": "formulation",
+      "origine": "constatee",
+      "codes": [],
+      "probleme": "Aucune des 100 questions qui demandent un montant en euros (115 champs), ni le chiffre d'affaires du dossier, ne dit si le montant est hors taxes ou toutes taxes comprises.",
+      "consequence": "Deux dirigeants identiques peuvent répondre l'un HT, l'autre TTC : un écart de 20 % sur le chiffre d'affaires, les charges et le panier moyen, qui fausse les marges, les seuils et toute comparaison au marché.",
+      "correction": {
+        "etat": "proposée",
+        "texte": "Écrire une règle unique, affichée en tête du questionnaire et du dossier : « Tous les montants sont hors taxes (HT). Si vous ne facturez pas la TVA, indiquez les montants réellement payés ou encaissés. » ; l'ajouter à l'aide des questions de chiffre d'affaires et de charges. Décision du propriétaire (convention HT, cas des entreprises sans TVA)."
+      },
+      "controle": "Contrôle automatique (scripts/verification/audit-final-controles.mts) : 115 champs relevés, aucun ne mentionne HT ou TTC."
+    },
+    {
+      "id": "A-06",
+      "titre": "« Je ne suis pas cette donnée » proposé sur des questions qui ne sont pas des chiffres",
+      "type": "formulation",
+      "origine": "constatee",
+      "codes": [],
+      "probleme": "Les boutons « Je ne sais pas » et « Je ne suis pas cette donnée » s'affichent sur les 561 questions, dont 257 ne se répondent pas par un chiffre (123 choix, 30 cases, 15 oui / non, 15 textes, 5 listes, 1 mois, 68 tableaux ou groupes de champs mixtes). La règle « quatre réponses pour un chiffre » vise les chiffres.",
+      "consequence": "« Je ne suis pas cette donnée » à « Avez-vous un site internet ? » ou « Comment fixez-vous vos prix ? » n'a pas de sens ; enregistrée comme absence de suivi, elle compterait dans la règle du quart et appellerait un conseil pour « commencer à suivre » une donnée qui ne se suit pas.",
+      "correction": {
+        "etat": "proposée",
+        "texte": "Garder « Je ne sais pas » partout ; réserver « Je ne suis pas cette donnée » aux questions chiffrées (nombre, tableaux et groupes de champs chiffrés). Les contrôles des boutons (controle-boutons.mjs) seraient à adapter. Décision du propriétaire."
+      },
+      "controle": "Lecture du code : question-carte.tsx affiche les deux boutons sans condition ; comptage sur la banque."
+    },
+    {
+      "id": "A-07",
+      "titre": "RH-28.10 posée à qui prévoit seulement de recruter",
+      "type": "condition",
+      "origine": "constatee",
+      "codes": [
+        "RH-28.10"
+      ],
+      "probleme": "La question porte sur des recrues passées (« vous a apporté vos meilleures recrues ») ; sa condition (D13 · si recrutement fait ou prévu) l'ouvre aussi à « Je prévois de recruter ».",
+      "consequence": "Un dirigeant qui n'a jamais recruté ne peut pas répondre : réponse « je ne sais pas » forcée, effort inutile.",
+      "correction": {
+        "etat": "proposée",
+        "texte": "Lui donner la condition existante « D13 · si recrutement sur la période » (J'ai recruté, Les deux), comme RH-28.04 et RH-28.05. Les autres questions du bloc (délai, autonomie, heures d'accompagnement) se répondent en estimation par qui prévoit de recruter et servent au calendrier de l'objectif (XR19) : elles restent ouvertes."
+      },
+      "controle": "Navigateur : la condition actuelle est jouée branche par branche (branches.mjs, D-049 : 9 questions ouvertes pour chacune des trois réponses, conformes)."
+    },
+    {
+      "id": "A-08",
+      "titre": "Dirigeant seul : deux parcours voisins sur le recrutement",
+      "type": "doublon",
+      "origine": "constatee",
+      "codes": [
+        "RH-28.01",
+        "RH-41.01"
+      ],
+      "probleme": "Au dirigeant seul, la RH demande « Avez-vous recruté sur les 12 derniers mois, ou prévoyez-vous de recruter ? » (RH-28.01) et « Aimeriez-vous être aidé dans votre travail, par un salarié, un apprenti, un freelance ou un associé ? » (RH-41.01). « Je prévois de recruter » et « Oui, dans les 6 prochains mois » ouvrent deux blocs : RH-28 à RH-31 (7 questions) et RH-41 à RH-44 (8 questions).",
+      "consequence": "34 questions RH au niveau essentiel pour un dirigeant seul qui envisage de l'aide, dont deux séries proches (préparer l'arrivée, délai, ce qui retient de se faire aider).",
+      "correction": {
+        "etat": "proposée",
+        "texte": "Pour le dirigeant seul, ne pas poser RH-28.01 : RH-41.01 ouvre son parcours (RH-41 à RH-44, écrit pour lui), et RH-44.02 dit s'il a déjà eu un salarié. Ou garder les deux et retirer du bloc RH-28 à RH-31 ce que RH-41 à RH-44 couvre déjà. Décision du propriétaire."
+      },
+      "controle": "Simulation par le vrai code d'assemblage (taille « seul », niveau essentiel) : 21 questions sans réponse, 34 avec « Je prévois de recruter » et « Oui, dans les 6 prochains mois »."
+    },
+    {
+      "id": "A-09",
+      "titre": "Avis Google demandés à la Comm sans condition « fiche Google »",
+      "type": "condition",
+      "origine": "constatee",
+      "codes": [
+        "COM-44.01"
+      ],
+      "probleme": "COM-44.01 est posée à tous, alors que sa jumelle ACQ-06.01 et COM-14.01 (« Que contient votre fiche Google ? ») ne le sont que si « Fiche Google » est cochée dans les canaux.",
+      "consequence": "Un dirigeant sans fiche Google doit répondre « 0 avis » ou « je ne sais pas » à une question qui ne le concerne pas ; deux règles différentes pour la même donnée.",
+      "correction": {
+        "etat": "proposée",
+        "texte": "Condition « D03 · si « fiche Google » est cochée », comme ACQ-06.01. Les canaux (ACQ-03.01) sont déjà posés en « Pour commencer » à la Comm."
+      },
+      "controle": "Contrôle automatique (canal ou outil sans condition) ; règles d'affichage relues."
+    },
+    {
+      "id": "A-10",
+      "titre": "« Vous et votre équipe » au dirigeant seul",
+      "type": "formulation",
+      "origine": "constatee",
+      "codes": [
+        "ACQ-04.01",
+        "ACQ-21.04",
+        "FIN-02.01",
+        "RH-07.01",
+        "COM-31.01",
+        "COM-31.02"
+      ],
+      "probleme": "Ces questions, posées aussi au dirigeant seul, parlent de son équipe ou de ses salariés.",
+      "consequence": "Texte qui ne correspond pas à la situation ; le dirigeant seul peut se demander s'il est concerné. La réponse reste juste.",
+      "correction": {
+        "etat": "proposée",
+        "texte": "Une forme par taille, comme le lexique par profil : « combien d'heures passez-vous à prospecter ? » pour le dirigeant seul ; « vous et votre équipe » sinon. Demande un mot du lexique selon la taille (mécanisme à ajouter) ou une variante de texte. Textes à valider."
+      },
+      "controle": "Contrôle automatique (questions d'équipe posées au dirigeant seul : 14 relevées, 6 retenues ; les autres sont écrites pour lui ou ne parlent pas d'équipe)."
+    },
+    {
+      "id": "A-11",
+      "titre": "RH-28.03 : tranches non contiguës",
+      "type": "formulation",
+      "origine": "constatee",
+      "codes": [
+        "RH-28.03"
+      ],
+      "probleme": "Choix : « Moins d'1 mois », « 1 à 2 mois », « 3 à 4 mois », « Plus de 4 mois ». Un délai de deux mois et demi n'a pas de case.",
+      "consequence": "Réponse approximative ou « je ne sais pas » pour un délai pourtant connu.",
+      "correction": {
+        "etat": "proposée",
+        "texte": "« Moins d'1 mois », « 1 à 2 mois », « Plus de 2 à 4 mois », « Plus de 4 mois ». À valider."
+      },
+      "controle": "Contrôle automatique des tranches, relu à la main (les autres signalements de tranches sont des faux positifs : unités différentes)."
+    },
+    {
+      "id": "A-12",
+      "titre": "FIN-48.01 (banquier) : limites non résolues",
+      "type": "utilité",
+      "origine": "reprise",
+      "codes": [
+        "FIN-48.01"
+      ],
+      "probleme": "Question inchangée depuis le 28 octobre (texte, réponses, niveau essentiel, sans condition, aucun calcul, aucune règle). « Jamais » n'est pas un défaut en soi : il ne le devient que si un besoin de financement existe, et ce besoin se lit déjà dans d'autres réponses (découvert D11 et FIN-24, investissement FIN-23.01, trésorerie des prochains mois FIN-13).",
+      "consequence": "Seul conseil possible : « Allez voir votre banquier », sans problème, montant ni échéance.",
+      "correction": {
+        "etat": "à décider",
+        "texte": "Recommandation inchangée : remplacer par « Votre banque connaît-elle ce besoin de financement ? », posée seulement si un besoin est établi (D11 = oui, ou financement de l'investissement par prêt ou leasing). Autres choix : retirer, ou garder (déconseillé). docs/audit-utilite/rapport.md, section 4."
+      },
+      "controle": "Banque et classeur relus le 29 octobre : aucune modification depuis le 28."
+    },
+    {
+      "id": "A-13",
+      "titre": "Liens manquants dans les entrées des calculs",
+      "type": "donnée",
+      "origine": "reprise",
+      "codes": [
+        "FIN-09.10",
+        "FIN-46.01",
+        "FIN-46.02",
+        "FIN-46.03",
+        "FIN-20.08",
+        "FIN-13.06",
+        "RH-15.03",
+        "RH-05.10",
+        "RH-07.02",
+        "ACQ-18.07",
+        "ACQ-07.15",
+        "COM-09.08",
+        "COM-22.04"
+      ],
+      "probleme": "Treize questions posées ne figurent pas parmi les entrées du calcul qui en a besoin (charges fixes, seuil avec rémunération du dirigeant, remise fournisseur, pilotage financier, heures perdues, absence du dirigeant, réserve en période de pic, coût d'un client recommandé, coût réel d'une plateforme, offres sans preuve, demandes par réseau).",
+      "consequence": "Quand ces calculs seront écrits, ils ignoreront une donnée recueillie : résultat incomplet (charges fixes sans abonnements au niveau essentiel) ou faux (XR23 lit l'absence des autres personnes au lieu de celle du dirigeant).",
+      "correction": {
+        "etat": "à décider",
+        "texte": "Ajouter ces entrées dans le classeur (onglets des données et des croisements), puis réimporter. Aucun changement pour le dirigeant. Liste détaillée : docs/audit-utilite/rapport.md, section 6."
+      },
+      "controle": "Revérifié le 29 octobre sur data/croisements.json et les données : les 16 liens (13 questions) sont toujours absents."
+    },
+    {
+      "id": "A-14",
+      "titre": "Calculs décrits par le classeur et non écrits, qui remplaceraient une question",
+      "type": "exploitation",
+      "origine": "constatee",
+      "codes": [
+        "ACQ-21.03",
+        "ACQ-21.04",
+        "FIN-06.02"
+      ],
+      "probleme": "Le classeur décrit des calculs qui éviteraient une question quand un autre agent a déjà les données : capacité de ventes depuis les heures disponibles (RH-07), heures travaillées depuis les heures par personne (RH-06.02) ou celles du dirigeant (RH-05.01), ventes par mois d'un restaurant depuis les couverts et les services (ACQ-11.07 × ACQ-11.09 × 4,33, CLAUDE.md section 11). Aucun n'est écrit : depuis la correction A-01, la question est posée.",
+      "consequence": "Saisie en plus pour le dirigeant qui a déjà répondu à l'autre agent ; aucune valeur fausse.",
+      "correction": {
+        "etat": "à décider",
+        "texte": "Écrire ces calculs, puis proposer le résultat comme réponse pré-remplie (mécanisme de FIN-05.02), que le dirigeant garde ou corrige. Formules à confirmer par le propriétaire (ventes absorbables : heures disponibles ÷ heures par vente, donnée à identifier)."
+      },
+      "controle": "Lecture du classeur (colonne « Calcul » de ACQ-21.03, ACQ-21.04, FIN-06.02)."
+    },
+    {
+      "id": "A-15",
+      "titre": "Données recueillies sans exploitation exécutée, en attente d'une décision",
+      "type": "exploitation",
+      "origine": "reprise",
+      "codes": [
+        "COM-37.01",
+        "FIN-05.03",
+        "ACQ-23.03"
+      ],
+      "probleme": "COM-37.01 (abonnés il y a 6 mois) alimente une évolution par réseau qui n'est pas calculée (COM-37.02, « nonCalculables ») ; les croisements XC07 et XC18 en dépendent. FIN-05.03 (charges fixes il y a 12 mois) n'a pas de terme comparable au niveau essentiel (abonnements en approfondi). ACQ-23.03 demande 12 montants au niveau essentiel.",
+      "consequence": "Effort demandé sans résultat affiché tant que la décision n'est pas prise.",
+      "correction": {
+        "etat": "à décider",
+        "texte": "Décisions déjà listées (CLAUDE.md, section 15, point 13) : comparaison par réseau, abonnements au niveau essentiel, total annuel."
+      },
+      "controle": "data/evolutions.json relu ; évolutions calculées par le moteur (tests/historique.test.mts)."
+    },
+    {
+      "id": "A-16",
+      "titre": "Règle du quart « je ne suis pas cette donnée » écrite mais non branchée",
+      "type": "règle",
+      "origine": "constatee",
+      "codes": [],
+      "probleme": "bilanNonSuivi (src/lib/audit/reponse.ts) calcule la part des données essentielles « non suivies », mais rien ne l'appelle : le compte rendu n'ajoute pas le conseil général de pilotage prévu au-delà d'un quart.",
+      "consequence": "Règle validée (CLAUDE.md, section 6) sans effet tant que le compte rendu n'est pas construit.",
+      "correction": {
+        "etat": "à construire",
+        "texte": "Brancher bilanNonSuivi dans le constat transmis à l'IA du compte rendu ; le texte du conseil reste à écrire."
+      },
+      "controle": "Recherche dans le code : aucun appel hors des tests."
+    },
+    {
+      "id": "A-17",
+      "titre": "Pratiques notées sans problème constaté (risque de conseil générique)",
+      "type": "règle",
+      "origine": "reprise",
+      "codes": [
+        "RH-01.01",
+        "RH-18.01",
+        "RH-20.01",
+        "RH-13.01",
+        "RH-35.01",
+        "RH-39.01",
+        "COM-07.01",
+        "COM-34.01",
+        "COM-47.01",
+        "FIN-13.06",
+        "ACQ-09.06",
+        "ACQ-11.16",
+        "ACQ-17.05",
+        "ACQ-18.01",
+        "FIN-18.04"
+      ],
+      "probleme": "Ces pratiques sont « notées directement » sans règle écrite. Sans lien avec un problème mesuré, elles ne peuvent produire que « organisez-vous mieux », « communiquez davantage » ou « suivez votre trésorerie ».",
+      "consequence": "Conseil sans problème, montant ni échéance ; une pratique absente pénaliserait une entreprise qui n'a pas le problème qu'elle traite.",
+      "correction": {
+        "etat": "à décider",
+        "texte": "Règle commune (section 15, point 14) : une pratique absente n'est un défaut que si le problème qu'elle traite est constaté par une réponse chiffrée (urgences RH-09, interruptions RH-10, reprises RH-16, étapes du parcours Comm COM-17 à COM-23, mois de tension FIN-13.04, rendez-vous non honorés, paniers abandonnés, retards de paiement). Le tableau des conseils génériques est dans docs/audit-final/rapport.md."
+      },
+      "controle": "Recensement : 88 questions de pratique ou de choix sans calcul, relues ; 15 retenues ici."
+    },
+    {
+      "id": "A-18",
+      "titre": "Grilles de qualité Comm appliquées par l'IA",
+      "type": "règle",
+      "origine": "reprise",
+      "codes": [
+        "COM-01.01",
+        "COM-39.02",
+        "COM-44.04"
+      ],
+      "probleme": "Le classeur fait noter par l'IA, avec une grille, le positionnement (COM-01.02, lu dans COM-01.01), l'appel à l'action (COM-20.01) et la grille des publications (COM-49 à COM-54), lus dans COM-39.02, et les thèmes des avis (COM-44.05, lu dans COM-44.04).",
+      "consequence": "Si l'IA applique la grille, elle produit une couleur, ce que la règle fondatrice interdit.",
+      "correction": {
+        "etat": "à décider",
+        "texte": "Décider qui applique la grille de 6 critères (section 15, point 14) : règle de code sur des réponses fermées, ou thème en Contexte."
+      },
+      "controle": "Classeur relu ; inchangé depuis le 28 octobre."
+    },
+    {
+      "id": "A-19",
+      "titre": "Questions RH hors du périmètre de l'agent",
+      "type": "périmètre",
+      "origine": "reprise",
+      "codes": [
+        "RH-06.06",
+        "RH-25.02",
+        "RH-46.02",
+        "RH-47.02",
+        "RH-48.02"
+      ],
+      "probleme": "Heures supplémentaires ni payées ni récupérées, financements de formation, types de contrat, délai de prévenance du planning, rémunération liée aux objectifs : sujets de droit du travail ou de rémunération.",
+      "consequence": "L'agent RH ne peut rien en dire sans sortir de son périmètre (jamais de droit du travail).",
+      "correction": {
+        "etat": "à décider",
+        "texte": "Retrait, fusion, ou avis de l'avocat sur ce que le rapport peut en dire (section 15, point 14)."
+      },
+      "controle": "Banque relue ; inchangée."
+    },
+    {
+      "id": "A-20",
+      "titre": "Questions qui redemandent une réponse connue",
+      "type": "doublon",
+      "origine": "reprise",
+      "codes": [
+        "COM-24.01",
+        "COM-63.01"
+      ],
+      "probleme": "COM-24.01 redemande l'objectif de l'agent Comm, choisi au début de l'agent. COM-63.01 (publicité Google) se déduit de D04 = non. D07 (stock) est reposé à la Finance alors que le métier ou l'inscription le donne.",
+      "consequence": "Saisie en double ; deux réponses qui peuvent se contredire.",
+      "correction": {
+        "etat": "à décider",
+        "texte": "COM-24.01 : finalité portée par chaque objectif Comm, question retirée ; COM-63.01 : réponse déduite « non » si D04 = non (mécanisme existant) ; D07 : repris du compte."
+      },
+      "controle": "Données et code relus ; inchangés."
+    },
+    {
+      "id": "A-21",
+      "titre": "Brief de création de contenu (COM-57) non vérifiable dans l'application",
+      "type": "limite",
+      "origine": "constatee",
+      "codes": [
+        "COM-57.01",
+        "COM-57.02",
+        "COM-57.03",
+        "COM-57.04",
+        "COM-57.05",
+        "COM-57.06",
+        "COM-57.07",
+        "COM-57.08",
+        "COM-57.10",
+        "COM-57.11",
+        "COM-57.12",
+        "COM-57.13",
+        "COM-57.14",
+        "COM-57.15",
+        "COM-57.16"
+      ],
+      "probleme": "Ces questions se posent à la première création de contenu (D30), jamais pendant l'audit ; la création de contenu n'existe pas encore.",
+      "consequence": "Ni affichage ni enregistrement ne peuvent être essayés dans l'application ; leur utilité dépend d'une fonction à construire.",
+      "correction": {
+        "etat": "à construire",
+        "texte": "Les vérifier avec la création de contenu. Elles sont relues (texte, réponses) et évaluées une à une dans l'inventaire."
+      },
+      "controle": "Assemblage : non atteignables pendant l'audit (inventaire, colonne « atteignable »), comme prévu."
+    },
+    {
+      "id": "A-22",
+      "titre": "Budget marketing pré-rempli : seules les réponses directes comptent",
+      "type": "règle",
+      "origine": "constatee",
+      "codes": [
+        "FIN-05.02",
+        "COM-32.01"
+      ],
+      "probleme": "Le total pré-rempli de FIN-05.02 additionne ACQ-07.01, 07.03, 07.04 telles qu'enregistrées. Depuis la correction A-02, ces dépenses peuvent être connues par COM-32.01 (Comm sans l'Acquisition) ; la règle de pré-remplissage ne les lit pas.",
+      "consequence": "Un compte Finance et Comm sans l'Acquisition n'a jamais le total proposé, même quand tout le détail est connu. Aucune valeur fausse.",
+      "correction": {
+        "etat": "à décider",
+        "texte": "Faire lire au pré-remplissage les réponses partagées (lecture composée), ou garder la règle telle qu'écrite le 22 octobre. Voisin de la question déjà ouverte « FIN-05.02 sans l'agent Comm » (section 15, point 6)."
+      },
+      "controle": "Lecture du code (src/lib/audit/prereponse.ts) ; contrôle navigateur du total pré-rempli (controle-prereponse.mjs) inchangé."
+    }
+  ]
+}

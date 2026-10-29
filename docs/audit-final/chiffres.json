@@ -1,0 +1,384 @@
+{
+ "genereLe": "2026-10-29T09:34:59.241Z",
+ "recensees": {
+  "total": 583,
+  "banque": 561,
+  "cadrage": 17,
+  "enAttente": 5
+ },
+ "verifiees": {
+  "evaluees": 583,
+  "relues": 581,
+  "assemblees": 546,
+  "nonPoseesPendantLAudit": 15,
+  "manipuleesNavigateur": 432,
+  "banqueManipuleesNavigateur": 424,
+  "banqueNonManipulees": [
+   "ACQ-01.10",
+   "ACQ-04.06",
+   "ACQ-09.05",
+   "ACQ-11.03",
+   "ACQ-11.07",
+   "ACQ-11.08",
+   "ACQ-11.09",
+   "ACQ-11.10",
+   "ACQ-11.11",
+   "ACQ-11.12",
+   "ACQ-11.13",
+   "ACQ-11.15",
+   "ACQ-11.16",
+   "ACQ-11.17",
+   "ACQ-11.31",
+   "ACQ-11.32",
+   "ACQ-11.33",
+   "ACQ-11.34",
+   "ACQ-11.35",
+   "ACQ-11.36",
+   "ACQ-11.37",
+   "ACQ-14.03",
+   "ACQ-15.05",
+   "ACQ-17.10",
+   "ACQ-17.12",
+   "ACQ-17.15",
+   "ACQ-17.28",
+   "ACQ-19.02",
+   "ACQ-19.03",
+   "ACQ-19.04",
+   "ACQ-22.07",
+   "ACQ-22.09",
+   "FIN-02.01",
+   "FIN-05.07",
+   "FIN-07.04",
+   "FIN-10.04",
+   "FIN-16.01",
+   "FIN-16.02",
+   "FIN-16.03",
+   "FIN-16.04",
+   "FIN-17.01",
+   "FIN-17.02",
+   "FIN-17.03",
+   "FIN-17.04",
+   "FIN-17.10",
+   "FIN-18.01",
+   "FIN-18.02",
+   "FIN-18.03",
+   "FIN-18.04",
+   "FIN-18.05",
+   "FIN-18.06",
+   "FIN-19.01",
+   "FIN-19.02",
+   "FIN-20.08",
+   "FIN-21.01",
+   "FIN-22.01",
+   "FIN-22.02",
+   "FIN-24.01",
+   "FIN-24.02",
+   "FIN-24.03",
+   "FIN-24.04",
+   "FIN-24.05",
+   "FIN-25.01",
+   "FIN-23.01",
+   "FIN-25.02",
+   "FIN-27.01",
+   "FIN-29.01",
+   "FIN-41.02",
+   "RH-01.02",
+   "RH-02.02",
+   "RH-06.06",
+   "RH-06.07",
+   "RH-08.02",
+   "RH-08.04",
+   "RH-19.02",
+   "RH-19.04",
+   "RH-22.01",
+   "RH-49.01",
+   "RH-49.02",
+   "RH-24.01",
+   "RH-26.01",
+   "RH-28.06",
+   "RH-32.01",
+   "RH-34.01",
+   "RH-34.03",
+   "RH-35.01",
+   "RH-36.01",
+   "RH-39.01",
+   "RH-41.01",
+   "RH-44.03",
+   "RH-45.01",
+   "RH-45.02",
+   "RH-45.03",
+   "COM-05.02",
+   "COM-14.01",
+   "COM-14.02",
+   "COM-16.01",
+   "COM-21.02",
+   "COM-21.03",
+   "COM-21.04",
+   "COM-22.04",
+   "COM-22.01",
+   "COM-42.02",
+   "COM-48.02",
+   "COM-57.01",
+   "COM-57.02",
+   "COM-57.03",
+   "COM-57.04",
+   "COM-57.05",
+   "COM-57.06",
+   "COM-57.07",
+   "COM-57.08",
+   "COM-57.10",
+   "COM-57.11",
+   "COM-57.12",
+   "COM-57.13",
+   "COM-57.14",
+   "COM-57.15",
+   "COM-57.16",
+   "ACQ-11.38",
+   "ACQ-11.39",
+   "ACQ-25.01",
+   "ACQ-25.02",
+   "ACQ-25.03",
+   "ACQ-25.04",
+   "ACQ-27.01",
+   "ACQ-27.02",
+   "ACQ-27.03",
+   "ACQ-27.04",
+   "ACQ-28.01",
+   "ACQ-28.02",
+   "ACQ-28.03",
+   "ACQ-28.04",
+   "ACQ-29.01",
+   "ACQ-29.02",
+   "ACQ-29.03",
+   "ACQ-29.04"
+  ],
+  "cadrageManipulees": 8
+ },
+ "statuts": {
+  "Utile et bien définie": 432,
+  "Utile, exploitation à développer": 80,
+  "À clarifier ou à rendre conditionnelle": 41,
+  "Faible utilité : retrait, fusion ou remplacement proposé": 25,
+  "En attente (catégorie Fabrication)": 5
+ },
+ "aDevelopper": {
+  "total": 141,
+  "parStatut": {
+   "Utile et bien définie": 33,
+   "Utile, exploitation à développer": 80,
+   "À clarifier ou à rendre conditionnelle": 21,
+   "Faible utilité : retrait, fusion ou remplacement proposé": 2,
+   "En attente (catégorie Fabrication)": 5
+  }
+ },
+ "recommandations": {
+  "Conserver": 513,
+  "Retirer": 20,
+  "Préciser": 16,
+  "Rendre conditionnelle": 24,
+  "Fusionner": 4,
+  "Remplacer": 1,
+  "En attente": 5
+ },
+ "anomalies": {
+  "total": 22,
+  "parEtat": {
+   "faite": [
+    "A-01",
+    "A-02",
+    "A-03",
+    "A-04"
+   ],
+   "proposée": [
+    "A-05",
+    "A-06",
+    "A-07",
+    "A-08",
+    "A-09",
+    "A-10",
+    "A-11"
+   ],
+   "à décider": [
+    "A-12",
+    "A-13",
+    "A-14",
+    "A-15",
+    "A-17",
+    "A-18",
+    "A-19",
+    "A-20",
+    "A-22"
+   ],
+   "à construire": [
+    "A-16",
+    "A-21"
+   ]
+  },
+  "parType": {
+   "défaut technique": [
+    "A-01",
+    "A-02",
+    "A-03",
+    "A-04"
+   ],
+   "formulation": [
+    "A-05",
+    "A-06",
+    "A-10",
+    "A-11"
+   ],
+   "condition": [
+    "A-07",
+    "A-09"
+   ],
+   "doublon": [
+    "A-08",
+    "A-20"
+   ],
+   "utilité": [
+    "A-12"
+   ],
+   "donnée": [
+    "A-13"
+   ],
+   "exploitation": [
+    "A-14",
+    "A-15"
+   ],
+   "règle": [
+    "A-16",
+    "A-17",
+    "A-18",
+    "A-22"
+   ],
+   "périmètre": [
+    "A-19"
+   ],
+   "limite": [
+    "A-21"
+   ]
+  },
+  "questionsConcernees": 93
+ },
+ "manques": 119,
+ "implementation": {
+  "exécuté par le code": {
+   "Utile et bien définie": 115,
+   "Utile, exploitation à développer": 10,
+   "À clarifier ou à rendre conditionnelle": 13,
+   "Faible utilité : retrait, fusion ou remplacement proposé": 1,
+   "En attente (catégorie Fabrication)": 0
+  },
+  "prévu par le classeur, pas encore exécuté": {
+   "Utile et bien définie": 242,
+   "Utile, exploitation à développer": 8,
+   "À clarifier ou à rendre conditionnelle": 17,
+   "Faible utilité : retrait, fusion ou remplacement proposé": 4,
+   "En attente (catégorie Fabrication)": 0
+  },
+  "lu par l'IA du rapport (pas encore branchée)": {
+   "Utile et bien définie": 64,
+   "Utile, exploitation à développer": 5,
+   "À clarifier ou à rendre conditionnelle": 8,
+   "Faible utilité : retrait, fusion ou remplacement proposé": 7,
+   "En attente (catégorie Fabrication)": 0
+  },
+  "aucun usage écrit": {
+   "Utile et bien définie": 2,
+   "Utile, exploitation à développer": 56,
+   "À clarifier ou à rendre conditionnelle": 3,
+   "Faible utilité : retrait, fusion ou remplacement proposé": 13,
+   "En attente (catégorie Fabrication)": 0
+  },
+  "lu par l'IA du rapport, usage à écrire dans le classeur": {
+   "Utile et bien définie": 9,
+   "Utile, exploitation à développer": 1,
+   "À clarifier ou à rendre conditionnelle": 0,
+   "Faible utilité : retrait, fusion ou remplacement proposé": 0,
+   "En attente (catégorie Fabrication)": 0
+  },
+  "en attente": {
+   "Utile et bien définie": 0,
+   "Utile, exploitation à développer": 0,
+   "À clarifier ou à rendre conditionnelle": 0,
+   "Faible utilité : retrait, fusion ou remplacement proposé": 0,
+   "En attente (catégorie Fabrication)": 5
+  }
+ },
+ "controlesAuto": {
+  "candidats": 284,
+  "parControle": {
+   "unité différente du texte": 16,
+   "comparaison avec le passé : évolution à vérifier": 24,
+   "montant sans HT ni TTC": 115,
+   "équipe : posée au dirigeant seul": 14,
+   "canal ou outil : condition à vérifier": 32,
+   "financement : condition à vérifier": 12,
+   "relance : condition à vérifier": 8,
+   "terme technique sans aide": 5,
+   "stock : condition à vérifier": 15,
+   "tranches qui se chevauchent": 3,
+   "zéro impossible à choisir": 2,
+   "recrutement : condition à vérifier": 4,
+   "question double pour un seul champ": 1,
+   "zéro impossible à saisir": 3,
+   "texte très proche d'une autre question": 23,
+   "croisement d'évolution sans donnée passée parmi ses entrées": 7
+  }
+ },
+ "scenarios": {
+  "canaux": {
+   "controles": 26,
+   "ecarts": 0
+  },
+  "resultats": {
+   "controles": 11,
+   "ecarts": 0
+  },
+  "separation": {
+   "controles": 9,
+   "ecarts": 0
+  },
+  "retours": {
+   "controles": 5,
+   "ecarts": 0
+  },
+  "rapides": {
+   "controles": 7,
+   "ecarts": 0
+  },
+  "historique": {
+   "controles": 32,
+   "ecarts": 0
+  },
+  "partages": {
+   "controles": 36,
+   "ecarts": 0
+  },
+  "branches": {
+   "controles": 94,
+   "ecarts": 0
+  },
+  "dependances": {
+   "controles": 158,
+   "ecarts": 0
+  }
+ },
+ "boutons": {
+  "journaux": 4,
+  "questions": 326
+ },
+ "synthese": [
+  "Vérification du questionnaire : contrôles lancés le 2026-10-29T09:26Z",
+  "typescript                   code 0  ",
+  "lint                         code 0  ",
+  "tests-unitaires              code 0  # duration_ms 25065.232834",
+  "controle-donnees             code 0  Contrôle réussi : aucune erreur.",
+  "balayage-secteurs            code 0  POINTS D'ATTENTION : 0",
+  "inventaire                   code 0    scénario (calcul) : 31",
+  "plan-dependances             code 0    M-092 Ne publie pas (parcours mise en place) : des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage) → COM-10.03, COM-10.04, COM-10.05",
+  "plan-branches                code 0    M-092 Ne publie pas (parcours mise en place) [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : V3 V3 F30",
+  "canaux                       code 0  compte de test : verif.1793266186977.18075@example.com"
+ ],
+ "statutsSomme": 583
+}

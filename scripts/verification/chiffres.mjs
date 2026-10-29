@@ -35,9 +35,16 @@ if (dep && plan) {
   const ok = new Set(dep.resultats.filter((r) => /-a$/.test(r.id) && r.statut === "conforme").map((r) => r.item));
   for (const it of [...plan.items, ...(plan.tailles ?? [])]) if (ok.has(it.id)) for (const c of it.attenduVrai) vues.add(c);
 }
-for (const [f, codes] of [["canaux", ["ACQ-03.01", "ACQ-03.02", "ACQ-03.05"]], ["resultats", ["ACQ-02.01", "ACQ-02.02", "ACQ-02.03", "ACQ-02.04", "ACQ-02.05", "ACQ-08.02", "ACQ-08.03", "FIN-05.02", "ACQ-03.01"]], ["separation", ["ACQ-02.01", "ACQ-02.02"]], ["retours", ["ACQ-02.01", "ACQ-02.02", "ACQ-02.03", "ACQ-02.04"]], ["rapides", ["ACQ-03.01", "ACQ-03.02", "ACQ-08.02", "ACQ-08.03", "ACQ-03.05"]], ["historique", ["ACQ-02.01", "ACQ-02.03", "ACQ-23.01", "ACQ-23.03", "ACQ-01.03", "FIN-14.03"]]]) {
+for (const [f, codes] of [["canaux", ["ACQ-03.01", "ACQ-03.02", "ACQ-03.05"]], ["resultats", ["ACQ-02.01", "ACQ-02.02", "ACQ-02.03", "ACQ-02.04", "ACQ-02.05", "ACQ-08.02", "ACQ-08.03", "FIN-05.02", "ACQ-03.01"]], ["separation", ["ACQ-02.01", "ACQ-02.02"]], ["retours", ["ACQ-02.01", "ACQ-02.02", "ACQ-02.03", "ACQ-02.04"]], ["rapides", ["ACQ-03.01", "ACQ-03.02", "ACQ-08.02", "ACQ-08.03", "ACQ-03.05"]], ["historique", ["ACQ-02.01", "ACQ-02.03", "ACQ-23.01", "ACQ-23.03", "ACQ-01.03", "FIN-14.03"]], ["partages", ["RH-07.01", "RH-06.02", "RH-05.01", "FIN-07.03", "FIN-07.01", "COM-13.01", "COM-12.01", "ACQ-02.01", "ACQ-06.07", "FIN-06.02", "ACQ-06.08", "ACQ-06.01", "COM-32.01", "ACQ-07.03", "ACQ-07.01", "ACQ-07.04", "ACQ-20.02", "FIN-34.02", "RH-16.01", "RH-11.01"]]]) {
   const r = lire(`${R}/${f}.json`);
   if (r && r.resultats.every((x) => x.conforme)) for (const c of codes) vues.add(c);
+}
+// Branches des règles à plusieurs branches : les questions affichées par chaque cas conforme.
+const planBranches = lire(`${V}/plan-branches.json`);
+const branches = lire(`${R}/branches.json`);
+if (planBranches && branches) {
+  const ok = new Set(branches.resultats.filter((r) => r.statut === "conforme").map((r) => r.id));
+  for (const it of planBranches.items) for (const c of it.cas) if (ok.has(c.id)) for (const q of c.attendu) vues.add(q);
 }
 const exercees = new Set();
 if (existsSync(`${R}/journaux`)) {
@@ -77,10 +84,11 @@ if (dep) {
 
 // --- Scénarios (contrôles navigateur et scripts) -----------------------------------------------------------------------
 const scenarios = {};
-for (const f of ["canaux", "resultats", "separation", "retours", "rapides", "historique"]) {
+for (const f of ["canaux", "resultats", "separation", "retours", "rapides", "historique", "partages"]) {
   const r = lire(`${R}/${f}.json`);
   if (r) scenarios[f] = { controles: r.resultats.length, conformes: r.resultats.filter((x) => x.conforme).length, ecarts: r.resultats.filter((x) => !x.conforme).map((x) => x.id) };
 }
+if (branches) scenarios.branches = { controles: branches.resultats.length, conformes: branches.resultats.filter((x) => x.statut === "conforme").length, ecarts: branches.resultats.filter((x) => x.statut === "ecart").map((x) => x.id), bloques: branches.resultats.filter((x) => x.statut === "bloque").map((x) => x.id) };
 if (dep) scenarios.dependances = { controles: dep.resultats.length, conformes: dep.resultats.filter((x) => x.statut === "conforme").length, ecarts: dep.resultats.filter((x) => x.statut === "ecart").map((x) => x.id), bloques: dep.resultats.filter((x) => x.statut === "bloque").map((x) => x.id) };
 const synthese = existsSync(`${R}/synthese.txt`) ? readFileSync(`${R}/synthese.txt`, "utf8") : "";
 scenarios.synthese_des_contrôles = synthese.split("\n").filter((l) => / code \d+/.test(l));
