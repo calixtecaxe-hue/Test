@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { phraseEvolution } from "@/lib/audit/compte-rendu";
-import { formaterValeur, type FaitMesure, type ResultatObjectif, type VueResultats } from "@/lib/resultats/resultats";
+import { formaterValeur, type CibleObjectif, type FaitMesure, type ResultatComposante, type ResultatObjectif, type VueResultats } from "@/lib/resultats/resultats";
 import type { ResultatEvolution } from "@/lib/moteur/evolution";
 
 function formaterDate(iso: string): string {
@@ -42,6 +42,71 @@ function Fait({ f }: { f: FaitMesure }) {
 
 const SIGNE = (n: number) => (n > 0 ? "+" : n < 0 ? "−" : "");
 
+// Situation de départ, cible et écart d'un objectif ou d'une proposition, seulement quand ils se calculent.
+function Depart({ mesure, cible }: { mesure: FaitMesure; cible: CibleObjectif | null }) {
+  return (
+    <>
+      <div data-depart>
+        <dt>Situation de départ</dt>
+        <dd>
+          {formaterValeur(mesure.valeur, mesure.unite)}
+          {mesure.estimee ? <span className="font-normal text-[var(--text-muted)]"> · estimé</span> : null}
+        </dd>
+      </div>
+      {cible ? (
+        <>
+          <div data-cible>
+            <dt>Cible</dt>
+            <dd>{formaterValeur(cible.cible, cible.unite)}</dd>
+          </div>
+          <div data-ecart>
+            <dt>Écart à combler</dt>
+            <dd>
+              {SIGNE(cible.ecart)}
+              {formaterValeur(Math.abs(cible.ecart), cible.unite)}
+            </dd>
+          </div>
+        </>
+      ) : null}
+    </>
+  );
+}
+
+function MesureSuivie({ mesure, cible, limites }: { mesure: FaitMesure | null; cible: CibleObjectif | null; limites: string[] }) {
+  return (
+    <>
+      {mesure ? (
+        <p className="mt-3 text-sm text-[var(--text-muted)]">
+          Mesure suivie : {mesure.libelle.charAt(0).toLowerCase() + mesure.libelle.slice(1)}, {mesure.periode}. {mesure.explication}
+          {cible ? ` Cible calculée : ${cible.calcul}.` : ""}
+        </p>
+      ) : null}
+      {mesure ? <Questions questions={mesure.questions} /> : null}
+      {limites.map((l) => (
+        <p key={l} className="mt-2 text-sm text-[var(--text-muted)]" data-limite>
+          {l}
+        </p>
+      ))}
+    </>
+  );
+}
+
+// Une proposition d'un objectif composé de plusieurs propositions, suivie avec sa propre mesure.
+function Composante({ c }: { c: ResultatComposante }) {
+  return (
+    <li className="res-composante" data-composante={c.id}>
+      <p className="text-sm font-medium text-[var(--text)]">{c.libelle}</p>
+      {c.phrase.toLowerCase() !== c.libelle.toLowerCase() ? <p className="mt-0.5 text-sm text-[var(--text-muted)]">{c.phrase.charAt(0).toUpperCase() + c.phrase.slice(1)}</p> : null}
+      {c.mesure ? (
+        <dl className="res-chiffres">
+          <Depart mesure={c.mesure} cible={c.cible} />
+        </dl>
+      ) : null}
+      <MesureSuivie mesure={c.mesure} cible={c.cible} limites={c.limites} />
+    </li>
+  );
+}
+
 function Objectif({ o, plusieurs, i }: { o: ResultatObjectif; plusieurs: boolean; i: number }) {
   return (
     <article className="res-bloc !mt-0" data-objectif-resultat={o.id}>
@@ -59,7 +124,7 @@ function Objectif({ o, plusieurs, i }: { o: ResultatObjectif; plusieurs: boolean
         </div>
         <div>
           <dt>Origine</dt>
-          <dd className="!font-normal">{o.origine === "proposition" ? "Objectif proposé" : o.origine === "personnel" ? "Objectif personnel" : "Objectif fixé par vous"}</dd>
+          <dd className="!font-normal">{o.origine === "proposition" ? (o.composantes.length > 1 ? `Composé de ${o.composantes.length} propositions` : "Composé à partir d'une proposition") : o.origine === "personnel" ? "Objectif personnel" : "Objectif fixé par vous"}</dd>
         </div>
         {o.reussite ? (
           <div>
@@ -67,49 +132,23 @@ function Objectif({ o, plusieurs, i }: { o: ResultatObjectif; plusieurs: boolean
             <dd className="!font-normal">{o.reussite}</dd>
           </div>
         ) : null}
-        {o.mesure ? (
-          <>
-            <div data-depart>
-              <dt>Situation de départ</dt>
-              <dd>
-                {formaterValeur(o.mesure.valeur, o.mesure.unite)}
-                {o.mesure.estimee ? <span className="font-normal text-[var(--text-muted)]"> · estimé</span> : null}
-              </dd>
-            </div>
-            {o.cible ? (
-              <>
-                <div data-cible>
-                  <dt>Cible</dt>
-                  <dd>{formaterValeur(o.cible.cible, o.cible.unite)}</dd>
-                </div>
-                <div data-ecart>
-                  <dt>Écart à combler</dt>
-                  <dd>
-                    {SIGNE(o.cible.ecart)}
-                    {formaterValeur(Math.abs(o.cible.ecart), o.cible.unite)}
-                  </dd>
-                </div>
-              </>
-            ) : null}
-          </>
-        ) : null}
+        {o.mesure ? <Depart mesure={o.mesure} cible={o.cible} /> : null}
         <div>
           <dt>Avancement déclaré</dt>
           <dd className="!font-normal">Aucun point d&apos;étape pour l&apos;instant</dd>
         </div>
       </dl>
-      {o.mesure ? (
-        <p className="mt-3 text-sm text-[var(--text-muted)]">
-          Mesure suivie : {o.mesure.libelle.charAt(0).toLowerCase() + o.mesure.libelle.slice(1)}, {o.mesure.periode}. {o.mesure.explication}
-          {o.cible ? ` Cible calculée : ${o.cible.calcul}.` : ""}
-        </p>
+      <MesureSuivie mesure={o.mesure} cible={o.cible} limites={o.limites} />
+      {o.composantes.length > 0 ? (
+        <>
+          <p className="mt-4 text-sm text-[var(--text-muted)]">Chaque proposition retenue, sans ordre d&apos;importance :</p>
+          <ul className="mt-2 space-y-3" data-composantes>
+            {o.composantes.map((c) => (
+              <Composante key={c.id} c={c} />
+            ))}
+          </ul>
+        </>
       ) : null}
-      {o.mesure ? <Questions questions={o.mesure.questions} /> : null}
-      {o.limites.map((l) => (
-        <p key={l} className="mt-2 text-sm text-[var(--text-muted)]" data-limite>
-          {l}
-        </p>
-      ))}
       <p className="mt-2 text-xs text-[var(--text-muted)]">L&apos;avancement se calcule uniquement sur ce que vous déclarerez aux points d&apos;étape, jamais sur une estimation.</p>
     </article>
   );

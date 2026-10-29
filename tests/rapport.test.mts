@@ -24,6 +24,8 @@ const resultats: VueResultats = {
       id: "o1",
       phrase: "Augmenter mon chiffre d'affaires de 10 % sur les 12 prochains mois",
       origine: "libre",
+      mode: null,
+      composantes: [],
       echeance: "2027-10-29",
       delaiMois: 12,
       moisRestants: 12,
@@ -116,6 +118,34 @@ test("dossier : identifiants, objectif chiffré, aucune donnée personnelle", ()
   for (const interdit of ["@", "ville", "raisonSociale", "numeroTva", "email"]) assert.equal(texte.includes(interdit), false, interdit);
   assert.equal(d.dejaEssaye.statut, "essaye");
   assert.equal(d.reponsesLibres[0].id, "L1");
+});
+
+test("dossier : objectif composé de plusieurs propositions, chacune avec sa mesure, sans hiérarchie", () => {
+  const abonnes = { id: "abonnes-reseaux", code: "COM-37.01", libelle: "Abonnés sur vos réseaux", explication: "Somme des abonnés de vos réseaux.", unite: "nombre" as const, valeur: 1000, estimee: false, periode: "aujourd'hui", lignes: null, questions: ["Combien d'abonnés avez-vous ?"] };
+  const compose = {
+    ...resultats.objectifs[0],
+    phrase: "Je veux gagner 200 abonnés et améliorer ma note sur Google d'ici 6 mois",
+    origine: "proposition" as const,
+    mode: "composition" as const,
+    changement: null,
+    mesure: null,
+    cible: null,
+    rattachement: null,
+    composantes: [
+      { id: "com-audience", libelle: "Augmenter mon nombre d'abonnés", phrase: "gagner 200 abonnés", changement: { valeur: 200, unite: "unites" as const, sens: "hausse" as const }, mesure: abonnes, mesureManquante: null, rattachement: "proposition" as const, cible: { depart: 1000, cible: 1200, ecart: 200, unite: "nombre" as const, estimee: false, calcul: "1 000 + 200" }, limites: [] },
+      { id: "com-note", libelle: "Améliorer ma note sur Google", phrase: "améliorer ma note sur Google", changement: null, mesure: null, mesureManquante: null, rattachement: null, cible: null, limites: ["Pas de chiffre pour cette proposition : son avancement se mesurera à ce que vous déclarerez aux points d'étape."] },
+    ],
+  };
+  const dc = composerDossier(entree({ formulationModifiee: true, resultats: { ...resultats, objectifs: [compose] } }));
+  assert.equal(dc.objectif.mesure, null);
+  assert.equal(dc.objectif.formulationModifiee, true);
+  const [a, b] = dc.objectif.propositionsRetenues!;
+  const espaces = (t: string | null) => t?.replace(/\s/g, " ") ?? null;
+  assert.deepEqual([a.proposition, a.changementVise, a.mesure, espaces(a.cible), espaces(a.ecartACombler)], ["Augmenter mon nombre d'abonnés", "+200", "F1", "1 200", "+200"]);
+  assert.equal(dc.faits[0].libelle, "Abonnés sur vos réseaux", "la mesure d'une proposition est un fait du dossier");
+  assert.deepEqual([b.mesure, b.cible, b.changementVise], [null, null, null]);
+  assert.match(b.limites[0], /Pas de chiffre/);
+  assert.equal(composerDossier(entree()).objectif.propositionsRetenues, undefined, "objectif d'une seule mesure : pas de liste");
 });
 
 test("empreinte : change avec les réponses, l'objectif et le déjà essayé, pas avec l'état des actions", () => {

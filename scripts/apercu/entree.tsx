@@ -6,9 +6,8 @@ import { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Questionnaire } from "../../src/app/(espace)/audit/[slug]/questionnaire";
 import { ObjectifChoix } from "../../src/app/(espace)/audit/[slug]/objectif-choix";
-import { controlerObjectifs } from "../../src/lib/audit/objectifs-agent";
+import { controlerObjectifs, objectifInitial, type ObjectifInitial } from "../../src/lib/audit/objectifs-agent";
 import { objectifsPourLaTaille } from "../../src/lib/audit/objectifs-proposes";
-import type { ObjectifSaisie } from "../../src/lib/audit/objectif";
 import { ENSEMBLE } from "../../src/lib/audit/donnees-audit";
 import { preparerQuestionnaire } from "../../src/lib/audit/preparation";
 import { prereponseDe } from "../../src/lib/audit/prereponse";
@@ -80,10 +79,18 @@ window.fetch = async (entree: RequestInfo | URL, init?: RequestInit) => {
   // Objectifs (RH, Comm) : mêmes contrôles que l'application ; gardés dans l'onglet pour les écrans suivants de la copie.
   if (chemin === "/api/audit/objectif") {
     const { agent, objectifs } = corps as { agent: string; objectifs: unknown[] };
-    const r = controlerObjectifs(objectifs ?? [], ENSEMBLE.objectifsAgents.agents[agent]?.objectifs ?? null, ENSEMBLE.limitesObjectif.facteurAnnuelMax);
-    if (!r.ok) return json({ erreur: r.erreur, champ: r.champ, rang: r.rang }, 400);
+    const r = controlerObjectifs(objectifs ?? [], ENSEMBLE.objectifsAgents.agents[agent]?.objectifs ?? null, ENSEMBLE.limitesObjectif.facteurAnnuelMax, ENSEMBLE.objectifsAgents.composition.max);
+    if (!r.ok) return json({ erreur: r.erreur, champ: r.champ, rang: r.rang, composante: r.composante }, 400);
     const cle = document.getElementById("apercu-objectif")?.getAttribute("data-court");
-    const garde = { objectifs: r.objectifs.map((o) => ({ phrase: o.phrase, mois: o.saisie.delaiMois, reussite: o.saisie.reussite ?? null, origine: o.origine, saisie: o.saisie })) };
+    const garde = {
+      objectifs: r.objectifs.map((o) => ({
+        phrase: o.phrase,
+        mois: o.saisie.delaiMois,
+        reussite: o.saisie.reussite ?? null,
+        origine: o.origine,
+        initial: objectifInitial({ ...o.saisie, mode: o.mode, composition: o.composition?.map((c) => ({ choix: c.choisi.id, ...(c.ampleur ? { ampleur: c.ampleur } : {}) })), formulation: o.formulation }),
+      })),
+    };
     try { if (cle) sessionStorage.setItem(`caxe-objectif-${cle}`, JSON.stringify(garde)); } catch { /* stockage indisponible */ }
     return json({ ok: true });
   }
@@ -137,21 +144,21 @@ function Apercu({ agent }: { agent: CodeAgent }) {
 const racine = document.getElementById("apercu-questionnaire");
 if (racine) createRoot(racine).render(<Apercu agent={racine.getAttribute("data-agent") as CodeAgent} />);
 
-// Écran « Votre objectif » des agents RH et Comm : le vrai formulaire (un objectif proposé ou écrit par le dirigeant), repris
+// Écran « Votre objectif » des agents RH et Comm : le vrai formulaire (un objectif écrit par le dirigeant ou composé de propositions), repris
 // d'après ce qui a déjà été choisi dans l'onglet ; une fois enregistré, la copie passe au choix du niveau.
 const racineObjectif = document.getElementById("apercu-objectif");
 if (racineObjectif) {
   const agent = racineObjectif.getAttribute("data-agent") as CodeAgent;
   const court = racineObjectif.getAttribute("data-court");
-  let initiaux: ObjectifSaisie[] = [];
+  let initial: ObjectifInitial | null = null;
   try {
-    const garde = JSON.parse(sessionStorage.getItem(`caxe-objectif-${court}`) ?? "null") as { objectifs?: { saisie: ObjectifSaisie }[] } | null;
-    initiaux = garde?.objectifs?.map((o) => o.saisie) ?? [];
+    const garde = JSON.parse(sessionStorage.getItem(`caxe-objectif-${court}`) ?? "null") as { objectifs?: { initial?: ObjectifInitial }[] } | null;
+    initial = garde?.objectifs?.[0]?.initial ?? null;
   } catch { /* rien de gardé */ }
   // Comme dans l'application : seules les propositions qui conviennent à la taille du compte de démonstration (celles déjà
   // choisies restent).
   const liste = ENSEMBLE.objectifsAgents.agents[agent];
-  const dejaChoisis = initiaux.map((s) => s.choix).filter((c): c is string => Boolean(c));
+  const dejaChoisis = initial?.composition.map((c) => c.choix) ?? [];
   const propositions = liste ? objectifsPourLaTaille(liste, ENSEMBLE.themes, ENSEMBLE.reglesAffichage, TAILLE, dejaChoisis) : null;
   if (propositions) {
     createRoot(racineObjectif).render(
@@ -159,7 +166,8 @@ if (racineObjectif) {
         agent={agent}
         propositions={propositions}
         facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax}
-        initiaux={initiaux}
+        maxComposition={ENSEMBLE.objectifsAgents.composition.max}
+        initial={initial}
         // La copie est faite de pages statiques, sans routeur Next : on passe à la page suivante du fichier.
         // eslint-disable-next-line @next/next/no-location-assign-relative-destination
         onEnregistre={() => { window.location.href = `audit-niveau-${court}.html`; }}

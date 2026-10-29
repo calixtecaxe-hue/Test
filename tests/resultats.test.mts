@@ -53,6 +53,9 @@ function objectif(o: Partial<ObjectifTransmis> & { quoi: string }): ObjectifTran
   return {
     id: "obj1",
     origine: "libre",
+    mode: null,
+    composantes: [],
+    formulation: null,
     phrase: o.quoi,
     proposition: null,
     mesure: o.ampleur ? "chiffre" : "reussite",
@@ -203,6 +206,50 @@ test("objectifs RH et Comm : proposition chiffrée, baisse, objectif personnel s
   assert.equal(perso.objectifs[0].reussite, "plus personne ne me demande");
   assert.match(perso.objectifs[0].limites[0], /n'a pas de chiffre/);
   assert.equal(JSON.stringify(perso).includes("%"), false, "aucun pourcentage fabriqué pour un objectif sans chiffre");
+});
+
+test("objectif composé (29 octobre) : chaque proposition est suivie avec sa propre mesure, sans chiffre inventé pour les autres", () => {
+  const composantes = [
+    { id: "com-audience", libelle: "Augmenter mon nombre d'abonnés", phrase: "gagner 200 abonnés", ampleur: { valeur: 200, unite: "unites" as const }, themes: ["COM-37"] },
+    { id: "com-note", libelle: "Améliorer ma note sur Google", phrase: "améliorer ma note sur Google", ampleur: null, themes: ["COM-44", "COM-46"] },
+    { id: "com-visites-site", libelle: "Augmenter les visites de mon site", phrase: "augmenter de 20 % les visites de mon site", ampleur: { valeur: 20, unite: "pourcent" as const }, themes: ["COM-13", "COM-62"] },
+  ];
+  const vue = composerResultats({
+    agent: "COMM_CREATION",
+    aujourdhui: "2026-10-29",
+    objectifs: [
+      objectif({
+        origine: "proposition",
+        mode: "composition",
+        composantes,
+        quoi: "augmenter mon nombre d'abonnés, améliorer ma note sur Google et augmenter les visites de mon site",
+        phrase: "gagner 200 abonnés, améliorer ma note sur Google et augmenter de 20 % les visites de mon site, d'ici 6 mois",
+        reussite: null,
+        mesure: "chiffre",
+        delaiMois: 6,
+        echeance: "2027-04-29",
+        themes: ["COM-37", "COM-44", "COM-46", "COM-13", "COM-62"],
+      }),
+    ],
+    mesures: duCompte({ "COM-17.01": valeurs({ "instagram.abonnes": 700, "facebook.abonnes": 300 }) }, "COMM_CREATION"),
+    evolutions: [],
+    compteRendu: VIDE,
+  });
+  const o = vue.objectifs[0];
+  assert.equal(o.mode, "composition");
+  assert.equal(o.mesure, null, "pas de mesure unique pour un objectif composé");
+  assert.equal(o.cible, null);
+  assert.equal(o.changement, null);
+  assert.deepEqual(o.composantes.map((c) => c.id), ["com-audience", "com-note", "com-visites-site"], "ordre des propositions gardé, sans hiérarchie");
+  const [abonnes, note, site] = o.composantes;
+  assert.equal(abonnes.rattachement, "proposition");
+  assert.deepEqual([abonnes.cible?.depart, abonnes.cible?.cible, abonnes.cible?.ecart], [1000, 1200, 200]);
+  assert.equal(note.mesure, null);
+  assert.equal(note.cible, null);
+  assert.match(note.limites[0], /Pas de chiffre pour cette proposition/);
+  assert.equal(site.cible, null, "visites du site non renseignées : aucune cible");
+  assert.ok(site.limites.length > 0 && site.limites.every((l) => !/\d+ %/.test(l)), site.limites.join(" | "));
+  assert.equal(vue.facteursObjectif.some((f) => f.id === "abonnes-reseaux"), false, "la mesure d'une proposition n'est pas répétée dans les facteurs");
 });
 
 test("une mesure dont les questions ne sont pas posées au compte n'est ni montrée ni demandée", () => {

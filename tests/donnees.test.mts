@@ -14,9 +14,20 @@ const copie = (): EnsembleDonnees => structuredClone(reel);
 test("les fichiers du dépôt passent le contrôle sans erreur ; seules les règles à préciser sont signalées", () => {
   const r = controlerDonnees(reel);
   assert.deepEqual(r.erreurs, []);
-  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté ") && !/^(Le métier|L'activité|La catégorie|\d+ métier|\d+ indicateurs de références|Effets d'actions à valider|La réponse de |Sens à trancher|Aucun plafond quotidien|Objectifs proposés par agent|data\/deja-tente\.json : textes de la question|\d+ donnée\(s\) retirée\(s\)|Vocabulaires par métier :)/.test(a));
+  const inattendus = r.avertissements.filter((a) => !a.startsWith("Règle à préciser") && !a.startsWith("Le thème noté ") && !/^(Le métier|L'activité|La catégorie|\d+ métier|\d+ indicateurs de références|Effets d'actions à valider|La réponse de |Sens à trancher|Aucun plafond quotidien|Objectifs proposés par agent|Objectif composé \(RH, Comm\)|data\/deja-tente\.json : textes de la question|\d+ donnée\(s\) retirée\(s\)|Vocabulaires par métier :)/.test(a));
   assert.deepEqual(inattendus, []);
   assert.equal(r.avertissements.filter((a) => a.startsWith("Règle à préciser")).length, 2);
+});
+
+test("objectif composé : une proposition exclue existe, dans la même partie, et le lien est écrit des deux côtés", () => {
+  const e = copie();
+  const com = e.objectifsAgents.agents.COMM_CREATION.objectifs;
+  com.find((o) => o.id === "com-cout-demande")!.exclut = [];
+  com.find((o) => o.id === "com-avis")!.exclut = ["com-cible", "com-inconnue"];
+  const erreurs = controlerDonnees(e).erreurs;
+  assert.ok(erreurs.some((m) => m.includes("com-annonces") && m.includes("d'un seul côté")), erreurs.join("\n"));
+  assert.ok(erreurs.some((m) => m.includes("com-avis") && m.includes("com-cible") && m.includes("autre partie")));
+  assert.ok(erreurs.some((m) => m.includes("com-inconnue") && m.includes("n'existe pas")));
 });
 
 test("une condition ou un masquage du classeur sans règle d'affichage est une erreur", () => {

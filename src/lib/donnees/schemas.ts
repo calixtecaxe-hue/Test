@@ -651,6 +651,9 @@ export const objectifAgent = z.object({
   question: z.string().optional(),
   libellesUnites: z.object({ pourcent: z.string().optional(), euros: z.string().optional(), unites: z.string().optional() }).optional(),
   themes: z.array(z.string()).min(1),
+  // Propositions qui recouvrent celle-ci (demande du 29 octobre : des propositions combinables sans doublon ni
+  // contradiction) : elles ne se retiennent pas ensemble dans un objectif composé. Le lien est écrit des deux côtés.
+  exclut: z.array(z.string().regex(/^[a-z0-9-]+$/)).optional(),
   // Exemples affichés dans les champs : la phrase de réussite et le délai, jamais un chiffre à viser.
   exemple: z.object({ reussite: z.string().optional(), delaiMois: z.number().int().min(1) }),
 });
@@ -661,6 +664,8 @@ export type ObjectifPersonnel = z.infer<typeof objectifPersonnel>;
 export const objectifsAgents = z.object({
   source: z.string(),
   aValider: z.boolean(),
+  // Objectif composé (demande du 29 octobre) : nombre de propositions retenues au plus (valeur de travail, à valider).
+  composition: z.object({ max: z.number().int().min(1), aValider: z.boolean(), note: z.string() }),
   agents: z.record(
     z.string(),
     z.object({

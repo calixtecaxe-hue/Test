@@ -67,6 +67,7 @@ export async function preparerDuCompte(utilisateur: UtilisateurComplet, agent: A
   const agentDef = AGENTS.find((x) => x.code === agent)!;
   const dossier = composerDossier({
     agent: { code: agent, nom: agentDef.nom, question: agentDef.question },
+    formulationModifiee: transmis[0]?.formulation?.modifiee === true,
     profil: {
       metier: metier?.libelle ?? utilisateur.metierPrecis,
       activites: (metier?.sousVariantes ?? []).filter((v) => utilisateur.sousVariantes.includes(v.id)).map((v) => v.libelle),

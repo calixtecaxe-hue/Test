@@ -13,7 +13,7 @@ import type { CodeAgent } from "../donnees/schemas.ts";
 import type { ResultatEvolution } from "../moteur/evolution.ts";
 import { phraseEvolution } from "../audit/compte-rendu.ts";
 import type { TentativesTransmises } from "../audit/tentatives.ts";
-import { formaterValeur, type FaitMesure, type VueResultats } from "../resultats/resultats.ts";
+import { formaterValeur, type CibleObjectif, type FaitMesure, type ResultatObjectif, type VueResultats } from "../resultats/resultats.ts";
 
 export type FaitDossier = { id: string; libelle: string; valeur: string; periode: string; estimee: boolean; explication: string; lignes: string[] | null; questions: string[] };
 
@@ -50,6 +50,20 @@ export type Dossier = {
     cible: string | null;
     ecartACombler: string | null;
     limites: string[];
+    // Objectif composé de plusieurs propositions (29 octobre) : chacune, sans hiérarchie, avec sa mesure quand elle existe.
+    // Absent pour un objectif écrit par le dirigeant ou fait d'une seule proposition (les champs ci-dessus la décrivent).
+    propositionsRetenues?: {
+      proposition: string;
+      phrase: string;
+      changementVise: string | null;
+      mesure: string | null;
+      situationDeDepart: string | null;
+      cible: string | null;
+      ecartACombler: string | null;
+      limites: string[];
+    }[];
+    // La formulation a été modifiée par le dirigeant (la phrase ci-dessus est alors la sienne, faite à partir de ses propositions).
+    formulationModifiee?: boolean;
   };
   faits: FaitDossier[];
   evolutions: { id: string; libelle: string; statut: ResultatEvolution["statut"]; phrase: string | null; raison: string | null; notes: string[] }[];
@@ -66,6 +80,8 @@ export type Dossier = {
 
 export type EntreeDossier = {
   agent: Dossier["agent"];
+  // Le dirigeant a modifié la formulation de son objectif composé.
+  formulationModifiee?: boolean;
   profil: Dossier["profil"];
   resultats: VueResultats;
   tentatives: TentativesTransmises;
@@ -95,12 +111,14 @@ export function composerDossier(e: EntreeDossier): Dossier {
     faits.push(faitDossier(id, f));
   };
   if (o?.mesure) ajouter(o.mesure);
+  o?.composantes.forEach((c) => (c.mesure ? ajouter(c.mesure) : undefined));
   e.resultats.facteursObjectif.forEach(ajouter);
   e.resultats.autresFacteurs.forEach(ajouter);
 
-  const changement = o?.changement
-    ? `${o.changement.sens === "baisse" ? "−" : o.changement.sens === "hausse" ? "+" : ""}${new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2 }).format(o.changement.valeur)}${o.changement.unite === "pourcent" ? " %" : o.changement.unite === "euros" ? " €" : ""}`
-    : null;
+  const texteChangement = (c: ResultatObjectif["changement"]) =>
+    c ? `${c.sens === "baisse" ? "−" : c.sens === "hausse" ? "+" : ""}${new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2 }).format(c.valeur)}${c.unite === "pourcent" ? " %" : c.unite === "euros" ? " €" : ""}` : null;
+  const changement = texteChangement(o?.changement ?? null);
+  const ecart = (c: CibleObjectif) => `${c.ecart > 0 ? "+" : c.ecart < 0 ? "−" : ""}${formaterValeur(Math.abs(c.ecart), c.unite)}`;
   return {
     version: 1,
     agent: e.agent,
@@ -117,8 +135,23 @@ export function composerDossier(e: EntreeDossier): Dossier {
       mesure: o?.mesure ? idMesure.get(o.mesure.id) ?? null : null,
       situationDeDepart: o?.mesure ? `${valeurFait(o.mesure)}, ${o.mesure.periode}` : null,
       cible: o?.cible ? formaterValeur(o.cible.cible, o.cible.unite) : null,
-      ecartACombler: o?.cible ? `${o.cible.ecart > 0 ? "+" : o.cible.ecart < 0 ? "−" : ""}${formaterValeur(Math.abs(o.cible.ecart), o.cible.unite)}` : null,
+      ecartACombler: o?.cible ? ecart(o.cible) : null,
       limites: o?.limites ?? [],
+      ...(o && o.composantes.length > 1
+        ? {
+            propositionsRetenues: o.composantes.map((c) => ({
+              proposition: c.libelle,
+              phrase: c.phrase,
+              changementVise: texteChangement(c.changement),
+              mesure: c.mesure ? idMesure.get(c.mesure.id) ?? null : null,
+              situationDeDepart: c.mesure ? `${valeurFait(c.mesure)}, ${c.mesure.periode}` : null,
+              cible: c.cible ? formaterValeur(c.cible.cible, c.cible.unite) : null,
+              ecartACombler: c.cible ? ecart(c.cible) : null,
+              limites: c.limites,
+            })),
+          }
+        : {}),
+      ...(e.formulationModifiee ? { formulationModifiee: true } : {}),
     },
     faits,
     evolutions: e.resultats.evolutions.map((r, i) => ({ id: `E${i + 1}`, libelle: r.libelle, statut: r.statut, phrase: phraseEvolution(r), raison: r.raison, notes: r.notes })),

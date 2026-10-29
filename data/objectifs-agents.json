@@ -1,6 +1,11 @@
 {
-  "source": "Proposition de rédaction du 22 octobre, d'après les thèmes réels de chaque agent (themes.json) et les exemples du propriétaire pour la Comm. Complété le 27 octobre (une vingtaine d'objectifs par parcours de la Comm). Relu le 28 octobre : titres courts, plus aucun chiffre suggéré. Décisions du propriétaire du 28 octobre : un objectif par agent (1B) ; « Relancer les personnes intéressées » en clients en plus (2a-1) ; taux de conversion visé (2c-1) ; périmètre de l'agent Comm clarifié, l'acquisition de clients par la communication (2b : « Construire un parcours qui transforme mes visiteurs en clients » retrouve son intention) ; ajout de « Libérer du temps pour piloter l'entreprise » (4a-1) et de « Me faire aider dans mon travail » (4b-1) ; la partie choisie en Comm et le parcours du questionnaire restent séparés, l'écart est signalé (6C : « parcours » = réponses à COM-10.07 qui donnent le parcours de chaque partie). Chaque objectif chiffré a sa phrase finale écrite à l'avance (« gabarit » pour un nombre ou un taux visé, « phrases » par unité pour une hausse ou une baisse ; {n} = chiffre du dirigeant, {dici} = « d'ici N mois »), l'intitulé de son chiffre (« question ») et, au besoin, le nom de l'unité (« libellesUnites »). Avant / après : docs/objectifs/objectifs-rh-comm.md. BROUILLON À VALIDER (textes).",
+  "source": "Proposition de rédaction du 22 octobre, d'après les thèmes réels de chaque agent (themes.json) et les exemples du propriétaire pour la Comm. Complété le 27 octobre (une vingtaine d'objectifs par parcours de la Comm). Relu le 28 octobre : titres courts, plus aucun chiffre suggéré. Décisions du propriétaire du 28 octobre : un objectif par agent (1B) ; « Relancer les personnes intéressées » en clients en plus (2a-1) ; taux de conversion visé (2c-1) ; périmètre de l'agent Comm clarifié, l'acquisition de clients par la communication (2b : « Construire un parcours qui transforme mes visiteurs en clients » retrouve son intention) ; ajout de « Libérer du temps pour piloter l'entreprise » (4a-1) et de « Me faire aider dans mon travail » (4b-1) ; la partie choisie en Comm et le parcours du questionnaire restent séparés, l'écart est signalé (6C : « parcours » = réponses à COM-10.07 qui donnent le parcours de chaque partie). Chaque objectif chiffré a sa phrase finale écrite à l'avance (« gabarit » pour un nombre ou un taux visé, « phrases » par unité pour une hausse ou une baisse ; {n} = chiffre du dirigeant, {dici} = « d'ici N mois »), l'intitulé de son chiffre (« question ») et, au besoin, le nom de l'unité (« libellesUnites »). Avant / après : docs/objectifs/objectifs-rh-comm.md. BROUILLON À VALIDER (textes). Demande du propriétaire du 29 octobre : l'objectif s'écrit librement (« Écrire mon objectif ») ou se compose d'une ou de plusieurs propositions de la même partie (« Composer mon objectif à partir des propositions »), sans objectif principal ni sous-objectifs ; « exclut » : propositions qui se recouvrent et ne se retiennent pas ensemble ; « composition.max » : nombre de propositions retenues au plus (valeur de travail) ; précision ajoutée aux 9 propositions qui n'en avaient pas ; deux titres clarifiés (com-preuves, rh-information) pour se comprendre aussi dans une phrase composée.",
   "aValider": true,
+  "composition": {
+    "max": 5,
+    "aValider": true,
+    "note": "Valeur de travail qu'aucune règle ne fixe : au-delà de 5 propositions, l'objectif devient une liste de chantiers et se suit mal. À valider par le propriétaire."
+  },
   "agents": {
     "RH_ORGANISATION": {
       "personnel": {
@@ -77,6 +82,9 @@
             "RH-28",
             "RH-29"
           ],
+          "exclut": [
+            "rh-aide"
+          ],
           "exemple": {
             "reussite": "les nouvelles personnes travaillent seules après leur accueil",
             "delaiMois": 6
@@ -126,7 +134,7 @@
         },
         {
           "id": "rh-information",
-          "libelle": "Mieux faire circuler l'information",
+          "libelle": "Mieux faire circuler l'information dans l'entreprise",
           "detail": "Dossiers clients, accès, consignes et décisions prises en réunion.",
           "mesure": "phrase",
           "themes": [
@@ -197,6 +205,9 @@
             "RH-43",
             "RH-44",
             "RH-45"
+          ],
+          "exclut": [
+            "rh-recruter"
           ],
           "exemple": {
             "reussite": "une personne prend en charge chaque semaine des tâches que je faisais seul",
@@ -618,6 +629,9 @@
           "themes": [
             "COM-63"
           ],
+          "exclut": [
+            "com-cout-demande"
+          ],
           "exemple": {
             "reussite": "mes annonces m'apportent autant de demandes pour un budget plus faible",
             "delaiMois": 3
@@ -752,6 +766,9 @@
             "COM-32",
             "COM-38"
           ],
+          "exclut": [
+            "com-annonces"
+          ],
           "exemple": {
             "reussite": "chaque demande me coûte moins cher, temps compris",
             "delaiMois": 6
@@ -810,6 +827,7 @@
           "id": "com-positionnement",
           "groupe": "Mettre en place ma présence en ligne",
           "libelle": "Clarifier ce qui me distingue de mes concurrents",
+          "detail": "Ce que vous faites autrement ou mieux que les autres entreprises de votre secteur.",
           "mesure": "phrase",
           "themes": [
             "COM-01",
@@ -853,8 +871,8 @@
         {
           "id": "com-preuves",
           "groupe": "Mettre en place ma présence en ligne",
-          "libelle": "Rassembler mes preuves",
-          "detail": "Avis, photos de réalisations, chiffres qui montrent votre sérieux.",
+          "libelle": "Rassembler les preuves de mon sérieux",
+          "detail": "Avis, photos de réalisations et chiffres, prêts à être montrés.",
           "mesure": "phrase",
           "themes": [
             "COM-08",
@@ -884,6 +902,7 @@
           "id": "com-comptes",
           "groupe": "Mettre en place ma présence en ligne",
           "libelle": "Ouvrir et configurer mes comptes sur les réseaux",
+          "detail": "Les comptes de votre entreprise sur les réseaux retenus, avec vos coordonnées et vos liens à jour.",
           "mesure": "phrase",
           "themes": [
             "COM-56",
@@ -898,6 +917,7 @@
           "id": "com-profil",
           "groupe": "Mettre en place ma présence en ligne",
           "libelle": "Rendre mon profil clair dès la première visite",
+          "detail": "Ce que voit un visiteur en ouvrant votre profil : qui vous êtes, pour qui vous travaillez, comment vous contacter.",
           "mesure": "phrase",
           "themes": [
             "COM-56",
@@ -926,6 +946,7 @@
           "id": "com-fiche",
           "groupe": "Mettre en place ma présence en ligne",
           "libelle": "Créer et compléter ma fiche Google",
+          "detail": "Photos, horaires, description et coordonnées, pour être trouvé par les clients de votre secteur.",
           "mesure": "phrase",
           "themes": [
             "COM-14",
@@ -940,6 +961,7 @@
           "id": "com-premiers-avis",
           "groupe": "Mettre en place ma présence en ligne",
           "libelle": "Obtenir mes premiers avis clients",
+          "detail": "Sur votre fiche Google ou sur la plateforme d'avis de votre métier.",
           "mesure": "chiffre",
           "unite": "unites",
           "question": "Combien de premiers avis visez-vous ?",
@@ -960,6 +982,7 @@
           "id": "com-lignes-editoriales",
           "groupe": "Mettre en place ma présence en ligne",
           "libelle": "Choisir les sujets dont je vais parler",
+          "detail": "Les thèmes de vos publications, et une liste d'idées d'avance.",
           "mesure": "phrase",
           "themes": [
             "COM-24",
@@ -974,6 +997,7 @@
           "id": "com-calendrier",
           "groupe": "Mettre en place ma présence en ligne",
           "libelle": "Préparer un calendrier de publication",
+          "detail": "Ce que vous publiez, où et quand, prévu à l'avance.",
           "mesure": "phrase",
           "themes": [
             "COM-56",
@@ -989,6 +1013,7 @@
           "id": "com-regularite",
           "groupe": "Mettre en place ma présence en ligne",
           "libelle": "Publier régulièrement sans y passer trop de temps",
+          "detail": "Un rythme que vous pouvez tenir, en préparant vos publications à l'avance.",
           "mesure": "phrase",
           "themes": [
             "COM-56",
@@ -1004,6 +1029,7 @@
           "id": "com-premieres-publications",
           "groupe": "Mettre en place ma présence en ligne",
           "libelle": "Publier mes premiers contenus",
+          "detail": "Vos premières publications, sur le réseau ou le site que vous avez choisi.",
           "mesure": "chiffre",
           "unite": "unites",
           "question": "Combien de contenus voulez-vous publier ?",

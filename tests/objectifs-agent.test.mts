@@ -1,13 +1,14 @@
 // Objectif d'un agent : un seul par agent (RH et Comm depuis la décision du 28 octobre, option 1B ; Acquisition et Finance
-// depuis toujours). En RH et en Comm, c'est une proposition de la liste ou un objectif écrit par le dirigeant (« Écrire mon
-// propre objectif »), jamais les deux ; chaque objectif chiffré a sa phrase finale écrite à l'avance. Lancer : npm test
+// depuis toujours). En RH et en Comm, c'est un objectif écrit par le dirigeant (« Écrire mon objectif ») ou composé d'une ou de
+// plusieurs propositions de la liste (« Composer mon objectif à partir des propositions », 29 octobre), jamais les deux ;
+// chaque objectif chiffré a sa phrase finale écrite à l'avance. Lancer : npm test
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import { chargerDepuisDisque } from "../src/lib/donnees/disque.ts";
-import { controlerObjectifs, ecartDeParcours, MAX_OBJECTIFS, phraseDe, quoiDeProposition, unitesDe } from "../src/lib/audit/objectifs-agent.ts";
-import { objectifTransmis, objectifsPourLaTaille, suiviParcours } from "../src/lib/audit/objectifs-proposes.ts";
+import { chiffreEtranger, controlerObjectifs, ecartDeParcours, formulationProposee, MAX_OBJECTIFS, nombresDe, objectifInitial, partieDePhrase, phraseDe, quoiDeProposition, unitesDe } from "../src/lib/audit/objectifs-agent.ts";
+import { objectifTransmis, objectifsPourLaTaille, propositionsDe, suiviParcours } from "../src/lib/audit/objectifs-proposes.ts";
 import { enregistrerObjectif } from "../src/lib/audit/objectif.ts";
 
 const reel = chargerDepuisDisque(join(fileURLToPath(new URL("..", import.meta.url)), "data"));
@@ -51,7 +52,7 @@ test("Comm : une proposition porte sa partie ; une partie qui ne lui correspond 
 test("aucun objectif, ou un objectif incomplet : refusé, avec le champ en cause", () => {
   const vide = controlerObjectifs([], RH, facteur);
   assert.equal(vide.ok, false);
-  if (!vide.ok) assert.equal(vide.erreur, "Choisissez un objectif proposé ou écrivez votre propre objectif.");
+  if (!vide.ok) assert.equal(vide.erreur, "Écrivez votre objectif ou composez-le à partir des propositions.");
   const fautif = controlerObjectifs([{ quoi: "ok", delaiMois: 3 }], RH, facteur);
   assert.equal(fautif.ok, false);
   if (!fautif.ok) assert.equal(fautif.rang, 0);
@@ -221,4 +222,164 @@ test("Comm (6C) : la partie de l'objectif et le parcours du questionnaire resten
   const e = ecartDeParcours(suivi, METTRE_EN_PLACE, "oui_au_moins_une_fois_par_mois");
   assert.ok(e && e.includes(`« ${METTRE_EN_PLACE} »`) && e.includes(`« ${AMELIORER} »`) && e.includes("Oui, au moins une fois par mois") && e.includes("Rien n'est bloqué"), e ?? "");
   assert.ok(ecartDeParcours(suivi, AMELIORER, "rarement_ou_plus_du_tout")?.includes(`questions de la partie « ${METTRE_EN_PLACE} »`));
+});
+
+// --- Objectif composé (demande du propriétaire du 29 octobre) ------------------------------------------------------------------
+
+const MAX = reel.objectifsAgents.composition.max;
+const compose = (composition: { choix: string; ampleur?: { valeur: number; unite: string } }[], o: Record<string, unknown> = {}) => ({ mode: "composition", composition, delaiMois: 3, ...o });
+const controle = (agent: "RH" | "COM", saisie: unknown) => controlerObjectifs([saisie], agent === "RH" ? RH : COM, facteur, MAX);
+const parIdOb = (l: typeof RH, id: string) => l.find((o) => o.id === id)!;
+
+test("composer : une seule proposition donne exactement la phrase d'avant le 29 octobre", () => {
+  const r = controle("COM", compose([{ choix: "com-avis", ampleur: { valeur: 10, unite: "unites" } }]));
+  assert.ok(r.ok, r.ok ? "" : r.erreur);
+  if (!r.ok) return;
+  const o = r.objectifs[0];
+  assert.deepEqual([o.mode, o.origine, o.phrase, o.saisie.choix, o.saisie.quoi, o.saisie.ampleur?.valeur, o.saisie.partie], ["composition", "proposition", "obtenir 10 nouveaux avis clients sur les 3 prochains mois", "com-avis", "obtenir plus d'avis clients", 10, AMELIORER]);
+  assert.deepEqual(o.formulation, { proposee: o.phrase, finale: o.phrase, modifiee: false });
+  assert.deepEqual(o.composition!.map((c) => [c.choisi.id, c.phrase]), [["com-avis", "obtenir 10 nouveaux avis clients"]]);
+  // Même objectif envoyé sous la forme d'avant (proposition seule, sans mode) : même phrase, même composition.
+  const ancien = controlerObjectifs([{ quoi: "x", ampleur: { valeur: 10, unite: "unites" }, delaiMois: 3, choix: "com-avis" }], COM, facteur, MAX);
+  assert.ok(ancien.ok && ancien.objectifs[0].phrase === o.phrase && ancien.objectifs[0].mode === "composition" && ancien.objectifs[0].composition?.length === 1);
+});
+
+test("composer : plusieurs propositions forment un seul objectif, sans principal ni sous-objectif, dans les mots de la liste", () => {
+  const r = controle("RH", compose([{ choix: "rh-roles" }, { choix: "rh-temps", ampleur: { valeur: 5, unite: "unites" } }]));
+  assert.ok(r.ok, r.ok ? "" : r.erreur);
+  if (!r.ok) return;
+  const o = r.objectifs[0];
+  assert.equal(o.phrase, "clarifier qui fait quoi et libérer 5 heures par semaine pour piloter l'entreprise, d'ici 3 mois");
+  assert.deepEqual([o.choisi, o.saisie.choix, o.saisie.ampleur, o.saisie.reussite], [undefined, undefined, undefined, undefined], "aucune proposition n'est mise en avant ; la réussite n'est pas exigée quand une proposition a un chiffre");
+  assert.equal(o.saisie.quoi, "clarifier qui fait quoi et libérer du temps pour piloter l'entreprise");
+  assert.deepEqual(o.composition!.map((c) => c.ampleur?.valeur ?? null), [null, 5]);
+  const trois = controle("COM", compose([{ choix: "com-avis", ampleur: { valeur: 10, unite: "unites" } }, { choix: "com-note" }, { choix: "com-audience", ampleur: { valeur: 15, unite: "pourcent" } }], { delaiMois: 6 }));
+  assert.ok(trois.ok && trois.objectifs[0].phrase === "obtenir 10 nouveaux avis clients, améliorer ma note sur Google et augmenter de 15 % mon nombre d'abonnés, d'ici 6 mois", trois.ok ? trois.objectifs[0].phrase : trois.erreur);
+  // Aucune intention ni aucun chiffre ajouté : la formulation proposée n'est faite que des phrases des propositions et du délai.
+  if (trois.ok) assert.deepEqual(nombresDe(trois.objectifs[0].phrase), ["10", "15", "6"]);
+});
+
+test("composer : un objectif qualitatif n'a jamais de chiffre imposé ; ce que le dirigeant veut constater est demandé quand aucune proposition n'a de chiffre", () => {
+  const sans = controle("RH", compose([{ choix: "rh-roles" }, { choix: "rh-information" }]));
+  assert.ok(!sans.ok && sans.champ === "reussite", sans.ok ? "" : sans.erreur);
+  const avec = controle("RH", compose([{ choix: "rh-roles" }, { choix: "rh-information" }], { reussite: "chacun sait quoi faire et où trouver l'information" }));
+  assert.ok(avec.ok && avec.objectifs[0].phrase === "clarifier qui fait quoi et mieux faire circuler l'information dans l'entreprise, d'ici 3 mois");
+  const chiffreSurPhrase = controle("RH", compose([{ choix: "rh-roles", ampleur: { valeur: 3, unite: "unites" } }], { reussite: "ok ok" }));
+  assert.ok(!chiffreSurPhrase.ok && chiffreSurPhrase.champ === "ampleur" && chiffreSurPhrase.composante === "rh-roles");
+  // Une proposition chiffrable laissée sans chiffre reste valable.
+  const facultatif = controle("COM", compose([{ choix: "com-avis" }, { choix: "com-note" }], { reussite: "je reçois des avis chaque mois" }));
+  assert.ok(facultatif.ok && facultatif.objectifs[0].phrase === "obtenir plus d'avis clients et améliorer ma note sur Google, d'ici 3 mois");
+});
+
+test("composer : refus nommés (doublon, inconnue, parties mêlées, recouvrement, plafond, unité, vraisemblance)", () => {
+  const refus = (agent: "RH" | "COM", saisie: unknown) => {
+    const r = controle(agent, saisie);
+    assert.equal(r.ok, false);
+    return r.ok ? { erreur: "", champ: "", composante: undefined } : r;
+  };
+  assert.equal(refus("COM", compose([{ choix: "com-avis", ampleur: { valeur: 2, unite: "unites" } }, { choix: "com-avis" }])).erreur, "La même proposition est retenue deux fois.");
+  assert.equal(refus("COM", compose([{ choix: "com-inconnue" }], { reussite: "ok ok" })).composante, "com-inconnue");
+  assert.match(refus("COM", compose([{ choix: "com-avis", ampleur: { valeur: 2, unite: "unites" } }, { choix: "com-cible" }])).erreur, /une seule partie/);
+  assert.match(refus("COM", compose([{ choix: "com-avis", ampleur: { valeur: 2, unite: "unites" } }], { partie: METTRE_EN_PLACE })).erreur, /n'appartiennent pas à cette partie/);
+  assert.equal(refus("COM", compose([{ choix: "com-annonces", ampleur: { valeur: 10, unite: "pourcent" } }, { choix: "com-cout-demande" }])).erreur, "« Réduire le coût de chaque demande venue de mes annonces Google » et « Réduire le coût de chaque demande » se recouvrent : retenez l'une ou l'autre.");
+  assert.match(refus("RH", compose([{ choix: "rh-recruter", ampleur: { valeur: 1, unite: "unites" } }, { choix: "rh-aide" }])).erreur, /se recouvrent/);
+  const ids = COM.filter((o) => o.groupe === METTRE_EN_PLACE).slice(0, MAX + 1).map((o) => ({ choix: o.id }));
+  assert.match(refus("COM", compose(ids, { reussite: "ma présence en ligne est en place" })).erreur, new RegExp(`au plus ${MAX} propositions`));
+  assert.equal(controle("COM", compose(ids.slice(0, MAX), { reussite: "ma présence en ligne est en place" })).ok, true, `${MAX} propositions acceptées`);
+  const unite = refus("COM", compose([{ choix: "com-avis", ampleur: { valeur: 10, unite: "pourcent" } }]));
+  assert.deepEqual([unite.champ, unite.composante], ["ampleur", "com-avis"]);
+  const vraisemblance = refus("COM", compose([{ choix: "com-note" }, { choix: "com-audience", ampleur: { valeur: 900, unite: "pourcent" } }], { delaiMois: 1 }));
+  assert.ok(["ampleur", "delaiMois"].includes(vraisemblance.champ ?? "") && vraisemblance.composante === "com-audience" && vraisemblance.erreur.startsWith("« Augmenter mon nombre d'abonnés » : "), vraisemblance.erreur);
+  assert.equal(refus("COM", compose([])).champ, "choix");
+});
+
+test("composer : toutes les paires d'une même partie se combinent, sauf les recouvrements écrits des deux côtés", () => {
+  for (const [agent, liste] of [["RH", RH], ["COM", COM]] as const) {
+    for (const a of liste) {
+      for (const b of liste) {
+        if (a.id >= b.id || (a.groupe ?? "") !== (b.groupe ?? "")) continue;
+        const r = controle(agent, compose([{ choix: a.id }, { choix: b.id }], { reussite: "je le constate" }));
+        const exclus = (a.exclut ?? []).includes(b.id);
+        assert.equal(r.ok, !exclus, `${a.id} + ${b.id}`);
+        assert.equal((b.exclut ?? []).includes(a.id), exclus, `lien écrit des deux côtés : ${a.id} / ${b.id}`);
+        if (r.ok) assert.equal(r.objectifs[0].phrase, `${quoiDeProposition(a)} et ${quoiDeProposition(b)}, d'ici 3 mois`);
+      }
+    }
+  }
+});
+
+test("composer : chaque proposition chiffrée a une partie de phrase sans délai, pour chaque unité", () => {
+  for (const o of [...RH, ...COM].filter((x) => x.mesure === "chiffre")) {
+    for (const unite of unitesDe(o)) {
+      for (const valeur of [1, 7]) {
+        const p = partieDePhrase(o, { valeur, unite });
+        const g = o.gabarit ?? o.phrases?.[unite];
+        const avecNombre = valeur > 1 || g?.singulier.includes("{n}");
+        assert.ok(!/[{}]|d'ici|prochains mois|mois prochain/.test(p) && (!avecNombre || p.includes(String(valeur))) && p === p.trim() && !p.includes("  "), `${o.id} (${unite}, ${valeur}) : ${p}`);
+      }
+    }
+  }
+});
+
+test("formulation : modifiable, gardée telle quelle, sans chiffre étranger aux propositions ni au délai", () => {
+  const base = compose([{ choix: "rh-roles" }, { choix: "rh-temps", ampleur: { valeur: 5, unite: "unites" } }]);
+  const ok = controle("RH", { ...base, formulation: "  Je veux que chacun sache qui fait quoi et libérer 5 heures par semaine d'ici 3 mois  " });
+  assert.ok(ok.ok, ok.ok ? "" : ok.erreur);
+  if (ok.ok) {
+    assert.equal(ok.objectifs[0].phrase, "Je veux que chacun sache qui fait quoi et libérer 5 heures par semaine d'ici 3 mois");
+    assert.deepEqual([ok.objectifs[0].formulation?.modifiee, ok.objectifs[0].formulation?.proposee], [true, "clarifier qui fait quoi et libérer 5 heures par semaine pour piloter l'entreprise, d'ici 3 mois"]);
+  }
+  const memes = controle("RH", { ...base, formulation: "clarifier  qui fait quoi et libérer 5 heures par semaine pour piloter l'entreprise, d'ici 3 mois" });
+  assert.ok(memes.ok && memes.objectifs[0].formulation?.modifiee === false, "seuls les espaces changent : formulation non modifiée");
+  const etranger = controle("RH", { ...base, formulation: "libérer 8 heures par semaine et clarifier qui fait quoi d'ici 3 mois" });
+  assert.ok(!etranger.ok && etranger.champ === "formulation" && etranger.erreur.includes("« 8 »"));
+  assert.equal(controle("RH", { ...base, formulation: "x" }).ok, false, "formulation trop courte");
+  assert.equal(chiffreEtranger("gagner 1200 abonnés", "gagner 1 200 abonnés, d'ici 6 mois"), null, "« 1200 » et « 1 200 » se rejoignent");
+  assert.equal(chiffreEtranger("gagner 1 300 abonnés", "gagner 1 200 abonnés"), "1300");
+});
+
+test("objectif écrit : le texte du dirigeant est gardé, même identique à une proposition ; le mode est enregistré", () => {
+  const r = controlerObjectifs([{ mode: "personnel", quoi: "  Clarifier qui fait quoi  ", reussite: "plus de questions", delaiMois: 2 }], RH, facteur, MAX);
+  assert.ok(r.ok && r.objectifs[0].mode === "personnel" && r.objectifs[0].origine === "personnel" && r.objectifs[0].saisie.quoi === "Clarifier qui fait quoi" && r.objectifs[0].composition === undefined);
+  const libre = controlerObjectifs([{ quoi: "augmenter mon chiffre d'affaires", ampleur: { valeur: 10, unite: "pourcent" }, delaiMois: 12 }], null, facteur, MAX);
+  assert.ok(libre.ok && libre.objectifs[0].mode === null && libre.objectifs[0].origine === "libre");
+  assert.equal(controlerObjectifs([compose([{ choix: "rh-roles" }], { reussite: "ok ok" })], null, facteur, MAX).ok, false, "pas de composition sans liste");
+});
+
+test("enregistrement, transmission et reprise d'un objectif composé ; compatibilité avec les objectifs d'avant", () => {
+  const themes = reel.themes.filter((t) => t.agent === "COMM_CREATION");
+  const maintenant = new Date("2026-10-29T08:00:00Z");
+  const r = controle("COM", compose([{ choix: "com-avis", ampleur: { valeur: 10, unite: "unites" } }, { choix: "com-note" }], { delaiMois: 6, formulation: "obtenir 10 nouveaux avis clients et une meilleure note sur Google d'ici 6 mois" }));
+  assert.ok(r.ok);
+  if (!r.ok) return;
+  const c = r.objectifs[0];
+  const structure = enregistrerObjectif(c.saisie, themes, maintenant, c.choisi?.themes, c.origine, {
+    mode: c.mode!,
+    composition: c.composition!.map((x) => ({ choix: x.choisi.id, libelle: x.choisi.libelle, ...(x.ampleur ? { ampleur: x.ampleur } : {}), phrase: x.phrase })),
+    formulation: c.formulation!,
+  });
+  assert.equal(structure.indicateur, null, "pas d'indicateur deviné d'après le texte d'un objectif composé");
+  assert.deepEqual(propositionsDe(structure), ["com-avis", "com-note"]);
+  const t = objectifTransmis(c.phrase, structure, COM);
+  assert.deepEqual([t.mode, t.origine, t.proposition, t.ampleur, t.mesure, t.partie, t.formulation?.modifiee], ["composition", "proposition", null, null, "chiffre", AMELIORER, true]);
+  assert.deepEqual(t.composantes.map((x) => [x.id, x.phrase, x.ampleur?.valeur ?? null]), [["com-avis", "obtenir 10 nouveaux avis clients", 10], ["com-note", "améliorer ma note sur Google", null]]);
+  assert.deepEqual(t.themes, [...new Set([...parIdOb(COM, "com-avis").themes, ...parIdOb(COM, "com-note").themes])]);
+  // Reprise dans le formulaire : mode, propositions et chiffres, délai, formulation modifiée.
+  assert.deepEqual(objectifInitial(structure), {
+    mode: "composition",
+    quoi: "obtenir plus d'avis clients et améliorer ma note sur Google",
+    partie: AMELIORER,
+    delaiMois: 6,
+    composition: [{ choix: "com-avis", ampleur: { valeur: 10, unite: "unites" } }, { choix: "com-note" }],
+    formulation: { finale: "obtenir 10 nouveaux avis clients et une meilleure note sur Google d'ici 6 mois", modifiee: true },
+  });
+  // Objectif d'avant le 29 octobre : une proposition seule, sans mode ni composition, se rouvre en mode « Composer ».
+  const roles = parIdOb(RH, "rh-roles");
+  const ancien = enregistrerObjectif({ quoi: "clarifier qui fait quoi", reussite: "chacun sait", delaiMois: 3, choix: roles.id }, reel.themes.filter((x) => x.agent === "RH_ORGANISATION"), maintenant, roles.themes, "proposition");
+  assert.deepEqual([objectifInitial(ancien).mode, objectifInitial(ancien).composition], ["composition", [{ choix: "rh-roles" }]]);
+  const ta = objectifTransmis("clarifier qui fait quoi, d'ici 3 mois", ancien, RH);
+  assert.deepEqual([ta.mode, ta.composantes.map((x) => [x.id, x.phrase]), ta.proposition?.id], ["composition", [["rh-roles", "clarifier qui fait quoi"]], "rh-roles"]);
+  const perso = enregistrerObjectif({ quoi: "Mieux préparer les saisons", reussite: "le planning est prêt", delaiMois: 4 }, reel.themes.filter((x) => x.agent === "RH_ORGANISATION"), maintenant, [], "personnel");
+  assert.deepEqual([objectifInitial(perso).mode, objectifInitial(perso).quoi, objectifTransmis("x", perso, RH).mode, objectifTransmis("x", perso, RH).composantes], ["personnel", "Mieux préparer les saisons", "personnel", []]);
+  assert.equal(formulationProposee([{ choisi: roles }], 3), "clarifier qui fait quoi, d'ici 3 mois");
 });

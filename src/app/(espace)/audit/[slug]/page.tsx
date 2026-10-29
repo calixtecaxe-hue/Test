@@ -14,7 +14,8 @@ import { ancienneteEnMois, tailleDepuisEffectif } from "@/lib/audit/affichage";
 import { ancragesDesReponses, reponsesDuCompte, reponsesPreremplies } from "@/lib/audit/compte";
 import { moisDe } from "@/lib/audit/periodes";
 import type { ObjectifEnregistre } from "@/lib/audit/objectif";
-import { objectifTransmis, objectifsPourLaTaille, suiviParcours } from "@/lib/audit/objectifs-proposes";
+import { objectifTransmis, objectifsPourLaTaille, propositionsDe, suiviParcours } from "@/lib/audit/objectifs-proposes";
+import { objectifInitial } from "@/lib/audit/objectifs-agent";
 import { ecartDeParcours } from "@/lib/audit/objectifs-agent";
 import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifActif, ObjectifEdition } from "./objectif-actif";
@@ -88,10 +89,12 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   const historique = objectifs.filter((o) => o.statut !== "ACTIF");
   const profils = utilisateur.profils.filter((p): p is ProfilId => (PROFILS as readonly string[]).includes(p));
   const taille = tailleDepuisEffectif(utilisateur.nombreCollaborateurs);
-  // RH et Comm : une proposition de la liste écrite à l'avance, ou un objectif écrit par le dirigeant, avec ou sans chiffre.
-  // Seules les propositions dont un thème s'applique à la taille de l'entreprise sont montrées (celles déjà choisies restent).
+  // RH et Comm : un objectif écrit par le dirigeant, ou composé d'une ou de plusieurs propositions de la liste, avec ou sans
+  // chiffre. Seules les propositions dont un thème s'applique à la taille de l'entreprise sont montrées (celles déjà retenues
+  // restent).
   const liste = ENSEMBLE.objectifsAgents.agents[agent.code] ?? null;
-  const dejaChoisis = actifs.map((o) => (o.structure as unknown as ObjectifEnregistre).choix).filter((c): c is string => Boolean(c));
+  const dejaChoisis = actifs.flatMap((o) => propositionsDe(o.structure as unknown as ObjectifEnregistre));
+  const maxComposition = ENSEMBLE.objectifsAgents.composition.max;
   const propositions = liste ? objectifsPourLaTaille(liste, ENSEMBLE.themes, ENSEMBLE.reglesAffichage, taille, dejaChoisis) : null;
   // Comm (décision 6C du 28 octobre) : la partie choisie pour l'objectif et le parcours du questionnaire (réponse à
   // COM-10.07) restent séparés ; quand ils ne correspondent pas, le dirigeant en est averti.
@@ -171,9 +174,19 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   const structures = actifs.map((o) => o.structure as unknown as ObjectifEnregistre);
   // Ce que reçoivent les étapes suivantes : l'objectif tel qu'il a été choisi ou écrit, avec son origine (objectifs-proposes.ts).
   const transmis = actifs.map((o, i) => objectifTransmis(o.texteBrut, structures[i], liste?.objectifs ?? null));
-  const affiches = transmis.map((t, i) => ({ phrase: t.phrase, echeance: formaterDate(actifs[i].echeance), indicateur: t.indicateur?.nom ?? null, reussite: t.reussite, origine: t.origine, chiffre: t.mesure === "chiffre" }));
-  // Ce qui a été saisi, sans ce que le serveur a ajouté (indicateur, échéance) : repris pour modifier les objectifs.
-  const saisies = structures.map(({ quoi, ampleur, reussite, choix, partie, delaiMois }) => ({ quoi, ampleur, reussite, choix, partie, delaiMois }));
+  const affiches = transmis.map((t, i) => ({
+    phrase: t.phrase,
+    echeance: formaterDate(actifs[i].echeance),
+    indicateur: t.indicateur?.nom ?? null,
+    reussite: t.reussite,
+    origine: t.origine,
+    chiffre: t.mesure === "chiffre",
+    propositions: t.composantes.map((c) => c.phrase),
+    formulationModifiee: t.formulation?.modifiee === true,
+  }));
+  // Ce qui a été défini, sans ce que le serveur a ajouté (indicateur, échéance) : repris pour modifier l'objectif (le premier,
+  // s'il en reste plusieurs d'avant le 28 octobre).
+  const initial = structures[0] ? objectifInitial(structures[0]) : null;
 
   // L'étape atteinte, et l'étape affichée : une étape déjà atteinte se rouvre avec ?etape=1 ou ?etape=2.
   const etapeParcours: EtapeParcours = !actif ? 1 : !utilisateur.niveauAudit ? 2 : 3;
@@ -208,16 +221,16 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
           <Resultats agent={agent} onglet={onglet} vue={preparation!.resultats} etat={etatRapport!} base={retourAudit} />
         )
       ) : rouvre && vue === 1 ? (
-        <ObjectifEdition agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} propositions={propositions} saisies={saisies} retour={retourAudit} suivi={suivi} publication={publication} />
+        <ObjectifEdition agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} propositions={propositions} maxComposition={maxComposition} initial={initial} plusieurs={actifs.length > 1} retour={retourAudit} suivi={suivi} publication={publication} />
       ) : rouvre && vue === 2 && actif && structure ? (
         <>
-          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} saisies={saisies} propositions={propositions} suivi={suivi} publication={publication} ecart={ecart} />
+          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} initial={initial} propositions={propositions} maxComposition={maxComposition} suivi={suivi} publication={publication} ecart={ecart} />
           {dejaTente}
           <NiveauChoix essentielles={nCompte.essentielles} approfondies={nCompte.total} actuel={utilisateur.niveauAudit} retour={retourAudit} />
         </>
       ) : actif && structure ? (
         <>
-          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} saisies={saisies} propositions={propositions} suivi={suivi} publication={publication} ecart={ecart} />
+          <ObjectifActif agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} objectifs={affiches} initial={initial} propositions={propositions} maxComposition={maxComposition} suivi={suivi} publication={publication} ecart={ecart} />
           {dejaTente}
           {corps}
         </>
@@ -228,11 +241,11 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
           </h2>
           <p className="mt-2 text-[var(--text-muted)]">
             {propositions
-              ? "Choisissez un objectif proposé ou écrivez le vôtre. Toute l'analyse part de là."
+              ? "Écrivez votre objectif, ou composez-le avec les propositions qui correspondent à votre besoin. Toute l'analyse part de là."
               : "Avant toute question, dites ce que vous voulez obtenir avec cet agent : ce que vous voulez changer, de combien, et en combien de temps. Toute l'analyse part de là."}
           </p>
           {propositions ? (
-            <ObjectifChoix agent={agent.code} propositions={propositions} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} suivi={suivi} publication={publication} />
+            <ObjectifChoix agent={agent.code} propositions={propositions} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} maxComposition={maxComposition} suivi={suivi} publication={publication} />
           ) : (
             <ObjectifFormulaire agent={agent.code} facteurAnnuelMax={ENSEMBLE.limitesObjectif.facteurAnnuelMax} />
           )}

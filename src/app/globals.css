@@ -4346,16 +4346,17 @@ h3,
 .objectif-mode-tete .objectif-marque {
   margin-top: 2px;
 }
-/* Ordinateur : la place de « Choisi » est réservée sur les deux cartes, pour que le titre ne change pas de ligne au choix. */
+/* Ordinateur : la place de « Choisi » est réservée sous le texte des deux cartes, pour que le titre garde toute la largeur et
+   ne change pas de ligne au choix. */
 @media (min-width: 640px) {
   .objectif-mode-tete {
     position: relative;
-    padding-right: 92px;
+    padding-bottom: 48px;
   }
   .objectif-mode-tete .objectif-pastille {
     position: absolute;
-    top: 18px;
-    right: 18px;
+    bottom: 16px;
+    left: 50px;
   }
 }
 .objectif-mode.choisi .objectif-marque {
@@ -4372,6 +4373,64 @@ h3,
 }
 .objectif-champs-perso {
   padding: 0;
+}
+/* Objectif composé (RH, Comm, 29 octobre) : des propositions à cocher (marque carrée, « Retenue »), puis le récapitulatif de
+   l'objectif, sous la liste : propositions retenues, chiffres facultatifs, délai, réussite, formulation modifiable. */
+.objectif-carte-case .objectif-marque {
+  border-radius: 4px;
+}
+.objectif-refus {
+  margin: 0 16px 14px 50px;
+  border-left: 3px solid rgb(var(--amber-rgb));
+  border-radius: 4px;
+  background: rgb(var(--amber-rgb) / 0.08);
+  padding: 8px 12px;
+  font-size: 14px;
+  color: var(--text);
+}
+@media (max-width: 480px) {
+  .objectif-refus {
+    margin-left: 16px;
+  }
+}
+.objectif-recap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--agent);
+  border-radius: 12px;
+  background: var(--panel);
+  padding: 20px;
+  scroll-margin: 96px 0 120px;
+}
+.objectif-recap-titre {
+  font-size: 18px;
+  outline: none;
+}
+.objectif-recap-liste {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.objectif-recap-liste > li {
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+.objectif-recap-liste > li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+/* « Retirer » d'une proposition retenue : une cible assez grande pour le pouce. */
+.objectif-recap .ligne-retirer {
+  margin: -6px -8px 0 0;
+  padding: 6px 8px;
+  font-size: 14px;
+}
+.res-composante {
+  border-left: 2px solid var(--line);
+  padding-left: 14px;
 }
 /* Comm : la partie de l'objectif ne correspond pas au parcours du questionnaire (décision 6C) ; information, jamais un blocage. */
 .note-ecart {

@@ -59,10 +59,27 @@ export type CibleObjectif = {
   calcul: string;
 };
 
+// Une proposition d'un objectif composé de plusieurs propositions (29 octobre) : suivie comme un objectif à part entière (sa
+// mesure, sa situation de départ, sa cible et son écart quand ils se calculent), sans hiérarchie entre les propositions.
+export type ResultatComposante = {
+  id: string;
+  libelle: string;
+  phrase: string;
+  changement: ResultatObjectif["changement"];
+  mesure: FaitMesure | null;
+  mesureManquante: MesureManquante | null;
+  rattachement: "proposition" | "mots" | null;
+  cible: CibleObjectif | null;
+  limites: string[];
+};
+
 export type ResultatObjectif = {
   id: string;
   phrase: string;
   origine: ObjectifTransmis["origine"];
+  mode: ObjectifTransmis["mode"];
+  // Objectif composé de plusieurs propositions : chacune avec ses faits ; vide sinon (la mesure de l'objectif est alors ci-dessous).
+  composantes: ResultatComposante[];
   echeance: string;
   delaiMois: number;
   moisRestants: number;
@@ -204,8 +221,11 @@ function manquante(m: MesureDuCompte): MesureManquante | null {
 
 // --- Cible et écart ------------------------------------------------------------------------------------------------------
 
-function cibleDe(o: ObjectifTransmis, r: NonNullable<ReturnType<typeof rattacherMesure>>, f: FaitMesure): { cible: CibleObjectif | null; limite: string | null } {
-  if (!o.ampleur) return { cible: null, limite: "Votre objectif n'a pas de chiffre : son avancement se mesurera à ce que vous déclarerez aux points d'étape." };
+const SANS_CHIFFRE = "Votre objectif n'a pas de chiffre : son avancement se mesurera à ce que vous déclarerez aux points d'étape.";
+const SANS_CHIFFRE_PROPOSITION = "Pas de chiffre pour cette proposition : son avancement se mesurera à ce que vous déclarerez aux points d'étape.";
+
+function cibleDe(o: Pick<ObjectifTransmis, "ampleur" | "quoi">, r: NonNullable<ReturnType<typeof rattacherMesure>>, f: FaitMesure, composante = false): { cible: CibleObjectif | null; limite: string | null } {
+  if (!o.ampleur) return { cible: null, limite: composante ? SANS_CHIFFRE_PROPOSITION : SANS_CHIFFRE };
   const u = o.ampleur.unite;
   let relatif: boolean;
   let sens: Sens;
@@ -237,14 +257,16 @@ export function composerResultats(e: EntreeResultats): VueResultats {
   const utilisees = new Set<string>();
   const themesObjectifs = new Set<string>();
 
-  const objectifs = e.objectifs.map((o): ResultatObjectif => {
+  // Ce qui suit un objectif (ou une proposition d'un objectif composé) : sa mesure, sa situation de départ, sa cible et son écart
+  // quand ils se calculent sans hypothèse ; sinon, pourquoi.
+  const suivre = (o: Pick<ObjectifTransmis, "proposition" | "quoi" | "origine" | "ampleur">, composante: boolean) => {
     const r = rattacherMesure(o, mesuresAgent);
     const m = r ? parId.get(r.mesure.id)! : null;
     const f = m ? fait(m) : null;
     const limites: string[] = [];
     let cible: CibleObjectif | null = null;
     if (r && f) {
-      const c = cibleDe(o, r, f);
+      const c = cibleDe(o, r, f, composante);
       cible = c.cible;
       if (c.limite) limites.push(c.limite);
       utilisees.add(r.mesure.id);
@@ -252,26 +274,47 @@ export function composerResultats(e: EntreeResultats): VueResultats {
       limites.push(`La situation de départ n'est pas encore connue. ${m.calcul.statut === "manquante" ? m.calcul.raison : ""}`.trim());
       utilisees.add(r.mesure.id);
     } else if (o.ampleur) {
-      limites.push("Aucune question de votre questionnaire ne mesure exactement cet objectif : sa situation de départ et sa cible ne se calculent pas. Son avancement se mesurera à ce que vous déclarerez aux points d'étape.");
+      limites.push(
+        composante
+          ? "Aucune question de votre questionnaire ne mesure exactement cette proposition : sa situation de départ et sa cible ne se calculent pas. Son avancement se mesurera à ce que vous déclarerez aux points d'étape."
+          : "Aucune question de votre questionnaire ne mesure exactement cet objectif : sa situation de départ et sa cible ne se calculent pas. Son avancement se mesurera à ce que vous déclarerez aux points d'étape.",
+      );
     } else {
-      limites.push("Votre objectif n'a pas de chiffre : son avancement se mesurera à ce que vous déclarerez aux points d'étape.");
+      limites.push(composante ? SANS_CHIFFRE_PROPOSITION : SANS_CHIFFRE);
     }
-    const themes = [...new Set([...o.themes, ...(r?.mesure.themes ?? [])])];
-    themes.forEach((t) => themesObjectifs.add(t));
     return {
-      id: o.id,
-      phrase: o.phrase,
-      origine: o.origine,
-      echeance: o.echeance,
-      delaiMois: o.delaiMois,
-      moisRestants: moisEntre(e.aujourdhui, o.echeance),
-      reussite: o.reussite,
       changement: o.ampleur ? { valeur: o.ampleur.valeur, unite: o.ampleur.unite, sens: r?.sens ?? sensDeLObjectif(o.quoi) } : null,
       mesure: f,
       mesureManquante: !f && m ? manquante(m) : null,
       rattachement: r?.par ?? null,
       cible,
       limites,
+      themes: r?.mesure.themes ?? [],
+    };
+  };
+
+  const objectifs = e.objectifs.map((o): ResultatObjectif => {
+    // Objectif composé de plusieurs propositions : chaque proposition est suivie avec sa propre mesure.
+    const parties = o.composantes.length > 1 ? o.composantes.map((c) => ({ c, s: suivre({ proposition: { id: c.id, libelle: c.libelle }, quoi: c.libelle.charAt(0).toLowerCase() + c.libelle.slice(1), origine: "proposition", ampleur: c.ampleur }, true) })) : [];
+    const seul = parties.length === 0 ? suivre(o, false) : null;
+    const themes = [...new Set([...o.themes, ...(seul?.themes ?? []), ...parties.flatMap((p) => [...p.c.themes, ...p.s.themes])])];
+    themes.forEach((t) => themesObjectifs.add(t));
+    return {
+      id: o.id,
+      phrase: o.phrase,
+      origine: o.origine,
+      mode: o.mode,
+      composantes: parties.map(({ c, s }) => ({ id: c.id, libelle: c.libelle, phrase: c.phrase, changement: s.changement, mesure: s.mesure, mesureManquante: s.mesureManquante, rattachement: s.rattachement, cible: s.cible, limites: s.limites })),
+      echeance: o.echeance,
+      delaiMois: o.delaiMois,
+      moisRestants: moisEntre(e.aujourdhui, o.echeance),
+      reussite: o.reussite,
+      changement: seul?.changement ?? null,
+      mesure: seul?.mesure ?? null,
+      mesureManquante: seul?.mesureManquante ?? null,
+      rattachement: seul?.rattachement ?? null,
+      cible: seul?.cible ?? null,
+      limites: seul?.limites ?? [],
       themes,
     };
   });
@@ -293,7 +336,7 @@ export function composerResultats(e: EntreeResultats): VueResultats {
 
   // Comparaison au marché : seulement les repères enregistrés (recherche vérifiée par le code), à côté de votre valeur quand une
   // mesure calcule le même indicateur.
-  const faits = [...facteursObjectif, ...autresFacteurs, ...objectifs.map((o) => o.mesure).filter((x): x is FaitMesure => x !== null)];
+  const faits = [...facteursObjectif, ...autresFacteurs, ...objectifs.flatMap((o) => [o.mesure, ...o.composantes.map((c) => c.mesure)]).filter((x): x is FaitMesure => x !== null)];
   const marche: ComparaisonMarche[] = [...e.compteRendu.notes, ...e.compteRendu.avecRepere].flatMap((t) =>
     t.reperes.map((rp) => ({
       theme: t.nom,

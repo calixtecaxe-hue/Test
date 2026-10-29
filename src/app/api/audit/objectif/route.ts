@@ -10,7 +10,8 @@ import { controlerObjectifs } from "@/lib/audit/objectifs-agent";
 import { codeAgent } from "@/lib/donnees/schemas";
 
 // Un objectif : `objectif`, ou `objectifs` (un tableau, gardé pour l'écran des agents RH et Comm ; un seul objectif par
-// agent depuis la décision du 28 octobre, option 1B, contrôlée par controlerObjectifs).
+// agent depuis la décision du 28 octobre, option 1B, contrôlée par controlerObjectifs). RH et Comm : un objectif écrit
+// (`mode: "personnel"`) ou composé de propositions (`mode: "composition"`, demande du 29 octobre).
 const corps = z.object({ agent: codeAgent, objectif: z.unknown().optional(), objectifs: z.array(z.unknown()).max(50).optional() });
 
 // Enregistre l'objectif d'un agent : ce que le dirigeant veut changer, de combien (ou ce qu'il veut constater), en combien
@@ -35,12 +36,21 @@ export async function POST(request: Request) {
   const saisies = parsed.data.objectifs ?? (parsed.data.objectif !== undefined ? [parsed.data.objectif] : []);
   // Un objectif choisi dans la liste de l'agent doit exister pour cet agent ; un seul objectif par agent.
   const liste = ENSEMBLE.objectifsAgents.agents[agent]?.objectifs ?? null;
-  const controle = controlerObjectifs(saisies, liste, ENSEMBLE.limitesObjectif.facteurAnnuelMax);
-  if (!controle.ok) return NextResponse.json({ erreur: controle.erreur, champ: controle.champ, rang: controle.rang }, { status: 400 });
+  const controle = controlerObjectifs(saisies, liste, ENSEMBLE.limitesObjectif.facteurAnnuelMax, ENSEMBLE.objectifsAgents.composition.max);
+  if (!controle.ok) return NextResponse.json({ erreur: controle.erreur, champ: controle.champ, rang: controle.rang, composante: controle.composante }, { status: 400 });
 
   const maintenant = new Date();
   const themes = ENSEMBLE.themes.filter((t) => t.agent === agent);
-  const enregistres = controle.objectifs.map((o) => ({ phrase: o.phrase, objectif: enregistrerObjectif(o.saisie, themes, maintenant, o.choisi?.themes, o.origine) }));
+  // Objectif composé : le mode, les propositions retenues (identifiant, titre, chiffre, partie de phrase) et la formulation
+  // finale, avec celle que le code proposait ; la phrase enregistrée est la formulation finale.
+  const enregistres = controle.objectifs.map((o) => ({
+    phrase: o.phrase,
+    objectif: enregistrerObjectif(o.saisie, themes, maintenant, o.choisi?.themes, o.origine, {
+      ...(o.mode ? { mode: o.mode } : {}),
+      ...(o.composition ? { composition: o.composition.map((c) => ({ choix: c.choisi.id, libelle: c.choisi.libelle, ...(c.ampleur ? { ampleur: c.ampleur } : {}), phrase: c.phrase })) } : {}),
+      ...(o.formulation ? { formulation: o.formulation } : {}),
+    }),
+  }));
   const crees = await prisma.$transaction(async (tx) => {
     await tx.objectif.updateMany({ where: { userId, agent, statut: "ACTIF" }, data: { statut: "REMPLACE", clotureLe: maintenant } });
     const ids: string[] = [];

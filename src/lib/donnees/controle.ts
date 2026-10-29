@@ -565,6 +565,17 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
       if (parties.length === 0 && o.groupe) erreurs.push(`Objectif ${o.id} : partie « ${o.groupe} » sans liste des parties de l'agent.`);
     }
     for (const d of doublons(def.objectifs.map((o) => o.libelle.toLowerCase()))) erreurs.push(`Objectifs proposés (${agent}) : titre en double « ${d} ».`);
+    // Propositions qui se recouvrent (objectif composé, 29 octobre) : une proposition de la même partie, écrite des deux côtés.
+    const parId = new Map(def.objectifs.map((o) => [o.id, o]));
+    for (const o of def.objectifs) {
+      for (const x of o.exclut ?? []) {
+        const autre = parId.get(x);
+        if (!autre) erreurs.push(`Objectif ${o.id} : la proposition exclue ${x} n'existe pas pour l'agent ${agent}.`);
+        else if (autre.id === o.id) erreurs.push(`Objectif ${o.id} : une proposition ne s'exclut pas elle-même.`);
+        else if ((autre.groupe ?? "") !== (o.groupe ?? "")) erreurs.push(`Objectif ${o.id} : ${x} est dans une autre partie, qui ne se combine déjà pas avec elle.`);
+        else if (!(autre.exclut ?? []).includes(o.id)) erreurs.push(`Objectif ${o.id} : ${x} l'exclut d'un seul côté ; écrire le lien des deux côtés.`);
+      }
+    }
     // Parcours du questionnaire de chaque partie (Comm, 6C) : une question à choix de la banque, des réponses qui existent,
     // chacune rattachée à une seule partie.
     const vues = new Map<string, string>();
@@ -588,6 +599,7 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     }
   }
   if (e.objectifsAgents.aValider) avertissements.push("Objectifs proposés par agent (RH, Comm) : brouillon à valider par le propriétaire.");
+  if (e.objectifsAgents.composition.aValider) avertissements.push(`Objectif composé (RH, Comm) : ${e.objectifsAgents.composition.max} propositions au plus, valeur de travail à valider par le propriétaire.`);
   // Retraits (doublons) : la donnée existe, est posée, et n'alimente ni un calcul ni une règle d'affichage ; la donnée conservée existe.
   const donneesParCode = new Map(e.donnees.map((d) => [d.code, d]));
   const texteRegles = JSON.stringify(e.reglesAffichage);

@@ -16,6 +16,24 @@ export const UNITES_AMPLEUR = ["pourcent", "euros", "unites"] as const;
 export type UniteAmpleur = (typeof UNITES_AMPLEUR)[number];
 
 export const DELAI_MAX_MOIS = 120;
+// Formulation finale d'un objectif composé de plusieurs propositions (demande du 29 octobre).
+export const FORMULATION_MAX = 400;
+
+const ampleurSchema = z.object({
+  valeur: z
+    .number({ message: "Indiquez de combien." })
+    .finite("Indiquez de combien.")
+    .positive("Indiquez un nombre supérieur à zéro."),
+  unite: z.enum(UNITES_AMPLEUR, { message: "Choisissez l'unité." }),
+});
+export type Ampleur = z.infer<typeof ampleurSchema>;
+const reussiteSchema = z.string().trim().min(3, "Décrivez ce que vous voulez constater.").max(200, "Résumez en une phrase.");
+const partieSchema = z.string().trim().max(80);
+const delaiSchema = z
+  .number({ message: "Indiquez en combien de temps." })
+  .int("Indiquez un nombre entier de mois.")
+  .min(1, "Le délai est d'au moins 1 mois.")
+  .max(DELAI_MAX_MOIS, `Le délai ne dépasse pas ${DELAI_MAX_MOIS} mois.`);
 
 export const objectifSaisieSchema = z
   .object({
@@ -25,39 +43,58 @@ export const objectifSaisieSchema = z
     .min(3, "Dites ce que vous voulez changer, par exemple « baisser le turnover ».")
     .max(160, "Résumez en quelques mots ce que vous voulez changer."),
   // Facultatif pour les agents dont l'objectif n'a pas forcément de chiffre (RH, Comm) : alors la phrase de réussite le remplace.
-  ampleur: z
-    .object({
-      valeur: z
-        .number({ message: "Indiquez de combien." })
-        .finite("Indiquez de combien.")
-        .positive("Indiquez un nombre supérieur à zéro."),
-      unite: z.enum(UNITES_AMPLEUR, { message: "Choisissez l'unité." }),
-    })
-    .optional(),
+  ampleur: ampleurSchema.optional(),
   // Ce que le dirigeant veut constater quand c'est atteint (objectif sans chiffre).
-  reussite: z.string().trim().min(3, "Décrivez ce que vous voulez constater.").max(200, "Résumez en une phrase.").optional(),
+  reussite: reussiteSchema.optional(),
   // Objectif choisi dans la liste proposée pour l'agent (data/objectifs-agents.json) ; absent pour « Autre » ou un objectif libre.
   choix: z.string().regex(/^[a-z0-9-]+$/).max(60).optional(),
   // Partie de la liste où l'objectif a été pris (Comm : « Améliorer ce que j'ai déjà » ou « Mettre en place ma présence en
   // ligne ») ; pour « Autre (précisez) », c'est la seule trace de la partie choisie.
-  partie: z.string().trim().max(80).optional(),
-  delaiMois: z
-    .number({ message: "Indiquez en combien de temps." })
-    .int("Indiquez un nombre entier de mois.")
-    .min(1, "Le délai est d'au moins 1 mois.")
-    .max(DELAI_MAX_MOIS, `Le délai ne dépasse pas ${DELAI_MAX_MOIS} mois.`),
+  partie: partieSchema.optional(),
+  delaiMois: delaiSchema,
   })
   .refine((o) => o.ampleur !== undefined || o.reussite !== undefined, { message: "Indiquez un chiffre, ou décrivez ce que vous voulez constater.", path: ["reussite"] });
 export type ObjectifSaisie = z.infer<typeof objectifSaisieSchema>;
 
+// Objectif composé (RH, Comm ; demande du propriétaire du 29 octobre) : une ou plusieurs propositions de la liste, chacune
+// avec son chiffre facultatif, un seul délai, ce que le dirigeant veut constater (demandé quand aucune proposition n'a de
+// chiffre) et la formulation finale, proposée par le code et modifiable par le dirigeant. Pas d'objectif principal ni de
+// sous-objectifs : les propositions retenues forment un seul objectif.
+export const objectifCompositionSchema = z.object({
+  mode: z.literal("composition"),
+  composition: z
+    .array(z.object({ choix: z.string().regex(/^[a-z0-9-]+$/).max(60), ampleur: ampleurSchema.optional() }))
+    .min(1, "Retenez au moins une proposition.")
+    .max(60),
+  formulation: z.string().trim().min(3, "Écrivez la formulation de votre objectif, ou reprenez celle qui vous est proposée.").max(FORMULATION_MAX, `La formulation ne dépasse pas ${FORMULATION_MAX} caractères.`).optional(),
+  reussite: reussiteSchema.optional(),
+  partie: partieSchema.optional(),
+  delaiMois: delaiSchema,
+});
+export type ObjectifComposition = z.infer<typeof objectifCompositionSchema>;
+
 // D'où vient un objectif : une proposition de la liste de l'agent (RH, Comm), un objectif écrit par le dirigeant
-// (« Définir mon propre objectif »), ou les trois champs libres (Acquisition, Finance).
+// (« Écrire mon objectif »), ou les trois champs libres (Acquisition, Finance).
 export type OrigineObjectif = "proposition" | "personnel" | "libre";
+// Comment l'objectif a été défini (RH, Comm, 29 octobre) : écrit par le dirigeant, ou composé à partir des propositions
+// (« proposition » est alors son origine). Acquisition et Finance n'ont pas de mode.
+export type ModeObjectif = "personnel" | "composition";
+
+// Une proposition retenue dans un objectif composé : son identifiant, son titre au moment du choix, son chiffre facultatif
+// et sa partie de la phrase (« obtenir 10 nouveaux avis clients »).
+export type ComposanteObjectif = { choix: string; libelle: string; ampleur?: Ampleur; phrase: string };
+// Formulation d'un objectif composé : celle que le code propose (les phrases des propositions, rien d'autre), celle qui est
+// enregistrée, et si le dirigeant l'a modifiée.
+export type FormulationObjectif = { proposee: string; finale: string; modifiee: boolean };
 
 // Ce qui est enregistré : la saisie, son origine, l'indicateur rattaché (ou rien) et l'échéance. Les objectifs enregistrés
-// avant le 28 octobre n'ont pas d'origine : elle se déduit de `choix` (origineDe).
+// avant le 28 octobre n'ont pas d'origine : elle se déduit de `choix` (origineDe). Ceux d'avant le 29 octobre n'ont ni
+// mode ni composition : une proposition seule se lit comme un objectif composé d'une proposition (composantesDe).
 export type ObjectifEnregistre = ObjectifSaisie & {
   origine?: OrigineObjectif;
+  mode?: ModeObjectif;
+  composition?: ComposanteObjectif[];
+  formulation?: FormulationObjectif;
   indicateur: { code: string; nom: string } | null;
   echeance: string; // AAAA-MM-JJ
 };
@@ -72,7 +109,7 @@ export type GabaritObjectif = { singulier: string; pluriel: string };
 
 const LIBELLE_UNITE: Record<UniteAmpleur, string> = { pourcent: "%", euros: "€", unites: "" };
 
-function formaterNombre(n: number): string {
+export function formaterNombre(n: number): string {
   return new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2 }).format(n);
 }
 
@@ -144,19 +181,26 @@ export function rattacherIndicateur(quoi: string, themesDeLAgent: Pick<Theme, "c
   return { code: meilleurs[0].t.code, nom: meilleurs[0].t.nom };
 }
 
-// `themesChoisis` : les thèmes de l'objectif choisi dans la liste de l'agent ; le premier sert d'indicateur.
+// `themesChoisis` : les thèmes de l'objectif choisi dans la liste de l'agent ; le premier sert d'indicateur. Un objectif composé
+// de plusieurs propositions n'a pas d'indicateur unique (chaque proposition garde ses thèmes) : rien n'est rattaché d'après
+// son texte.
 export function enregistrerObjectif(
   saisie: ObjectifSaisie,
   themesDeLAgent: Pick<Theme, "code" | "nom">[],
   maintenant: Date,
   themesChoisis: string[] = [],
-  origine?: OrigineObjectif
+  origine?: OrigineObjectif,
+  complement: { mode?: ModeObjectif; composition?: ComposanteObjectif[]; formulation?: FormulationObjectif } = {}
 ): ObjectifEnregistre {
   const choisi = themesChoisis.length > 0 ? themesDeLAgent.find((t) => t.code === themesChoisis[0]) : undefined;
+  const plusieurs = (complement.composition?.length ?? 0) > 1;
   return {
     ...saisie,
     ...(origine ? { origine } : {}),
-    indicateur: choisi ? { code: choisi.code, nom: choisi.nom } : rattacherIndicateur(saisie.quoi, themesDeLAgent),
+    ...(complement.mode ? { mode: complement.mode } : {}),
+    ...(complement.composition ? { composition: complement.composition } : {}),
+    ...(complement.formulation ? { formulation: complement.formulation } : {}),
+    indicateur: choisi ? { code: choisi.code, nom: choisi.nom } : plusieurs ? null : rattacherIndicateur(saisie.quoi, themesDeLAgent),
     echeance: calculerEcheance(maintenant, saisie.delaiMois),
   };
 }
