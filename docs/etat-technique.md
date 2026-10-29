@@ -172,7 +172,22 @@ Chiffres au 28 octobre 2026.
 - Écran : `src/app/(espace)/audit/[slug]/` (`questionnaire.tsx`, `question-carte.tsx`, `objectif-choix.tsx`, `resultats.tsx`,
   `resultats-maquette.tsx`). « Changer d'objectif » reprend l'objectif en cours dans le formulaire. Un objectif enregistré garde
   `choix`, `reussite`, un chiffre facultatif et son `origine`.
-- Choix de l'objectif (RH, Comm, 28 octobre) : `objectif-choix.tsx`.
+- **Objectif composé (RH, Comm, 29 octobre)** : « Écrire mon objectif » (`li[data-mode="personnel"]`) ou « Composer mon objectif à
+  partir des propositions » (`li[data-mode="composition"]`).
+  - Composition : cases à cocher (`li.objectif-carte-case[data-carte]`, « Retenue », refus écrit dans la carte `[data-refus]`,
+    recouvrement `[data-recouvre]`), récapitulatif `[data-recapitulatif]` (`li[data-retenue]`, « Retirer », chiffre facultatif,
+    délai, réussite), formulation `[data-formulation]` (`textarea[data-modifiee]`, `[data-formulation-a-revoir]`,
+    `[data-garder-formulation]`, `[data-reprendre-formulation]`), compteur `[data-compte]`, bouton « Valider mon objectif ».
+  - Code : `objectifs-agent.ts` (`controlerObjectifs(saisies, liste, facteur, maxComposition)`, `controlerComposition`,
+    `partieDePhrase`, `formulationProposee`, `chiffreEtranger`, `recouvrement`, `objectifInitial`), `objectif.ts`
+    (`objectifCompositionSchema`, `ModeObjectif`, `ComposanteObjectif`, `FormulationObjectif`), `objectifs-proposes.ts`
+    (`propositionsDe`, `ObjectifTransmis.mode|composantes|formulation`), `resultats.ts` (`ResultatComposante`), `dossier.ts`
+    (`objectif.propositionsRetenues`, `formulationModifiee`). Données : `exclut` et `composition.max` dans `objectifs-agents.json`,
+    contrôlés par `npm run donnees:controle`.
+  - Structure enregistrée : `mode`, `composition` [{ `choix`, `libelle`, `ampleur`?, `phrase` }], `formulation` { `proposee`,
+    `finale`, `modifiee` } ; `texteBrut` = formulation finale. Une proposition seule garde aussi `choix` et `ampleur`.
+  - Contrôle navigateur : `node scripts/verification/objectifs.mjs` (103 contrôles, captures dans `docs/objectifs/captures`).
+- Choix de l'objectif (RH, Comm, 28 octobre, remplacé le 29 octobre par les deux modes ci-dessus) : `objectif-choix.tsx`.
   - Deux choix de même importance, sans présélection (`fieldset[data-modes]`, `li.objectif-mode[data-mode="proposition"|"personnel"]`,
     titres `.objectif-mode-titre`), côte à côte dès 640 px, empilés en dessous ; puis le contenu du mode (`[data-mode-contenu]`).
   - Mode « proposé » : Comm, « Où en êtes-vous ? » (`[data-parties]`, `li[data-partie]`) ; propositions (`[data-propositions]`,

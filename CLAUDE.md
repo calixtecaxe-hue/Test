@@ -279,25 +279,39 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
   « baisser le turnover de 5 % sur les 3 prochains mois »). Chiffre et délai sont utilisés directement. Ce qu'il veut changer est
   rattaché à un indicateur de l'agent quand c'est possible ; sinon, l'objectif est gardé tel quel et l'avancement se mesure à ce qu'il
   déclare aux points d'étape. **Un objectif par agent**, conservé avec son historique.
-- **RH et Comm : un objectif par agent, proposé ou personnel (décisions du 22 et du 28 octobre ; option 1B du 28 octobre, qui
-  remplace la possibilité de plusieurs objectifs du 27 octobre)**. L'objectif est complet : son chiffre ou sa description, son délai,
-  son avancement. Détail, avant / après et tests : `docs/objectifs/objectifs-rh-comm.md` ; décisions : `docs/objectifs/CAXE-decisions-objectifs.pdf`.
-  - **D'abord deux choix de même importance, sans présélection (28 octobre)** : « Choisir un objectif proposé » (« Parcourez les
-    suggestions adaptées à cet agent. ») et « Écrire mon propre objectif » (« Décrivez le résultat que vous souhaitez obtenir. »).
-    Côte à côte sur ordinateur, l'un sous l'autre sur téléphone. L'objectif personnel n'est jamais caché en fin de liste ni présenté
-    comme « Autre ».
-  - Le premier ouvre les propositions, puis les champs de celle qui est choisie ; le second ouvre directement « Votre objectif », avec
-    une aide et un exemple propres à l'agent.
-  - **Un seul mode actif.** Le brouillon de l'autre mode est gardé dans la page, jamais transmis. L'état choisi se voit sans la couleur
-    (coche, mot « Choisi », bordure épaisse). Au clavier, les flèches passent d'un choix à l'autre.
-  - Ensuite, **un chiffre s'il en a un, ou ce qu'il veut constater** (« Comment saurez-vous que c'est atteint ? »), plus le délai en
-    mois. **Aucun chiffre n'est suggéré** ; un objectif qui ne s'y prête pas n'a pas de chiffre imposé.
-  - **Chaque objectif chiffré a sa question et sa phrase finale écrites à l'avance (28 octobre)**, pour chaque unité proposée : le
-    chiffre vient de la saisie (« Combien d'heures par semaine voulez-vous libérer ? » → « libérer 5 heures par semaine pour piloter
-    l'entreprise d'ici 3 mois »). Sans chiffre : « clarifier qui fait quoi, d'ici 3 mois », avec la réussite à part.
-  - **Une proposition prend toujours le texte de la liste ; un objectif personnel garde le texte du dirigeant**, même s'il ressemble à
-    une proposition. L'origine est enregistrée (proposition, personnel) et transmise aux étapes suivantes.
-  - Comm, objectif proposé : **« Où en êtes-vous ? »** d'abord (« Améliorer ce que j'ai déjà », 22 objectifs, ou « Mettre en place ma
+- **RH et Comm : un objectif par agent, écrit ou composé (décisions du 22 et du 28 octobre ; option 1B du 28 octobre ; composition
+  demandée par le propriétaire le 29 octobre)**. L'objectif est complet : son ou ses chiffres ou sa description, son délai, son
+  avancement. Détail, avant / après et tests : `docs/objectifs/objectifs-rh-comm.md` ; décisions : `docs/objectifs/CAXE-decisions-objectifs.pdf`.
+  - **D'abord deux choix de même importance, sans présélection (29 octobre, textes imposés)** : « Écrire mon objectif » (« Décrivez
+    librement le résultat que vous souhaitez obtenir. ») et « Composer mon objectif à partir des propositions » (« Sélectionnez les
+    améliorations qui correspondent à votre besoin. »). Côte à côte sur ordinateur, l'un sous l'autre sur téléphone. Jamais
+    d'« Autre » sous une liste. Le bouton dit « Valider mon objectif ».
+  - « Écrire » ouvre directement « Votre objectif », avec une aide et un exemple propres à l'agent, puis un chiffre ou ce qu'il veut
+    constater, et le délai.
+  - **« Composer » : une ou plusieurs propositions cochées forment un seul objectif**, sans objectif principal ni sous-objectifs ; une
+    seule peut suffire. Sous la liste, le récapitulatif : retirer ou ajouter une proposition, **un chiffre facultatif** pour chaque
+    proposition chiffrable (jamais pour une proposition qualitative), **un seul délai**, « Comment saurez-vous que c'est atteint ? »
+    (demandé seulement quand aucune proposition n'a de chiffre), puis **la formulation proposée**, faite des seules phrases des
+    propositions et du délai (« clarifier qui fait quoi et libérer 5 heures par semaine pour piloter l'entreprise, d'ici 3 mois » ;
+    une proposition seule garde sa phrase d'avant). Le dirigeant peut la modifier ; elle est alors gardée telle qu'il l'a écrite, mais
+    **un chiffre qui ne vient ni de ses propositions ni de son délai est refusé**. Si ses propositions changent après sa modification,
+    la formulation est signalée à relire (« Garder ma formulation » ou « Reprendre la formulation proposée »), jamais remplacée en
+    silence.
+  - **Propositions qui se recouvrent** (`exclut`, écrit des deux côtés) : elles ne se retiennent pas ensemble (« Réduire le coût de
+    chaque demande venue de mes annonces Google » et « Réduire le coût de chaque demande » ; « Me faire aider dans mon travail » et
+    « Recruter et intégrer de nouvelles personnes »). **5 propositions au plus** (`composition.max`, valeur de travail à valider).
+  - **Un seul mode actif.** Le brouillon de l'autre mode (texte écrit, ou propositions cochées avec leurs chiffres, délai et
+    formulation) est gardé dans la page, jamais transmis. L'état choisi se voit sans la couleur (coche, « Choisi » ou « Retenue »,
+    bordure épaisse). Au clavier, les flèches passent d'un mode à l'autre ; Tab entre dans les propositions, Espace coche.
+  - **Aucun chiffre n'est suggéré.** Chaque proposition chiffrée a sa question et sa phrase écrites à l'avance (28 octobre), pour
+    chaque unité proposée.
+  - **Une proposition prend toujours le texte de la liste ; un objectif écrit garde le texte du dirigeant**, même s'il ressemble à
+    une proposition. Sont enregistrés le mode (`personnel`, `composition`), l'origine, les propositions retenues (identifiant, titre,
+    chiffre, partie de phrase) et la formulation (proposée, finale, modifiée ou non). Un objectif d'avant le 29 octobre fait d'une
+    proposition seule se lit comme un objectif composé d'une proposition.
+  - Transmission : « Résultats » suit chaque proposition retenue avec sa propre mesure, sa cible et son écart quand ils se calculent ;
+    le dossier du rapport les nomme (`propositionsRetenues`) ; le prompt dit de tenir compte de chacune, sans hiérarchie.
+  - Comm, mode « Composer » : **« Où en êtes-vous ? »** d'abord (« Améliorer ce que j'ai déjà », 22 objectifs, ou « Mettre en place ma
     présence en ligne », 21 objectifs), puis les propositions de cette partie.
   - **Comm : la partie de l'objectif et le parcours du questionnaire restent séparés (option 6C du 28 octobre).** Le parcours suit la
     réponse à COM-10.07 (« Publiez-vous… ? »). Quand elle correspond à l'autre partie, un message l'explique sous l'objectif et sous la
@@ -307,8 +321,10 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
     pas les trois objectifs d'équipe ; « Me faire aider dans mon travail » n'est proposé qu'à lui. **Filtre gardé en attendant le choix
     du propriétaire (point 3A, explication demandée le 28 octobre).**
   - **54 objectifs** : les 52 de la liste du 27 octobre (identifiants et intentions gardés, textes clarifiés le 28 octobre) et deux
-    ajoutés le 28 octobre (4a-1 « Libérer du temps pour piloter l'entreprise », 4b-1 « Me faire aider dans mon travail »). **Textes à
-    relire par le propriétaire** (`docs/objectifs/CAXE-objectifs-proposes.pdf`).
+    ajoutés le 28 octobre (4a-1 « Libérer du temps pour piloter l'entreprise », 4b-1 « Me faire aider dans mon travail ») ; le
+    29 octobre, une précision ajoutée aux 9 qui n'en avaient pas et deux titres clarifiés (« Rassembler les preuves de mon sérieux »,
+    « Mieux faire circuler l'information dans l'entreprise »). **Textes à relire par le propriétaire**
+    (`docs/objectifs/CAXE-objectifs-proposes.pdf`).
 - Le moteur ne juge pas le réalisme d'un objectif sans chiffre (rien à comparer) ; l'avancement se mesure à ce que le dirigeant déclare.
 
 ### Ce que le dirigeant a déjà essayé (décision du 29 octobre)
@@ -903,6 +919,10 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
 - Profils et conditions posés par défaut pour les questions ajoutées : ACQ-07.15 posée si « plateformes » est coché (profils de
   ACQ-07.02) ; ACQ-11.38 restaurant ; ACQ-11.39 e-commerce et restaurant ; COM-13.11 et COM-62 si le dirigeant a un site ;
   COM-63.02 à .08 si COM-63.01 = oui ; les autres, tous les profils.
+- **Objectif composé RH et Comm (29 octobre)** : le plafond de 5 propositions (`composition.max`, valeur de travail) ; les deux
+  paires de propositions qui se recouvrent (`exclut`) ; « Comment saurez-vous que c'est atteint ? » facultatif dès qu'une
+  proposition a un chiffre ; en Comm, des propositions d'une seule partie (règle du 28 octobre gardée) ; la formulation proposée
+  (phrases des propositions énumérées, puis « d'ici N mois ») et le refus d'un chiffre étranger dans une formulation modifiée.
 - Objectifs RH et Comm : décisions du 28 octobre appliquées (1B, 2a-1, périmètre Comm clarifié pour 2b, 2c-1, 4a-1, 4b-1, plafond
   d'un objectif, 6C ; `docs/objectifs/CAXE-decisions-objectifs.pdf`). Restent :
   - **point 3A** (filtre des propositions selon la taille) : explication demandée par le propriétaire, filtre gardé en attendant ;
