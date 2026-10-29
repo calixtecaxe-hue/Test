@@ -1,5 +1,5 @@
 {
- "le": "2026-10-29T09:35:25.929Z",
+ "le": "2026-10-29T09:35:35.509Z",
  "resultats": [
   {
    "item": "D-001",
@@ -1230,6 +1230,48 @@
    "item": "D-032",
    "id": "D-032-e",
    "attendu": "D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : après actualisation, même état",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-a",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : règle vraie, 14 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-b",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-c",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : la réponse à FIN-16.02 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-d",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : retour au premier choix, les questions reviennent",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-d2",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : la réponse gardée à FIN-16.02 compte de nouveau",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-033",
+   "id": "D-033-e",
+   "attendu": "D09 · si paiement après facture [D09 (cadrage) = « oui »] : après actualisation, même état",
    "statut": "conforme",
    "observe": ""
   }

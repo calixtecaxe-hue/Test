@@ -176,3 +176,10 @@ conforme  D-032-d2  D41 · si vous avez des retours [FIN-10.01 [retours_par_mois
 conforme  D-032-e   D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : après actualisation, même état
 conforme  D-033-a   D09 · si paiement après facture [D09 (cadrage) = « oui »] : règle vraie, 14 question(s) affichée(s)
 conforme  D-033-b   D09 · si paiement après facture [D09 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-033-c   D09 · si paiement après facture [D09 (cadrage) = « oui »] : la réponse à FIN-16.02 ne compte plus et reste gardée
+conforme  D-033-d   D09 · si paiement après facture [D09 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-033-d2  D09 · si paiement après facture [D09 (cadrage) = « oui »] : la réponse gardée à FIN-16.02 compte de nouveau
+conforme  D-033-e   D09 · si paiement après facture [D09 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-034-a   D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-034-b   D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-034-c   D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : la réponse à FIN-20.08 ne compte plus et reste gardée
