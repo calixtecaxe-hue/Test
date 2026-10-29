@@ -36,3 +36,11 @@ Prérequis si le conteneur a été recyclé : `pg_ctlcluster 16 main start`, `np
 6. Mettre à jour `CLAUDE.md` (section 6 : données partagées, jumelles et correspondances ; section 15 : A-05 à A-11, A-14, A-22)
    et `docs/etat-technique.md` (partages.json, partages.ts, contrôles partages et branches, 386 tests, audit final).
 7. Commit, push, puis le compte rendu court demandé (inventaire, anomalies, synthèse, ce qui est prêt pour l'IA).
+
+## Pendant la série (réglage local temporaire, à défaire avant le dernier commit)
+
+Les fichiers de `docs/verification/` et `docs/objectifs/captures/` sont marqués `skip-worktree` et exclus dans `.git/info/exclude`
+pendant que la série les réécrit. À la fin :
+
+    git ls-files -v | grep '^S' | cut -c3- | xargs git update-index --no-skip-worktree
+    sed -i '/temporaire pendant la série tout.sh/,+2d' .git/info/exclude
