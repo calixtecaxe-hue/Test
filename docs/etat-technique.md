@@ -473,6 +473,10 @@ Conception, liste exacte de ce qui se calcule, configuration de l'IA et exemple 
 | `node scripts/verification/utilite-extraire.mjs`, puis `node scripts/verification/utilite-rapport.mjs` | Audit d'utilité de la banque : tout ce qui lit chaque question (`docs/audit-utilite/usages.json`), évaluations écrites à la main (`docs/audit-utilite/evaluations/*.txt`), tableau complet (`questions.csv`) et blocs générés du rapport ; code 1 si une question n'a pas d'évaluation |
 | `scripts/verification/*` | Vérification du questionnaire (inventaire, dépendances, canaux, résultats, séparation, départs de page, changements rapides, captures) : voir `docs/verification/rapport.md`, section 7 |
 
+**Après les onglets Résultats, Rapport et Plan d'action (29 octobre, soir)** : série complète du jour à code 0, puis rejoués après le
+changement : `tentatives` 26/26, `rapport` 29/29, `historique` 32/32, `resultats` 11/11, `objectifs` 68/68, `partages` 36/36,
+`boutons-pages` 154 sans échec, `audit-client` 37/38 (R-01 : classement des leviers par le moteur, non écrit), 412 tests unitaires.
+
 **Après le nouvel écran d'objectif (29 octobre)** : `objectifs` 68/68, `controle-boutons-pages` 154 vérifications sans échec,
 `controle-autre` 158 sans échec, `audit-client` 37/38 (R-01), 376 tests unitaires. Série complète du 28 octobre (avant ce
 changement) : tout à code 0 sauf R-01.
