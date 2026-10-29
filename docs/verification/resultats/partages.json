@@ -1,5 +1,5 @@
 {
- "le": "2026-10-29T09:10:39.110Z",
+ "le": "2026-10-29T09:23:55.210Z",
  "resultats": [
   {
    "id": "P-01",
@@ -210,6 +210,12 @@
    "attendu": "boutique en ligne : les visiteurs du site (ACQ-02.01) sont « déjà renseignés » d'après COM-13.01",
    "conforme": true,
    "observe": "ACQ-02.01 chez ACQ : « déjà renseigné »"
+  },
+  {
+   "id": "P-21",
+   "attendu": "chiffre d'affaires mois par mois donné à la Finance : la RH ne le redemande pas (RH-11.01 « déjà renseignée »)",
+   "conforme": true,
+   "observe": "RH-11.01 chez RH : « déjà renseigné »"
   }
  ]
 }

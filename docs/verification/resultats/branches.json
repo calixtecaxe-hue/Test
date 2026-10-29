@@ -1,0 +1,663 @@
+{
+ "le": "2026-10-29T09:25:44.457Z",
+ "resultats": [
+  {
+   "item": "D-030",
+   "id": "D-030-01",
+   "attendu": "D40 · si reprises, retours ou gestes : branche 1 seule vraie : FIN-10.01 [reprises_par_mois] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-02",
+   "attendu": "D40 · si reprises, retours ou gestes : branche 2 seule vraie : FIN-10.01 [retours_par_mois] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-02-r",
+   "attendu": "D40 · si reprises, retours ou gestes : branche 2 seule vraie : FIN-10.01 [retours_par_mois] > 0 → la réponse à FIN-10.02, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"erreur_de_realisation\"}"
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-03",
+   "attendu": "D40 · si reprises, retours ou gestes : branche 3 seule vraie : FIN-10.01 [gestes_commerciaux_par_mois] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-03-r",
+   "attendu": "D40 · si reprises, retours ou gestes : branche 3 seule vraie : FIN-10.01 [gestes_commerciaux_par_mois] > 0 → la réponse à FIN-10.02, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"erreur_de_realisation\"}"
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-04",
+   "attendu": "D40 · si reprises, retours ou gestes : toutes les branches fausses → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-04-r",
+   "attendu": "D40 · si reprises, retours ou gestes : toutes les branches fausses → la réponse à FIN-10.02 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"saisie\",\"valeur\":\"erreur_de_realisation\"}"
+  },
+  {
+   "item": "D-030",
+   "id": "D-030-act",
+   "attendu": "D40 · si reprises, retours ou gestes : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-040",
+   "id": "D-040-01",
+   "attendu": "D31 · si micro-entreprise ou entreprise individuelle : valeur « micro_entreprise » → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-040",
+   "id": "D-040-02",
+   "attendu": "D31 · si micro-entreprise ou entreprise individuelle : valeur « entreprise_individuelle_au_reel » → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-040",
+   "id": "D-040-02-r",
+   "attendu": "D31 · si micro-entreprise ou entreprise individuelle : valeur « entreprise_individuelle_au_reel » → la réponse à FIN-47.02, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"oui\"}"
+  },
+  {
+   "item": "D-040",
+   "id": "D-040-03",
+   "attendu": "D31 · si micro-entreprise ou entreprise individuelle : valeur hors de la liste → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-040",
+   "id": "D-040-03-r",
+   "attendu": "D31 · si micro-entreprise ou entreprise individuelle : valeur hors de la liste → la réponse à FIN-47.02 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"saisie\",\"valeur\":\"oui\"}"
+  },
+  {
+   "item": "D-040",
+   "id": "D-040-act",
+   "attendu": "D31 · si micro-entreprise ou entreprise individuelle : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-049",
+   "id": "D-049-01",
+   "attendu": "D13 · si recrutement fait ou prévu : valeur « j_ai_recrute » → 9 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-049",
+   "id": "D-049-02",
+   "attendu": "D13 · si recrutement fait ou prévu : valeur « je_prevois_de_recruter » → 9 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-049",
+   "id": "D-049-02-r",
+   "attendu": "D13 · si recrutement fait ou prévu : valeur « je_prevois_de_recruter » → la réponse à RH-28.03, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"moins_d_1_mois\"}"
+  },
+  {
+   "item": "D-049",
+   "id": "D-049-03",
+   "attendu": "D13 · si recrutement fait ou prévu : valeur « les_deux » → 9 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-049",
+   "id": "D-049-03-r",
+   "attendu": "D13 · si recrutement fait ou prévu : valeur « les_deux » → la réponse à RH-28.03, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"moins_d_1_mois\"}"
+  },
+  {
+   "item": "D-049",
+   "id": "D-049-04",
+   "attendu": "D13 · si recrutement fait ou prévu : valeur hors de la liste → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-049",
+   "id": "D-049-04-r",
+   "attendu": "D13 · si recrutement fait ou prévu : valeur hors de la liste → la réponse à RH-28.03 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"saisie\",\"valeur\":\"moins_d_1_mois\"}"
+  },
+  {
+   "item": "D-049",
+   "id": "D-049-act",
+   "attendu": "D13 · si recrutement fait ou prévu : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-050",
+   "id": "D-050-01",
+   "attendu": "D13 · si recrutement sur la période : valeur « j_ai_recrute » → 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-050",
+   "id": "D-050-02",
+   "attendu": "D13 · si recrutement sur la période : valeur « les_deux » → 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-050",
+   "id": "D-050-03",
+   "attendu": "D13 · si recrutement sur la période : valeur hors de la liste → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-050",
+   "id": "D-050-act",
+   "attendu": "D13 · si recrutement sur la période : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-01",
+   "attendu": "D54 · s'il y a eu des départs : branche 1 seule vraie : RH-32.01 [demission.departs] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-02",
+   "attendu": "D54 · s'il y a eu des départs : branche 2 seule vraie : RH-32.01 [fin_de_periode_d_essai.departs] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-02-r",
+   "attendu": "D54 · s'il y a eu des départs : branche 2 seule vraie : RH-32.01 [fin_de_periode_d_essai.departs] > 0 → la réponse à RH-32.03, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"remuneration\"}"
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-03",
+   "attendu": "D54 · s'il y a eu des départs : branche 3 seule vraie : RH-32.01 [rupture_conventionnelle.departs] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-03-r",
+   "attendu": "D54 · s'il y a eu des départs : branche 3 seule vraie : RH-32.01 [rupture_conventionnelle.departs] > 0 → la réponse à RH-32.03, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"remuneration\"}"
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-04",
+   "attendu": "D54 · s'il y a eu des départs : branche 4 seule vraie : RH-32.01 [licenciement.departs] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-04-r",
+   "attendu": "D54 · s'il y a eu des départs : branche 4 seule vraie : RH-32.01 [licenciement.departs] > 0 → la réponse à RH-32.03, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"remuneration\"}"
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-05",
+   "attendu": "D54 · s'il y a eu des départs : branche 5 seule vraie : RH-32.01 [fin_de_contrat.departs] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-05-r",
+   "attendu": "D54 · s'il y a eu des départs : branche 5 seule vraie : RH-32.01 [fin_de_contrat.departs] > 0 → la réponse à RH-32.03, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"remuneration\"}"
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-06",
+   "attendu": "D54 · s'il y a eu des départs : toutes les branches fausses → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-06-r",
+   "attendu": "D54 · s'il y a eu des départs : toutes les branches fausses → la réponse à RH-32.03 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"saisie\",\"valeur\":\"remuneration\"}"
+  },
+  {
+   "item": "D-051",
+   "id": "D-051-act",
+   "attendu": "D54 · s'il y a eu des départs : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-053",
+   "id": "D-053-01",
+   "attendu": "D57 · s'il y a une personne clé : branche 1 seule vraie : RH-37.01 [personne_1.poste] répondue → 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-053",
+   "id": "D-053-02",
+   "attendu": "D57 · s'il y a une personne clé : branche 2 seule vraie : RH-37.01 [personne_2.poste] répondue → 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-053",
+   "id": "D-053-03",
+   "attendu": "D57 · s'il y a une personne clé : branche 3 seule vraie : RH-37.01 [personne_3.poste] répondue → 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-053",
+   "id": "D-053-04",
+   "attendu": "D57 · s'il y a une personne clé : toutes les branches fausses → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-053",
+   "id": "D-053-act",
+   "attendu": "D57 · s'il y a une personne clé : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-054",
+   "id": "D-054-01",
+   "attendu": "D28 · si vous voulez être aidé : valeur « oui_dans_les_6_prochains_mois » → 9 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-054",
+   "id": "D-054-02",
+   "attendu": "D28 · si vous voulez être aidé : valeur « oui_dans_les_12_prochains_mois » → 9 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-054",
+   "id": "D-054-02-r",
+   "attendu": "D28 · si vous voulez être aidé : valeur « oui_dans_les_12_prochains_mois » → la réponse à RH-41.03, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"liberer_du_temps\"}"
+  },
+  {
+   "item": "D-054",
+   "id": "D-054-03",
+   "attendu": "D28 · si vous voulez être aidé : valeur « oui_mais_plus_tard » → 9 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-054",
+   "id": "D-054-03-r",
+   "attendu": "D28 · si vous voulez être aidé : valeur « oui_mais_plus_tard » → la réponse à RH-41.03, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"saisie\",\"valeur\":\"liberer_du_temps\"}"
+  },
+  {
+   "item": "D-054",
+   "id": "D-054-04",
+   "attendu": "D28 · si vous voulez être aidé : valeur hors de la liste → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-054",
+   "id": "D-054-04-r",
+   "attendu": "D28 · si vous voulez être aidé : valeur hors de la liste → la réponse à RH-41.03 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"saisie\",\"valeur\":\"liberer_du_temps\"}"
+  },
+  {
+   "item": "D-054",
+   "id": "D-054-act",
+   "attendu": "D28 · si vous voulez être aidé : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-060",
+   "id": "D-060-01",
+   "attendu": "D21 · si vous ne publiez pas encore : valeur « rarement_ou_plus_du_tout » → 7 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-060",
+   "id": "D-060-02",
+   "attendu": "D21 · si vous ne publiez pas encore : valeur « non_jamais » → 7 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-060",
+   "id": "D-060-02-r",
+   "attendu": "D21 · si vous ne publiez pas encore : valeur « non_jamais » → la réponse à COM-10.04, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-060",
+   "id": "D-060-03",
+   "attendu": "D21 · si vous ne publiez pas encore : valeur hors de la liste → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-060",
+   "id": "D-060-03-r",
+   "attendu": "D21 · si vous ne publiez pas encore : valeur hors de la liste → la réponse à COM-10.04 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "D-060",
+   "id": "D-060-act",
+   "attendu": "D21 · si vous ne publiez pas encore : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-069",
+   "id": "D-069-01",
+   "attendu": "D59 · si vous recevez des messages : branche 1 seule vraie : COM-23.01 [instagram.messages_par_mois] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-069",
+   "id": "D-069-02",
+   "attendu": "D59 · si vous recevez des messages : branche 2 seule vraie : COM-23.01 [facebook_et_messenger.messages_par_mois] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-069",
+   "id": "D-069-03",
+   "attendu": "D59 · si vous recevez des messages : branche 3 seule vraie : COM-23.01 [linkedin.messages_par_mois] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-069",
+   "id": "D-069-04",
+   "attendu": "D59 · si vous recevez des messages : branche 4 seule vraie : COM-23.01 [whatsapp.messages_par_mois] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-069",
+   "id": "D-069-05",
+   "attendu": "D59 · si vous recevez des messages : branche 5 seule vraie : COM-23.01 [tiktok.messages_par_mois] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-069",
+   "id": "D-069-06",
+   "attendu": "D59 · si vous recevez des messages : branche 6 seule vraie : COM-23.01 [chat_du_site.messages_par_mois] > 0 → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-069",
+   "id": "D-069-07",
+   "attendu": "D59 · si vous recevez des messages : toutes les branches fausses → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-069",
+   "id": "D-069-act",
+   "attendu": "D59 · si vous recevez des messages : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-070",
+   "id": "D-070-01",
+   "attendu": "D60 · si vous consacrez du temps à la communication : branche 1 seule vraie : COM-31.01 [trouver_les_idees_et_ecrire.heures_par_semaine] > 0 → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-070",
+   "id": "D-070-02",
+   "attendu": "D60 · si vous consacrez du temps à la communication : branche 2 seule vraie : COM-31.01 [photos_videos_et_montage.heures_par_semaine] > 0 → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-070",
+   "id": "D-070-03",
+   "attendu": "D60 · si vous consacrez du temps à la communication : branche 3 seule vraie : COM-31.01 [publier_et_programmer.heures_par_semaine] > 0 → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-070",
+   "id": "D-070-04",
+   "attendu": "D60 · si vous consacrez du temps à la communication : branche 4 seule vraie : COM-31.01 [repondre_aux_commentaires_messages_et_av.heures_par_semaine] > 0 → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-070",
+   "id": "D-070-05",
+   "attendu": "D60 · si vous consacrez du temps à la communication : branche 5 seule vraie : COM-31.01 [emails_et_site.heures_par_semaine] > 0 → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-070",
+   "id": "D-070-06",
+   "attendu": "D60 · si vous consacrez du temps à la communication : branche 6 seule vraie : COM-31.01 [regarder_les_statistiques.heures_par_semaine] > 0 → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-070",
+   "id": "D-070-07",
+   "attendu": "D60 · si vous consacrez du temps à la communication : toutes les branches fausses → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-070",
+   "id": "D-070-act",
+   "attendu": "D60 · si vous consacrez du temps à la communication : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-072",
+   "id": "D-072-01",
+   "attendu": "D26 + D63 · si accès aux statistiques et vidéos publiées : toutes les conditions vraies → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-072",
+   "id": "D-072-02",
+   "attendu": "D26 + D63 · si accès aux statistiques et vidéos publiées : condition 1 seule fausse : COM-39.07 (D26) = « oui » → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-072",
+   "id": "D-072-03",
+   "attendu": "D26 + D63 · si accès aux statistiques et vidéos publiées : condition 2 seule fausse : (COM-26.01 [video_courte.publications] > 0 OU COM-26.01 [video_longue.publications] > 0) → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "D-072",
+   "id": "D-072-act",
+   "attendu": "D26 + D63 · si accès aux statistiques et vidéos publiées : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-083",
+   "id": "M-083-01",
+   "attendu": "Sans achats (services purs) : toutes les conditions vraies → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-083",
+   "id": "M-083-02",
+   "attendu": "Sans achats (services purs) : condition 1 seule fausse : D08.achats (cadrage) = « non » → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-083",
+   "id": "M-083-03",
+   "attendu": "Sans achats (services purs) : condition 2 seule fausse : D08.sous_traitance (cadrage) = « non » → 1 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-083",
+   "id": "M-083-03-r",
+   "attendu": "Sans achats (services purs) : condition 2 seule fausse : D08.sous_traitance (cadrage) = « non » → la réponse à FIN-08.01 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "M-083",
+   "id": "M-083-04",
+   "attendu": "Sans achats (services purs) : condition 3 seule fausse : D08.fournisseurs (cadrage) = « non » → 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-083",
+   "id": "M-083-04-r",
+   "attendu": "Sans achats (services purs) : condition 3 seule fausse : D08.fournisseurs (cadrage) = « non » → la réponse à FIN-08.01 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "M-083",
+   "id": "M-083-act",
+   "attendu": "Sans achats (services purs) : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-088",
+   "id": "M-088-nj",
+   "attendu": "Sans investissement récent : branche 1 seule (D12 (cadrage) = « non ») : elle rend aussi vraie une autre branche",
+   "statut": "conforme",
+   "observe": "cas non jouable seul, signalé dans le plan"
+  },
+  {
+   "item": "M-088",
+   "id": "M-088-01",
+   "attendu": "Sans investissement récent : branche 2 seule vraie : D12.en_service (cadrage) = « non » → 0 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-088",
+   "id": "M-088-02",
+   "attendu": "Sans investissement récent : toutes les branches fausses → 2 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-088",
+   "id": "M-088-act",
+   "attendu": "Sans investissement récent : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-092",
+   "id": "M-092-01",
+   "attendu": "Ne publie pas (parcours mise en place) : valeur « rarement_ou_plus_du_tout » → 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-092",
+   "id": "M-092-02",
+   "attendu": "Ne publie pas (parcours mise en place) : valeur « non_jamais » → 3 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-092",
+   "id": "M-092-02-r",
+   "attendu": "Ne publie pas (parcours mise en place) : valeur « non_jamais » → la réponse à COM-10.04, toujours posée, compte encore",
+   "statut": "conforme",
+   "observe": "{\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "M-092",
+   "id": "M-092-03",
+   "attendu": "Ne publie pas (parcours mise en place) : valeur hors de la liste → 30 question(s) affichée(s)",
+   "statut": "conforme",
+   "observe": ""
+  },
+  {
+   "item": "M-092",
+   "id": "M-092-03-r",
+   "attendu": "Ne publie pas (parcours mise en place) : valeur hors de la liste → la réponse à COM-10.04 ne compte plus et reste gardée",
+   "statut": "conforme",
+   "observe": "active null, en base {\"genre\":\"exact\",\"valeur\":3}"
+  },
+  {
+   "item": "M-092",
+   "id": "M-092-act",
+   "attendu": "Ne publie pas (parcours mise en place) : après actualisation, même affichage",
+   "statut": "conforme",
+   "observe": ""
+  }
+ ]
+}

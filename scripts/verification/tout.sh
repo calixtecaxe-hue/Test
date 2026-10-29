@@ -44,10 +44,12 @@ lancer controle-donnees npm run -s donnees:controle
 lancer balayage-secteurs node scripts/balayage-secteurs.mts
 lancer inventaire node scripts/verification/inventaire.mts
 lancer plan-dependances node scripts/verification/plan-dependances.mts
+lancer plan-branches node scripts/verification/plan-branches.mts
 
 # 2. Navigateur : questionnaire et dépendances
 lancer canaux node scripts/verification/canaux.mjs --sortie $R
 lancer dependances node scripts/verification/dependances.mjs --sortie $R
+lancer branches node scripts/verification/branches.mjs --sortie $R
 lancer resultats node scripts/verification/resultats.mjs --sortie $R
 lancer separation node scripts/verification/separation.mjs --sortie $R
 lancer retours node scripts/verification/retours.mjs --sortie $R

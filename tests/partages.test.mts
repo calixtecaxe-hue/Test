@@ -49,6 +49,17 @@ test("partages : les vraies jumelles restent partagées", () => {
   assert.deepEqual(q?.sourcesPartage, ["COM-44.01"]);
 });
 
+test("partages : une jumelle de ma jumelle est ma jumelle (chiffre d'affaires mois par mois, Finance et RH sans l'Acquisition)", () => {
+  const eq = equivalences(reel);
+  assert.ok(eq.get("FIN-14.01")?.has("RH-11.01"));
+  assert.ok(eq.get("RH-11.01")?.has("FIN-14.01"));
+  const ca = { "FIN-14.01": valeurs({ "le_mois_dernier.chiffre_d_affaires": 50000 }) };
+  const a = assemblerQuestionnaire(reel, { agent: "RH_ORGANISATION", profils: ["chantier"], taille: "equipe_2_5", niveau: "approfondi", reponses: ca, ancienneteMois: 120 });
+  const q = a.themes.flatMap((t) => t.questions).find((x) => x.code === "RH-11.01");
+  assert.equal(q?.dejaPosee, true);
+  assert.deepEqual(q?.sourcesPartage, ["FIN-14.01"]);
+});
+
 test("partages : COM-13.01 et ACQ-02.01 ne sont la même donnée que pour une boutique en ligne", () => {
   assert.ok(equivalences(reel, { profils: ["ecommerce"], vocabulaire: null }).get("COM-13.01")?.has("ACQ-02.01"));
   assert.equal(equivalences(reel, { profils: ["commerce", "ecommerce"], vocabulaire: null }).get("COM-13.01")?.has("ACQ-02.01") ?? false, false, "« visiteurs en boutique »");

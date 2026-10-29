@@ -94,6 +94,20 @@ export function equivalences(e: Base, compte?: Formulation | null): Map<string, 
     if (pas && !(pas.partageSeulementPour && luCommePour(e, [a, b], pas.partageSeulementPour, compte))) continue;
     lier(a, b);
   }
+  // Une jumelle de ma jumelle est ma jumelle : le chiffre d'affaires des 12 derniers mois est posé par l'Acquisition, la Finance
+  // et la RH ; le classeur ne lie chacune qu'à celle de l'Acquisition. Le contrôle des données garantit que ces liens relient
+  // des questions identiques.
+  for (const [code, liees] of index) {
+    const groupe = new Set<string>([code]);
+    const aVoir = [...liees];
+    while (aVoir.length > 0) {
+      const c = aVoir.pop()!;
+      if (groupe.has(c)) continue;
+      groupe.add(c);
+      aVoir.push(...(index.get(c) ?? []));
+    }
+    for (const c of groupe) if (c !== code) liees.add(c);
+  }
   return index;
 }
 

@@ -169,5 +169,12 @@ const meme = (a, b) => JSON.stringify(trie(a)) === JSON.stringify(trie(b));
   await verifier("P-20", "deja", page, "ACQ", "ACQ-02.01", "boutique en ligne : les visiteurs du site (ACQ-02.01) sont « déjà renseignés » d'après COM-13.01");
 }
 
+// 7. Finance et RH sans l'Acquisition : le chiffre d'affaires mois par mois est la même question chez les trois agents.
+{
+  const { page, api } = await creerCompte(nav, { agents: ["FIN", "RH"] });
+  await repondre(api, "FIN-14.01", valeurs({ "le_mois_dernier.chiffre_d_affaires": 52000, "il_y_a_2_mois.chiffre_d_affaires": 48000 }));
+  await verifier("P-21", "deja", page, "RH", "RH-11.01", "chiffre d'affaires mois par mois donné à la Finance : la RH ne le redemande pas (RH-11.01 « déjà renseignée »)");
+}
+
 await nav.close();
 process.exit(ecrire(sortie) > 0 ? 1 : 0);
