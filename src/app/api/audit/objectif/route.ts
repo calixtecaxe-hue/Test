@@ -17,6 +17,8 @@ const corps = z.object({ agent: codeAgent, objectif: z.unknown().optional(), obj
 // de temps. Le nouvel objectif remplace les objectifs actifs du même agent, qui restent en historique ; les objectifs des
 // autres agents ne sont pas touchés. L'objectif garde son origine (proposition de la liste, objectif écrit par le
 // dirigeant, ou trois champs libres) : c'est ce que reprennent le compte rendu et, quand elle sera branchée, l'analyse.
+// Ce que le dirigeant avait déjà essayé reste attaché à l'objectif remplacé : il lui est proposé sous le nouvel objectif, jamais
+// repris sans son accord (PUT /api/audit/tentatives avec reprisDe).
 export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ erreur: "Connexion requise." }, { status: 401 });
@@ -40,9 +42,6 @@ export async function POST(request: Request) {
   const themes = ENSEMBLE.themes.filter((t) => t.agent === agent);
   const enregistres = controle.objectifs.map((o) => ({ phrase: o.phrase, objectif: enregistrerObjectif(o.saisie, themes, maintenant, o.choisi?.themes, o.origine) }));
   const crees = await prisma.$transaction(async (tx) => {
-    // Ce que le dirigeant a déjà essayé est repris par le nouvel objectif : il le voit sous l'objectif et le corrige au besoin.
-    const precedent = await tx.objectif.findFirst({ where: { userId, agent, statut: "ACTIF" }, orderBy: [{ creeLe: "desc" }, { id: "asc" }], select: { tentatives: true } });
-    const tentatives = precedent?.tentatives ?? undefined;
     await tx.objectif.updateMany({ where: { userId, agent, statut: "ACTIF" }, data: { statut: "REMPLACE", clotureLe: maintenant } });
     const ids: string[] = [];
     // Même instant de création, dans l'ordre choisi : l'ordre d'affichage suit l'identifiant.
@@ -55,7 +54,6 @@ export async function POST(request: Request) {
           structure: e.objectif as unknown as Prisma.InputJsonValue,
           echeance: new Date(e.objectif.echeance),
           creeLe: maintenant,
-          ...(tentatives !== undefined && tentatives !== null ? { tentatives: tentatives as Prisma.InputJsonValue } : {}),
         },
         select: { id: true },
       });

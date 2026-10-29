@@ -20,7 +20,7 @@ import { ObjectifFormulaire } from "./objectif-formulaire";
 import { ObjectifActif, ObjectifEdition } from "./objectif-actif";
 import { ObjectifChoix } from "./objectif-choix";
 import { DejaTente } from "./deja-tente";
-import { lireTentatives } from "@/lib/audit/tentatives";
+import { lireTentatives, resumeTentatives } from "@/lib/audit/tentatives";
 import { NiveauChoix } from "./niveau-choix";
 import { ResultatsMaquette } from "./resultats-maquette";
 import { Resultats } from "./resultats";
@@ -152,8 +152,22 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
   }
 
   const structure = actif ? (actif.structure as unknown as ObjectifEnregistre) : null;
-  // Ce que le dirigeant a déjà essayé pour cet objectif : posé juste sous l'objectif, au début de l'agent (29 octobre).
-  const dejaTente = actif ? <DejaTente key={actif.id} agent={agent.code} def={ENSEMBLE.dejaTente} initiales={lireTentatives(ENSEMBLE.dejaTente, actif.tentatives)} /> : null;
+  // Ce que le dirigeant a déjà essayé, rattaché à chaque objectif en cours (un seul par agent ; un compte enregistré avant le
+  // 28 octobre peut en avoir plusieurs, chacun a alors sa réponse). La réponse d'un objectif remplacé est proposée, jamais reprise
+  // sans l'accord du dirigeant.
+  const dernierRemplace = historique.find((o) => lireTentatives(ENSEMBLE.dejaTente, o.tentatives) !== null) ?? null;
+  const reprise = (o: (typeof actifs)[number]) => {
+    if (!dernierRemplace || dernierRemplace.creeLe > o.creeLe) return null;
+    const valeur = lireTentatives(ENSEMBLE.dejaTente, dernierRemplace.tentatives)!;
+    return { objectifId: dernierRemplace.id, phrase: dernierRemplace.texteBrut, resume: resumeTentatives(ENSEMBLE.dejaTente, valeur) ?? "", valeur };
+  };
+  const dejaTente = actifs.length > 0 ? (
+    <>
+      {actifs.map((o) => (
+        <DejaTente key={o.id} objectifId={o.id} def={ENSEMBLE.dejaTente} initiales={lireTentatives(ENSEMBLE.dejaTente, o.tentatives)} reprise={reprise(o)} pour={actifs.length > 1 ? o.texteBrut : undefined} />
+      ))}
+    </>
+  ) : null;
   const structures = actifs.map((o) => o.structure as unknown as ObjectifEnregistre);
   // Ce que reçoivent les étapes suivantes : l'objectif tel qu'il a été choisi ou écrit, avec son origine (objectifs-proposes.ts).
   const transmis = actifs.map((o, i) => objectifTransmis(o.texteBrut, structures[i], liste?.objectifs ?? null));
@@ -237,6 +251,11 @@ export default async function AuditPage({ params, searchParams }: { params: Prom
                 <span className="text-xs text-[var(--text-muted)]">
                   {LIBELLES_STATUT[o.statut]} · créé le {formaterDate(o.creeLe)}
                 </span>
+                {resumeTentatives(ENSEMBLE.dejaTente, lireTentatives(ENSEMBLE.dejaTente, o.tentatives)) ? (
+                  <span className="w-full text-xs text-[var(--text-muted)]" data-historique-tentatives>
+                    Déjà essayé : {resumeTentatives(ENSEMBLE.dejaTente, lireTentatives(ENSEMBLE.dejaTente, o.tentatives))}
+                  </span>
+                ) : null}
               </li>
             ))}
           </ul>

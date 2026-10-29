@@ -1,37 +1,36 @@
 {
-  "source": "Décision du propriétaire du 29 octobre 2026 : au début de chaque agent, une fois l'objectif fixé, une question simple sur ce que le dirigeant a déjà essayé pour l'atteindre. Ces réponses n'entrent jamais dans le calcul : elles évitent de conseiller tel quel ce qui n'a pas donné de résultat, et distinguent « ça n'a pas marché » de « je ne l'ai pas tenu ». Textes à relire par le propriétaire.",
+  "source": "Décisions du propriétaire du 29 octobre 2026 : juste après l'objectif, dans chaque agent, une question légère sur ce que le dirigeant a déjà essayé pour l'atteindre ; « Je n'ai encore rien essayé » se distingue d'une question sans réponse ; précisions facultatives. Ces réponses n'entrent jamais dans le calcul : le rapport et le plan d'action en tiennent compte. Textes à relire par le propriétaire.",
   "aValider": true,
-  "question": "Avez-vous déjà essayé quelque chose pour atteindre cet objectif ?",
-  "aide": "Même si cela n'a rien donné : les conseils en tiendront compte, pour ne pas vous proposer la même chose sans rien changer.",
-  "reponses": [
-    { "id": "oui", "libelle": "Oui" },
-    { "id": "non", "libelle": "Non" }
-  ],
-  "action": {
-    "question": "Qu'avez-vous essayé ?",
-    "aide": "En une ou deux phrases : ce que vous avez fait, et comment.",
-    "longueurMax": 400,
-    "max": 3,
-    "ajouter": "Ajouter une autre action",
-    "retirer": "Retirer"
+  "question": "Qu'avez-vous déjà essayé pour atteindre cet objectif ?",
+  "aide": "Vous pouvez préciser ce que vous avez fait, ce que cela a donné et les difficultés rencontrées.",
+  "rien": "Je n'ai encore rien essayé.",
+  "longueurMax": 1500,
+  "precisions": {
+    "titre": "Préciser ce que cela a donné (facultatif)",
+    "resultat": {
+      "question": "Dans l'ensemble, qu'est-ce que cela a donné ?",
+      "options": [
+        { "id": "a_fonctionne", "libelle": "Cela a fonctionné" },
+        { "id": "en_partie", "libelle": "En partie" },
+        { "id": "sans_resultat", "libelle": "Pas de résultat" },
+        { "id": "arrete_avant", "libelle": "Je l'ai arrêté avant de voir le résultat" },
+        { "id": "trop_tot", "libelle": "Trop tôt pour le dire" }
+      ]
+    },
+    "duree": {
+      "question": "Pendant combien de temps ?",
+      "options": [
+        { "id": "moins_d_1_mois", "libelle": "Moins d'1 mois" },
+        { "id": "1_a_3_mois", "libelle": "1 à 3 mois" },
+        { "id": "plus_de_3_mois_a_1_an", "libelle": "Plus de 3 mois à 1 an" },
+        { "id": "plus_d_1_an", "libelle": "Plus d'1 an" }
+      ]
+    }
   },
-  "resultat": {
-    "question": "Qu'est-ce que cela a donné ?",
-    "options": [
-      { "id": "a_fonctionne", "libelle": "Cela a fonctionné" },
-      { "id": "en_partie", "libelle": "En partie" },
-      { "id": "sans_resultat", "libelle": "Pas de résultat" },
-      { "id": "arrete_avant", "libelle": "Je l'ai arrêté avant de voir le résultat" },
-      { "id": "trop_tot", "libelle": "Trop tôt pour le dire" }
-    ]
-  },
-  "duree": {
-    "question": "Pendant combien de temps l'avez-vous fait ? (facultatif)",
-    "options": [
-      { "id": "moins_d_1_mois", "libelle": "Moins d'1 mois" },
-      { "id": "1_a_3_mois", "libelle": "1 à 3 mois" },
-      { "id": "plus_de_3_mois_a_1_an", "libelle": "Plus de 3 mois à 1 an" },
-      { "id": "plus_d_1_an", "libelle": "Plus d'1 an" }
-    ]
+  "reprise": {
+    "intro": "Pour votre objectif précédent, vous aviez indiqué :",
+    "question": "Cela vaut-il aussi pour ce nouvel objectif ?",
+    "reprendre": "Reprendre pour ce nouvel objectif",
+    "ignorer": "Non, je réponds pour ce nouvel objectif"
   }
 }

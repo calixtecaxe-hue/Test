@@ -157,8 +157,9 @@ model Objectif {
   progression Decimal? @db.Decimal(6, 2)
 
   // Ce que le dirigeant a déjà essayé pour atteindre cet objectif (src/lib/audit/tentatives.ts) :
-  // { deja: "oui" | "non", actions: [{ quoi, resultat, duree }] }. Jamais dans le calcul. Reprise
-  // telle quelle quand l'objectif est remplacé ; null tant que la question n'a pas de réponse.
+  // { etat: "essaye", texte, resultat, duree } ou { etat: "rien" } ; null tant que la question n'a pas
+  // de réponse. Jamais dans le calcul. Reste attaché à cet objectif quand il est remplacé : proposé sous
+  // le nouvel objectif, repris seulement avec l'accord du dirigeant (reprisDe).
   tentatives Json?
 
   creeLe    DateTime  @default(now())

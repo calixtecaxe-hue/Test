@@ -501,7 +501,7 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
   }
 
   // Ce que le dirigeant a déjà essayé (data/deja-tente.json) : des choix aux identifiants uniques.
-  for (const [nom, options] of [["résultat", e.dejaTente.resultat.options], ["durée", e.dejaTente.duree.options]] as const) {
+  for (const [nom, options] of [["résultat", e.dejaTente.precisions.resultat.options], ["durée", e.dejaTente.precisions.duree.options]] as const) {
     for (const d of doublons(options.map((o) => o.id))) erreurs.push(`data/deja-tente.json : choix « ${d} » en double (${nom}).`);
   }
   if (e.dejaTente.aValider) avertissements.push("data/deja-tente.json : textes de la question « déjà essayé » à relire par le propriétaire.");

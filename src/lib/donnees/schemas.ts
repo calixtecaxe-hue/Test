@@ -689,10 +689,16 @@ export const dejaTente = z.object({
   aValider: z.boolean(),
   question: z.string().min(1),
   aide: z.string().min(1),
-  reponses: z.tuple([z.object({ id: z.literal("oui"), libelle: z.string().min(1) }), z.object({ id: z.literal("non"), libelle: z.string().min(1) })]),
-  action: z.object({ question: z.string().min(1), aide: z.string().min(1), longueurMax: z.number().int().min(50).max(2000), max: z.number().int().min(1).max(10), ajouter: z.string().min(1), retirer: z.string().min(1) }),
-  resultat: z.object({ question: z.string().min(1), options: z.array(optionTexte).min(2) }),
-  duree: z.object({ question: z.string().min(1), options: z.array(optionTexte).min(2) }),
+  // Réponse explicite « rien essayé », distincte d'une question sans réponse.
+  rien: z.string().min(1),
+  longueurMax: z.number().int().min(100).max(5000),
+  precisions: z.object({
+    titre: z.string().min(1),
+    resultat: z.object({ question: z.string().min(1), options: z.array(optionTexte).min(2) }),
+    duree: z.object({ question: z.string().min(1), options: z.array(optionTexte).min(2) }),
+  }),
+  // Objectif remplacé : sa réponse est proposée, jamais reprise sans l'accord du dirigeant.
+  reprise: z.object({ intro: z.string().min(1), question: z.string().min(1), reprendre: z.string().min(1), ignorer: z.string().min(1) }),
 });
 export type DejaTente = z.infer<typeof dejaTente>;
 
