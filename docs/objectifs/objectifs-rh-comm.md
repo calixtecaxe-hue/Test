@@ -103,10 +103,12 @@ proposé qu'à lui. Aucun objectif Comm ne dépend de la taille.
   revient à l'audit sans rien changer.
 - L'objectif est retrouvé après actualisation, après déconnexion et reconnexion, et en revenant à l'étape Objectif, où le formulaire
   se rouvre sur le bon mode avec ses réponses.
-- Le compte rendu (onglet Objectif) reprend l'objectif en cours. `objectifTransmis` donne aux étapes suivantes : origine, phrase,
-  texte, proposition, mesure, délai, échéance, indicateur et thèmes liés.
-- **Pas encore branché** : l'analyse de l'IA (aucun prompt n'est branché ; le compte rendu dit « pas encore » au lieu d'un chiffre) et
-  l'avancement déclaré aux points d'étape (0 %).
+- L'onglet « Résultats » (29 octobre) reprend l'objectif en cours. `objectifTransmis` donne aux étapes suivantes : origine, phrase,
+  texte, proposition, mesure, délai, échéance, indicateur et thèmes liés. Un objectif proposé chiffré dont la phrase mesure exactement
+  une réponse (com-audience, com-visites-profil, com-visites-site, com-temps, rh-turnover en %) a sa situation de départ, sa cible et
+  son écart ; un objectif sans chiffre n'a aucun pourcentage fabriqué (`docs/rapport/rapport.md`).
+- **Branché le 29 octobre, sans appel réel** : le rapport et le plan d'action rédigés par l'IA (mode simulation tant que la clé
+  d'API manque). **Pas encore construit** : l'avancement déclaré aux points d'étape.
 - Un compte enregistré avant le 28 octobre avec plusieurs objectifs les garde affichés jusqu'à son prochain changement d'objectif ;
   seuls des comptes de test sont dans ce cas.
 

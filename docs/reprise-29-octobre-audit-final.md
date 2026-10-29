@@ -1,5 +1,9 @@
 # Point de reprise : audit final des questions (29 octobre 2026)
 
+> **Terminé le 29 octobre au soir.** Tout ce qui suit a été fait et commité : série complète relancée (tout à code 0, sauf R-01),
+> puis la question « déjà essayé » refaite et les onglets Résultats, Rapport et Plan d'action construits (`docs/rapport/rapport.md`).
+> Cette note n'est gardée que pour l'historique.
+
 Demande en cours : l'audit final de toutes les questions avant la conception de l'IA (message du propriétaire qui commence par
 « ensuite mets cela en place avant que on construise la partie résultats »). Ne pas faire de compte rendu avant la fin.
 
