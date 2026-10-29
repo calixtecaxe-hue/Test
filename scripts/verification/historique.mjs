@@ -46,7 +46,7 @@ async function repondreNombre(page, code, valeur) {
 }
 async function evolutions(page, url) {
   await page.goto(url + "?etape=4", { waitUntil: "networkidle" });
-  return page.locator("[data-evolution]").evaluateAll((lis) => Object.fromEntries(lis.map((li) => [li.getAttribute("data-evolution"), { statut: li.getAttribute("data-statut"), texte: li.innerText.replace(/\s+/g, " ").trim() }])));
+  return page.locator("[data-evolution]").evaluateAll((lis) => Object.fromEntries(lis.map((li) => [li.getAttribute("data-evolution"), { statut: li.getAttribute("data-statut"), texte: li.textContent.replace(/\s+/g, " ").trim() }])));
 }
 const CA = (col, v) => Object.fromEntries(["le_mois_dernier", ...Array.from({ length: 11 }, (_, k) => `il_y_a_${k + 2}_mois`)].map((id) => [`${id}.${col}`, v]));
 const poser = (api, cle, reponse) => api.put(B + "/api/audit/reponses", { data: { cle, reponse } });
