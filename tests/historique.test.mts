@@ -5,7 +5,8 @@ import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import { chargerDepuisDisque } from "../src/lib/donnees/disque.ts";
-import { assemblerQuestionnaire, donneesPrerepondues, equivalences } from "../src/lib/audit/assemblage.ts";
+import { assemblerQuestionnaire } from "../src/lib/audit/assemblage.ts";
+import { equivalences, lecturePartagee, questionsLiees } from "../src/lib/audit/partages.ts";
 import { reponsesActives } from "../src/lib/audit/reponses-actives.ts";
 import { decalerLignesDuMois, lignesDuMois, reglePeriode, texteDePeriode, champsTropLongs, type Mois } from "../src/lib/audit/periodes.ts";
 import { calculerEvolution, controlerEvolution, type ContexteEvolution } from "../src/lib/moteur/evolution.ts";
@@ -30,7 +31,8 @@ function contexte(reponses: Reponses, o: Partial<ContexteEvolution> = {}): Conte
     creation: mois(2016, 3),
     ancienneteMois: 127,
     donnees: new Map(reel.donnees.map((d) => [d.code, d])),
-    equivalences: equivalences(reel.donnees, donneesPrerepondues(reel.prereponses)),
+    partage: lecturePartagee(reel, reponses, equivalences(reel)),
+    liees: questionsLiees(reel, equivalences(reel)),
     posees: new Set(reel.donnees.map((d) => d.code)),
     lignesActuelles: () => null,
     nomDe: (c) => c,

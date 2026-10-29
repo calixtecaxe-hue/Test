@@ -1,6 +1,7 @@
 import type { UtilisateurComplet } from "../compte";
 import { ENSEMBLE } from "./donnees-audit";
-import { assemblerQuestionnaire, donneesPrerepondues, equivalences } from "./assemblage";
+import { assemblerQuestionnaire } from "./assemblage";
+import { equivalences, lecturePartagee, questionsLiees } from "./partages";
 import { ancienneteEnMois, tailleDepuisEffectif } from "./affichage";
 import { agentsActifs, ancragesDesReponses, reponsesDuCompte } from "./compte";
 import { reponsesActivesDuCompte } from "./contexte-compte";
@@ -69,6 +70,7 @@ export async function compteRenduDuCompte(utilisateur: UtilisateurComplet, agent
     for (const q of [...x.prealables, ...x.themes.flatMap((t) => t.questions)]) posees.add(q.code);
   }
   const actives = reponsesActivesDuCompte(utilisateur, reponses);
+  const equiv = equivalences(ENSEMBLE, { profils, vocabulaire });
   const nomDe = (code: string) => {
     const q = ENSEMBLE.banque.find((b) => b.donnee === code);
     const f = q ? formuler(q.texte, profils, ENSEMBLE.lexique, vocabulaire) : null;
@@ -81,7 +83,8 @@ export async function compteRenduDuCompte(utilisateur: UtilisateurComplet, agent
     creation: moisDe(utilisateur.dateCreationEntreprise),
     ancienneteMois: ancienneteEnMois(utilisateur.dateCreationEntreprise, new Date()),
     donnees: new Map(ENSEMBLE.donnees.map((d) => [d.code, d])),
-    equivalences: equivalences(ENSEMBLE.donnees, donneesPrerepondues(ENSEMBLE.prereponses)),
+    partage: lecturePartagee(ENSEMBLE, actives, equiv),
+    liees: questionsLiees(ENSEMBLE, equiv),
     posees,
     lignesActuelles: (code) => {
       const spec = specDeLaDonnee(ENSEMBLE, code).spec;

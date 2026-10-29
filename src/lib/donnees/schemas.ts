@@ -657,6 +657,28 @@ export const implications = z.object({
 });
 export type Implications = z.infer<typeof implications>;
 
+// --- Données partagées entre agents -----------------------------------------------
+
+// data/partages.json (src/lib/audit/partages.ts) : liens du classeur entre deux questions posées qui ne sont pas des jumelles
+// exactes. « Pas un partage » : les deux questions sont posées. « Correspondance » : une partie d'une question est la réponse
+// de l'autre. Une clé est un code de donnée, suivi au besoin de « #champ », « #ligne.colonne » ou « #*.colonne » (toute une
+// colonne d'un tableau).
+const clePartage = z.string().regex(/^(ACQ|FIN|RH|COM)-\d{2}\.\d{2}(#(\*|[a-z0-9_]+)(\.[a-z0-9_]+)?)?$/, "Clé attendue : COM-32.01#champ.");
+export const partages = z.object({
+  source: z.string(),
+  pasDesPartages: z.array(
+    z.object({
+      donnee: codeDonnee,
+      entree: codeDonnee,
+      raison: z.string().min(1),
+      // Le lien reste un partage quand le compte lit les deux questions avec les mots de l'un de ces profils.
+      partageSeulementPour: z.array(profilId).min(1).optional(),
+    })
+  ),
+  correspondances: z.array(z.object({ cle: clePartage, egale: clePartage, raison: z.string().min(1) })),
+});
+export type Partages = z.infer<typeof partages>;
+
 // --- Vocabulaires par métier ----------------------------------------------------
 
 // Quel vocabulaire propre (hébergement, négoce, cabinet…) s'applique à quel métier ou activité. Tant que « valide » est faux,
@@ -697,6 +719,7 @@ export type EnsembleDonnees = {
   objectifsAgents: ObjectifsAgents;
   retraits: Retraits;
   implications: Implications;
+  partages: Partages;
   vocabulairesMetiers: VocabulairesMetiers;
   catalogue: FicheTheme[];
   catalogueEffets: EffetCatalogue[];
@@ -724,6 +747,7 @@ export const schemaFichiers = {
   objectifsAgents,
   retraits,
   implications,
+  partages,
   vocabulairesMetiers,
   catalogue: z.array(ficheTheme),
   catalogueEffets: z.array(effetCatalogue),

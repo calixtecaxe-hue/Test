@@ -32,6 +32,7 @@ import { proposerSpec, type ReponseSpec } from "../donnees/reponse-spec.ts";
 import type { ReglesAffichage, Routage } from "../donnees/schemas.ts";
 import type { MetierDuCompte } from "../routage.ts";
 import { analyserApplicabilite, reponsesDeduites } from "./reponses-actives.ts";
+import { equivalences, lecturePartagee, type Reprise } from "./partages.ts";
 
 export type Exclusions = NonNullable<Routage["reglementees"]["acquisitionExclut"]>;
 
@@ -74,8 +75,12 @@ export type QuestionAssemblee = {
   specSource: "banque" | "classeur" | null;
   // Déjà posée par un autre agent : reprise telle quelle, jamais redemandée.
   dejaPosee: boolean;
-  // Code de la donnée qui porte la réponse quand elle a été donnée pour un autre agent.
+  // Code de la donnée qui porte la réponse quand elle a été donnée pour un autre agent (la première, s'il y en a plusieurs).
   dejaPoseeDans: string | null;
+  // Toutes les données qui portent cette réponse : une jumelle, ou les questions dont les parties la composent (data/partages.json).
+  sourcesPartage: string[];
+  // Question couverte en partie par des réponses données à un autre agent : valeurs reprises dans le formulaire, à compléter.
+  reprise: Reprise | null;
   // Total calculé d'après le détail déjà donné à d'autres agents, proposé comme réponse (le
   // dirigeant le garde ou le corrige) ; null s'il n'y a rien à proposer.
   prereponse: Prereponse | null;
@@ -103,12 +108,11 @@ export type Assemblage = {
   dejaPosees: number;
   // Réponses qui s'appliquent encore à ce compte (sans les réponses déduites) : ce que le compte rendu et la progression lisent.
   reponsesActives: Reponses;
+  // Jumelles pour ce compte (un lien peut dépendre des mots de son métier) : le moteur lit les réponses partagées avec elles.
+  equivalences: Map<string, Set<string>>;
   statistiques: { aPoser: number; ecrites: number; manquantes: number; essentielles: number };
 };
 
-// Données équivalentes : une donnée « partagée » est posée une seule fois, par le
-// premier agent qui en a besoin ; elle renvoie vers les données de l'autre agent
-// qu'elle remplace (colonne « Données utilisées » du classeur).
 // Données qui s'affichent toujours, déjà remplies d'après un détail (data/prereponses.json) : elles n'ont pas d'équivalent.
 // Le budget marketing de la Finance reste posé même quand le détail (Comm, Acquisition) est connu, avec le total calculé ;
 // le détail lui-même reste demandé : une réponse totale ne dispense pas du détail, ni l'inverse.
@@ -116,21 +120,8 @@ export function donneesPrerepondues(prereponses: Prereponses): Set<string> {
   return new Set(prereponses.regles.map((r) => r.donnee));
 }
 
-export function equivalences(donnees: Donnee[], exclues: ReadonlySet<string> = new Set()): Map<string, Set<string>> {
-  const index = new Map<string, Set<string>>();
-  const lier = (a: string, b: string) => {
-    if (!index.has(a)) index.set(a, new Set());
-    if (!index.has(b)) index.set(b, new Set());
-    index.get(a)!.add(b);
-    index.get(b)!.add(a);
-  };
-  const posables = new Set(donnees.filter((d) => d.mode === "demandee" || d.mode === "partagee").map((d) => d.code));
-  for (const d of donnees) {
-    if (d.mode !== "partagee" || exclues.has(d.code)) continue;
-    for (const e of d.entrees) if (posables.has(e) && !exclues.has(e)) lier(d.code, e);
-  }
-  return index;
-}
+// Données partagées entre agents (jumelles, correspondances partie à partie) : voir partages.ts et data/partages.json.
+export { equivalences };
 
 function concerne(d: Donnee, profils: ProfilId[], taille: TailleId, metier: MetierDuCompte | null | undefined): boolean {
   if (!pourLeMetier(d, metier)) return false;
@@ -197,7 +188,8 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
   const ctx: ContexteAssemblage = { ...entree, reponses: { ...actives, ...implicites.reponses } };
   const lire = lecteurDeclencheurs(ctx.reponses, ctx.taille, regles, inapplicables);
   const banque = new Map<string, Question>(e.banque.map((q) => [q.donnee, q]));
-  const equiv = equivalences(e.donnees, donneesPrerepondues(e.prereponses));
+  const equiv = equivalences(e, { profils: ctx.profils, vocabulaire: ctx.vocabulaire ?? null });
+  const partage = lecturePartagee(e, ctx.reponses, equiv);
   const declencheursParCode = new Map(e.declencheurs.map((d) => [d.code, d]));
   const themesAgent = e.themes.filter((t) => t.agent === ctx.agent && !(ex?.themes ?? []).includes(t.code));
 
@@ -246,9 +238,9 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
       if (retirees.length > 0) spec = { ...spec, options: spec.options.filter((o) => !retirees.includes(o.id)) };
     }
     const specSource = q?.reponse ? "banque" : spec ? "classeur" : null;
-    const equivalents = [...(equiv.get(d.code) ?? [])];
-    const deja = ctx.reponses[d.code] !== undefined || equivalents.some((c) => ctx.reponses[c] !== undefined);
-    if (deja) dejaPosees++;
+    const directe = ctx.reponses[d.code] !== undefined;
+    const sourcesPartage = partage.sources(d.code);
+    if (directe || sourcesPartage.length > 0) dejaPosees++;
     if (d.niveau === "essentiel") essentielles++;
     // Les mots du lexique valent aussi dans l'aide et la question de repli.
     const mots = (t: string | null | undefined): string | null => {
@@ -268,8 +260,10 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
       quatreReponses: spec ? spec.type === "nombre" : accepteLesQuatreReponses(d.format),
       spec,
       specSource,
-      dejaPosee: deja && ctx.reponses[d.code] === undefined,
-      dejaPoseeDans: ctx.reponses[d.code] === undefined ? equivalents.find((c) => ctx.reponses[c] !== undefined) ?? null : null,
+      dejaPosee: !directe && sourcesPartage.length > 0,
+      dejaPoseeDans: sourcesPartage[0] ?? null,
+      sourcesPartage,
+      reprise: directe ? null : partage.reprise(d.code),
       prereponse: spec?.type === "nombre" && ctx.reponses[d.code] === undefined ? prereponseDe(e.prereponses, d.code, ctx.reponses) : null,
     };
   };
@@ -382,6 +376,7 @@ export function assemblerQuestionnaire(e: EnsembleDonnees, entree: ContexteAssem
     enAttente,
     dejaPosees,
     reponsesActives: actives,
+    equivalences: equiv,
     statistiques: { aPoser: toutes.length, ecrites, manquantes: toutes.length - ecrites, essentielles },
   };
 }

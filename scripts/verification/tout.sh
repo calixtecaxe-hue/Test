@@ -55,6 +55,7 @@ lancer rapides node scripts/verification/rapides.mjs --sortie $R
 lancer historique node scripts/verification/historique.mjs --sortie $R
 lancer objectifs node scripts/verification/objectifs.mjs --sortie $R
 lancer listes node scripts/verification/listes.mjs --sortie $R
+lancer partages node scripts/verification/partages.mjs --sortie $R
 lancer prereponse node scripts/controle-prereponse.mjs
 lancer autre node scripts/controle-autre.mjs
 lancer compte node scripts/controle-compte.mjs

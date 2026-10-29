@@ -13,7 +13,7 @@
 
 import { join } from "node:path";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { equivalences, donneesPrerepondues } from "../../src/lib/audit/assemblage.ts";
+import { equivalences } from "../../src/lib/audit/partages.ts";
 import { clesDeLaRegle, cleDeDonnee, moisMinimumDExistence, donneeDuDeclencheur, TAILLES_D02 } from "../../src/lib/audit/affichage.ts";
 import { formuler, variablesDuGabarit } from "../../src/lib/donnees/lexique.ts";
 import { LIBELLE_UNITE, type ReponseSpec } from "../../src/lib/donnees/reponse-spec.ts";
@@ -62,7 +62,7 @@ function decrireSpec(spec: ReponseSpec | null | undefined): { type: string; choi
 
 type Lien = { source: string; type: string; condition: string; cible: string; attendu: string };
 const liens: Lien[] = [];
-const equiv = equivalences(e.donnees, donneesPrerepondues(e.prereponses));
+const equiv = equivalences(e);
 const sourceDeCle = (cle: string): string => cleDeDonnee(cle)?.donnee ?? donneeDuDeclencheur(regles, cle.split(".")[0]) ?? (cle === "D02" ? "Taille (inscription)" : cle.split(".")[0]);
 
 for (const d of e.donnees) {
@@ -76,6 +76,12 @@ for (const d of e.donnees) {
   if (spec?.type === "tableau" && spec.lignes.source === "declencheur") liens.push({ source: sourceDeCle(spec.lignes.cle), type: "lignes du tableau", condition: `une ligne par choix coché`, cible: d.code, attendu: "lignes = choix cochés, dans leur ordre ; un choix ajouté ajoute une ligne vide ; un choix retiré retire sa ligne et sa valeur de la réponse active et du calcul ; les autres valeurs sont gardées" });
   if (spec?.type === "tableau" && spec.lignes.source === "donnee") liens.push({ source: spec.lignes.code, type: "lignes du tableau", condition: "une ligne par élément de la liste", cible: d.code, attendu: "lignes = éléments écrits ; un élément renommé ou retiré retire sa ligne et sa valeur de la réponse active" });
   if (d.mode === "partagee") for (const x of equiv.get(d.code) ?? []) if (x !== d.code) liens.push({ source: x, type: "donnée partagée", condition: "même donnée chez un autre agent", cible: d.code, attendu: "posée une seule fois ; la réponse donnée chez l'un vaut chez l'autre" });
+  // Correspondances partie à partie (data/partages.json) : un champ, une colonne ou une ligne d'une question est la réponse de l'autre.
+  for (const c of e.partages.correspondances) {
+    const [a, b] = [c.cle.split("#")[0], c.egale.split("#")[0]];
+    if (a === d.code) liens.push({ source: b, type: "donnée partagée (partie)", condition: `${c.egale} = ${c.cle}`, cible: d.code, attendu: "pas reposée si toutes ses parties sont connues ; sinon les valeurs connues sont reprises" });
+    if (b === d.code) liens.push({ source: a, type: "donnée partagée (partie)", condition: `${c.cle} = ${c.egale}`, cible: d.code, attendu: "pas reposée si toutes ses parties sont connues ; sinon les valeurs connues sont reprises" });
+  }
 }
 for (const t of e.themes) {
   const m = t.masquePour ? regles.masquages[t.masquePour] : undefined;

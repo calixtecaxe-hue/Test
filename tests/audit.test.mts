@@ -27,7 +27,7 @@ import {
   enregistrerObjectif,
 } from "../src/lib/audit/objectif.ts";
 import { evaluer, tailleDepuisEffectif, lecteurDeclencheurs } from "../src/lib/audit/affichage.ts";
-import { assemblerQuestionnaire, compterQuestions, donneesPrerepondues, equivalences } from "../src/lib/audit/assemblage.ts";
+import { assemblerQuestionnaire, compterQuestions, equivalences } from "../src/lib/audit/assemblage.ts";
 
 const dossier = join(fileURLToPath(new URL("..", import.meta.url)), "data");
 const reel = chargerDepuisDisque(dossier);
@@ -332,7 +332,7 @@ test("une question écrite dans la banque prend les mots du métier", () => {
 });
 
 test("une donnée partagée déjà posée par un autre agent n'est jamais redemandée", () => {
-  const eq = equivalences(reel.donnees);
+  const eq = equivalences(reel);
   assert.ok(eq.get("FIN-14.01")?.has("ACQ-23.01") || reel.donnees.find((d) => d.code === "ACQ-23.01")?.mode !== "demandee");
   // FIN-01.01 (prix des 3 offres) remplace ACQ-13.01 : répondre ici dispense de répondre là.
   assert.ok(eq.get("FIN-01.01")?.has("ACQ-13.01"));
@@ -382,7 +382,7 @@ test("le budget marketing et communication (FIN-05.02) est toujours posé, déj�
 });
 
 test("le budget marketing n'est lié à aucun autre : le détail Comm reste demandé même si le total est connu", () => {
-  const eq = equivalences(reel.donnees, donneesPrerepondues(reel.prereponses));
+  const eq = equivalences(reel);
   assert.equal(eq.get("FIN-05.02")?.size ?? 0, 0);
   assert.equal([...(eq.get("COM-32.02") ?? [])].includes("FIN-05.02"), false);
 });

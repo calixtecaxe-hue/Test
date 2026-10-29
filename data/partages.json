@@ -1,0 +1,88 @@
+{
+  "source": "Audit final des questions, 29 octobre 2026. La colonne « Données utilisées » d'une donnée partagée du classeur mêle deux choses : la même question posée par un autre agent (jumelle), et des données qui servent seulement à la calculer. Ce fichier dit, pour chaque lien du classeur entre deux questions posées qui n'est pas une jumelle exacte (même texte, même réponse), ce qu'il est : pas un partage (les deux questions sont posées), ou une correspondance partie à partie (un champ, une colonne ou une ligne de tableau d'une question est la réponse de l'autre). Le contrôle des données refuse un lien du classeur qui n'est ni une jumelle exacte ni décrit ici.",
+  "pasDesPartages": [
+    {
+      "donnee": "ACQ-21.03",
+      "entree": "RH-07.01",
+      "raison": "ACQ-21.03 est un nombre de ventes par mois ; RH-07.01 est un tableau d'heures en plus par semaine, par fonction. Le classeur décrit un calcul (« ventes du mois + ventes absorbables avec les heures disponibles ») qui n'est pas écrit : ce n'est pas la même réponse. Les deux questions sont posées."
+    },
+    {
+      "donnee": "ACQ-21.04",
+      "entree": "RH-06.02",
+      "raison": "ACQ-21.04 donne les heures travaillées et facturées par l'équipe, par mois ; RH-06.02 les heures réelles d'un salarié, par semaine. Le classeur décrit un calcul (heures par personne × personnes en production × 4,33) qui n'est pas écrit, et les heures facturées ne s'en déduisent pas. Les deux questions sont posées."
+    },
+    {
+      "donnee": "ACQ-21.04",
+      "entree": "RH-05.01",
+      "raison": "RH-05.01 donne les jours et les heures du dirigeant par semaine. Le classeur s'en sert pour un calcul (« seul : vos heures par semaine × 4,33 ») qui n'est pas écrit ; elle ne donne ni les heures de l'équipe ni les heures facturées. Les deux questions sont posées."
+    },
+    {
+      "donnee": "FIN-06.02",
+      "entree": "ACQ-11.07",
+      "raison": "FIN-06.02 est un nombre de ventes par mois ; ACQ-11.07 un nombre de couverts par service, midi et soir. Les couverts par mois se calculent avec les services par semaine (ACQ-11.09 × 4,33), calcul à écrire (CLAUDE.md, section 11). Les deux questions sont posées."
+    },
+    {
+      "donnee": "COM-13.01",
+      "entree": "ACQ-02.01",
+      "raison": "COM-13.01 compte les visites du site par mois ; ACQ-02.01 compte les {demandes} par mois, qui ne se lisent « visiteurs de votre site » que pour une boutique en ligne. Pour les autres profils (demandes de devis, réservations, visiteurs en boutique…), ce n'est pas la même donnée.",
+      "partageSeulementPour": ["ecommerce"]
+    },
+    {
+      "donnee": "COM-44.01",
+      "entree": "ACQ-06.08",
+      "raison": "COM-44.01 porte sur la fiche Google ; ACQ-06.08 sur la plateforme principale (TheFork, Doctolib, Trustpilot…), avec sa propre échelle de note. La jumelle de COM-44.01 est ACQ-06.01. Les deux questions sont posées."
+    }
+  ],
+  "correspondances": [
+    {
+      "cle": "COM-32.01#creation_de_contenu_photographe_videaste",
+      "egale": "ACQ-07.03",
+      "raison": "Même dépense mensuelle de création de contenu : un champ de COM-32.01, une question de l'Acquisition (COM-32.01 reprend les lignes de l'Acquisition, CLAUDE.md section 6)."
+    },
+    {
+      "cle": "COM-32.01#agence_ou_prestataire_marketing",
+      "egale": "ACQ-07.01",
+      "raison": "Même dépense mensuelle d'agence ou de prestataire marketing."
+    },
+    {
+      "cle": "COM-32.01#outils_marketing",
+      "egale": "ACQ-07.04",
+      "raison": "Même dépense mensuelle d'outils marketing."
+    },
+    {
+      "cle": "COM-12.01#*.part_des_demandes",
+      "egale": "ACQ-03.02#*.part_des_demandes",
+      "raison": "Même part des demandes par canal sur 12 mois : une colonne de COM-12.01, le tableau ACQ-03.02."
+    },
+    {
+      "cle": "COM-12.01#*.part_des_nouveaux_clients",
+      "egale": "ACQ-03.03#*.part_des_nouveaux_clients",
+      "raison": "Même part des nouveaux clients par canal sur 12 mois : une colonne de COM-12.01, le tableau ACQ-03.03."
+    },
+    {
+      "cle": "COM-12.01#*.part_du_chiffre_d_affaires_sur_12_mois",
+      "egale": "ACQ-03.04#*.part_du_chiffre_d_affaires",
+      "raison": "Même part du chiffre d'affaires par canal sur 12 mois : une colonne de COM-12.01, le tableau ACQ-03.04."
+    },
+    {
+      "cle": "FIN-34.02",
+      "egale": "ACQ-20.02#chiffres_financiers_tresorerie_marge_cha.frequence",
+      "raison": "Même fréquence de lecture des chiffres financiers, mêmes choix : une question de la Finance, une ligne du tableau ACQ-20.02."
+    },
+    {
+      "cle": "COM-43.01",
+      "egale": "ACQ-20.02#statistiques_de_communication.frequence",
+      "raison": "Même fréquence de lecture des statistiques de communication, mêmes choix : une question de la Comm, une ligne du tableau ACQ-20.02."
+    },
+    {
+      "cle": "RH-16.01#reprises_par_mois",
+      "egale": "FIN-10.01#reprises_par_mois",
+      "raison": "Même nombre de reprises par mois sur les 3 derniers mois : un champ de RH-16.01 et un champ de FIN-10.01."
+    },
+    {
+      "cle": "RH-16.01#temps_moyen_d_une_reprise",
+      "egale": "FIN-10.03",
+      "raison": "Même temps passé sur une reprise, en heures : un champ de RH-16.01, une question de la Finance."
+    }
+  ]
+}

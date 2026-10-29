@@ -14,7 +14,8 @@ import type { ReponseSpec } from "../donnees/reponse-spec.ts";
 import type { TailleId } from "./affichage.ts";
 import type { MetierDuCompte } from "../routage.ts";
 import type { DeclencheurClient, ThemeClient } from "../../app/(espace)/audit/[slug]/questionnaire.tsx";
-import type { LibellesLignes, QuestionClient, RenvoiLignes } from "../../app/(espace)/audit/[slug]/question-carte.tsx";
+import type { LibellesLignes, QuestionClient, RenvoiLignes, SourcePartagee } from "../../app/(espace)/audit/[slug]/question-carte.tsx";
+import { lecturePartagee } from "./partages.ts";
 
 export type EntreePreparation = {
   agent: CodeAgent;
@@ -83,11 +84,15 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
   // Tableaux dont les lignes se règlent ailleurs : la question d'où elles viennent, sur cette page ou dans l'audit d'un autre agent.
   const assemblees = new Map([...a.prealables, ...a.themes.flatMap((t) => t.questions)].map((q) => [q.code, q]));
   const nomAgent = (code: string) => AGENTS.find((ag) => ag.code === e.themes.find((t) => t.code === code.slice(0, code.indexOf(".")))?.agent)?.nom ?? "un autre agent";
-  const renvoi = (code: string): RenvoiLignes => {
-    const ici = assemblees.get(code);
+  // Texte d'une question avec les mots du métier (celle de cette page, sinon celle de la banque), à défaut le libellé du classeur.
+  const texteDe = (code: string): string => {
     const banque = e.banque.find((b) => b.donnee === code);
     const f = banque ? formuler(banque.texte, o.profils, e.lexique, o.vocabulaire) : null;
-    const texte = ici?.texte ?? (f?.ok ? f.texte : null) ?? e.donnees.find((d) => d.code === code)?.libelle ?? code;
+    return assemblees.get(code)?.texte ?? (f?.ok ? f.texte : null) ?? e.donnees.find((d) => d.code === code)?.libelle ?? code;
+  };
+  const renvoi = (code: string): RenvoiLignes => {
+    const ici = assemblees.get(code);
+    const texte = texteDe(code);
     // Une liste ou des cases posées sur cette page : la question se répond aussi dans le tableau qui en dépend, tant
     // qu'il n'a pas de lignes (le dirigeant n'a pas à la chercher plus haut).
     const enLigne = ici && !ici.dejaPosee && (ici.spec?.type === "liste" || ici.spec?.type === "cases") ? questionClient(ici) : undefined;
@@ -127,6 +132,18 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
     }
     return { spec: s, periode: texte ? texte + note : regle.note, periodeAncienne: ancienne };
   };
+  // Question d'un autre agent qui porte une réponse partagée : son texte, sa réponse, et comment elle se modifie ici.
+  const sourcePartagee = (code: string): SourcePartagee => ({
+    code,
+    texte: texteDe(code),
+    spec: periode(code, code, specDeLaDonnee(e, code).spec).spec,
+    ...lignesVenues(code, lignesDeLaDonnee(specDeLaDonnee(e, code).spec)),
+    agent: nomAgent(code),
+  });
+  // Correspondances d'une question composée (data/partages.json), lues sous le code qui porte la réponse (la question ou sa jumelle).
+  const porteur = (code: string) => (reponses[code] !== undefined ? code : [...(a.equivalences.get(code) ?? [])].find((c) => reponses[c] !== undefined) ?? code);
+  const lecture = lecturePartagee(e, reponses, a.equivalences);
+  const partiesLues = (code: string) => lecture.parties(code).map((c) => ({ de: { code: porteur(c.de.code), chemin: c.de.chemin }, vers: c.vers }));
   const questionClient = (q: typeof a.themes[number]["questions"][number]): QuestionClient => ({
     code: q.code,
     libelle: q.libelle,
@@ -141,13 +158,11 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
     prereponse: q.prereponse,
     preremplie: o.preremplies.get(q.code) ?? null,
     brouillon: reponses[q.code] === undefined ? o.brouillons.get(q.code) ?? null : null,
-    source: q.dejaPoseeDans
-      ? {
-          code: q.dejaPoseeDans,
-          spec: periode(q.dejaPoseeDans, q.dejaPoseeDans, specDeLaDonnee(e, q.dejaPoseeDans).spec).spec,
-          ...lignesVenues(q.dejaPoseeDans, lignesDeLaDonnee(specDeLaDonnee(e, q.dejaPoseeDans).spec)),
-          agent: AGENTS.find((ag) => ag.code === e.themes.find((t) => t.code === q.dejaPoseeDans!.slice(0, q.dejaPoseeDans!.indexOf(".")))?.agent)?.nom ?? "un autre agent",
-        }
+    source: q.dejaPoseeDans ? sourcePartagee(q.dejaPoseeDans) : null,
+    autresSources: q.sourcesPartage.slice(1).map(sourcePartagee),
+    parties: q.dejaPosee && q.dejaPoseeDans && !a.equivalences.get(q.code)?.has(q.dejaPoseeDans) ? partiesLues(q.code) : null,
+    reprise: q.reprise
+      ? { valeurs: q.reprise.valeurs, detail: `Valeurs reprises de vos réponses à l'audit ${[...new Set(q.reprise.sources.map(nomAgent))].join(" et ")} : vérifiez-les et complétez cette question.` }
       : null,
   });
   const themes: ThemeClient[] = [
@@ -189,6 +204,8 @@ export function preparerQuestionnaire(e: EnsembleDonnees, o: EntreePreparation):
       t.questions.flatMap((q) => [
         q.code,
         ...(q.source ? [q.source.code] : []),
+        ...(q.autresSources ?? []).flatMap((x) => [x.code, ...(x.lignesSuivies?.questions.map((r) => r.code) ?? [])]),
+        ...(q.parties ?? []).map((c) => c.de.code),
         ...(q.spec?.type === "tableau" && q.spec.lignes.source === "donnee" ? [q.spec.lignes.code] : []),
         ...(q.spec?.type === "tableau" && q.spec.lignes.source === "declencheur" ? [q.spec.lignes.cle] : []),
         // Tableau qui suit les lignes d'un autre : la réponse de celui-ci donne les lignes et leurs noms.

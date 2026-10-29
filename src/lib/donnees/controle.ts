@@ -16,6 +16,7 @@ import type { Regle, RegleSimple } from "./schemas.ts";
 import { cleDeDonnee } from "../audit/affichage.ts";
 import { ancienneteExigee, reglePeriode } from "../audit/periodes.ts";
 import { controlerEvolution } from "../moteur/evolution.ts";
+import { liensDuClasseur } from "../audit/partages.ts";
 import type { SourceEvolution } from "./schemas.ts";
 
 function reglesSimples(r: Regle): RegleSimple[] {
@@ -439,6 +440,66 @@ export function controlerDonnees(e: EnsembleDonnees): Rapport {
     const spec = banqueParDonnee.get(p.donnee)?.reponse;
     if (spec && spec.type !== "nombre") erreurs.push(`La pré-réponse de ${p.donnee} suppose une réponse en nombre, la banque en définit une autre (${spec.type}).`);
   }
+  // Données partagées (data/partages.json) : un lien du classeur entre deux questions posées est une jumelle exacte (même texte,
+  // même réponse), un lien qui n'est pas un partage, ou une correspondance partie à partie. Sinon, la réponse donnée chez un agent
+  // serait reprise chez l'autre pour une autre question.
+  {
+    const paire = (a: string, b: string) => [a, b].sort().join(" et ");
+    const prerepondues = new Set(e.prereponses.regles.map((r) => r.donnee));
+    const pas = new Map(e.partages.pasDesPartages.map((p) => [paire(p.donnee, p.entree), p]));
+    const coteDe = (cle: string) => ({ code: cle.split("#")[0], chemin: cle.includes("#") ? cle.slice(cle.indexOf("#") + 1) : "" });
+    const enCorrespondance = new Set(e.partages.correspondances.map((c) => paire(coteDe(c.cle).code, coteDe(c.egale).code)));
+    const liens = new Set<string>();
+    for (const [a, b] of liensDuClasseur(e)) {
+      if (prerepondues.has(a) || prerepondues.has(b)) continue;
+      liens.add(paire(a, b));
+      if (pas.has(paire(a, b)) || enCorrespondance.has(paire(a, b))) continue;
+      const qa = banqueParDonnee.get(a);
+      const qb = banqueParDonnee.get(b);
+      if (qa && qb && (qa.texte !== qb.texte || JSON.stringify(qa.reponse ?? null) !== JSON.stringify(qb.reponse ?? null))) {
+        erreurs.push(`Le classeur lie ${a} et ${b} (donnée partagée), mais ce ne sont pas les mêmes questions (texte ou réponse) : décrivez ce lien dans data/partages.json (pas un partage, ou correspondance partie à partie).`);
+      }
+    }
+    for (const p of e.partages.pasDesPartages) {
+      if (!liens.has(paire(p.donnee, p.entree))) erreurs.push(`data/partages.json : ${p.donnee} et ${p.entree} ne sont pas liées par le classeur.`);
+      if (enCorrespondance.has(paire(p.donnee, p.entree))) erreurs.push(`data/partages.json : ${p.donnee} et ${p.entree} sont à la fois « pas un partage » et en correspondance.`);
+    }
+    // Ce qu'une partie attend comme réponse : un chiffre (et son unité) ou un choix (et ses options).
+    // null : la question n'est pas (encore) écrite dans la banque, rien à comparer.
+    const valeurDe = (cle: string): { forme: string; tableau?: string } | string | null => {
+      const { code, chemin } = coteDe(cle);
+      if (!banqueParDonnee.has(code)) return null;
+      const spec = banqueParDonnee.get(code)?.reponse as ReponseSpec | undefined;
+      if (!spec) return `${code} n'a pas de réponse écrite dans la banque`;
+      const forme = (x: ReponseSpec): string | null =>
+        x.type === "nombre" ? `nombre en ${x.unite}` : x.type === "choix" ? `choix ${x.options.map((o) => o.id).join(", ")}` : x.type === "oui_non" ? "oui ou non" : null;
+      if (chemin === "") return forme(spec) ? { forme: forme(spec)! } : `${code} n'est pas un chiffre ni un choix : précisez la partie`;
+      if (spec.type === "composite") {
+        const champ = spec.champs.find((c) => c.id === chemin);
+        return champ && forme(champ.spec) ? { forme: forme(champ.spec)! } : `${cle} : champ inconnu ou qui n'est pas un chiffre ni un choix`;
+      }
+      if (spec.type === "tableau") {
+        const [ligne, colonne] = chemin.split(".");
+        const col = spec.colonnes.find((c) => c.id === colonne);
+        if (!col || !forme(col.spec)) return `${cle} : colonne inconnue ou qui n'est pas un chiffre ni un choix`;
+        if (ligne === "*") return { forme: forme(col.spec)!, tableau: JSON.stringify(spec.lignes) };
+        if (spec.lignes.source !== "fixe" || !spec.lignes.items.some((l) => l.id === ligne)) return `${cle} : ligne inconnue`;
+        return { forme: forme(col.spec)! };
+      }
+      return `${cle} : une partie ne se lit que dans un groupe de champs ou un tableau`;
+    };
+    for (const c of e.partages.correspondances) {
+      const [a, b] = [valeurDe(c.cle), valeurDe(c.egale)];
+      if (typeof a === "string") erreurs.push(`data/partages.json : ${a}.`);
+      if (typeof b === "string") erreurs.push(`data/partages.json : ${b}.`);
+      if (a === null || b === null || typeof a === "string" || typeof b === "string") continue;
+      if (a.forme !== b.forme) erreurs.push(`data/partages.json : ${c.cle} (${a.forme}) et ${c.egale} (${b.forme}) n'attendent pas la même réponse.`);
+      if ((a.tableau === undefined) !== (b.tableau === undefined)) erreurs.push(`data/partages.json : ${c.cle} et ${c.egale} : une colonne entière ne correspond qu'à une colonne entière.`);
+      else if (a.tableau !== undefined && a.tableau !== b.tableau) erreurs.push(`data/partages.json : ${c.cle} et ${c.egale} n'ont pas les mêmes lignes.`);
+      if (!liens.has(paire(coteDe(c.cle).code, coteDe(c.egale).code))) avertissements.push(`data/partages.json : ${coteDe(c.cle).code} et ${coteDe(c.egale).code} ne sont pas liées par le classeur.`);
+    }
+  }
+
   // Tableaux liés : chaque tableau et chaque question suivie est un tableau à lignes numérotées de la banque, avec les mêmes
   // groupes de lignes ; la colonne qui nomme les lignes existe dans au moins une question suivie.
   const groupesDe = (code: string) => {

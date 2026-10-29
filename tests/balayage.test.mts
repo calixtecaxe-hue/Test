@@ -201,7 +201,7 @@ test("balayage : chaque donnée demandée est posable pour au moins un profil, u
 });
 
 test("balayage : les équivalences entre données partagées sont symétriques et ne sortent pas de la liste des données posables", () => {
-  const eq = equivalences(reel.donnees);
+  const eq = equivalences(reel);
   const posables = new Set(reel.donnees.filter((d) => d.mode === "demandee" || d.mode === "partagee").map((d) => d.code));
   for (const [a, autres] of eq) {
     assert.ok(posables.has(a), a);

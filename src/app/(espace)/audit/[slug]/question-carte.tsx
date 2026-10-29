@@ -9,6 +9,7 @@ import { construireReponse, saisieInitiale, type Saisie } from "@/lib/audit/sais
 import { ajouterLigne, groupesReglables, lignesInitiales, lignesRemplies, questionMeneuse, sansLigne, type GroupeLignes } from "@/lib/audit/lignes";
 import { LIBELLE_UNITE, appliquerExclusives, colonnesDuTotal, idsDeListe, type ChampNomme, type ChampSimple, type ReponseSpec } from "@/lib/donnees/reponse-spec";
 import { etatTableau } from "@/lib/audit/reponses-actives";
+import { composerParties, type Correspondance, type Plat } from "@/lib/audit/partages";
 
 export type QuestionClient = {
   code: string;
@@ -24,8 +25,14 @@ export type QuestionClient = {
   prereponse: { total: number; detail: string } | null;
   // Chiffre déjà enregistré d'après ce détail : il se met à jour si le détail change, tant que le dirigeant ne le corrige pas.
   preremplie?: string | null;
-  // Réponse donnée pour un autre agent : où elle est enregistrée, et comment elle se modifie.
-  source: ({ code: string; spec: ReponseSpec | null; agent: string } & LignesVenues) | null;
+  // Réponse donnée pour un autre agent : où elle est enregistrée, et comment elle se modifie. Une réponse composée de
+  // plusieurs questions (data/partages.json) en a plusieurs : la première ici, les suivantes dans `autresSources`.
+  source: SourcePartagee | null;
+  autresSources?: SourcePartagee[];
+  // Réponse composée des parties d'autres questions : comment la lire dans leurs réponses (null pour une jumelle).
+  parties?: Correspondance[] | null;
+  // Question couverte en partie par des réponses données à un autre agent : valeurs reprises dans le formulaire, à compléter.
+  reprise?: { valeurs: Plat; detail: string } | null;
   // Tableau à total imposé : saisie partielle gardée sur le compte, restée sans réponse faute d'un total juste.
   brouillon?: Record<string, string> | null;
   // Mois exacts sur lesquels porte la réponse (« Période : juillet à septembre 2025, les mêmes mois un an plus tôt. »).
@@ -35,6 +42,8 @@ export type QuestionClient = {
   // Comm (6C) : la partie de l'objectif ne correspond pas au parcours que donne cette réponse (COM-10.07).
   ecartObjectif?: string | null;
 } & LignesVenues;
+
+export type SourcePartagee = { code: string; texte: string; spec: ReponseSpec | null; agent: string } & LignesVenues;
 
 // Question où se règlent les lignes d'un tableau : sur cette page (ancre « #q-CODE ») ou dans l'audit d'un autre agent.
 export type RenvoiLignes = { code: string; texte: string; ici: boolean; agent: string; question?: QuestionClient };
@@ -416,37 +425,64 @@ function CorpsReponse({ q, id, spec, saisie, surSaisie, setSaisie, poser, vider,
 // --- La carte d'une question ---------------------------------------------------------------
 
 // Ce que dit une réponse déjà enregistrée, en une ligne.
-export function resumeReponse(r: Reponse | undefined): string {
+export function resumeReponse(r: Reponse | undefined, spec: ReponseSpec | null = null): string {
   if (!r) return "Pas encore de réponse.";
+  // Un choix se lit par son libellé, jamais par son identifiant.
+  const libelle = (id: string) => (spec?.type === "choix" || spec?.type === "cases" ? spec.options.find((o) => o.id === id)?.libelle ?? id : id);
+  const unite = (u: keyof typeof LIBELLE_UNITE) => (LIBELLE_UNITE[u] ? `\u00a0${LIBELLE_UNITE[u]}` : "");
   switch (r.genre) {
     case "exact":
-      return formaterNombre(r.valeur);
+      return formaterNombre(r.valeur) + (spec?.type === "nombre" ? unite(spec.unite) : "");
     case "estimation":
-      return `Entre ${formaterNombre(r.min)} et ${formaterNombre(r.max)} (estimation)`;
+      return `Entre ${formaterNombre(r.min)} et ${formaterNombre(r.max)}${spec?.type === "nombre" ? unite(spec.unite) : ""} (estimation)`;
     case "inconnu":
       return "« Je ne sais pas »";
     case "non_suivi":
       return "« Je ne suis pas cette donnée »";
     case "saisie":
-      return Array.isArray(r.valeur) ? r.valeur.join(", ") : typeof r.valeur === "boolean" ? (r.valeur ? "Oui" : "Non") : r.valeur === "oui" ? "Oui" : r.valeur === "non" ? "Non" : r.valeur;
+      return Array.isArray(r.valeur) ? r.valeur.map(libelle).join(", ") : typeof r.valeur === "boolean" ? (r.valeur ? "Oui" : "Non") : r.valeur === "oui" ? "Oui" : r.valeur === "non" ? "Non" : libelle(r.valeur);
     case "valeurs": {
+      // Plusieurs champs : chacun avec son libellé et son unité.
+      if (spec?.type === "composite") {
+        const lus = spec.champs.flatMap((c) => {
+          const v = r.valeurs[c.id];
+          if (v === null || v === undefined || v === "") return [];
+          const texte = typeof v === "number" ? formaterNombre(v) + (c.spec.type === "nombre" ? unite(c.spec.unite) : "") : c.spec.type === "choix" ? c.spec.options.find((o) => o.id === v)?.libelle ?? String(v) : String(v);
+          return [`${c.libelle} : ${texte}`];
+        });
+        if (lus.length > 0) return lus.join(" ; ");
+      }
       const n = Object.values(r.valeurs).filter((v) => v !== null && v !== "").length;
       return `${n} valeur${n > 1 ? "s" : ""} renseignée${n > 1 ? "s" : ""}`;
     }
   }
 }
 
-// Donnée déjà posée pour un autre agent : reprise ici, jamais redemandée, mais modifiable.
-export function CartePartagee({ q, reponse, onModifier }: { q: QuestionClient; reponse: Reponse | undefined; onModifier: () => void }) {
+// Donnée déjà posée pour un autre agent : reprise ici, jamais redemandée, mais modifiable. Une jumelle montre sa réponse ; une
+// question composée des parties d'autres questions (data/partages.json) montre la valeur lue dans leurs réponses, et les
+// questions où elle se modifie.
+export function CartePartagee({ q, reponses, onModifier }: { q: QuestionClient; reponses: Reponses; onModifier: () => void }) {
+  const sources = [q.source, ...(q.autresSources ?? [])].filter((x): x is SourcePartagee => x !== null);
+  const agents = [...new Set(sources.map((x) => x.agent))].join(" et ");
+  let reponse: Reponse | undefined = reponses[q.source?.code ?? ""];
+  if (q.parties) {
+    const c = composerParties(q.parties, (code) => (reponses[code] !== undefined ? { r: reponses[code]!, code } : null));
+    reponse = c.entiere ?? (Object.keys(c.plat).length > 0 ? { genre: "valeurs", valeurs: c.plat } : undefined);
+  }
   return (
     <li id={`q-${q.code}`} className="rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5" data-question={q.code} data-traitee="oui" data-partagee="oui">
       <p className="text-[var(--text)]">{q.texte ?? q.libelle}</p>
       {q.periode ? <p className="mt-1 text-sm text-[var(--text)]" data-periode>{q.periode}</p> : null}
       {q.periodeAncienne ? <p className="mt-1 text-sm text-[var(--text-muted)]" data-periode-ancienne>{q.periodeAncienne}</p> : null}
       <p className="mt-3 text-sm text-[var(--text-muted)]">
-        Déjà renseigné pour l&apos;audit {q.source?.agent ?? "d'un autre agent"} : vous n&apos;avez pas à le saisir de nouveau.
+        Déjà renseigné pour l&apos;audit {agents || "d'un autre agent"} : vous n&apos;avez pas à le saisir de nouveau.
       </p>
-      <p className="mt-2 text-sm text-[var(--text)]">Votre réponse : {resumeReponse(reponse)}</p>
+      <p className="mt-2 text-sm text-[var(--text)]" data-reponse-partagee>Votre réponse : {resumeReponse(reponse, q.spec)}</p>
+      {q.parties ? (
+        <p className="mt-1 text-sm text-[var(--text-muted)]">
+          D&apos;après {sources.length > 1 ? "vos réponses aux questions" : "votre réponse à la question"} {sources.map((x) => `« ${x.texte} »`).join(", ")}.
+        </p>
+      ) : null}
       <button type="button" onClick={onModifier} className="audit-lien mt-3 text-sm text-[var(--blue-1)] hover:underline">
         Modifier cette réponse
       </button>
@@ -499,8 +535,13 @@ export function QuestionCarte({
   const detailPrerempli = q.prereponse?.detail ?? q.preremplie ?? null;
   // Brouillon repris à l'affichage : seulement tant que le tableau n'a pas de réponse complète.
   const brouillonRepris = reponse === undefined && spec?.type === "tableau" && spec.total !== undefined && q.brouillon ? q.brouillon : null;
+  // Valeurs déjà données à un autre agent pour une partie de cette question : reprises dans le formulaire, à vérifier et compléter.
+  // Rien n'est enregistré tant que le dirigeant ne répond pas.
+  const repriseAffichee = reponse === undefined && !brouillonRepris && q.reprise ? q.reprise : null;
   const [saisie, setSaisie] = useState<Saisie>(() =>
-    brouillonRepris ? { champs: brouillonRepris } : saisieInitiale(spec, (prerempli && q.prereponse ? { genre: "exact", valeur: q.prereponse.total } : reponse) as never)
+    brouillonRepris
+      ? { champs: brouillonRepris }
+      : saisieInitiale(spec, (prerempli && q.prereponse ? { genre: "exact", valeur: q.prereponse.total } : reponse ?? (repriseAffichee ? { genre: "valeurs", valeurs: repriseAffichee.valeurs } : undefined)) as never)
   );
   // Lignes d'un tableau réglable (« Offre 1… », lignes libres) : celles qui ont une valeur, ou celles de la banque.
   const groupes = spec?.type === "tableau" ? groupesReglables(spec) : null;
@@ -794,6 +835,9 @@ export function QuestionCarte({
         <p className="mt-3 text-sm text-[var(--text-muted)]">Déjà renseigné avec un autre agent : repris ici, vous n&apos;avez pas à le saisir de nouveau.</p>
       ) : (
         <>
+          {repriseAffichee && reponse === undefined && reponseDonnee ? (
+            <p className="mt-3 text-sm text-[var(--text-muted)]" data-reprise>{repriseAffichee.detail}</p>
+          ) : null}
           {prerempli && detailPrerempli && reponseDonnee ? (
             <p className="mt-3 text-sm text-[var(--text-muted)]">Rempli d&apos;après vos réponses précédentes ({detailPrerempli}). Il se met à jour si ce détail change ; corrigez le montant pour le garder tel quel.</p>
           ) : null}

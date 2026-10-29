@@ -15,7 +15,8 @@ import { chargerDepuisDisque } from "../src/lib/donnees/disque.ts";
 import { TAILLES } from "../src/lib/donnees/constantes.ts";
 import { router, METIER_ABSENT, metierDuCompte } from "../src/lib/routage.ts";
 import { vocabulaireDuCompte } from "../src/lib/vocabulaire.ts";
-import { equivalences, type Niveau } from "../src/lib/audit/assemblage.ts";
+import { type Niveau } from "../src/lib/audit/assemblage.ts";
+import { equivalences } from "../src/lib/audit/partages.ts";
 import { formuler } from "../src/lib/donnees/lexique.ts";
 import { constaterAgent } from "../src/lib/moteur/constat.ts";
 import { couvertureTheme, type Reponses } from "../src/lib/audit/reponse.ts";
@@ -146,7 +147,7 @@ for (const s of scenarios) {
           // 2. Tableaux : leurs lignes doivent exister (sinon « Répondez d'abord… » sans issue).
           const posables = new Set(posees.map((q) => q.code));
           const declencheursCodes = new Set(a.declencheursConcernes.map((d) => d.code));
-          const eq = equivalences(e.donnees);
+          const eq = equivalences(e);
           const dispo = (code: string) => posables.has(code) || reponses[code] !== undefined || [...(eq.get(code) ?? [])].some((c) => reponses[c] !== undefined);
           for (const q of posees) {
             if (q.spec?.type !== "tableau") continue;

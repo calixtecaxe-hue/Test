@@ -187,24 +187,26 @@ export function Questionnaire({
               <ul className="mt-4 flex flex-col gap-3">
                 {t.questions.map((q) => {
                   if (q.dejaPosee && q.source) {
-                    const source = q.source;
                     if (!ouvertes.has(q.code)) {
-                      return <CartePartagee key={q.code} q={q} reponse={reponses[source.code]} onModifier={() => setOuvertes((o) => new Set(o).add(q.code))} />;
+                      return <CartePartagee key={q.code} q={q} reponses={reponses} onModifier={() => setOuvertes((o) => new Set(o).add(q.code))} />;
                     }
-                    // La réponse est enregistrée dans la donnée d'origine, avec sa propre spécification.
-                    return (
+                    // La réponse est enregistrée dans la donnée d'origine, avec sa propre spécification ; une réponse composée de
+                    // plusieurs questions se modifie dans chacune d'elles.
+                    const sources = [q.source, ...(q.autresSources ?? [])];
+                    const fermer = () => setOuvertes((o) => { const n = new Set(o); n.delete(q.code); return n; });
+                    return sources.map((source, i) => (
                       <QuestionCarte
-                        key={q.code}
-                        q={{ ...q, code: source.code, spec: source.spec, lignesSuivies: source.lignesSuivies, renvoiLignes: source.renvoiLignes, suiviPar: source.suiviPar, dejaPosee: false, source: null }}
-                        ancre={q.code}
+                        key={`${q.code}-${source.code}`}
+                        q={{ ...q, code: source.code, texte: q.parties ? source.texte : q.texte, aide: q.parties ? null : q.aide, spec: source.spec, lignesSuivies: source.lignesSuivies, renvoiLignes: source.renvoiLignes, suiviPar: source.suiviPar, dejaPosee: false, source: null, autresSources: [], parties: null, reprise: null }}
+                        ancre={i === 0 ? q.code : `${q.code}-${source.code}`}
                         reponse={reponses[source.code]}
                         cadrage={reponses}
                         libellesLignes={libellesLignes}
                         enregistrer={enregistrerQuestion}
                         partageAvec={source.agent}
-                        onTerminer={() => setOuvertes((o) => { const n = new Set(o); n.delete(q.code); return n; })}
+                        onTerminer={i === sources.length - 1 ? fermer : undefined}
                       />
-                    );
+                    ));
                   }
                   return <QuestionCarte key={q.code} q={q} reponse={reponses[q.code]} cadrage={reponses} libellesLignes={libellesLignes} enregistrer={enregistrerQuestion} />;
                 })}

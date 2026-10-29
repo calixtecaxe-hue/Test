@@ -14,7 +14,8 @@
 // Ce fichier n'importe que des types et des fonctions pures : il se teste avec Node.
 
 import type { EnsembleDonnees } from "../donnees/schemas.ts";
-import { donneesPrerepondues, equivalences, type Assemblage } from "../audit/assemblage.ts";
+import type { Assemblage } from "../audit/assemblage.ts";
+import { lecturePartagee } from "../audit/partages.ts";
 import { couvertureTheme, valeurRetenue, type CouvertureTheme, type Reponse, type Reponses } from "../audit/reponse.ts";
 import { choisirSeuil, noter, type Couleur, type NiveauPratique, type Seuil } from "./notation.ts";
 import { choisirReference, type ContexteReference } from "../references/cascade.ts";
@@ -80,14 +81,10 @@ function valeurNotable(r: Reponse | undefined): { valeur: number | NiveauPratiqu
 }
 
 export function constaterAgent(e: EnsembleDonnees, seuils: Seuil[], a: Assemblage, reponses: Reponses, ctx: ContexteConstat): Constat[] {
-  const equiv = equivalences(e.donnees, donneesPrerepondues(e.prereponses));
-  // Une donnée posée par un autre agent compte ici : on lit la réponse de son équivalent.
-  const effective = (code: string): Reponse | undefined => {
-    const direct = reponses[code];
-    if (direct !== undefined) return direct;
-    for (const autre of equiv.get(code) ?? []) if (reponses[autre] !== undefined) return reponses[autre];
-    return undefined;
-  };
+  // Une donnée posée par un autre agent compte ici : on lit la réponse de sa jumelle, ou celle que composent les parties
+  // données ailleurs (data/partages.json).
+  const partage = lecturePartagee(e, reponses, a.equivalences);
+  const effective = (code: string): Reponse | undefined => partage.reponse(code);
   const base = { aValider: false, estimee: false, couleur: null as Couleur | null, couverture: null as CouvertureTheme | null, raison: null as string | null, reperes: [] as Repere[], indicateursSansReference: [] as string[] };
   const constats: Constat[] = [];
 

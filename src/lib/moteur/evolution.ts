@@ -16,6 +16,7 @@
 import type { CodeAgent, Donnee, Evolution, SourceEvolution } from "../donnees/schemas.ts";
 import type { Reponse, Reponses } from "../audit/reponse.ts";
 import { intervalle, moisDeLigne, nomDuMois, reglePeriode, type Fenetre, type Mois } from "../audit/periodes.ts";
+import type { LecturePartagee } from "../audit/partages.ts";
 
 export type ContexteEvolution = {
   // Réponses actives du compte, tous agents confondus (une réponse devenue inapplicable n'y est plus).
@@ -26,8 +27,10 @@ export type ContexteEvolution = {
   creation: Mois | null;
   ancienneteMois: number;
   donnees: ReadonlyMap<string, Donnee>;
-  // Données équivalentes (une donnée partagée et celle qui la pose) : la réponse peut être enregistrée sous l'une ou l'autre.
-  equivalences: ReadonlyMap<string, ReadonlySet<string>>;
+  // Réponses partagées entre agents (src/lib/audit/partages.ts) : la réponse d'une donnée peut être enregistrée sous une jumelle,
+  // ou composée des parties données à un autre agent ; `liees` donne les questions qui la portent.
+  partage: Pick<LecturePartagee, "reponse" | "sources">;
+  liees: (code: string) => string[];
   // Données posées à ce compte, par l'un de ses agents, à son niveau.
   posees: ReadonlySet<string>;
   // Lignes actuelles d'un tableau dont les lignes viennent d'une autre réponse (canaux cochés) ; null pour des lignes fixes.
@@ -67,17 +70,18 @@ export function calculerEvolutions(liste: Evolution[], agent: CodeAgent, ctx: Co
   return liste.filter((e) => e.agents.includes(agent)).map((e) => calculerEvolution(e, ctx));
 }
 
-// Réponse d'une donnée, ou de l'une de ses équivalentes, avec son mois.
+// Réponse d'une donnée (la sienne, celle d'une jumelle, ou celle que composent des parties données ailleurs), avec son mois :
+// pour une réponse composée de plusieurs questions, le plus ancien de leurs mois.
 function reponseDe(code: string, ctx: ContexteEvolution): { r: Reponse; ancre: Mois; code: string } | null {
-  for (const c of [code, ...(ctx.equivalences.get(code) ?? [])]) {
-    const r = ctx.reponses[c];
-    if (r !== undefined) return { r, ancre: ctx.ancrages.get(c) ?? ctx.aujourdhui, code: c };
-  }
-  return null;
+  const r = ctx.reponses[code] ?? ctx.partage.reponse(code);
+  if (r === undefined) return null;
+  const portees = ctx.reponses[code] !== undefined ? [code] : ctx.partage.sources(code);
+  const ancre = Math.min(...portees.map((c) => ctx.ancrages.get(c) ?? ctx.aujourdhui));
+  return { r, ancre, code: portees[0] ?? code };
 }
 
 function posee(code: string, ctx: ContexteEvolution): boolean {
-  return ctx.posees.has(code) || [...(ctx.equivalences.get(code) ?? [])].some((c) => ctx.posees.has(c));
+  return ctx.posees.has(code) || ctx.liees(code).some((c) => ctx.posees.has(c));
 }
 
 // Pourquoi une question n'est pas posée : l'âge de l'entreprise, ou une autre raison.

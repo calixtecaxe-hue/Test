@@ -1,0 +1,1444 @@
+{
+  "genereLe": "2026-10-29T08:37:09.631Z",
+  "questions": 561,
+  "parControle": {
+    "unité différente du texte": 16,
+    "comparaison avec le passé : évolution à vérifier": 24,
+    "montant sans HT ni TTC": 115,
+    "équipe : posée au dirigeant seul": 14,
+    "canal ou outil : condition à vérifier": 32,
+    "financement : condition à vérifier": 12,
+    "relance : condition à vérifier": 8,
+    "terme technique sans aide": 5,
+    "stock : condition à vérifier": 15,
+    "tranches qui se chevauchent": 3,
+    "zéro impossible à choisir": 2,
+    "recrutement : condition à vérifier": 4,
+    "question double pour un seul champ": 1,
+    "zéro impossible à saisir": 3,
+    "texte très proche d'une autre question": 23,
+    "croisement d'évolution sans donnée passée parmi ses entrées": 7
+  },
+  "candidats": [
+    {
+      "code": "ACQ-01.02",
+      "controle": "unité différente du texte",
+      "detail": "« Part du chiffre d'affaires » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-01.08",
+      "controle": "unité différente du texte",
+      "detail": "« Sur les 12 derniers mois, quelle part de votre chiffre d'affaires avez-vous faite dans cette zone ? » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-02.02",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "ACQ-02.03",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "ACQ-03.04",
+      "controle": "unité différente du texte",
+      "detail": "« Part du chiffre d'affaires » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-03.05",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Dépense par mois »"
+    },
+    {
+      "code": "ACQ-04.01",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : ACQ-03.01 (D03) contient « Prospection »"
+    },
+    {
+      "code": "ACQ-05.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires sur 12 mois »"
+    },
+    {
+      "code": "ACQ-05.04",
+      "controle": "unité différente du texte",
+      "detail": "« Commission sur le montant facturé » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-05.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Ou montant fixe par client »"
+    },
+    {
+      "code": "ACQ-06.01",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : ACQ-03.01 (D03) contient « Fiche Google »"
+    },
+    {
+      "code": "ACQ-06.04",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : ACQ-03.01 (D03) contient « Fiche Google »"
+    },
+    {
+      "code": "ACQ-06.12",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : ACQ-03.01 (D03) contient « Fiche Google »"
+    },
+    {
+      "code": "ACQ-06.07",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : ACQ-03.01 (D03) contient « Site internet »"
+    },
+    {
+      "code": "ACQ-06.08",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : ACQ-03.01 (D03) contient « Plateformes »"
+    },
+    {
+      "code": "ACQ-07.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien payez-vous par mois à une agence ou à un prestataire marketing ? »"
+    },
+    {
+      "code": "ACQ-07.02",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : ACQ-03.01 (D03) contient « Plateformes »"
+    },
+    {
+      "code": "ACQ-07.02",
+      "controle": "unité différente du texte",
+      "detail": "« Part de votre chiffre d'affaires » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-07.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien dépensez-vous par mois pour faire créer du contenu : photographe, vidéaste, graphiste ? »"
+    },
+    {
+      "code": "ACQ-07.04",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "ACQ-07.04",
+      "controle": "financement : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "ACQ-07.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien vous coûtent par mois vos outils marketing : emailing, logiciel de réservation ou de suivi des clients, banque d'images ? »"
+    },
+    {
+      "code": "ACQ-07.05",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Il y a 12 mois, combien dépensiez-vous par mois au total en publicité, plateformes, salons, agence, contenu et outils marketing ? »"
+    },
+    {
+      "code": "ACQ-07.05",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "ACQ-08.03",
+      "controle": "relance : condition à vérifier",
+      "detail": "condition : ACQ-08.02 > 0"
+    },
+    {
+      "code": "ACQ-09.06",
+      "controle": "relance : condition à vérifier",
+      "detail": "condition : D05 (cadrage) = « oui » ; thème masqué si Métiers sans rendez-vous"
+    },
+    {
+      "code": "ACQ-10.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant total par mois »"
+    },
+    {
+      "code": "ACQ-10.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant total par mois »"
+    },
+    {
+      "code": "ACQ-10.06",
+      "controle": "relance : condition à vérifier",
+      "detail": "condition : D06 (cadrage) = « oui » ; thème masqué si Métiers sans devis"
+    },
+    {
+      "code": "ACQ-10.07",
+      "controle": "relance : condition à vérifier",
+      "detail": "condition : ACQ-10.06 > 0 ; thème masqué si Métiers sans devis"
+    },
+    {
+      "code": "ACQ-10.08",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant total »"
+    },
+    {
+      "code": "ACQ-10.10",
+      "controle": "relance : condition à vérifier",
+      "detail": "condition : ACQ-10.06 > 0 ; thème masqué si Métiers sans devis"
+    },
+    {
+      "code": "ACQ-10.11",
+      "controle": "relance : condition à vérifier",
+      "detail": "condition : ACQ-10.06 > 0 ; thème masqué si Métiers sans devis"
+    },
+    {
+      "code": "ACQ-11.02",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "ACQ-11.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« En moyenne, combien un nouveau client vous paie-t-il la première fois ? »"
+    },
+    {
+      "code": "ACQ-11.13",
+      "controle": "unité différente du texte",
+      "detail": "« Sur les 12 derniers mois, quelle part de votre chiffre d'affaires vient de la vente à emporter et de la livraison ? » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-11.16",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "ACQ-11.16",
+      "controle": "relance : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "ACQ-11.37",
+      "controle": "unité différente du texte",
+      "detail": "« Sur les 12 derniers mois, quelle part de votre chiffre d'affaires vient de ce que vous vendez en plus : {hors_location} ? » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-12.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant estimé »"
+    },
+    {
+      "code": "ACQ-13.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Prix »"
+    },
+    {
+      "code": "ACQ-13.02",
+      "controle": "unité différente du texte",
+      "detail": "« Part du chiffre d'affaires » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-13.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Tarif »"
+    },
+    {
+      "code": "ACQ-13.04",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "ACQ-13.07",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Prix »"
+    },
+    {
+      "code": "ACQ-14.03",
+      "controle": "unité différente du texte",
+      "detail": "« Sur les 12 derniers mois, quelle part de votre chiffre d'affaires avez-vous faite en promotion ou en soldes ? » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-15.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Quand un client le prend, combien cela ajoute-t-il en moyenne à ce qu'il paie ? »"
+    },
+    {
+      "code": "ACQ-15.14",
+      "controle": "unité différente du texte",
+      "detail": "« Sur les 3 derniers mois, quelle part de votre chiffre d'affaires vient de cette offre haut de gamme ? » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-15.11",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« À partir de quel montant le proposez-vous ? »"
+    },
+    {
+      "code": "ACQ-15.12",
+      "controle": "unité différente du texte",
+      "detail": "« Sur les 3 derniers mois, quelle part de votre chiffre d'affaires a été payée en plusieurs fois ? » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-15.13",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Sur les 3 derniers mois, quel a été en moyenne le montant d'une commande ou d'une facture payée en plusieurs fois ? »"
+    },
+    {
+      "code": "ACQ-16.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires sur 12 mois »"
+    },
+    {
+      "code": "ACQ-16.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires de l'année d'avant »"
+    },
+    {
+      "code": "ACQ-17.04",
+      "controle": "unité différente du texte",
+      "detail": "« Sur les 12 derniers mois, quelle part de votre chiffre d'affaires vient d'anciens clients, qui vous avaient déjà choisi avant ? » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-17.05",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "ACQ-17.08",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Quand un ancien client revient, combien vous paie-t-il en moyenne à chaque fois ? »"
+    },
+    {
+      "code": "ACQ-17.10",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Total payé par mois »"
+    },
+    {
+      "code": "ACQ-17.12",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Total payé par mois »"
+    },
+    {
+      "code": "ACQ-17.12",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "ACQ-18.07",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Que gagne la personne qui vous recommande un nouveau client ? »"
+    },
+    {
+      "code": "ACQ-19.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Aujourd'hui, quel est le montant du travail déjà signé mais pas encore réalisé ? »"
+    },
+    {
+      "code": "ACQ-21.04",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : D18 (cadrage) = « oui »"
+    },
+    {
+      "code": "ACQ-22.09",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires moyen »"
+    },
+    {
+      "code": "ACQ-23.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires »"
+    },
+    {
+      "code": "ACQ-23.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires un an plus tôt »"
+    },
+    {
+      "code": "ACQ-23.03",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-01.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Prix »"
+    },
+    {
+      "code": "FIN-01.02",
+      "controle": "unité différente du texte",
+      "detail": "« Part du chiffre d'affaires » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "FIN-01.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Coût direct »"
+    },
+    {
+      "code": "FIN-02.01",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : D15 (cadrage) = « oui »"
+    },
+    {
+      "code": "FIN-04.01",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-05.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Par mois »"
+    },
+    {
+      "code": "FIN-05.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien dépensez-vous par mois en marketing et en communication, au total ? »"
+    },
+    {
+      "code": "FIN-05.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Il y a 12 mois, combien vous coûtaient vos charges fixes par mois, au total ? »"
+    },
+    {
+      "code": "FIN-05.03",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-05.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Quel a été le résultat de votre dernière année comptable : bénéfice ou perte ? »"
+    },
+    {
+      "code": "FIN-05.05",
+      "controle": "unité différente du texte",
+      "detail": "« À votre avis, sur 100 € de chiffre d'affaires, combien vous reste-t-il une fois payés les coûts directs : marchandises, matières, sous-traitance ? » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "FIN-05.06",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Hausse par mois »"
+    },
+    {
+      "code": "FIN-05.06",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-05.07",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Total payé par mois »"
+    },
+    {
+      "code": "FIN-46.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Sur les 12 derniers mois, quelle somme avez-vous retirée de l'entreprise pour vous payer ? »"
+    },
+    {
+      "code": "FIN-46.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien l'entreprise paie-t-elle chaque mois pour vos cotisations sociales personnelles ? »"
+    },
+    {
+      "code": "FIN-46.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien voudriez-vous vous verser par mois pour que votre activité vous convienne ? »"
+    },
+    {
+      "code": "FIN-06.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Par mois »"
+    },
+    {
+      "code": "FIN-06.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Sur les mêmes 3 mois, un an plus tôt, combien vous coûtaient par mois les charges qui varient avec votre activité, achats compris ? »"
+    },
+    {
+      "code": "FIN-06.03",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-06.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Mois le plus chargé »"
+    },
+    {
+      "code": "FIN-06.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Mois le plus calme »"
+    },
+    {
+      "code": "FIN-07.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« En moyenne sur les 3 derniers mois, combien vous coûtent vos salariés par mois, charges patronales comprises ? »"
+    },
+    {
+      "code": "FIN-07.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Sur les mêmes 3 mois, un an plus tôt, combien vous coûtaient vos salariés par mois, charges patronales comprises ? »"
+    },
+    {
+      "code": "FIN-07.02",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-07.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Tarif »"
+    },
+    {
+      "code": "FIN-07.05",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Coût »"
+    },
+    {
+      "code": "FIN-07.06",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Sur les 12 derniers mois, combien vous ont coûté les remplacements pendant les absences et les congés ? »"
+    },
+    {
+      "code": "FIN-08.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« En moyenne sur les 3 derniers mois, combien dépensez-vous par mois en achats de marchandises ou de matières ? »"
+    },
+    {
+      "code": "FIN-08.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« En moyenne sur les 3 derniers mois, combien dépensez-vous par mois en sous-traitance ? »"
+    },
+    {
+      "code": "FIN-08.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Achats par mois (moyenne des 3 derniers mois) »"
+    },
+    {
+      "code": "FIN-08.03",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-09.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Coût par mois »"
+    },
+    {
+      "code": "FIN-09.02",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-09.10",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien vous coûtent au total vos abonnements et contrats chaque mois ? »"
+    },
+    {
+      "code": "FIN-10.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Coût moyen d'une reprise »"
+    },
+    {
+      "code": "FIN-10.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Coût moyen d'un geste commercial »"
+    },
+    {
+      "code": "FIN-10.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien vous coûte en moyenne le traitement d'un retour : port, emballage et temps passé ? »"
+    },
+    {
+      "code": "FIN-10.05",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-11.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien avez-vous aujourd'hui sur vos comptes professionnels, caisse comprise ? »"
+    },
+    {
+      "code": "FIN-11.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Sur cette somme, combien est déjà dû ou bloqué ? »"
+    },
+    {
+      "code": "FIN-11.03",
+      "controle": "financement : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "FIN-11.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Quel est le montant de votre découvert autorisé et de vos autres crédits disponibles ? »"
+    },
+    {
+      "code": "FIN-12.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Entrées »"
+    },
+    {
+      "code": "FIN-12.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Sorties »"
+    },
+    {
+      "code": "FIN-13.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant »"
+    },
+    {
+      "code": "FIN-13.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant »"
+    },
+    {
+      "code": "FIN-13.06",
+      "controle": "terme technique sans aide",
+      "detail": "tresorerie"
+    },
+    {
+      "code": "FIN-14.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires »"
+    },
+    {
+      "code": "FIN-15.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant »"
+    },
+    {
+      "code": "FIN-15.01",
+      "controle": "terme technique sans aide",
+      "detail": "tresorerie"
+    },
+    {
+      "code": "FIN-16.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant »"
+    },
+    {
+      "code": "FIN-17.04",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-18.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant en retard »"
+    },
+    {
+      "code": "FIN-18.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Quel est aujourd'hui le plus gros montant qu'un seul client vous doit en retard ? »"
+    },
+    {
+      "code": "FIN-18.04",
+      "controle": "relance : condition à vérifier",
+      "detail": "condition : D09 (cadrage) = « oui » ; thème masqué si Encaissement immédiat (commerce)"
+    },
+    {
+      "code": "FIN-18.05",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant »"
+    },
+    {
+      "code": "FIN-18.06",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Et sur les 12 mois précédents, combien aviez-vous perdu en factures jamais payées ? »"
+    },
+    {
+      "code": "FIN-19.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant avancé en moyenne »"
+    },
+    {
+      "code": "FIN-20.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Sur les 12 derniers mois, combien avez-vous payé en pénalités de retard à vos fournisseurs ? »"
+    },
+    {
+      "code": "FIN-21.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Aujourd'hui, quel est le montant du travail déjà fait mais pas encore facturé ? »"
+    },
+    {
+      "code": "FIN-22.01",
+      "controle": "financement : condition à vérifier",
+      "detail": "condition : D10 (cadrage) = « oui » ; thème masqué si Sans emprunt"
+    },
+    {
+      "code": "FIN-22.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Mensualité »"
+    },
+    {
+      "code": "FIN-22.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Capital restant dû »"
+    },
+    {
+      "code": "FIN-22.02",
+      "controle": "financement : condition à vérifier",
+      "detail": "condition : D10 (cadrage) = « oui » ; thème masqué si Sans emprunt"
+    },
+    {
+      "code": "FIN-24.01",
+      "controle": "financement : condition à vérifier",
+      "detail": "condition : D11 (cadrage) = « oui »"
+    },
+    {
+      "code": "FIN-24.02",
+      "controle": "financement : condition à vérifier",
+      "detail": "condition : D11 (cadrage) = « oui »"
+    },
+    {
+      "code": "FIN-24.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant moyen »"
+    },
+    {
+      "code": "FIN-24.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Montant le plus élevé »"
+    },
+    {
+      "code": "FIN-24.03",
+      "controle": "financement : condition à vérifier",
+      "detail": "condition : D11 (cadrage) = « oui »"
+    },
+    {
+      "code": "FIN-24.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« En moyenne sur les 12 derniers mois, combien payez-vous par mois en agios et en frais de découvert ? »"
+    },
+    {
+      "code": "FIN-24.05",
+      "controle": "financement : condition à vérifier",
+      "detail": "condition : D11 (cadrage) = « oui »"
+    },
+    {
+      "code": "FIN-25.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Prix d'achat »"
+    },
+    {
+      "code": "FIN-25.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Installation et frais annexes »"
+    },
+    {
+      "code": "FIN-25.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Coûts récurrents par mois »"
+    },
+    {
+      "code": "FIN-27.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires en plus »"
+    },
+    {
+      "code": "FIN-27.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Économies de charges »"
+    },
+    {
+      "code": "FIN-28.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires en plus »"
+    },
+    {
+      "code": "FIN-28.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Économies de charges »"
+    },
+    {
+      "code": "FIN-29.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires sur 12 mois »"
+    },
+    {
+      "code": "FIN-34.02",
+      "controle": "terme technique sans aide",
+      "detail": "\\bmarge\\b"
+    },
+    {
+      "code": "FIN-34.02",
+      "controle": "terme technique sans aide",
+      "detail": "tresorerie"
+    },
+    {
+      "code": "FIN-34.04",
+      "controle": "terme technique sans aide",
+      "detail": "tresorerie"
+    },
+    {
+      "code": "FIN-37.01",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-37.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Quelle est aujourd'hui la valeur de votre stock, au prix d'achat ? »"
+    },
+    {
+      "code": "FIN-37.02",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-37.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Il y a 12 mois, quelle était la valeur de votre stock, au prix d'achat ? »"
+    },
+    {
+      "code": "FIN-37.02",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-37.03",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-39.01",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-39.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Depuis 3 mois »"
+    },
+    {
+      "code": "FIN-39.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Depuis 6 mois »"
+    },
+    {
+      "code": "FIN-39.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Depuis 12 mois »"
+    },
+    {
+      "code": "FIN-39.03",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-40.01",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-40.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Valeur perdue par mois »"
+    },
+    {
+      "code": "FIN-40.02",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-40.02",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-41.01",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-43.02",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-43.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Quelle valeur de stock représentent les 10 produits qui se vendent le mieux ? »"
+    },
+    {
+      "code": "FIN-44.01",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-45.01",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-45.02",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-45.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Écart »"
+    },
+    {
+      "code": "FIN-45.03",
+      "controle": "stock : condition à vérifier",
+      "detail": "condition : D07 (cadrage) = « oui » ; thème masqué si Sans stock"
+    },
+    {
+      "code": "FIN-45.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Écart à l'inventaire précédent »"
+    },
+    {
+      "code": "FIN-48.01",
+      "controle": "financement : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "RH-05.05",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "RH-05.10",
+      "controle": "tranches qui se chevauchent",
+      "detail": "« 1 à 2 jours » et « 1 à 2 semaines »"
+    },
+    {
+      "code": "RH-05.10",
+      "controle": "zéro impossible à choisir",
+      "detail": "première tranche « 1 à 2 jours », pas de choix « aucun » ou « 0 »"
+    },
+    {
+      "code": "RH-06.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Coût »"
+    },
+    {
+      "code": "RH-06.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« En moyenne sur les 3 derniers mois, combien vous coûtent vos salariés par mois, charges patronales comprises ? »"
+    },
+    {
+      "code": "RH-07.01",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "sans condition"
+    },
+    {
+      "code": "RH-47.02",
+      "controle": "tranches qui se chevauchent",
+      "detail": "« Moins de 2 jours » et « 1 à 2 semaines »"
+    },
+    {
+      "code": "RH-47.02",
+      "controle": "tranches qui se chevauchent",
+      "detail": "« 2 à 6 jours » et « Plus de 2 semaines »"
+    },
+    {
+      "code": "RH-11.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires »"
+    },
+    {
+      "code": "RH-28.01",
+      "controle": "recrutement : condition à vérifier",
+      "detail": "thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-28.03",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux » ; thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-28.03",
+      "controle": "zéro impossible à choisir",
+      "detail": "première tranche « 1 à 2 mois », pas de choix « aucun » ou « 0 »"
+    },
+    {
+      "code": "RH-28.04",
+      "controle": "recrutement : condition à vérifier",
+      "detail": "condition : RH-28.01 (D13) parmi « J'ai recruté », « Les deux » ; thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-28.05",
+      "controle": "recrutement : condition à vérifier",
+      "detail": "condition : RH-28.01 (D13) parmi « J'ai recruté », « Les deux » ; thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-28.05",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Coût d'un recrutement »"
+    },
+    {
+      "code": "RH-28.09",
+      "controle": "recrutement : condition à vérifier",
+      "detail": "condition : RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux » ; thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-28.10",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux » ; thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-29.01",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux » ; thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-29.01",
+      "controle": "financement : condition à vérifier",
+      "detail": "condition : RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux » ; thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-30.01",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux » ; thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-31.01",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux » ; thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-31.02",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux » ; thème masqué si Aucun recrutement en 12 mois ni prévu"
+    },
+    {
+      "code": "RH-41.01",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "thème masqué si Au moins un salarié"
+    },
+    {
+      "code": "RH-42.02",
+      "controle": "question double pour un seul champ",
+      "detail": "Quelles tâches ne pourriez-vous confier à personne aujourd'hui, et pourquoi ?"
+    },
+    {
+      "code": "RH-43.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien pourriez-vous consacrer chaque mois à cette aide, tout compris ? »"
+    },
+    {
+      "code": "RH-44.02",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard » ; thème masqué si Au moins un salarié"
+    },
+    {
+      "code": "COM-56.04",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien pourriez-vous dépenser par mois pour lancer votre communication ? »"
+    },
+    {
+      "code": "COM-12.01",
+      "controle": "unité différente du texte",
+      "detail": "« Part du chiffre d'affaires sur 12 mois » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "COM-13.10",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : ACQ-03.01 (D03) ne contient pas « Site internet »"
+    },
+    {
+      "code": "COM-13.01",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-13.02",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-13.03",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-13.04",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.02 ≠ « Aucun »"
+    },
+    {
+      "code": "COM-13.05",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.02 ≠ « Aucun »"
+    },
+    {
+      "code": "COM-13.06",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.02 ≠ « Aucun »"
+    },
+    {
+      "code": "COM-13.06",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "COM-14.01",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : ACQ-03.01 (D03) contient « Fiche Google »"
+    },
+    {
+      "code": "COM-14.02",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : ACQ-03.01 (D03) contient « Fiche Google »"
+    },
+    {
+      "code": "COM-37.01",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "COM-21.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Combien dépensez-vous par mois en publicité pour faire connaître cette offre ? »"
+    },
+    {
+      "code": "COM-31.01",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "thème masqué si Ne publie pas (parcours mise en place)"
+    },
+    {
+      "code": "COM-31.02",
+      "controle": "équipe : posée au dirigeant seul",
+      "detail": "condition : (COM-31.01 [trouver_les_idees_et_ecrire.heures_par_semaine] > 0 OU COM-31.01 [photos_videos_et_montage.heures_par_semaine] > 0 OU COM-31.01 [publier_et_programmer.heures_par_semaine] > 0 OU COM-31.01 [repondre_aux_commentaires_messages_et_av.heures_par_semaine] > 0 OU COM-31.01 [emails_et_site.heures_par_semaine] > 0 OU COM-31.01 [regarder_les_statistiques.heures_par_semaine] > 0) ; thème masqué si Ne publie pas (parcours mise en place)"
+    },
+    {
+      "code": "COM-32.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Création de contenu : photographe, vidéaste, graphiste »"
+    },
+    {
+      "code": "COM-32.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Agence ou prestataire marketing »"
+    },
+    {
+      "code": "COM-32.01",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Outils marketing »"
+    },
+    {
+      "code": "COM-32.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Par mois »"
+    },
+    {
+      "code": "COM-32.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Il y a 12 mois, combien dépensiez-vous par mois en community manager, influence et impression ? »"
+    },
+    {
+      "code": "COM-32.03",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "COM-44.01",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "COM-57.05",
+      "controle": "financement : condition à vérifier",
+      "detail": "condition : D30 (première création de contenu, hors audit) = « oui »"
+    },
+    {
+      "code": "ACQ-24.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Budget par mois »"
+    },
+    {
+      "code": "ACQ-07.15",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : ACQ-03.01 (D03) contient « Plateformes »"
+    },
+    {
+      "code": "ACQ-11.38",
+      "controle": "unité différente du texte",
+      "detail": "« Sur les 3 derniers mois, quelle part de votre chiffre d'affaires est venue des boissons ? » : unité pourcent, le texte parle de euros"
+    },
+    {
+      "code": "ACQ-11.39",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Prix de la livraison standard »"
+    },
+    {
+      "code": "ACQ-11.39",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Offerte à partir de »"
+    },
+    {
+      "code": "COM-13.11",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-62.01",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-62.02",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-62.02",
+      "controle": "zéro impossible à saisir",
+      "detail": "« Position moyenne » : minimum 1"
+    },
+    {
+      "code": "COM-62.03",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-62.03",
+      "controle": "zéro impossible à saisir",
+      "detail": "« Position moyenne » : minimum 1"
+    },
+    {
+      "code": "COM-62.04",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-62.05",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-62.06",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-62.08",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-13.10 (D23) = « oui »"
+    },
+    {
+      "code": "COM-63.01",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "COM-63.02",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« En moyenne sur les 3 derniers mois, combien dépensez-vous par mois en publicité Google ? »"
+    },
+    {
+      "code": "COM-63.03",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-63.01 = « oui »"
+    },
+    {
+      "code": "COM-63.04",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-63.01 = « oui »"
+    },
+    {
+      "code": "COM-63.05",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Dépense »"
+    },
+    {
+      "code": "COM-63.08",
+      "controle": "canal ou outil : condition à vérifier",
+      "detail": "condition : COM-63.01 = « oui »"
+    },
+    {
+      "code": "ACQ-27.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Coût d'une commande »"
+    },
+    {
+      "code": "ACQ-27.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Livraison offerte à partir de »"
+    },
+    {
+      "code": "ACQ-28.01",
+      "controle": "stock : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "ACQ-28.03",
+      "controle": "financement : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "ACQ-28.04",
+      "controle": "stock : condition à vérifier",
+      "detail": "sans condition ni masquage"
+    },
+    {
+      "code": "FIN-07.17",
+      "controle": "zéro impossible à saisir",
+      "detail": "« Il y a 12 mois, combien de personnes travaillaient dans votre entreprise, vous compris ? » : minimum 1"
+    },
+    {
+      "code": "FIN-07.17",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "FIN-14.03",
+      "controle": "montant sans HT ni TTC",
+      "detail": "« Chiffre d'affaires un an plus tôt »"
+    },
+    {
+      "code": "FIN-14.03",
+      "controle": "comparaison avec le passé : évolution à vérifier",
+      "detail": ""
+    },
+    {
+      "code": "ACQ-01.04",
+      "controle": "texte très proche d'une autre question",
+      "detail": "ACQ-17.07 (60 % de mots communs)"
+    },
+    {
+      "code": "ACQ-03.03",
+      "controle": "texte très proche d'une autre question",
+      "detail": "COM-12.01 (63 % de mots communs)"
+    },
+    {
+      "code": "ACQ-04.01",
+      "controle": "texte très proche d'une autre question",
+      "detail": "COM-31.01 (63 % de mots communs)"
+    },
+    {
+      "code": "ACQ-06.01",
+      "controle": "texte très proche d'une autre question",
+      "detail": "COM-44.01 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-06.04",
+      "controle": "texte très proche d'une autre question",
+      "detail": "COM-14.02 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-06.07",
+      "controle": "texte très proche d'une autre question",
+      "detail": "COM-13.01 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-10.01",
+      "controle": "texte très proche d'une autre question",
+      "detail": "ACQ-10.03 (63 % de mots communs)"
+    },
+    {
+      "code": "ACQ-13.02",
+      "controle": "texte très proche d'une autre question",
+      "detail": "FIN-01.02 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-13.03",
+      "controle": "texte très proche d'une autre question",
+      "detail": "FIN-07.04 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-13.04",
+      "controle": "texte très proche d'une autre question",
+      "detail": "FIN-04.01 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-16.01",
+      "controle": "texte très proche d'une autre question",
+      "detail": "FIN-29.01 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-17.10",
+      "controle": "texte très proche d'une autre question",
+      "detail": "FIN-05.07 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-19.02",
+      "controle": "texte très proche d'une autre question",
+      "detail": "FIN-21.01 (60 % de mots communs)"
+    },
+    {
+      "code": "ACQ-21.01",
+      "controle": "texte très proche d'une autre question",
+      "detail": "RH-46.01 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-21.04",
+      "controle": "texte très proche d'une autre question",
+      "detail": "FIN-07.03 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-22.10",
+      "controle": "texte très proche d'une autre question",
+      "detail": "RH-43.02 (100 % de mots communs)"
+    },
+    {
+      "code": "ACQ-23.03",
+      "controle": "texte très proche d'une autre question",
+      "detail": "FIN-14.03 (100 % de mots communs)"
+    },
+    {
+      "code": "FIN-07.01",
+      "controle": "texte très proche d'une autre question",
+      "detail": "RH-06.04 (100 % de mots communs)"
+    },
+    {
+      "code": "FIN-07.05",
+      "controle": "texte très proche d'une autre question",
+      "detail": "RH-06.03 (100 % de mots communs)"
+    },
+    {
+      "code": "FIN-37.01",
+      "controle": "texte très proche d'une autre question",
+      "detail": "FIN-37.02 (67 % de mots communs)"
+    },
+    {
+      "code": "RH-05.10",
+      "controle": "texte très proche d'une autre question",
+      "detail": "RH-38.01 (60 % de mots communs)"
+    },
+    {
+      "code": "RH-06.02",
+      "controle": "texte très proche d'une autre question",
+      "detail": "RH-08.02 (63 % de mots communs)"
+    },
+    {
+      "code": "COM-60.01",
+      "controle": "texte très proche d'une autre question",
+      "detail": "COM-63.06 (63 % de mots communs)"
+    },
+    {
+      "code": "XA30",
+      "controle": "croisement d'évolution sans donnée passée parmi ses entrées",
+      "detail": "Évolution des demandes, des nouveaux clients, du panier et du CA, comparées entre elles"
+    },
+    {
+      "code": "XF07",
+      "controle": "croisement d'évolution sans donnée passée parmi ses entrées",
+      "detail": "Évolution des charges (fixes, salaires, achats) comparée à celle du CA sur 12 mois"
+    },
+    {
+      "code": "XF08",
+      "controle": "croisement d'évolution sans donnée passée parmi ses entrées",
+      "detail": "Variation des coûts variables quand le CA varie, entre mois fort et mois faible"
+    },
+    {
+      "code": "XF24",
+      "controle": "croisement d'évolution sans donnée passée parmi ses entrées",
+      "detail": "Pertes définitives ÷ CA, et évolution sur un an"
+    },
+    {
+      "code": "XF33",
+      "controle": "croisement d'évolution sans donnée passée parmi ses entrées",
+      "detail": "Trésorerie au-delà de 2 mois de sécurité ÷ besoin de trésorerie par € de CA supplémentaire"
+    },
+    {
+      "code": "XC07",
+      "controle": "croisement d'évolution sans donnée passée parmi ses entrées",
+      "detail": "Croissance de l'audience comparée à l'évolution des demandes venant des réseaux"
+    },
+    {
+      "code": "XC18",
+      "controle": "croisement d'évolution sans donnée passée parmi ses entrées",
+      "detail": "(Abonnés actuels − abonnés de départ) ÷ abonnés de départ, par mois"
+    }
+  ]
+}
