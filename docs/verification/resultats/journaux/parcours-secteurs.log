@@ -1,4 +1,4 @@
-(node:13220) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
+(node:12600) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/donnees/disque.ts is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
@@ -67,5 +67,5 @@ To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
 
 == Métier absent de la liste · commerce de détail (commerce, equipe_2_5, agents : ACQ FIN RH_ COM)
 
-Comptes : 32 · pages vérifiées : 709 · réponses envoyées : 7309 (refusées : 0)
+Comptes : 32 · pages vérifiées : 709 · réponses envoyées : 7425 (refusées : 0)
 Erreurs : 0 · points d'attention : 0

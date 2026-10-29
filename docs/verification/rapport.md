@@ -16,7 +16,7 @@ Les chiffres de ce rapport sont recalculés par `node scripts/verification/chiff
 ## 1. Chiffres
 
 <!-- CHIFFRES : section écrite par node scripts/verification/chiffres.mjs -->
-Calculés le 2026-10-29 à 09:26 UTC.
+Calculés le 2026-10-29 à 14:52 UTC.
 
 | Mesure | Nombre | Écart expliqué |
 |---|---|---|
@@ -25,7 +25,7 @@ Calculés le 2026-10-29 à 09:26 UTC.
 | Contrôle automatique du texte (période, bornes, ton, choix) | 556 sans constat | 5 montants sans période écrite, vérifiés un par un (la base est dans la question). 0 constat ouvert. |
 | Questions atteignables par le vrai moteur d'assemblage | 546 sur 561 | 15 questions COM-57 : posées à la première création de contenu, jamais pendant l'audit, par conception. |
 | Questions affichées et manipulées dans le navigateur | 476 | Les autres questions atteignables sont vérifiées par le moteur d'assemblage sur des réponses simulées, pas à l'écran. Les contrôles navigateur utilisent un compte par règle ou par agent (électricien pour les boutons). |
-| Liens de dépendance recensés | 1 101 | Dont 470 liens de calcul (croisements, scénarios), non exécutables tant que leurs formules sont en texte libre. Les autres liens portent sur l'affichage, les lignes, les données partagées et les pré-réponses. |
+| Liens de dépendance recensés | 1 107 | Dont 470 liens de calcul (croisements, scénarios), non exécutables tant que leurs formules sont en texte libre. Les autres liens portent sur l'affichage, les lignes, les données partagées et les pré-réponses. |
 | Règles d'affichage | 95 | 79 conditions et 16 masquages. Elles portent les 287 liens « condition » et les 94 liens « masquage ». |
 | Règles jouées dans le navigateur, dans les deux sens | 91 | 4 hors plan : « Pas posée si les agents Acquisition et Comm sont faits : calculée » (toujours posée, pas une dépendance) ; « D30 · avant la première création de contenu » (jamais pendant l'audit) ; « Vente immédiate (commerce) » (à préciser : aucune réponse ne la déclenche) ; « Sans travaux en cours » (à préciser : aucune réponse ne la déclenche). |
 | Règles entièrement conformes | 91 | Aucun écart. Aucune règle bloquée. |
@@ -51,25 +51,28 @@ Dernière exécution complète (`resultats/synthese.txt`), un contrôle par lign
 |---|---|---|
 | `typescript` | réussi |  |
 | `lint` | réussi |  |
-| `tests-unitaires` | réussi | # duration_ms 20583.054858 |
+| `tests-unitaires` | réussi | # duration_ms 25065.232834 |
 | `controle-donnees` | réussi | Contrôle réussi : aucune erreur. |
 | `balayage-secteurs` | réussi | POINTS D'ATTENTION : 0 |
 | `inventaire` | réussi | scénario (calcul) : 31 |
 | `plan-dependances` | réussi | M-092 Ne publie pas (parcours mise en place) : des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage) → COM-10.03, COM-10.04, COM-10.05 |
-| `canaux` | réussi | compte de test : verif.1793222610744.93475@example.com |
+| `plan-branches` | réussi | M-092 Ne publie pas (parcours mise en place) [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : V3 V3 F30 |
+| `canaux` | réussi | compte de test : verif.1793266186977.18075@example.com |
 | `dependances` | réussi | 91 règles jouées, 496 contrôles : 496 conformes, 0 écart(s), 0 bloqué(s). |
+| `branches` | réussi | 14 règles, 94 contrôles : 94 conformes, 0 écart(s), 0 bloqué(s). |
 | `resultats` | réussi | 11 contrôles, 11 conformes, 0 écart(s). |
 | `separation` | réussi | 9 contrôles, 9 conformes, 0 écart(s). |
 | `retours` | réussi | 5 contrôles, 5 conformes, 0 écart(s). |
 | `rapides` | réussi | 7 contrôles, 7 conformes, 0 écart(s). |
 | `historique` | réussi | 32 contrôles, 32 conformes, 0 écart(s). |
-| `objectifs` | réussi | 50 contrôles, 50 conformes, 0 écart(s). |
+| `objectifs` | réussi | 68 contrôles, 68 conformes, 0 écart(s). |
 | `listes` | réussi | 17 contrôles, 17 conformes, 0 écart(s). |
+| `partages` | réussi | 36 contrôles, 36 conformes, 0 écart(s). |
 | `prereponse` | réussi | Tout est conforme. |
-| `autre` | réussi | 168 vérifications, 0 échec(s). |
+| `autre` | réussi | 158 vérifications, 0 échec(s). |
 | `compte` | réussi | Tout est conforme. |
 | `audit-client` | **code 1** | 38 contrôles, 37 conformes, 1 écart(s) : R-01. |
-| `boutons-pages` | réussi | 157 vérifications, 0 échec(s). |
+| `boutons-pages` | réussi | 154 vérifications, 0 échec(s). |
 | `complementaire` | réussi | Erreurs : 0 · points d'attention : 0 |
 | `captures` | réussi | 7 captures écrites dans docs/verification/captures |
 | `parcours-secteurs` | réussi | Erreurs : 0 · points d'attention : 0 |
