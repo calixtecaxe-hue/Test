@@ -1,0 +1,365 @@
+# Finance & Rentabilité
+
+# FIN-01 Marge par offre
+FIN-01.01 | conserver | justifiee
+  j: Partagée avec ACQ-13.01 (posée une fois) : offres et prix, base de la marge par offre (FIN-01.04, XF34) et des offres vendues à perte (XF35).
+FIN-01.02 | conserver | justifiee
+  j: Partagée avec ACQ-13.02 (posée une fois) : effet du mix sur la marge (XF34).
+FIN-01.03 | conserver | justifiee
+  j: Coût direct de chaque offre : marge par offre (FIN-01.04), coût complet (FIN-03.02), offres vendues à perte (XF35). Une autre réponse change l'offre à pousser ou à revoir.
+
+# FIN-02 Marge par client
+FIN-02.01 | conserver | justifiee
+  j: Heures passées pour chaque gros client : marge réelle par client (FIN-02.02), clients qui coûtent (XF36). Désigne le client à renégocier.
+
+# FIN-03 Coût de revient
+FIN-03.01 | conserver | justifiee
+  j: Coût de revient connu ou non : lu avec les offres vendues sous leur coût complet (FIN-03.03), il distingue une perte subie sans le savoir d'un prix d'appel assumé.
+  g: « Calculez votre coût de revient ». CAXE calcule lui-même le coût complet de chaque offre (FIN-03.02) : le conseil doit donner ce chiffre, pas demander de le calculer.
+  m: Règle de notation Pratique à écrire.
+
+# FIN-04 Érosion des marges
+FIN-04.01 | conserver | justifiee
+  j: Partagée avec ACQ-13.04 (posée une fois) : hausse de coûts non répercutée (FIN-04.04, XF09).
+
+# FIN-05 Seuil de rentabilité
+FIN-05.01 | conserver | justifiee
+  j: Charges fixes poste par poste : charges fixes totales (FIN-05.08), seuil de rentabilité (FIN-05.12), mois couverts par la trésorerie (FIN-11.05), trois principaux postes (XF06), scénarios S01, S05, S06, S10.
+FIN-05.02 | conserver | justifiee
+  j: Budget marketing et communication : charges fixes totales ; pré-rempli par la somme du détail Acquisition et Comm (règle exécutée).
+FIN-05.03 | conserver | justifiee
+  j: Charges fixes il y a 12 mois : évolution des charges fixes (exécutée), effet ciseau (XF07). Écart au niveau essentiel (abonnements) traité par FIN-09.10, voir cette question.
+FIN-05.04 | conserver | justifiee
+  j: Résultat de la dernière année (sauf micro-entreprise) : marge nette (FIN-05.15), rentable sur le papier mais pas en trésorerie (XF16).
+FIN-05.05 | conserver | justifiee
+  j: Marge que le dirigeant pense faire : comparée à la marge calculée (FIN-05.16, XF39), elle montre un écart de perception qui change la priorité (prix ou coûts sous-estimés).
+FIN-05.06 | conserver | justifiee
+  j: Charge qui a le plus augmenté : trois principaux postes de coûts (XF06).
+FIN-05.07 | conserver | justifiee
+  j: Partagée avec ACQ-17.10 (posée une fois) : couverture des charges par le revenu récurrent (XF47).
+
+# FIN-46 Rémunération du dirigeant
+FIN-46.01 | conserver | exploitation
+  p: Aucun usage écrit, alors que deux croisements en ont besoin : « Seuil en vous rémunérant » (XF03) et « Ce que l'entreprise peut verser au dirigeant » (XF38, « rémunération actuelle comparée à la marge disponible ») ; leurs entrées ne la citent pas.
+  j: Somme retirée sur 12 mois : sans elle, le seuil de rentabilité ignore la rémunération du dirigeant et XF38 ne peut pas comparer ce qu'il se verse à ce que l'entreprise peut lui verser.
+  m: Ajouter FIN-46.01 aux entrées de XF03 et XF38.
+FIN-46.02 | preciser | formulation+exploitation
+  p: Aucun usage écrit. Selon la forme de l'entreprise, les cotisations du dirigeant sont déjà comptées dans les salaires (FIN-07.01) ou payées à part : la question peut faire compter deux fois la même somme.
+  j: Cotisations personnelles du dirigeant : avec FIN-46.01, coût réel de sa rémunération pour l'entreprise (XF03, XF38).
+  t: En plus des salaires déjà indiqués, combien l'entreprise paie-t-elle chaque mois pour vos cotisations sociales personnelles ?
+  m: Ajouter aux entrées de XF03 et XF38 ; lecture selon la forme (FIN-47.01) à valider, sans conseil fiscal ni social.
+FIN-46.03 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Rémunération souhaitée : donne le seuil de rentabilité « en vous rémunérant » (XF03) au niveau que le dirigeant vise ; un autre montant change le chiffre d'affaires nécessaire.
+  m: Ajouter FIN-46.03 aux entrées de XF03.
+
+# FIN-06 Charges fixes et variables
+FIN-06.01 | conserver | justifiee
+  j: Charges variables poste par poste : taux de marge sur coûts variables (FIN-06.08), seuil de rentabilité, évolution de la marge (exécutée).
+FIN-06.02 | conserver | justifiee
+  j: Partagée avec ACQ-21.02 (posée une fois) : coût variable par vente (FIN-06.07), trésorerie avancée aux clients (FIN-19.03), coût de non-qualité (XF13).
+FIN-06.03 | conserver | justifiee
+  j: Charges variables un an plus tôt : marge d'il y a 12 mois et son évolution (exécutée).
+FIN-06.04 | conserver | justifiee
+  j: Charges variables du mois le plus chargé et le plus calme : les coûts suivent-ils le chiffre d'affaires (FIN-06.09, XF08, croissance rentable).
+
+# FIN-07 Coût de l'équipe
+FIN-07.01 | conserver | justifiee
+  j: Masse salariale : charges fixes, poids dans le CA (FIN-07.08, comparable au marché), coût d'une heure (FIN-07.12), scénario de recrutement (S04).
+FIN-07.02 | conserver | justifiee
+  j: Masse salariale un an plus tôt : évolution comparée au CA (exécutée), effet ciseau (XF07).
+FIN-07.03 | conserver | justifiee
+  j: Partagée avec ACQ-21.04 (posée une fois) : rentabilité d'une heure (XF37).
+FIN-07.04 | conserver | justifiee
+  j: Partagée avec ACQ-13.03 (posée une fois) : marge par heure facturée (FIN-07.14).
+FIN-07.05 | conserver | justifiee
+  j: Heures supplémentaires et leur coût : équivalent temps plein (FIN-07.07), heures supplémentaires face à un recrutement (XR28), surcharge ponctuelle ou durable (XR08).
+FIN-07.06 | conserver | justifiee
+  j: Coût des remplacements : effet des absences (XR26).
+FIN-07.17 | conserver | justifiee
+  j: Effectif il y a 12 mois : explique l'évolution de la masse salariale (note de l'évolution exécutée).
+
+# FIN-08 Achats et sous-traitance
+FIN-08.01 | conserver | justifiee
+  j: Achats par mois : charges variables, part du premier fournisseur, rotation du stock, coût matière d'un restaurant (XF49), indicateur comparable au marché.
+FIN-08.02 | conserver | justifiee
+  j: Sous-traitance par mois : charges variables, poids des grands postes (XF05), scénarios S07, S11.
+FIN-08.03 | conserver | justifiee
+  j: Trois principaux fournisseurs (achats, hausse, renégociation, alternative) : renégociation du premier fournisseur (XF10), dépendance (XF11). Tableau lourd mais en approfondi ; texte « vos 3 principaux fournisseurs » déjà à revoir (section 15).
+FIN-08.04 | conserver | justifiee
+  j: Nombre de fournisseurs réguliers : dépendance fournisseur (XF11).
+FIN-08.05 | conserver | justifiee
+  j: Baisse obtenue à la dernière renégociation : renégociation du premier fournisseur (XF10).
+FIN-08.06 | conserver | justifiee
+  j: Délai de livraison du fournisseur principal : stock de sécurité (FIN-41.05), ruptures (XF43).
+
+# FIN-09 Dépenses récurrentes
+FIN-09.01 | conserver | justifiee
+  j: Abonnements et contrats détaillés : coût des contrats peu ou pas utilisés (FIN-09.07), doublons (FIN-09.08), renouvellements à venir (FIN-09.09), coûts silencieux (XF12). Désigne les contrats à résilier ou à renégocier, par leur nom. Tableau lourd, en approfondi.
+FIN-09.02 | conserver | justifiee
+  j: Contrats dont le prix a augmenté : coûts silencieux (XF12).
+FIN-09.03 | retirer | peu_utile
+  p: Marquée « notée directement », sans règle. Le tableau FIN-09.01 (utilisation, renouvellement) et FIN-09.02 désignent déjà les contrats à renégocier.
+  j: À situation identique, le nombre de renégociations passées ne change ni les contrats désignés ni la priorité ; « 0 » deviendrait un défaut même quand les contrats sont justes.
+FIN-09.10 | conserver | exploitation
+  p: Posée au niveau essentiel, aucun usage écrit. Or les charges fixes totales (FIN-05.08) attendent le coût des abonnements, demandé en détail seulement en approfondi (FIN-09.01) : au niveau essentiel, les charges fixes sont incomplètes (écart signalé le 28 octobre, section 15).
+  j: Total des abonnements et contrats : c'est le « seul total des abonnements » que la section 15 propose comme solution ; la question existe déjà.
+  m: Ajouter FIN-09.10 aux entrées de FIN-05.08 quand FIN-09.01 n'est pas répondu ; en approfondi, la pré-remplir par la somme de FIN-09.01 (même mécanisme que FIN-05.02) pour ne pas demander deux fois.
+  d: Choisir cette solution parmi les trois de la section 15 (point 13).
+
+# FIN-10 Coût des erreurs
+FIN-10.01 | conserver | justifiee
+  j: Reprises, retours et gestes commerciaux : coût de non-qualité (FIN-10.07, XF13), temps perdu (XR14) ; ouvre FIN-10.02 à 10.05 (règle exécutée).
+FIN-10.02 | conserver | justifiee
+  j: Cause la plus fréquente : erreur de réalisation, défaut, retard ou besoin mal compris appellent des actions différentes (XF13).
+FIN-10.03 | conserver | justifiee
+  j: Heures par reprise : coût des reprises (FIN-10.06, XR14).
+FIN-10.04 | conserver | justifiee
+  j: Coût d'un retour (commerce, e-commerce) : ce qui reste d'une commande (XF48).
+FIN-10.05 | conserver | justifiee
+  j: Évolution de ces coûts (XF13) : une hausse change la priorité.
+
+# FIN-11 Trésorerie disponible
+FIN-11.01 | conserver | justifiee
+  j: Trésorerie disponible : trésorerie mobilisable (FIN-11.04), mois couverts, trésorerie projetée (FIN-13.03), scénarios S01, S05, S06, S08.
+FIN-11.02 | conserver | justifiee
+  j: Somme déjà due ou bloquée : trésorerie réellement mobilisable (FIN-11.04).
+FIN-11.03 | conditionnelle | conditions
+  p: Posée à tous au niveau essentiel, mais lue seulement par la marge restante sous le découvert autorisé (FIN-24.08), calculée pour qui a été à découvert (D11). Pour les autres, la réponse ne change rien.
+  j: Découvert autorisé et crédits disponibles : avec un découvert réel, dit la marge qui reste avant le refus de paiement.
+  c: Posée si D11 = oui.
+  d: Ou la garder pour tous et l'ajouter au calcul de la résilience (imprévu absorbable, FIN-15.02, XF19), où elle dirait ce que le découvert autorisé permet d'absorber.
+
+# FIN-12 Flux
+FIN-12.01 | conserver | justifiee
+  j: Entrées et sorties des 3 derniers mois : solde moyen, consommation de trésorerie, mois avant épuisement (FIN-12.05), écart entre CA facturé et encaissé (XF17).
+
+# FIN-13 Échéances à venir
+FIN-13.01 | conserver | justifiee
+  j: Gros paiements des 3 prochains mois : trésorerie projetée (FIN-13.03), mois de tension (FIN-13.04, XF18), scénario du plus gros impayé (S13).
+FIN-13.02 | conserver | justifiee
+  j: Grosses rentrées attendues : trésorerie projetée (FIN-13.03).
+FIN-13.06 | conserver | exploitation
+  p: Aucun usage écrit ; elle n'est même pas parmi les entrées du niveau de pilotage financier (XF46), qui lit pourtant les autres questions de pilotage.
+  j: Plan de trésorerie tenu ou non : lu avec les mois de tension à venir (FIN-13.04), il dit si la tension était prévue ou subie.
+  g: « Faites un plan de trésorerie » ou « Suivez votre trésorerie ». CAXE calcule lui-même la trésorerie des 3 prochains mois (FIN-13.03) : le conseil doit nommer le mois de tension et son montant, pas demander de suivre la trésorerie en général.
+  m: Ajouter FIN-13.06 aux entrées de XF46 et la lire avec FIN-13.04.
+
+# FIN-14 Saisonnalité
+FIN-14.01 | conserver | justifiee
+  j: Partagée avec ACQ-23.01 (posée une fois) : réserve pour les mois creux (FIN-14.02), effet ciseau (XF07), scénario S10.
+FIN-14.03 | conserver | justifiee
+  j: Partagée avec ACQ-23.03 (posée une fois) : marge et masse salariale d'il y a 12 mois.
+FIN-14.04 | conserver | justifiee
+  j: Partagée avec ACQ-23.13 (posée une fois) : évolution « non comparable » en cas de changement de périmètre.
+
+# FIN-15 Marge de sécurité
+FIN-15.01 | conserver | justifiee
+  j: Plus grosse dépense imprévue et temps pour s'en remettre : le même imprévu passerait-il aujourd'hui (FIN-15.04, XF19).
+
+# FIN-16 Délai de facturation
+FIN-16.01 | conserver | justifiee
+  j: Délai d'envoi des factures : délai médian (FIN-16.05), trésorerie immobilisée par le retard (FIN-16.07, XF22).
+FIN-16.02 | retirer | peu_utile
+  p: Ne sert qu'au montant moyen d'une facture (FIN-16.06), qu'aucun croisement ni phrase ne lit ; les factures oubliées ont leur propre montant (FIN-16.04).
+  j: À situation identique, un autre nombre de factures ne change aucune priorité.
+  d: La garder seulement si elle sert à juger la charge de facturation à la main (FIN-16.03), avec une règle écrite.
+FIN-16.03 | conserver | exploitation
+  p: « Notée directement », sans règle : une facturation à la main n'est un défaut que si elle cause des retards ou des oublis.
+  j: Façon de facturer : avec un retard de facturation (FIN-16.01) ou des factures oubliées (FIN-16.04), désigne une cause et une action précises.
+  g: « Passez à un logiciel de facturation » sans retard ni oubli constaté.
+  m: Règle de lecture : seulement avec FIN-16.01 et FIN-16.04.
+FIN-16.04 | conserver | justifiee
+  j: Factures oubliées ou très en retard : trésorerie libérable (XF22).
+
+# FIN-17 Délai de paiement
+FIN-17.01 | conserver | justifiee
+  j: Délai indiqué sur les factures : retard moyen (FIN-17.07, comparable au marché), trésorerie libérable (XF22).
+FIN-17.02 | conserver | justifiee
+  j: Délais réels de paiement : délai moyen d'encaissement (comparable au marché), argent dû par les clients, trésorerie à avancer pour l'objectif (FIN-32.01). Sens « nombre de factures ou montant » à trancher (section 15).
+FIN-17.03 | conserver | justifiee
+  j: Délai réel de chaque gros client : argent dû par les gros clients (FIN-17.08), délais clients contre fournisseurs (XF21).
+FIN-17.04 | conserver | justifiee
+  j: Évolution des délais de paiement : délais clients contre fournisseurs (XF21).
+FIN-17.10 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Moyen de paiement le plus courant : quand les délais réels dépassent le délai prévu (FIN-17.07), un paiement par chèque ou virement à l'initiative du client désigne une action précise (prélèvement, paiement en ligne).
+  g: « Proposez le prélèvement automatique » sans retard constaté.
+  m: Lire avec FIN-17.07 et XF22 ; sans cette lecture, la retirer.
+
+# FIN-18 Impayés
+FIN-18.01 | conserver | justifiee
+  j: Factures en retard par ancienneté : total en retard (FIN-18.07), part au-delà de 90 jours (FIN-18.09), retards de paiement (XF23).
+FIN-18.02 | conserver | justifiee
+  j: Clients en retard : retards de paiement (XF23).
+FIN-18.03 | conserver | justifiee
+  j: Plus gros montant dû par un client : part du plus gros impayé (FIN-18.10), scénario S13.
+FIN-18.04 | conditionnelle | conditions
+  p: Posée même à qui n'a aucune facture en retard ; « Aucune relance » ne doit pas devenir un défaut dans ce cas.
+  j: Délai et méthode de relance : quand des factures sont en retard, désigne une action précise (relance écrite systématique, à J+N).
+  c: Posée si FIN-18.01 contient au moins un montant supérieur à 0.
+  m: Les règles d'affichage ne lisent pas encore la somme d'un tableau ; opérateur à ajouter. Règle de notation Pratique à écrire.
+FIN-18.05 | conserver | justifiee
+  j: Factures abandonnées sur 12 mois : coût des impayés (XF24), évolution exécutée.
+FIN-18.06 | conserver | justifiee
+  j: Pertes de l'année précédente : évolution des pertes sur impayés (exécutée).
+
+# FIN-19 Acomptes
+FIN-19.01 | conserver | justifiee
+  j: Acomptes demandés : trésorerie avancée aux clients (FIN-19.03), trésorerie libérée par un acompte (FIN-19.04), trésorerie à avancer pour l'objectif (XF32, S08).
+FIN-19.02 | conserver | justifiee
+  j: Achats avancés avant d'être payé : l'entreprise finance ses clients (XF25).
+
+# FIN-20 Paiements fournisseurs
+FIN-20.01 | conserver | justifiee
+  j: Délai accordé par les fournisseurs : délai encore disponible (FIN-20.07), trésorerie libérable (XF22).
+FIN-20.02 | conserver | justifiee
+  j: Délai réel de paiement des fournisseurs : argent dû aux fournisseurs (FIN-20.05), délais clients contre fournisseurs (XF21), trésorerie à avancer pour l'objectif.
+FIN-20.03 | conserver | justifiee
+  j: Remise pour paiement rapide proposée : comparée au coût du découvert (XF26) ; ouvre FIN-20.08.
+FIN-20.08 | conserver | exploitation
+  p: Aucun usage écrit, alors que XF26 compare « la remise proposée par le fournisseur » au coût du découvert : ses entrées citent la question oui / non (FIN-20.03), pas le taux.
+  j: Taux de la remise : seul chiffre qui permet de dire si payer plus vite rapporte plus que le découvert ne coûte.
+  m: Ajouter FIN-20.08 aux entrées de XF26.
+FIN-20.04 | conserver | justifiee
+  j: Pénalités de retard payées : découvert structurel (XF28).
+
+# FIN-21 Argent immobilisé
+FIN-21.01 | conserver | justifiee
+  j: Travail fait non facturé : jours de CA immobilisés (FIN-21.02), argent immobilisé par l'activité (XF20).
+
+# FIN-22 Poids des remboursements
+FIN-22.01 | conserver | justifiee
+  j: Crédits et leasings : mensualités et capital restant (FIN-22.03, 22.04), mensualités libérées dans l'année (FIN-22.06), poids de la dette (XF27), ce que l'entreprise peut verser au dirigeant (XF38).
+FIN-22.02 | retirer | a_justifier
+  p: Lue par l'IA seulement. Pour en tirer quelque chose, l'IA devrait juger qu'un taux est élevé : aucun repère de taux n'est parmi les 36 indicateurs comparables, et l'IA ne juge rien sans repère sourcé (réflexe 1).
+  j: À situation identique, un autre taux ne change aucun calcul : seul un jugement de l'IA, interdit, pourrait en sortir.
+  g: « Renégociez vos crédits », sans repère pour dire qu'un taux est trop haut.
+  d: Retirer, ou ajouter un repère de taux sourcé (indicateur comparable) et le calcul du coût des intérêts.
+
+# FIN-24 Dépendance au court terme
+FIN-24.01 | conserver | justifiee
+  j: Jours de découvert par mois : découvert accidentel ou structurel (FIN-24.06, XF28).
+FIN-24.02 | conserver | justifiee
+  j: Montant moyen et maximal du découvert : marge restante sous le découvert autorisé (FIN-24.08).
+FIN-24.03 | conserver | justifiee
+  j: Agios et frais : coût annuel du découvert (FIN-24.07), comparé à la remise pour paiement rapide (XF26).
+FIN-24.04 | conserver | justifiee
+  j: Cause principale des découverts : retards clients, mois creux, gros achat ou charges trop lourdes appellent des actions différentes (XF28).
+FIN-24.05 | conserver | justifiee
+  j: Mois à découvert : découvert saisonnier ou permanent (FIN-24.06, XF28).
+
+# FIN-25 Objectif économique (investissement)
+FIN-25.01 | conserver | justifiee
+  j: Investissement principal et ses coûts : coût total (FIN-26.01), coûts récurrents créés, gain réel attendu et constaté, délai de remboursement (XF29, XF30, S06).
+FIN-25.02 | conserver | justifiee
+  j: Ventes en plus permises par l'investissement : investissement prévu et réel (XF29).
+
+# FIN-23 Couverture des besoins
+FIN-23.01 | conserver | justifiee
+  j: Mode de financement de l'investissement et part payée en trésorerie : effet sur la trésorerie (FIN-23.02), mois de sécurité avant et après (XF30). Sert aussi de condition proposée pour FIN-48.01.
+
+# FIN-27 Retour attendu
+FIN-27.01 | conserver | justifiee
+  j: Gain attendu de l'investissement : gain financier réel attendu (FIN-27.02), délai de remboursement prévu (FIN-27.03).
+
+# FIN-28 Résultats constatés
+FIN-28.01 | conserver | justifiee
+  j: Gain réel depuis la mise en service : écart entre prévu et réel (FIN-28.04), mois avant remboursement (FIN-28.06).
+FIN-28.02 | conserver | justifiee
+  j: Utilisation réelle de l'investissement : explique un gain réel inférieur au gain prévu (XF29).
+
+# FIN-29 Concentration des payeurs
+FIN-29.01 | conserver | justifiee
+  j: Partagée avec ACQ-16.01 (posée une fois) : départ du plus gros client (XF31, S02), clients qui coûtent (XF36).
+
+# FIN-34 Tableau de suivi
+FIN-34.01 | conserver | justifiee
+  j: Chiffres réellement suivis : niveau de pilotage financier (XF46) ; désigne le chiffre qui manque au suivi.
+FIN-34.02 | conserver | justifiee
+  j: Partagée avec ACQ-20.02 (posée une fois) : fréquence de lecture des chiffres financiers (XF46).
+FIN-34.03 | conserver | justifiee
+  j: Outil de suivi et mise à jour : niveau de pilotage (XF46) ; une mise à jour à la main explique un suivi rare.
+FIN-34.04 | conserver | justifiee
+  j: Alertes automatiques : niveau de pilotage (XF46).
+  g: « Mettez en place des alertes » : à relier à un seuil réel du dirigeant (mois de tension FIN-13.04, découvert FIN-24), pas en général.
+FIN-34.05 | conserver | justifiee
+  j: Temps de mise à jour et qui le fait : niveau de pilotage (XF46) ; un temps élevé fait de l'automatisation une action qui libère du temps (section 8).
+
+# FIN-35 Budgets et écarts
+FIN-35.01 | conserver | justifiee
+  j: Comparaison au budget : niveau de pilotage (XF46).
+
+# FIN-36 Décisions de dépenses
+FIN-36.01 | conserver | justifiee
+  j: Vérifications avant une dépense importante : niveau de pilotage (XF46) ; « Rien de particulier » se coche seul.
+
+# FIN-37 Valeur du stock
+FIN-37.01 | conserver | justifiee
+  j: Valeur du stock : rotation (FIN-38.01), stock dormant (FIN-39.04), argent immobilisé (XF20), indicateur comparable au marché.
+FIN-37.02 | conserver | justifiee
+  j: Valeur du stock il y a 12 mois : évolution comparée au CA (exécutée, XF41).
+FIN-37.03 | retirer | peu_utile
+  p: Lue par l'IA seulement. Sans les ventes par catégorie, la répartition du stock ne donne ni rotation ni stock dormant par catégorie ; tableau libre de cinq lignes.
+  j: À situation identique, une autre répartition ne change aucun calcul ; l'IA ne pourrait que la répéter.
+FIN-37.04 | conserver | justifiee
+  j: Jours tenables sans livraison sur les meilleures ventes : stock de sécurité (FIN-41.05), ruptures (XF43).
+
+# FIN-39 Stock dormant
+FIN-39.01 | conserver | justifiee
+  j: Stock invendu depuis 3, 6 et 12 mois : part du stock dormant (FIN-39.04), trésorerie récupérable (FIN-39.05, XF40, S12).
+FIN-39.02 | conserver | justifiee
+  j: Produits sans vente depuis 6 mois : argent dormant (XF40).
+FIN-39.03 | conserver | justifiee
+  j: Prix d'écoulement possible : trésorerie récupérable (FIN-39.05, S12).
+
+# FIN-40 Pertes et invendus
+FIN-40.01 | conserver | justifiee
+  j: Pertes de stock par raison : pertes par an et en % (FIN-40.04, comparable au marché), cause principale (FIN-40.05), coût matière d'un restaurant (XF49).
+FIN-40.02 | conserver | justifiee
+  j: Évolution des pertes : pertes de stock (XF42).
+
+# FIN-41 Ruptures
+FIN-41.01 | conserver | justifiee
+  j: Ruptures sur les meilleures ventes : disponibilité (FIN-41.04), ruptures (XF43) ; ouvre FIN-41.02.
+FIN-41.02 | conserver | justifiee
+  j: Clients perdus et commandes reportées pendant les ruptures : CA et marge perdus (FIN-41.03).
+
+# FIN-42 Réapprovisionnement
+FIN-42.01 | conserver | justifiee
+  j: Commandes aux fournisseurs et méthode de réapprovisionnement : ruptures (XF43) ; « à l'instinct » avec des ruptures désigne une action précise (seuils de commande).
+
+# FIN-43 Références clés
+FIN-43.02 | conserver | justifiee
+  j: Valeur du stock des dix meilleures ventes : stock immobilisé hors des meilleures ventes (FIN-43.03).
+
+# FIN-44 Conditions d'achat
+FIN-44.01 | conserver | justifiee
+  j: Minimums de commande, stock acheté en plus et remise obtenue : trésorerie immobilisée par les minimums (FIN-44.02, XF44).
+
+# FIN-45 Suivi du stock
+FIN-45.01 | conserver | justifiee
+  j: Inventaires et outil de suivi : écart d'inventaire (XF45).
+FIN-45.02 | conserver | justifiee
+  j: Écart au dernier inventaire : écart en % du stock (FIN-45.04, XF45).
+FIN-45.03 | conserver | justifiee
+  j: Écart précédent et corrections à la main : tendance de l'écart (XF45).
+
+# FIN-47 Cadre de l'activité
+FIN-47.01 | conserver | justifiee
+  j: Forme de l'entreprise (déclencheur D31) : ferme FIN-05.04 pour une micro-entreprise et ouvre FIN-47.02 (règles exécutées) ; sert seulement à lire les chiffres, jamais à un conseil fiscal ou juridique.
+FIN-47.02 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Compte réservé à l'activité : sans compte séparé, la trésorerie (FIN-11.01) et les flux (FIN-12.01) mêlent argent personnel et professionnel ; les calculs de trésorerie sont alors moins sûrs.
+  m: Règle à écrire : marquer les calculs de trésorerie comme moins sûrs quand la réponse est « non ». Ne jamais en tirer un conseil juridique.
+
+# FIN-48 Relation avec la banque (cas de référence, voir le rapport)
+FIN-48.01 | remplacer | a_justifier+conditions
+  p: Posée à tous, au niveau essentiel, sans aucun usage : ni calcul, ni croisement, ni règle de notation écrite. Elle mesure une habitude (la date du dernier rendez-vous), pas un besoin. « Jamais » deviendrait un défaut pour une entreprise qui n'a besoin d'aucun financement.
+  j: À situation identique, si la réponse passe de « Dans les 6 derniers mois » à « Jamais », rien ne change légitimement tant qu'aucun besoin de financement n'existe. Quand un besoin existe (découvert, investissement financé par prêt ou leasing), ce qui compte est que la banque en soit informée, pas la date du dernier rendez-vous.
+  g: « Allez voir votre banquier » : sans besoin, sans montant, sans motif ni échéance. Les réponses existantes permettent d'éviter ce conseil (découvert : FIN-24.01 à 24.05, D11 ; investissement : D12, FIN-23.01, FIN-25.01 ; crédits : D10, FIN-22.01 ; trésorerie à venir : FIN-13.03, 13.04 ; trésorerie à avancer pour l'objectif : FIN-32.01, XF32, XF33).
+  t: Votre banque connaît-elle ce besoin de financement ?
+  r: Oui, la demande est en cours / Oui, elle a été refusée / Non, pas encore / Je ne compte pas passer par une banque
+  c: Posée si D11 = oui (découvert, voir la reformulation de D11), ou si FIN-23.01, financement principal, vaut « Prêt » ou « Leasing ». Plus tard, quand les calculs seront écrits : si la trésorerie à avancer pour l'objectif dépasse la trésorerie disponible au-delà de la sécurité (XF33).
+  m: Le texte de la question doit nommer le besoin détecté (découvert ou investissement) : gabarit à écrire. La lecture de chaque réponse (problème, action, raison, échéance, suivi) est à écrire, sans conseil de produit bancaire.
+  d: Choisir entre : remplacer et rendre conditionnelle (recommandé), retirer (le besoin se déduit déjà des réponses existantes et suffit à un conseil précis), ou garder telle quelle (déconseillé). Le thème FIN-48 n'aurait plus de question en cas de retrait.

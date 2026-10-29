@@ -1,0 +1,522 @@
+[
+  {
+    "code": "D01",
+    "question": "Date de création de l'entreprise",
+    "posee": "Inscription",
+    "reponses": "Mois et année",
+    "effet": "Fixe la période disponible : aucune question sur une période antérieure à la création ; comparaisons à 6 mois et 12 mois seulement si l'entreprise a l'âge requis ; les cumuls « sur 12 mois » portent sur les mois existants",
+    "donneesConcernees": 72
+  },
+  {
+    "code": "D02",
+    "question": "Effectif",
+    "posee": "Inscription",
+    "reponses": "Seul · 2 à 5 · 6 et plus",
+    "effet": "Seul : aucune question salariés, réunions, turnover, absentéisme, délégation interne ; à la place, prestataires, freelances, automatisation et dépendance au dirigeant. 2 à 5 : questions simples (polyvalence, dépendance, délégation, surcharge). 6 et plus : recrutement, management, départs, absences",
+    "donneesConcernees": 79
+  },
+  {
+    "code": "D03",
+    "question": "ACQ-03.01 · Sur les 12 derniers mois, par quels canaux vos clients sont-ils arrivés jusqu'à vous ?",
+    "posee": "Écran A04",
+    "reponses": "Cases : Bouche-à-oreille · Fiche Google · Site internet · Réseaux sociaux · Publicité en ligne · Publicité locale · Plateformes · Annuaires · Partenaires · Prospection · Emailing et SMS · Passage · Salons et événements · Réseaux d'affaires · Appels d'offres · Réseau ou enseigne · Autre",
+    "effet": "Seuls les canaux cochés reçoivent des questions : une ligne par canal coché dans le tableau des canaux ; écrans partenaires, prospection, fiche Google, site et plateformes seulement si le canal est coché",
+    "donneesConcernees": 26
+  },
+  {
+    "code": "D04",
+    "question": "Faites-vous de la publicité payante ou travaillez-vous avec une agence marketing ?",
+    "posee": "Écran A04",
+    "reponses": "Oui · non",
+    "effet": "Dépenses par canal payant, agence, évolution du budget",
+    "donneesConcernees": 3
+  },
+  {
+    "code": "D05",
+    "question": "Votre activité fonctionne-t-elle sur rendez-vous ?",
+    "posee": "Écran A10",
+    "reponses": "Oui · non",
+    "effet": "Rendez-vous, absences, créneaux disponibles et occupés",
+    "donneesConcernees": 9
+  },
+  {
+    "code": "D06",
+    "question": "Faites-vous des devis ou des propositions commerciales ?",
+    "posee": "Écran A11",
+    "reponses": "Oui · non",
+    "effet": "Devis et relances, cycle de vente, acomptes",
+    "donneesConcernees": 17
+  },
+  {
+    "code": "D07",
+    "question": "Avez-vous du stock ?",
+    "posee": "Écran F20",
+    "reponses": "Oui · non",
+    "effet": "Bloc Stock complet (FIN-37 à FIN-45) et délai de livraison fournisseur",
+    "donneesConcernees": 19
+  },
+  {
+    "code": "D08",
+    "question": "Achetez-vous des marchandises ou des matières ? Sous-traitez-vous ? Avez-vous des fournisseurs réguliers ?",
+    "posee": "Écran F04",
+    "reponses": "3 × oui / non",
+    "effet": "Achats, sous-traitance, tableau des fournisseurs, délais de paiement fournisseurs",
+    "donneesConcernees": 9
+  },
+  {
+    "code": "D09",
+    "question": "Vos clients paient-ils après réception d'une facture ?",
+    "posee": "Écran F11",
+    "reponses": "Oui · non (paiement immédiat)",
+    "effet": "Délai de facturation, délai d'encaissement, retards et impayés",
+    "donneesConcernees": 13
+  },
+  {
+    "code": "D10",
+    "question": "Avez-vous un crédit ou un leasing en cours ?",
+    "posee": "Écran F16",
+    "reponses": "Oui · non",
+    "effet": "Tableau des emprunts et leasings",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D11",
+    "question": "Avez-vous été à découvert sur la période ?",
+    "posee": "Écran F17",
+    "reponses": "Oui · non",
+    "effet": "Jours, montants, agios et causes du découvert",
+    "donneesConcernees": 5
+  },
+  {
+    "code": "D12",
+    "question": "Avez-vous un investissement prévu, ou réalisé depuis 24 mois ? Est-il déjà en service ?",
+    "posee": "Écran F18",
+    "reponses": "Oui · non, puis oui · non",
+    "effet": "Coût, financement, gain attendu ; gain constaté seulement s'il est en service",
+    "donneesConcernees": 6
+  },
+  {
+    "code": "D13",
+    "question": "Avez-vous recruté sur la période, ou prévoyez-vous de recruter ?",
+    "posee": "Écran R14",
+    "reponses": "Recruté · prévu · ni l'un ni l'autre",
+    "effet": "Recrutements, intégration, autonomie des recrues ; départs précoces seulement s'il y a eu des recrutements",
+    "donneesConcernees": 11
+  },
+  {
+    "code": "D14",
+    "question": "Vendez-vous par abonnement ?",
+    "posee": "Inscription (métier)",
+    "reponses": "Oui · non",
+    "effet": "Abonnés, revenu récurrent, résiliations",
+    "donneesConcernees": 13
+  },
+  {
+    "code": "D15",
+    "question": "Avez-vous des clients professionnels réguliers ?",
+    "posee": "Écran A16",
+    "reponses": "Oui · non",
+    "effet": "Tableau des 5 plus gros clients, temps passé et délai de paiement de chacun",
+    "donneesConcernees": 6
+  },
+  {
+    "code": "D16",
+    "question": "Votre activité est-elle 100 % en ligne ?",
+    "posee": "Inscription (métier)",
+    "reponses": "Oui · non",
+    "effet": "Masque zone, fiche Google, jours fermés, boutique",
+    "donneesConcernees": 22
+  },
+  {
+    "code": "D17",
+    "question": "ACQ-18.02 · Avez-vous un programme de parrainage, qui récompense un client quand il vous en recommande un autre ?",
+    "posee": "Écran A17",
+    "reponses": "Oui · non",
+    "effet": "Oui : ouvre ACQ-18.07 (valeur de la récompense) et ACQ-18.03",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D18",
+    "question": "Facturez-vous au temps passé (heure, jour) ?",
+    "posee": "Écran A14",
+    "reponses": "Oui · non",
+    "effet": "Taux horaire, heures travaillées et facturées, coût et marge par heure",
+    "donneesConcernees": 5
+  },
+  {
+    "code": "D19",
+    "question": "Votre travail est-il planifié à l'avance (planning, carnet de commandes) ?",
+    "posee": "Écran A18",
+    "reponses": "Oui · non",
+    "effet": "Semaines remplies, montant signé non réalisé, délai de démarrage",
+    "donneesConcernees": 5
+  },
+  {
+    "code": "D20",
+    "question": "Jours d'ouverture",
+    "posee": "Écran A21",
+    "reponses": "Cases à cocher",
+    "effet": "Demandes reçues les jours fermés, seulement s'il y a au moins un jour fermé",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D21",
+    "question": "COM-10.07 · Publiez-vous pour votre entreprise sur les réseaux sociaux ?",
+    "posee": "Écran C03",
+    "reponses": "Oui, au moins une fois par mois · Rarement ou plus du tout · Non, jamais",
+    "effet": "Oui : diagnostic de performance (audience, engagement, clics, publications, qualité). Non : parcours de démarrage (réseaux de la cible, temps disponible, contacts existants) et premiers contenus « Oui, au moins une fois par mois » ouvre le parcours amélioration ; les deux autres réponses, le parcours mise en place.",
+    "donneesConcernees": 14
+  },
+  {
+    "code": "D22",
+    "question": "COM-10.08 · Sur quels réseaux publiez-vous ?",
+    "posee": "Écran C03",
+    "reponses": "Cases : LinkedIn · Instagram · Facebook · TikTok · YouTube · X · Pinterest · Autre",
+    "effet": "Une ligne par réseau coché dans tous les tableaux Comm ; aucune statistique sur un réseau non utilisé ; périodes adaptées à l'âge de chaque compte",
+    "donneesConcernees": 10
+  },
+  {
+    "code": "D23",
+    "question": "COM-13.10 · Avez-vous un site internet ?",
+    "posee": "Écran C04",
+    "reponses": "Oui · non, puis oui · non",
+    "effet": "Demandes reçues via le site ; sources, pages et évolution du trafic seulement si un outil de mesure existe",
+    "donneesConcernees": 6
+  },
+  {
+    "code": "D24",
+    "question": "COM-15.12 · Avez-vous un fichier de contacts : clients ou futurs clients, avec leur email ou leur téléphone ?",
+    "posee": "Écran C06",
+    "reponses": "Oui · non",
+    "effet": "Taille et composition du fichier, envois, résultats des envois",
+    "donneesConcernees": 6
+  },
+  {
+    "code": "D25",
+    "question": "Avez-vous une offre d'appel (guide, diagnostic, estimation, essai, webinaire…) ?",
+    "posee": "Écran C08",
+    "reponses": "Oui · non",
+    "effet": "Visiteurs de l'offre, contacts récoltés, qualifiés, rendez-vous, clients, coût",
+    "donneesConcernees": 3
+  },
+  {
+    "code": "D26",
+    "question": "COM-39.07 · Avez-vous accès aux statistiques de vos publications ?",
+    "posee": "Écran C13",
+    "reponses": "Oui · non",
+    "effet": "Oui : saisie des statistiques des 3 meilleures et 3 moins bonnes publications ; lecture automatique quand la connexion existera. Non : estimations.",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D27",
+    "question": "La personne la plus chargée, est-ce vous ?",
+    "posee": "Écran R07",
+    "reponses": "Vous · une autre personne",
+    "effet": "Si c'est vous : ses heures et ses tâches transférables sont reprises de vos réponses (RH-05), pas reposées",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D28",
+    "question": "RH-41.01 · Aimeriez-vous être aidé dans votre travail, par un salarié, un apprenti, un freelance ou un associé ?",
+    "posee": "Agent RH, dirigeant seul",
+    "reponses": "Oui (dans 6 mois, dans 12 mois ou plus tard) · Non",
+    "effet": "Oui : partie « S'entourer » pour les dirigeants seuls (RH-41.02 à RH-45)",
+    "donneesConcernees": 11
+  },
+  {
+    "code": "D29",
+    "question": "RH-44.02 · Avez-vous déjà eu un salarié ou un freelance régulier ?",
+    "posee": "Agent RH, dirigeant seul",
+    "reponses": "« Oui, mais ça s'est mal passé »",
+    "effet": "Ce qui n'a pas fonctionné (RH-44.03)",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D30",
+    "question": "Première création de contenu",
+    "posee": "Agent Comm",
+    "reponses": "Bouton de l'agent ou fin du parcours mise en place",
+    "effet": "Brief de création (COM-57), posé avant le premier contenu créé, pas pendant l'audit",
+    "donneesConcernees": 15
+  },
+  {
+    "code": "D31",
+    "question": "FIN-47.01 · Sous quelle forme votre entreprise exerce-t-elle ?",
+    "posee": "Agent Finance",
+    "reponses": "Micro-entreprise · Entreprise individuelle · Société · Autre",
+    "effet": "Masque FIN-05.04 en micro-entreprise ; ouvre FIN-47.02 en micro-entreprise ou entreprise individuelle",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D32",
+    "question": "ACQ-15.01 · Proposez-vous à vos clients un produit ou un service en plus de ce qu'ils sont venus chercher ?",
+    "posee": "Agent Acquisition, juste avant les questions qu'elle ouvre",
+    "reponses": "Toute réponse sauf « Jamais »",
+    "effet": "Ouvre ACQ-15.02, ACQ-15.03",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D33",
+    "question": "ACQ-15.09 · Proposez-vous le paiement en plusieurs fois à vos clients ?",
+    "posee": "Agent Acquisition, juste avant les questions qu'elle ouvre",
+    "reponses": "Oui",
+    "effet": "Ouvre ACQ-15.10, ACQ-15.11, ACQ-15.12, ACQ-15.13",
+    "donneesConcernees": 4
+  },
+  {
+    "code": "D34",
+    "question": "ACQ-15.04 · Avez-vous une offre haut de gamme, plus complète ou plus chère que votre offre principale ?",
+    "posee": "Agent Acquisition, juste avant les questions qu'elle ouvre",
+    "reponses": "Oui",
+    "effet": "Ouvre ACQ-15.14",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D35",
+    "question": "ACQ-14.01 · Sur les 3 derniers mois, quelle part de vos clients a obtenu une remise ou un geste commercial pour se décider ?",
+    "posee": "Agent Acquisition, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 %",
+    "effet": "Ouvre ACQ-14.02, ACQ-14.04",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D36",
+    "question": "ACQ-10.06 · Parmi vos {devis_pluriel} sans réponse, quelle part relancez-vous ?",
+    "posee": "Agent Acquisition, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 %",
+    "effet": "Ouvre ACQ-10.07, ACQ-10.10, ACQ-10.11",
+    "donneesConcernees": 3
+  },
+  {
+    "code": "D37",
+    "question": "ACQ-08.02 · Sur une semaine habituelle, combien d'appels manquez-vous ?",
+    "posee": "Agent Acquisition, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0",
+    "effet": "Ouvre ACQ-08.03",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D38",
+    "question": "ACQ-17.13 · En moyenne sur les 3 derniers mois, combien de clients résilient leur contrat ou leur abonnement chaque mois ?",
+    "posee": "Agent Acquisition, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0",
+    "effet": "Ouvre ACQ-17.14",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D39",
+    "question": "ACQ-17.29 · Proposez-vous un contrat d'entretien ou de suivi après vos travaux ?",
+    "posee": "Agent Acquisition, juste avant les questions qu'elle ouvre",
+    "reponses": "Oui",
+    "effet": "Ouvre ACQ-17.30",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D40",
+    "question": "FIN-10.01 · En moyenne sur les 3 derniers mois, combien de reprises, de retours et de gestes commerciaux avez-vous par mois, et combien coûtent-ils ?",
+    "posee": "Agent Finance, juste avant les questions qu'elle ouvre",
+    "reponses": "Au moins une reprise, un retour ou un geste par mois",
+    "effet": "Ouvre FIN-10.02, FIN-10.05",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D41",
+    "question": "FIN-10.01 · En moyenne sur les 3 derniers mois, combien de reprises, de retours et de gestes commerciaux avez-vous par mois, et combien coûtent-ils ?",
+    "posee": "Agent Finance, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 retour par mois",
+    "effet": "Ouvre FIN-10.04",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D42",
+    "question": "FIN-41.01 · En moyenne sur les 3 derniers mois, combien de ruptures de stock par mois touchent vos 20 produits qui se vendent le mieux, et combien de jours durent-elles ?",
+    "posee": "Agent Finance, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 rupture par mois",
+    "effet": "Ouvre FIN-41.02",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D43",
+    "question": "FIN-20.03 · Vos fournisseurs vous proposent-ils une remise si vous les payez plus vite ?",
+    "posee": "Agent Finance, juste avant les questions qu'elle ouvre",
+    "reponses": "Oui",
+    "effet": "Ouvre FIN-20.08",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D44",
+    "question": "RH-04.01 · Sur les 3 derniers mois, combien de tâches avez-vous confiées à quelqu'un d'autre ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0",
+    "effet": "Ouvre RH-04.02",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D45",
+    "question": "RH-04.02 · Parmi ces tâches, combien avez-vous dû reprendre en main ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0",
+    "effet": "Ouvre RH-04.03, RH-04.04, RH-04.05",
+    "donneesConcernees": 3
+  },
+  {
+    "code": "D46",
+    "question": "RH-06.05 · Sur les 3 derniers mois, combien de semaines ont comporté des heures supplémentaires ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Toute réponse sauf « Aucune »",
+    "effet": "Ouvre RH-06.06, RH-06.07",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D47",
+    "question": "RH-15.02 · Du matériel ou un équipement ralentit-il le travail : panne, matériel trop vieux ou qui manque ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Oui",
+    "effet": "Ouvre RH-15.03",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D48",
+    "question": "FIN-10.01 · En moyenne sur les 3 derniers mois, combien de reprises, de retours et de gestes commerciaux avez-vous par mois, et combien coûtent-ils ?",
+    "posee": "Agent Finance, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 reprise par mois",
+    "effet": "Ouvre FIN-10.03",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D49",
+    "question": "RH-16.01 · En moyenne sur les 3 derniers mois, combien de fois par mois devez-vous refaire ou corriger un travail, et combien de temps cela prend-il à chaque fois ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 reprise par mois",
+    "effet": "Ouvre RH-16.02, RH-16.03, RH-16.04",
+    "donneesConcernees": 3
+  },
+  {
+    "code": "D50",
+    "question": "RH-19.01 · Sur un mois habituel, combien de réunions d'équipe faites-vous, combien de temps durent-elles et avec combien de participants ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 réunion",
+    "effet": "Ouvre RH-19.02, RH-19.04",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D51",
+    "question": "RH-48.01 · Chaque personne a-t-elle des objectifs clairs, écrits et revus avec vous ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Toute réponse sauf « Pour personne »",
+    "effet": "Ouvre RH-48.02",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D52",
+    "question": "RH-49.01 · Combien de responsables encadrent une partie de l'équipe, et combien de personnes chacun suit-il au plus ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 responsable",
+    "effet": "Ouvre RH-49.02",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D53",
+    "question": "RH-25.01 · Sur les 12 derniers mois, combien de jours de formation l'équipe a-t-elle suivis, et la transmission entre collègues est-elle organisée ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 jour de formation",
+    "effet": "Ouvre RH-26.01",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D54",
+    "question": "RH-32.01 · Sur les 12 derniers mois, combien de personnes sont parties, et pour quelle raison ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 départ",
+    "effet": "Ouvre RH-32.03, RH-32.04",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D55",
+    "question": "RH-34.01 · Sur les 12 derniers mois, combien de jours d'absence l'équipe a-t-elle eus, hors congés ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 jour",
+    "effet": "Ouvre RH-34.03",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D56",
+    "question": "COM-05.01 · Proposez-vous une garantie à vos clients ?",
+    "posee": "Agent Comm, juste avant les questions qu'elle ouvre",
+    "reponses": "Toute réponse sauf « Aucune »",
+    "effet": "Ouvre COM-05.02",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D57",
+    "question": "RH-37.01 · En dehors de vous, quelles personnes bloquent l'activité quand elles sont absentes ?",
+    "posee": "Agent RH, juste avant les questions qu'elle ouvre",
+    "reponses": "Au moins une personne nommée",
+    "effet": "Ouvre RH-37.02, RH-38.01, RH-38.02",
+    "donneesConcernees": 3
+  },
+  {
+    "code": "D58",
+    "question": "COM-15.03 · Quand avez-vous écrit à votre fichier pour la dernière fois, et combien d'envois avez-vous faits sur les 6 derniers mois ?",
+    "posee": "Agent Comm, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 envoi",
+    "effet": "Ouvre COM-15.04, COM-15.06",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D59",
+    "question": "COM-23.01 · En moyenne sur les 3 derniers mois, combien de messages privés recevez-vous par mois sur chaque messagerie, dont combien de demandes commerciales ?",
+    "posee": "Agent Comm, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 message",
+    "effet": "Ouvre COM-23.02, COM-23.03",
+    "donneesConcernees": 2
+  },
+  {
+    "code": "D60",
+    "question": "COM-31.01 · Sur une semaine habituelle, combien d'heures passez-vous, vous et votre équipe, sur chaque tâche de communication ?",
+    "posee": "Agent Comm, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 heure",
+    "effet": "Ouvre COM-31.02",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D61",
+    "question": "COM-44.01 · Sur votre fiche Google, combien d'avis avez-vous, quelle est votre note, et combien d'avis avez-vous reçus sur les 6 derniers mois ?",
+    "posee": "Agent Comm, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 avis",
+    "effet": "Ouvre COM-44.03, COM-44.04, COM-46.01, COM-46.02",
+    "donneesConcernees": 4
+  },
+  {
+    "code": "D62",
+    "question": "COM-45.01 · Demandez-vous un avis à vos clients ?",
+    "posee": "Agent Comm, juste avant les questions qu'elle ouvre",
+    "reponses": "Toute réponse sauf « Jamais »",
+    "effet": "Ouvre COM-45.02",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D63",
+    "question": "COM-26.01 · Sur les 3 derniers mois, combien avez-vous publié de contenus de chaque format, tous réseaux confondus ?",
+    "posee": "Agent Comm, juste avant les questions qu'elle ouvre",
+    "reponses": "Plus de 0 vidéo",
+    "effet": "Ouvre COM-39.03",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D64",
+    "question": "COM-60.01 · Quand quelqu'un clique sur le lien de votre profil, sur quelle page arrive-t-il ?",
+    "posee": "Agent Comm, juste avant les questions qu'elle ouvre",
+    "reponses": "Toute réponse qui mène vers une page",
+    "effet": "Ouvre COM-60.02",
+    "donneesConcernees": 1
+  },
+  {
+    "code": "D65",
+    "question": "COM-61.01 · Que faites-vous des personnes qui réagissent à vos publications ou vous écrivent, sans devenir clientes ?",
+    "posee": "Agent Comm, juste avant les questions qu'elle ouvre",
+    "reponses": "« Je leur écris en message privé »",
+    "effet": "Ouvre COM-61.02",
+    "donneesConcernees": 1
+  }
+]

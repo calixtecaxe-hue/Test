@@ -1,0 +1,28 @@
+conforme  T-01-ACQ ACQ : la question est juste sous l'objectif, avant les questions
+conforme  T-02-ACQ ACQ : « Qu'avez-vous déjà essayé pour atteindre cet objectif ? », rien de coché ni d'écrit d'avance, aucune réponse en base
+conforme  T-01-FIN FIN : la question est juste sous l'objectif, avant les questions
+conforme  T-02-FIN FIN : « Qu'avez-vous déjà essayé pour atteindre cet objectif ? », rien de coché ni d'écrit d'avance, aucune réponse en base
+conforme  T-01-RH RH : la question est juste sous l'objectif, avant les questions
+conforme  T-02-RH RH : « Qu'avez-vous déjà essayé pour atteindre cet objectif ? », rien de coché ni d'écrit d'avance, aucune réponse en base
+conforme  T-01-COM COM : la question est juste sous l'objectif, avant les questions
+conforme  T-02-COM COM : « Qu'avez-vous déjà essayé pour atteindre cet objectif ? », rien de coché ni d'écrit d'avance, aucune réponse en base
+conforme  T-03    « Je n'ai encore rien essayé » s'enregistre tout de suite ({ etat: rien }), alors qu'une question sans réponse reste vide en base
+conforme  T-04    le texte s'enregistre quand le dirigeant s'arrête d'écrire, sans quitter le champ ; « rien essayé » se décoche
+conforme  T-05    une modification part dès que le dirigeant quitte le champ
+conforme  T-06    résultat et durée, facultatifs, s'enregistrent
+conforme  T-07    après actualisation, texte et précisions sont repris tels quels
+conforme  T-08    cocher « rien essayé » après avoir écrit garde le texte en base (sans qu'il compte) et masque les précisions
+conforme  T-09    sans réseau, la réponse attend avec un message, puis repart seule
+conforme  T-10    au clavier, Espace coche et décoche « rien essayé », enregistré à chaque fois
+conforme  T-11    téléphone 360 px : aucun défilement horizontal
+conforme  T-12    nouvel objectif : aucune réponse reprise en base ; l'ancienne est proposée sous le nouvel objectif ; l'ancien objectif la garde
+conforme  T-13    l'historique des objectifs montre ce qui avait été essayé pour l'ancien objectif
+conforme  T-14    « Non, je réponds pour ce nouvel objectif » ferme la proposition sans rien enregistrer
+conforme  T-15    « Reprendre pour ce nouvel objectif » copie la réponse avec son origine (reprisDe), à l'écran comme en base
+conforme  T-16    refusés : objectif remplacé (409), état inconnu, texte de plus de 1 500 caractères, résultat inconnu, reprise depuis l'objectif d'un autre agent (400)
+conforme  T-17    l'objectif d'un autre compte est introuvable (404) ; sans objectif, la question n'est pas affichée
+conforme  T-18    un agent qui n'est plus dans la formule est refusé (403)
+conforme  T-19    deux objectifs en cours : deux questions nommées, la réponse ne vaut que pour son objectif
+conforme  T-20    « Effacer ma réponse » remet la question sans réponse (base et écran)
+
+26 contrôles, 26 conformes, 0 écart(s).

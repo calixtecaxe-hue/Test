@@ -1,0 +1,2391 @@
+[
+  {
+    "theme": "ACQ-01",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Cible",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-02",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Volume de contacts",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "ACQ-02.07",
+        "libelle": "Part des demandes qualifiées",
+        "definition": "Demandes qualifiées ÷ demandes reçues",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "part des demandes qualifiées",
+          "leads qualifiés"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-02.08",
+        "libelle": "Taux demande → rendez-vous",
+        "definition": "Rendez-vous obtenus ÷ demandes reçues",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de prise de rendez-vous",
+          "demande vers rendez-vous"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "ACQ-03",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Canaux",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-04",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Prospection active",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-05",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Partenaires",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-06",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Présence en ligne",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-07",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Budget et coût d'acquisition",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-08",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Réactivité",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "ACQ-08.03",
+        "libelle": "Part des appels manqués que vous rappelez",
+        "definition": "Part des appels manqués que vous rappelez",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "appels manqués rappelés",
+          "taux de rappel"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "ACQ-09",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Rendez-vous",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "ACQ-09.09",
+        "libelle": "Taux de présence",
+        "definition": "Honorés ÷ obtenus",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de présence aux rendez-vous"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-09.10",
+        "libelle": "Taux d'absence sans prévenir",
+        "definition": "Absences ÷ obtenus",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux d'absence aux rendez-vous",
+          "no-show"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-09.11",
+        "libelle": "Taux rendez-vous honoré → client signé",
+        "definition": "Nouveaux clients ÷ rendez-vous honorés",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de transformation des rendez-vous"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "ACQ-10",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Devis et relances",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "ACQ-10.13",
+        "libelle": "Taux d'acceptation en nombre",
+        "definition": "Devis acceptés ÷ devis envoyés",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux d'acceptation des devis",
+          "taux de transformation des devis"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-10.14",
+        "libelle": "Taux d'acceptation en montant",
+        "definition": "Montant accepté ÷ montant envoyé",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux d'acceptation des devis en montant"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-10.16",
+        "libelle": "Efficacité de vos relances",
+        "definition": "Devis acceptés après relance ÷ devis relancés",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "efficacité des relances de devis"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "ACQ-11",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Transformation",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "ACQ-11.19",
+        "libelle": "Taux de transformation global (demandes → nouveaux clients)",
+        "definition": "Nouveaux clients ÷ demandes reçues",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de transformation",
+          "taux de conversion des demandes"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-11.24",
+        "libelle": "Taux de transformation visiteurs → acheteurs",
+        "definition": "Tickets ÷ visiteurs",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de conversion visiteurs en acheteurs",
+          "taux de transformation en magasin"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "ACQ-12",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Durée du cycle de vente",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "ACQ-12.05",
+        "libelle": "Durée totale du cycle de vente",
+        "definition": "Contact → rendez-vous + délai d'envoi du devis + devis → signature",
+        "unite": "jours",
+        "periode": "cycle",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": null
+        },
+        "motsCles": [
+          "durée du cycle de vente"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "ACQ-13",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Prix et honoraires",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "ACQ-13.03",
+        "libelle": "Taux horaire facturé",
+        "definition": "Taux horaire facturé",
+        "unite": "euros_par_heure",
+        "periode": "heure",
+        "sens": "fourchette_ideale",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": null
+        },
+        "motsCles": [
+          "taux horaire",
+          "tarif horaire moyen"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "ACQ-14",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Négociation",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "ACQ-14.01",
+        "libelle": "Part des ventes avec remise ou geste commercial — déclencheur D35",
+        "definition": "Part des ventes avec remise ou geste commercial — déclencheur D35",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "part des ventes avec remise"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-14.02",
+        "libelle": "Remise moyenne accordée",
+        "definition": "Remise moyenne accordée",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "remise moyenne accordée"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "ACQ-15",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Panier moyen",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-16",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Répartition du CA",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-17",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Clients récurrents",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "ACQ-17.02",
+        "libelle": "Parmi les clients de l'an dernier, part revenue cette année (restaurant : part d'habitués)",
+        "definition": "Parmi les clients de l'an dernier, part revenue cette année (restaurant : part d'habitués)",
+        "unite": "pourcent",
+        "periode": "an",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de fidélisation",
+          "taux de rétention clients"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-17.17",
+        "libelle": "Taux de clients perdus dans l'année",
+        "definition": "100 % − part des clients revenus",
+        "unite": "pourcent",
+        "periode": "an",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux d'attrition clients",
+          "taux de clients perdus"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-17.22",
+        "libelle": "Taux de résiliation mensuel",
+        "definition": "Résiliations ÷ abonnés actifs",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de résiliation mensuel",
+          "churn"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-17.24",
+        "libelle": "Durée moyenne d'un abonnement",
+        "definition": "1 ÷ taux de résiliation mensuel",
+        "unite": "mois",
+        "periode": "abonnement",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": null
+        },
+        "motsCles": [
+          "durée moyenne d'un abonnement"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "ACQ-18",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Recommandation",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-19",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Carnet de commandes",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-20",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Suivi commercial",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-21",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Productivité",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "ACQ-21.09",
+        "libelle": "Taux d'utilisation de la capacité",
+        "definition": "Ventes réalisées ÷ maximum possible",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "fourchette_ideale",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux d'utilisation de la capacité",
+          "taux de remplissage"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "ACQ-21.12",
+        "libelle": "Part des heures travaillées qui sont facturées",
+        "definition": "Heures facturées ÷ heures travaillées",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux d'heures facturées",
+          "taux d'activité facturable"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "ACQ-22",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Capacité commerciale",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-23",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Saisonnalité",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-24",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Objectif et moyens",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-25",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Métier · Transport de personnes et coursiers",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-27",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Métier · Négoce",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-28",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Métier · Vente de véhicules et de logements",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-29",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Métier · Immobilier",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "ACQ-30",
+    "agent": "ACQUISITION_CA",
+    "libelle": "Contexte",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-01",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Marge par offre",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-02",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Marge par client",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-03",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Coût de revient",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-04",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Érosion des marges",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-05",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Seuil de rentabilité",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-06",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Charges fixes et variables",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-07",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Coût de l'équipe",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "FIN-07.08",
+        "libelle": "Poids de la masse salariale dans le CA",
+        "definition": "Masse salariale ÷ CA mensuel",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "fourchette_ideale",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "poids de la masse salariale dans le chiffre d'affaires",
+          "ratio masse salariale sur CA"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "FIN-07.10",
+        "libelle": "CA par personne de l'effectif total",
+        "definition": "CA mensuel ÷ effectif total (inscription). Différent du CA par personne en production (ACQ-21)",
+        "unite": "euros",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": null
+        },
+        "motsCles": [
+          "chiffre d'affaires par salarié",
+          "CA par personne"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "FIN-08",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Achats et sous-traitance",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-09",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Dépenses récurrentes",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-10",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Coût des erreurs",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-11",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Trésorerie disponible",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-12",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Flux",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-13",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Échéances à venir",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-14",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Saisonnalité",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-15",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Marge de sécurité",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-16",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Délai de facturation",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-17",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Délai de paiement",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "FIN-17.05",
+        "libelle": "Délai réel moyen d'encaissement",
+        "definition": "Moyenne des tranches pondérée par leur part",
+        "unite": "jours",
+        "periode": "an",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": null
+        },
+        "motsCles": [
+          "délai moyen de paiement clients",
+          "DSO"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "FIN-17.07",
+        "libelle": "Retard moyen par rapport au délai prévu",
+        "definition": "Délai réel − délai indiqué sur la facture",
+        "unite": "jours",
+        "periode": "an",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": null
+        },
+        "motsCles": [
+          "retard moyen de paiement"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "FIN-18",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Impayés",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-19",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Acomptes",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-20",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Paiements fournisseurs",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-21",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Argent immobilisé",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-22",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Poids des remboursements",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-23",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Couverture des besoins",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-24",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Dépendance au court terme",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-25",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Objectif économique",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-26",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Coût total",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-27",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Retour attendu",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-28",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Résultats constatés",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-29",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Concentration des payeurs",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-30",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Fournisseurs majeurs",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-31",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Scénario défavorable",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-32",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Besoin lié à la croissance",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-33",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Qualité des données",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-34",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Tableau de suivi",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-35",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Budgets et écarts",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-36",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Décisions de dépenses",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-37",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Valeur du stock",
+    "nature": "marche",
+    "rechercheReference": false,
+    "motif": "Volume absolu qui dépend de la taille de l'entreprise : seuls des ratios se comparent à un marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-38",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Rotation",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "FIN-38.01",
+        "libelle": "Jours de ventes couverts par le stock",
+        "definition": "Valeur du stock ÷ (achats mensuels ÷ 30)",
+        "unite": "jours",
+        "periode": "an",
+        "sens": "fourchette_ideale",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": null
+        },
+        "motsCles": [
+          "rotation du stock",
+          "jours de stock"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "FIN-39",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Stock dormant",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-40",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Pertes et invendus",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "FIN-40.04",
+        "libelle": "Pertes de stock en % des achats",
+        "definition": "Pertes ÷ achats",
+        "unite": "pourcent",
+        "periode": "an",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de démarque",
+          "pertes et invendus en pourcentage des achats"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "FIN-41",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Ruptures",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-42",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Réapprovisionnement",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-43",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Références clés",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-44",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Conditions d'achat",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-45",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Suivi du stock",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-46",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Rémunération du dirigeant",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-47",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Cadre de l'activité",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "FIN-48",
+    "agent": "FINANCE_RENTABILITE",
+    "libelle": "Relation avec la banque",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-01",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Clarté des missions",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-02",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Répartition des responsabilités",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-03",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Autonomie",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-04",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Délégation réelle",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-05",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Temps du dirigeant",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-06",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Volume de travail",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-07",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Capacité disponible",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-08",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Répartition de la charge",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-09",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Urgences",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-10",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Interruptions",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-11",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Pics et creux",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-12",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Méthodes reproductibles",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-13",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Passage de relais",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-14",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Accès à l'information",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-15",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Outils",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-16",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Erreurs et reprises",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-17",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Tâches répétitives",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-18",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Priorités",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-19",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Échanges individuels et collectifs",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-20",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Retours sur le travail",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-21",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Disponibilité du responsable",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-22",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Remontées de terrain",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-23",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Couverture des savoir-faire",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-24",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Besoins de développement",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-25",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Apprentissage",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-26",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Application",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-27",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Polyvalence",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-28",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Besoin",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-29",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Préparation de l'accueil",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-30",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Accompagnement",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-31",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Progression vers l'autonomie",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-32",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Mouvements d'équipe",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "RH-32.05",
+        "libelle": "Taux de départ annuel",
+        "definition": "Départs ÷ effectif, ramené à 12 mois si la période est plus courte ; comparé au secteur seulement à partir de 10 personnes",
+        "unite": "pourcent",
+        "periode": "an",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de turnover",
+          "taux de départ annuel"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "RH-33",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Départs précoces",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-34",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Absences",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "RH-34.04",
+        "libelle": "Taux d'absence",
+        "definition": "Jours d'absence ÷ effectif, puis ÷ jours travaillés",
+        "unite": "pourcent",
+        "periode": "an",
+        "sens": "plus_bas_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux d'absentéisme"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "RH-35",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Retours sur les conditions de travail",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-36",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Reconnaissance",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-37",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Dépendance aux personnes clés",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-38",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Absence du dirigeant",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-39",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Changements d'organisation",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-40",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Indicateurs de suivi",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-41",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Projet d'équipe",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-42",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Tâches à confier",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-43",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Moyens pour une première aide",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-44",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Freins",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-45",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Relais quand on est seul",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-46",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Composition de l'équipe",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-47",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Planning de l'équipe",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-48",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Objectifs individuels",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "RH-49",
+    "agent": "RH_ORGANISATION",
+    "libelle": "Encadrement",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-01",
+    "agent": "COMM_CREATION",
+    "libelle": "Positionnement",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-02",
+    "agent": "COMM_CREATION",
+    "libelle": "Cible",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-03",
+    "agent": "COMM_CREATION",
+    "libelle": "Promesse",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-04",
+    "agent": "COMM_CREATION",
+    "libelle": "Force de l'offre",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-05",
+    "agent": "COMM_CREATION",
+    "libelle": "Garantie",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-06",
+    "agent": "COMM_CREATION",
+    "libelle": "Ton",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-07",
+    "agent": "COMM_CREATION",
+    "libelle": "Cohérence de marque",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-08",
+    "agent": "COMM_CREATION",
+    "libelle": "Réassurance",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-09",
+    "agent": "COMM_CREATION",
+    "libelle": "Preuve et expertise",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-10",
+    "agent": "COMM_CREATION",
+    "libelle": "Réseaux actifs",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-11",
+    "agent": "COMM_CREATION",
+    "libelle": "Adéquation canal-cible",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-12",
+    "agent": "COMM_CREATION",
+    "libelle": "Les quatre canaux d'acquisition",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-13",
+    "agent": "COMM_CREATION",
+    "libelle": "Site web",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-14",
+    "agent": "COMM_CREATION",
+    "libelle": "Fiche Google",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-15",
+    "agent": "COMM_CREATION",
+    "libelle": "Canaux possédés",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-16",
+    "agent": "COMM_CREATION",
+    "libelle": "Référencement local",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-17",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 1 · Être vu : portée",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-18",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 2 · Intéresser : réactions",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "COM-18.03",
+        "libelle": "Part des réactions fortes (commentaires, partages, sauvegardes)",
+        "definition": "Réactions fortes ÷ réactions totales",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "part des réactions fortes sur les réseaux sociaux"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "COM-19",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 4 · Passer à l'action : clics",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "COM-19.02",
+        "libelle": "Taux de clic",
+        "definition": "Clics ÷ portée",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de clic réseaux sociaux"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "COM-19.03",
+        "libelle": "Conversion du trafic social",
+        "definition": "Demandes venant des réseaux ÷ clics",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de conversion du trafic social"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "COM-20",
+    "agent": "COMM_CREATION",
+    "libelle": "Appel à l'action",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-21",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 6 · Devenir un contact : offre gratuite",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-22",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 6 · Devenir un contact : demandes venues des réseaux",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-23",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 4 · Passer à l'action : messages privés",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "COM-23.04",
+        "libelle": "Messages → demandes commerciales",
+        "definition": "Demandes commerciales ÷ messages reçus",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de messages devenant des demandes commerciales"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "COM-24",
+    "agent": "COMM_CREATION",
+    "libelle": "Objectif",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-25",
+    "agent": "COMM_CREATION",
+    "libelle": "Lignes éditoriales",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-26",
+    "agent": "COMM_CREATION",
+    "libelle": "Équilibre des formats",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-27",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 0 · Publications par étape",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-28",
+    "agent": "COMM_CREATION",
+    "libelle": "Planification",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-29",
+    "agent": "COMM_CREATION",
+    "libelle": "Veille concurrentielle",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-30",
+    "agent": "COMM_CREATION",
+    "libelle": "Qui produit",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-31",
+    "agent": "COMM_CREATION",
+    "libelle": "Temps consacré",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-32",
+    "agent": "COMM_CREATION",
+    "libelle": "Moyens",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-33",
+    "agent": "COMM_CREATION",
+    "libelle": "Rythme réel",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-34",
+    "agent": "COMM_CREATION",
+    "libelle": "Réemploi du contenu",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-35",
+    "agent": "COMM_CREATION",
+    "libelle": "Réserve d'avance",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-36",
+    "agent": "COMM_CREATION",
+    "libelle": "Taux d'engagement",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "COM-36.01",
+        "libelle": "Taux d'engagement par réseau",
+        "definition": "Réactions ÷ portée (à défaut ÷ abonnés, en le précisant)",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux d'engagement réseaux sociaux"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "COM-37",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 1 · Être vu : évolution de l'audience",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-38",
+    "agent": "COMM_CREATION",
+    "libelle": "Rendement de l'audience",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-39",
+    "agent": "COMM_CREATION",
+    "libelle": "Contenus les plus performants",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-40",
+    "agent": "COMM_CREATION",
+    "libelle": "Écart entre ce qui marche et ce qui est publié",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-41",
+    "agent": "COMM_CREATION",
+    "libelle": "Contenus les moins performants",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-42",
+    "agent": "COMM_CREATION",
+    "libelle": "Notoriété",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-43",
+    "agent": "COMM_CREATION",
+    "libelle": "Suivi des chiffres",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-44",
+    "agent": "COMM_CREATION",
+    "libelle": "Avis clients",
+    "nature": "marche",
+    "rechercheReference": true,
+    "motif": null,
+    "indicateurs": [
+      {
+        "id": "COM-44.01",
+        "libelle": "Note moyenne des avis",
+        "definition": "Note moyenne affichée sur la fiche Google et sur la plateforme d'avis principale",
+        "unite": "note",
+        "periode": "avis",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": null,
+          "max": null
+        },
+        "motsCles": [
+          "note moyenne des avis Google"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      },
+      {
+        "id": "COM-44.07",
+        "libelle": "Part des clients qui laissent un avis",
+        "definition": "Nouveaux avis ÷ nouveaux clients ou ventes sur la même période",
+        "unite": "pourcent",
+        "periode": "mois",
+        "sens": "plus_haut_mieux",
+        "sensIncertain": false,
+        "bornesVraisemblance": {
+          "min": 0,
+          "max": 100
+        },
+        "motsCles": [
+          "taux de clients laissant un avis"
+        ],
+        "nationalAutorise": false,
+        "statutRedaction": "valide"
+      }
+    ]
+  },
+  {
+    "theme": "COM-45",
+    "agent": "COMM_CREATION",
+    "libelle": "Sollicitation d'avis",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-46",
+    "agent": "COMM_CREATION",
+    "libelle": "Réponse aux avis",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-47",
+    "agent": "COMM_CREATION",
+    "libelle": "Relation avec la communauté",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-48",
+    "agent": "COMM_CREATION",
+    "libelle": "Partenaires et relais",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-49",
+    "agent": "COMM_CREATION",
+    "libelle": "Accroche",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-50",
+    "agent": "COMM_CREATION",
+    "libelle": "Angle client",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-51",
+    "agent": "COMM_CREATION",
+    "libelle": "Bénéfice explicite",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-52",
+    "agent": "COMM_CREATION",
+    "libelle": "Preuve",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-53",
+    "agent": "COMM_CREATION",
+    "libelle": "Appel à l'action",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-54",
+    "agent": "COMM_CREATION",
+    "libelle": "Alignement avec la cible",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-55",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 3 · Visiter le profil : ce qu'il contient",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-56",
+    "agent": "COMM_CREATION",
+    "libelle": "Démarrage",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-57",
+    "agent": "COMM_CREATION",
+    "libelle": "Brief de création",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-58",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 0 · Le chemin prévu",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-59",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 3 · Visiter le profil",
+    "nature": "coherence",
+    "rechercheReference": false,
+    "motif": "Thème de nature Cohérence : noté selon la cohérence des réponses du dirigeant.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-60",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 5 · Arriver au bon endroit",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-61",
+    "agent": "COMM_CREATION",
+    "libelle": "Funnel 7 · Relancer les intéressés",
+    "nature": "pratique",
+    "rechercheReference": false,
+    "motif": "Thème de nature Pratique : noté selon la pratique en place, pas selon un chiffre de marché.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-62",
+    "agent": "COMM_CREATION",
+    "libelle": "Référencement du site (SEO)",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  },
+  {
+    "theme": "COM-63",
+    "agent": "COMM_CREATION",
+    "libelle": "Annonces Google (SEA)",
+    "nature": "contexte",
+    "rechercheReference": false,
+    "motif": "Thème de nature Contexte : non noté, sert de contexte à l'IA.",
+    "indicateurs": []
+  }
+]

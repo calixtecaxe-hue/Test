@@ -1,0 +1,498 @@
+conforme  D-001-a   D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : règle vraie, 4 question(s) affichée(s)
+conforme  D-001-b   D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-001-d   D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : retour au premier choix, les questions reviennent
+conforme  D-001-e   D03 · une ligne par canal coché [ACQ-03.01 (D03) répondue] : après actualisation, même état
+conforme  D-002-a   D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-002-b   D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-002-d   D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-002-e   D04 · seulement les canaux payants cochés [D04 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-003-a   D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : règle vraie, 5 question(s) affichée(s)
+conforme  D-003-b   D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-003-c   D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : la réponse à ACQ-04.01 ne compte plus et reste gardée
+conforme  D-003-d   D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : retour au premier choix, les questions reviennent
+conforme  D-003-d2  D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : la réponse gardée à ACQ-04.01 compte de nouveau
+conforme  D-003-e   D03 · si « prospection » est cochée [ACQ-03.01 (D03) contient « Prospection »] : après actualisation, même état
+conforme  D-004-a   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : règle vraie, 4 question(s) affichée(s)
+conforme  D-004-b   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-004-c   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : la réponse à ACQ-05.01 ne compte plus et reste gardée
+conforme  D-004-d   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : retour au premier choix, les questions reviennent
+conforme  D-004-d2  D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : la réponse gardée à ACQ-05.01 compte de nouveau
+conforme  D-004-e   D03 · si « partenaires » est coché [ACQ-03.01 (D03) contient « Partenaires »] : après actualisation, même état
+conforme  D-005-a   D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : règle vraie, 5 question(s) affichée(s)
+conforme  D-005-b   D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-005-d   D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : retour au premier choix, les questions reviennent
+conforme  D-005-e   D03 · si « fiche Google » est cochée [ACQ-03.01 (D03) contient « Fiche Google »] : après actualisation, même état
+conforme  D-006-a   D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-006-b   D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-006-c   D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : la réponse à ACQ-06.07 ne compte plus et reste gardée
+conforme  D-006-d   D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : retour au premier choix, les questions reviennent
+conforme  D-006-d2  D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : la réponse gardée à ACQ-06.07 compte de nouveau
+conforme  D-006-e   D03 · si « site » est coché [ACQ-03.01 (D03) contient « Site internet »] : après actualisation, même état
+conforme  D-007-a   D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : règle vraie, 3 question(s) affichée(s)
+conforme  D-007-b   D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-007-c   D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : la réponse à ACQ-07.15 ne compte plus et reste gardée
+conforme  D-007-d   D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : retour au premier choix, les questions reviennent
+conforme  D-007-d2  D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : la réponse gardée à ACQ-07.15 compte de nouveau
+conforme  D-007-e   D03 · si « plateformes » est coché [ACQ-03.01 (D03) contient « Plateformes »] : après actualisation, même état
+conforme  D-008-a   D04 · si publicité ou agence [D04 (cadrage) = « oui »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-008-b   D04 · si publicité ou agence [D04 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-008-c   D04 · si publicité ou agence [D04 (cadrage) = « oui »] : la réponse à ACQ-07.01 ne compte plus et reste gardée
+conforme  D-008-d   D04 · si publicité ou agence [D04 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-008-d2  D04 · si publicité ou agence [D04 (cadrage) = « oui »] : la réponse gardée à ACQ-07.01 compte de nouveau
+conforme  D-008-e   D04 · si publicité ou agence [D04 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-009-a   D37 · si vous manquez des appels [ACQ-08.02 > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-009-b   D37 · si vous manquez des appels [ACQ-08.02 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-009-c   D37 · si vous manquez des appels [ACQ-08.02 > 0] : la réponse à ACQ-08.03 ne compte plus et reste gardée
+conforme  D-009-d   D37 · si vous manquez des appels [ACQ-08.02 > 0] : retour au premier choix, les questions reviennent
+conforme  D-009-d2  D37 · si vous manquez des appels [ACQ-08.02 > 0] : la réponse gardée à ACQ-08.03 compte de nouveau
+conforme  D-009-e   D37 · si vous manquez des appels [ACQ-08.02 > 0] : après actualisation, même état
+conforme  D-010-a   D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : règle vraie, 5 question(s) affichée(s)
+conforme  D-010-b   D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-010-c   D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : la réponse à ACQ-09.01 ne compte plus et reste gardée
+conforme  D-010-d   D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-010-d2  D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : la réponse gardée à ACQ-09.01 compte de nouveau
+conforme  D-010-e   D05 · si activité sur rendez-vous [D05 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-011-a   D06 · si devis ou propositions [D06 (cadrage) = « oui »] : règle vraie, 10 question(s) affichée(s)
+conforme  D-011-b   D06 · si devis ou propositions [D06 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-011-c   D06 · si devis ou propositions [D06 (cadrage) = « oui »] : la réponse à ACQ-10.05 ne compte plus et reste gardée
+conforme  D-011-d   D06 · si devis ou propositions [D06 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-011-d2  D06 · si devis ou propositions [D06 (cadrage) = « oui »] : la réponse gardée à ACQ-10.05 compte de nouveau
+conforme  D-011-e   D06 · si devis ou propositions [D06 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-012-a   D36 · si vous relancez vos devis [ACQ-10.06 > 0] : règle vraie, 3 question(s) affichée(s)
+conforme  D-012-b   D36 · si vous relancez vos devis [ACQ-10.06 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-012-c   D36 · si vous relancez vos devis [ACQ-10.06 > 0] : la réponse à ACQ-10.07 ne compte plus et reste gardée
+conforme  D-012-d   D36 · si vous relancez vos devis [ACQ-10.06 > 0] : retour au premier choix, les questions reviennent
+conforme  D-012-d2  D36 · si vous relancez vos devis [ACQ-10.06 > 0] : la réponse gardée à ACQ-10.07 compte de nouveau
+conforme  D-012-e   D36 · si vous relancez vos devis [ACQ-10.06 > 0] : après actualisation, même état
+conforme  D-013-a   D18 · si facturation au temps [D18 (cadrage) = « oui »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-013-b   D18 · si facturation au temps [D18 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-013-d   D18 · si facturation au temps [D18 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-013-e   D18 · si facturation au temps [D18 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-014-a   D35 · si vous accordez des remises [ACQ-14.01 > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-014-b   D35 · si vous accordez des remises [ACQ-14.01 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-014-c   D35 · si vous accordez des remises [ACQ-14.01 > 0] : la réponse à ACQ-14.02 ne compte plus et reste gardée
+conforme  D-014-d   D35 · si vous accordez des remises [ACQ-14.01 > 0] : retour au premier choix, les questions reviennent
+conforme  D-014-d2  D35 · si vous accordez des remises [ACQ-14.01 > 0] : la réponse gardée à ACQ-14.02 compte de nouveau
+conforme  D-014-e   D35 · si vous accordez des remises [ACQ-14.01 > 0] : après actualisation, même état
+conforme  D-015-a   D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-015-b   D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-015-c   D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : la réponse à ACQ-15.02 ne compte plus et reste gardée
+conforme  D-015-d   D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : retour au premier choix, les questions reviennent
+conforme  D-015-d2  D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : la réponse gardée à ACQ-15.02 compte de nouveau
+conforme  D-015-e   D32 · si vous proposez un produit ou un service en plus [ACQ-15.01 ≠ « Jamais »] : après actualisation, même état
+conforme  D-016-a   D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : règle vraie, 4 question(s) affichée(s)
+conforme  D-016-b   D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-016-c   D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : la réponse à ACQ-15.10 ne compte plus et reste gardée
+conforme  D-016-d   D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-016-d2  D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : la réponse gardée à ACQ-15.10 compte de nouveau
+conforme  D-016-e   D33 · si paiement en plusieurs fois proposé [ACQ-15.09 = « oui »] : après actualisation, même état
+conforme  D-017-a   D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-017-b   D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-017-c   D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : la réponse à ACQ-15.14 ne compte plus et reste gardée
+conforme  D-017-d   D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-017-d2  D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : la réponse gardée à ACQ-15.14 compte de nouveau
+conforme  D-017-e   D34 · si offre haut de gamme [ACQ-15.04 = « oui »] : après actualisation, même état
+conforme  D-018-a   D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : règle vraie, 3 question(s) affichée(s)
+conforme  D-018-b   D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-018-d   D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-018-e   D15 · si clients professionnels réguliers [D15 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-019-a   D38 · si des clients résilient [ACQ-17.13 > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-019-b   D38 · si des clients résilient [ACQ-17.13 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-019-c   D38 · si des clients résilient [ACQ-17.13 > 0] : la réponse à ACQ-17.14 ne compte plus et reste gardée
+conforme  D-019-d   D38 · si des clients résilient [ACQ-17.13 > 0] : retour au premier choix, les questions reviennent
+conforme  D-019-d2  D38 · si des clients résilient [ACQ-17.13 > 0] : la réponse gardée à ACQ-17.14 compte de nouveau
+conforme  D-019-e   D38 · si des clients résilient [ACQ-17.13 > 0] : après actualisation, même état
+conforme  D-020-a   D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-020-b   D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-020-c   D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : la réponse à ACQ-17.30 ne compte plus et reste gardée
+conforme  D-020-d   D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-020-d2  D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : la réponse gardée à ACQ-17.30 compte de nouveau
+conforme  D-020-e   D39 · si contrat d'entretien proposé [ACQ-17.29 = « oui »] : après actualisation, même état
+conforme  D-021-a   D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-021-b   D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-021-c   D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : la réponse à ACQ-18.03 ne compte plus et reste gardée
+conforme  D-021-d   D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-021-d2  D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : la réponse gardée à ACQ-18.03 compte de nouveau
+conforme  D-021-e   D17 · si programme de parrainage [ACQ-18.02 (D17) = « oui »] : après actualisation, même état
+conforme  D-022-a   D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-022-b   D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-022-c   D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : la réponse à ACQ-19.01 ne compte plus et reste gardée
+conforme  D-022-d   D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-022-d2  D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : la réponse gardée à ACQ-19.01 compte de nouveau
+conforme  D-022-e   D19 · si travail planifié à l'avance [D19 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-024-a   D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : règle vraie, 1 question(s) affichée(s)
+conforme  D-024-b   D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-024-c   D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : la réponse à ACQ-22.04 ne compte plus et reste gardée
+conforme  D-024-d   D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : retour au premier choix, les questions reviennent
+conforme  D-024-d2  D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : la réponse gardée à ACQ-22.04 compte de nouveau
+conforme  D-024-e   D20 · s'il y a au moins un jour fermé [ACQ-22.01 (D20) moins de N choix 7] : après actualisation, même état
+conforme  D-025-a   D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-025-b   D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-025-c   D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : la réponse à FIN-05.04 ne compte plus et reste gardée
+conforme  D-025-d   D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : retour au premier choix, les questions reviennent
+conforme  D-025-d2  D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : la réponse gardée à FIN-05.04 compte de nouveau
+conforme  D-025-e   D31 · sauf micro-entreprise [FIN-47.01 ≠ « Micro-entreprise »] : après actualisation, même état
+conforme  D-026-a   D08 · si achats [D08.achats (cadrage) = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-026-b   D08 · si achats [D08.achats (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-026-c   D08 · si achats [D08.achats (cadrage) = « oui »] : la réponse à FIN-08.01 ne compte plus et reste gardée
+conforme  D-026-d   D08 · si achats [D08.achats (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-026-d2  D08 · si achats [D08.achats (cadrage) = « oui »] : la réponse gardée à FIN-08.01 compte de nouveau
+conforme  D-026-e   D08 · si achats [D08.achats (cadrage) = « oui »] : après actualisation, même état
+conforme  D-027-a   D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-027-b   D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-027-c   D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : la réponse à FIN-08.02 ne compte plus et reste gardée
+conforme  D-027-d   D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-027-d2  D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : la réponse gardée à FIN-08.02 compte de nouveau
+conforme  D-027-e   D08 · si sous-traitance [D08.sous_traitance (cadrage) = « oui »] : après actualisation, même état
+conforme  D-028-a   D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : règle vraie, 7 question(s) affichée(s)
+conforme  D-028-b   D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-028-c   D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : la réponse à FIN-08.04 ne compte plus et reste gardée
+conforme  D-028-d   D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-028-d2  D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : la réponse gardée à FIN-08.04 compte de nouveau
+conforme  D-028-e   D08 · si fournisseurs réguliers [D08.fournisseurs (cadrage) = « oui »] : après actualisation, même état
+conforme  D-029-a   D07 · si stock [D07 (cadrage) = « oui »] : règle vraie, 17 question(s) affichée(s)
+conforme  D-029-b   D07 · si stock [D07 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-029-c   D07 · si stock [D07 (cadrage) = « oui »] : la réponse à FIN-08.06 ne compte plus et reste gardée
+conforme  D-029-d   D07 · si stock [D07 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-029-d2  D07 · si stock [D07 (cadrage) = « oui »] : la réponse gardée à FIN-08.06 compte de nouveau
+conforme  D-029-e   D07 · si stock [D07 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-030-a   D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : règle vraie, 2 question(s) affichée(s)
+conforme  D-030-b   D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-030-c   D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : la réponse à FIN-10.02 ne compte plus et reste gardée
+conforme  D-030-d   D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : retour au premier choix, les questions reviennent
+conforme  D-030-d2  D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : la réponse gardée à FIN-10.02 compte de nouveau
+conforme  D-030-e   D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : après actualisation, même état
+conforme  D-031-a   D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-031-b   D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-031-c   D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : la réponse à FIN-10.03 ne compte plus et reste gardée
+conforme  D-031-d   D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : retour au premier choix, les questions reviennent
+conforme  D-031-d2  D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : la réponse gardée à FIN-10.03 compte de nouveau
+conforme  D-031-e   D48 · si vous avez des reprises [FIN-10.01 [reprises_par_mois] > 0] : après actualisation, même état
+conforme  D-032-a   D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-032-b   D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-032-c   D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : la réponse à FIN-10.04 ne compte plus et reste gardée
+conforme  D-032-d   D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : retour au premier choix, les questions reviennent
+conforme  D-032-d2  D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : la réponse gardée à FIN-10.04 compte de nouveau
+conforme  D-032-e   D41 · si vous avez des retours [FIN-10.01 [retours_par_mois] > 0] : après actualisation, même état
+conforme  D-033-a   D09 · si paiement après facture [D09 (cadrage) = « oui »] : règle vraie, 14 question(s) affichée(s)
+conforme  D-033-b   D09 · si paiement après facture [D09 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-033-c   D09 · si paiement après facture [D09 (cadrage) = « oui »] : la réponse à FIN-16.02 ne compte plus et reste gardée
+conforme  D-033-d   D09 · si paiement après facture [D09 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-033-d2  D09 · si paiement après facture [D09 (cadrage) = « oui »] : la réponse gardée à FIN-16.02 compte de nouveau
+conforme  D-033-e   D09 · si paiement après facture [D09 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-034-a   D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-034-b   D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-034-c   D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : la réponse à FIN-20.08 ne compte plus et reste gardée
+conforme  D-034-d   D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-034-d2  D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : la réponse gardée à FIN-20.08 compte de nouveau
+conforme  D-034-e   D43 · si remise pour paiement rapide [FIN-20.03 = « oui »] : après actualisation, même état
+conforme  D-035-a   D10 · si crédit ou leasing en cours [D10 (cadrage) = « oui »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-035-b   D10 · si crédit ou leasing en cours [D10 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-035-d   D10 · si crédit ou leasing en cours [D10 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-035-e   D10 · si crédit ou leasing en cours [D10 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-036-a   D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : règle vraie, 4 question(s) affichée(s)
+conforme  D-036-b   D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-036-c   D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : la réponse à FIN-25.02 ne compte plus et reste gardée
+conforme  D-036-d   D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-036-d2  D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : la réponse gardée à FIN-25.02 compte de nouveau
+conforme  D-036-e   D12 · si investissement prévu ou récent [D12 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-037-a   D11 · si découvert sur la période [D11 (cadrage) = « oui »] : règle vraie, 5 question(s) affichée(s)
+conforme  D-037-b   D11 · si découvert sur la période [D11 (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-037-c   D11 · si découvert sur la période [D11 (cadrage) = « oui »] : la réponse à FIN-24.01 ne compte plus et reste gardée
+conforme  D-037-d   D11 · si découvert sur la période [D11 (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-037-d2  D11 · si découvert sur la période [D11 (cadrage) = « oui »] : la réponse gardée à FIN-24.01 compte de nouveau
+conforme  D-037-e   D11 · si découvert sur la période [D11 (cadrage) = « oui »] : après actualisation, même état
+conforme  D-038-a   D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-038-b   D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-038-c   D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : la réponse à FIN-28.02 ne compte plus et reste gardée
+conforme  D-038-d   D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-038-d2  D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : la réponse gardée à FIN-28.02 compte de nouveau
+conforme  D-038-e   D12 · si investissement déjà en service [D12.en_service (cadrage) = « oui »] : après actualisation, même état
+conforme  D-039-a   D42 · si vous avez des ruptures [FIN-41.01 [ruptures_par_mois] > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-039-b   D42 · si vous avez des ruptures [FIN-41.01 [ruptures_par_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-039-d   D42 · si vous avez des ruptures [FIN-41.01 [ruptures_par_mois] > 0] : retour au premier choix, les questions reviennent
+conforme  D-039-e   D42 · si vous avez des ruptures [FIN-41.01 [ruptures_par_mois] > 0] : après actualisation, même état
+conforme  D-040-a   D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-040-b   D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-040-c   D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : la réponse à FIN-47.02 ne compte plus et reste gardée
+conforme  D-040-d   D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : retour au premier choix, les questions reviennent
+conforme  D-040-d2  D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : la réponse gardée à FIN-47.02 compte de nouveau
+conforme  D-040-e   D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : après actualisation, même état
+conforme  D-041-a   D44 · si vous avez confié des tâches [RH-04.01 > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-041-b   D44 · si vous avez confié des tâches [RH-04.01 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-041-c   D44 · si vous avez confié des tâches [RH-04.01 > 0] : la réponse à RH-04.02 ne compte plus et reste gardée
+conforme  D-041-d   D44 · si vous avez confié des tâches [RH-04.01 > 0] : retour au premier choix, les questions reviennent
+conforme  D-041-d2  D44 · si vous avez confié des tâches [RH-04.01 > 0] : la réponse gardée à RH-04.02 compte de nouveau
+conforme  D-041-e   D44 · si vous avez confié des tâches [RH-04.01 > 0] : après actualisation, même état
+conforme  D-042-a   D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : règle vraie, 3 question(s) affichée(s)
+conforme  D-042-b   D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-042-c   D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : la réponse à RH-04.03 ne compte plus et reste gardée
+conforme  D-042-d   D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : retour au premier choix, les questions reviennent
+conforme  D-042-d2  D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : la réponse gardée à RH-04.03 compte de nouveau
+conforme  D-042-e   D45 · si vous avez dû reprendre des tâches en main [RH-04.02 > 0] : après actualisation, même état
+conforme  D-043-a   D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-043-b   D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-043-c   D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : la réponse à RH-06.06 ne compte plus et reste gardée
+conforme  D-043-d   D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : retour au premier choix, les questions reviennent
+conforme  D-043-d2  D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : la réponse gardée à RH-06.06 compte de nouveau
+conforme  D-043-e   D46 · s'il y a des heures supplémentaires [RH-06.05 ≠ « Aucune »] : après actualisation, même état
+conforme  D-044-a   D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : règle vraie, 2 question(s) affichée(s)
+conforme  D-044-b   D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-044-c   D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : la réponse à RH-08.02 ne compte plus et reste gardée
+conforme  D-044-d   D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : retour au premier choix, les questions reviennent
+conforme  D-044-d2  D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : la réponse gardée à RH-08.02 compte de nouveau
+conforme  D-044-e   D27 · si ce n'est pas vous (sinon RH-05) [RH-08.01 (D27) ≠ « Vous »] : après actualisation, même état
+conforme  D-045-a   D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-045-b   D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-045-c   D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : la réponse à RH-15.03 ne compte plus et reste gardée
+conforme  D-045-d   D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-045-d2  D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : la réponse gardée à RH-15.03 compte de nouveau
+conforme  D-045-e   D47 · si du matériel ralentit le travail [RH-15.02 = « oui »] : après actualisation, même état
+conforme  D-046-a   D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : règle vraie, 2 question(s) affichée(s)
+conforme  D-046-b   D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-046-c   D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : la réponse à RH-16.02 ne compte plus et reste gardée
+conforme  D-046-d   D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : retour au premier choix, les questions reviennent
+conforme  D-046-d2  D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : la réponse gardée à RH-16.02 compte de nouveau
+conforme  D-046-e   D49 · si vous avez des reprises [RH-16.01 [reprises_par_mois] > 0] : après actualisation, même état
+conforme  D-047-a   D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : règle vraie, 2 question(s) affichée(s)
+conforme  D-047-b   D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-047-c   D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : la réponse à RH-19.02 ne compte plus et reste gardée
+conforme  D-047-d   D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : retour au premier choix, les questions reviennent
+conforme  D-047-d2  D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : la réponse gardée à RH-19.02 compte de nouveau
+conforme  D-047-e   D50 · si vous faites des réunions [RH-19.01 [reunions_par_mois] > 0] : après actualisation, même état
+conforme  D-048-a   D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-048-b   D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-048-c   D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : la réponse à RH-26.01 ne compte plus et reste gardée
+conforme  D-048-d   D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : retour au premier choix, les questions reviennent
+conforme  D-048-d2  D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : la réponse gardée à RH-26.01 compte de nouveau
+conforme  D-048-e   D53 · si l'équipe a été formée [RH-25.01 [jours_de_formation] > 0] : après actualisation, même état
+conforme  D-049-a   D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : règle vraie, 9 question(s) affichée(s)
+conforme  D-049-b   D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-049-c   D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : la réponse à RH-28.03 ne compte plus et reste gardée
+conforme  D-049-d   D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : retour au premier choix, les questions reviennent
+conforme  D-049-d2  D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : la réponse gardée à RH-28.03 compte de nouveau
+conforme  D-049-e   D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : après actualisation, même état
+conforme  D-050-a   D13 · si recrutement sur la période [RH-28.01 (D13) parmi « J'ai recruté », « Les deux »] : règle vraie, 3 question(s) affichée(s)
+conforme  D-050-b   D13 · si recrutement sur la période [RH-28.01 (D13) parmi « J'ai recruté », « Les deux »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-050-d   D13 · si recrutement sur la période [RH-28.01 (D13) parmi « J'ai recruté », « Les deux »] : retour au premier choix, les questions reviennent
+conforme  D-050-e   D13 · si recrutement sur la période [RH-28.01 (D13) parmi « J'ai recruté », « Les deux »] : après actualisation, même état
+conforme  D-051-a   D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : règle vraie, 2 question(s) affichée(s)
+conforme  D-051-b   D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-051-c   D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : la réponse à RH-32.03 ne compte plus et reste gardée
+conforme  D-051-d   D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : retour au premier choix, les questions reviennent
+conforme  D-051-d2  D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : la réponse gardée à RH-32.03 compte de nouveau
+conforme  D-051-e   D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : après actualisation, même état
+conforme  D-052-a   D55 · s'il y a eu des absences [RH-34.01 > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-052-b   D55 · s'il y a eu des absences [RH-34.01 > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-052-c   D55 · s'il y a eu des absences [RH-34.01 > 0] : la réponse à RH-34.03 ne compte plus et reste gardée
+conforme  D-052-d   D55 · s'il y a eu des absences [RH-34.01 > 0] : retour au premier choix, les questions reviennent
+conforme  D-052-d2  D55 · s'il y a eu des absences [RH-34.01 > 0] : la réponse gardée à RH-34.03 compte de nouveau
+conforme  D-052-e   D55 · s'il y a eu des absences [RH-34.01 > 0] : après actualisation, même état
+conforme  D-053-a   D57 · s'il y a une personne clé [(RH-37.01 [personne_1.poste] répondue OU RH-37.01 [personne_2.poste] répondue OU RH-37.01 [personne_3.poste] répondue)] : règle vraie, 3 question(s) affichée(s)
+conforme  D-053-b   D57 · s'il y a une personne clé [(RH-37.01 [personne_1.poste] répondue OU RH-37.01 [personne_2.poste] répondue OU RH-37.01 [personne_3.poste] répondue)] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-053-d   D57 · s'il y a une personne clé [(RH-37.01 [personne_1.poste] répondue OU RH-37.01 [personne_2.poste] répondue OU RH-37.01 [personne_3.poste] répondue)] : retour au premier choix, les questions reviennent
+conforme  D-053-e   D57 · s'il y a une personne clé [(RH-37.01 [personne_1.poste] répondue OU RH-37.01 [personne_2.poste] répondue OU RH-37.01 [personne_3.poste] répondue)] : après actualisation, même état
+conforme  D-054-a   D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : règle vraie, 9 question(s) affichée(s)
+conforme  D-054-b   D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-054-c   D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : la réponse à RH-41.03 ne compte plus et reste gardée
+conforme  D-054-d   D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : retour au premier choix, les questions reviennent
+conforme  D-054-d2  D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : la réponse gardée à RH-41.03 compte de nouveau
+conforme  D-054-e   D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : après actualisation, même état
+conforme  D-055-a   D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-055-b   D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-055-c   D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : la réponse à RH-44.03 ne compte plus et reste gardée
+conforme  D-055-d   D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : retour au premier choix, les questions reviennent
+conforme  D-055-d2  D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : la réponse gardée à RH-44.03 compte de nouveau
+conforme  D-055-e   D29 · si l'expérience s'est mal passée [RH-44.02 = « Oui, mais ça s'est mal passé »] : après actualisation, même état
+conforme  D-056-a   D51 · si des objectifs existent [RH-48.01 ≠ « Pour personne »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-056-b   D51 · si des objectifs existent [RH-48.01 ≠ « Pour personne »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-056-c   D51 · si des objectifs existent [RH-48.01 ≠ « Pour personne »] : la réponse à RH-48.02 ne compte plus et reste gardée
+conforme  D-056-d   D51 · si des objectifs existent [RH-48.01 ≠ « Pour personne »] : retour au premier choix, les questions reviennent
+conforme  D-056-d2  D51 · si des objectifs existent [RH-48.01 ≠ « Pour personne »] : la réponse gardée à RH-48.02 compte de nouveau
+conforme  D-056-e   D51 · si des objectifs existent [RH-48.01 ≠ « Pour personne »] : après actualisation, même état
+conforme  D-057-a   D52 · s'il y a des responsables [RH-49.01 [responsables_vous_non_compris] > 0] : règle vraie, 1 question(s) affichée(s)
+conforme  D-057-b   D52 · s'il y a des responsables [RH-49.01 [responsables_vous_non_compris] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-057-c   D52 · s'il y a des responsables [RH-49.01 [responsables_vous_non_compris] > 0] : la réponse à RH-49.02 ne compte plus et reste gardée
+conforme  D-057-d   D52 · s'il y a des responsables [RH-49.01 [responsables_vous_non_compris] > 0] : retour au premier choix, les questions reviennent
+conforme  D-057-d2  D52 · s'il y a des responsables [RH-49.01 [responsables_vous_non_compris] > 0] : la réponse gardée à RH-49.02 compte de nouveau
+conforme  D-057-e   D52 · s'il y a des responsables [RH-49.01 [responsables_vous_non_compris] > 0] : après actualisation, même état
+conforme  D-058-a   D56 · si garantie proposée [COM-05.01 ≠ « Aucune »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-058-b   D56 · si garantie proposée [COM-05.01 ≠ « Aucune »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-058-d   D56 · si garantie proposée [COM-05.01 ≠ « Aucune »] : retour au premier choix, les questions reviennent
+conforme  D-058-e   D56 · si garantie proposée [COM-05.01 ≠ « Aucune »] : après actualisation, même état
+conforme  D-059-a   D22 · une ligne par réseau utilisé [COM-10.08 (D22) répondue] : règle vraie, 9 question(s) affichée(s)
+conforme  D-059-b   D22 · une ligne par réseau utilisé [COM-10.08 (D22) répondue] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-059-d   D22 · une ligne par réseau utilisé [COM-10.08 (D22) répondue] : retour au premier choix, les questions reviennent
+conforme  D-059-e   D22 · une ligne par réseau utilisé [COM-10.08 (D22) répondue] : après actualisation, même état
+conforme  D-060-a   D21 · si vous ne publiez pas encore [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : règle vraie, 7 question(s) affichée(s)
+conforme  D-060-b   D21 · si vous ne publiez pas encore [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-060-c   D21 · si vous ne publiez pas encore [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : la réponse à COM-10.04 ne compte plus et reste gardée
+conforme  D-060-d   D21 · si vous ne publiez pas encore [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : retour au premier choix, les questions reviennent
+conforme  D-060-d2  D21 · si vous ne publiez pas encore [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : la réponse gardée à COM-10.04 compte de nouveau
+conforme  D-060-e   D21 · si vous ne publiez pas encore [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : après actualisation, même état
+conforme  D-061-a   D21 · si vous publiez déjà [COM-10.07 (D21) = « Oui, au moins une fois par mois »] : règle vraie, 16 question(s) affichée(s)
+conforme  D-061-b   D21 · si vous publiez déjà [COM-10.07 (D21) = « Oui, au moins une fois par mois »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-061-c   D21 · si vous publiez déjà [COM-10.07 (D21) = « Oui, au moins une fois par mois »] : la réponse à COM-28.01 ne compte plus et reste gardée
+conforme  D-061-d   D21 · si vous publiez déjà [COM-10.07 (D21) = « Oui, au moins une fois par mois »] : retour au premier choix, les questions reviennent
+conforme  D-061-d2  D21 · si vous publiez déjà [COM-10.07 (D21) = « Oui, au moins une fois par mois »] : la réponse gardée à COM-28.01 compte de nouveau
+conforme  D-061-e   D21 · si vous publiez déjà [COM-10.07 (D21) = « Oui, au moins une fois par mois »] : après actualisation, même état
+conforme  D-062-a   D23 · si site [COM-13.10 (D23) = « oui »] : règle vraie, 12 question(s) affichée(s)
+conforme  D-062-b   D23 · si site [COM-13.10 (D23) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-062-c   D23 · si site [COM-13.10 (D23) = « oui »] : la réponse à COM-13.01 ne compte plus et reste gardée
+conforme  D-062-d   D23 · si site [COM-13.10 (D23) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-062-d2  D23 · si site [COM-13.10 (D23) = « oui »] : la réponse gardée à COM-13.01 compte de nouveau
+conforme  D-062-e   D23 · si site [COM-13.10 (D23) = « oui »] : après actualisation, même état
+conforme  D-063-a   D23 · si outil de mesure du site [COM-13.02 ≠ « Aucun »] : règle vraie, 3 question(s) affichée(s)
+conforme  D-063-b   D23 · si outil de mesure du site [COM-13.02 ≠ « Aucun »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-063-c   D23 · si outil de mesure du site [COM-13.02 ≠ « Aucun »] : la réponse à COM-13.06 ne compte plus et reste gardée
+conforme  D-063-d   D23 · si outil de mesure du site [COM-13.02 ≠ « Aucun »] : retour au premier choix, les questions reviennent
+conforme  D-063-d2  D23 · si outil de mesure du site [COM-13.02 ≠ « Aucun »] : la réponse gardée à COM-13.06 compte de nouveau
+conforme  D-063-e   D23 · si outil de mesure du site [COM-13.02 ≠ « Aucun »] : après actualisation, même état
+conforme  D-064-a   D03 · si « Site internet » n'est pas coché [ACQ-03.01 (D03) ne contient pas « Site internet »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-064-b   D03 · si « Site internet » n'est pas coché [ACQ-03.01 (D03) ne contient pas « Site internet »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-064-c   D03 · si « Site internet » n'est pas coché [ACQ-03.01 (D03) ne contient pas « Site internet »] : la réponse à COM-13.10 ne compte plus et reste gardée
+conforme  D-064-d   D03 · si « Site internet » n'est pas coché [ACQ-03.01 (D03) ne contient pas « Site internet »] : retour au premier choix, les questions reviennent
+conforme  D-064-d2  D03 · si « Site internet » n'est pas coché [ACQ-03.01 (D03) ne contient pas « Site internet »] : la réponse gardée à COM-13.10 compte de nouveau
+conforme  D-064-e   D03 · si « Site internet » n'est pas coché [ACQ-03.01 (D03) ne contient pas « Site internet »] : après actualisation, même état
+conforme  D-065-a   D24 · si fichier de contacts [COM-15.12 (D24) = « oui »] : règle vraie, 4 question(s) affichée(s)
+conforme  D-065-b   D24 · si fichier de contacts [COM-15.12 (D24) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-065-c   D24 · si fichier de contacts [COM-15.12 (D24) = « oui »] : la réponse à COM-15.05 ne compte plus et reste gardée
+conforme  D-065-d   D24 · si fichier de contacts [COM-15.12 (D24) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-065-d2  D24 · si fichier de contacts [COM-15.12 (D24) = « oui »] : la réponse gardée à COM-15.05 compte de nouveau
+conforme  D-065-e   D24 · si fichier de contacts [COM-15.12 (D24) = « oui »] : après actualisation, même état
+conforme  D-066-a   D58 · si vous écrivez à votre fichier [COM-15.03 [envois_sur_6_mois] > 0] : règle vraie, 2 question(s) affichée(s)
+conforme  D-066-b   D58 · si vous écrivez à votre fichier [COM-15.03 [envois_sur_6_mois] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-066-d   D58 · si vous écrivez à votre fichier [COM-15.03 [envois_sur_6_mois] > 0] : retour au premier choix, les questions reviennent
+conforme  D-066-e   D58 · si vous écrivez à votre fichier [COM-15.03 [envois_sur_6_mois] > 0] : après actualisation, même état
+conforme  D-067-a   D25 · si offre d'appel [COM-21.01 (D25) ≠ « Non, rien »] : règle vraie, 3 question(s) affichée(s)
+conforme  D-067-b   D25 · si offre d'appel [COM-21.01 (D25) ≠ « Non, rien »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-067-c   D25 · si offre d'appel [COM-21.01 (D25) ≠ « Non, rien »] : la réponse à COM-21.03 ne compte plus et reste gardée
+conforme  D-067-d   D25 · si offre d'appel [COM-21.01 (D25) ≠ « Non, rien »] : retour au premier choix, les questions reviennent
+conforme  D-067-d2  D25 · si offre d'appel [COM-21.01 (D25) ≠ « Non, rien »] : la réponse gardée à COM-21.03 compte de nouveau
+conforme  D-067-e   D25 · si offre d'appel [COM-21.01 (D25) ≠ « Non, rien »] : après actualisation, même état
+conforme  D-068-a   D03 · si « Réseaux sociaux » est coché [ACQ-03.01 (D03) contient « Réseaux sociaux »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-068-b   D03 · si « Réseaux sociaux » est coché [ACQ-03.01 (D03) contient « Réseaux sociaux »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-068-d   D03 · si « Réseaux sociaux » est coché [ACQ-03.01 (D03) contient « Réseaux sociaux »] : retour au premier choix, les questions reviennent
+conforme  D-068-e   D03 · si « Réseaux sociaux » est coché [ACQ-03.01 (D03) contient « Réseaux sociaux »] : après actualisation, même état
+conforme  D-069-a   D59 · si vous recevez des messages [(COM-23.01 [instagram.messages_par_mois] > 0 OU COM-23.01 [facebook_et_messenger.messages_par_mois] > 0 OU COM-23.01 [linkedin.messages_par_mois] > 0 OU COM-23.01 [whatsapp.messages_par_mois] > 0 OU COM-23.01 [tiktok.messages_par_mois] > 0 OU COM-23.01 [chat_du_site.messages_par_mois] > 0)] : règle vraie, 2 question(s) affichée(s)
+conforme  D-069-b   D59 · si vous recevez des messages [(COM-23.01 [instagram.messages_par_mois] > 0 OU COM-23.01 [facebook_et_messenger.messages_par_mois] > 0 OU COM-23.01 [linkedin.messages_par_mois] > 0 OU COM-23.01 [whatsapp.messages_par_mois] > 0 OU COM-23.01 [tiktok.messages_par_mois] > 0 OU COM-23.01 [chat_du_site.messages_par_mois] > 0)] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-069-d   D59 · si vous recevez des messages [(COM-23.01 [instagram.messages_par_mois] > 0 OU COM-23.01 [facebook_et_messenger.messages_par_mois] > 0 OU COM-23.01 [linkedin.messages_par_mois] > 0 OU COM-23.01 [whatsapp.messages_par_mois] > 0 OU COM-23.01 [tiktok.messages_par_mois] > 0 OU COM-23.01 [chat_du_site.messages_par_mois] > 0)] : retour au premier choix, les questions reviennent
+conforme  D-069-e   D59 · si vous recevez des messages [(COM-23.01 [instagram.messages_par_mois] > 0 OU COM-23.01 [facebook_et_messenger.messages_par_mois] > 0 OU COM-23.01 [linkedin.messages_par_mois] > 0 OU COM-23.01 [whatsapp.messages_par_mois] > 0 OU COM-23.01 [tiktok.messages_par_mois] > 0 OU COM-23.01 [chat_du_site.messages_par_mois] > 0)] : après actualisation, même état
+conforme  D-070-a   D60 · si vous consacrez du temps à la communication [(COM-31.01 [trouver_les_idees_et_ecrire.heures_par_semaine] > 0 OU COM-31.01 [photos_videos_et_montage.heures_par_semaine] > 0 OU COM-31.01 [publier_et_programmer.heures_par_semaine] > 0 OU COM-31.01 [repondre_aux_commentaires_messages_et_av.heures_par_semaine] > 0 OU COM-31.01 [emails_et_site.heures_par_semaine] > 0 OU COM-31.01 [regarder_les_statistiques.heures_par_semaine] > 0)] : règle vraie, 1 question(s) affichée(s)
+conforme  D-070-b   D60 · si vous consacrez du temps à la communication [(COM-31.01 [trouver_les_idees_et_ecrire.heures_par_semaine] > 0 OU COM-31.01 [photos_videos_et_montage.heures_par_semaine] > 0 OU COM-31.01 [publier_et_programmer.heures_par_semaine] > 0 OU COM-31.01 [repondre_aux_commentaires_messages_et_av.heures_par_semaine] > 0 OU COM-31.01 [emails_et_site.heures_par_semaine] > 0 OU COM-31.01 [regarder_les_statistiques.heures_par_semaine] > 0)] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-070-d   D60 · si vous consacrez du temps à la communication [(COM-31.01 [trouver_les_idees_et_ecrire.heures_par_semaine] > 0 OU COM-31.01 [photos_videos_et_montage.heures_par_semaine] > 0 OU COM-31.01 [publier_et_programmer.heures_par_semaine] > 0 OU COM-31.01 [repondre_aux_commentaires_messages_et_av.heures_par_semaine] > 0 OU COM-31.01 [emails_et_site.heures_par_semaine] > 0 OU COM-31.01 [regarder_les_statistiques.heures_par_semaine] > 0)] : retour au premier choix, les questions reviennent
+conforme  D-070-e   D60 · si vous consacrez du temps à la communication [(COM-31.01 [trouver_les_idees_et_ecrire.heures_par_semaine] > 0 OU COM-31.01 [photos_videos_et_montage.heures_par_semaine] > 0 OU COM-31.01 [publier_et_programmer.heures_par_semaine] > 0 OU COM-31.01 [repondre_aux_commentaires_messages_et_av.heures_par_semaine] > 0 OU COM-31.01 [emails_et_site.heures_par_semaine] > 0 OU COM-31.01 [regarder_les_statistiques.heures_par_semaine] > 0)] : après actualisation, même état
+conforme  D-071-a   D26 · saisie si les statistiques ne sont pas connectées [COM-39.07 (D26) = « oui »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-071-b   D26 · saisie si les statistiques ne sont pas connectées [COM-39.07 (D26) = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-071-d   D26 · saisie si les statistiques ne sont pas connectées [COM-39.07 (D26) = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-071-e   D26 · saisie si les statistiques ne sont pas connectées [COM-39.07 (D26) = « oui »] : après actualisation, même état
+conforme  D-072-a   D26 + D63 · si accès aux statistiques et vidéos publiées [COM-39.07 (D26) = « oui » ET (COM-26.01 [video_courte.publications] > 0 OU COM-26.01 [video_longue.publications] > 0)] : règle vraie, 1 question(s) affichée(s)
+conforme  D-072-b   D26 + D63 · si accès aux statistiques et vidéos publiées [COM-39.07 (D26) = « oui » ET (COM-26.01 [video_courte.publications] > 0 OU COM-26.01 [video_longue.publications] > 0)] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-072-d   D26 + D63 · si accès aux statistiques et vidéos publiées [COM-39.07 (D26) = « oui » ET (COM-26.01 [video_courte.publications] > 0 OU COM-26.01 [video_longue.publications] > 0)] : retour au premier choix, les questions reviennent
+conforme  D-072-e   D26 + D63 · si accès aux statistiques et vidéos publiées [COM-39.07 (D26) = « oui » ET (COM-26.01 [video_courte.publications] > 0 OU COM-26.01 [video_longue.publications] > 0)] : après actualisation, même état
+conforme  D-073-a   D61 · si vous avez des avis [COM-44.01 [avis_au_total] > 0] : règle vraie, 4 question(s) affichée(s)
+conforme  D-073-b   D61 · si vous avez des avis [COM-44.01 [avis_au_total] > 0] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-073-d   D61 · si vous avez des avis [COM-44.01 [avis_au_total] > 0] : retour au premier choix, les questions reviennent
+conforme  D-073-e   D61 · si vous avez des avis [COM-44.01 [avis_au_total] > 0] : après actualisation, même état
+conforme  D-074-a   D62 · si vous demandez des avis [COM-45.01 ≠ « Jamais »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-074-b   D62 · si vous demandez des avis [COM-45.01 ≠ « Jamais »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-074-d   D62 · si vous demandez des avis [COM-45.01 ≠ « Jamais »] : retour au premier choix, les questions reviennent
+conforme  D-074-e   D62 · si vous demandez des avis [COM-45.01 ≠ « Jamais »] : après actualisation, même état
+conforme  D-075-a   D64 · si le profil mène vers une page [COM-60.01 ≠ « Il n'y a pas de lien sur mon profil »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-075-b   D64 · si le profil mène vers une page [COM-60.01 ≠ « Il n'y a pas de lien sur mon profil »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-075-d   D64 · si le profil mène vers une page [COM-60.01 ≠ « Il n'y a pas de lien sur mon profil »] : retour au premier choix, les questions reviennent
+conforme  D-075-e   D64 · si le profil mène vers une page [COM-60.01 ≠ « Il n'y a pas de lien sur mon profil »] : après actualisation, même état
+conforme  D-076-a   D65 · si vous leur écrivez en message privé [COM-61.01 contient « Je leur écris en message privé »] : règle vraie, 1 question(s) affichée(s)
+conforme  D-076-b   D65 · si vous leur écrivez en message privé [COM-61.01 contient « Je leur écris en message privé »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-076-d   D65 · si vous leur écrivez en message privé [COM-61.01 contient « Je leur écris en message privé »] : retour au premier choix, les questions reviennent
+conforme  D-076-e   D65 · si vous leur écrivez en message privé [COM-61.01 contient « Je leur écris en message privé »] : après actualisation, même état
+conforme  D-077-a   COM-63.01 · si vous faites de la publicité Google [COM-63.01 = « oui »] : règle vraie, 7 question(s) affichée(s)
+conforme  D-077-b   COM-63.01 · si vous faites de la publicité Google [COM-63.01 = « oui »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  D-077-c   COM-63.01 · si vous faites de la publicité Google [COM-63.01 = « oui »] : la réponse à COM-63.02 ne compte plus et reste gardée
+conforme  D-077-d   COM-63.01 · si vous faites de la publicité Google [COM-63.01 = « oui »] : retour au premier choix, les questions reviennent
+conforme  D-077-d2  COM-63.01 · si vous faites de la publicité Google [COM-63.01 = « oui »] : la réponse gardée à COM-63.02 compte de nouveau
+conforme  D-077-e   COM-63.01 · si vous faites de la publicité Google [COM-63.01 = « oui »] : après actualisation, même état
+conforme  M-078-a   Métiers sans rendez-vous [D05 (cadrage) = « non »] : règle vraie, 4 question(s) affichée(s)
+conforme  M-078-b   Métiers sans rendez-vous [D05 (cadrage) = « non »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  M-078-c   Métiers sans rendez-vous [D05 (cadrage) = « non »] : la réponse à ACQ-09.01 ne compte plus et reste gardée
+conforme  M-078-d   Métiers sans rendez-vous [D05 (cadrage) = « non »] : retour au premier choix, les questions reviennent
+conforme  M-078-d2  Métiers sans rendez-vous [D05 (cadrage) = « non »] : la réponse gardée à ACQ-09.01 compte de nouveau
+conforme  M-078-e   Métiers sans rendez-vous [D05 (cadrage) = « non »] : après actualisation, même état
+conforme  M-079-a   Métiers sans devis [D06 (cadrage) = « non »] : règle vraie, 6 question(s) affichée(s)
+conforme  M-079-b   Métiers sans devis [D06 (cadrage) = « non »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  M-079-c   Métiers sans devis [D06 (cadrage) = « non »] : la réponse à ACQ-10.05 ne compte plus et reste gardée
+conforme  M-079-d   Métiers sans devis [D06 (cadrage) = « non »] : retour au premier choix, les questions reviennent
+conforme  M-079-d2  Métiers sans devis [D06 (cadrage) = « non »] : la réponse gardée à ACQ-10.05 compte de nouveau
+conforme  M-079-e   Métiers sans devis [D06 (cadrage) = « non »] : après actualisation, même état
+conforme  M-081-a   Commerce sans commande [D19 (cadrage) = « non »] : règle vraie, 1 question(s) affichée(s)
+conforme  M-081-b   Commerce sans commande [D19 (cadrage) = « non »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  M-081-c   Commerce sans commande [D19 (cadrage) = « non »] : la réponse à ACQ-19.01 ne compte plus et reste gardée
+conforme  M-081-d   Commerce sans commande [D19 (cadrage) = « non »] : retour au premier choix, les questions reviennent
+conforme  M-081-d2  Commerce sans commande [D19 (cadrage) = « non »] : la réponse gardée à ACQ-19.01 compte de nouveau
+conforme  M-081-e   Commerce sans commande [D19 (cadrage) = « non »] : après actualisation, même état
+conforme  M-083-a   Sans achats (services purs) [D08.achats (cadrage) = « non » ET D08.sous_traitance (cadrage) = « non » ET D08.fournisseurs (cadrage) = « non »] : règle vraie, 1 question(s) affichée(s)
+conforme  M-083-b   Sans achats (services purs) [D08.achats (cadrage) = « non » ET D08.sous_traitance (cadrage) = « non » ET D08.fournisseurs (cadrage) = « non »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  M-083-c   Sans achats (services purs) [D08.achats (cadrage) = « non » ET D08.sous_traitance (cadrage) = « non » ET D08.fournisseurs (cadrage) = « non »] : la réponse à FIN-08.01 ne compte plus et reste gardée
+conforme  M-083-d   Sans achats (services purs) [D08.achats (cadrage) = « non » ET D08.sous_traitance (cadrage) = « non » ET D08.fournisseurs (cadrage) = « non »] : retour au premier choix, les questions reviennent
+conforme  M-083-d2  Sans achats (services purs) [D08.achats (cadrage) = « non » ET D08.sous_traitance (cadrage) = « non » ET D08.fournisseurs (cadrage) = « non »] : la réponse gardée à FIN-08.01 compte de nouveau
+conforme  M-083-e   Sans achats (services purs) [D08.achats (cadrage) = « non » ET D08.sous_traitance (cadrage) = « non » ET D08.fournisseurs (cadrage) = « non »] : après actualisation, même état
+conforme  M-084-a   Encaissement immédiat (commerce) [D09 (cadrage) = « non »] : règle vraie, 14 question(s) affichée(s)
+conforme  M-084-b   Encaissement immédiat (commerce) [D09 (cadrage) = « non »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  M-084-c   Encaissement immédiat (commerce) [D09 (cadrage) = « non »] : la réponse à FIN-16.02 ne compte plus et reste gardée
+conforme  M-084-d   Encaissement immédiat (commerce) [D09 (cadrage) = « non »] : retour au premier choix, les questions reviennent
+conforme  M-084-d2  Encaissement immédiat (commerce) [D09 (cadrage) = « non »] : la réponse gardée à FIN-16.02 compte de nouveau
+conforme  M-084-e   Encaissement immédiat (commerce) [D09 (cadrage) = « non »] : après actualisation, même état
+conforme  M-086-a   Sans emprunt [D10 (cadrage) = « non »] : règle vraie, 2 question(s) affichée(s)
+conforme  M-086-b   Sans emprunt [D10 (cadrage) = « non »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  M-086-d   Sans emprunt [D10 (cadrage) = « non »] : retour au premier choix, les questions reviennent
+conforme  M-086-e   Sans emprunt [D10 (cadrage) = « non »] : après actualisation, même état
+conforme  M-087-a   Sans investissement prévu ni récent [D12 (cadrage) = « non »] : règle vraie, 4 question(s) affichée(s)
+conforme  M-087-b   Sans investissement prévu ni récent [D12 (cadrage) = « non »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  M-087-c   Sans investissement prévu ni récent [D12 (cadrage) = « non »] : la réponse à FIN-25.02 ne compte plus et reste gardée
+conforme  M-087-d   Sans investissement prévu ni récent [D12 (cadrage) = « non »] : retour au premier choix, les questions reviennent
+conforme  M-087-d2  Sans investissement prévu ni récent [D12 (cadrage) = « non »] : la réponse gardée à FIN-25.02 compte de nouveau
+conforme  M-087-e   Sans investissement prévu ni récent [D12 (cadrage) = « non »] : après actualisation, même état
+conforme  M-088-a   Sans investissement récent [(D12 (cadrage) = « non » OU D12.en_service (cadrage) = « non »)] : règle vraie, 2 question(s) affichée(s)
+conforme  M-088-b   Sans investissement récent [(D12 (cadrage) = « non » OU D12.en_service (cadrage) = « non »)] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  M-088-c   Sans investissement récent [(D12 (cadrage) = « non » OU D12.en_service (cadrage) = « non »)] : la réponse à FIN-28.02 ne compte plus et reste gardée
+conforme  M-088-d   Sans investissement récent [(D12 (cadrage) = « non » OU D12.en_service (cadrage) = « non »)] : retour au premier choix, les questions reviennent
+conforme  M-088-d2  Sans investissement récent [(D12 (cadrage) = « non » OU D12.en_service (cadrage) = « non »)] : la réponse gardée à FIN-28.02 compte de nouveau
+conforme  M-088-e   Sans investissement récent [(D12 (cadrage) = « non » OU D12.en_service (cadrage) = « non »)] : après actualisation, même état
+conforme  M-089-a   Sans stock [D07 (cadrage) = « non »] : règle vraie, 16 question(s) affichée(s)
+conforme  M-089-b   Sans stock [D07 (cadrage) = « non »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  M-089-c   Sans stock [D07 (cadrage) = « non »] : la réponse à FIN-37.01 ne compte plus et reste gardée
+conforme  M-089-d   Sans stock [D07 (cadrage) = « non »] : retour au premier choix, les questions reviennent
+conforme  M-089-d2  Sans stock [D07 (cadrage) = « non »] : la réponse gardée à FIN-37.01 compte de nouveau
+conforme  M-089-e   Sans stock [D07 (cadrage) = « non »] : après actualisation, même état
+conforme  M-091-a   Aucun recrutement en 12 mois ni prévu [RH-28.01 (D13) = « Ni l'un ni l'autre »] : règle vraie, 9 question(s) affichée(s)
+conforme  M-091-b   Aucun recrutement en 12 mois ni prévu [RH-28.01 (D13) = « Ni l'un ni l'autre »] : règle fausse (sans actualiser la page), 0 question(s) affichée(s)
+conforme  M-091-c   Aucun recrutement en 12 mois ni prévu [RH-28.01 (D13) = « Ni l'un ni l'autre »] : la réponse à RH-28.03 ne compte plus et reste gardée
+conforme  M-091-d   Aucun recrutement en 12 mois ni prévu [RH-28.01 (D13) = « Ni l'un ni l'autre »] : retour au premier choix, les questions reviennent
+conforme  M-091-d2  Aucun recrutement en 12 mois ni prévu [RH-28.01 (D13) = « Ni l'un ni l'autre »] : la réponse gardée à RH-28.03 compte de nouveau
+conforme  M-091-e   Aucun recrutement en 12 mois ni prévu [RH-28.01 (D13) = « Ni l'un ni l'autre »] : après actualisation, même état
+conforme  M-092-a   Ne publie pas (parcours mise en place) [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : règle vraie, 30 question(s) affichée(s)
+conforme  M-092-b   Ne publie pas (parcours mise en place) [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : règle fausse (sans actualiser la page), 3 question(s) affichée(s)
+conforme  M-092-c   Ne publie pas (parcours mise en place) [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : la réponse à COM-28.01 ne compte plus et reste gardée
+conforme  M-092-d   Ne publie pas (parcours mise en place) [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : retour au premier choix, les questions reviennent
+conforme  M-092-d2  Ne publie pas (parcours mise en place) [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : la réponse gardée à COM-28.01 compte de nouveau
+conforme  M-092-e   Ne publie pas (parcours mise en place) [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : après actualisation, même état
+conforme  T-01-a    D02 · si au moins un salarié [taille (D02) ≠ « seul »] : effectif 4, 1 question(s) affichée(s)
+conforme  T-01-b    D02 · si au moins un salarié [taille (D02) ≠ « seul »] : effectif changé à 1 dans Mon compte, 0 question(s) affichée(s)
+conforme  T-01-d    D02 · si au moins un salarié [taille (D02) ≠ « seul »] : effectif rétabli à 4, les questions reviennent
+conforme  T-02-a    Seul [taille (D02) = « seul »] : effectif 4, 34 question(s) affichée(s)
+conforme  T-02-b    Seul [taille (D02) = « seul »] : effectif changé à 1 dans Mon compte, 0 question(s) affichée(s)
+conforme  T-02-c    Seul [taille (D02) = « seul »] : la réponse à RH-01.01 ne compte plus et reste gardée
+conforme  T-02-d    Seul [taille (D02) = « seul »] : effectif rétabli à 4, les questions reviennent
+conforme  T-02-d2   Seul [taille (D02) = « seul »] : la réponse gardée à RH-01.01 compte de nouveau
+conforme  T-03-a    Moins de 6 personnes [taille (D02) parmi « seul », « equipe_2_5 »] : effectif 8, 6 question(s) affichée(s)
+conforme  T-03-b    Moins de 6 personnes [taille (D02) parmi « seul », « equipe_2_5 »] : effectif changé à 1 dans Mon compte, 0 question(s) affichée(s)
+conforme  T-03-c    Moins de 6 personnes [taille (D02) parmi « seul », « equipe_2_5 »] : la réponse à RH-24.01 ne compte plus et reste gardée
+conforme  T-03-d    Moins de 6 personnes [taille (D02) parmi « seul », « equipe_2_5 »] : effectif rétabli à 8, les questions reviennent
+conforme  T-03-d2   Moins de 6 personnes [taille (D02) parmi « seul », « equipe_2_5 »] : la réponse gardée à RH-24.01 compte de nouveau
+conforme  T-04-a    Au moins un salarié [taille (D02) ≠ « seul »] : effectif 1, 4 question(s) affichée(s)
+conforme  T-04-b    Au moins un salarié [taille (D02) ≠ « seul »] : effectif changé à 4 dans Mon compte, 0 question(s) affichée(s)
+conforme  T-04-c    Au moins un salarié [taille (D02) ≠ « seul »] : la réponse à RH-41.01 ne compte plus et reste gardée
+conforme  T-04-d    Au moins un salarié [taille (D02) ≠ « seul »] : effectif rétabli à 1, les questions reviennent
+conforme  T-04-d2   Au moins un salarié [taille (D02) ≠ « seul »] : la réponse gardée à RH-41.01 compte de nouveau
+
+91 règles jouées, 496 contrôles : 496 conformes, 0 écart(s), 0 bloqué(s).

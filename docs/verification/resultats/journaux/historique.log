@@ -1,0 +1,34 @@
+conforme  H-01    37 mois, niveau essentiel : les questions sur le passé de l'Acquisition sont posées (ACQ-02.02, ACQ-02.03, ACQ-11.02, ACQ-23.03, ACQ-23.13)
+conforme  H-02    la période d'ACQ-02.03 est écrite en mois : « Période : juillet à septembre 2025, les mêmes mois un an plus tôt. »
+conforme  H-03    la période d'ACQ-02.01 (moyenne des 3 derniers mois) : « Période : juillet à septembre 2026. »
+conforme  H-04    les lignes du chiffre d'affaires nomment leurs mois : Septembre 2026 à Octobre 2025 (ACQ-23.01), Septembre 2025 à Octobre 2024 (ACQ-23.03)
+conforme  H-05    Finance, niveau essentiel : chiffre d'affaires de l'année précédente (FIN-14.03), périmètre (FIN-14.04) et effectif d'il y a 12 mois (FIN-07.17) sont posés
+conforme  H-06    13 mois : ACQ-23.03 ne pose que le mois qui suit la création (Septembre 2025), aucun mois antérieur
+conforme  H-07    35, 36 et 37 mois : exactement les mêmes questions (aucune règle ne change à trois ans ; tout l'historique sur un an est posé dès 24 mois)
+conforme  H-08    seuils : ACQ-02.02 posée à 9 mois et pas à 8 ; ACQ-23.03 à 13 et pas à 12 ; ACQ-02.03 et ACQ-11.02 à 15 et pas à 14 ; ACQ-23.12 à 24 et pas à 23
+conforme  H-09    5 mois : aucune question sur une période antérieure à la création (ACQ-02.02, ACQ-02.03, ACQ-11.02, ACQ-23.03, ACQ-23.12, ACQ-23.13 absentes)
+conforme  H-10    5 mois : le chiffre d'affaires mois par mois ne demande que Septembre 2026 à Mai 2026
+conforme  H-11    5 mois : « sur les 12 derniers mois » devient « Période : depuis la création de votre entreprise (mai 2026) jusqu'à septembre 2026, soit 5 mois. »
+conforme  H-12    baisse : « 32 (juillet à septembre 2026), contre 40 (juillet à septembre 2025). Écart : −8, soit −20 %. »
+conforme  H-13    sans réponse sur le périmètre : la comparaison est faite, avec une précision sur le périmètre
+conforme  H-14    progression : 50 contre 40 → « Écart : +10, soit +25 % »
+conforme  H-15    absence de variation : 40 contre 40 → « Écart : aucun »
+conforme  H-16    valeur historique nulle : écart +5, pourcentage non calculé et dit
+conforme  H-17    donnée indisponible (« je ne sais pas ») : comparaison non établie, la raison le dit
+conforme  H-18    réponse effacée : non établie, « Il manque votre réponse »
+conforme  H-19    données partielles : un mois manquant (juillet 2026) → chiffre d'affaires sur 12 mois non établi, le mois est nommé, jamais compté pour zéro
+conforme  H-20    chiffre d'affaires sur 12 mois, deux années complètes : « 120 000 € (octobre 2025 à septembre 2026), contre 96 000 € (octobre 2024 à septembre 2025). Écart : +24 000 €, soit +25 %. »
+conforme  H-21    Finance : la même évolution du chiffre d'affaires, sans que les chiffres soient redemandés (réponses partagées)
+conforme  H-22    Finance : FIN-14.03 affichée comme « déjà renseignée », pas redemandée
+conforme  H-23    périmètre changé en février 2026 : chiffre d'affaires et demandes « non comparables », sans pourcentage
+conforme  H-32    Finance : la carte « déjà renseignée » du périmètre (FIN-14.04, répondu dans l'Acquisition le mois précédent) dit sur quels mois porte la réponse
+conforme  H-24    réponses données à deux mois différents : non établie, « mois différents »
+conforme  H-25    la question dit que la réponse porte sur d'autres mois et invite à la mettre à jour
+conforme  H-26    après mise à jour : de nouveau établie (32 contre 41)
+conforme  H-27    réponse du mois précédent : 777 € s'affiche en face de Août 2026 (son vrai mois), Septembre 2026 est vide
+conforme  H-28    profil modifié (14 mois) : ACQ-02.03 n'est plus posée, l'évolution des demandes n'est plus établie et dit pourquoi ; la réponse reste en base
+conforme  H-29    profil rétabli (4 ans) : la réponse gardée compte de nouveau
+conforme  H-30    reprise sur un autre appareil (téléphone, 390 px) : mêmes évolutions
+conforme  H-31    téléphone : la période s'affiche sous la question, sans défilement horizontal
+
+32 contrôles, 32 conformes, 0 écart(s).

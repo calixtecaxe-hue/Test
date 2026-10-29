@@ -1,0 +1,221 @@
+{
+ "le": "2026-10-29T18:46:47.799Z",
+ "resultats": [
+  {
+   "id": "P-01",
+   "attendu": "capacité maximale de ventes (ACQ-21.03) donnée : les heures en plus acceptables (RH-07.01) restent demandées",
+   "conforme": true,
+   "observe": "RH-07.01 chez RH : posée"
+  },
+  {
+   "id": "P-02",
+   "attendu": "heures travaillées et facturées de l'équipe (ACQ-21.04) données : les heures réelles d'un salarié (RH-06.02) restent demandées",
+   "conforme": true,
+   "observe": "RH-06.02 chez RH : posée"
+  },
+  {
+   "id": "P-03",
+   "attendu": "… et les jours et heures du dirigeant (RH-05.01) aussi",
+   "conforme": true,
+   "observe": "RH-05.01 chez RH : posée"
+  },
+  {
+   "id": "P-04",
+   "attendu": "vraie jumelle : FIN-07.03 (heures travaillées et facturées) est « déjà renseignée » d'après ACQ-21.04",
+   "conforme": true,
+   "observe": "FIN-07.03 chez FIN : « déjà renseigné »"
+  },
+  {
+   "id": "P-05",
+   "attendu": "vraie jumelle : la masse salariale (FIN-07.01) est « déjà renseignée » d'après RH-06.04",
+   "conforme": true,
+   "observe": "FIN-07.01 chez FIN : « déjà renseigné »"
+  },
+  {
+   "id": "P-06",
+   "attendu": "nombre de demandes (ACQ-02.01) donné : les visites du site (COM-13.01) restent demandées",
+   "conforme": true,
+   "observe": "COM-13.01 chez COM : posée"
+  },
+  {
+   "id": "P-07a",
+   "attendu": "un seul des trois tableaux de l'Acquisition répondu : la répartition de la Comm (COM-12.01) est posée, avec la colonne connue reprise",
+   "conforme": true,
+   "observe": "COM-12.01 chez COM : posée avec des valeurs reprises"
+  },
+  {
+   "id": "P-07b",
+   "attendu": "la colonne reprise est remplie (60 et 40), les deux autres colonnes sont vides",
+   "conforme": true,
+   "observe": "[\"60\",\"\",\"\",\"40\",\"\",\"\"]"
+  },
+  {
+   "id": "P-07c",
+   "attendu": "les trois tableaux répondus : COM-12.01 est « déjà renseignée », composée des trois",
+   "conforme": true,
+   "observe": "COM-12.01 chez COM : « déjà renseigné »"
+  },
+  {
+   "id": "P-07d",
+   "attendu": "la carte nomme les trois questions d'où vient la réponse",
+   "conforme": true,
+   "observe": "Sur les 12 derniers mois, quelle part de vos demandes, de vos nouveaux clients et de votre chiffre d'affaires est arrivée par chaque canal ? Déjà renseigné pour l'audit Acquisition & Chiffre d'affaires : vous n'avez pas à le saisir de nouveau. Votre réponse : 6 valeurs renseignées D'après vos réponses aux questions « Sur les 12 derniers mois, quelle part de vos demandes de devis est arrivée par ch"
+  },
+  {
+   "id": "P-08a",
+   "attendu": "témoin : les visites du site (COM-13.01) sont posées et répondues chez la Comm",
+   "conforme": true,
+   "observe": "COM-13.01 chez COM : posée"
+  },
+  {
+   "id": "P-08",
+   "attendu": "visites du site (COM-13.01) données : le nombre de demandes de devis (ACQ-02.01) reste demandé",
+   "conforme": true,
+   "observe": "ACQ-02.01 chez ACQ : posée"
+  },
+  {
+   "id": "P-09",
+   "attendu": "vraie jumelle : les visites du site côté Acquisition (ACQ-06.07) sont « déjà renseignées »",
+   "conforme": true,
+   "observe": "ACQ-06.07 chez ACQ : « déjà renseigné »"
+  },
+  {
+   "id": "P-10",
+   "attendu": "couverts par service (ACQ-11.07) donnés : les ventes par mois (FIN-06.02) restent demandées",
+   "conforme": true,
+   "observe": "FIN-06.02 chez FIN : posée"
+  },
+  {
+   "id": "P-11",
+   "attendu": "avis Google (COM-44.01) donnés : les avis de la plateforme principale (ACQ-06.08) restent demandés",
+   "conforme": true,
+   "observe": "ACQ-06.08 chez ACQ : posée"
+  },
+  {
+   "id": "P-12",
+   "attendu": "vraie jumelle : les avis Google côté Acquisition (ACQ-06.01) sont « déjà renseignés »",
+   "conforme": true,
+   "observe": "ACQ-06.01 chez ACQ : « déjà renseigné »"
+  },
+  {
+   "id": "P-13",
+   "attendu": "dépense de contenu donnée à l'Acquisition : COM-32.01 est posée, ce montant repris",
+   "conforme": true,
+   "observe": "COM-32.01 chez COM : posée avec des valeurs reprises"
+  },
+  {
+   "id": "P-13b",
+   "attendu": "le champ « Création de contenu » est rempli (200), les deux autres sont vides",
+   "conforme": true,
+   "observe": "[\"200\",\"\",\"\"]"
+  },
+  {
+   "id": "P-13c",
+   "attendu": "afficher la question ne l'enregistre pas : COM-32.01 n'a pas de réponse en base",
+   "conforme": true,
+   "observe": "null"
+  },
+  {
+   "id": "P-14",
+   "attendu": "les trois dépenses données : COM-32.01 est « déjà renseignée »",
+   "conforme": true,
+   "observe": "COM-32.01 chez COM : « déjà renseigné »"
+  },
+  {
+   "id": "P-14b",
+   "attendu": "la carte montre chaque champ avec son montant (200, 300, 50 €)",
+   "conforme": true,
+   "observe": "Combien dépensez-vous par mois en création de contenu, en agence marketing et en outils marketing ? Déjà renseigné pour l'audit Acquisition & Chiffre d'affaires : vous n'avez pas à le saisir de nouveau. Votre réponse : Création de contenu : photographe, vidéaste, graphiste : 200 € ; Agence ou prestataire marketing : 300 € ; Outils marketing : 50 € D'après vos réponses aux questions « Combien dépen"
+  },
+  {
+   "id": "P-15",
+   "attendu": "« Modifier cette réponse » ouvre les trois questions de l'Acquisition sur la page de la Comm",
+   "conforme": true,
+   "observe": "3 carte(s)"
+  },
+  {
+   "id": "P-15b",
+   "attendu": "le montant corrigé s'enregistre dans ACQ-07.03 (250)",
+   "conforme": true,
+   "observe": "{\"genre\":\"exact\",\"valeur\":250}"
+  },
+  {
+   "id": "P-15c",
+   "attendu": "après actualisation, COM-32.01 montre le nouveau montant",
+   "conforme": true,
+   "observe": "Combien dépensez-vous par mois en création de contenu, en agence marketing et en outils marketing ? Déjà renseigné pour l'audit Acquisition & Chiffre d'affaires : vous n'avez pas à le saisir de nouveau. Votre réponse : Création de contenu : photographe, vidéaste, graphiste : 250 € ; Agence ou prestataire marketing : 300 € ; Outils marketing : 50 € D'après vos réponses aux questions « Combien dépen"
+  },
+  {
+   "id": "P-13d",
+   "attendu": "le dirigeant complète les deux champs vides : COM-32.01 s'enregistre avec les trois montants (200 repris, 300, 50)",
+   "conforme": true,
+   "observe": "{\"genre\":\"valeurs\",\"valeurs\":{\"outils_marketing\":50,\"agence_ou_prestataire_marketing\":300,\"creation_de_contenu_photographe_videaste\":200}}"
+  },
+  {
+   "id": "P-13e",
+   "attendu": "après actualisation, la question a sa propre réponse (plus de valeurs reprises)",
+   "conforme": true,
+   "observe": "posée [\"200\",\"300\",\"50\"]"
+  },
+  {
+   "id": "P-16",
+   "attendu": "COM-32.01 donnée : la dépense d'agence (ACQ-07.01) est « déjà renseignée »",
+   "conforme": true,
+   "observe": "ACQ-07.01 chez ACQ : « déjà renseigné »"
+  },
+  {
+   "id": "P-16b",
+   "attendu": "la carte montre le montant du champ (300 €), pas le groupe entier",
+   "conforme": true,
+   "observe": "Combien payez-vous par mois à une agence ou à un prestataire marketing ? Déjà renseigné pour l'audit Comm & Création de contenu : vous n'avez pas à le saisir de nouveau. Votre réponse : 300 € D'après votre réponse à la question « Combien dépensez-vous par mois en création de contenu, en agence marketing et en outils marketing ? ». Modifier cette réponse"
+  },
+  {
+   "id": "P-17",
+   "attendu": "FIN-34.02 et COM-43.01 répondues : le tableau ACQ-20.02 est posé (la ligne des chiffres commerciaux manque), leurs réponses reprises",
+   "conforme": true,
+   "observe": "ACQ-20.02 chez ACQ : posée avec des valeurs reprises"
+  },
+  {
+   "id": "P-17b",
+   "attendu": "les lignes « chiffres financiers » et « statistiques de communication » sont remplies, la ligne commerciale est vide",
+   "conforme": true,
+   "observe": "[\"\",\"chaque_mois\",\"jamais\"]"
+  },
+  {
+   "id": "P-18",
+   "attendu": "réponse de la Finance effacée, tableau ACQ-20.02 répondu : FIN-34.02 est « déjà renseignée » d'après sa ligne",
+   "conforme": true,
+   "observe": "FIN-34.02 chez FIN : « déjà renseigné »"
+  },
+  {
+   "id": "P-18b",
+   "attendu": "la carte montre le libellé du choix (« Chaque trimestre »), pas son identifiant",
+   "conforme": true,
+   "observe": "À quelle fréquence regardez-vous vos chiffres financiers : trésorerie, marge, charges ? Déjà renseigné pour l'audit Acquisition & Chiffre d'affaires : vous n'avez pas à le saisir de nouveau. Votre réponse : Chaque trimestre D'après votre réponse à la question « À quelle fréquence regardez-vous vos chiffres ? ». Modifier cette réponse"
+  },
+  {
+   "id": "P-19",
+   "attendu": "reprises (FIN-10.01) et temps par reprise (FIN-10.03) donnés : RH-16.01 est « déjà renseignée »",
+   "conforme": true,
+   "observe": "RH-16.01 chez RH : « déjà renseigné »"
+  },
+  {
+   "id": "P-19b",
+   "attendu": "la carte montre les deux champs (4 reprises, 2 heures)",
+   "conforme": true,
+   "observe": "En moyenne sur les 3 derniers mois, combien de fois par mois devez-vous refaire ou corriger un travail, et combien de temps cela prend-il à chaque fois ? Déjà renseigné pour l'audit Finance & Rentabilité : vous n'avez pas à le saisir de nouveau. Votre réponse : Reprises par mois : 4 ; Temps moyen d'une reprise : 2 heures D'après vos réponses aux questions « En moyenne sur les 3 derniers mois, comb"
+  },
+  {
+   "id": "P-20",
+   "attendu": "boutique en ligne : les visiteurs du site (ACQ-02.01) sont « déjà renseignés » d'après COM-13.01",
+   "conforme": true,
+   "observe": "ACQ-02.01 chez ACQ : « déjà renseigné »"
+  },
+  {
+   "id": "P-21",
+   "attendu": "chiffre d'affaires mois par mois donné à la Finance : la RH ne le redemande pas (RH-11.01 « déjà renseignée »)",
+   "conforme": true,
+   "observe": "RH-11.01 chez RH : « déjà renseigné »"
+  }
+ ]
+}

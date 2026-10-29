@@ -1,0 +1,10 @@
+ok   détail ACQ-07.03
+ok   détail ACQ-07.04
+ok   détail COM-32.02
+ok   un faux chiffre « préparé » n'est pas marqué comme tel
+ok   total proposé enregistré
+ok   le détail a changé : le total passe à 550
+ok   chiffre corrigé : n'est plus « proposé »
+ok   chiffre corrigé : le détail qui change ne le touche pas
+
+Tout est conforme.

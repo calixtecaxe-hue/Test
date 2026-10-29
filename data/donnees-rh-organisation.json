@@ -1,0 +1,4753 @@
+[
+  {
+    "code": "RH-01.01",
+    "theme": "RH-01",
+    "ecran": "R01 · Rôles et responsabilités",
+    "libelle": "Les missions de chaque personne sont écrites (fiche de poste ou simple liste) : pour tous, pour une partie, pour personne",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-01.02",
+    "theme": "RH-01",
+    "ecran": "R01 · Rôles et responsabilités",
+    "libelle": "Tâches dont personne ne sait vraiment qui doit s'en occuper",
+    "format": "Tranches : 0 · 1-2 · 3-5 · plus de 5 · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-02.01",
+    "theme": "RH-02",
+    "ecran": "R01 · Rôles et responsabilités",
+    "libelle": "Décisions courantes confiées à quelqu'un d'autre que vous : devis et prix, achats, planning, réclamations clients, recrutement",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-02.02",
+    "theme": "RH-02",
+    "ecran": "R01 · Rôles et responsabilités",
+    "libelle": "Ce que vous confiez à l'extérieur, et heures par mois : comptabilité, administratif, contenu, production sous-traitée, assistant ou freelance",
+    "format": "Cases + heures par mois",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR23"
+    ],
+    "utiliseeDansTexte": "XR23"
+  },
+  {
+    "code": "RH-03.01",
+    "theme": "RH-03",
+    "ecran": "R02 · Les sollicitations que vous recevez",
+    "libelle": "Sollicitations par jour. Définition : un collaborateur vient vous demander une validation, une décision, une autorisation, une priorité, la réponse à une question courante ou comment faire",
+    "format": "Tranches : 0-2 · 3-5 · 6-10 · 11-20 · plus de 20 · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-03.06",
+      "XR01"
+    ],
+    "utiliseeDansTexte": "RH-03.06, XR01"
+  },
+  {
+    "code": "RH-03.02",
+    "theme": "RH-03",
+    "ecran": "R02 · Les sollicitations que vous recevez",
+    "libelle": "Temps moyen d'une sollicitation",
+    "format": "Tranches : moins de 2 min · 2-5 · 5-15 · plus de 15 min · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-03.06",
+      "XR01"
+    ],
+    "utiliseeDansTexte": "RH-03.06, XR01"
+  },
+  {
+    "code": "RH-03.03",
+    "theme": "RH-03",
+    "ecran": "R02 · Les sollicitations que vous recevez",
+    "libelle": "Sujets les plus fréquents (3 au plus) : prix ou devis, question client, fournisseur, planning, manière de faire, problème technique",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR02"
+    ],
+    "utiliseeDansTexte": "XR02"
+  },
+  {
+    "code": "RH-03.04",
+    "theme": "RH-03",
+    "ecran": "R02 · Les sollicitations que vous recevez",
+    "libelle": "Sur 10 sollicitations, combien auraient pu être réglées sans vous, avec une règle écrite ou une délégation ?",
+    "format": "Sur 10 : 0-2 · 3-5 · 6-8 · 9-10 · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-03.07"
+    ],
+    "utiliseeDansTexte": "RH-03.07"
+  },
+  {
+    "code": "RH-03.05",
+    "theme": "RH-03",
+    "ecran": "R02 · Les sollicitations que vous recevez",
+    "libelle": "Fonction qui vous sollicite le plus",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR02"
+    ],
+    "utiliseeDansTexte": "XR02"
+  },
+  {
+    "code": "RH-03.06",
+    "theme": "RH-03",
+    "ecran": null,
+    "libelle": "Temps du dirigeant consommé par les sollicitations, par semaine",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Sollicitations par jour × temps moyen × jours travaillés",
+    "entrees": [
+      "RH-03.01",
+      "RH-03.02",
+      "ACQ-22.01"
+    ],
+    "entreesTexte": "RH-03.01, RH-03.02, ACQ-22.01",
+    "utiliseeDans": [
+      "RH-03.07",
+      "XR01"
+    ],
+    "utiliseeDansTexte": "RH-03.07, XR01"
+  },
+  {
+    "code": "RH-03.07",
+    "theme": "RH-03",
+    "ecran": null,
+    "libelle": "Heures récupérables avec des règles écrites ou une délégation",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Temps consommé × part évitable",
+    "entrees": [
+      "RH-03.06",
+      "RH-03.04"
+    ],
+    "entreesTexte": "RH-03.06, RH-03.04",
+    "utiliseeDans": [
+      "RH-05.08",
+      "XR02"
+    ],
+    "utiliseeDansTexte": "RH-05.08, XR02"
+  },
+  {
+    "code": "RH-04.01",
+    "theme": "RH-04",
+    "ecran": "R03 · Ce que vous déléguez",
+    "libelle": "Tâches confiées à quelqu'un d'autre sur les 3 derniers mois — déclencheur D44",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-04.06"
+    ],
+    "utiliseeDansTexte": "RH-04.06"
+  },
+  {
+    "code": "RH-04.02",
+    "theme": "RH-04",
+    "ecran": "R03 · Ce que vous déléguez",
+    "libelle": "Parmi elles, tâches reprises. Définition : vous avez dû la refaire, la corriger fortement, la terminer, reprendre le client ou annuler la délégation — déclencheur D45",
+    "format": "Nombre ou tranche",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D44 · si vous avez confié des tâches",
+    "declencheurs": [
+      "D44"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-04.06"
+    ],
+    "utiliseeDansTexte": "RH-04.06"
+  },
+  {
+    "code": "RH-04.03",
+    "theme": "RH-04",
+    "ecran": "R03 · Ce que vous déléguez",
+    "libelle": "Raison principale des reprises : manque de compétence, consignes insuffisantes, pas de procédure, pas le temps de former, qualité insuffisante, urgence, « ça va plus vite si je le fais »",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D45 · si vous avez dû reprendre des tâches en main",
+    "declencheurs": [
+      "D45"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-04.07"
+    ],
+    "utiliseeDansTexte": "RH-04.07"
+  },
+  {
+    "code": "RH-04.04",
+    "theme": "RH-04",
+    "ecran": "R03 · Ce que vous déléguez",
+    "libelle": "Tâches les plus souvent reprises (3 au plus)",
+    "format": "Texte court",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D45 · si vous avez dû reprendre des tâches en main",
+    "declencheurs": [
+      "D45"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR06"
+    ],
+    "utiliseeDansTexte": "XR06"
+  },
+  {
+    "code": "RH-04.05",
+    "theme": "RH-04",
+    "ecran": "R03 · Ce que vous déléguez",
+    "libelle": "Temps passé par semaine à corriger ou reprendre ce qui a été délégué",
+    "format": "Tranches : 0 · 1-3 h · 3-6 h · 6-10 h · plus de 10 h · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D45 · si vous avez dû reprendre des tâches en main",
+    "declencheurs": [
+      "D45"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR06"
+    ],
+    "utiliseeDansTexte": "XR06"
+  },
+  {
+    "code": "RH-04.06",
+    "theme": "RH-04",
+    "ecran": null,
+    "libelle": "Taux de délégation réussie",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "(Tâches confiées − tâches reprises) ÷ tâches confiées",
+    "entrees": [
+      "RH-04.01",
+      "RH-04.02"
+    ],
+    "entreesTexte": "RH-04.01, RH-04.02",
+    "utiliseeDans": [
+      "RH-04.07",
+      "XR06"
+    ],
+    "utiliseeDansTexte": "RH-04.07, XR06"
+  },
+  {
+    "code": "RH-04.07",
+    "theme": "RH-04",
+    "ecran": null,
+    "libelle": "Origine probable du problème de délégation",
+    "format": "Choix",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Compétence → la personne ; « plus vite si je le fais » → le dirigeant ; consignes, temps de formation → la méthode ; pas de procédure → les procédures",
+    "entrees": [
+      "RH-04.03",
+      "RH-04.06"
+    ],
+    "entreesTexte": "RH-04.03, RH-04.06",
+    "utiliseeDans": [
+      "XR06"
+    ],
+    "utiliseeDansTexte": "XR06"
+  },
+  {
+    "code": "RH-05.01",
+    "theme": "RH-05",
+    "ecran": "R04 · Votre semaine",
+    "libelle": "Jours et heures travaillés par semaine par le dirigeant (regroupe les anciennes RH-05.01 et RH-05.09) — mini-bloc « temps du dirigeant », partagé : posé par le premier agent qui en a besoin (Acquisition, Finance, Comm ou RH), jamais redemandé",
+    "format": "Plusieurs champs : Jours · Heures",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-05.06",
+      "RH-05.07",
+      "RH-08.07",
+      "RH-09.05",
+      "RH-17.05",
+      "XR04"
+    ],
+    "utiliseeDansTexte": "RH-05.06, RH-05.07, RH-08.07, RH-09.05, RH-17.05, XR04"
+  },
+  {
+    "code": "RH-05.02",
+    "theme": "RH-05",
+    "ecran": "R04 · Votre semaine",
+    "libelle": "Répartition de votre semaine : production, commercial, administratif, management (si équipe), développement et stratégie — mini-bloc « temps du dirigeant », partagé : posé par le premier agent qui en a besoin (Acquisition, Finance, Comm ou RH), jamais redemandé",
+    "format": "% (total 100)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-05.07",
+      "XR07"
+    ],
+    "utiliseeDansTexte": "RH-05.07, XR07"
+  },
+  {
+    "code": "RH-05.03",
+    "theme": "RH-05",
+    "ecran": "R04 · Votre semaine",
+    "libelle": "Heures par semaine sur des tâches qu'une autre personne ou un outil pourrait faire",
+    "format": "Tranches : 0 · 1-3 h · 3-6 h · 6-10 h · plus de 10 h · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-05.06",
+      "RH-05.08",
+      "XR04",
+      "XR07"
+    ],
+    "utiliseeDansTexte": "RH-05.06, RH-05.08, XR04, XR07"
+  },
+  {
+    "code": "RH-05.04",
+    "theme": "RH-05",
+    "ecran": "R04 · Votre semaine",
+    "libelle": "Soirs et jours de week-end travaillés par semaine",
+    "format": "Plusieurs champs : Soirs · Jours de week-end",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR05"
+    ],
+    "utiliseeDansTexte": "XR05"
+  },
+  {
+    "code": "RH-05.05",
+    "theme": "RH-05",
+    "ecran": "R04 · Votre semaine",
+    "libelle": "Vos heures par rapport à il y a 12 mois : moins, autant, plus",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Il y a 12 mois (masquée avant 12 mois d'existence)",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-05.06",
+    "theme": "RH-05",
+    "ecran": null,
+    "libelle": "Part du temps du dirigeant sur des tâches à faible valeur ajoutée",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Heures délégables ou automatisables ÷ heures travaillées",
+    "entrees": [
+      "RH-05.03",
+      "RH-05.01"
+    ],
+    "entreesTexte": "RH-05.03, RH-05.01",
+    "utiliseeDans": [
+      "XR05"
+    ],
+    "utiliseeDansTexte": "XR05"
+  },
+  {
+    "code": "RH-05.07",
+    "theme": "RH-05",
+    "ecran": null,
+    "libelle": "Heures réellement consacrées au développement de l'entreprise",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Heures travaillées × part « développement et stratégie »",
+    "entrees": [
+      "RH-05.01",
+      "RH-05.02"
+    ],
+    "entreesTexte": "RH-05.01, RH-05.02",
+    "utiliseeDans": [
+      "XR05"
+    ],
+    "utiliseeDansTexte": "XR05"
+  },
+  {
+    "code": "RH-05.08",
+    "theme": "RH-05",
+    "ecran": null,
+    "libelle": "Heures du dirigeant récupérables par semaine",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Tâches délégables + sollicitations évitables + interruptions évitables, sans double compte (les sollicitations font partie des interruptions)",
+    "entrees": [
+      "RH-05.03",
+      "RH-03.07",
+      "RH-10.08"
+    ],
+    "entreesTexte": "RH-05.03, RH-03.07, RH-10.08",
+    "utiliseeDans": [
+      "XR04",
+      "XR27"
+    ],
+    "utiliseeDansTexte": "XR04, XR27"
+  },
+  {
+    "code": "RH-05.10",
+    "theme": "RH-05",
+    "ecran": null,
+    "libelle": "Durée d'absence possible du dirigeant sans retard pour les clients (ligne « vous » de RH-38.01) — mini-bloc « temps du dirigeant », partagé : posé par le premier agent qui en a besoin (Acquisition, Finance, Comm ou RH), jamais redemandé",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-05.11",
+    "theme": "RH-05",
+    "ecran": null,
+    "libelle": "Semaines de congés réellement prises par le dirigeant sur 12 mois (lu avec RH-05.10 : capacité à s'absenter)",
+    "format": "Semaines",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-06.01",
+    "theme": "RH-06",
+    "ecran": "R05 · La charge de l'équipe",
+    "libelle": "Heures prévues au contrat par semaine, en moyenne",
+    "format": "Heures",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-06.08",
+      "RH-08.07",
+      "RH-28.07"
+    ],
+    "utiliseeDansTexte": "RH-06.08, RH-08.07, RH-28.07"
+  },
+  {
+    "code": "RH-06.02",
+    "theme": "RH-06",
+    "ecran": "R05 · La charge de l'équipe",
+    "libelle": "Heures réellement travaillées par semaine et par personne, en moyenne",
+    "format": "Heures",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-06.08",
+      "RH-09.05",
+      "RH-17.05",
+      "RH-19.06"
+    ],
+    "utiliseeDansTexte": "RH-06.08, RH-09.05, RH-17.05, RH-19.06"
+  },
+  {
+    "code": "RH-06.03",
+    "theme": "RH-06",
+    "ecran": "F03 · Votre masse salariale",
+    "libelle": "Heures supplémentaires par mois et leur coût",
+    "format": "Heures et €",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (FIN-07.05), sinon ici",
+    "entrees": [
+      "FIN-07.05"
+    ],
+    "entreesTexte": "FIN-07.05",
+    "utiliseeDans": [
+      "XR08",
+      "XR28"
+    ],
+    "utiliseeDansTexte": "XR08, XR28"
+  },
+  {
+    "code": "RH-06.04",
+    "theme": "RH-06",
+    "ecran": "F03 · Votre masse salariale",
+    "libelle": "Masse salariale chargée par mois (salaires + charges patronales, hors dirigeant)",
+    "format": "€",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (FIN-07.01), sinon ici",
+    "entrees": [
+      "FIN-07.01"
+    ],
+    "entreesTexte": "FIN-07.01",
+    "utiliseeDans": [
+      "XR14",
+      "XR28"
+    ],
+    "utiliseeDansTexte": "XR14, XR28"
+  },
+  {
+    "code": "RH-06.05",
+    "theme": "RH-06",
+    "ecran": "R05 · La charge de l'équipe",
+    "libelle": "Semaines avec des heures supplémentaires sur les 3 derniers mois — déclencheur D46",
+    "format": "Choix : aucune · 1-3 · 4-8 · presque toutes",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-06.09",
+      "RH-11.03",
+      "XR08"
+    ],
+    "utiliseeDansTexte": "RH-06.09, RH-11.03, XR08"
+  },
+  {
+    "code": "RH-06.06",
+    "theme": "RH-06",
+    "ecran": "R05 · La charge de l'équipe",
+    "libelle": "Les heures supplémentaires sont : payées, récupérées, ni l'un ni l'autre",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D46 · s'il y a des heures supplémentaires",
+    "declencheurs": [
+      "D46"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-06.07",
+    "theme": "RH-06",
+    "ecran": "R05 · La charge de l'équipe",
+    "libelle": "Fonctions qui font le plus d'heures supplémentaires",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D46 · s'il y a des heures supplémentaires",
+    "declencheurs": [
+      "D46"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-06.08",
+    "theme": "RH-06",
+    "ecran": null,
+    "libelle": "Écart entre heures réelles et heures prévues",
+    "format": "Heures et %",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Heures réelles − heures du contrat, puis ÷ heures du contrat",
+    "entrees": [
+      "RH-06.02",
+      "RH-06.01"
+    ],
+    "entreesTexte": "RH-06.02, RH-06.01",
+    "utiliseeDans": [
+      "RH-06.09",
+      "XR08"
+    ],
+    "utiliseeDansTexte": "RH-06.09, XR08"
+  },
+  {
+    "code": "RH-06.09",
+    "theme": "RH-06",
+    "ecran": null,
+    "libelle": "Surcharge ponctuelle ou structurelle",
+    "format": "Choix",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": "Structurelle si des heures supplémentaires plus d'une semaine sur deux, ou heures réelles supérieures de 10 % au contrat",
+    "entrees": [
+      "RH-06.05",
+      "RH-06.08"
+    ],
+    "entreesTexte": "RH-06.05, RH-06.08",
+    "utiliseeDans": [
+      "XR08"
+    ],
+    "utiliseeDansTexte": "XR08"
+  },
+  {
+    "code": "RH-07.01",
+    "theme": "RH-07",
+    "ecran": "R06 · La capacité disponible (tableau par fonction)",
+    "libelle": "Heures que l'équipe (ou vous seul) pourrait consacrer à du travail en plus chaque semaine, sans heures supplémentaires, par fonction : production, commercial, administratif",
+    "format": "Tableau 3 lignes (heures)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-07.03",
+      "RH-07.04"
+    ],
+    "utiliseeDansTexte": "RH-07.03, RH-07.04"
+  },
+  {
+    "code": "RH-07.02",
+    "theme": "RH-07",
+    "ecran": "R06 · La capacité disponible (tableau par fonction)",
+    "libelle": "Heures en plus acceptables ponctuellement par semaine, sans surcharge",
+    "format": "Heures",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-07.03",
+    "theme": "RH-07",
+    "ecran": null,
+    "libelle": "Capacité disponible totale",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Somme des trois fonctions",
+    "entrees": [
+      "RH-07.01"
+    ],
+    "entreesTexte": "RH-07.01",
+    "utiliseeDans": [
+      "RH-07.04",
+      "XR09"
+    ],
+    "utiliseeDansTexte": "RH-07.04, XR09"
+  },
+  {
+    "code": "RH-07.04",
+    "theme": "RH-07",
+    "ecran": null,
+    "libelle": "Capacité réellement utile pour vendre plus",
+    "format": "Heures et %",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Heures disponibles sur la fonction qui produit ce que vous vendez, puis ÷ capacité totale",
+    "entrees": [
+      "RH-07.01",
+      "RH-07.03"
+    ],
+    "entreesTexte": "RH-07.01, RH-07.03",
+    "utiliseeDans": [
+      "RH-07.05",
+      "XR09"
+    ],
+    "utiliseeDansTexte": "RH-07.05, XR09"
+  },
+  {
+    "code": "RH-07.05",
+    "theme": "RH-07",
+    "ecran": null,
+    "libelle": "Ventes, dossiers ou chantiers absorbables sans recruter",
+    "format": "Nombre par mois",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Potentiel CA"
+    ],
+    "calcul": "Heures utiles × 4,33 ÷ temps moyen par vente (heures travaillées ÷ ventes du mois)",
+    "entrees": [
+      "RH-07.04",
+      "ACQ-21.04",
+      "ACQ-21.02",
+      "ACQ-21.06"
+    ],
+    "entreesTexte": "RH-07.04, ACQ-21.04, ACQ-21.02, ACQ-21.06",
+    "utiliseeDans": [
+      "RH-07.06",
+      "XR10"
+    ],
+    "utiliseeDansTexte": "RH-07.06, XR10"
+  },
+  {
+    "code": "RH-07.06",
+    "theme": "RH-07",
+    "ecran": null,
+    "libelle": "Part de l'objectif absorbable avec la capacité actuelle",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Ventes absorbables ÷ ventes supplémentaires nécessaires pour l'objectif",
+    "entrees": [
+      "RH-07.05",
+      "ACQ-15.06"
+    ],
+    "entreesTexte": "RH-07.05, Inscription · objectif chiffré, Inscription · CA mensuel, ACQ-15.06",
+    "utiliseeDans": [
+      "XR11",
+      "XR27"
+    ],
+    "utiliseeDansTexte": "XR11, XR27"
+  },
+  {
+    "code": "RH-08.01",
+    "theme": "RH-08",
+    "ecran": "R07 · La personne la plus chargée",
+    "libelle": "Fonction de la personne la plus chargée, vous compris. Définition : celle dont le retard bloque le plus souvent les autres",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR12"
+    ],
+    "utiliseeDansTexte": "XR12"
+  },
+  {
+    "code": "RH-08.02",
+    "theme": "RH-08",
+    "ecran": "R07 · La personne la plus chargée",
+    "libelle": "Ses heures réelles par semaine",
+    "format": "Heures",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D27 · si ce n'est pas vous (sinon RH-05)",
+    "declencheurs": [
+      "D27"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-08.07"
+    ],
+    "utiliseeDansTexte": "RH-08.07"
+  },
+  {
+    "code": "RH-08.03",
+    "theme": "RH-08",
+    "ecran": "R07 · La personne la plus chargée",
+    "libelle": "Personnes qui attendent son travail pour avancer",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-08.08",
+      "XR12"
+    ],
+    "utiliseeDansTexte": "RH-08.08, XR12"
+  },
+  {
+    "code": "RH-08.04",
+    "theme": "RH-08",
+    "ecran": "R07 · La personne la plus chargée",
+    "libelle": "Heures par semaine de ses tâches qu'une autre personne pourrait reprendre",
+    "format": "Tranches : 0 · 1-3 h · 3-6 h · 6-10 h · plus de 10 h · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D27 · si ce n'est pas vous (sinon RH-05)",
+    "declencheurs": [
+      "D27"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR07",
+      "XR12"
+    ],
+    "utiliseeDansTexte": "XR07, XR12"
+  },
+  {
+    "code": "RH-08.05",
+    "theme": "RH-08",
+    "ecran": "R07 · La personne la plus chargée",
+    "libelle": "Cette surcharge est : liée à un pic, permanente",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR12"
+    ],
+    "utiliseeDansTexte": "XR12"
+  },
+  {
+    "code": "RH-08.06",
+    "theme": "RH-08",
+    "ecran": "R07 · La personne la plus chargée",
+    "libelle": "Travail en attente chez elle : aucun, quelques jours, plus d'une semaine",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-08.07",
+    "theme": "RH-08",
+    "ecran": null,
+    "libelle": "Charge de la personne la plus chargée par rapport à un temps plein",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Heures réelles ÷ heures prévues au contrat (si c'est vous : vos heures, RH-05, ÷ 35 h)",
+    "entrees": [
+      "RH-08.02",
+      "RH-06.01",
+      "RH-05.01"
+    ],
+    "entreesTexte": "RH-08.02, RH-06.01, RH-05.01",
+    "utiliseeDans": [
+      "RH-08.08",
+      "XR12"
+    ],
+    "utiliseeDansTexte": "RH-08.08, XR12"
+  },
+  {
+    "code": "RH-08.08",
+    "theme": "RH-08",
+    "ecran": null,
+    "libelle": "Goulot d'étranglement humain",
+    "format": "Oui / non",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": "Oui si charge supérieure à 120 % et au moins 2 personnes qui attendent son travail",
+    "entrees": [
+      "RH-08.07",
+      "RH-08.03"
+    ],
+    "entreesTexte": "RH-08.07, RH-08.03",
+    "utiliseeDans": [
+      "XR12"
+    ],
+    "utiliseeDansTexte": "XR12"
+  },
+  {
+    "code": "RH-09.01",
+    "theme": "RH-09",
+    "ecran": "R08 · Urgences et interruptions",
+    "libelle": "Part du temps passée dans l'urgence. Définition : tâche non prévue à traiter tout de suite (problème client, retard, erreur, oubli, commande de dernière minute, rupture, incident, demande interne bloquante)",
+    "format": "Tranches : moins de 10 % · 10-25 % · 25-50 % · plus de 50 % · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-09.05",
+      "RH-09.07"
+    ],
+    "utiliseeDansTexte": "RH-09.05, RH-09.07"
+  },
+  {
+    "code": "RH-09.02",
+    "theme": "RH-09",
+    "ecran": "R08 · Urgences et interruptions",
+    "libelle": "Causes les plus fréquentes (3 au plus) : demande client de dernière minute, erreur ou oubli interne, retard fournisseur, panne ou incident, manque de planification, absence imprévue",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR13"
+    ],
+    "utiliseeDansTexte": "XR13"
+  },
+  {
+    "code": "RH-09.03",
+    "theme": "RH-09",
+    "ecran": "R08 · Urgences et interruptions",
+    "libelle": "Sur 10 urgences, combien auraient pu être anticipées ?",
+    "format": "Sur 10 : 0-2 · 3-5 · 6-8 · 9-10 · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-09.06",
+      "RH-09.07"
+    ],
+    "utiliseeDansTexte": "RH-09.06, RH-09.07"
+  },
+  {
+    "code": "RH-09.04",
+    "theme": "RH-09",
+    "ecran": "R08 · Urgences et interruptions",
+    "libelle": "Effet le plus fréquent sur le travail prévu : décalé de quelques heures, de plusieurs jours, abandonné",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-09.05",
+    "theme": "RH-09",
+    "ecran": null,
+    "libelle": "Heures par semaine passées dans l'urgence",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Part dans l'urgence × heures travaillées de l'équipe (dirigeant seul : ses heures)",
+    "entrees": [
+      "RH-09.01",
+      "RH-06.02",
+      "RH-05.01"
+    ],
+    "entreesTexte": "RH-09.01, RH-06.02, Inscription · effectif, RH-05.01",
+    "utiliseeDans": [
+      "RH-09.06",
+      "XR13"
+    ],
+    "utiliseeDansTexte": "RH-09.06, XR13"
+  },
+  {
+    "code": "RH-09.06",
+    "theme": "RH-09",
+    "ecran": null,
+    "libelle": "Heures d'urgence évitables par semaine",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Heures dans l'urgence × part anticipable",
+    "entrees": [
+      "RH-09.05",
+      "RH-09.03"
+    ],
+    "entreesTexte": "RH-09.05, RH-09.03",
+    "utiliseeDans": [
+      "XR13",
+      "XR27"
+    ],
+    "utiliseeDansTexte": "XR13, XR27"
+  },
+  {
+    "code": "RH-09.07",
+    "theme": "RH-09",
+    "ecran": null,
+    "libelle": "Fonctionnement en anticipation ou en réaction permanente",
+    "format": "Choix",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": "Réaction permanente si plus de 25 % du temps dans l'urgence et plus de la moitié des urgences anticipables (seuils à valider)",
+    "entrees": [
+      "RH-09.01",
+      "RH-09.03"
+    ],
+    "entreesTexte": "RH-09.01, RH-09.03",
+    "utiliseeDans": [
+      "XR13"
+    ],
+    "utiliseeDansTexte": "XR13"
+  },
+  {
+    "code": "RH-10.01",
+    "theme": "RH-10",
+    "ecran": "R08 · Urgences et interruptions",
+    "libelle": "Interruptions par jour, pour vous. Définition : arrêt non prévu d'une tâche en cours (appel, message, collègue, client, fournisseur, notification, demande de validation)",
+    "format": "Tranches : 0-2 · 3-5 · 6-10 · 11-20 · plus de 20 · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-10.07"
+    ],
+    "utiliseeDansTexte": "RH-10.07"
+  },
+  {
+    "code": "RH-10.02",
+    "theme": "RH-10",
+    "ecran": "R08 · Urgences et interruptions",
+    "libelle": "Temps moyen perdu par interruption, reprise du fil comprise",
+    "format": "Tranches : moins de 2 min · 2-5 · 5-15 · plus de 15 min · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-10.07"
+    ],
+    "utiliseeDansTexte": "RH-10.07"
+  },
+  {
+    "code": "RH-10.03",
+    "theme": "RH-10",
+    "ecran": "R08 · Urgences et interruptions",
+    "libelle": "Source principale : téléphone, messages, collègues, clients, notifications",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR03"
+    ],
+    "utiliseeDansTexte": "XR03"
+  },
+  {
+    "code": "RH-10.04",
+    "theme": "RH-10",
+    "ecran": "R08 · Urgences et interruptions",
+    "libelle": "Interruptions par jour pour un membre de l'équipe",
+    "format": "Tranches : 0-2 · 3-5 · 6-10 · 11-20 · plus de 20 · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-10.05",
+    "theme": "RH-10",
+    "ecran": "R08 · Urgences et interruptions",
+    "libelle": "Sur 10 interruptions, combien auraient pu attendre un moment prévu ?",
+    "format": "Sur 10 : 0-2 · 3-5 · 6-8 · 9-10 · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-10.08"
+    ],
+    "utiliseeDansTexte": "RH-10.08"
+  },
+  {
+    "code": "RH-10.06",
+    "theme": "RH-10",
+    "ecran": "R08 · Urgences et interruptions",
+    "libelle": "Moment de la journée le plus touché",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR03"
+    ],
+    "utiliseeDansTexte": "XR03"
+  },
+  {
+    "code": "RH-10.07",
+    "theme": "RH-10",
+    "ecran": null,
+    "libelle": "Temps fragmenté par les interruptions, par semaine",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Interruptions par jour × temps perdu × jours travaillés",
+    "entrees": [
+      "RH-10.01",
+      "RH-10.02",
+      "ACQ-22.01"
+    ],
+    "entreesTexte": "RH-10.01, RH-10.02, ACQ-22.01",
+    "utiliseeDans": [
+      "RH-10.08",
+      "XR03"
+    ],
+    "utiliseeDansTexte": "RH-10.08, XR03"
+  },
+  {
+    "code": "RH-10.08",
+    "theme": "RH-10",
+    "ecran": null,
+    "libelle": "Heures récupérables en regroupant les interruptions évitables",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Temps fragmenté × part évitable",
+    "entrees": [
+      "RH-10.07",
+      "RH-10.05"
+    ],
+    "entreesTexte": "RH-10.07, RH-10.05",
+    "utiliseeDans": [
+      "RH-05.08",
+      "XR03"
+    ],
+    "utiliseeDansTexte": "RH-05.08, XR03"
+  },
+  {
+    "code": "RH-11.01",
+    "theme": "RH-11",
+    "ecran": "A23 · Vos 12 derniers mois (tableau)",
+    "libelle": "CA de chacun des 12 derniers mois",
+    "format": "12 montants",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-23.01), sinon ici",
+    "entrees": [
+      "ACQ-23.01"
+    ],
+    "entreesTexte": "ACQ-23.01",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "RH-11.02",
+    "theme": "RH-11",
+    "ecran": "R05 · La charge de l'équipe",
+    "libelle": "Pendant vos mois forts, vous ajoutez : intérim ou extras, heures supplémentaires, rien",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-11.03",
+      "XR30"
+    ],
+    "utiliseeDansTexte": "RH-11.03, XR30"
+  },
+  {
+    "code": "RH-11.03",
+    "theme": "RH-11",
+    "ecran": null,
+    "libelle": "Mois forts sans renfort prévu",
+    "format": "Liste de mois",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": "Mois forts croisés avec l'absence de renfort et les semaines d'heures supplémentaires",
+    "entrees": [
+      "ACQ-23.05",
+      "RH-11.02",
+      "RH-06.05"
+    ],
+    "entreesTexte": "ACQ-23.05, RH-11.02, RH-06.05",
+    "utiliseeDans": [
+      "XR30"
+    ],
+    "utiliseeDansTexte": "XR30"
+  },
+  {
+    "code": "RH-12.01",
+    "theme": "RH-12",
+    "ecran": "R09 · Méthodes, informations et outils",
+    "libelle": "Tâches clés de l'activité, et combien sont décrites par écrit (procédure, liste, vidéo)",
+    "format": "Nombre et nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-12.02",
+      "RH-27.02"
+    ],
+    "utiliseeDansTexte": "RH-12.02, RH-27.02"
+  },
+  {
+    "code": "RH-12.02",
+    "theme": "RH-12",
+    "ecran": null,
+    "libelle": "Part des tâches clés décrites par écrit",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Tâches décrites ÷ tâches clés",
+    "entrees": [
+      "RH-12.01"
+    ],
+    "entreesTexte": "RH-12.01",
+    "utiliseeDans": [
+      "XR23",
+      "XR24"
+    ],
+    "utiliseeDansTexte": "XR23, XR24"
+  },
+  {
+    "code": "RH-13.01",
+    "theme": "RH-13",
+    "ecran": "R09 · Méthodes, informations et outils",
+    "libelle": "Quand quelqu'un est absent, son travail est repris : grâce à des consignes écrites, à l'oral, pas repris",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-14.01",
+    "theme": "RH-14",
+    "ecran": "R09 · Méthodes, informations et outils",
+    "libelle": "Les informations utiles (dossiers clients, accès, tarifs) sont : dans un espace partagé, en partie, chacun garde les siennes",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR25"
+    ],
+    "utiliseeDansTexte": "XR25"
+  },
+  {
+    "code": "RH-14.02",
+    "theme": "RH-14",
+    "ecran": "R09 · Méthodes, informations et outils",
+    "libelle": "Temps perdu par semaine et par personne à chercher une information ou à attendre quelqu'un pour l'avoir",
+    "format": "Tranches : 0 · 1-3 h · 3-6 h · 6-10 h · plus de 10 h · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-14.03"
+    ],
+    "utiliseeDansTexte": "RH-14.03"
+  },
+  {
+    "code": "RH-14.03",
+    "theme": "RH-14",
+    "ecran": null,
+    "libelle": "Temps perdu à chercher l'information, toute l'équipe",
+    "format": "Heures par semaine",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Temps perdu par personne × effectif",
+    "entrees": [
+      "RH-14.02"
+    ],
+    "entreesTexte": "RH-14.02, Inscription · effectif",
+    "utiliseeDans": [
+      "XR25"
+    ],
+    "utiliseeDansTexte": "XR25"
+  },
+  {
+    "code": "RH-15.01",
+    "theme": "RH-15",
+    "ecran": "R09 · Méthodes, informations et outils",
+    "libelle": "Outils pour organiser le travail (planning partagé, gestion de tâches, logiciel métier, messagerie d'équipe), et utilisés par tous : oui, en partie, non",
+    "format": "Cases + choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-15.02",
+    "theme": "RH-15",
+    "ecran": "R09 · Méthodes, informations et outils",
+    "libelle": "Matériel qui ralentit le travail — déclencheur D47",
+    "format": "Oui / non + heures",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR29"
+    ],
+    "utiliseeDansTexte": "XR29"
+  },
+  {
+    "code": "RH-15.03",
+    "theme": "RH-15",
+    "ecran": null,
+    "libelle": "Heures perdues par semaine à cause du matériel",
+    "format": "Heures",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D47 · si du matériel ralentit le travail",
+    "declencheurs": [
+      "D47"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-16.01",
+    "theme": "RH-16",
+    "ecran": "F07 · Vos erreurs et gestes commerciaux",
+    "libelle": "Reprises par mois et temps moyen d'une reprise — champs partagés avec FIN-10.01 (reprises par mois) et FIN-10.03 (heures par reprise) : chaque chiffre n'est demandé qu'une fois, le second agent reprend la réponse — déclencheur D49",
+    "format": "Nombre et heures",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (FIN-10.01, FIN-10.03), sinon ici",
+    "entrees": [
+      "FIN-10.01",
+      "FIN-10.03"
+    ],
+    "entreesTexte": "FIN-10.01, FIN-10.03",
+    "utiliseeDans": [
+      "RH-16.05"
+    ],
+    "utiliseeDansTexte": "RH-16.05"
+  },
+  {
+    "code": "RH-16.02",
+    "theme": "RH-16",
+    "ecran": "R10 · Les reprises",
+    "libelle": "Cause principale : erreur humaine, consignes incomplètes, pas de procédure, mauvaise information, problème logiciel, problème fournisseur, mauvaise communication, manque de formation",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D49 · si vous avez des reprises",
+    "declencheurs": [
+      "D49"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR14"
+    ],
+    "utiliseeDansTexte": "XR14"
+  },
+  {
+    "code": "RH-16.03",
+    "theme": "RH-16",
+    "ecran": "R10 · Les reprises",
+    "libelle": "Parmi les reprises : corrections mineures, reprises complètes",
+    "format": "2 nombres",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D49 · si vous avez des reprises",
+    "declencheurs": [
+      "D49"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-16.04",
+    "theme": "RH-16",
+    "ecran": "R10 · Les reprises",
+    "libelle": "Fonctions les plus concernées",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D49 · si vous avez des reprises",
+    "declencheurs": [
+      "D49"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-16.05",
+    "theme": "RH-16",
+    "ecran": null,
+    "libelle": "Temps perdu en reprises par mois",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": "Reprises × temps moyen",
+    "entrees": [
+      "FIN-10.01",
+      "FIN-10.03"
+    ],
+    "entreesTexte": "FIN-10.01, FIN-10.03",
+    "utiliseeDans": [
+      "XR14"
+    ],
+    "utiliseeDansTexte": "XR14"
+  },
+  {
+    "code": "RH-17.01",
+    "theme": "RH-17",
+    "ecran": "R11 · Les tâches répétitives (tableau)",
+    "libelle": "Vos 3 tâches répétitives les plus longues : laquelle (ressaisie, copier-coller, reporting, facturation, planification, emails, relances, saisie administrative, documents, réponses clients répétitives), heures par semaine, qui la fait, outil utilisé",
+    "format": "Tableau 3 × 4",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-17.03",
+      "RH-17.04",
+      "XR07",
+      "XR15"
+    ],
+    "utiliseeDansTexte": "RH-17.03, RH-17.04, XR07, XR15"
+  },
+  {
+    "code": "RH-17.02",
+    "theme": "RH-17",
+    "ecran": "R11 · Les tâches répétitives (tableau)",
+    "libelle": "Heures par semaine sur des tâches répétitives, toute l'équipe",
+    "format": "Tranches : 0 · 1-3 h · 3-6 h · 6-10 h · plus de 10 h · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-17.05"
+    ],
+    "utiliseeDansTexte": "RH-17.05"
+  },
+  {
+    "code": "RH-17.03",
+    "theme": "RH-17",
+    "ecran": null,
+    "libelle": "Chaque tâche classée : à supprimer, automatiser, confier ou standardiser",
+    "format": "Choix par tâche",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Classée par l'IA selon le type de tâche et l'outil déclaré",
+    "entrees": [
+      "RH-17.01"
+    ],
+    "entreesTexte": "RH-17.01",
+    "utiliseeDans": [
+      "RH-17.04"
+    ],
+    "utiliseeDansTexte": "RH-17.04"
+  },
+  {
+    "code": "RH-17.04",
+    "theme": "RH-17",
+    "ecran": null,
+    "libelle": "Heures récupérables par l'automatisation",
+    "format": "Heures par semaine",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Heures des tâches classées « automatiser » × part automatisable prudente",
+    "entrees": [
+      "RH-17.01",
+      "RH-17.03"
+    ],
+    "entreesTexte": "RH-17.01, RH-17.03",
+    "utiliseeDans": [
+      "XR15",
+      "XR27"
+    ],
+    "utiliseeDansTexte": "XR15, XR27"
+  },
+  {
+    "code": "RH-17.05",
+    "theme": "RH-17",
+    "ecran": null,
+    "libelle": "Part du temps de l'équipe passée sur des tâches répétitives",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Heures répétitives ÷ heures travaillées de l'équipe",
+    "entrees": [
+      "RH-17.02",
+      "RH-06.02",
+      "RH-05.01"
+    ],
+    "entreesTexte": "RH-17.02, RH-06.02, Inscription · effectif, RH-05.01",
+    "utiliseeDans": [
+      "XR15"
+    ],
+    "utiliseeDansTexte": "XR15"
+  },
+  {
+    "code": "RH-18.01",
+    "theme": "RH-18",
+    "ecran": "R12 · Réunions et échanges",
+    "libelle": "Les priorités de la semaine sont partagées avec l'équipe : par écrit, à l'oral, pas vraiment",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-19.01",
+    "theme": "RH-19",
+    "ecran": "R12 · Réunions et échanges",
+    "libelle": "Réunions d'équipe : nombre par mois, durée moyenne, participants — déclencheur D50",
+    "format": "3 nombres",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-19.05",
+      "RH-19.06"
+    ],
+    "utiliseeDansTexte": "RH-19.05, RH-19.06"
+  },
+  {
+    "code": "RH-19.02",
+    "theme": "RH-19",
+    "ecran": "R12 · Réunions et échanges",
+    "libelle": "Ces réunions ont un ordre du jour et finissent par des décisions notées : toujours, parfois, jamais",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D50 · si vous faites des réunions",
+    "declencheurs": [
+      "D50"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-19.06"
+    ],
+    "utiliseeDansTexte": "RH-19.06"
+  },
+  {
+    "code": "RH-19.03",
+    "theme": "RH-19",
+    "ecran": "R12 · Réunions et échanges",
+    "libelle": "Entretiens individuels : jamais, une fois par an, chaque trimestre, chaque mois — et date du dernier",
+    "format": "Choix + date",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-19.06"
+    ],
+    "utiliseeDansTexte": "RH-19.06"
+  },
+  {
+    "code": "RH-19.04",
+    "theme": "RH-19",
+    "ecran": "R12 · Réunions et échanges",
+    "libelle": "Part des réunions vraiment utiles selon vous",
+    "format": "Tranches : moins de 10 % · 10-25 % · 25-50 % · plus de 50 % · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D50 · si vous faites des réunions",
+    "declencheurs": [
+      "D50"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR16"
+    ],
+    "utiliseeDansTexte": "XR16"
+  },
+  {
+    "code": "RH-19.05",
+    "theme": "RH-19",
+    "ecran": null,
+    "libelle": "Temps total passé en réunion par mois, toutes personnes comprises",
+    "format": "Heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Réunions × durée × participants",
+    "entrees": [
+      "RH-19.01"
+    ],
+    "entreesTexte": "RH-19.01",
+    "utiliseeDans": [
+      "RH-19.06",
+      "XR16"
+    ],
+    "utiliseeDansTexte": "RH-19.06, XR16"
+  },
+  {
+    "code": "RH-19.06",
+    "theme": "RH-19",
+    "ecran": null,
+    "libelle": "Absence de communication, réunions utiles, ou surcharge de réunions",
+    "format": "Choix",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Absence : ni réunion ni entretien. Surcharge : plus de 10 % du temps en réunion et peu de décisions. Sinon : utiles (seuils à valider). Plus de réunions n'est jamais lu comme un meilleur management",
+    "entrees": [
+      "RH-19.01",
+      "RH-19.05",
+      "RH-19.02",
+      "RH-19.03",
+      "RH-06.02"
+    ],
+    "entreesTexte": "RH-19.01, RH-19.05, RH-19.02, RH-19.03, RH-06.02",
+    "utiliseeDans": [
+      "XR16"
+    ],
+    "utiliseeDansTexte": "XR16"
+  },
+  {
+    "code": "RH-20.01",
+    "theme": "RH-20",
+    "ecran": "R12 · Réunions et échanges",
+    "libelle": "Retour à chacun sur ce qui va et ce qui ne va pas : chaque semaine, chaque mois, rarement",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-21.01",
+    "theme": "RH-21",
+    "ecran": "R12 · Réunions et échanges",
+    "libelle": "Quand l'équipe a besoin de vous, elle obtient une réponse : dans l'heure, dans la journée, plus tard",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-22.01",
+    "theme": "RH-22",
+    "ecran": "R12 · Réunions et échanges",
+    "libelle": "Moyen prévu pour que l'équipe signale un problème ou une idée (réunion, outil, boîte à idées), et idées appliquées sur 6 mois",
+    "format": "Oui / non + nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 6 mois",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-23.01",
+    "theme": "RH-23",
+    "ecran": "R13 · Compétences et formation",
+    "libelle": "Compétences nécessaires que personne n'a dans l'entreprise, et comment vous faites aujourd'hui : sous-traitance, vous-même, pas fait",
+    "format": "Liste + choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-24.01",
+    "theme": "RH-24",
+    "ecran": "R13 · Compétences et formation",
+    "libelle": "Besoins de formation identifiés pour chacun : oui, pour certains, non",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-25.01",
+    "theme": "RH-25",
+    "ecran": "R13 · Compétences et formation",
+    "libelle": "Jours de formation sur les 12 derniers mois, toute l'équipe, et transmission organisée entre collègues (oui / non) — déclencheur D53",
+    "format": "Nombre + oui / non",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-25.02",
+    "theme": "RH-25",
+    "ecran": null,
+    "libelle": "Utilisation des financements de formation de l'OPCO",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-26.01",
+    "theme": "RH-26",
+    "ecran": "R13 · Compétences et formation",
+    "libelle": "Ce qui est appris est appliqué : oui, en partie, rarement",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D53 · si l'équipe a été formée",
+    "declencheurs": [
+      "D53"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-27.01",
+    "theme": "RH-27",
+    "ecran": "R13 · Compétences et formation",
+    "libelle": "Parmi vos tâches clés, combien ne sont maîtrisées que par une seule personne ?",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-27.02",
+      "RH-37.04",
+      "XR24"
+    ],
+    "utiliseeDansTexte": "RH-27.02, RH-37.04, XR24"
+  },
+  {
+    "code": "RH-27.02",
+    "theme": "RH-27",
+    "ecran": null,
+    "libelle": "Part des tâches clés sans deuxième personne capable",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": "Tâches à une seule personne ÷ tâches clés",
+    "entrees": [
+      "RH-27.01",
+      "RH-12.01"
+    ],
+    "entreesTexte": "RH-27.01, RH-12.01",
+    "utiliseeDans": [
+      "XR21"
+    ],
+    "utiliseeDansTexte": "XR21"
+  },
+  {
+    "code": "RH-28.01",
+    "theme": "RH-28",
+    "ecran": "R14 · Recrutements",
+    "libelle": "Avez-vous recruté sur les 12 derniers mois, ou prévoyez-vous de recruter ?",
+    "format": "Recruté · prévu · ni l'un ni l'autre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Parcours"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Question déclencheuse (D13)"
+  },
+  {
+    "code": "RH-28.02",
+    "theme": "RH-28",
+    "ecran": "R14 · Recrutements",
+    "libelle": "Postes ouverts sur la période : pourvus, encore vacants, et motif (croissance, remplacement, nouvelle compétence)",
+    "format": "Tableau par poste",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D13 · si recrutement fait ou prévu",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Mesure"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-28.07",
+      "RH-33.02"
+    ],
+    "utiliseeDansTexte": "RH-28.07, RH-33.02"
+  },
+  {
+    "code": "RH-28.03",
+    "theme": "RH-28",
+    "ecran": "R14 · Recrutements",
+    "libelle": "Délai entre l'annonce et l'arrivée de la recrue",
+    "format": "Tranches : moins de 4 semaines · 1-2 mois · 2-4 mois · plus de 4 mois · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D13 · si recrutement fait ou prévu",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-31.04"
+    ],
+    "utiliseeDansTexte": "RH-31.04"
+  },
+  {
+    "code": "RH-28.04",
+    "theme": "RH-28",
+    "ecran": "R14 · Recrutements",
+    "libelle": "Candidatures et entretiens par poste, en moyenne, et candidats qui ont refusé l'offre",
+    "format": "3 nombres",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D13 · si recrutement sur la période",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-28.05",
+    "theme": "RH-28",
+    "ecran": "R14 · Recrutements",
+    "libelle": "Coût d'un recrutement (annonces, cabinet) et heures passées en interne",
+    "format": "€ et heures",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D13 · si recrutement sur la période",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-28.08"
+    ],
+    "utiliseeDansTexte": "RH-28.08"
+  },
+  {
+    "code": "RH-28.06",
+    "theme": "RH-28",
+    "ecran": "R14 · Recrutements",
+    "libelle": "Poste le plus difficile à pourvoir",
+    "format": "Texte court",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D13 · si recrutement fait ou prévu",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-28.07",
+    "theme": "RH-28",
+    "ecran": null,
+    "libelle": "Postes encore vacants et capacité manquante",
+    "format": "Nombre et heures",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": "Postes vacants × heures du contrat",
+    "entrees": [
+      "RH-28.02",
+      "RH-06.01"
+    ],
+    "entreesTexte": "RH-28.02, RH-06.01",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Affichée dans le rapport"
+  },
+  {
+    "code": "RH-28.08",
+    "theme": "RH-28",
+    "ecran": null,
+    "libelle": "Coût complet d'un recrutement",
+    "format": "€",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": "Coût externe + heures internes × coût d'une heure",
+    "entrees": [
+      "RH-28.05",
+      "FIN-07.12"
+    ],
+    "entreesTexte": "RH-28.05, FIN-07.12",
+    "utiliseeDans": [
+      "XR20"
+    ],
+    "utiliseeDansTexte": "XR20"
+  },
+  {
+    "code": "RH-28.09",
+    "theme": "RH-28",
+    "ecran": null,
+    "libelle": "Moyens de recrutement utilisés",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D13 · si recrutement fait ou prévu",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-28.10",
+    "theme": "RH-28",
+    "ecran": null,
+    "libelle": "Moyen de recrutement qui a donné les meilleures recrues",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D13 · si recrutement fait ou prévu",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-29.01",
+    "theme": "RH-29",
+    "ecran": "R15 · Intégration des recrues",
+    "libelle": "À l'arrivée d'une recrue, sont prêts : poste et matériel, accès, planning des premières semaines, documentation",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D13 · si recrutement fait ou prévu",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-33.03"
+    ],
+    "utiliseeDansTexte": "RH-33.03"
+  },
+  {
+    "code": "RH-30.01",
+    "theme": "RH-30",
+    "ecran": "R15 · Intégration des recrues",
+    "libelle": "Un référent est désigné, avec des points réguliers les premières semaines : oui, parfois, non",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D13 · si recrutement fait ou prévu",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-33.03"
+    ],
+    "utiliseeDansTexte": "RH-33.03"
+  },
+  {
+    "code": "RH-31.01",
+    "theme": "RH-31",
+    "ecran": "R15 · Intégration des recrues",
+    "libelle": "Semaines avant qu'une recrue soit autonome. Définition : elle fait ses missions principales sans supervision régulière",
+    "format": "Tranches : moins de 2 · 2-4 · 4-8 · 8-12 · plus de 12 · je ne sais pas",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D13 · si recrutement fait ou prévu",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-31.04",
+      "RH-31.05"
+    ],
+    "utiliseeDansTexte": "RH-31.04, RH-31.05"
+  },
+  {
+    "code": "RH-31.02",
+    "theme": "RH-31",
+    "ecran": "R15 · Intégration des recrues",
+    "libelle": "Heures par semaine que vous ou un responsable consacrez à une recrue pendant cette période",
+    "format": "Heures",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D13 · si recrutement fait ou prévu",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-31.05"
+    ],
+    "utiliseeDansTexte": "RH-31.05"
+  },
+  {
+    "code": "RH-31.03",
+    "theme": "RH-31",
+    "ecran": "R15 · Intégration des recrues",
+    "libelle": "Poste le plus long à maîtriser, et nombre de semaines",
+    "format": "Texte + semaines",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D13 · si recrutement fait ou prévu",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR19"
+    ],
+    "utiliseeDansTexte": "XR19"
+  },
+  {
+    "code": "RH-31.04",
+    "theme": "RH-31",
+    "ecran": null,
+    "libelle": "Délai total entre l'annonce et une recrue productive",
+    "format": "Semaines",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": "Délai de recrutement + semaines avant autonomie",
+    "entrees": [
+      "RH-28.03",
+      "RH-31.01"
+    ],
+    "entreesTexte": "RH-28.03, RH-31.01",
+    "utiliseeDans": [
+      "XR19"
+    ],
+    "utiliseeDansTexte": "XR19"
+  },
+  {
+    "code": "RH-31.05",
+    "theme": "RH-31",
+    "ecran": null,
+    "libelle": "Coût de montée en compétence d'une recrue",
+    "format": "€",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": "Heures du responsable × semaines × coût d'une heure + salaire de la recrue × semaines × part non productive prudente",
+    "entrees": [
+      "RH-31.02",
+      "RH-31.01",
+      "FIN-07.12",
+      "FIN-07.09"
+    ],
+    "entreesTexte": "RH-31.02, RH-31.01, FIN-07.12, FIN-07.09",
+    "utiliseeDans": [
+      "XR20"
+    ],
+    "utiliseeDansTexte": "XR20"
+  },
+  {
+    "code": "RH-32.01",
+    "theme": "RH-32",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Départs sur les 12 derniers mois, par type : démission, fin de période d'essai, rupture conventionnelle, licenciement, fin de contrat — déclencheur D54",
+    "format": "Tableau (nombres)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-32.05"
+    ],
+    "utiliseeDansTexte": "RH-32.05"
+  },
+  {
+    "code": "RH-32.02",
+    "theme": "RH-32",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Départs sur un poste clé, et remplacement : fait, en cours, non",
+    "format": "Nombre + choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR17"
+    ],
+    "utiliseeDansTexte": "XR17"
+  },
+  {
+    "code": "RH-32.03",
+    "theme": "RH-32",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Cause principale connue : rémunération, charge de travail, management, évolution, distance, inconnue",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D54 · s'il y a eu des départs",
+    "declencheurs": [
+      "D54"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-32.04",
+    "theme": "RH-32",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Fonctions concernées et ancienneté moyenne au départ",
+    "format": "Choix + mois",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D54 · s'il y a eu des départs",
+    "declencheurs": [
+      "D54"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-32.05",
+    "theme": "RH-32",
+    "ecran": null,
+    "libelle": "Taux de départ annuel",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Départs ÷ effectif, ramené à 12 mois si la période est plus courte ; comparé au secteur seulement à partir de 10 personnes",
+    "entrees": [
+      "RH-32.01"
+    ],
+    "entreesTexte": "RH-32.01, Inscription · effectif",
+    "utiliseeDans": [
+      "XR17"
+    ],
+    "utiliseeDansTexte": "XR17"
+  },
+  {
+    "code": "RH-32.06",
+    "theme": "RH-32",
+    "ecran": null,
+    "libelle": "Transmission du savoir-faire avant un départ",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-33.01",
+    "theme": "RH-33",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Parmi les recrues de la période : départs avant 3 mois, entre 3 et 6 mois, entre 6 et 12 mois, et à l'initiative de qui",
+    "format": "Tableau 3 × 2",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D13 · si recrutement sur la période",
+    "declencheurs": [
+      "D13"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-33.02",
+      "RH-33.03"
+    ],
+    "utiliseeDansTexte": "RH-33.02, RH-33.03"
+  },
+  {
+    "code": "RH-33.02",
+    "theme": "RH-33",
+    "ecran": null,
+    "libelle": "Taux d'échec d'intégration",
+    "format": "%",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Départs dans la première année ÷ recrutements de la période",
+    "entrees": [
+      "RH-33.01",
+      "RH-28.02"
+    ],
+    "entreesTexte": "RH-33.01, RH-28.02",
+    "utiliseeDans": [
+      "XR18"
+    ],
+    "utiliseeDansTexte": "XR18"
+  },
+  {
+    "code": "RH-33.03",
+    "theme": "RH-33",
+    "ecran": null,
+    "libelle": "Origine probable des départs précoces",
+    "format": "Choix",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": "Avant 3 mois : recrutement ou promesse employeur ; 3 à 12 mois : intégration ou management",
+    "entrees": [
+      "RH-33.01",
+      "RH-29.01",
+      "RH-30.01"
+    ],
+    "entreesTexte": "RH-33.01, RH-29.01, RH-30.01",
+    "utiliseeDans": [
+      "XR18"
+    ],
+    "utiliseeDansTexte": "XR18"
+  },
+  {
+    "code": "RH-34.01",
+    "theme": "RH-34",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Jours d'absence sur les 12 derniers mois, toute l'équipe, hors congés (aucune information médicale : seul l'effet sur l'organisation compte) — déclencheur D55",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": "Période adaptée : depuis la création si moins de 12 mois",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-34.04"
+    ],
+    "utiliseeDansTexte": "RH-34.04"
+  },
+  {
+    "code": "RH-34.02",
+    "theme": "RH-34",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Absences qui ont obligé à remplacer, à faire des heures supplémentaires ou à décaler des clients : jamais, parfois, souvent",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR26"
+    ],
+    "utiliseeDansTexte": "XR26"
+  },
+  {
+    "code": "RH-34.03",
+    "theme": "RH-34",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Dont absences de plus d'une semaine",
+    "format": "Nombre",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D55 · s'il y a eu des absences",
+    "declencheurs": [
+      "D55"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-34.04",
+    "theme": "RH-34",
+    "ecran": null,
+    "libelle": "Jours d'absence par personne et taux d'absence",
+    "format": "Jours et %",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Jours d'absence ÷ effectif, puis ÷ jours travaillés",
+    "entrees": [
+      "RH-34.01"
+    ],
+    "entreesTexte": "RH-34.01, Inscription · effectif",
+    "utiliseeDans": [
+      "XR26"
+    ],
+    "utiliseeDansTexte": "XR26"
+  },
+  {
+    "code": "RH-35.01",
+    "theme": "RH-35",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Vous recueillez l'avis de l'équipe sur ses conditions de travail : questionnaire, entretien, jamais",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-35.02",
+    "theme": "RH-35",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Résultats du mini-questionnaire anonyme envoyé à l'équipe (5 questions), si vous l'activez",
+    "format": "Scores",
+    "mode": "importee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Cible"
+    ],
+    "calcul": "Rempli par les salariés eux-mêmes : seule référence extérieure au regard du dirigeant",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-36.01",
+    "theme": "RH-36",
+    "ecran": "R16 · Départs et absences",
+    "libelle": "Façons de reconnaître le travail bien fait : remerciement, prime, évolution, responsabilité, aucune en particulier",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-37.01",
+    "theme": "RH-37",
+    "ecran": "R17 · Personnes et fonctions critiques (tableau)",
+    "libelle": "Personnes, en dehors du dirigeant, dont l'absence bloque l'activité (3 au plus) : fonction, ce qu'elle seule sait faire, accès ou informations qu'elle seule détient, clients qui ne passent que par elle, remplaçant possible, procédure écrite (le dirigeant est dans RH-05.10) — déclencheur D57",
+    "format": "Tableau 3 × 6",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-37.03",
+      "RH-37.04",
+      "RH-38.03",
+      "XR24"
+    ],
+    "utiliseeDansTexte": "RH-37.03, RH-37.04, RH-38.03, XR24"
+  },
+  {
+    "code": "RH-37.02",
+    "theme": "RH-37",
+    "ecran": "R17 · Personnes et fonctions critiques (tableau)",
+    "libelle": "Temps nécessaire pour former un remplaçant à chacune",
+    "format": "Semaines par ligne",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D57 · s'il y a une personne clé",
+    "declencheurs": [
+      "D57"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Capacité"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Lue par l'IA pour adapter le conseil"
+  },
+  {
+    "code": "RH-37.03",
+    "theme": "RH-37",
+    "ecran": null,
+    "libelle": "Personnes critiques sans remplaçant ni procédure",
+    "format": "Nombre",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": "Lignes sans remplaçant et sans procédure",
+    "entrees": [
+      "RH-37.01"
+    ],
+    "entreesTexte": "RH-37.01",
+    "utiliseeDans": [
+      "XR21"
+    ],
+    "utiliseeDansTexte": "XR21"
+  },
+  {
+    "code": "RH-37.04",
+    "theme": "RH-37",
+    "ecran": null,
+    "libelle": "Risque concentré malgré un savoir-faire partagé",
+    "format": "Liste",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": "Tâches maîtrisées par plusieurs personnes mais dont les accès ou les clients ne dépendent que d'une seule",
+    "entrees": [
+      "RH-37.01",
+      "RH-27.01"
+    ],
+    "entreesTexte": "RH-37.01, RH-27.01",
+    "utiliseeDans": [
+      "XR21"
+    ],
+    "utiliseeDansTexte": "XR21"
+  },
+  {
+    "code": "RH-38.01",
+    "theme": "RH-38",
+    "ecran": "R17 · Personnes et fonctions critiques (tableau)",
+    "libelle": "Pour chaque personne de RH-37.01 : absence possible sans retard pour les clients (la ligne du dirigeant est RH-05.10)",
+    "format": "Choix par ligne",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D57 · s'il y a une personne clé",
+    "declencheurs": [
+      "D57"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "RH-38.03",
+      "RH-38.04",
+      "XR23"
+    ],
+    "utiliseeDansTexte": "RH-38.03, RH-38.04, XR23"
+  },
+  {
+    "code": "RH-38.02",
+    "theme": "RH-38",
+    "ecran": "R17 · Personnes et fonctions critiques (tableau)",
+    "libelle": "Au-delà, ce qui arrive en premier : retard interne, retard client, perte de CA",
+    "format": "Choix par ligne",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D57 · s'il y a une personne clé",
+    "declencheurs": [
+      "D57"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR22"
+    ],
+    "utiliseeDansTexte": "XR22"
+  },
+  {
+    "code": "RH-38.03",
+    "theme": "RH-38",
+    "ecran": null,
+    "libelle": "Fonction la plus fragile et délai avant impact client",
+    "format": "Fonction et jours",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Risque"
+    ],
+    "calcul": "Fonction dont l'absence tolérée est la plus courte",
+    "entrees": [
+      "RH-38.01",
+      "RH-37.01"
+    ],
+    "entreesTexte": "RH-38.01, RH-37.01",
+    "utiliseeDans": [
+      "XR22"
+    ],
+    "utiliseeDansTexte": "XR22"
+  },
+  {
+    "code": "RH-38.04",
+    "theme": "RH-38",
+    "ecran": null,
+    "libelle": "CA exposé par jour d'absence de la fonction la plus fragile",
+    "format": "€ par jour",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Perte"
+    ],
+    "calcul": "CA mensuel ÷ jours ouverts par mois, au-delà du délai toléré",
+    "entrees": [
+      "ACQ-22.01",
+      "RH-38.01"
+    ],
+    "entreesTexte": "Inscription · CA mensuel, ACQ-22.01, RH-38.01",
+    "utiliseeDans": [
+      "XR22",
+      "XR23"
+    ],
+    "utiliseeDansTexte": "XR22, XR23"
+  },
+  {
+    "code": "RH-39.01",
+    "theme": "RH-39",
+    "ecran": "R09 · Méthodes, informations et outils",
+    "libelle": "Derniers changements d'organisation (outil, rôles, horaires) : préparés avec l'équipe, annoncés, imposés",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": "Notée directement (couleur du thème)"
+  },
+  {
+    "code": "RH-40.01",
+    "theme": "RH-40",
+    "ecran": "R09 · Méthodes, informations et outils",
+    "libelle": "Indicateurs d'organisation que vous suivez : heures, retards, reprises, absences, charge par personne, aucun",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Levier"
+    ],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR31"
+    ],
+    "utiliseeDansTexte": "XR31"
+  },
+  {
+    "code": "RH-40.02",
+    "theme": "RH-40",
+    "ecran": null,
+    "libelle": "Maîtrise des données d'organisation",
+    "format": "% et nombres",
+    "mode": "calculee",
+    "niveau": null,
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [
+      "Problème"
+    ],
+    "calcul": "Réponses précises, estimées, « je ne sais pas » et « je ne suis pas cette donnée » sur les questions RH ; % de maîtrise = précises ou estimées ÷ posées",
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [
+      "XR31"
+    ],
+    "utiliseeDansTexte": "XR31"
+  },
+  {
+    "code": "RH-41.01",
+    "theme": "RH-41",
+    "ecran": null,
+    "libelle": "Projet de se faire aider et horizon — déclencheur D28 : une réponse « Oui » ouvre la partie « S'entourer »",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-41.02",
+    "theme": "RH-41",
+    "ecran": null,
+    "libelle": "Formes d'aide envisagées",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D28 · si vous voulez être aidé",
+    "declencheurs": [
+      "D28"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-41.03",
+    "theme": "RH-41",
+    "ecran": null,
+    "libelle": "Raison principale de se faire aider",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D28 · si vous voulez être aidé",
+    "declencheurs": [
+      "D28"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-42.01",
+    "theme": "RH-42",
+    "ecran": null,
+    "libelle": "Tâches à confier en premier : heures par semaine, apprentissage en moins d'un mois, méthode écrite",
+    "format": "Tableau : Heures par semaine · S'apprend en moins d'un mois · Méthode écrite (lignes libre: 5)",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D28 · si vous voulez être aidé",
+    "declencheurs": [
+      "D28"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-42.02",
+    "theme": "RH-42",
+    "ecran": null,
+    "libelle": "Tâches que le dirigeant ne peut confier à personne, et pourquoi",
+    "format": "Texte",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D28 · si vous voulez être aidé",
+    "declencheurs": [
+      "D28"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-43.01",
+    "theme": "RH-43",
+    "ecran": null,
+    "libelle": "Budget mensuel envisagé pour l'aide, tout compris",
+    "format": "€",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D28 · si vous voulez être aidé",
+    "declencheurs": [
+      "D28"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-43.02",
+    "theme": "RH-43",
+    "ecran": null,
+    "libelle": "Demandes perdues par mois faute de disponibilité, par motif — partagée avec ACQ-22.10 : posée une seule fois",
+    "format": "Tableau : Clients perdus par mois (lignes fixe: Pas de créneau assez tôt / Pas le temps de répondre ou de chiffrer / Absence : vous ou un salarié / Produit en rupture de stock)",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": "D28 · si vous voulez être aidé",
+    "declencheurs": [
+      "D28"
+    ],
+    "periode": "Période adaptée : depuis la création si moins de 3 mois",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-22.10), sinon ici",
+    "entrees": [
+      "ACQ-22.10"
+    ],
+    "entreesTexte": "ACQ-22.10",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-43.03",
+    "theme": "RH-43",
+    "ecran": null,
+    "libelle": "Équipement à prévoir pour accueillir la personne",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D28 · si vous voulez être aidé",
+    "declencheurs": [
+      "D28"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-44.01",
+    "theme": "RH-44",
+    "ecran": null,
+    "libelle": "Ce qui retient le dirigeant de se faire aider",
+    "format": "Cases à cocher",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D28 · si vous voulez être aidé",
+    "declencheurs": [
+      "D28"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-44.02",
+    "theme": "RH-44",
+    "ecran": null,
+    "libelle": "Expérience passée avec un salarié ou un freelance régulier — déclencheur D29 : « mal passé » ouvre RH-44.03",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D28 · si vous voulez être aidé",
+    "declencheurs": [
+      "D28"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-44.03",
+    "theme": "RH-44",
+    "ecran": null,
+    "libelle": "Ce qui n'a pas fonctionné la dernière fois",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": "D29 · si l'expérience s'est mal passée",
+    "declencheurs": [
+      "D29"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-45.01",
+    "theme": "RH-45",
+    "ecran": null,
+    "libelle": "Relais possible auprès des clients si le dirigeant s'arrête 2 semaines",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-45.02",
+    "theme": "RH-45",
+    "ecran": null,
+    "libelle": "Informations clés notées et utilisables par une autre personne",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-45.03",
+    "theme": "RH-45",
+    "ecran": null,
+    "libelle": "Appartenance à un réseau de professionnels",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-46.01",
+    "theme": "RH-46",
+    "ecran": null,
+    "libelle": "Personnes par domaine de travail, dont à temps partiel (le travail pour les clients, trouver et suivre les clients, administratif, encadrement) — partagée entre ACQ-21.01 et RH-46.01 : posée une seule fois ; l'équivalent temps plein au contact des clients se calcule avec les deux premières lignes",
+    "format": "Tableau : Personnes · Dont à temps partiel (lignes fixe: Le travail pour les clients / Trouver et suivre les clients / Administratif et gestion / Encadrement de l'équipe)",
+    "mode": "partagee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": "Posée une seule fois, par le premier agent souscrit qui en a besoin (ACQ-21.01), sinon ici",
+    "entrees": [
+      "ACQ-21.01"
+    ],
+    "entreesTexte": "ACQ-21.01",
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-46.02",
+    "theme": "RH-46",
+    "ecran": null,
+    "libelle": "Personnes par type de contrat",
+    "format": "Tableau : Personnes (lignes fixe: CDI / CDD / Apprentis et alternants / Stagiaires / Intérimaires / Freelances réguliers)",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-47.01",
+    "theme": "RH-47",
+    "ecran": null,
+    "libelle": "Qui fait le planning et temps passé par semaine",
+    "format": "Plusieurs champs : Qui le fait · Heures par semaine",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-47.02",
+    "theme": "RH-47",
+    "ecran": null,
+    "libelle": "Délai de prévenance du planning",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-47.03",
+    "theme": "RH-47",
+    "ecran": null,
+    "libelle": "Changements de planning de dernière minute par semaine",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-48.01",
+    "theme": "RH-48",
+    "ecran": null,
+    "libelle": "Objectifs individuels écrits et revus — déclencheur D51",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-48.02",
+    "theme": "RH-48",
+    "ecran": null,
+    "libelle": "Part variable liée aux objectifs",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D51 · si des objectifs existent",
+    "declencheurs": [
+      "D51"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-49.01",
+    "theme": "RH-49",
+    "ecran": null,
+    "libelle": "Responsables intermédiaires et nombre de personnes suivies par responsable — déclencheur D52",
+    "format": "Plusieurs champs : Responsables, vous non compris · Personnes suivies par un responsable, au plus",
+    "mode": "demandee",
+    "niveau": "essentiel",
+    "condition": null,
+    "declencheurs": [],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  },
+  {
+    "code": "RH-49.02",
+    "theme": "RH-49",
+    "ecran": null,
+    "libelle": "Responsables formés à l'encadrement",
+    "format": "Choix",
+    "mode": "demandee",
+    "niveau": "approfondi",
+    "condition": "D52 · s'il y a des responsables",
+    "declencheurs": [
+      "D52"
+    ],
+    "periode": null,
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "sertA": [],
+    "calcul": null,
+    "entrees": [],
+    "entreesTexte": null,
+    "utiliseeDans": [],
+    "utiliseeDansTexte": null
+  }
+]

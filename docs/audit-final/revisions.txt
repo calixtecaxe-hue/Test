@@ -1,0 +1,55 @@
+# Révisions de l'audit final (29 octobre 2026)
+
+Complète les évaluations du 28 octobre (docs/audit-utilite/evaluations/*.txt) : une entrée ici remplace la recommandation et
+la catégorie de la question, et ajoute ses champs à ceux du 28 octobre. Même format ; champ en plus :
+
+    a: anomalies de docs/audit-final/anomalies.json
+
+Rien de ce qui est écrit ici ne modifie la banque : ce sont des propositions à arbitrer.
+
+# Conditions
+RH-28.10 | conditionnelle | conditions+exploitation
+  p: Porte sur des recrues passées (« vous a apporté vos meilleures recrues ») ; ouverte aussi à « Je prévois de recruter », qui ne peut pas répondre.
+  c: « D13 · si recrutement sur la période » (J'ai recruté, Les deux), règle existante de RH-28.04 et RH-28.05.
+  a: A-07
+COM-44.01 | conditionnelle | conditions
+  p: Posée à tous à la Comm ; sa jumelle ACQ-06.01 et COM-14.01 ne le sont que si « Fiche Google » est cochée dans les canaux.
+  c: « D03 · si « fiche Google » est cochée », comme ACQ-06.01.
+  a: A-09, A-01
+RH-28.01 | conditionnelle | conditions
+  p: Au dirigeant seul, recoupe RH-41.01 (« Aimeriez-vous être aidé… ? ») : deux blocs voisins s'ouvrent (RH-28 à 31 et RH-41 à 44).
+  c: Ne pas la poser au dirigeant seul : RH-41.01 ouvre son parcours ; RH-44.02 dit s'il a déjà eu un salarié.
+  d: Ou garder les deux et retirer du bloc RH-28 à RH-31 ce que RH-41 à RH-44 couvre déjà.
+  a: A-08
+
+# Formulation selon la taille
+ACQ-04.01 | preciser | formulation
+  p: « vous et votre équipe » au dirigeant seul.
+  t: Seul : « Sur une semaine habituelle, combien d'heures passez-vous à prospecter ? »
+  a: A-10
+ACQ-21.04 | preciser | formulation
+  p: « votre équipe » au dirigeant seul (facturation au temps).
+  t: Seul : « En moyenne sur les 3 derniers mois, combien d'heures travaillez-vous par mois pour vos clients, et combien en facturez-vous ? »
+  a: A-10, A-14
+FIN-02.01 | preciser | formulation
+  p: « vous et votre équipe » au dirigeant seul.
+  t: Seul : « … combien d'heures par mois passez-vous pour chacun de vos 5 plus gros clients ? »
+  a: A-10
+RH-07.01 | preciser | formulation
+  p: « vous et votre équipe » au dirigeant seul.
+  t: Seul : « Sur une semaine habituelle, combien d'heures de travail en plus pourriez-vous accepter ? »
+  a: A-10, A-01, A-14
+COM-31.01 | preciser | formulation
+  p: « vous et votre équipe » au dirigeant seul.
+  t: Seul : « Sur une semaine habituelle, combien d'heures passez-vous sur chaque tâche de communication ? »
+  a: A-10
+COM-31.02 | preciser | formulation
+  p: « vos salariés » au dirigeant seul.
+  t: Seul : « Comment se répartissent ces heures entre vous et vos prestataires ? »
+  a: A-10
+
+# Réponses
+RH-28.03 | preciser | formulation
+  p: Tranches non contiguës : rien entre « 1 à 2 mois » et « 3 à 4 mois ».
+  r: « Moins d'1 mois », « 1 à 2 mois », « Plus de 2 à 4 mois », « Plus de 4 mois ».
+  a: A-11

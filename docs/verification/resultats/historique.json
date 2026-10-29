@@ -1,0 +1,197 @@
+{
+ "le": "2026-10-29T18:52:27.990Z",
+ "resultats": [
+  {
+   "id": "H-01",
+   "attendu": "37 mois, niveau essentiel : les questions sur le passé de l'Acquisition sont posées (ACQ-02.02, ACQ-02.03, ACQ-11.02, ACQ-23.03, ACQ-23.13)",
+   "conforme": true,
+   "observe": "ACQ-02.01, ACQ-02.02, ACQ-02.03, ACQ-02.04, ACQ-11.01, ACQ-11.02, ACQ-23.01, ACQ-23.02, ACQ-23.03, ACQ-23.13"
+  },
+  {
+   "id": "H-02",
+   "attendu": "la période d'ACQ-02.03 est écrite en mois : « Période : juillet à septembre 2025, les mêmes mois un an plus tôt. »",
+   "conforme": true,
+   "observe": "Période : juillet à septembre 2025, les mêmes mois un an plus tôt."
+  },
+  {
+   "id": "H-03",
+   "attendu": "la période d'ACQ-02.01 (moyenne des 3 derniers mois) : « Période : juillet à septembre 2026. »",
+   "conforme": true,
+   "observe": "Période : juillet à septembre 2026."
+  },
+  {
+   "id": "H-04",
+   "attendu": "les lignes du chiffre d'affaires nomment leurs mois : Septembre 2026 à Octobre 2025 (ACQ-23.01), Septembre 2025 à Octobre 2024 (ACQ-23.03)",
+   "conforme": true,
+   "observe": "Septembre 2026, Août 2026, Juillet 2026, Juin 2026, Mai 2026, Avril 2026, Mars 2026, Février 2026, Janvier 2026, Décembre 2025, Novembre 2025, Octobre 2025 | Septembre 2025, Août 2025, Juillet 2025, Juin 2025, Mai 2025, Avril 2025, Mars 2025, Février 2025, Janvier 2025, Décembre 2024, Novembre 2024, Octobre 2024"
+  },
+  {
+   "id": "H-05",
+   "attendu": "Finance, niveau essentiel : chiffre d'affaires de l'année précédente (FIN-14.03), périmètre (FIN-14.04) et effectif d'il y a 12 mois (FIN-07.17) sont posés",
+   "conforme": true,
+   "observe": "FIN-07.01, FIN-07.02, FIN-07.17, FIN-07.05, FIN-14.01, FIN-14.03, FIN-14.04"
+  },
+  {
+   "id": "H-06",
+   "attendu": "13 mois : ACQ-23.03 ne pose que le mois qui suit la création (Septembre 2025), aucun mois antérieur",
+   "conforme": true,
+   "observe": "Septembre 2025"
+  },
+  {
+   "id": "H-07",
+   "attendu": "35, 36 et 37 mois : exactement les mêmes questions (aucune règle ne change à trois ans ; tout l'historique sur un an est posé dès 24 mois)",
+   "conforme": true,
+   "observe": "69 / 69 / 69"
+  },
+  {
+   "id": "H-08",
+   "attendu": "seuils : ACQ-02.02 posée à 9 mois et pas à 8 ; ACQ-23.03 à 13 et pas à 12 ; ACQ-02.03 et ACQ-11.02 à 15 et pas à 14 ; ACQ-23.12 à 24 et pas à 23",
+   "conforme": true,
+   "observe": "02.02 false/true 23.03 false/true 02.03 false/true 23.12 false/true"
+  },
+  {
+   "id": "H-09",
+   "attendu": "5 mois : aucune question sur une période antérieure à la création (ACQ-02.02, ACQ-02.03, ACQ-11.02, ACQ-23.03, ACQ-23.12, ACQ-23.13 absentes)",
+   "conforme": true,
+   "observe": "ACQ-02.01, ACQ-02.04, ACQ-02.05, ACQ-11.01, ACQ-11.04, ACQ-11.05, ACQ-23.01, ACQ-23.02, ACQ-23.04"
+  },
+  {
+   "id": "H-10",
+   "attendu": "5 mois : le chiffre d'affaires mois par mois ne demande que Septembre 2026 à Mai 2026",
+   "conforme": true,
+   "observe": "Septembre 2026, Août 2026, Juillet 2026, Juin 2026, Mai 2026"
+  },
+  {
+   "id": "H-11",
+   "attendu": "5 mois : « sur les 12 derniers mois » devient « Période : depuis la création de votre entreprise (mai 2026) jusqu'à septembre 2026, soit 5 mois. »",
+   "conforme": true,
+   "observe": "Période : depuis la création de votre entreprise (mai 2026) jusqu'à septembre 2026, soit 5 mois."
+  },
+  {
+   "id": "H-12",
+   "attendu": "baisse : « 32 (juillet à septembre 2026), contre 40 (juillet à septembre 2025). Écart : −8, soit −20 %. »",
+   "conforme": true,
+   "observe": "{\"statut\":\"etablie\",\"texte\":\"Demandes reçues, en moyenne par mois32 (juillet à septembre 2026), contre 40 (juillet à septembre 2025). Écart : −8, soit −20 %.Le périmètre de votre activité n'est pas précisé : si vous avez ouvert ou fermé un établissement, racheté ou arrêté une activité, la comparaison porte sur deux activités différentes.\"}"
+  },
+  {
+   "id": "H-13",
+   "attendu": "sans réponse sur le périmètre : la comparaison est faite, avec une précision sur le périmètre",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois32 (juillet à septembre 2026), contre 40 (juillet à septembre 2025). Écart : −8, soit −20 %.Le périmètre de votre activité n'est pas précisé : si vous avez ouvert ou fermé un établissement, racheté ou arrêté une activité, la comparaison porte sur deux activités différentes."
+  },
+  {
+   "id": "H-14",
+   "attendu": "progression : 50 contre 40 → « Écart : +10, soit +25 % »",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois50 (juillet à septembre 2026), contre 40 (juillet à septembre 2025). Écart : +10, soit +25 %.Le périmètre de votre activité n'est pas précisé : si vous avez ouvert ou fermé un établissement, racheté ou arrêté une activité, la comparaison porte sur deux activités différentes."
+  },
+  {
+   "id": "H-15",
+   "attendu": "absence de variation : 40 contre 40 → « Écart : aucun »",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois40 (juillet à septembre 2026), contre 40 (juillet à septembre 2025). Écart : aucun.Le périmètre de votre activité n'est pas précisé : si vous avez ouvert ou fermé un établissement, racheté ou arrêté une activité, la comparaison porte sur deux activités différentes."
+  },
+  {
+   "id": "H-16",
+   "attendu": "valeur historique nulle : écart +5, pourcentage non calculé et dit",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois5 (juillet à septembre 2026), contre 0 (juillet à septembre 2025). Écart : +5.Le périmètre de votre activité n'est pas précisé : si vous avez ouvert ou fermé un établissement, racheté ou arrêté une activité, la comparaison porte sur deux activités différentes.Le pourcentage ne se calcule pas : la valeur de départ est nulle."
+  },
+  {
+   "id": "H-17",
+   "attendu": "donnée indisponible (« je ne sais pas ») : comparaison non établie, la raison le dit",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois : Vous avez répondu « je ne sais pas » à « Sur les mêmes 3 mois, un an plus tôt, combien de demandes de devis aviez-vous par mois, en moyenne ? »."
+  },
+  {
+   "id": "H-18",
+   "attendu": "réponse effacée : non établie, « Il manque votre réponse »",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois : Il manque votre réponse à « Sur les mêmes 3 mois, un an plus tôt, combien de demandes de devis aviez-vous par mois, en moyenne ? »."
+  },
+  {
+   "id": "H-19",
+   "attendu": "données partielles : un mois manquant (juillet 2026) → chiffre d'affaires sur 12 mois non établi, le mois est nommé, jamais compté pour zéro",
+   "conforme": true,
+   "observe": "Chiffre d'affaires sur 12 mois : Il manque un mois dans votre réponse à « Quel a été votre chiffre d'affaires pour chacun des 12 derniers mois ? » (juillet 2026) : un mois vide ne compte pas pour zéro."
+  },
+  {
+   "id": "H-20",
+   "attendu": "chiffre d'affaires sur 12 mois, deux années complètes : « 120 000 € (octobre 2025 à septembre 2026), contre 96 000 € (octobre 2024 à septembre 2025). Écart : +24 000 €, soit +25 %. »",
+   "conforme": true,
+   "observe": "Chiffre d'affaires sur 12 mois120 000 € (octobre 2025 à septembre 2026), contre 96 000 € (octobre 2024 à septembre 2025). Écart : +24 000 €, soit +25 %.Le périmètre de votre activité n'est pas précisé : si vous avez ouvert ou fermé un établissement, racheté ou arrêté une activité, la comparaison porte sur deux activités différentes."
+  },
+  {
+   "id": "H-21",
+   "attendu": "Finance : la même évolution du chiffre d'affaires, sans que les chiffres soient redemandés (réponses partagées)",
+   "conforme": true,
+   "observe": "Chiffre d'affaires sur 12 mois120 000 € (octobre 2025 à septembre 2026), contre 96 000 € (octobre 2024 à septembre 2025). Écart : +24 000 €, soit +25 %.Le périmètre de votre activité n'est pas précisé : si vous avez ouvert ou fermé un établissement, racheté ou arrêté une activité, la comparaison porte sur deux activités différentes."
+  },
+  {
+   "id": "H-22",
+   "attendu": "Finance : FIN-14.03 affichée comme « déjà renseignée », pas redemandée",
+   "conforme": true,
+   "observe": "oui"
+  },
+  {
+   "id": "H-23",
+   "attendu": "périmètre changé en février 2026 : chiffre d'affaires et demandes « non comparables », sans pourcentage",
+   "conforme": true,
+   "observe": "Chiffre d'affaires sur 12 mois120 000 € (octobre 2025 à septembre 2026), contre 96 000 € (octobre 2024 à septembre 2025).Non comparable : Le périmètre de votre activité a changé en février 2026 : les deux périodes ne portent pas sur la même activité. || Demandes reçues, en moyenne par mois32 (juillet à septembre 2026), contre 40 (juillet à septembre 2025).Non comparable : Le périmètre de votre act"
+  },
+  {
+   "id": "H-32",
+   "attendu": "Finance : la carte « déjà renseignée » du périmètre (FIN-14.04, répondu dans l'Acquisition le mois précédent) dit sur quels mois porte la réponse",
+   "conforme": true,
+   "observe": "Votre réponse, donnée en septembre 2026, porte sur septembre 2024 à août 2026. Mettez-la à jour pour la période ci-dessus si le chiffre a changé."
+  },
+  {
+   "id": "H-24",
+   "attendu": "réponses données à deux mois différents : non établie, « mois différents »",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois : Vos réponses ont été données à des mois différents (septembre 2026, octobre 2026) : elles ne portent pas sur des mois alignés. Mettez à jour la plus ancienne pour qu'elles couvrent les mêmes mois."
+  },
+  {
+   "id": "H-25",
+   "attendu": "la question dit que la réponse porte sur d'autres mois et invite à la mettre à jour",
+   "conforme": true,
+   "observe": "Votre réponse, donnée en septembre 2026, porte sur juin à août 2025, les mêmes mois un an plus tôt. Mettez-la à jour pour la période ci-dessus si le chiffre a changé."
+  },
+  {
+   "id": "H-26",
+   "attendu": "après mise à jour : de nouveau établie (32 contre 41)",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois32 (juillet à septembre 2026), contre 41 (juillet à septembre 2025). Écart : −9, soit −22 %."
+  },
+  {
+   "id": "H-27",
+   "attendu": "réponse du mois précédent : 777 € s'affiche en face de Août 2026 (son vrai mois), Septembre 2026 est vide",
+   "conforme": true,
+   "observe": "[{\"id\":\"le_mois_dernier\",\"libelle\":\"Septembre 2026\",\"valeurs\":[\"\"]},{\"id\":\"il_y_a_2_mois\",\"libelle\":\"Août 2026\",\"valeurs\":[\"777\"]},{\"id\":\"il_y_a_3_mois\",\"libelle\":\"Juillet 2026\",\"valeurs\":[\"10000\"]}]"
+  },
+  {
+   "id": "H-28",
+   "attendu": "profil modifié (14 mois) : ACQ-02.03 n'est plus posée, l'évolution des demandes n'est plus établie et dit pourquoi ; la réponse reste en base",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois : Votre entreprise a 14 mois : la question « Sur les mêmes 3 mois, un an plus tôt, combien de demandes de devis aviez-vous par mois, en moyenne ? » porte sur des mois antérieurs à sa création. Il faut au moins 15 mois d'existence."
+  },
+  {
+   "id": "H-29",
+   "attendu": "profil rétabli (4 ans) : la réponse gardée compte de nouveau",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois32 (juillet à septembre 2026), contre 41 (juillet à septembre 2025). Écart : −9, soit −22 %."
+  },
+  {
+   "id": "H-30",
+   "attendu": "reprise sur un autre appareil (téléphone, 390 px) : mêmes évolutions",
+   "conforme": true,
+   "observe": "Demandes reçues, en moyenne par mois32 (juillet à septembre 2026), contre 41 (juillet à septembre 2025). Écart : −9, soit −22 %."
+  },
+  {
+   "id": "H-31",
+   "attendu": "téléphone : la période s'affiche sous la question, sans défilement horizontal",
+   "conforme": true,
+   "observe": "largeur 390"
+  }
+ ]
+}

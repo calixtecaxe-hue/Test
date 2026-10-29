@@ -1,0 +1,150 @@
+[
+  {
+    "code": "S01",
+    "nom": "Que se passe-t-il si votre CA baisse de 10 % pendant 3 mois ?",
+    "calcul": "CA × 10 % × taux de marge × 3, retiré de la trésorerie mobilisable",
+    "entrees": [
+      "FIN-06.08",
+      "FIN-11.04",
+      "FIN-05.08"
+    ],
+    "entreesTexte": "Inscription · CA mensuel, FIN-06.08, FIN-11.04, FIN-05.08",
+    "phraseRapport": "« Votre trésorerie passerait de X € à Y €, soit Z mois de sécurité au lieu de N. »"
+  },
+  {
+    "code": "S02",
+    "nom": "Que se passe-t-il si votre principal client part ?",
+    "calcul": "Voir le croisement « Départ du plus gros client »",
+    "entrees": [
+      "FIN-31.01"
+    ],
+    "entreesTexte": "FIN-31.01",
+    "phraseRapport": "« Vous tiendriez environ X mois ; il faudrait Y nouveaux clients pour compenser. »"
+  },
+  {
+    "code": "S03",
+    "nom": "Que se passe-t-il si vos achats augmentent de 8 % ?",
+    "calcul": "Achats × 8 % × 12, et hausse de prix nécessaire pour compenser",
+    "entrees": [
+      "FIN-08.01",
+      "FIN-06.08"
+    ],
+    "entreesTexte": "FIN-08.01, FIN-06.08, Inscription · CA mensuel",
+    "phraseRapport": "« Votre résultat baisserait de X € par an ; une hausse de vos prix de Y % compenserait. »"
+  },
+  {
+    "code": "S04",
+    "nom": "Que se passe-t-il si vous recrutez une personne ?",
+    "calcul": "Coût chargé moyen d'un salarié ÷ taux de marge = CA supplémentaire nécessaire, comparé à la capacité inutilisée",
+    "entrees": [
+      "FIN-07.09",
+      "FIN-06.08",
+      "ACQ-21.14",
+      "FIN-07.07"
+    ],
+    "entreesTexte": "FIN-07.09, FIN-06.08, ACQ-21.14, FIN-07.07",
+    "phraseRapport": "« Il faudrait X € de CA en plus par mois pour le financer ; votre demande actuelle en couvre Y %. »"
+  },
+  {
+    "code": "S05",
+    "nom": "Que se passe-t-il si vos clients paient 15 jours plus tard ?",
+    "calcul": "CA d'une journée × 15",
+    "entrees": [
+      "FIN-11.04",
+      "FIN-05.08"
+    ],
+    "entreesTexte": "Inscription · CA mensuel, FIN-11.04, FIN-05.08",
+    "phraseRapport": "« X € de trésorerie en moins, soit Y semaines de sécurité perdues. »"
+  },
+  {
+    "code": "S06",
+    "nom": "Quel CA faut-il pour financer votre prochain investissement ?",
+    "calcul": "(Coût total − trésorerie au-delà de 2 mois de sécurité) ÷ (taux de marge × nombre de mois avant l'achat)",
+    "entrees": [
+      "FIN-26.01",
+      "FIN-11.04",
+      "FIN-05.08",
+      "FIN-06.08"
+    ],
+    "entreesTexte": "FIN-26.01, FIN-11.04, FIN-05.08, FIN-06.08",
+    "phraseRapport": "« Pour payer cet investissement sans emprunt d'ici N mois, il vous faut X € de CA en plus par mois. »"
+  },
+  {
+    "code": "S07",
+    "nom": "Quel gain représente une baisse de 5 % de vos achats ?",
+    "calcul": "(Achats + sous-traitance) × 5 % × 12",
+    "entrees": [
+      "FIN-08.01",
+      "FIN-08.02"
+    ],
+    "entreesTexte": "FIN-08.01, FIN-08.02",
+    "phraseRapport": "« Une baisse de 5 % de vos achats améliorerait votre résultat de X € par an. »"
+  },
+  {
+    "code": "S08",
+    "nom": "Combien de trésorerie vous faut-il pour atteindre votre objectif ?",
+    "calcul": "Voir le croisement « Trésorerie à avancer pour l'objectif »",
+    "entrees": [
+      "FIN-32.01",
+      "FIN-11.04"
+    ],
+    "entreesTexte": "FIN-32.01, FIN-11.04",
+    "phraseRapport": "« Il vous faudrait X € de trésorerie en plus avant que les nouvelles ventes soient encaissées. »"
+  },
+  {
+    "code": "S09",
+    "nom": "Que se passe-t-il si vous augmentez vos prix de 3 % ?",
+    "calcul": "CA × 3 % × 12, et part de clients que l'on peut perdre avant d'y perdre : hausse ÷ (taux de marge + hausse)",
+    "entrees": [
+      "FIN-06.08"
+    ],
+    "entreesTexte": "Inscription · CA mensuel, FIN-06.08",
+    "phraseRapport": "« Une hausse de 3 % améliore votre résultat de X € par an ; vous pourriez perdre jusqu'à Y % de vos ventes avant d'y perdre. »"
+  },
+  {
+    "code": "S10",
+    "nom": "Que se passe-t-il si votre saison creuse dure un mois de plus ?",
+    "calcul": "Charges fixes − marge d'un mois creux",
+    "entrees": [
+      "FIN-14.02",
+      "FIN-05.08",
+      "ACQ-23.06",
+      "FIN-06.08"
+    ],
+    "entreesTexte": "FIN-14.02, FIN-05.08, ACQ-23.06, FIN-06.08",
+    "phraseRapport": "« Un mois creux de plus vous coûterait X € de trésorerie. »"
+  },
+  {
+    "code": "S11",
+    "nom": "Que se passe-t-il si vos fournisseurs vous accordent 15 jours de plus ?",
+    "calcul": "(Achats + sous-traitance) d'une journée × 15",
+    "entrees": [
+      "FIN-08.01",
+      "FIN-08.02"
+    ],
+    "entreesTexte": "FIN-08.01, FIN-08.02",
+    "phraseRapport": "« Vous gagneriez X € de trésorerie, sans rien changer à votre activité. »"
+  },
+  {
+    "code": "S12",
+    "nom": "Que se passe-t-il si vous écoulez votre stock dormant ?",
+    "calcul": "Voir « Trésorerie récupérable en écoulant le stock dormant »",
+    "entrees": [
+      "FIN-39.05"
+    ],
+    "entreesTexte": "FIN-39.05",
+    "phraseRapport": "« Vous récupéreriez X € de trésorerie en sacrifiant Y € de marge. »"
+  },
+  {
+    "code": "S13",
+    "nom": "Que se passe-t-il si votre plus gros impayé n'est jamais réglé ?",
+    "calcul": "Imprévu absorbable − plus gros impayé",
+    "entrees": [
+      "FIN-18.03",
+      "FIN-15.02",
+      "FIN-11.05"
+    ],
+    "entreesTexte": "FIN-18.03, FIN-15.02, FIN-11.05",
+    "phraseRapport": "« Votre sécurité passerait de X à Y mois de charges. »"
+  }
+]

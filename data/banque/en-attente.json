@@ -1,0 +1,100 @@
+[
+  {
+    "donnee": "ACQ-26.01",
+    "texte": "Sur les 3 derniers mois, quelle part de vos commandes avez-vous livrée à la date promise ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "pourcent",
+      "min": 0,
+      "max": 100
+    },
+    "raison": "categorie_fabrication_a_creer"
+  },
+  {
+    "donnee": "ACQ-26.02",
+    "texte": "Sur une semaine habituelle, combien d'heures votre équipement principal produit-il, et combien d'heures pourrait-il produire ?",
+    "aide": "Équipement principal : la machine ou le poste qui limite le plus votre production. Heures possibles : avec vos horaires actuels.",
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "heures_de_production",
+          "libelle": "Heures de production",
+          "spec": {
+            "type": "nombre",
+            "unite": "heures",
+            "min": 0
+          }
+        },
+        {
+          "id": "heures_possibles",
+          "libelle": "Heures possibles",
+          "spec": {
+            "type": "nombre",
+            "unite": "heures",
+            "min": 0
+          }
+        }
+      ]
+    },
+    "raison": "categorie_fabrication_a_creer"
+  },
+  {
+    "donnee": "ACQ-26.03",
+    "texte": "Sur les 3 derniers mois, quelle part de votre production a été jetée ou refaite ?",
+    "aide": "Pièces ou produits non conformes, mis au rebut ou repris avant livraison. Les retours des clients sont demandés ailleurs.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "pourcent",
+      "min": 0,
+      "max": 100
+    },
+    "raison": "categorie_fabrication_a_creer"
+  },
+  {
+    "donnee": "ACQ-26.04",
+    "texte": "En moyenne, combien de jours passent entre la commande et la livraison, et combien de ces jours la commande attend-elle avant d'être lancée ?",
+    "aide": null,
+    "repli": null,
+    "reponse": {
+      "type": "composite",
+      "champs": [
+        {
+          "id": "delai_total",
+          "libelle": "Délai total",
+          "spec": {
+            "type": "nombre",
+            "unite": "jours",
+            "min": 0
+          }
+        },
+        {
+          "id": "dont_attente_avant_lancement",
+          "libelle": "Dont attente avant lancement",
+          "spec": {
+            "type": "nombre",
+            "unite": "jours",
+            "min": 0
+          }
+        }
+      ]
+    },
+    "raison": "categorie_fabrication_a_creer"
+  },
+  {
+    "donnee": "ACQ-26.05",
+    "texte": "Quand vous passez d'une fabrication à une autre, combien d'heures faut-il pour régler votre équipement principal ?",
+    "aide": "Une demi-heure s'écrit 0,5.",
+    "repli": null,
+    "reponse": {
+      "type": "nombre",
+      "unite": "heures",
+      "min": 0
+    },
+    "raison": "categorie_fabrication_a_creer"
+  }
+]

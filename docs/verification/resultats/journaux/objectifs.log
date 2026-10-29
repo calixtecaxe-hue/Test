@@ -1,0 +1,70 @@
+conforme  RH-01   l'écran s'ouvre sur « Quel objectif souhaitez-vous atteindre ? » et « Choisissez un objectif proposé ou écrivez le vôtre. »
+conforme  RH-02   deux choix visibles avant tout formulaire, avec leur aide : « Choisir un objectif proposé » et « Écrire mon propre objectif »
+conforme  RH-03   aucune présélection, ni « Autre », ni « Ajouter un autre objectif »
+conforme  RH-04   ordinateur : les deux choix côte à côte, de même taille, titres de même corps
+conforme  RH-05   rien de choisi : « Choisissez un objectif proposé, ou écrivez votre propre objectif. », le focus revient aux deux choix, rien en base
+conforme  RH-06   « Choisir un objectif proposé » : coché, « Choisi » écrit, l'autre choix reste visible et non coché, aucun champ de rédaction
+conforme  RH-09   les 10 propositions pertinentes, et rien d'autre (« Me faire aider dans mon travail » n'est pas proposé à une équipe)
+conforme  RH-10   proposition « Libérer du temps pour piloter l'entreprise » : coche, « Choisi », champs ouverts dans la carte, intitulé « Combien d'heures par semaine voulez-vous libérer ? »
+conforme  RH-11   la phrase finale vient de la saisie : « libérer 5 heures par semaine pour piloter l'entreprise d'ici 3 mois »
+conforme  RH-12   « Écrire mon propre objectif » : champ « Votre objectif » ouvert directement, aide et exemple de l'agent, les propositions disparaissent
+conforme  RH-13   choisi à la souris, le champ « Votre objectif » reçoit le focus
+conforme  RH-14   retour au mode « proposé » : la proposition et son chiffre sont retrouvés, le champ personnel n'est plus affiché
+conforme  RH-15   retour au mode « personnel » : le texte écrit est retrouvé tel quel
+conforme  RH-16   texte fait d'espaces : « Décrivez votre objectif en quelques mots pour continuer. », le champ reçoit le focus, rien en base
+conforme  RH-17   objectif personnel enregistré : un seul actif, origine « personnel », sans proposition, texte du dirigeant intact (rien du mode « proposé » n'est transmis)
+conforme  RH-18   écran suivant : la phrase de l'objectif personnel et la mention « Objectif personnel »
+conforme  RH-19   après actualisation : même objectif
+conforme  RH-20   après déconnexion et reconnexion : même objectif
+conforme  RH-21   retour à l'étape Objectif : « Écrire mon propre objectif » est choisi, avec le texte et le délai ; pas de second objectif possible
+conforme  RH-22   modification abandonnée (« Garder l'objectif actuel ») : retour à l'audit, l'objectif personnel reste le seul actif
+conforme  RH-23   retour en arrière du navigateur vers l'étape Objectif : le formulaire montre l'objectif enregistré, pas la modification abandonnée
+conforme  RH-24   objectif modifié : un seul actif (la proposition, avec sa phrase), l'objectif personnel passe en historique « remplacé »
+conforme  RH-25   compte rendu : l'objectif transmis est celui qui vient d'être choisi
+conforme  COM-01  l'écran s'ouvre sur « Quel objectif souhaitez-vous atteindre ? » et « Choisissez un objectif proposé ou écrivez le vôtre. »
+conforme  COM-02  deux choix visibles avant tout formulaire, avec leur aide : « Choisir un objectif proposé » et « Écrire mon propre objectif »
+conforme  COM-03  aucune présélection, ni « Autre », ni « Ajouter un autre objectif »
+conforme  COM-04  ordinateur : les deux choix côte à côte, de même taille, titres de même corps
+conforme  COM-05  rien de choisi : « Choisissez un objectif proposé, ou écrivez votre propre objectif. », le focus revient aux deux choix, rien en base
+conforme  COM-06  « Choisir un objectif proposé » : coché, « Choisi » écrit, l'autre choix reste visible et non coché, aucun champ de rédaction
+conforme  COM-07  Comm : deux parties à choisir, aucune proposition avant ce choix
+conforme  COM-08  Comm sans partie : « Choisissez d'abord où vous en êtes… », le focus va sur « Où en êtes-vous ? »
+conforme  COM-09  les 22 propositions pertinentes, et rien d'autre
+conforme  COM-10  proposition « Augmenter mon nombre d'abonnés » : coche, « Choisi », champs ouverts dans la carte, intitulé « De combien voulez-vous augmenter vos abonnés ? »
+conforme  COM-11  la phrase finale vient de la saisie : « gagner 200 abonnés d'ici 6 mois »
+conforme  COM-12  « Écrire mon propre objectif » : champ « Votre objectif » ouvert directement, aide et exemple de l'agent, les propositions disparaissent
+conforme  COM-13  choisi à la souris, le champ « Votre objectif » reçoit le focus
+conforme  COM-14  retour au mode « proposé » : la proposition et son chiffre sont retrouvés, le champ personnel n'est plus affiché
+conforme  COM-15  retour au mode « personnel » : le texte écrit est retrouvé tel quel
+conforme  COM-16  texte fait d'espaces : « Décrivez votre objectif en quelques mots pour continuer. », le champ reçoit le focus, rien en base
+conforme  COM-17  objectif personnel enregistré : un seul actif, origine « personnel », sans proposition, texte du dirigeant intact (rien du mode « proposé » n'est transmis)
+conforme  COM-18  écran suivant : la phrase de l'objectif personnel et la mention « Objectif personnel »
+conforme  COM-19  après actualisation : même objectif
+conforme  COM-20  après déconnexion et reconnexion : même objectif
+conforme  COM-21  retour à l'étape Objectif : « Écrire mon propre objectif » est choisi, avec le texte et le délai ; pas de second objectif possible
+conforme  COM-22  modification abandonnée (« Garder l'objectif actuel ») : retour à l'audit, l'objectif personnel reste le seul actif
+conforme  COM-23  retour en arrière du navigateur vers l'étape Objectif : le formulaire montre l'objectif enregistré, pas la modification abandonnée
+conforme  COM-24  objectif modifié : un seul actif (la proposition, avec sa phrase), l'objectif personnel passe en historique « remplacé »
+conforme  COM-25  compte rendu : l'objectif transmis est celui qui vient d'être choisi
+conforme  X-01    serveur : deux objectifs envoyés ensemble sont refusés (« Cet agent suit un seul objectif à la fois. »), rien en base
+conforme  X-02    serveur : une proposition reçue avec un autre texte est enregistrée avec le texte de la liste
+conforme  X-03    « Obtenir plus d'avis clients » : « Combien de nouveaux avis voulez-vous obtenir ? », sans choix d'unité ; « obtenir 10 nouveaux avis clients sur les 3 prochains mois »
+conforme  X-04    taux de conversion (2c-1) : la phrase dit le taux visé, « porter mon taux de conversion à 4 % d'ici 3 mois »
+conforme  X-05    « Réduire les absences dans l'équipe » : « De combien voulez-vous réduire les jours d'absence, en % ? », sans choix d'unité
+conforme  X-06    clavier : Tab atteint « Choisir un objectif proposé » sans rien choisir, avec un focus visible
+conforme  X-07    clavier : Espace choisit le mode ; le curseur reste sur ce choix
+conforme  X-08    clavier : la flèche passe à « Écrire mon propre objectif », qui s'ouvre ; le curseur reste sur le choix
+conforme  X-09    clavier : Tab mène au champ « Votre objectif », où le texte s'écrit
+conforme  X-10    clavier : retour au mode « proposé », Tab entre dans les propositions et la flèche en choisit une, qui s'ouvre
+conforme  X-11    Comm (6C) : objectif dans « Mettre en place… », réponse « Oui, au moins une fois par mois » → l'écart est expliqué sous l'objectif et sous la question, sans blocage
+conforme  X-12    Comm (6C) : à l'étape Objectif, la partie choisie montre aussi l'écart
+conforme  X-13    Comm (6C) : quand la réponse correspond à la partie (« Non, jamais »), aucun message
+conforme  T-01    téléphone 360 px : les deux choix empilés, de même largeur et de même corps de titre
+conforme  T-02    téléphone 360 px : aucune barre de défilement horizontale
+conforme  T-03    dirigeant seul : ni départs, ni absences, ni charge de l'équipe ; « Libérer du temps… » et « Me faire aider dans mon travail » sont proposés
+conforme  T-04    téléphone : « Enregistrer mon objectif » reste visible pendant le défilement des propositions
+conforme  T-05    téléphone : le champ « Votre objectif » tient dans la largeur et mesure au moins 40 px de haut
+conforme  T-06    un seul avis visé : « obtenir mon premier avis client d'ici 2 mois »
+conforme  T-07    téléphone 390 px (Comm) : aucune barre de défilement horizontale
+
+68 contrôles, 68 conformes, 0 écart(s).

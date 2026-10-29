@@ -1,0 +1,268 @@
+[
+ {
+  "id": "P-01",
+  "parcours": "Inscription",
+  "attendu": "un envoi vide explique ce qui manque",
+  "conforme": true,
+  "observe": "[\"Adresse email invalide.\",\"Le mot de passe doit contenir au moins 10 caractères.\"]"
+ },
+ {
+  "id": "P-02",
+  "parcours": "Inscription",
+  "attendu": "un double clic ne crée qu'un compte et mène au métier",
+  "conforme": true,
+  "observe": "http://127.0.0.1:3100/inscription/metier"
+ },
+ {
+  "id": "P-03",
+  "parcours": "Inscription",
+  "attendu": "la même adresse (en majuscules) est reconnue et l'écran le dit",
+  "conforme": true,
+  "observe": "[\"Un compte existe déjà avec cette adresse email.\"]"
+ },
+ {
+  "id": "M-01",
+  "parcours": "Métier",
+  "attendu": "« electricien » propose Électricien",
+  "conforme": true,
+  "observe": "Électricien ; Distributeur de matériel électrique"
+ },
+ {
+  "id": "M-01",
+  "parcours": "Métier",
+  "attendu": "« électricienne » propose Électricien",
+  "conforme": true,
+  "observe": "Électricien ; Distributeur de matériel électrique"
+ },
+ {
+  "id": "M-01",
+  "parcours": "Métier",
+  "attendu": "« coiffeuse » propose Coiffeur",
+  "conforme": true,
+  "observe": "Coiffeur"
+ },
+ {
+  "id": "M-01",
+  "parcours": "Métier",
+  "attendu": "« garagiste » propose Garage",
+  "conforme": true,
+  "observe": "Garage et mécanicien"
+ },
+ {
+  "id": "M-01",
+  "parcours": "Métier",
+  "attendu": "« plombier chauffagiste » propose Plombier",
+  "conforme": true,
+  "observe": "Plombier-chauffagiste"
+ },
+ {
+  "id": "M-01",
+  "parcours": "Métier",
+  "attendu": "« boulangerie » propose Boulanger",
+  "conforme": true,
+  "observe": "Boulanger-pâtissier"
+ },
+ {
+  "id": "M-01",
+  "parcours": "Métier",
+  "attendu": "« infirmière » propose Infirmier",
+  "conforme": true,
+  "observe": "Infirmier libéral"
+ },
+ {
+  "id": "M-01",
+  "parcours": "Métier",
+  "attendu": "« resto » propose Restaurant",
+  "conforme": true,
+  "observe": "Restaurantresto"
+ },
+ {
+  "id": "P-04",
+  "parcours": "Paiement",
+  "attendu": "après le paiement (démonstration), le dossier d'entreprise s'ouvre",
+  "conforme": true,
+  "observe": "http://127.0.0.1:3100/bienvenue"
+ },
+ {
+  "id": "D-01",
+  "parcours": "Dossier",
+  "attendu": "« 60k » est refusé avec une explication, ou lu tel que le dirigeant l'entend",
+  "conforme": true,
+  "observe": "« 60k » lu comme 60 € (retenu : 60000)"
+ },
+ {
+  "id": "D-01",
+  "parcours": "Dossier",
+  "attendu": "« -5000 » est refusé avec une explication, ou lu tel que le dirigeant l'entend",
+  "conforme": true,
+  "observe": "le signe disparaît sans prévenir (retenu : -5000)"
+ },
+ {
+  "id": "D-01",
+  "parcours": "Dossier",
+  "attendu": "« 1.250,75 » est refusé avec une explication, ou lu tel que le dirigeant l'entend",
+  "conforme": true,
+  "observe": "lu comme 1,25 € (retenu : 1250.75)"
+ },
+ {
+  "id": "D-01",
+  "parcours": "Dossier",
+  "attendu": "« -5000 » : Continuer explique que le chiffre d'affaires ne peut pas être négatif",
+  "conforme": true,
+  "observe": "[\"Le chiffre d'affaires ne peut pas être négatif : indiquez le montant encaissé sur un mois, sans le signe moins.\"]"
+ },
+ {
+  "id": "P-05",
+  "parcours": "Dossier",
+  "attendu": "les cinq questions mènent au tableau de bord et sont enregistrées",
+  "conforme": true,
+  "observe": "http://127.0.0.1:3100/tableau-de-bord?bienvenue=1"
+ },
+ {
+  "id": "O-01",
+  "parcours": "Objectif",
+  "attendu": "un double clic n'enregistre qu'un objectif actif",
+  "conforme": true,
+  "observe": ""
+ },
+ {
+  "id": "Q-03",
+  "parcours": "Questionnaire",
+  "attendu": "une valeur refusée n'est pas annoncée comme « valeur retenue »",
+  "conforme": true,
+  "observe": "message d'erreur et «  » affichés ensemble"
+ },
+ {
+  "id": "Q-01",
+  "parcours": "Questionnaire",
+  "attendu": "une réponse s'enregistre et l'écran le confirme",
+  "conforme": true,
+  "observe": "{\"genre\": \"exact\", \"valeur\": 40}"
+ },
+ {
+  "id": "Q-02a",
+  "parcours": "Questionnaire",
+  "attendu": "une coupure du réseau est signalée sur la question",
+  "conforme": true,
+  "observe": "is pas\nJe ne suis pas cette donnée\nPas de connexion : votre réponse est gardée sur cette page et partira seule dès le retour de la connexion.\nEffacer ma réponse"
+ },
+ {
+  "id": "Q-02b",
+  "parcours": "Questionnaire",
+  "attendu": "au retour du réseau, la réponse saisie part sans que le dirigeant la retape",
+  "conforme": true,
+  "observe": "rien n'est renvoyé tant que le champ n'est pas modifié"
+ },
+ {
+  "id": "Q-04",
+  "parcours": "Reprise",
+  "attendu": "sur un autre appareil, la réponse est retrouvée et l'écran amène à la première question sans réponse",
+  "conforme": true,
+  "observe": "question visible : ACQ-01.01"
+ },
+ {
+  "id": "A-01",
+  "parcours": "Mobile",
+  "attendu": "à 360 px, la page ne défile pas de côté",
+  "conforme": true,
+  "observe": "360 px pour 360"
+ },
+ {
+  "id": "R-01",
+  "parcours": "Résultats",
+  "attendu": "les leviers sont classés par le moteur selon leur effet sur l'objectif",
+  "conforme": false,
+  "observe": "« classement des leviers … pas encore calculés » (repères de marché et règles de notation non écrits)"
+ },
+ {
+  "id": "S-01",
+  "parcours": "Droits",
+  "attendu": "une question d'un agent non souscrit (Comm) est refusée (403)",
+  "conforme": true,
+  "observe": "403"
+ },
+ {
+  "id": "S-02",
+  "parcours": "Droits",
+  "attendu": "sans session, l'écriture est refusée (401)",
+  "conforme": true,
+  "observe": "401"
+ },
+ {
+  "id": "A-02",
+  "parcours": "Clavier",
+  "attendu": "le premier choix de l'objectif s'atteint au clavier, focus visible",
+  "conforme": true,
+  "observe": "7 tabulations"
+ },
+ {
+  "id": "L-01",
+  "parcours": "Connexion",
+  "attendu": "un lien « Mot de passe oublié » existe",
+  "conforme": true,
+  "observe": "absent : un dirigeant qui a perdu son mot de passe est bloqué"
+ },
+ {
+  "id": "L-02",
+  "parcours": "Connexion",
+  "attendu": "un mauvais mot de passe est expliqué",
+  "conforme": true,
+  "observe": "[\"Adresse email ou mot de passe incorrect.\"]"
+ },
+ {
+  "id": "L-04",
+  "parcours": "Mot de passe oublié",
+  "attendu": "la demande est confirmée sans dire si l'adresse a un compte",
+  "conforme": true,
+  "observe": "Mot de passe oublié\n\nIndiquez l'adresse email de votre compte. Nous vous envoyons un lien pour choisir un nouveau mot de passe.\n\nSi un compte existe pour audit.client.1793299685651@example.com, un email vient de lui être envoyé avec un lien pour choisir un nouveau mot de passe.\n\nLe lien est valable "
+ },
+ {
+  "id": "L-05",
+  "parcours": "Mot de passe oublié",
+  "attendu": "une adresse sans compte reçoit la même réponse ; une adresse mal écrite est expliquée",
+  "conforme": true,
+  "observe": "200 / 400"
+ },
+ {
+  "id": "L-06",
+  "parcours": "Mot de passe oublié",
+  "attendu": "un e-mail part avec un lien de réinitialisation",
+  "conforme": true,
+  "observe": ""
+ },
+ {
+  "id": "L-07",
+  "parcours": "Mot de passe oublié",
+  "attendu": "le nouveau mot de passe est enregistré et le dirigeant retrouve ses agents",
+  "conforme": true,
+  "observe": "http://127.0.0.1:3100/tableau-de-bord"
+ },
+ {
+  "id": "L-08",
+  "parcours": "Mot de passe oublié",
+  "attendu": "une session ouverte avant le changement est fermée",
+  "conforme": true,
+  "observe": "http://127.0.0.1:3100/connexion?depuis=%2Ftableau-de-bord"
+ },
+ {
+  "id": "L-09",
+  "parcours": "Mot de passe oublié",
+  "attendu": "le lien ne sert qu'une fois",
+  "conforme": true,
+  "observe": "Nouveau mot de passe\n\nCe lien a déjà servi : un lien ne permet de changer le mot de passe qu'une fois. Demandez-en un no"
+ },
+ {
+  "id": "L-10",
+  "parcours": "Mot de passe oublié",
+  "attendu": "l'ancien mot de passe est refusé, le nouveau ouvre le compte",
+  "conforme": true,
+  "observe": "http://127.0.0.1:3100/tableau-de-bord"
+ },
+ {
+  "id": "L-03",
+  "parcours": "Page introuvable",
+  "attendu": "la page 404 parle français et propose un chemin de retour",
+  "conforme": true,
+  "observe": "Page introuvable\n\nCette adresse ne correspond à aucune page de CAXE. Elle a peut"
+ }
+]

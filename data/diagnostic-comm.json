@@ -1,0 +1,199 @@
+{
+  "problemes": [
+    {
+      "code": "DC01",
+      "probleme": "Manque de contenu",
+      "signaux": "Peu de publications par mois, réserve d'avance nulle, mais des contenus qui font mieux que la moyenne du compte en clics et en contacts",
+      "entrees": [
+        "COM-10.01",
+        "COM-35.03",
+        "COM-39.05"
+      ],
+      "entreesTexte": "COM-10.01, COM-35.03, COM-39.05",
+      "recommande": "Augmenter la fréquence du format qui marche, avec une réserve d'avance",
+      "neRecommandePas": "Ouvrir un nouveau réseau"
+    },
+    {
+      "code": "DC02",
+      "probleme": "Mauvais contenu",
+      "signaux": "Portée correcte, mais engagement et clics faibles ; grille de qualité faible sur l'accroche, l'angle client ou le bénéfice",
+      "entrees": [
+        "COM-17.04",
+        "COM-36.01",
+        "COM-19.02",
+        "COM-49.01",
+        "COM-50.01",
+        "COM-51.01"
+      ],
+      "entreesTexte": "COM-17.04, COM-36.01, COM-19.02, COM-49.01, COM-50.01, COM-51.01",
+      "recommande": "Retravailler l'accroche, l'angle et le bénéfice sur les 10 prochaines publications",
+      "neRecommandePas": "Publier plus"
+    },
+    {
+      "code": "DC03",
+      "probleme": "Mauvais canal",
+      "signaux": "Réseau où la cible n'est pas, ou réseau qui prend beaucoup de temps pour peu de demandes",
+      "entrees": [
+        "COM-11.01",
+        "COM-31.03",
+        "COM-22.02"
+      ],
+      "entreesTexte": "COM-11.01, COM-31.03, COM-22.02",
+      "recommande": "Réallouer le temps vers le réseau qui produit les demandes",
+      "neRecommandePas": "Ouvrir un réseau de plus avant d'avoir réalloué"
+    },
+    {
+      "code": "DC04",
+      "probleme": "Mauvais ciblage",
+      "signaux": "Demandes ou messages souvent hors cible (zone, budget, offre) ; cible de la communication différente des clients qui rapportent",
+      "entrees": [
+        "ACQ-02.05",
+        "COM-23.04",
+        "COM-02.02"
+      ],
+      "entreesTexte": "ACQ-02.05, COM-23.04, COM-02.02",
+      "recommande": "Recentrer le message et la cible sur les clients qui rapportent le plus",
+      "neRecommandePas": "Chercher plus d'audience"
+    },
+    {
+      "code": "DC05",
+      "probleme": "Manque de régularité",
+      "signaux": "Moins d'une semaine sur deux avec une publication, longues interruptions, pas de calendrier",
+      "entrees": [
+        "COM-33.02",
+        "COM-33.03",
+        "COM-28.01"
+      ],
+      "entreesTexte": "COM-33.02, COM-33.03, COM-28.01",
+      "recommande": "Un rythme plus bas mais tenu, un calendrier et 2 à 3 semaines d'avance",
+      "neRecommandePas": "Augmenter le volume total"
+    },
+    {
+      "code": "DC06",
+      "probleme": "Audience insuffisante",
+      "signaux": "Taux de clic et de transformation bons, mais portée faible en valeur absolue",
+      "entrees": [
+        "COM-19.02",
+        "COM-19.03",
+        "COM-17.01"
+      ],
+      "entreesTexte": "COM-19.02, COM-19.03, COM-17.01",
+      "recommande": "Amplifier : réseau existant, collaborations, petite publicité ciblée sur le contenu qui convertit",
+      "neRecommandePas": "Changer le contenu qui fonctionne"
+    },
+    {
+      "code": "DC07",
+      "probleme": "Mauvaise conversion",
+      "signaux": "Clics corrects mais peu de demandes ; site à faible taux de transformation",
+      "entrees": [
+        "COM-19.03",
+        "ACQ-06.09",
+        "ACQ-11.28",
+        "COM-13.08"
+      ],
+      "entreesTexte": "COM-19.03, ACQ-06.09, ACQ-11.28, COM-13.08",
+      "recommande": "Améliorer la page d'arrivée, le formulaire, l'offre affichée",
+      "neRecommandePas": "Envoyer plus de trafic"
+    },
+    {
+      "code": "DC08",
+      "probleme": "Appel à l'action faible",
+      "signaux": "Peu de clics pour la portée ; grille « appel à l'action » faible ; pas d'offre d'appel",
+      "entrees": [
+        "COM-19.02",
+        "COM-53.01",
+        "COM-21.01"
+      ],
+      "entreesTexte": "COM-19.02, COM-53.01, COM-21.01",
+      "recommande": "Un appel à l'action clair dans chaque publication et une raison de laisser ses coordonnées",
+      "neRecommandePas": "Publier plus souvent"
+    },
+    {
+      "code": "DC09",
+      "probleme": "Absence de preuve",
+      "signaux": "Preuves disponibles mais peu publiées ; grille « preuve » faible ; peu d'avis pour le nombre de clients",
+      "entrees": [
+        "COM-09.05",
+        "COM-52.01",
+        "COM-44.07"
+      ],
+      "entreesTexte": "COM-09.05, COM-52.01, COM-44.07",
+      "recommande": "Publier les cas clients et témoignages existants, demander l'avis systématiquement",
+      "neRecommandePas": "Chercher de nouvelles idées de contenu"
+    },
+    {
+      "code": "DC10",
+      "probleme": "Mauvais suivi",
+      "signaux": "Clics, contacts et clients venant de la communication inconnus",
+      "entrees": [
+        "COM-43.02",
+        "COM-43.01"
+      ],
+      "entreesTexte": "COM-43.02, COM-43.01",
+      "recommande": "Suivre 3 chiffres chaque semaine : clics, demandes, clients venant des réseaux",
+      "neRecommandePas": "Conclure sur la performance avant d'avoir ces chiffres"
+    },
+    {
+      "code": "DC11",
+      "probleme": "Temps mal alloué",
+      "signaux": "Part du temps par réseau ou par format très différente de sa part des résultats",
+      "entrees": [
+        "COM-31.03",
+        "COM-31.04",
+        "COM-39.05",
+        "COM-22.02"
+      ],
+      "entreesTexte": "COM-31.03, COM-31.04, COM-39.05, COM-22.02",
+      "recommande": "Déplacer les heures vers ce qui produit des demandes, sans en ajouter",
+      "neRecommandePas": "Ajouter des heures de communication"
+    },
+    {
+      "code": "DC12",
+      "probleme": "Budget mal alloué",
+      "signaux": "Coût par demande d'un poste très supérieur aux autres, ou budget en hausse sans demandes en plus",
+      "entrees": [
+        "COM-32.06",
+        "COM-32.07"
+      ],
+      "entreesTexte": "COM-32.06, COM-32.07",
+      "recommande": "Réduire ou couper le poste le plus cher par demande, réallouer",
+      "neRecommandePas": "Augmenter le budget"
+    },
+    {
+      "code": "DC13",
+      "probleme": "Audience existante sous-exploitée",
+      "signaux": "Fichier de contacts sans envoi depuis plus de 3 mois, ou beaucoup d'abonnés sans offre proposée",
+      "entrees": [
+        "COM-15.09",
+        "COM-38.01",
+        "COM-21.01"
+      ],
+      "entreesTexte": "COM-15.09, COM-38.01, COM-21.01",
+      "recommande": "Solliciter le fichier et les abonnés avec une offre avant de chercher de nouveaux contacts",
+      "neRecommandePas": "Investir d'abord dans l'acquisition"
+    },
+    {
+      "code": "DC14",
+      "probleme": "Réponse trop lente",
+      "signaux": "Messages commerciaux sans réponse ou répondus après plus d'un jour",
+      "entrees": [
+        "COM-23.02",
+        "COM-23.06"
+      ],
+      "entreesTexte": "COM-23.02, COM-23.06",
+      "recommande": "Une règle de réponse en moins de 24 heures, des réponses types",
+      "neRecommandePas": "Générer plus de messages"
+    }
+  ],
+  "ordreLectureChiffres": [
+    "Clients",
+    "CA",
+    "Demandes qualifiées",
+    "Demandes",
+    "Clics et intentions",
+    "Engagement",
+    "Portée",
+    "Abonnés"
+  ],
+  "regleChiffresDeVanite": "Abonnés, likes, vues et impressions ne sont jamais interprétés seuls : ils sont replacés dans la chaîne production → distribution → engagement → intention → conversion → business."
+}

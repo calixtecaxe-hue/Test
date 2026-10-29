@@ -1,0 +1,3583 @@
+[
+  {
+    "code": "XA01",
+    "agent": "ACQUISITION_CA",
+    "nom": "Valeur d'une demande",
+    "calcul": "Taux de transformation × montant du premier achat",
+    "entrees": [
+      "ACQ-02.09"
+    ],
+    "entreesTexte": "ACQ-02.09",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Chaque demande que vous recevez vaut en moyenne X €. »"
+  },
+  {
+    "code": "XA02",
+    "agent": "ACQUISITION_CA",
+    "nom": "Étape qui bloque le parcours",
+    "calcul": "Taux de chaque étape (qualifiée, rendez-vous, présence, devis, signature) comparé au secteur ; l'écart le plus grand désigne l'étape qui bloque",
+    "entrees": [
+      "ACQ-02.07",
+      "ACQ-02.08",
+      "ACQ-09.09",
+      "ACQ-09.11",
+      "ACQ-10.13",
+      "ACQ-11.19",
+      "ACQ-11.24",
+      "ACQ-11.28"
+    ],
+    "entreesTexte": "ACQ-02.07, ACQ-02.08, ACQ-09.09, ACQ-09.11, ACQ-10.13, ACQ-11.19, ACQ-11.24, ACQ-11.28",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Taux de référence du secteur (seuil Marché)",
+    "phraseRapport": "« Vous recevez assez de demandes, mais c'est l'étape devis → signature qui bloque : X % contre Y % dans votre secteur. »"
+  },
+  {
+    "code": "XA03",
+    "agent": "ACQUISITION_CA",
+    "nom": "Gain si l'étape qui bloque rejoint le secteur",
+    "calcul": "Volume entrant à cette étape × (taux du secteur − votre taux) × panier",
+    "entrees": [
+      "ACQ-02.01",
+      "ACQ-11.19",
+      "ACQ-11.03",
+      "ACQ-15.06"
+    ],
+    "entreesTexte": "ACQ-02.01, ACQ-11.19, ACQ-11.03, ACQ-15.06",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Taux de référence du secteur (seuil Marché)",
+    "phraseRapport": "« Rejoindre la moyenne de votre secteur sur cette étape rapporterait environ X € par mois. »"
+  },
+  {
+    "code": "XA04",
+    "agent": "ACQUISITION_CA",
+    "nom": "Demandes et appels sans réponse",
+    "calcul": "(Demandes sans réponse + appels non rappelés) × valeur d'une demande × 12",
+    "entrees": [
+      "ACQ-08.09"
+    ],
+    "entreesTexte": "ACQ-08.09",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous perdez environ X € par an à cause des demandes et des appels auxquels vous ne répondez pas. »"
+  },
+  {
+    "code": "XA05",
+    "agent": "ACQUISITION_CA",
+    "nom": "Coût de chaque motif de perte",
+    "calcul": "Demandes perdues de chaque motif × valeur d'une demande",
+    "entrees": [
+      "ACQ-22.10",
+      "ACQ-02.09"
+    ],
+    "entreesTexte": "ACQ-22.10, ACQ-02.09",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Le manque de créneaux vous coûte environ X € par mois, les délais trop longs Y €. »"
+  },
+  {
+    "code": "XA06",
+    "agent": "ACQUISITION_CA",
+    "nom": "Jour d'ouverture supplémentaire",
+    "calcul": "Demandes des jours fermés × 4,33 × valeur d'une demande",
+    "entrees": [
+      "ACQ-22.15"
+    ],
+    "entreesTexte": "ACQ-22.15",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Ouvrir le samedi représenterait environ X € de CA par mois, à comparer au coût d'une journée (agent Finance). »"
+  },
+  {
+    "code": "XA07",
+    "agent": "ACQUISITION_CA",
+    "nom": "Créneaux vides",
+    "calcul": "(Créneaux disponibles − occupés) × 4,33 × panier moyen",
+    "entrees": [
+      "ACQ-22.13",
+      "ACQ-22.12"
+    ],
+    "entreesTexte": "ACQ-22.13, ACQ-22.12",
+    "profils": {
+      "rdv": true,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre planning n'est rempli qu'à X %, soit environ Y € de capacité inutilisée par mois. »"
+  },
+  {
+    "code": "XA08",
+    "agent": "ACQUISITION_CA",
+    "nom": "Clients nécessaires pour l'objectif",
+    "calcul": "(CA mensuel × objectif) ÷ panier moyen",
+    "entrees": [
+      "ACQ-15.06"
+    ],
+    "entreesTexte": "Inscription · CA mensuel, Inscription · objectif chiffré, ACQ-15.06",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Pour atteindre +15 %, il vous faut environ X clients de plus par mois. »"
+  },
+  {
+    "code": "XA09",
+    "agent": "ACQUISITION_CA",
+    "nom": "Demandes nécessaires pour l'objectif",
+    "calcul": "Clients nécessaires ÷ taux de transformation",
+    "entrees": [
+      "ACQ-15.06",
+      "ACQ-11.19"
+    ],
+    "entreesTexte": "Inscription · objectif chiffré, ACQ-15.06, ACQ-11.19",
+    "profils": {
+      "rdv": true,
+      "commerce": false,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Soit X demandes de plus par mois, à taux de transformation constant. »"
+  },
+  {
+    "code": "XA10",
+    "agent": "ACQUISITION_CA",
+    "nom": "Coût d'un client par canal",
+    "calcul": "Dépense du canal ÷ nouveaux clients du canal",
+    "entrees": [
+      "ACQ-03.10"
+    ],
+    "entreesTexte": "ACQ-03.10",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Le canal A vous coûte X € par client, le canal B Y €. »"
+  },
+  {
+    "code": "XA11",
+    "agent": "ACQUISITION_CA",
+    "nom": "Budget qui coûte plus qu'il ne rapporte",
+    "calcul": "Part du budget placée sur des canaux dont le coût par client dépasse le panier, ou qui rapportent moins d'1 € par euro dépensé",
+    "entrees": [
+      "ACQ-03.10",
+      "ACQ-03.11",
+      "ACQ-03.05",
+      "ACQ-15.06"
+    ],
+    "entreesTexte": "ACQ-03.10, ACQ-03.11, ACQ-03.05, ACQ-15.06",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X % de votre budget part dans des canaux qui coûtent plus qu'ils ne rapportent. »"
+  },
+  {
+    "code": "XA12",
+    "agent": "ACQUISITION_CA",
+    "nom": "Budget aligné sur le canal le plus rentable",
+    "calcul": "Répartition du budget par canal comparée à la répartition du CA par canal",
+    "entrees": [
+      "ACQ-03.05",
+      "ACQ-03.04"
+    ],
+    "entreesTexte": "ACQ-03.05, ACQ-03.04",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous mettez X % du budget sur le canal A, qui ne fait que Y % de votre CA. »"
+  },
+  {
+    "code": "XA13",
+    "agent": "ACQUISITION_CA",
+    "nom": "Dépendance à un canal",
+    "calcul": "Part des demandes du 1er canal",
+    "entrees": [
+      "ACQ-03.12"
+    ],
+    "entreesTexte": "ACQ-03.12",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X % de vos demandes viennent d'un seul canal. »"
+  },
+  {
+    "code": "XA14",
+    "agent": "ACQUISITION_CA",
+    "nom": "Dépendance aux gros clients",
+    "calcul": "Part du CA des 3 et 5 premiers clients, et CA exposé sans engagement",
+    "entrees": [
+      "ACQ-16.05",
+      "ACQ-16.06",
+      "ACQ-16.07"
+    ],
+    "entreesTexte": "ACQ-16.05, ACQ-16.06, ACQ-16.07",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X % de votre CA dépend de trois clients, dont Y € sans aucun engagement. »"
+  },
+  {
+    "code": "XA15",
+    "agent": "ACQUISITION_CA",
+    "nom": "Valeur réelle des partenariats",
+    "calcul": "Contacts apportés × transformation × panier − commissions",
+    "entrees": [
+      "ACQ-05.09",
+      "ACQ-05.08"
+    ],
+    "entreesTexte": "ACQ-05.09, ACQ-05.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos partenaires vous rapportent X € nets par an, dont Y % grâce à un seul. »"
+  },
+  {
+    "code": "XA16",
+    "agent": "ACQUISITION_CA",
+    "nom": "Potentiel de fidélisation",
+    "calcul": "Clients actifs × 10 % × achats par an × panier moyen",
+    "entrees": [
+      "ACQ-17.20",
+      "ACQ-17.02",
+      "ACQ-17.19",
+      "ACQ-17.04",
+      "ACQ-17.08"
+    ],
+    "entreesTexte": "ACQ-17.20, ACQ-17.02, ACQ-17.19, ACQ-17.04, ACQ-17.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos clients dépensent X € par an mais seulement Y % reviennent : 10 % de clients fidèles en plus représenteraient environ Z €. »"
+  },
+  {
+    "code": "XA17",
+    "agent": "ACQUISITION_CA",
+    "nom": "Reconquête des anciens clients",
+    "calcul": "Clients inactifs × part de retour prudente × panier",
+    "entrees": [
+      "ACQ-17.21",
+      "ACQ-17.16"
+    ],
+    "entreesTexte": "ACQ-17.21, ACQ-17.16",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Part récupérable prudente, à sourcer",
+    "phraseRapport": "« X anciens clients n'ont rien acheté depuis un an ; en faire revenir une petite part représente environ Y €. »"
+  },
+  {
+    "code": "XA18",
+    "agent": "ACQUISITION_CA",
+    "nom": "Ce qu'un client rapporte face à ce qu'il coûte",
+    "calcul": "Valeur d'un client sur la relation ÷ coût d'acquisition",
+    "entrees": [
+      "ACQ-17.18",
+      "ACQ-17.25",
+      "ACQ-07.11"
+    ],
+    "entreesTexte": "ACQ-17.18, ACQ-17.25, ACQ-07.11",
+    "profils": {
+      "rdv": true,
+      "commerce": false,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Un client vous coûte X € à acquérir et vous rapporte Y € sur toute la relation. »"
+  },
+  {
+    "code": "XA19",
+    "agent": "ACQUISITION_CA",
+    "nom": "Ventes complémentaires",
+    "calcul": "Ventes sans complément × part d'acceptation prudente × montant du complément",
+    "entrees": [
+      "ACQ-15.08"
+    ],
+    "entreesTexte": "ACQ-15.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Part récupérable prudente, à sourcer",
+    "phraseRapport": "« Proposer votre complément à chaque client représenterait environ X € par an. »"
+  },
+  {
+    "code": "XA20",
+    "agent": "ACQUISITION_CA",
+    "nom": "Coût des remises",
+    "calcul": "CA × part des ventes remisées × remise moyenne",
+    "entrees": [
+      "ACQ-14.05"
+    ],
+    "entreesTexte": "ACQ-14.05",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos remises vous coûtent environ X € par an. »"
+  },
+  {
+    "code": "XA21",
+    "agent": "ACQUISITION_CA",
+    "nom": "Hausse de prix",
+    "calcul": "CA × hausse envisagée, seulement si le planning est plein ou si les prix sont sous la concurrence",
+    "entrees": [
+      "ACQ-13.10",
+      "ACQ-19.01",
+      "ACQ-13.08"
+    ],
+    "entreesTexte": "ACQ-13.10, ACQ-19.01, ACQ-13.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre planning est plein sur X semaines et vos prix sont Y % sous vos concurrents : une hausse de 5 % représenterait Z €. »"
+  },
+  {
+    "code": "XA22",
+    "agent": "ACQUISITION_CA",
+    "nom": "Devis en attente",
+    "calcul": "Montant en attente × taux d'acceptation en montant",
+    "entrees": [
+      "ACQ-10.17"
+    ],
+    "entreesTexte": "ACQ-10.17",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X € de devis attendent une réponse ; à votre taux habituel, environ Y € devraient se signer. »"
+  },
+  {
+    "code": "XA23",
+    "agent": "ACQUISITION_CA",
+    "nom": "Les gros projets vous échappent",
+    "calcul": "Taux d'acceptation en nombre comparé au taux en montant",
+    "entrees": [
+      "ACQ-10.13",
+      "ACQ-10.14",
+      "ACQ-10.15"
+    ],
+    "entreesTexte": "ACQ-10.13, ACQ-10.14, ACQ-10.15",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous signez X % de vos devis mais seulement Y % du montant : vous perdez surtout les gros projets. »"
+  },
+  {
+    "code": "XA24",
+    "agent": "ACQUISITION_CA",
+    "nom": "Gain de la relance des devis",
+    "calcul": "Devis sans réponse non relancés × part récupérable prudente × montant moyen",
+    "entrees": [
+      "ACQ-10.18",
+      "ACQ-10.16"
+    ],
+    "entreesTexte": "ACQ-10.18, ACQ-10.16",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune si vos relances sont mesurées ; sinon part récupérable prudente, à sourcer",
+    "phraseRapport": "« Relancer vos devis sans réponse pourrait récupérer environ X € par mois. »"
+  },
+  {
+    "code": "XA25",
+    "agent": "ACQUISITION_CA",
+    "nom": "Absences aux rendez-vous",
+    "calcul": "Absences par mois × CA moyen par rendez-vous × 12",
+    "entrees": [
+      "ACQ-09.13"
+    ],
+    "entreesTexte": "ACQ-09.13",
+    "profils": {
+      "rdv": true,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Les absences sans prévenir vous coûtent environ X € par an. »"
+  },
+  {
+    "code": "XA26",
+    "agent": "ACQUISITION_CA",
+    "nom": "CA absorbable par le planning",
+    "calcul": "Semaines libres sur 3 mois × CA par semaine",
+    "entrees": [
+      "ACQ-19.08"
+    ],
+    "entreesTexte": "ACQ-19.08",
+    "profils": {
+      "rdv": true,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Il vous reste X semaines libres sur 3 mois, soit environ Y € que l'équipe actuelle peut absorber. »"
+  },
+  {
+    "code": "XA27",
+    "agent": "ACQUISITION_CA",
+    "nom": "Heures non facturées",
+    "calcul": "(Heures travaillées − heures facturées) × taux horaire",
+    "entrees": [
+      "ACQ-21.13"
+    ],
+    "entreesTexte": "ACQ-21.13",
+    "profils": {
+      "rdv": true,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X heures par mois ne sont pas facturées, soit environ Y €. »"
+  },
+  {
+    "code": "XA28",
+    "agent": "ACQUISITION_CA",
+    "nom": "Rentabilité du temps de prospection",
+    "calcul": "CA issu de la prospection ÷ heures de prospection",
+    "entrees": [
+      "ACQ-04.09"
+    ],
+    "entreesTexte": "ACQ-04.09",
+    "profils": {
+      "rdv": true,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Une heure de prospection vous rapporte en moyenne X €. »"
+  },
+  {
+    "code": "XA29",
+    "agent": "ACQUISITION_CA",
+    "nom": "Manque à gagner des mois creux",
+    "calcul": "Somme des écarts entre la moyenne et chaque mois creux",
+    "entrees": [
+      "ACQ-23.11",
+      "ACQ-23.02"
+    ],
+    "entreesTexte": "ACQ-23.11, ACQ-23.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos mois creux représentent X € de moins que votre moyenne ; la cause déclarée est Y. »"
+  },
+  {
+    "code": "XA30",
+    "agent": "ACQUISITION_CA",
+    "nom": "Lecture de tendance",
+    "calcul": "Évolution des demandes, des nouveaux clients, du panier et du CA, comparées entre elles",
+    "entrees": [
+      "ACQ-02.06",
+      "ACQ-11.18",
+      "ACQ-15.07",
+      "ACQ-23.10",
+      "ACQ-03.06"
+    ],
+    "entreesTexte": "ACQ-02.06, ACQ-11.18, ACQ-15.07, ACQ-23.10, ACQ-03.06",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre CA est stable, mais vos demandes baissent de X % : c'est la hausse du panier qui compense, pour l'instant. »"
+  },
+  {
+    "code": "XA31",
+    "agent": "ACQUISITION_CA",
+    "nom": "Zone la plus rentable",
+    "calcul": "Répartition des clients par distance et part du CA de la zone principale",
+    "entrees": [
+      "ACQ-01.06",
+      "ACQ-01.14",
+      "ACQ-01.07",
+      "ACQ-01.08",
+      "ACQ-01.09"
+    ],
+    "entreesTexte": "ACQ-01.06, ACQ-01.14, ACQ-01.07, ACQ-01.08, ACQ-01.09",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X % de vos clients sont à moins de 10 km : c'est là que votre communication doit porter. »"
+  },
+  {
+    "code": "XA32",
+    "agent": "ACQUISITION_CA",
+    "nom": "Type de client le plus précieux",
+    "calcul": "Valeur annuelle d'un client par type, comparée au type que le dirigeant veut développer",
+    "entrees": [
+      "ACQ-01.12",
+      "ACQ-01.05"
+    ],
+    "entreesTexte": "ACQ-01.12, ACQ-01.05",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Un client professionnel vous rapporte X fois plus par an qu'un particulier, alors que vous visez les particuliers. »"
+  },
+  {
+    "code": "XA33",
+    "agent": "ACQUISITION_CA",
+    "nom": "Restaurant : réservations perdues",
+    "calcul": "(Refusées + non honorées) × couverts par réservation × ticket moyen",
+    "entrees": [
+      "ACQ-11.27"
+    ],
+    "entreesTexte": "ACQ-11.27",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Les réservations refusées et non honorées vous coûtent environ X € par mois. »"
+  },
+  {
+    "code": "XA34",
+    "agent": "ACQUISITION_CA",
+    "nom": "Restaurant : services peu remplis",
+    "calcul": "Places vides des services les moins remplis × ticket moyen",
+    "entrees": [
+      "ACQ-11.25",
+      "ACQ-11.08",
+      "ACQ-11.26",
+      "ACQ-22.07"
+    ],
+    "entreesTexte": "ACQ-11.25, ACQ-11.08, ACQ-11.26, ACQ-22.07",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Les places vides de vos services les plus calmes représentent environ X € par mois. »"
+  },
+  {
+    "code": "XA35",
+    "agent": "ACQUISITION_CA",
+    "nom": "E-commerce : paniers abandonnés",
+    "calcul": "Paniers abandonnés × part récupérable prudente × panier moyen",
+    "entrees": [
+      "ACQ-11.30",
+      "ACQ-11.29"
+    ],
+    "entreesTexte": "ACQ-11.30, ACQ-11.29",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Part récupérable prudente, à sourcer",
+    "phraseRapport": "« X paniers sont abandonnés chaque mois ; une relance automatique en récupère une partie, soit environ Y €. »"
+  },
+  {
+    "code": "XA36",
+    "agent": "ACQUISITION_CA",
+    "nom": "Abonnement : coût des résiliations",
+    "calcul": "Résiliations par mois × revenu moyen par abonné × 12",
+    "entrees": [
+      "ACQ-17.26"
+    ],
+    "entreesTexte": "ACQ-17.26",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Les résiliations vous font perdre X € de revenu sur un an. »"
+  },
+  {
+    "code": "XA37",
+    "agent": "ACQUISITION_CA",
+    "nom": "Abonnement : un point de résiliation en moins",
+    "calcul": "Abonnés actifs × 1 % × revenu moyen par abonné × 12",
+    "entrees": [
+      "ACQ-17.10",
+      "ACQ-17.23"
+    ],
+    "entreesTexte": "ACQ-17.10, ACQ-17.23",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Réduire vos résiliations d'un point par mois vaut environ X € par an. »"
+  },
+  {
+    "code": "XA38",
+    "agent": "ACQUISITION_CA",
+    "nom": "Commerce : transformation des visiteurs",
+    "calcul": "Visiteurs × (taux de référence − votre taux) × panier",
+    "entrees": [
+      "ACQ-02.01",
+      "ACQ-11.24",
+      "ACQ-15.06"
+    ],
+    "entreesTexte": "ACQ-02.01, ACQ-11.24, ACQ-15.06",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Taux de référence du secteur (seuil Marché)",
+    "phraseRapport": "« Sur X visiteurs par mois, un point de transformation en plus vaut environ Y €. »"
+  },
+  {
+    "code": "XA39",
+    "agent": "ACQUISITION_CA",
+    "nom": "Coût des plateformes",
+    "calcul": "Commission de la plateforme rapportée au panier, comparée au coût d'un client des autres canaux",
+    "entrees": [
+      "ACQ-07.02",
+      "ACQ-15.06",
+      "ACQ-03.10"
+    ],
+    "entreesTexte": "ACQ-07.02, ACQ-15.06, ACQ-03.10",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« La plateforme vous coûte X € par client, votre propre site Y €. »"
+  },
+  {
+    "code": "XA40",
+    "agent": "ACQUISITION_CA",
+    "nom": "B2B : couverture de l'objectif par les affaires en cours",
+    "calcul": "CA probable des affaires en cours ÷ CA supplémentaire visé",
+    "entrees": [
+      "ACQ-12.06"
+    ],
+    "entreesTexte": "ACQ-12.06, Inscription · objectif chiffré, Inscription · CA mensuel",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos affaires en cours couvrent X % du CA supplémentaire que vous visez. »"
+  },
+  {
+    "code": "XA41",
+    "agent": "ACQUISITION_CA",
+    "nom": "Demandes hors horaires",
+    "calcul": "Demandes reçues quand l'entreprise est fermée, et délai de réponse à ces demandes",
+    "entrees": [
+      "ACQ-02.01",
+      "ACQ-22.03",
+      "ACQ-08.05",
+      "ACQ-09.07"
+    ],
+    "entreesTexte": "ACQ-02.01, ACQ-22.03, ACQ-08.05, ACQ-09.07",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X % de vos demandes arrivent quand vous êtes fermé et attendent le lendemain : une réponse automatique ou une prise de rendez-vous en ligne les retiendrait. »"
+  },
+  {
+    "code": "XA42",
+    "agent": "ACQUISITION_CA",
+    "nom": "Créneaux saturés et créneaux vides",
+    "calcul": "Créneaux les plus demandés comparés aux moins remplis, avec le CA de chaque jour",
+    "entrees": [
+      "ACQ-22.07",
+      "ACQ-22.12",
+      "ACQ-22.09"
+    ],
+    "entreesTexte": "ACQ-22.07, ACQ-22.12, ACQ-22.09",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos samedis sont pleins et vos mardis à moitié vides : déplacer une partie de la demande vers les créneaux calmes vaut environ X € par mois. »"
+  },
+  {
+    "code": "XA43",
+    "agent": "ACQUISITION_CA",
+    "nom": "Avis face aux concurrents",
+    "calcul": "Vos avis et votre note comparés à ceux des 2 concurrents les plus proches",
+    "entrees": [
+      "ACQ-06.11",
+      "ACQ-06.03",
+      "ACQ-06.08"
+    ],
+    "entreesTexte": "ACQ-06.11, ACQ-06.03, ACQ-06.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous avez X avis contre Y pour votre concurrent le plus proche. »"
+  },
+  {
+    "code": "XF01",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Seuil de rentabilité",
+    "calcul": "Charges fixes ÷ taux de marge sur coûts variables, comparé au CA mensuel",
+    "entrees": [
+      "FIN-05.12",
+      "FIN-05.11"
+    ],
+    "entreesTexte": "FIN-05.12, FIN-05.11, Inscription · CA mensuel",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos charges fixes représentent X % de votre CA. Votre seuil de rentabilité est d'environ Y € par mois, pour un CA moyen de Z €. »"
+  },
+  {
+    "code": "XF02",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Marge de sécurité",
+    "calcul": "CA mensuel − seuil de rentabilité",
+    "entrees": [
+      "FIN-05.13"
+    ],
+    "entreesTexte": "FIN-05.13",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre CA dépasse votre seuil de X % : vous pouvez perdre Y € de CA par mois avant de perdre de l'argent. »"
+  },
+  {
+    "code": "XF03",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Seuil en vous rémunérant",
+    "calcul": "Seuil de rentabilité recalculé avec la rémunération du dirigeant",
+    "entrees": [
+      "FIN-05.01",
+      "FIN-05.12"
+    ],
+    "entreesTexte": "FIN-05.01, FIN-05.12",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre rémunération de X € fait passer votre seuil à Y € ; à 0 €, l'entreprise ne paraît rentable que parce que vous ne vous payez pas. »"
+  },
+  {
+    "code": "XF04",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Point mort de trésorerie",
+    "calcul": "(Charges fixes + mensualités d'emprunt) ÷ taux de marge",
+    "entrees": [
+      "FIN-05.08",
+      "FIN-22.03",
+      "FIN-06.08"
+    ],
+    "entreesTexte": "FIN-05.08, FIN-22.03, FIN-06.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Pour couvrir aussi vos remboursements, il vous faut X € de CA par mois. »"
+  },
+  {
+    "code": "XF05",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Poids des grands postes",
+    "calcul": "Charges fixes, masse salariale, achats, sous-traitance rapportés au CA",
+    "entrees": [
+      "FIN-05.11",
+      "FIN-07.08",
+      "FIN-08.07",
+      "FIN-08.08"
+    ],
+    "entreesTexte": "FIN-05.11, FIN-07.08, FIN-08.07, FIN-08.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Ratio de référence du secteur (seuil Marché), à sourcer",
+    "phraseRapport": "« Votre masse salariale représente X % de votre CA, vos achats Y %. »"
+  },
+  {
+    "code": "XF06",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Trois principaux postes de coûts",
+    "calcul": "Les 3 plus gros postes, économie de 8 % sur ces postes, et poste qui a le plus augmenté",
+    "entrees": [
+      "FIN-05.01",
+      "FIN-06.01",
+      "FIN-08.01",
+      "FIN-05.06"
+    ],
+    "entreesTexte": "FIN-05.01, FIN-06.01, FIN-08.01, FIN-05.06",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos trois principaux postes représentent X € par mois. 8 % d'économie dessus améliorerait votre résultat d'environ Y € par an. Commencez par Z, qui a augmenté de N % en un an. »"
+  },
+  {
+    "code": "XF07",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Effet ciseau",
+    "calcul": "Évolution des charges (fixes, salaires, achats) comparée à celle du CA sur 12 mois",
+    "entrees": [
+      "FIN-05.10",
+      "FIN-07.15",
+      "FIN-08.11",
+      "ACQ-23.10"
+    ],
+    "entreesTexte": "FIN-05.10, FIN-07.15, FIN-08.11, ACQ-23.10",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos charges ont augmenté de X % en un an, votre CA de Y % : votre marge se réduit. »"
+  },
+  {
+    "code": "XF08",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Croissance rentable",
+    "calcul": "Variation des coûts variables quand le CA varie, entre mois fort et mois faible",
+    "entrees": [
+      "FIN-06.09",
+      "FIN-06.08"
+    ],
+    "entreesTexte": "FIN-06.09, FIN-06.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Quand votre CA augmente de 10 %, vos coûts variables augmentent de X % : chaque euro de croissance vous rapporte Y centimes. »"
+  },
+  {
+    "code": "XF09",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Hausse de coûts non répercutée",
+    "calcul": "Hausse des prix fournisseurs et des charges face à la hausse de vos prix de vente",
+    "entrees": [
+      "FIN-04.04",
+      "FIN-08.11",
+      "ACQ-13.06",
+      "ACQ-13.04"
+    ],
+    "entreesTexte": "FIN-04.04, FIN-08.11, ACQ-13.06, ACQ-13.04",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos fournisseurs ont augmenté de X % sur 12 mois, vos prix de Y % : Z € de marge perdue par an. »"
+  },
+  {
+    "code": "XF10",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Renégociation du 1er fournisseur",
+    "calcul": "Part du 1er fournisseur, mois depuis la dernière renégociation, économie d'une baisse de 5 %",
+    "entrees": [
+      "FIN-08.09",
+      "FIN-08.12",
+      "FIN-08.13",
+      "FIN-08.05"
+    ],
+    "entreesTexte": "FIN-08.09, FIN-08.12, FIN-08.13, FIN-08.05",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre premier fournisseur représente X % de vos achats et n'a pas été renégocié depuis Y mois. Une baisse de 5 % représenterait Z € par an. »"
+  },
+  {
+    "code": "XF11",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Dépendance fournisseur",
+    "calcul": "Part du 1er et des 3 premiers fournisseurs, sans fournisseur de remplacement",
+    "entrees": [
+      "FIN-30.01",
+      "FIN-08.10",
+      "FIN-08.04"
+    ],
+    "entreesTexte": "FIN-30.01, FIN-08.10, FIN-08.04",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X % de vos achats dépendent d'un fournisseur sans solution de remplacement. »"
+  },
+  {
+    "code": "XF12",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Coûts silencieux récurrents",
+    "calcul": "Contrats peu utilisés + doublons + contrats renouvelés dans 90 jours",
+    "entrees": [
+      "FIN-09.07",
+      "FIN-09.08",
+      "FIN-09.09",
+      "FIN-09.05",
+      "FIN-09.02"
+    ],
+    "entreesTexte": "FIN-09.07, FIN-09.08, FIN-09.09, FIN-09.05, FIN-09.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous pourriez économiser environ X € par an sur vos contrats ; Y arrivent à renouvellement dans les 3 mois. »"
+  },
+  {
+    "code": "XF13",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Coût de non-qualité",
+    "calcul": "Reprises + retours + gestes commerciaux + pertes de stock",
+    "entrees": [
+      "FIN-10.07",
+      "FIN-40.03",
+      "FIN-10.02",
+      "FIN-10.05",
+      "FIN-10.08"
+    ],
+    "entreesTexte": "FIN-10.07, FIN-40.03, FIN-10.02, FIN-10.05, FIN-10.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Reprises, retours, gestes commerciaux et pertes vous coûtent X € par an, soit Y % de votre CA. »"
+  },
+  {
+    "code": "XF14",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Mois de sécurité",
+    "calcul": "Trésorerie mobilisable ÷ charges fixes mensuelles",
+    "entrees": [
+      "FIN-11.05",
+      "FIN-11.06"
+    ],
+    "entreesTexte": "FIN-11.05, FIN-11.06",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre entreprise dispose d'environ X mois de sécurité de trésorerie. »"
+  },
+  {
+    "code": "XF15",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Durée de vie de la trésorerie",
+    "calcul": "Trésorerie mobilisable ÷ consommation mensuelle, si le solde moyen est négatif",
+    "entrees": [
+      "FIN-12.05"
+    ],
+    "entreesTexte": "FIN-12.05",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Au rythme des 3 derniers mois, votre trésorerie tient X mois. »"
+  },
+  {
+    "code": "XF16",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Rentable sur le papier, pas en cash",
+    "calcul": "Résultat comparé au cash réellement généré, et à l'argent bloqué chez les clients et en stock",
+    "entrees": [
+      "FIN-12.07",
+      "FIN-17.09",
+      "FIN-37.01"
+    ],
+    "entreesTexte": "FIN-12.07, FIN-17.09, FIN-37.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous êtes rentable sur le papier (X €) mais votre trésorerie a baissé de Y € : l'argent est bloqué dans vos créances et votre stock. »"
+  },
+  {
+    "code": "XF17",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "CA facturé et argent encaissé",
+    "calcul": "Entrées des 3 derniers mois comparées au CA des mêmes mois",
+    "entrees": [
+      "FIN-12.06"
+    ],
+    "entreesTexte": "FIN-12.06",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous facturez X € par mois mais n'encaissez que Y €. »"
+  },
+  {
+    "code": "XF18",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Tension de trésorerie à venir",
+    "calcul": "Trésorerie projetée sur 3 mois avec les gros paiements et encaissements prévus",
+    "entrees": [
+      "FIN-13.04",
+      "FIN-13.03",
+      "FIN-13.05"
+    ],
+    "entreesTexte": "FIN-13.04, FIN-13.03, FIN-13.05",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« En X, votre trésorerie passera sous Y € à cause de Z ; ce paiement peut être étalé. »"
+  },
+  {
+    "code": "XF19",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Résilience",
+    "calcul": "Imprévu absorbable comparé au plus gros imprévu des 24 derniers mois",
+    "entrees": [
+      "FIN-15.04",
+      "FIN-15.02"
+    ],
+    "entreesTexte": "FIN-15.04, FIN-15.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous pouvez absorber un imprévu de X € ; celui de l'an dernier (Y €) vous mettrait aujourd'hui à découvert. »"
+  },
+  {
+    "code": "XF20",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Argent immobilisé par l'activité",
+    "calcul": "Argent dû par les clients + stock + travaux non facturés − argent dû aux fournisseurs",
+    "entrees": [
+      "FIN-17.09",
+      "FIN-37.01",
+      "FIN-21.01",
+      "FIN-20.05"
+    ],
+    "entreesTexte": "FIN-17.09, FIN-37.01, FIN-21.01, FIN-20.05",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre activité immobilise X € : Y € chez vos clients, Z € en stock. »"
+  },
+  {
+    "code": "XF21",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Délais clients contre délais fournisseurs",
+    "calcul": "Délai réel d'encaissement − délai réel de paiement fournisseur, converti en €",
+    "entrees": [
+      "FIN-20.06",
+      "FIN-17.09",
+      "FIN-20.05",
+      "FIN-17.04",
+      "FIN-17.08"
+    ],
+    "entreesTexte": "FIN-20.06, FIN-17.09, FIN-20.05, FIN-17.04, FIN-17.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos clients vous paient en X jours, vous payez vos fournisseurs en Y jours : cet écart immobilise Z € de trésorerie. »"
+  },
+  {
+    "code": "XF22",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Trésorerie libérable sur les délais",
+    "calcul": "Facturer le jour même + 15 jours de délai client en moins + délai fournisseur pleinement utilisé",
+    "entrees": [
+      "FIN-16.07",
+      "FIN-17.07",
+      "FIN-20.07",
+      "FIN-16.04"
+    ],
+    "entreesTexte": "FIN-16.07, FIN-17.07, FIN-20.07, Inscription · CA mensuel, FIN-16.04",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Facturer le jour même et réduire vos délais clients de 15 jours libérerait environ X €. »"
+  },
+  {
+    "code": "XF23",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Retards de paiement",
+    "calcul": "Total en retard en % du CA mensuel, et part de plus de 90 jours",
+    "entrees": [
+      "FIN-18.08",
+      "FIN-18.09",
+      "FIN-18.10",
+      "FIN-18.02"
+    ],
+    "entreesTexte": "FIN-18.08, FIN-18.09, FIN-18.10, FIN-18.02",
+    "profils": {
+      "rdv": true,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X € de factures sont en retard, soit Y % de votre CA mensuel ; Z € ont plus de 90 jours. »"
+  },
+  {
+    "code": "XF24",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Coût des impayés",
+    "calcul": "Pertes définitives ÷ CA, et évolution sur un an",
+    "entrees": [
+      "FIN-18.11",
+      "FIN-18.12"
+    ],
+    "entreesTexte": "FIN-18.11, FIN-18.12",
+    "profils": {
+      "rdv": true,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Les impayés vous ont coûté X % de votre CA l'an dernier, contre Y % l'année d'avant. »"
+  },
+  {
+    "code": "XF25",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "L'entreprise finance ses clients",
+    "calcul": "Montant avancé sur les projets sans acompte, et trésorerie libérée par un acompte de 30 %",
+    "entrees": [
+      "FIN-19.03",
+      "FIN-19.04"
+    ],
+    "entreesTexte": "FIN-19.03, FIN-19.04",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Sur vos chantiers sans acompte, vous avancez en moyenne X € ; un acompte de 30 % libérerait Y € de trésorerie. »"
+  },
+  {
+    "code": "XF26",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Remise pour paiement rapide face au découvert",
+    "calcul": "Remise proposée par le fournisseur comparée au coût du découvert",
+    "entrees": [
+      "FIN-20.03",
+      "FIN-24.07",
+      "FIN-11.05"
+    ],
+    "entreesTexte": "FIN-20.03, FIN-24.07, FIN-11.05",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Payer comptant votre fournisseur vous ferait gagner X % ; avec votre trésorerie actuelle, c'est rentable / risqué. »"
+  },
+  {
+    "code": "XF27",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Poids de la dette",
+    "calcul": "Mensualités ÷ marge disponible, et mensualités libérées dans l'année",
+    "entrees": [
+      "FIN-22.05",
+      "FIN-22.06"
+    ],
+    "entreesTexte": "FIN-22.05, FIN-22.06",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos remboursements absorbent X % de votre marge ; Y € par mois seront libérés dans Z mois. »"
+  },
+  {
+    "code": "XF28",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Découvert structurel",
+    "calcul": "Jours de découvert, mois concernés et coût annuel",
+    "entrees": [
+      "FIN-24.06",
+      "FIN-24.07",
+      "FIN-24.04",
+      "FIN-20.04"
+    ],
+    "entreesTexte": "FIN-24.06, FIN-24.07, FIN-24.04, FIN-20.04",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous êtes à découvert X jours par mois depuis Y mois : ce n'est plus un accident, et cela vous coûte Z € par an. »"
+  },
+  {
+    "code": "XF29",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Investissement : prévu et réel",
+    "calcul": "Gain financier attendu et réel, écart, délai de remboursement",
+    "entrees": [
+      "FIN-28.04",
+      "FIN-27.03",
+      "FIN-28.06",
+      "FIN-28.02",
+      "FIN-25.02"
+    ],
+    "entreesTexte": "FIN-28.04, FIN-27.03, FIN-28.06, FIN-28.02, FIN-25.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Cet investissement devait rapporter X € par mois, il en rapporte Y € (écart de Z %) ; il sera remboursé dans N mois. »"
+  },
+  {
+    "code": "XF30",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Financement de l'investissement",
+    "calcul": "Mois de sécurité avant et après la part payée en trésorerie",
+    "entrees": [
+      "FIN-23.02"
+    ],
+    "entreesTexte": "FIN-23.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous avez payé X € comptant : vos mois de sécurité sont passés de Y à Z. »"
+  },
+  {
+    "code": "XF31",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Départ du plus gros client",
+    "calcul": "Trésorerie ÷ déficit mensuel après départ du 1er client",
+    "entrees": [
+      "FIN-31.01",
+      "ACQ-16.04"
+    ],
+    "entreesTexte": "FIN-31.01, ACQ-16.04",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Si votre plus gros client partait demain, votre trésorerie vous permettrait de tenir environ X mois. »"
+  },
+  {
+    "code": "XF32",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Trésorerie à avancer pour l'objectif",
+    "calcul": "Besoin de trésorerie créé par le CA supplémentaire avant qu'il soit encaissé",
+    "entrees": [
+      "FIN-32.01"
+    ],
+    "entreesTexte": "FIN-32.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Atteindre votre objectif nécessiterait environ X € de trésorerie avant que la croissance ne génère du cash. »"
+  },
+  {
+    "code": "XF33",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Croissance finançable sans emprunt",
+    "calcul": "Trésorerie au-delà de 2 mois de sécurité ÷ besoin de trésorerie par € de CA supplémentaire",
+    "entrees": [
+      "FIN-11.04",
+      "FIN-05.08",
+      "FIN-32.01"
+    ],
+    "entreesTexte": "FIN-11.04, FIN-05.08, FIN-32.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Avec votre trésorerie actuelle, vous pouvez financer environ X € de CA supplémentaire par mois sans emprunter. »"
+  },
+  {
+    "code": "XF34",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Marge par offre et effet du mix",
+    "calcul": "Marge de chaque offre comparée à son poids dans le CA",
+    "entrees": [
+      "FIN-01.04",
+      "FIN-01.06",
+      "ACQ-13.02"
+    ],
+    "entreesTexte": "FIN-01.04, FIN-01.06, ACQ-13.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre offre A fait 50 % de votre CA avec 15 % de marge ; l'offre B 20 % avec 45 %. »"
+  },
+  {
+    "code": "XF35",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Offres vendues à perte",
+    "calcul": "Prix comparé au coût complet de l'offre",
+    "entrees": [
+      "FIN-03.03",
+      "FIN-03.02"
+    ],
+    "entreesTexte": "FIN-03.03, FIN-03.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre offre A coûte X € une fois les charges réparties : vendue Y €, elle ne couvre pas ses frais. »"
+  },
+  {
+    "code": "XF36",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Clients qui coûtent",
+    "calcul": "Marge réelle des gros clients une fois le temps passé compté",
+    "entrees": [
+      "FIN-02.02",
+      "FIN-02.03"
+    ],
+    "entreesTexte": "FIN-02.02, FIN-02.03",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Le client A vous prend X heures par mois pour Y € : il vous rapporte Z €, contre N € en moyenne. »"
+  },
+  {
+    "code": "XF37",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Rentabilité d'une heure de travail",
+    "calcul": "Coût d'une heure, CA et marge par heure, part des heures facturées (calcul de l'agent Acquisition, ACQ-21)",
+    "entrees": [
+      "FIN-07.12",
+      "FIN-07.13",
+      "FIN-07.14",
+      "ACQ-21.12"
+    ],
+    "entreesTexte": "FIN-07.12, FIN-07.13, FIN-07.14, ACQ-21.12",
+    "profils": {
+      "rdv": true,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Une heure de travail vous coûte X € et vous rapporte Y € ; seules Z % des heures sont facturées. »"
+  },
+  {
+    "code": "XF38",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Ce que l'entreprise peut verser au dirigeant",
+    "calcul": "Rémunération actuelle comparée à la marge disponible après charges et remboursements",
+    "entrees": [
+      "FIN-05.01",
+      "FIN-05.13",
+      "FIN-22.03"
+    ],
+    "entreesTexte": "FIN-05.01, FIN-05.13, FIN-22.03",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous vous versez X € par mois ; après charges et remboursements, l'entreprise dégage Y € de marge. »"
+  },
+  {
+    "code": "XF39",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Marge pensée et marge réelle",
+    "calcul": "Taux de marge déclaré comparé au taux calculé",
+    "entrees": [
+      "FIN-05.16"
+    ],
+    "entreesTexte": "FIN-05.16",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous estimez votre marge à X % ; vos chiffres indiquent Y %. »"
+  },
+  {
+    "code": "XF40",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Argent dormant en stock",
+    "calcul": "Stock total et stock sans vente depuis 6 mois",
+    "entrees": [
+      "FIN-37.01",
+      "FIN-39.01",
+      "FIN-39.04",
+      "FIN-39.05",
+      "FIN-39.02"
+    ],
+    "entreesTexte": "FIN-37.01, FIN-39.01, FIN-39.04, FIN-39.05, FIN-39.02",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous avez X € immobilisés en stock, dont Y € n'ont généré aucune vente depuis six mois. »"
+  },
+  {
+    "code": "XF41",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Jours de stock et rotation",
+    "calcul": "Stock en jours de ventes et rotation annuelle",
+    "entrees": [
+      "FIN-38.01",
+      "FIN-37.06"
+    ],
+    "entreesTexte": "FIN-38.01, FIN-37.06",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Ratio de référence du secteur (seuil Marché), à sourcer",
+    "phraseRapport": "« Votre stock représente X jours de ventes ; il a augmenté de Y % quand votre CA a augmenté de Z %. »"
+  },
+  {
+    "code": "XF42",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Pertes de stock",
+    "calcul": "Pertes annuelles ÷ achats annuels, et cause principale",
+    "entrees": [
+      "FIN-40.04",
+      "FIN-40.03",
+      "FIN-40.05",
+      "FIN-40.02"
+    ],
+    "entreesTexte": "FIN-40.04, FIN-40.03, FIN-40.05, FIN-40.02",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Ratio de référence du secteur (seuil Marché), à sourcer",
+    "phraseRapport": "« Vos pertes représentent X % de vos achats, soit Y € par an, surtout à cause de Z. »"
+  },
+  {
+    "code": "XF43",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Ruptures",
+    "calcul": "Ventes perdues × panier, puis × marge",
+    "entrees": [
+      "FIN-41.03",
+      "FIN-41.04",
+      "FIN-41.05",
+      "FIN-42.01"
+    ],
+    "entreesTexte": "FIN-41.03, FIN-41.04, FIN-41.05, FIN-42.01",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos ruptures représentent environ X € de CA et Y € de marge perdus par an. »"
+  },
+  {
+    "code": "XF44",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Quantités minimum imposées",
+    "calcul": "Stock acheté pour atteindre les minimums, comparé à la remise obtenue",
+    "entrees": [
+      "FIN-44.02"
+    ],
+    "entreesTexte": "FIN-44.02",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Les minimums de commande vous font immobiliser X € de stock pour Y € de remise par an. »"
+  },
+  {
+    "code": "XF45",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Écart d'inventaire",
+    "calcul": "Écart en € et en % du stock, comparé à l'inventaire précédent",
+    "entrees": [
+      "FIN-45.04",
+      "FIN-45.02",
+      "FIN-45.03",
+      "FIN-45.01"
+    ],
+    "entreesTexte": "FIN-45.04, FIN-45.02, FIN-45.03, FIN-45.01",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre dernier inventaire a révélé X € d'écart, soit Y % du stock. »"
+  },
+  {
+    "code": "XF46",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Niveau de pilotage financier",
+    "calcul": "Maîtrise des chiffres Finance comparée à celle des chiffres commerciaux, et indicateurs suivis",
+    "entrees": [
+      "FIN-33.01",
+      "ACQ-20.03",
+      "FIN-34.01",
+      "FIN-34.02",
+      "FIN-34.03",
+      "FIN-34.04",
+      "FIN-34.05",
+      "FIN-35.01",
+      "FIN-36.01"
+    ],
+    "entreesTexte": "FIN-33.01, ACQ-20.03, FIN-34.01, FIN-34.02, FIN-34.03, FIN-34.04, FIN-34.05, FIN-35.01, FIN-36.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous maîtrisez bien votre activité commerciale, mais X indicateurs essentiels de rentabilité et de trésorerie ne sont pas suivis. »"
+  },
+  {
+    "code": "XF47",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Abonnement : couverture des charges par le revenu récurrent",
+    "calcul": "Revenu récurrent × taux de marge ÷ charges fixes",
+    "entrees": [
+      "ACQ-17.11",
+      "FIN-06.08",
+      "FIN-05.08"
+    ],
+    "entreesTexte": "ACQ-17.11, FIN-06.08, FIN-05.08",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre revenu récurrent couvre X % de vos charges fixes. »"
+  },
+  {
+    "code": "XF48",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "E-commerce : ce qui reste d'une commande",
+    "calcul": "Panier − coût d'achat − livraison − frais de paiement − part des retours − coût d'acquisition",
+    "entrees": [
+      "ACQ-15.06",
+      "FIN-06.07",
+      "FIN-10.04",
+      "ACQ-07.11"
+    ],
+    "entreesTexte": "ACQ-15.06, FIN-06.07, FIN-10.04, ACQ-07.11",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": true,
+      "restaurant": false,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Une commande de X € vous laisse Y € une fois la livraison, le paiement, les retours et la publicité payés. »"
+  },
+  {
+    "code": "XF49",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Restaurant : coût matière et marge par couvert",
+    "calcul": "Achats ÷ CA, marge par couvert, pertes alimentaires",
+    "entrees": [
+      "FIN-08.07",
+      "FIN-05.14",
+      "FIN-40.03"
+    ],
+    "entreesTexte": "FIN-08.07, FIN-05.14, FIN-40.03",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Ratio de référence du secteur (seuil Marché), à sourcer",
+    "phraseRapport": "« Votre coût matière représente X % du CA ; chaque couvert vous laisse Y €, et les pertes alimentaires Z € par an. »"
+  },
+  {
+    "code": "XF50",
+    "agent": "FINANCE_RENTABILITE",
+    "nom": "Artisan : ce que rapporte un chantier",
+    "calcul": "Montant moyen − matériaux − heures × coût d'une heure",
+    "entrees": [
+      "ACQ-15.06",
+      "FIN-06.07",
+      "FIN-07.12",
+      "FIN-07.14"
+    ],
+    "entreesTexte": "ACQ-15.06, FIN-06.07, FIN-07.12, FIN-07.14",
+    "profils": {
+      "rdv": false,
+      "commerce": false,
+      "ecommerce": false,
+      "restaurant": false,
+      "chantier": true,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Un chantier moyen vous laisse X €, soit Y % de son montant. »"
+  },
+  {
+    "code": "XC01",
+    "agent": "COMM_CREATION",
+    "nom": "Chaîne de la communication",
+    "calcul": "Production → distribution → engagement → intention → conversion → business : remonter aussi loin que les données le permettent et repérer le maillon qui casse",
+    "entrees": [
+      "COM-10.01",
+      "COM-31.05",
+      "COM-17.01",
+      "COM-18.01",
+      "COM-19.01",
+      "COM-22.02",
+      "COM-22.03"
+    ],
+    "entreesTexte": "COM-10.01, COM-31.05, COM-17.01, COM-18.01, COM-19.01, COM-22.02, COM-22.03",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous publiez environ X contenus par mois pour Y heures de travail. Ils génèrent Z impressions, mais seulement N clics et M demandes. Le problème n'est pas votre capacité à produire, mais la capacité du contenu à déclencher une action. »"
+  },
+  {
+    "code": "XC02",
+    "agent": "COMM_CREATION",
+    "nom": "Part de chaque réseau : temps, publications, demandes",
+    "calcul": "Part du temps et des publications de chaque réseau comparée à sa part des demandes",
+    "entrees": [
+      "COM-31.03",
+      "COM-10.01",
+      "COM-22.02"
+    ],
+    "entreesTexte": "COM-31.03, COM-10.01, COM-22.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Instagram représente X % de votre temps mais Y % des demandes ; LinkedIn Z % du temps mais N % des demandes. »"
+  },
+  {
+    "code": "XC03",
+    "agent": "COMM_CREATION",
+    "nom": "Formats qui prennent du temps sans résultat",
+    "calcul": "Part du temps par format comparée à sa part des résultats",
+    "entrees": [
+      "COM-31.04",
+      "COM-39.05",
+      "COM-41.01"
+    ],
+    "entreesTexte": "COM-31.04, COM-39.05, COM-41.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Deux formats prennent X % de votre temps pour Y % des résultats : réallouer ce temps améliorerait l'efficacité sans travailler plus. »"
+  },
+  {
+    "code": "XC04",
+    "agent": "COMM_CREATION",
+    "nom": "Ce qui marche et ce qui est publié",
+    "calcul": "Format ou sujet le plus performant comparé à sa part dans les publications",
+    "entrees": [
+      "COM-40.01",
+      "COM-39.06",
+      "COM-27.01"
+    ],
+    "entreesTexte": "COM-40.01, COM-39.06, COM-27.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos 5 meilleures publications sont des cas clients, mais ce format ne représente que X % de votre contenu. Passez-le à 25-30 % pendant 30 jours et mesurez les demandes. »"
+  },
+  {
+    "code": "XC05",
+    "agent": "COMM_CREATION",
+    "nom": "Performance par format et par sujet",
+    "calcul": "Portée, engagement, clics, messages et contacts moyens par format et par sujet",
+    "entrees": [
+      "COM-39.05"
+    ],
+    "entreesTexte": "COM-39.05",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos contenus pédagogiques touchent beaucoup de monde mais génèrent peu de clics ; vos cas clients touchent moins mais génèrent trois fois plus de demandes. »"
+  },
+  {
+    "code": "XC06",
+    "agent": "COMM_CREATION",
+    "nom": "Visibilité sans action",
+    "calcul": "Portée élevée et taux de clic faible, croisés avec la grille « appel à l'action »",
+    "entrees": [
+      "COM-19.02",
+      "COM-17.01",
+      "COM-53.01"
+    ],
+    "entreesTexte": "COM-19.02, COM-17.01, COM-53.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Seuil de taux de clic faible, à valider",
+    "phraseRapport": "« Votre problème n'est pas la visibilité : vos contenus touchent X personnes par mois, mais moins de Y % cliquent. Retravaillez l'appel à l'action et l'offre avant d'augmenter la fréquence. »"
+  },
+  {
+    "code": "XC07",
+    "agent": "COMM_CREATION",
+    "nom": "Audience qui grandit sans demandes",
+    "calcul": "Croissance de l'audience comparée à l'évolution des demandes venant des réseaux",
+    "entrees": [
+      "COM-37.02",
+      "COM-22.02",
+      "ACQ-02.06"
+    ],
+    "entreesTexte": "COM-37.02, COM-22.02, ACQ-02.06",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre audience a augmenté de X %, mais vos demandes sont restées stables : la visibilité ne se transforme pas encore en clients. »"
+  },
+  {
+    "code": "XC08",
+    "agent": "COMM_CREATION",
+    "nom": "Conversion du site",
+    "calcul": "Demandes du site ÷ visites (calcul de l'agent Acquisition : ACQ-06, e-commerce ACQ-11), et choix entre attirer et convertir",
+    "entrees": [
+      "ACQ-06.09",
+      "ACQ-11.28",
+      "COM-13.08",
+      "COM-13.07"
+    ],
+    "entreesTexte": "ACQ-06.09, ACQ-11.28, COM-13.08, COM-13.07",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Seuils de trafic et de conversion, à valider",
+    "phraseRapport": "« Votre site reçoit X visiteurs par mois pour Y demandes (Z %). Augmenter le trafic avant d'améliorer la conversion aurait un rendement limité. »"
+  },
+  {
+    "code": "XC09",
+    "agent": "COMM_CREATION",
+    "nom": "Conversion du trafic social",
+    "calcul": "Demandes venant des réseaux ÷ clics",
+    "entrees": [
+      "COM-19.03",
+      "COM-19.01"
+    ],
+    "entreesTexte": "COM-19.03, COM-19.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Sur X clics depuis vos réseaux, seuls Y deviennent une demande : la page d'arrivée ne fait pas son travail. »"
+  },
+  {
+    "code": "XC10",
+    "agent": "COMM_CREATION",
+    "nom": "Fichier de contacts inexploité",
+    "calcul": "Contacts joignables sans envoi depuis plus de 3 mois, et potentiel d'un envoi",
+    "entrees": [
+      "COM-15.09",
+      "COM-15.11",
+      "COM-15.08"
+    ],
+    "entreesTexte": "COM-15.09, COM-15.11, COM-15.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Taux de réponse prudent à un envoi, à sourcer",
+    "phraseRapport": "« Vous possédez X contacts qui n'ont pas été sollicités depuis Y mois. Avant d'investir dans l'acquisition, cette audience est un actif sous-exploité. »"
+  },
+  {
+    "code": "XC11",
+    "agent": "COMM_CREATION",
+    "nom": "Valeur de l'offre d'appel",
+    "calcul": "Contacts ÷ visiteurs, clients ÷ contacts, CA généré, coût par contact",
+    "entrees": [
+      "COM-21.05",
+      "COM-21.06",
+      "COM-21.08",
+      "COM-21.07"
+    ],
+    "entreesTexte": "COM-21.05, COM-21.06, COM-21.08, COM-21.07",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre guide récolte X contacts par mois, dont Y deviennent clients : chaque contact vaut environ Z €. »"
+  },
+  {
+    "code": "XC12",
+    "agent": "COMM_CREATION",
+    "nom": "Messages → ventes",
+    "calcul": "Messages → demandes commerciales → rendez-vous → ventes, et messages sans réponse",
+    "entrees": [
+      "COM-23.04",
+      "COM-23.05",
+      "COM-23.06"
+    ],
+    "entreesTexte": "COM-23.04, COM-23.05, COM-23.06",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Sur X messages par mois, Y sont des demandes commerciales et Z deviennent des ventes ; les messages restés sans réponse représentent environ N € par an. »"
+  },
+  {
+    "code": "XC13",
+    "agent": "COMM_CREATION",
+    "nom": "Preuves disponibles et preuves publiées",
+    "calcul": "Preuves publiées ÷ preuves disponibles",
+    "entrees": [
+      "COM-09.05",
+      "COM-09.04"
+    ],
+    "entreesTexte": "COM-09.05, COM-09.04",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous disposez de X réalisations exploitables mais seulement Y sont visibles sur vos supports. »"
+  },
+  {
+    "code": "XC14",
+    "agent": "COMM_CREATION",
+    "nom": "Stock de preuves inexploité",
+    "calcul": "Clients de la période comparés aux avis, cas clients et témoignages publiés",
+    "entrees": [
+      "COM-09.06",
+      "COM-44.07",
+      "COM-09.05"
+    ],
+    "entreesTexte": "COM-09.06, COM-44.07, COM-09.05",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous avez réalisé X prestations mais n'avez que Y avis et Z cas clients publiés : votre activité produit bien plus de preuves que votre communication n'en exploite. »"
+  },
+  {
+    "code": "XC15",
+    "agent": "COMM_CREATION",
+    "nom": "Contenu réutilisable",
+    "calcul": "Contenus déclinables sans nouvelle production",
+    "entrees": [
+      "COM-34.03",
+      "COM-09.01"
+    ],
+    "entreesTexte": "COM-34.03, COM-09.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous disposez de X témoignages dont Y ont été utilisés : votre priorité n'est pas de trouver de nouvelles idées mais d'exploiter les preuves existantes. »"
+  },
+  {
+    "code": "XC16",
+    "agent": "COMM_CREATION",
+    "nom": "Régularité éditoriale",
+    "calcul": "Semaines publiées ÷ semaines analysées, écart moyen et plus longue interruption",
+    "entrees": [
+      "COM-33.02",
+      "COM-33.03",
+      "COM-10.02"
+    ],
+    "entreesTexte": "COM-33.02, COM-33.03, COM-10.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous publiez 12 fois par mois, mais en 4 jours puis plus rien pendant 3 semaines : le volume est bon, la régularité non. »"
+  },
+  {
+    "code": "XC17",
+    "agent": "COMM_CREATION",
+    "nom": "Semaines d'avance",
+    "calcul": "Contenus prêts ÷ publications par semaine",
+    "entrees": [
+      "COM-35.03",
+      "COM-28.01"
+    ],
+    "entreesTexte": "COM-35.03, COM-28.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous avez X contenus prêts, soit Y semaines d'avance : le problème n'est pas la production mais la distribution et la conversion. »"
+  },
+  {
+    "code": "XC18",
+    "agent": "COMM_CREATION",
+    "nom": "Croissance de l'audience",
+    "calcul": "(Abonnés actuels − abonnés de départ) ÷ abonnés de départ, par mois",
+    "entrees": [
+      "COM-37.02"
+    ],
+    "entreesTexte": "COM-37.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre audience LinkedIn progresse de X % par mois, Instagram stagne. »"
+  },
+  {
+    "code": "XC19",
+    "agent": "COMM_CREATION",
+    "nom": "Portée, engagement et clic par publication",
+    "calcul": "Portée ÷ publications ; réactions ÷ publications ; réactions ÷ portée ; clics ÷ portée",
+    "entrees": [
+      "COM-17.04",
+      "COM-18.02",
+      "COM-36.01",
+      "COM-19.02",
+      "COM-18.03"
+    ],
+    "entreesTexte": "COM-17.04, COM-18.02, COM-36.01, COM-19.02, COM-18.03",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Taux de référence par réseau, à sourcer",
+    "phraseRapport": "« Chaque publication touche en moyenne X personnes et en fait cliquer Y. »"
+  },
+  {
+    "code": "XC20",
+    "agent": "COMM_CREATION",
+    "nom": "Rendement de l'audience",
+    "calcul": "Demandes venant des réseaux ÷ abonnés",
+    "entrees": [
+      "COM-38.01"
+    ],
+    "entreesTexte": "COM-38.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Pour 1 000 abonnés, vous obtenez X demandes par mois. »"
+  },
+  {
+    "code": "XC21",
+    "agent": "COMM_CREATION",
+    "nom": "Production et efficacité du temps",
+    "calcul": "Publications par heure ; demandes et clients par heure ; valeur du temps",
+    "entrees": [
+      "COM-31.06",
+      "COM-31.07",
+      "COM-31.08"
+    ],
+    "entreesTexte": "COM-31.06, COM-31.07, COM-31.08",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous consacrez X heures par semaine à la communication, soit environ Y € de temps par mois, pour Z demandes. »"
+  },
+  {
+    "code": "XC22",
+    "agent": "COMM_CREATION",
+    "nom": "Coût de la communication",
+    "calcul": "Coût par contenu, par demande et par client, temps compris",
+    "entrees": [
+      "COM-32.05",
+      "COM-32.06",
+      "COM-32.07"
+    ],
+    "entreesTexte": "COM-32.05, COM-32.06, COM-32.07",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Chaque contenu vous coûte X €, chaque demande venant de la communication Y €, contre Z € par la publicité (agent Acquisition). »"
+  },
+  {
+    "code": "XC23",
+    "agent": "COMM_CREATION",
+    "nom": "Réponse aux avis",
+    "calcul": "Taux de réponse aux avis positifs et négatifs, délai, avis sans réponse",
+    "entrees": [
+      "COM-46.03",
+      "COM-46.02"
+    ],
+    "entreesTexte": "COM-46.03, COM-46.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous répondez à X % de vos avis avec un délai moyen de Y jours. Avant de chercher plus d'avis, mettez en place une réponse en moins de 48 heures. »"
+  },
+  {
+    "code": "XC24",
+    "agent": "COMM_CREATION",
+    "nom": "Vitesse de constitution des avis",
+    "calcul": "Nouveaux avis par mois, et part des clients qui en laissent un",
+    "entrees": [
+      "COM-44.06",
+      "COM-44.07",
+      "COM-45.01"
+    ],
+    "entreesTexte": "COM-44.06, COM-44.07, COM-45.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous obtenez X avis par mois pour Y clients : demander l'avis systématiquement en apporterait Z de plus. »"
+  },
+  {
+    "code": "XC25",
+    "agent": "COMM_CREATION",
+    "nom": "Ce que disent les avis",
+    "calcul": "Thèmes positifs à mettre en avant, motifs négatifs à traiter (renvoi vers l'agent concerné)",
+    "entrees": [
+      "COM-44.05"
+    ],
+    "entreesTexte": "COM-44.05",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos clients citent surtout X : c'est votre meilleur argument. Le motif négatif le plus fréquent est Y. »"
+  },
+  {
+    "code": "XC26",
+    "agent": "COMM_CREATION",
+    "nom": "Réseaux ouverts mais non tenus",
+    "calcul": "Réseaux ouverts comparés aux réseaux tenus et à ceux où est la cible",
+    "entrees": [
+      "COM-10.06",
+      "COM-11.01"
+    ],
+    "entreesTexte": "COM-10.06, COM-11.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous avez X comptes ouverts mais n'en tenez qu'un ; celui où se trouvent vos clients est Y. »"
+  },
+  {
+    "code": "XC27",
+    "agent": "COMM_CREATION",
+    "nom": "Cible de la communication et clients qui rapportent",
+    "calcul": "Cible déclarée face au type de client le plus rentable (ACQ-01)",
+    "entrees": [
+      "COM-02.02"
+    ],
+    "entreesTexte": "COM-02.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre communication vise les particuliers, alors que vos clients professionnels vous rapportent X fois plus par an. »"
+  },
+  {
+    "code": "XC28",
+    "agent": "COMM_CREATION",
+    "nom": "Objectif et dispositif",
+    "calcul": "Objectif « trouver des clients » face à l'appel à l'action, à l'offre d'appel et au suivi",
+    "entrees": [
+      "COM-24.02"
+    ],
+    "entreesTexte": "COM-24.02",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre objectif est de trouver des clients, mais aucune publication ne dit quoi faire ensuite et aucune demande n'est suivie. »"
+  },
+  {
+    "code": "XC29",
+    "agent": "COMM_CREATION",
+    "nom": "Fiche Google et actions",
+    "calcul": "Complétude de la fiche comparée aux actions générées et à la position locale",
+    "entrees": [
+      "COM-14.03",
+      "ACQ-06.04",
+      "COM-16.01"
+    ],
+    "entreesTexte": "COM-14.03, ACQ-06.04, COM-16.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre fiche Google n'est complète qu'à X % et vous apparaissez en Y position : c'est votre canal le plus rentable à améliorer. »"
+  },
+  {
+    "code": "XC30",
+    "agent": "COMM_CREATION",
+    "nom": "Pilotage de la communication",
+    "calcul": "Activité connue (publications) face à la contribution commerciale inconnue (clics, contacts, clients)",
+    "entrees": [
+      "COM-43.02",
+      "COM-43.01"
+    ],
+    "entreesTexte": "COM-43.02, COM-43.01",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous publiez régulièrement mais ne suivez ni les clics ni les contacts générés : vous connaissez votre activité de communication, pas encore sa contribution commerciale. »"
+  },
+  {
+    "code": "XC31",
+    "agent": "COMM_CREATION",
+    "nom": "Attribution locale",
+    "calcul": "Part des clients en boutique ou en salle venant des réseaux ou de Google",
+    "entrees": [
+      "COM-22.01",
+      "COM-22.03"
+    ],
+    "entreesTexte": "COM-22.01, COM-22.03",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": false,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X clients sur 20 disent venir des réseaux ou de Google : environ Y € de CA par mois. »"
+  },
+  {
+    "code": "XC32",
+    "agent": "COMM_CREATION",
+    "nom": "Influence",
+    "calcul": "Coût d'une vente par les créateurs de contenu comparé au coût d'acquisition des autres canaux",
+    "entrees": [
+      "COM-48.02",
+      "ACQ-03.10"
+    ],
+    "entreesTexte": "COM-48.02, ACQ-03.10",
+    "profils": {
+      "rdv": false,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": false,
+      "b2b": false,
+      "abonnement": false,
+      "location": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Une vente obtenue par vos collaborations coûte X €, contre Y € par la publicité. »"
+  },
+  {
+    "code": "XC33",
+    "agent": "COMM_CREATION",
+    "nom": "Démarrage : potentiel du réseau existant",
+    "calcul": "Contacts sollicitables dès le départ × part prudente qui suit ou laisse un avis",
+    "entrees": [
+      "COM-10.05",
+      "COM-10.04"
+    ],
+    "entreesTexte": "COM-10.05, COM-10.04",
+    "profils": {
+      "rdv": true,
+      "commerce": true,
+      "ecommerce": true,
+      "restaurant": true,
+      "chantier": true,
+      "b2b": true,
+      "abonnement": true,
+      "location": false
+    },
+    "hypotheseExterne": "Part prudente de contacts qui répondent, à sourcer",
+    "phraseRapport": "« En sollicitant vos X contacts existants, vous pouvez viser environ Y premiers abonnés et Z premiers avis dans le premier mois. »"
+  },
+  {
+    "code": "XR01",
+    "agent": "RH_ORGANISATION",
+    "nom": "Temps du dirigeant pris par les sollicitations",
+    "calcul": "Sollicitations × temps moyen × jours travaillés",
+    "entrees": [
+      "RH-03.06",
+      "RH-03.01",
+      "RH-03.02"
+    ],
+    "entreesTexte": "RH-03.06, RH-03.01, RH-03.02",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous recevez environ X sollicitations par jour de Y minutes : Z heures par semaine. »"
+  },
+  {
+    "code": "XR02",
+    "agent": "RH_ORGANISATION",
+    "nom": "Sollicitations évitables",
+    "calcul": "Temps des sollicitations × part évitable, et sujets les plus fréquents",
+    "entrees": [
+      "RH-03.07",
+      "RH-03.03",
+      "RH-03.05"
+    ],
+    "entreesTexte": "RH-03.07, RH-03.03, RH-03.05",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« 60 % de ces sollicitations portent sur des validations récurrentes : des règles de décision écrites récupéreraient environ X heures par semaine. »"
+  },
+  {
+    "code": "XR03",
+    "agent": "RH_ORGANISATION",
+    "nom": "Temps fragmenté par les interruptions",
+    "calcul": "Interruptions × durée × jours, puis part évitable et source principale",
+    "entrees": [
+      "RH-10.07",
+      "RH-10.08",
+      "RH-10.03",
+      "RH-10.06"
+    ],
+    "entreesTexte": "RH-10.07, RH-10.08, RH-10.03, RH-10.06",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Environ X interruptions par jour de Y minutes : Z heures fragmentées par semaine. Comme N % pourraient attendre, regrouper les échanges récupérerait environ M heures. »"
+  },
+  {
+    "code": "XR04",
+    "agent": "RH_ORGANISATION",
+    "nom": "Heures du dirigeant récupérables",
+    "calcul": "Tâches délégables + sollicitations évitables + interruptions évitables, sans double compte",
+    "entrees": [
+      "RH-05.08",
+      "RH-05.01",
+      "RH-05.03"
+    ],
+    "entreesTexte": "RH-05.08, RH-05.01, RH-05.03",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vous travaillez X heures par semaine, dont Y sur des tâches délégables ou automatisables : votre premier levier n'est probablement pas de recruter mais de récupérer ces heures. »"
+  },
+  {
+    "code": "XR05",
+    "agent": "RH_ORGANISATION",
+    "nom": "Temps consacré au développement",
+    "calcul": "Heures × part « développement et stratégie », comparées aux heures à faible valeur",
+    "entrees": [
+      "RH-05.07",
+      "RH-05.06",
+      "RH-05.04"
+    ],
+    "entreesTexte": "RH-05.07, RH-05.06, RH-05.04",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Sur X heures par semaine, seules Y vont au développement de l'entreprise, contre Z sur des tâches qu'un autre pourrait faire. »"
+  },
+  {
+    "code": "XR06",
+    "agent": "RH_ORGANISATION",
+    "nom": "Efficacité de la délégation",
+    "calcul": "Tâches confiées non reprises ÷ tâches confiées, et origine du problème",
+    "entrees": [
+      "RH-04.06",
+      "RH-04.07",
+      "RH-04.04",
+      "RH-04.05"
+    ],
+    "entreesTexte": "RH-04.06, RH-04.07, RH-04.04, RH-04.05",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X % des tâches déléguées ont été reprises. Le problème vient moins du volume délégué que de la méthode : les consignes ne sont pas écrites. »"
+  },
+  {
+    "code": "XR07",
+    "agent": "RH_ORGANISATION",
+    "nom": "Quoi déléguer en premier",
+    "calcul": "Tâches délégables du dirigeant et de la personne la plus chargée, classées par heures, hors tâches stratégiques",
+    "entrees": [
+      "RH-05.03",
+      "RH-08.04",
+      "RH-17.01",
+      "RH-05.02"
+    ],
+    "entreesTexte": "RH-05.03, RH-08.04, RH-17.01, RH-05.02",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Commencez par déléguer A et B, qui prennent environ X heures par semaine sans exiger votre intervention ; gardez C, qui reste stratégique. »"
+  },
+  {
+    "code": "XR08",
+    "agent": "RH_ORGANISATION",
+    "nom": "Surcharge ponctuelle ou structurelle",
+    "calcul": "Écart heures réelles / contrat et fréquence des heures supplémentaires",
+    "entrees": [
+      "RH-06.08",
+      "RH-06.09",
+      "RH-06.05",
+      "RH-06.03"
+    ],
+    "entreesTexte": "RH-06.08, RH-06.09, RH-06.05, RH-06.03",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Des heures supplémentaires X semaines sur Y : ce n'est plus un pic, l'organisation manque structurellement de capacité. »"
+  },
+  {
+    "code": "XR09",
+    "agent": "RH_ORGANISATION",
+    "nom": "Capacité réellement utile",
+    "calcul": "Heures disponibles sur la production comparées aux heures disponibles totales",
+    "entrees": [
+      "RH-07.04",
+      "RH-07.03"
+    ],
+    "entreesTexte": "RH-07.04, RH-07.03",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« L'entreprise dispose de X heures libres par semaine, mais Y sont sur des fonctions qui ne produisent pas ce que vous vendez : votre capacité réelle est de Z heures. »"
+  },
+  {
+    "code": "XR10",
+    "agent": "RH_ORGANISATION",
+    "nom": "Ventes absorbables sans recruter",
+    "calcul": "Heures utiles ÷ temps moyen par vente, puis × panier moyen. Sans agent RH : capacité inutilisée déclarée à l'agent Acquisition (ACQ-21)",
+    "entrees": [
+      "RH-07.05",
+      "ACQ-21.14",
+      "ACQ-15.06"
+    ],
+    "entreesTexte": "RH-07.05, ACQ-21.14, ACQ-15.06",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre équipe peut absorber environ X ventes de plus par mois sans recruter, soit Y € de CA. »"
+  },
+  {
+    "code": "XR11",
+    "agent": "RH_ORGANISATION",
+    "nom": "Objectif absorbable",
+    "calcul": "Ventes absorbables ÷ ventes supplémentaires nécessaires pour l'objectif, avec les semaines libres du planning (agent Acquisition) quand elles sont connues",
+    "entrees": [
+      "RH-07.06",
+      "ACQ-21.14",
+      "ACQ-19.06"
+    ],
+    "entreesTexte": "RH-07.06, Inscription · objectif chiffré, ACQ-21.14, ACQ-19.06",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre capacité actuelle couvre X % de l'objectif : il est absorbable à court terme sans recrutement / au-delà, il faudra un renfort. »"
+  },
+  {
+    "code": "XR12",
+    "agent": "RH_ORGANISATION",
+    "nom": "Goulot d'étranglement humain",
+    "calcul": "Charge de la personne la plus chargée, personnes qui en dépendent, heures transférables",
+    "entrees": [
+      "RH-08.08",
+      "RH-08.07",
+      "RH-08.03",
+      "RH-08.04",
+      "RH-08.05",
+      "RH-08.01"
+    ],
+    "entreesTexte": "RH-08.08, RH-08.07, RH-08.03, RH-08.04, RH-08.05, RH-08.01",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Votre responsable de production travaille X heures par semaine et Y personnes attendent son travail : c'est votre goulot. Z heures de ses tâches pourraient être reprises par un autre. »"
+  },
+  {
+    "code": "XR13",
+    "agent": "RH_ORGANISATION",
+    "nom": "Anticipation ou réaction permanente",
+    "calcul": "Part du temps dans l'urgence, causes et part anticipable",
+    "entrees": [
+      "RH-09.07",
+      "RH-09.05",
+      "RH-09.02",
+      "RH-09.06"
+    ],
+    "entreesTexte": "RH-09.07, RH-09.05, RH-09.02, RH-09.06",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Seuils de réaction permanente, à valider",
+    "phraseRapport": "« Environ X % du temps de l'équipe se passe dans l'urgence, surtout à cause des demandes de dernière minute et de deux activités sans procédure. Y heures par semaine pourraient être anticipées. »"
+  },
+  {
+    "code": "XR14",
+    "agent": "RH_ORGANISATION",
+    "nom": "Temps et coût des reprises",
+    "calcul": "Reprises × temps moyen (heures, calculées ici) ; coût repris de l'agent Finance (FIN-10), jamais recalculé",
+    "entrees": [
+      "RH-16.05",
+      "FIN-10.06",
+      "RH-06.04",
+      "RH-16.02"
+    ],
+    "entreesTexte": "RH-16.05, FIN-10.06, RH-06.04, RH-16.02",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Les reprises représentent environ X heures par mois : à votre coût horaire, Y € de capacité perdue par an. »"
+  },
+  {
+    "code": "XR15",
+    "agent": "RH_ORGANISATION",
+    "nom": "Potentiel d'automatisation",
+    "calcul": "Heures des tâches répétitives classées « automatiser »",
+    "entrees": [
+      "RH-17.04",
+      "RH-17.01",
+      "RH-17.05"
+    ],
+    "entreesTexte": "RH-17.04, RH-17.01, RH-17.05",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Part automatisable prudente, à sourcer",
+    "phraseRapport": "« Vous perdez environ X heures par semaine en tâches répétitives ; automatiser les trois principales récupérerait une grande partie de ce temps. »"
+  },
+  {
+    "code": "XR16",
+    "agent": "RH_ORGANISATION",
+    "nom": "Temps passé en réunion",
+    "calcul": "Réunions × durée × participants, et utilité déclarée",
+    "entrees": [
+      "RH-19.05",
+      "RH-19.06",
+      "RH-19.04"
+    ],
+    "entreesTexte": "RH-19.05, RH-19.06, RH-19.04",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Seuil de surcharge, à valider",
+    "phraseRapport": "« Vos réunions mobilisent X heures par mois, toutes personnes comprises, et n'aboutissent pas toujours à des décisions notées. »"
+  },
+  {
+    "code": "XR17",
+    "agent": "RH_ORGANISATION",
+    "nom": "Taux de départ",
+    "calcul": "Départs ÷ effectif, ramené à 12 mois",
+    "entrees": [
+      "RH-32.05",
+      "RH-32.02"
+    ],
+    "entreesTexte": "RH-32.05, RH-32.02",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Taux de référence du secteur (seulement à partir de 10 personnes)",
+    "phraseRapport": "« X départs sur la période, soit Y % de l'effectif, dont un sur un poste clé non remplacé. »"
+  },
+  {
+    "code": "XR18",
+    "agent": "RH_ORGANISATION",
+    "nom": "Échec d'intégration",
+    "calcul": "Départs de la première année ÷ recrutements, et période du départ",
+    "entrees": [
+      "RH-33.02",
+      "RH-33.03"
+    ],
+    "entreesTexte": "RH-33.02, RH-33.03",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X recrues sur Y sont parties dans l'année, la plupart avant 3 mois : le problème se situe plutôt au recrutement qu'à l'intégration. »"
+  },
+  {
+    "code": "XR19",
+    "agent": "RH_ORGANISATION",
+    "nom": "Quand recruter pour l'objectif",
+    "calcul": "Délai total avant une recrue productive, comparé à l'échéance de l'objectif",
+    "entrees": [
+      "RH-31.04",
+      "RH-31.03"
+    ],
+    "entreesTexte": "RH-31.04, Inscription · objectif chiffré, RH-31.03",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Entre l'annonce et une recrue autonome, il faut environ X semaines : pour un objectif à 12 mois, le recrutement doit démarrer avant Y. »"
+  },
+  {
+    "code": "XR20",
+    "agent": "RH_ORGANISATION",
+    "nom": "Coût de montée en compétence",
+    "calcul": "Temps du responsable + salaire non productif pendant l'intégration",
+    "entrees": [
+      "RH-31.05",
+      "RH-28.08"
+    ],
+    "entreesTexte": "RH-31.05, RH-28.08",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Part non productive d'une recrue, à sourcer",
+    "phraseRapport": "« Une recrue coûte environ X € avant d'être autonome, recrutement compris. »"
+  },
+  {
+    "code": "XR21",
+    "agent": "RH_ORGANISATION",
+    "nom": "Dépendance à une personne clé",
+    "calcul": "Personnes critiques sans remplaçant ni procédure, et risque concentré sur les accès ou les clients",
+    "entrees": [
+      "RH-37.03",
+      "RH-37.04",
+      "RH-27.02"
+    ],
+    "entreesTexte": "RH-37.03, RH-37.04, RH-27.02",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Quatre personnes savent faire cette tâche, mais une seule a les accès et la relation client : le risque reste concentré sur elle. »"
+  },
+  {
+    "code": "XR22",
+    "agent": "RH_ORGANISATION",
+    "nom": "Résilience opérationnelle",
+    "calcul": "Fonction la plus fragile, délai avant impact client, CA exposé",
+    "entrees": [
+      "RH-38.03",
+      "RH-38.04",
+      "RH-38.02"
+    ],
+    "entreesTexte": "RH-38.03, RH-38.04, RH-38.02",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Une seule personne maîtrise cette activité : au-delà de 2 jours d'absence, les clients sont retardés. C'est un risque prioritaire. »"
+  },
+  {
+    "code": "XR23",
+    "agent": "RH_ORGANISATION",
+    "nom": "Dépendance totale au dirigeant",
+    "calcul": "Absence possible du dirigeant, CA par jour, procédures et relais extérieurs",
+    "entrees": [
+      "RH-38.01",
+      "RH-38.04",
+      "RH-12.02",
+      "RH-02.02"
+    ],
+    "entreesTexte": "RH-38.01, RH-38.04, RH-12.02, RH-02.02",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": false,
+      "structure_6_plus": false
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Chaque jour où vous êtes arrêté coûte environ X € de CA, et aucune procédure ne permet à un tiers de prendre le relais. »"
+  },
+  {
+    "code": "XR24",
+    "agent": "RH_ORGANISATION",
+    "nom": "Savoir-faire non écrit",
+    "calcul": "Tâches clés non décrites, croisées avec les tâches tenues par une seule personne",
+    "entrees": [
+      "RH-12.02",
+      "RH-27.01",
+      "RH-37.01"
+    ],
+    "entreesTexte": "RH-12.02, RH-27.01, RH-37.01",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X tâches clés sur Y ne sont écrites nulle part, dont Z tenues par une seule personne. »"
+  },
+  {
+    "code": "XR25",
+    "agent": "RH_ORGANISATION",
+    "nom": "Temps perdu à chercher l'information",
+    "calcul": "Temps perdu par personne × effectif",
+    "entrees": [
+      "RH-14.03",
+      "RH-14.01"
+    ],
+    "entreesTexte": "RH-14.03, RH-14.01",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« L'équipe perd environ X heures par semaine à chercher une information ou à attendre quelqu'un. »"
+  },
+  {
+    "code": "XR26",
+    "agent": "RH_ORGANISATION",
+    "nom": "Effet des absences",
+    "calcul": "Taux d'absence, effet déclaré, coût des remplacements de l'agent Finance",
+    "entrees": [
+      "RH-34.04",
+      "RH-34.02",
+      "FIN-07.06"
+    ],
+    "entreesTexte": "RH-34.04, RH-34.02, FIN-07.06",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": false,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« X jours d'absence ont entraîné des heures supplémentaires et Y € de remplacements. »"
+  },
+  {
+    "code": "XR27",
+    "agent": "RH_ORGANISATION",
+    "nom": "Quand un recrutement devient nécessaire",
+    "calcul": "Heures manquantes pour l'objectif après récupération des heures délégables, automatisables et évitables",
+    "entrees": [
+      "RH-07.06",
+      "RH-05.08",
+      "RH-17.04",
+      "RH-09.06"
+    ],
+    "entreesTexte": "RH-07.06, RH-05.08, RH-17.04, RH-09.06, Inscription · objectif chiffré",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Même en récupérant les X heures délégables, il manquera Y heures par semaine pour votre objectif : un recrutement devient nécessaire à partir de Z € de CA mensuel. »"
+  },
+  {
+    "code": "XR28",
+    "agent": "RH_ORGANISATION",
+    "nom": "Heures supplémentaires face à un recrutement",
+    "calcul": "Coût annuel des heures supplémentaires comparé au coût d'un salarié",
+    "entrees": [
+      "FIN-07.07",
+      "FIN-07.09",
+      "RH-06.03",
+      "RH-06.04"
+    ],
+    "entreesTexte": "FIN-07.07, FIN-07.09, RH-06.03, RH-06.04",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos heures supplémentaires coûtent déjà X € par an, soit Y % d'un salaire chargé. »"
+  },
+  {
+    "code": "XR29",
+    "agent": "RH_ORGANISATION",
+    "nom": "Matériel qui ralentit",
+    "calcul": "Heures perdues à cause du matériel × coût d'une heure",
+    "entrees": [
+      "RH-15.02",
+      "FIN-07.12"
+    ],
+    "entreesTexte": "RH-15.02, FIN-07.12",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Le matériel vous fait perdre environ X heures par semaine, soit Y € par an. »"
+  },
+  {
+    "code": "XR30",
+    "agent": "RH_ORGANISATION",
+    "nom": "Mois forts sans renfort",
+    "calcul": "Mois forts, renforts prévus et semaines d'heures supplémentaires",
+    "entrees": [
+      "RH-11.03",
+      "RH-11.02"
+    ],
+    "entreesTexte": "RH-11.03, RH-11.02",
+    "tailles": {
+      "seul": false,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Vos mois de X et Y concentrent la charge sans renfort prévu : les heures supplémentaires s'y accumulent. »"
+  },
+  {
+    "code": "XR31",
+    "agent": "RH_ORGANISATION",
+    "nom": "Ce que dit l'absence de données",
+    "calcul": "Maîtrise des données d'organisation, de finance et commerciales comparées",
+    "entrees": [
+      "RH-40.02",
+      "FIN-33.01",
+      "ACQ-20.03",
+      "RH-40.01"
+    ],
+    "entreesTexte": "RH-40.02, FIN-33.01, ACQ-20.03, RH-40.01",
+    "tailles": {
+      "seul": true,
+      "equipe_2_5": true,
+      "structure_6_plus": true
+    },
+    "hypotheseExterne": "Aucune",
+    "phraseRapport": "« Plusieurs données clés sur votre capacité et vos pertes de temps ne sont pas suivies. Première action : suivre 3 indicateurs simples chaque semaine. »"
+  }
+]

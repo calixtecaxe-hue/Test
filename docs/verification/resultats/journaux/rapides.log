@@ -1,0 +1,9 @@
+conforme  V-01    cinq clics de suite sur les canaux : l'écran et la base gardent le dernier état (réseaux sociaux, fiche Google, site internet)
+conforme  V-02    la répartition par canal suit le dernier état : trois lignes, dans l'ordre de la liste des canaux
+conforme  V-03    après actualisation, les mêmes canaux sont cochés
+conforme  V-04    chiffre corrigé trois fois de suite (5, 0, 7) : la base garde 7
+conforme  V-05    la question ouverte par un chiffre au-dessus de 0 (ACQ-08.03) est affichée, sans actualiser
+conforme  V-06    cadrage « publicité payante » changé trois fois (oui, non, oui) : la base garde « oui »
+conforme  V-07    le coût par canal (ouvert par « oui ») est affiché, sans actualiser
+
+7 contrôles, 7 conformes, 0 écart(s).

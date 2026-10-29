@@ -1,0 +1,147 @@
+{
+  "mode": "simulation",
+  "ordre": "Simulation : les actions sont dans l'ordre de leur rédaction, sans analyse.",
+  "essais": {
+    "suite": "Simulation : la suite à donner est rédigée par l'IA.",
+    "lecture": "Vous avez indiqué : « J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines : le soir, je n'avais plus le temps. » (je l'ai arrêté avant de voir le résultat)."
+  },
+  "actions": [
+    {
+      "id": "A1",
+      "refs": [
+        "F1"
+      ],
+      "apres": [],
+      "quand": "maintenant",
+      "etapes": [
+        "Relisez les chiffres de l'onglet Résultats.",
+        "Corrigez une réponse qui ne correspond plus à votre situation."
+      ],
+      "moyens": "Votre questionnaire.",
+      "intitule": "Vérifier les chiffres de vos résultats",
+      "pourquoi": "Simulation : le rapport s'appuie sur vos réponses telles qu'elles sont enregistrées.",
+      "resultat": "Des chiffres qui décrivent votre situation actuelle.",
+      "prerequis": [],
+      "indicateur": "Réponses à jour.",
+      "ceQuiChange": null,
+      "effetAttendu": "Simulation : effet décrit par l'IA.",
+      "repriseEssai": false,
+      "delaiSemaines": 1,
+      "libereDuTemps": false,
+      "tempsNecessaire": "Simulation : à estimer par l'IA.",
+      "pointEtapeSemaines": 1
+    },
+    {
+      "id": "A2",
+      "refs": [
+        "F1"
+      ],
+      "apres": [
+        "A1"
+      ],
+      "quand": "ensuite",
+      "etapes": [
+        "Notez le chiffre au début de chaque mois.",
+        "Déclarez-le au point d'étape."
+      ],
+      "moyens": "Un tableau simple.",
+      "intitule": "Suivre chaque mois votre chiffre principal",
+      "pourquoi": "Simulation : l'avancement se mesure à ce que vous déclarez aux points d'étape.",
+      "resultat": "Voir évoluer : chiffre d'affaires des 12 derniers mois.",
+      "prerequis": [],
+      "indicateur": "Chiffre d'affaires des 12 derniers mois",
+      "ceQuiChange": null,
+      "effetAttendu": "Simulation : effet décrit par l'IA.",
+      "repriseEssai": false,
+      "delaiSemaines": 4,
+      "libereDuTemps": false,
+      "tempsNecessaire": "Simulation : à estimer par l'IA.",
+      "pointEtapeSemaines": 4
+    },
+    {
+      "id": "A3",
+      "refs": [
+        "T"
+      ],
+      "apres": [
+        "A1"
+      ],
+      "quand": "ensuite",
+      "etapes": [
+        "Relisez ce que vous avez écrit.",
+        "Notez ce qui a manqué selon vous."
+      ],
+      "moyens": "Votre réponse à la question « déjà essayé ».",
+      "intitule": "Reprendre ce que vous avez déjà essayé",
+      "pourquoi": "Simulation : ce que vous avez déjà essayé est pris en compte par l'IA.",
+      "resultat": "Savoir ce qui, dans ce que vous avez fait, est à garder.",
+      "prerequis": [],
+      "indicateur": "Simulation : indicateur choisi par l'IA.",
+      "ceQuiChange": "Simulation : ce qui change est proposé par l'IA.",
+      "effetAttendu": "Simulation : effet décrit par l'IA.",
+      "repriseEssai": true,
+      "delaiSemaines": 2,
+      "libereDuTemps": false,
+      "tempsNecessaire": "Simulation : à estimer par l'IA.",
+      "pointEtapeSemaines": 2
+    }
+  ],
+  "manques": [
+    "Montant moyen d'une vente sur 12 mois : Il manque votre réponse à « Pour chacun des 12 derniers mois, quel a été votre nombre de chantiers terminés ? ».",
+    "Budget marketing par mois : Il manque votre réponse à « Combien dépensez-vous par mois pour faire créer du contenu : photographe, vidéaste, graphiste ? »."
+  ],
+  "renvois": [],
+  "synthese": "Simulation de test, rédigée sans IA à partir de votre dossier. Votre objectif : « augmenter mon chiffre d'affaires de 10 % sur les 12 prochains mois ». Situation de départ : 240 000 €, octobre 2025 à septembre 2026.",
+  "conclusions": [
+    {
+      "type": "a_verifier",
+      "choix": "Simulation : aucun choix n'est recommandé sans IA.",
+      "faits": [
+        {
+          "refs": [
+            "F1"
+          ],
+          "texte": "Chiffre d'affaires des 12 derniers mois : 240 000 €, octobre 2025 à septembre 2026."
+        }
+      ],
+      "titre": "Chiffre d'affaires des 12 derniers mois",
+      "hypotheses": [],
+      "justification": "Simulation : aucune interprétation n'est rédigée sans IA.",
+      "interpretation": "Simulation : aucune interprétation n'est rédigée sans IA."
+    },
+    {
+      "type": "a_verifier",
+      "choix": "Simulation : aucun choix n'est recommandé sans IA.",
+      "faits": [
+        {
+          "refs": [
+            "F2"
+          ],
+          "texte": "Chiffre d'affaires du dernier mois complet : 24 000 €, septembre 2026."
+        }
+      ],
+      "titre": "Chiffre d'affaires du dernier mois complet",
+      "hypotheses": [],
+      "justification": "Simulation : aucune interprétation n'est rédigée sans IA.",
+      "interpretation": "Simulation : aucune interprétation n'est rédigée sans IA."
+    },
+    {
+      "type": "a_verifier",
+      "choix": "Simulation : aucun choix n'est recommandé sans IA.",
+      "faits": [
+        {
+          "refs": [
+            "E4"
+          ],
+          "texte": "240 000 € (octobre 2025 à septembre 2026), contre 222 500 € (octobre 2024 à septembre 2025). Écart : +17 500 €, soit +7,9 %."
+        }
+      ],
+      "titre": "Chiffre d'affaires sur 12 mois",
+      "hypotheses": [],
+      "justification": "Simulation : aucune interprétation n'est rédigée sans IA.",
+      "interpretation": "Simulation : aucune interprétation n'est rédigée sans IA."
+    }
+  ],
+  "suiviDonnees": null,
+  "contradictions": []
+}

@@ -1,0 +1,24 @@
+{
+  "source": "Écrit à la main le 29 octobre 2026 pour la rédaction du rapport et du plan d'action (src/lib/rapport/). Les formules interdites viennent du prompt Acquisition du propriétaire (bloc 5, docs/prompt-agent-acquisition.md) ; le nombre d'actions, de ce même prompt (« en général 3 à 6, à valider ») ; les sujets interdits aux professions réglementées, de la règle du 21 octobre (CLAUDE.md, section 5). Les superlatifs et les termes des professions réglementées sont des filets, pas des garanties : ils sont à compléter, et la liste des professions réglementées se valide avec l'avocat.",
+  "generation": {
+    "modele": "claude-opus-5-5",
+    "effort": "high",
+    "maxTokens": 32000,
+    "essaisMax": 2,
+    "dureeMaxSecondes": 600
+  },
+  "actions": { "min": 1, "max": 6, "etapesMin": 2, "etapesMax": 4, "motsIntituleMax": 12, "delaiSemainesMax": 52 },
+  "formulesInterdites": ["il est essentiel de", "n'hésitez pas à", "pensez à optimiser", "boostez", "dans un monde en constante évolution"],
+  "superlatifs": ["exceptionnel", "exceptionnelle", "extraordinaire", "incroyable", "révolutionnaire", "parfait", "parfaite", "idéal", "idéale", "formidable", "fantastique", "spectaculaire"],
+  "reglementees": {
+    "aValider": "Liste à valider avec l'avocat (CLAUDE.md, section 15, point 1). Le message fixe et son intertitre sont à rédiger par le propriétaire avec l'avocat : tant qu'ils manquent, une section qui touche la zone interdite est retirée du rapport et rien n'est affiché à sa place.",
+    "termesInterdits": [
+      "publicité", "publicitaire", "annonce payante", "annonces payantes", "google ads", "sponsoring", "sponsoriser", "flyer", "flyers", "prospectus",
+      "démarchage", "démarcher", "prospection", "prospecter", "apporteur d'affaires", "apporteurs d'affaires", "partenaire", "partenaires", "partenariat",
+      "recommandation croisée", "recommandations croisées", "emailing", "e-mailing", "sms", "réseaux sociaux", "plateforme de mise en relation", "annuaire", "annuaires",
+      "salon", "salons", "réseau d'affaires", "réseaux d'affaires"
+    ],
+    "intertitre": null,
+    "messageFixe": null
+  }
+}

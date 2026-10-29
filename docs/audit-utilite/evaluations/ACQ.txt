@@ -1,0 +1,540 @@
+# Acquisition & Chiffre d'affaires
+
+# ACQ-01 Cible
+ACQ-01.01 | conserver | justifiee
+  j: Les catégories écrites deviennent les lignes de neuf tableaux (ACQ-01.02 à 01.05, ACQ-13.12, ACQ-27.02, COM-02.01, COM-09.03, COM-09.07), règle exécutée par l'assemblage ; sans elle, ces tableaux ne peuvent pas être posés.
+ACQ-01.02 | conserver | justifiee
+  j: Part du chiffre d'affaires par catégorie : avec ACQ-01.03, donne la valeur annuelle d'un client par catégorie (ACQ-01.12) puis le type de client le plus précieux (XA32). Si la répartition change, la catégorie à viser change.
+ACQ-01.03 | conserver | justifiee
+  j: Nombre de clients par catégorie : base du nombre total de clients (ACQ-17.01), de la valeur par type (ACQ-01.12, XA32) et des calculs de fidélité (ACQ-17.03, 17.16, 17.19). Une autre réponse change la catégorie prioritaire et le potentiel de fidélisation.
+ACQ-01.04 | retirer | peu_utile
+  p: Ne sert qu'au panier moyen par catégorie (ACQ-01.13), qu'aucun croisement, scénario ni phrase de rapport ne lit. La valeur d'un client par catégorie (ACQ-01.12, XA32) se calcule déjà sans elle, et la fréquence d'achat globale est demandée en ACQ-17.
+  j: À situation identique, une autre fréquence ne change ni le type de client prioritaire (XA32) ni aucun levier chiffré : seul un calcul affiché, sans lecteur, varie. Quatre cases à remplir (approfondi).
+  d: Garder seulement si le propriétaire veut afficher le panier moyen par catégorie ; il faudrait alors écrire ce que le rapport en tire.
+ACQ-01.05 | conserver | justifiee
+  j: Catégories à développer en priorité : relie l'objectif aux types de clients (XA32) et sert au contrôle de cohérence avec la cible de communication (COM-02.01), décidé le 27 octobre. Une autre priorité change le type de client visé par le plan.
+ACQ-01.06 | conserver | justifiee
+  j: Répartition des clients par distance : distance médiane (ACQ-01.14) et zone la plus rentable (XA31). Une clientèle très locale ou lointaine change la zone où concentrer l'acquisition.
+ACQ-01.07 | preciser | formulation
+  p: Texte libre posé au niveau essentiel, alors que le chiffre qui lui donne un sens (ACQ-01.08, part du CA dans cette zone) n'est posé qu'en approfondi : au niveau essentiel, XA31 reçoit un nom de zone sans chiffre. Une réponse libre n'entre jamais dans un calcul (règle des deux couches) : elle ne fait que nommer la zone.
+  j: Nomme la zone où se fait le plus de chiffre d'affaires ; utile seulement accompagnée de sa part (ACQ-01.08).
+  d: Mettre ACQ-01.07 et ACQ-01.08 au même niveau (les deux en essentiel, ou les deux en approfondi).
+ACQ-01.08 | conserver | justifiee
+  j: Part du chiffre d'affaires faite dans la zone principale (XA31) : mesure la dépendance à une zone. Une part élevée oriente vers l'élargissement de la zone ou, au contraire, sa consolidation.
+ACQ-01.09 | conserver | justifiee
+  j: Distance maximale acceptée pour un chantier (XA31) : borne la zone d'acquisition d'un artisan. Une autre distance change la zone où l'acquisition est possible.
+ACQ-01.10 | conserver | justifiee
+  j: Part des commandes hors région (e-commerce), lue par l'IA : une part élevée oriente le conseil vers la livraison lointaine et l'étranger, une part faible vers le marché proche.
+
+# ACQ-02 Volume de contacts
+ACQ-02.01 | conserver | justifiee
+  j: Demandes par mois : point de départ de la chaîne d'acquisition (taux de transformation ACQ-11.19, coût par demande ACQ-07.09, demandes nécessaires pour l'objectif XA09, étape qui bloque XA02), comparée au marché et suivie dans le temps (évolutions exécutées).
+ACQ-02.02 | conserver | justifiee
+  j: Demandes six mois plus tôt : évolution sur six mois (calcul exécuté, `evolutions.json`) et lecture de tendance (XA30). Une baisse récente change le diagnostic (perte de demandes) et la priorité.
+ACQ-02.03 | conserver | justifiee
+  j: Demandes un an plus tôt : évolution sur douze mois, saison comparable (calcul exécuté). Distingue une baisse réelle d'un effet de saison.
+ACQ-02.04 | conserver | justifiee
+  j: Demandes qui correspondent à l'offre : part des demandes qualifiées (ACQ-02.07, indicateur comparable au marché) et affaires qualifiées non signées (ACQ-11.21). Sépare un problème de ciblage d'un problème de transformation.
+ACQ-02.05 | conditionnelle | conditions
+  p: Posée même quand toutes les demandes correspondent à l'offre (ACQ-02.04 égale ACQ-02.01) ; la question n'a alors pas d'objet.
+  j: Raison principale des demandes hors cible (diagnostic DC04 « mauvais ciblage ») : hors zone, budget, offre ou curiosité appellent des actions différentes (zone de diffusion, affichage des prix, description de l'offre).
+  c: Posée si ACQ-02.04 est inférieure à ACQ-02.01.
+  m: Les règles d'affichage ne comparent une réponse qu'à une valeur fixe ; comparer deux réponses demande un opérateur nouveau.
+
+# ACQ-03 Canaux
+ACQ-03.01 | conserver | justifiee
+  j: Canaux d'arrivée des clients : ouvre ou ferme 31 questions (prospection, partenaires, fiche Google, site, plateformes, Comm), donne les lignes des tableaux par canal et déduit COM-13.10 ; règles exécutées. Filtre aussi les canaux interdits aux professions réglementées.
+ACQ-03.02 | conserver | justifiee
+  j: Part des demandes par canal : coût et transformation par canal (ACQ-03.07, 03.09), dépendance à un canal (XA13), chaîne de la communication (XC01). Un autre poids des canaux change le canal à développer ou à réduire.
+ACQ-03.03 | conserver | justifiee
+  j: Part des nouveaux clients par canal : coût d'un client par canal (XA10), budget qui coûte plus qu'il ne rapporte (XA11), part des recommandations (ACQ-18.04). Répartition voulue par le propriétaire (27 octobre).
+ACQ-03.04 | conserver | justifiee
+  j: Part du chiffre d'affaires par canal : rendement de chaque canal (ACQ-03.11) et alignement du budget sur le canal le plus rentable (XA12). Un autre poids change le canal où placer le budget.
+ACQ-03.05 | conserver | justifiee
+  j: Coût de chaque canal payant : coût par demande et par client (ACQ-03.09, 03.10), rendement (XA11, XA12), total du budget marketing pré-rempli dans la Finance (FIN-05.02, règle exécutée).
+ACQ-03.06 | conserver | justifiee
+  j: Évolution de chaque canal sur un an (plus, autant, moins), lecture de tendance (XA30) : repère le canal qui décroche ; trois choix par ligne, effort faible.
+
+# ACQ-04 Prospection active
+ACQ-04.01 | conserver | justifiee
+  j: Heures de prospection par semaine : valeur d'une heure de prospection (ACQ-04.09, XA28). Si le temps passé change pour le même résultat, la rentabilité de la prospection change.
+ACQ-04.02 | conserver | justifiee
+  j: Actions de prospection par type : taux de réponse (ACQ-04.07), actions nécessaires pour un rendez-vous (ACQ-04.08), semaines restantes dans le fichier (ACQ-04.10). Montre quel type d'action rend le mieux.
+ACQ-04.03 | conserver | justifiee
+  j: Réponses positives obtenues : taux de réponse de la prospection (ACQ-04.07).
+ACQ-04.04 | conserver | justifiee
+  j: Rendez-vous issus de la prospection : actions nécessaires pour un rendez-vous (ACQ-04.08).
+ACQ-04.05 | conserver | justifiee
+  j: Clients apportés par la prospection : rentabilité du temps de prospection (XA28) ; décide si la prospection mérite plus ou moins de temps.
+ACQ-04.06 | conserver | justifiee
+  j: Contacts jamais démarchés : semaines de prospection restantes (ACQ-04.10) ; un fichier presque vide change la priorité (constituer un fichier avant de prospecter).
+
+# ACQ-05 Partenaires
+ACQ-05.01 | conserver | justifiee
+  j: Nombre de partenaires : avec ACQ-05.02, part des partenaires réellement actifs (ACQ-05.05).
+ACQ-05.02 | conserver | justifiee
+  j: Partenaires actifs sur 12 mois : part des partenaires actifs (ACQ-05.05). Peu de partenaires actifs oriente vers l'animation du réseau existant plutôt que sa croissance.
+ACQ-05.03 | conserver | justifiee
+  j: Contacts, clients et chiffre d'affaires par partenaire : valeur réelle des partenariats (XA15), dépendance au premier partenaire (ACQ-05.08). Le texte « vos 3 principaux partenaires » fait partie des textes qui annoncent un nombre, déjà à revoir (section 15).
+ACQ-05.04 | conserver | justifiee
+  j: Commission ou montant fixe versé : valeur nette des partenariats (ACQ-05.09, XA15) ; une commission élevée peut rendre un partenariat déficitaire.
+
+# ACQ-06 Présence en ligne
+ACQ-06.01 | conserver | justifiee
+  j: Avis Google (nombre, note, avis récents) : écart avec les concurrents (XA43), preuves (XC14), vitesse de constitution des avis (XC24), indicateurs comparables au marché. Partagée avec la Comm, posée une fois.
+ACQ-06.04 | conserver | justifiee
+  j: Vues et actions de la fiche Google : part des vues qui deviennent une action (ACQ-06.10, XC29), chaîne de la communication (XC01). Sépare une fiche peu vue d'une fiche vue mais sans effet.
+ACQ-06.12 | conserver | exploitation
+  p: Aucun calcul, croisement ni règle ne la lit, et le classeur ne dit pas à quoi elle sert.
+  j: Ce que le client peut faire depuis la fiche (appeler, réserver, voir les prix) : une fiche sans réservation ni prix appelle une action précise et peu coûteuse (compléter la fiche). La réponse « Rien de tout cela » est un constat direct.
+  m: Écrire son usage : critère de la notation Pratique du thème ACQ-06, ou lecture par l'IA, à confirmer avec la grille de la fiche Google côté Comm (COM-14).
+ACQ-06.13 | retirer | peu_utile
+  p: Aucun usage écrit ; tableau libre de cinq lignes, à relever dans les statistiques de la fiche Google, au niveau approfondi. Les mots tapés relèvent du référencement, traité par la Comm (COM-62, référencement), et l'IA ne peut rien en conclure sans repère.
+  j: À situation identique, une autre liste de mots ne change aucun calcul ni aucune priorité ; au mieux un exemple dans le texte du rapport.
+  d: Retirer, ou la déplacer en contexte du thème COM-62 si le propriétaire veut un conseil de mots-clés.
+ACQ-06.07 | conserver | justifiee
+  j: Visites du site par mois : conversion du site (ACQ-06.09, XC08), arbitrage « attirer plus ou convertir mieux » (COM-13.08), évolution exécutée sur six mois.
+ACQ-06.06 | conserver | justifiee
+  j: Avis et note des deux premiers concurrents : écart d'avis (ACQ-06.11, XA43). Montre si le retard d'avis est un frein local réel. Texte « les 2 concurrents » déjà à revoir (section 15).
+ACQ-06.08 | conserver | justifiee
+  j: Note et avis sur la plateforme principale : écart avec les concurrents (XA43), preuves (COM-09.06).
+
+# ACQ-07 Budget et coût d'acquisition
+ACQ-07.01 | conserver | justifiee
+  j: Coût de l'agence ou du prestataire : budget marketing total (ACQ-07.06), coût d'acquisition (ACQ-07.11), total pré-rempli de FIN-05.02 et évolution du budget (exécutés).
+ACQ-07.02 | conserver | justifiee
+  j: Chiffre d'affaires et commission par plateforme : coût des plateformes (XA39), commissions versées (ACQ-07.07), charges variables de la Finance (FIN-06.05).
+ACQ-07.03 | conserver | justifiee
+  j: Dépense de création de contenu : budget marketing total, coût par contenu publié (COM-32.05), total pré-rempli de FIN-05.02 (exécuté).
+ACQ-07.04 | conserver | justifiee
+  j: Coût des outils marketing : budget marketing total, total pré-rempli de FIN-05.02 (exécuté).
+ACQ-07.05 | conserver | justifiee
+  j: Budget total il y a 12 mois : évolution du budget face à celle des nouveaux clients (ACQ-07.14, XC22), évolution exécutée. Une dépense en hausse sans clients en plus change le diagnostic (budget mal alloué, DC12).
+
+# ACQ-08 Réactivité
+ACQ-08.01 | conserver | justifiee
+  j: Répartition des délais de réponse : délai médian (ACQ-08.07), demandes restées sans réponse (ACQ-08.08) et chiffre d'affaires perdu (ACQ-08.09). Un délai long devient un levier chiffré.
+ACQ-08.02 | conserver | justifiee
+  j: Appels manqués par semaine : demandes et appels sans réponse (XA04) ; ouvre ACQ-08.03 (règle exécutée). Zéro appel manqué ferme la question suivante.
+ACQ-08.03 | conserver | justifiee
+  j: Part des appels manqués rappelés : CA perdu (ACQ-08.09), indicateur comparable au marché.
+ACQ-08.04 | conserver | justifiee
+  j: Canal où la réponse est la plus lente, lu par l'IA : situe l'action (réponse automatique sur le formulaire, renvoi d'appel…) au lieu d'un conseil général de réactivité. Un seul choix, avec « Aucun : je réponds aussi vite partout ».
+ACQ-08.05 | conserver | justifiee
+  j: Délai de réponse hors horaires : demandes hors horaires (XA41).
+
+# ACQ-09 Rendez-vous
+ACQ-09.01 | conserver | justifiee
+  j: Rendez-vous par mois : taux demande → rendez-vous (ACQ-02.08), présence (ACQ-09.09), remplissage des créneaux (ACQ-22.12) ; indicateurs comparables au marché.
+ACQ-09.02 | conserver | justifiee
+  j: Annulations et absences sans prévenir : taux d'absence (ACQ-09.10, comparable au marché) et chiffre d'affaires perdu (ACQ-09.13).
+ACQ-09.05 | conserver | exploitation
+  p: Marquée « notée directement », mais elle n'est pas parmi les 36 indicateurs comparables au marché : aucun seuil ne pourra la noter. Proche de ACQ-11.05 (échanges avant signature).
+  j: Rendez-vous nécessaires pour signer : un nombre élevé signale une vente lourde (qualification, offre peu claire) ; lu comme contexte par l'IA.
+  f: ACQ-11.05 (même information, plus difficile à compter).
+  d: Garder celle-ci et retirer ACQ-11.05 ; écrire qu'elle est lue par l'IA, pas notée.
+ACQ-09.06 | conditionnelle | conditions
+  p: Posée même à qui n'a aucune absence sans prévenir. « Jamais » ne doit pas devenir un défaut quand il n'y a pas d'absences : la pratique n'a d'intérêt qu'en présence du problème.
+  j: Rappel la veille (toujours, parfois, jamais) : quand les absences existent, désigne une action précise et mesurable (rappel systématique), suivie par le taux d'absence (ACQ-09.10).
+  c: Posée si ACQ-09.02, champ « Absents sans prévenir », est supérieur à 0.
+ACQ-09.07 | conserver | justifiee
+  j: Part des rendez-vous pris en ligne : demandes hors horaires (XA41) ; une faible part oriente vers la réservation en ligne.
+
+# ACQ-10 Devis et relances
+ACQ-10.01 | conserver | justifiee
+  j: Devis envoyés (nombre, montant) : taux d'acceptation (ACQ-10.13, 10.14, comparables au marché), devis sans réponse (ACQ-10.12), gros projets qui échappent (XA23).
+ACQ-10.03 | conserver | justifiee
+  j: Devis acceptés (nombre, montant) : mêmes calculs que ACQ-10.01.
+ACQ-10.05 | conserver | justifiee
+  j: Délai d'envoi des devis : durée du cycle de vente (ACQ-12.05, comparable au marché).
+ACQ-10.06 | conserver | justifiee
+  j: Part des devis sans réponse relancés : gain de la relance (XA24, effet EFF-ACQ-01), ouvre ACQ-10.07, 10.10, 10.11 (règle exécutée).
+ACQ-10.07 | conserver | exploitation
+  p: « Notée directement », mais aucun seuil n'est écrit et l'indicateur n'est pas comparable au marché.
+  j: Délai avant relance : une relance tardive est un levier précis (relancer plus tôt) ; posée seulement à qui relance.
+  m: Règle de notation (Pratique) ou lecture par l'IA à écrire ; aucun seuil sourcé.
+ACQ-10.08 | conserver | justifiee
+  j: Devis en attente (nombre, montant) : chiffre d'affaires probable (ACQ-10.17, XA22), montant en jeu de la relance.
+ACQ-10.09 | conserver | justifiee
+  j: Devis refusés : devis sans réponse (ACQ-10.12) et efficacité des relances (ACQ-10.16).
+ACQ-10.10 | conserver | justifiee
+  j: Nombre de relances, lu par l'IA : une seule relance oriente vers une deuxième ; posée seulement à qui relance.
+ACQ-10.11 | conserver | justifiee
+  j: Devis acceptés après relance : efficacité des relances (ACQ-10.16), gain de la relance (XA24, EFF-ACQ-01).
+
+# ACQ-11 Transformation
+ACQ-11.01 | conserver | justifiee
+  j: Nouveaux clients par mois : transformation globale (ACQ-11.19), coût d'acquisition (ACQ-07.11), clients nécessaires pour l'objectif, évolution exécutée.
+ACQ-11.02 | conserver | justifiee
+  j: Nouveaux clients un an plus tôt : évolution exécutée, tendance (XA30).
+ACQ-11.03 | conserver | justifiee
+  j: Montant du premier achat : valeur d'une demande (XA01), gain si l'étape qui bloque rejoint le secteur (XA03), coût de chaque motif de perte (XA05).
+ACQ-11.04 | conserver | justifiee
+  j: Raisons des affaires perdues : part perdue sur des motifs maîtrisables (ACQ-11.23) et sur le prix (ACQ-13.09). « Prix », « délai » ou « pas assez relancé » appellent des actions différentes : c'est ce qui évite un conseil général de vente.
+ACQ-11.05 | fusionner | peu_utile
+  p: Doublon partiel de ACQ-09.05 (rendez-vous nécessaires pour signer), plus difficile à compter (appels, e-mails et rendez-vous mêlés). Lue par l'IA seulement.
+  j: À situation identique, elle n'apporte que ce que ACQ-09.05 dit déjà : une vente qui demande beaucoup d'échanges.
+  f: ACQ-09.05.
+ACQ-11.07 | conserver | justifiee
+  j: Couverts par service : remplissage (ACQ-11.25), ticket moyen (ACQ-11.26), services peu remplis (XA34) ; base de la plupart des calculs restaurant.
+ACQ-11.08 | conserver | justifiee
+  j: Places assises : taux de remplissage (ACQ-11.25, XA34).
+ACQ-11.09 | conserver | justifiee
+  j: Services par semaine : taux de remplissage (ACQ-11.25).
+ACQ-11.10 | conserver | justifiee
+  j: Réservations refusées faute de place : chiffre d'affaires perdu (ACQ-11.27, XA33) ; signale une capacité saturée.
+ACQ-11.11 | conserver | justifiee
+  j: Réservations non honorées : chiffre d'affaires perdu (ACQ-11.27, XA33).
+ACQ-11.12 | conserver | justifiee
+  j: Couverts par réservation : valorise les réservations perdues (ACQ-11.27).
+ACQ-11.13 | conserver | justifiee
+  j: Part de la vente à emporter et de la livraison : corrige le ticket moyen par couvert (ACQ-11.26) ; sans elle, le chiffre d'affaires hors salle gonfle le ticket.
+ACQ-11.15 | conserver | justifiee
+  j: Paniers abandonnés : taux d'abandon (ACQ-11.29), montant récupérable (ACQ-11.30, XA35, effet EFF-ACQ-04).
+ACQ-11.16 | conditionnelle | conditions
+  p: Posée même quand aucun panier n'est abandonné ; « Non » ne doit pas devenir un défaut dans ce cas.
+  j: Relance automatique des paniers abandonnés : action précise et chiffrable (XA35, EFF-ACQ-04) quand des paniers sont abandonnés.
+  c: Posée si ACQ-11.15 n'est pas égale à 0 (posée aussi si le dirigeant ne connaît pas ce nombre).
+ACQ-11.17 | conserver | justifiee
+  j: Part des visites sur mobile et leur conversion, lue par l'IA : une conversion mobile faible oriente vers une action précise sur le site mobile.
+ACQ-11.31 | conserver | exploitation
+  p: Aucun usage écrit : les calculs du profil Location (taux d'occupation, prix moyen d'une unité, chiffre d'affaires perdu, croisement en miroir de XA34) sont dans la liste des calculs à écrire (CLAUDE.md, section 11).
+  j: Unités vendues sur 12 mois (nuitées, jours de location) : numérateur du taux d'occupation, l'indicateur central d'un hébergement.
+  m: Formule du taux d'occupation et croisement location à écrire.
+ACQ-11.32 | conserver | exploitation
+  p: Aucun usage écrit (calculs Location à écrire).
+  j: Unités à louer : dénominateur du taux d'occupation.
+  m: Formule du taux d'occupation à écrire.
+ACQ-11.33 | conserver | exploitation
+  p: Aucun usage écrit (calculs Location à écrire).
+  j: Jours d'ouverture sur 12 mois : capacité ouverte, dénominateur du taux d'occupation pour une activité saisonnière.
+  m: Formule du taux d'occupation à écrire.
+ACQ-11.34 | conserver | exploitation
+  p: Aucun usage écrit (calculs Location à écrire).
+  j: Demandes refusées faute de disponibilité : signale une capacité saturée et le chiffre d'affaires perdu.
+  m: Formule du chiffre d'affaires perdu (ACQ-11.40, à écrire).
+ACQ-11.35 | conserver | exploitation
+  p: Aucun usage écrit (calculs Location à écrire).
+  j: Réservations annulées trop tard ou non honorées : perte comparable aux absences des rendez-vous ; oriente vers les conditions d'annulation ou d'acompte.
+  m: Formule du chiffre d'affaires perdu à écrire.
+ACQ-11.36 | retirer | a_justifier
+  p: Aucun usage écrit ; aucun des calculs Location à écrire ne la nomme.
+  j: Durée moyenne d'une réservation : permettrait de passer des unités vendues au nombre de réservations, et donc au montant moyen d'une réservation ; utile seulement si ce calcul est écrit.
+  d: Écrire le calcul qui la lit, ou la retirer.
+ACQ-11.37 | conserver | exploitation
+  p: Aucun usage écrit (calculs Location à écrire).
+  j: Part du chiffre d'affaires hors location : sépare le chiffre d'affaires de la location pour le prix moyen d'une unité vendue ; sans elle, le prix moyen est surestimé.
+  m: Formule du prix moyen d'une unité vendue à écrire.
+
+# ACQ-12 Durée du cycle de vente
+ACQ-12.01 | conserver | justifiee
+  j: Délai entre premier contact et premier rendez-vous : durée du cycle de vente (ACQ-12.05, comparable au marché).
+ACQ-12.02 | conserver | justifiee
+  j: Délai entre envoi et acceptation des devis : durée du cycle de vente (ACQ-12.05).
+ACQ-12.03 | conserver | justifiee
+  j: Projets en discussion non chiffrés : chiffre d'affaires probable (ACQ-12.06), couverture de l'objectif par les affaires en cours (XA40).
+ACQ-12.04 | conserver | justifiee
+  j: Cycle des plus grosses affaires, lu par l'IA : un cycle long sur les gros projets change le plan (anticiper la trésorerie, suivre les affaires en cours) ; complète ACQ-10.01 (gros projets qui échappent, XA23).
+
+# ACQ-13 Prix et honoraires
+ACQ-13.01 | conserver | justifiee
+  j: Offres principales et leur prix : lignes de six tableaux liés (ACQ-13.02, FIN-01.02, FIN-01.03, COM-09.08, COM-62.04, COM-62.05, règle exécutée), marge par offre (FIN-01.04, XF34), offres vendues à perte (XF35), hausse de prix (XA21). Partagée avec FIN-01.01, posée une fois.
+ACQ-13.02 | conserver | justifiee
+  j: Part du chiffre d'affaires par offre : marge moyenne pondérée (FIN-01.06) et effet du mix (XF34). Une autre répartition change l'offre à pousser.
+ACQ-13.03 | conserver | justifiee
+  j: Tarif horaire ou journalier (si facturation au temps) : heures non facturées valorisées (XA27), rentabilité d'une heure (XF37), indicateur comparable au marché.
+ACQ-13.04 | conserver | justifiee
+  j: Date et ampleur de la dernière hausse de prix : hausse de coûts non répercutée (XF09). Partagée avec FIN-04.01, posée une fois.
+ACQ-13.05 | conditionnelle | conditions
+  p: Posée à tous les profils, alors que le commerce, la restauration et l'e-commerce affichent des prix fixes par nature : la réponse y est presque toujours « Oui » et n'apprend rien. Marquée « notée directement » dans un thème Marché, sans règle de notation.
+  j: Grille de prix écrite : pour qui fait des devis, un prix fixé au cas par cas explique des écarts de marge et des remises ; l'action (écrire une grille) est précise.
+  c: Posée si D06 = oui (devis ou propositions commerciales).
+  m: Règle de notation Pratique à écrire.
+ACQ-13.07 | conserver | justifiee
+  j: Prix des deux concurrents directs : écart de prix (ACQ-13.08) et potentiel d'une hausse (XA21). Texte « vos 2 concurrents » déjà à revoir (section 15).
+ACQ-13.11 | conserver | exploitation
+  p: Ajoutée le 27 octobre ; aucun usage écrit. Recoupe en partie FIN-03.01 (coût de revient connu ou non).
+  j: Méthode de fixation des prix : un prix fixé « à l'expérience, sans calcul » ou sur les concurrents rend une hausse de prix (XA21) et l'analyse des offres vendues à perte (XF35) plus probables à proposer ; un prix calculé sur les coûts la rend moins nécessaire.
+  m: Écrire sa lecture : avec XA21 et XF35, lue par l'IA.
+ACQ-13.12 | preciser | formulation
+  p: Les choix sont « Offre 1 / Offre 2 / Offre 3 / Une autre offre », alors que les offres d'ACQ-13.01 portent un nom et peuvent aller jusqu'à dix lignes : le dirigeant ne voit pas le nom de ses offres et ne peut pas choisir la quatrième.
+  j: Offre préférée de chaque catégorie de clients, lue par l'IA : relie la cible (XA32) à l'offre à mettre en avant.
+  t: Pour chaque catégorie de clients, quelle offre choisit-elle le plus ?
+  r: Les noms des offres données en ACQ-13.01, plus « Une autre offre ».
+  m: Choix tirés d'une autre réponse : mécanisme existant pour les lignes d'un tableau, à étendre aux options d'une colonne.
+ACQ-13.13 | conditionnelle | conditions
+  p: Posée même à qui n'a jamais augmenté ses prix ; la question n'a alors pas d'objet.
+  j: Clients perdus après la dernière hausse, lue par l'IA : mesure la sensibilité au prix, ce qui rend la hausse de prix (XA21) prudente ou au contraire possible ; évite un conseil général « augmentez vos prix ».
+  c: Posée si la date de ACQ-13.04 est renseignée.
+  m: Écrire sa lecture par XA21.
+ACQ-13.14 | conserver | justifiee
+  j: Raison principale du choix des clients, lue par l'IA : si c'est le prix, une hausse est risquée et la communication doit défendre autre chose ; si c'est la qualité ou la relation, l'inverse. Change la recommandation sur le prix et le message.
+
+# ACQ-14 Négociation
+ACQ-14.01 | conserver | justifiee
+  j: Part des clients ayant obtenu une remise : coût des remises (ACQ-14.05, XA20), comparable au marché ; ouvre ACQ-14.02 et 14.04 (règle exécutée).
+ACQ-14.02 | conserver | justifiee
+  j: Remise moyenne : coût des remises (XA20), comparable au marché.
+ACQ-14.03 | conserver | justifiee
+  j: Part du chiffre d'affaires en promotion (commerce, e-commerce) : coût des remises (XA20).
+ACQ-14.04 | conserver | justifiee
+  j: Contrepartie demandée à une remise (posée seulement à qui en accorde) : « jamais » désigne une action précise (demander volume, paiement comptant ou durée en échange).
+  m: Règle de notation Pratique à écrire.
+
+# ACQ-15 Panier moyen
+ACQ-15.01 | conserver | justifiee
+  j: Proposition d'un produit ou service en plus : ouvre ACQ-15.02 et 15.03 (règle exécutée) ; « jamais » désigne la vente complémentaire comme levier (XA19, EFF-ACQ-02).
+ACQ-15.02 | conserver | justifiee
+  j: Part des clients qui prennent le complément : potentiel des ventes complémentaires (ACQ-15.08, XA19).
+ACQ-15.03 | conserver | justifiee
+  j: Montant ajouté par le complément : potentiel des ventes complémentaires (XA19).
+ACQ-15.04 | conserver | exploitation
+  p: Lue par l'IA, sans lecture écrite.
+  j: Offre haut de gamme : ouvre ACQ-15.14 ; l'absence d'offre plus complète est un levier de panier moyen.
+  g: « Créez une offre haut de gamme », sans savoir si les clients la demandent. À lire avec ACQ-13.14 (raison du choix) et ACQ-11.04 (affaires perdues sur le prix) pour éviter ce conseil quand le prix est la raison du choix.
+ACQ-15.14 | retirer | peu_utile
+  p: Aucun usage écrit. La part du chiffre d'affaires de chaque offre est déjà demandée en ACQ-13.02, dont les lignes sont réglables jusqu'à dix : l'offre haut de gamme peut y figurer.
+  j: À situation identique, elle ne fait que répéter ACQ-13.02 pour une offre.
+  f: ACQ-13.02 (part du chiffre d'affaires par offre).
+ACQ-15.05 | conserver | justifiee
+  j: Articles par achat (commerce, e-commerce), lue par l'IA : un achat à un seul article situe le levier dans la vente complémentaire en magasin ou sur le site.
+ACQ-15.09 | conserver | exploitation
+  p: Ajoutée le 27 octobre ; aucun usage écrit, mais elle ouvre quatre questions.
+  j: Paiement en plusieurs fois proposé ou non : levier de panier et de transformation sur les gros montants, et charge de trésorerie si l'entreprise le porte elle-même.
+  m: Écrire sa lecture : avec ACQ-11.04 (affaires perdues sur le prix) et le panier moyen ; trésorerie avancée (FIN-19) si l'entreprise gère l'échéancier.
+ACQ-15.10 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Qui porte le paiement en plusieurs fois : si c'est l'entreprise, elle avance la trésorerie à ses clients, ce qui relève des délais clients de la Finance.
+  m: Relier à la trésorerie avancée aux clients (FIN-19) ; sans cette lecture, la retirer.
+ACQ-15.11 | retirer | peu_utile
+  p: Aucun usage écrit ; aucun calcul ni seuil ne peut lire le montant à partir duquel le paiement est proposé.
+  j: À situation identique, un autre seuil ne change ni le diagnostic ni la recommandation.
+ACQ-15.12 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Part du chiffre d'affaires payée en plusieurs fois : mesure le poids de la pratique, et donc la trésorerie avancée quand l'entreprise la porte.
+  m: Relier à la trésorerie avancée aux clients (FIN-19) ; sans cette lecture, la retirer.
+ACQ-15.13 | retirer | peu_utile
+  p: Aucun usage écrit ; le montant moyen d'une commande payée en plusieurs fois n'entre dans aucun calcul.
+  j: À situation identique, une autre valeur ne change aucune priorité.
+
+# ACQ-16 Répartition du CA
+ACQ-16.01 | conserver | justifiee
+  j: Cinq plus gros clients et leur chiffre d'affaires : dépendance (ACQ-16.04 à 16.06, XA14), départ du plus gros client (XF31, scénario S02), marge par client (FIN-02.02). Lignes de cinq tableaux liés.
+ACQ-16.02 | conserver | justifiee
+  j: Contrat avec chaque gros client : chiffre d'affaires exposé (ACQ-16.07, XA14) ; un gros client sans contrat aggrave le risque.
+ACQ-16.03 | conserver | justifiee
+  j: Chiffre d'affaires de l'année d'avant par gros client : chiffre d'affaires exposé (ACQ-16.07). La comparaison ligne par ligne reste à décider (section 15).
+
+# ACQ-17 Clients récurrents
+ACQ-17.02 | conserver | justifiee
+  j: Part des clients de l'année d'avant revenus : clients perdus (ACQ-17.17), potentiel de fidélisation (XA16), comparable au marché. Le seuil d'âge (12 ou 24 mois) reste à décider (section 15).
+ACQ-17.04 | conserver | justifiee
+  j: Part du chiffre d'affaires venant d'anciens clients : potentiel de fidélisation (XA16).
+ACQ-17.05 | conserver | justifiee
+  j: Relance des anciens clients : « jamais » désigne la reconquête (XA17, EFF-ACQ-03) comme levier.
+  g: « Recontactez vos anciens clients ». Au niveau essentiel, la taille du fichier (ACQ-17.06) et le délai entre deux achats (ACQ-17.07), posés en approfondi, manquent : le montant en jeu et le bon moment de la relance ne sont pas connus. Le conseil doit alors s'appuyer sur ACQ-17.02 et dire ce qui manque.
+ACQ-17.06 | conserver | justifiee
+  j: Taille du fichier clients : clients inactifs (ACQ-17.16), potentiel de reconquête (ACQ-17.21, XA17, EFF-ACQ-03).
+ACQ-17.07 | conserver | justifiee
+  j: Délai entre deux achats, lu par l'IA : donne le moment de la relance, ce qui rend le conseil de fidélisation précis.
+ACQ-17.08 | conserver | justifiee
+  j: Montant d'un achat d'ancien client : potentiel de fidélisation (XA16).
+ACQ-17.09 | conserver | justifiee
+  j: Durée de la relation : valeur d'un client sur toute la relation (ACQ-17.18), comparée à son coût (XA18).
+ACQ-17.10 | conserver | justifiee
+  j: Abonnés et revenu récurrent : résiliation (ACQ-17.22), revenu moyen (ACQ-17.23), couverture des charges (XF47), évolution exécutée.
+ACQ-17.12 | conserver | justifiee
+  j: Abonnés et revenu il y a 6 et 12 mois : évolution du revenu récurrent (exécutée).
+ACQ-17.13 | conserver | justifiee
+  j: Résiliations par mois : taux de résiliation (comparable au marché), coût des résiliations (XA36) ; ouvre ACQ-17.14.
+ACQ-17.14 | conserver | justifiee
+  j: Raison principale des résiliations, lue par l'IA : prix, usage insuffisant, concurrent ou insatisfaction appellent des actions différentes.
+ACQ-17.15 | conditionnelle | conditions
+  p: Posée à tout abonnement, y compris à qui n'a qu'une formule : la réponse « 0 » ressemble alors à un défaut alors que la montée de formule est impossible.
+  j: Passages à une formule plus complète, lue par l'IA : mesure la montée en gamme quand plusieurs formules existent.
+  c: Posée si l'entreprise propose plusieurs formules.
+  m: Aucune réponse actuelle ne dit si l'abonnement a plusieurs formules (ACQ-13.01 liste les offres, pas les formules) : une question de cadrage ou une option serait à ajouter.
+ACQ-17.28 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Programme de fidélité (oui / non) : levier de retour des clients pour le commerce, la restauration et les prestations sur rendez-vous.
+  g: « Créez un programme de fidélité », même quand les clients reviennent déjà. À lire seulement avec le taux de retour (ACQ-17.02) et la part du chiffre d'affaires des anciens clients (ACQ-17.04).
+  m: Écrire sa lecture avec ACQ-17.02 et XA16.
+ACQ-17.29 | conserver | exploitation
+  p: Aucun usage écrit ; posée à tous les artisans, alors que le contrat d'entretien n'existe que dans certains métiers (chauffage, climatisation, entretien d'espaces verts…).
+  j: Contrat d'entretien proposé : source de revenu récurrent pour un artisan ; ouvre ACQ-17.30.
+  c: Posée aux métiers où un contrat d'entretien existe.
+  m: Liste des métiers concernés à fournir par le propriétaire (le mécanisme « Métiers concernés » existe pour les modules métier).
+ACQ-17.30 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Clients sous contrat d'entretien : mesure le revenu récurrent d'un artisan et la base de clients à qui proposer des travaux.
+  m: Relier au revenu récurrent ou à la fidélisation (XA16) ; sans lecture, la retirer avec ACQ-17.29.
+
+# ACQ-18 Recommandation
+ACQ-18.01 | conserver | justifiee
+  j: Moment de la demande de recommandation : « jamais » ou un moment peu propice désigne une action précise (demander quand le client se dit satisfait, ou par un message quelques jours après).
+  m: Règle de notation Pratique à écrire.
+ACQ-18.02 | conserver | justifiee
+  j: Programme de parrainage : coût d'un client recommandé (ACQ-18.05) ; ouvre ACQ-18.03 et 18.07.
+ACQ-18.07 | conserver | exploitation
+  p: Aucun usage écrit, alors que le coût d'un client recommandé (ACQ-18.05) a besoin de ce que gagne le parrain : c'est son coût.
+  j: Gain du parrain : permet de comparer le coût d'un client recommandé à celui d'un client venu par un canal payant.
+  m: Ajouter ACQ-18.07 aux entrées de ACQ-18.05.
+ACQ-18.03 | conserver | justifiee
+  j: Clients venus par le parrainage : coût d'un client recommandé (ACQ-18.05).
+ACQ-18.06 | retirer | peu_utile
+  p: Aucun usage écrit. Les avis (ACQ-06.01, thèmes COM-44 à COM-46) et les résiliations (ACQ-17.13) mesurent déjà la satisfaction de façon chiffrée.
+  j: À situation identique, « jamais » ne change ni un calcul ni une priorité ; la réponse ne dit pas quel problème la mesure résoudrait.
+  g: « Mesurez la satisfaction de vos clients » : conseil général, sans problème identifié ; « jamais » deviendrait un défaut sans raison.
+
+# ACQ-19 Carnet de commandes
+ACQ-19.01 | conserver | justifiee
+  j: Semaines de planning remplies : remplissage du planning (ACQ-19.05), potentiel de hausse de prix (XA21), objectif absorbable (XR11).
+ACQ-19.02 | conserver | justifiee
+  j: Travail signé non réalisé : mois de travail sécurisés (ACQ-19.09).
+ACQ-19.03 | conserver | justifiee
+  j: Délai entre signature et début : dossiers en attente (ACQ-21.07) ; une attente longue signale une capacité saturée (hausse de prix ou recrutement plutôt que plus de clients).
+ACQ-19.04 | conserver | justifiee
+  j: Projets signés en attente : dossiers en attente (ACQ-21.07).
+
+# ACQ-20 Suivi commercial
+ACQ-20.01 | conserver | exploitation
+  p: « Notée directement », sans règle ; un cahier peut suffire à une petite entreprise : la réponse seule ne prouve pas un défaut.
+  j: Outil de suivi des contacts : explique des devis non relancés ou des demandes sans réponse quand ces problèmes existent.
+  g: « Équipez-vous d'un logiciel de suivi des clients ». À n'utiliser que si un problème de suivi est constaté (devis sans réponse ACQ-10.12, relances ACQ-10.06, demandes sans réponse ACQ-08.08).
+  m: Règle de lecture : avec ACQ-10.06 et ACQ-08.08, pas seule.
+ACQ-20.02 | conserver | justifiee
+  j: Fréquence de lecture des chiffres commerciaux et financiers : niveau de pilotage (XF46), pilotage de la communication (XC30), diagnostic « mauvais suivi » (DC10). Partagée avec FIN-34 et COM-43.
+ACQ-20.05 | retirer | peu_utile
+  p: Aucun usage écrit. CAXE fait déjà fixer un objectif chiffré au début de chaque agent et en suit l'avancement ; la fréquence de lecture des chiffres est demandée en ACQ-20.02.
+  j: À situation identique, « non » ne change ni un calcul ni la priorité : l'objectif existe déjà dans CAXE.
+  g: « Fixez-vous des objectifs mensuels » : conseil général, que le parcours CAXE remplace.
+ACQ-20.06 | conserver | exploitation
+  p: Aucun usage écrit.
+  j: Origine notée pour chaque client : dit si les répartitions par canal (ACQ-03.02 à 03.04) sont mesurées ou estimées. « Jamais » rend les calculs par canal (XA10 à XA13) incertains et fait de « noter l'origine » une action préalable, précise et peu coûteuse.
+  m: Règle à écrire : lire les répartitions par canal comme estimées et placer l'action en tête du plan quand un levier par canal en dépend.
+
+# ACQ-21 Productivité
+ACQ-21.01 | conserver | justifiee
+  j: Personnes par domaine (si au moins un salarié) : ventes et chiffre d'affaires par personne (ACQ-21.10, 21.11) ; peu de temps pour trouver des clients change la priorité.
+ACQ-21.02 | conserver | justifiee
+  j: Ventes réalisées par mois : panier moyen (ACQ-15.06), taux d'utilisation de la capacité (ACQ-21.09), ventes absorbables (RH-07.05) ; base de nombreux croisements.
+ACQ-21.03 | conserver | justifiee
+  j: Capacité maximale : capacité inutilisée (ACQ-21.14), ventes absorbables sans recruter (XR10), scénario de recrutement (S04). Partagée avec la RH.
+ACQ-21.04 | conserver | justifiee
+  j: Heures travaillées et facturées : part facturée (ACQ-21.12), heures non facturées (XA27), coût d'une heure (FIN-07.12). Partagée.
+ACQ-21.06 | conserver | justifiee
+  j: Heures par projet : capacité théorique (ACQ-21.08), ventes absorbables (XR10).
+
+# ACQ-22 Capacité commerciale
+ACQ-22.01 | conserver | justifiee
+  j: Jours d'ouverture : lignes des tableaux par jour (règle exécutée), temps du dirigeant pris par les sollicitations (XR01), ventes ramenées au mois.
+ACQ-22.02 | conserver | justifiee
+  j: Heures d'ouverture par jour : heures par semaine (ACQ-22.11), jour le plus et le moins rentable (ACQ-22.14).
+ACQ-22.03 | conserver | justifiee
+  j: Part des demandes hors horaires : demandes hors horaires (XA41).
+ACQ-22.04 | conserver | justifiee
+  j: Demandes reçues les jours fermés : potentiel d'un jour d'ouverture supplémentaire (ACQ-22.15, XA06).
+ACQ-22.05 | conserver | justifiee
+  j: Créneaux proposés par semaine : remplissage des créneaux (ACQ-22.12), créneaux vides valorisés (XA07). Sens « proposés ou libres » à trancher (section 15).
+ACQ-22.07 | conserver | justifiee
+  j: Remplissage de chaque moment de chaque jour : créneaux saturés et creux (XA42), services peu remplis (XA34). Désigne le moment précis à remplir ou à fermer ; effort élevé (quatre choix par jour) mais réponses rapides.
+ACQ-22.09 | conserver | justifiee
+  j: Chiffre d'affaires moyen par jour : jour le plus et le moins rentable (ACQ-22.14, XA42).
+ACQ-22.10 | conserver | justifiee
+  j: Clients perdus faute de pouvoir les prendre, par raison : coût de chaque motif (XA05), part des pertes évitables (ACQ-22.17).
+
+# ACQ-23 Saisonnalité
+ACQ-23.01 | conserver | justifiee
+  j: Chiffre d'affaires des 12 derniers mois : mois forts et faibles (ACQ-23.05 à 23.08), manque à gagner des mois creux (XA29), réserve pour les mois creux (FIN-14.02), évolutions exécutées. Partagée avec FIN-14 et RH-11.
+ACQ-23.02 | conserver | justifiee
+  j: Cause des mois faibles : vacances, météo, budget des clients ou fermeture appellent des actions différentes (XA29) ; « Je n'ai pas de mois faible » évite un conseil sans objet.
+ACQ-23.03 | conserver | justifiee
+  j: Chiffre d'affaires un an plus tôt, mois par mois : évolution annuelle (exécutée), effet ciseau (XF07). Passage en essentiel ou total annuel unique à trancher (section 15).
+ACQ-23.04 | conserver | justifiee
+  j: Ventes des 12 derniers mois : panier moyen selon la période (ACQ-23.09), évolution du montant moyen (exécutée).
+ACQ-23.12 | conserver | justifiee
+  j: Ventes des 12 mois précédents : évolution du montant moyen d'une vente (exécutée).
+ACQ-23.13 | conserver | justifiee
+  j: Changement de périmètre sur 24 mois : rend une évolution « non comparable » au lieu d'un pourcentage trompeur (règle exécutée). Partagée avec FIN-14.04.
+
+# ACQ-24 Objectif et moyens
+ACQ-24.02 | conserver | justifiee
+  j: Heures par semaine et budget disponibles pour améliorer l'entreprise, lue par l'IA : le plan suit le temps réellement disponible (section 8) ; une autre réponse change l'ordre et le rythme du plan.
+
+# ACQ-30 Contexte
+ACQ-30.01 | conserver | justifiee
+  j: Ce que les chiffres ne montrent pas, étape par étape : seule place des réponses libres de l'Acquisition, contexte pour l'IA, jamais dans le calcul. Facultative par nature.
+
+# ACQ-25 Métier · Transport de personnes et coursiers (validé le 27 octobre)
+ACQ-25.01 | conserver | exploitation
+  p: Contexte lu par l'IA, sans calcul écrit.
+  j: Courses, heures disponibles et heures avec un client : donne la part du temps réellement productif, l'indicateur central d'un chauffeur ou d'un coursier.
+  m: Calcul de la part des heures productives à écrire.
+ACQ-25.02 | conserver | exploitation
+  p: Contexte lu par l'IA, sans calcul écrit.
+  j: Kilomètres au total et avec un client : part des kilomètres à vide, levier direct de rentabilité.
+  m: Calcul de la part des kilomètres à vide à écrire.
+ACQ-25.03 | conserver | justifiee
+  j: Courses ou livraisons échouées, lue par l'IA : une perte précise (absence, annulation, adresse) qui appelle une action précise (confirmation, créneau).
+ACQ-25.04 | conserver | justifiee
+  j: Part des courses aux heures majorées, lue par l'IA : oriente la disponibilité vers les heures qui rapportent le plus.
+
+# ACQ-27 Métier · Négoce (validé le 27 octobre)
+ACQ-27.01 | conserver | justifiee
+  j: Commandes livrées complètes et à la date promise, lue par l'IA : un taux de service faible est une cause de perte de clients professionnels.
+ACQ-27.02 | conserver | justifiee
+  j: Remise moyenne par catégorie de clients, lue par l'IA : montre quelle clientèle coûte le plus en remises.
+  f: Pour ces métiers, ACQ-14.02 (remise moyenne globale) est aussi posée : la moyenne pondérée de ce tableau pourrait la remplacer.
+ACQ-27.03 | conserver | justifiee
+  j: Coût de préparation et de livraison d'une commande, et seuil de livraison offerte, lue par l'IA : un seuil sous le coût d'une commande rend les petites commandes déficitaires.
+ACQ-27.04 | conserver | justifiee
+  j: Délai de livraison face aux concurrents, lue par l'IA : un argument de vente ou un frein.
+
+# ACQ-28 Métier · Vente de véhicules et de logements (validé le 27 octobre)
+ACQ-28.01 | conserver | justifiee
+  j: Biens en stock et durée moyenne en stock, lue par l'IA : un stock qui tourne lentement immobilise de l'argent et pèse sur les prix.
+ACQ-28.02 | conserver | justifiee
+  j: Baisse de prix avant la vente, lue par l'IA : mesure l'écart entre prix affiché et prix obtenu.
+  f: ACQ-14.01 et 14.02 (remises) sont aussi posées à ces métiers : pour eux, la baisse avant vente est la remise ; une des deux mesures suffit.
+ACQ-28.03 | conserver | justifiee
+  j: Ventes avec reprise ou financement (véhicules), lue par l'IA : deux leviers de transformation propres au métier.
+ACQ-28.04 | conserver | justifiee
+  j: Biens entrant en stock par mois, lue par l'IA : avec ACQ-28.01, rythme de rotation du stock.
+
+# ACQ-29 Métier · Immobilier (validé le 27 octobre)
+ACQ-29.01 | conserver | justifiee
+  j: Mandats et mandats exclusifs, lue par l'IA : la part d'exclusivité change la probabilité de vendre et le conseil sur la prise de mandat.
+ACQ-29.02 | conserver | justifiee
+  j: Durée moyenne sur le marché, lue par l'IA : une durée longue signale des prix de mandat trop hauts ou une diffusion insuffisante.
+ACQ-29.03 | conserver | justifiee
+  j: Écart entre prix du mandat et prix signé, lue par l'IA : précise la cause d'une durée longue (prix de départ).
+ACQ-29.04 | conserver | justifiee
+  j: Mandats sans offre depuis plus de 3 mois, lue par l'IA : désigne les mandats à retravailler.
+
+# Ajouts du 27 octobre rattachés aux thèmes existants
+ACQ-07.15 | conserver | exploitation
+  p: Lue par l'IA, sans lecture écrite.
+  j: Clients venus par une plateforme qui reviennent en direct : si la part est forte, la commission ne se paie qu'une fois et la plateforme est un canal d'acquisition rentable ; si elle est faible, la dépendance à la plateforme coûte à chaque achat.
+  m: Ajouter cette part au coût des plateformes (XA39).
+ACQ-11.38 | conserver | exploitation
+  p: Posée au niveau essentiel, lue par l'IA sans lecture écrite ni repère : l'IA ne peut que répéter le chiffre.
+  j: Part du chiffre d'affaires venant des boissons (restaurant) : la boisson pèse sur la marge d'un restaurant ; une part faible désigne un levier de ticket moyen.
+  g: « Développez la vente de boissons », sans repère pour dire si la part est faible.
+  m: Aucun repère n'est écrit ; à défaut, la passer en approfondi.
+ACQ-11.39 | conditionnelle | conditions+exploitation
+  p: Posée à tous les restaurants, y compris à ceux qui ne livrent pas ; lue par l'IA sans lecture écrite.
+  j: Prix de la livraison et seuil de gratuité : comparé au panier moyen (ACQ-15.06), dit si le seuil pousse les clients à commander plus.
+  c: E-commerce : toujours. Restaurant : posée si « Plateformes » est coché dans ACQ-03.01 ou si ACQ-11.13 (vente à emporter et livraison) est supérieure à 0.
+  m: Croisement seuil de livraison et panier moyen à écrire.
+
+# ACQ-26 Métier · Fabrication (en attente de la catégorie)
+ACQ-26.01 | en_attente | exploitation
+  j: En attente de la catégorie Fabrication (section 15). Taux de livraison à la date promise : même sens que ACQ-27.01 pour le négoce.
+ACQ-26.02 | en_attente | exploitation
+  j: En attente. Heures de production face aux heures possibles : taux d'utilisation de l'équipement, l'indicateur de capacité d'un fabricant.
+ACQ-26.03 | en_attente | exploitation
+  j: En attente. Part de la production jetée ou refaite : perte directe de marge.
+ACQ-26.04 | en_attente | exploitation
+  j: En attente. Délai total et attente avant lancement : sépare un problème de file d'attente d'un problème de production.
+ACQ-26.05 | en_attente | exploitation
+  j: En attente. Temps de réglage entre deux fabrications : levier de capacité.

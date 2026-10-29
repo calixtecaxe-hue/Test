@@ -1,0 +1,107 @@
+{
+ "le": "2026-10-29T13:34:44.329Z",
+ "resultats": [
+  {
+   "id": "LI-01",
+   "attendu": "Un seul champ vide : pas de bouton « Retirer »",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "LI-02",
+   "attendu": "Le premier élément est enregistré",
+   "conforme": true,
+   "observe": "[\"Particuliers\"]"
+  },
+  {
+   "id": "LI-03",
+   "attendu": "« Ajouter un élément » ouvre un deuxième champ et y place le curseur",
+   "conforme": true,
+   "observe": "_R_60v6lubsnqbtb_-el1"
+  },
+  {
+   "id": "LI-04",
+   "attendu": "Un champ vide ajouté par erreur se retire, le curseur revient au champ précédent",
+   "conforme": true,
+   "observe": "1 champ(s), focus _R_60v6lubsnqbtb_-el0"
+  },
+  {
+   "id": "LI-05",
+   "attendu": "Retirer un champ vide ne change pas la réponse enregistrée",
+   "conforme": true,
+   "observe": "[\"Particuliers\"]"
+  },
+  {
+   "id": "LI-06",
+   "attendu": "Trois éléments enregistrés",
+   "conforme": true,
+   "observe": "[\"Particuliers\",\"Professionnels\",\"Collectivités\"]"
+  },
+  {
+   "id": "LI-07",
+   "attendu": "Le tableau qui dépend de la liste a trois lignes",
+   "conforme": true,
+   "observe": "Particuliers / Professionnels / Collectivités"
+  },
+  {
+   "id": "LI-08",
+   "attendu": "« Retirer » enlève l'élément de l'écran, dans l'ordre",
+   "conforme": true,
+   "observe": "[\"Particuliers\",\"Collectivités\"]"
+  },
+  {
+   "id": "LI-09",
+   "attendu": "… et de la réponse enregistrée",
+   "conforme": true,
+   "observe": "[\"Particuliers\",\"Collectivités\"]"
+  },
+  {
+   "id": "LI-10",
+   "attendu": "… et des lignes du tableau qui en dépend, sans actualiser la page",
+   "conforme": true,
+   "observe": "Particuliers / Collectivités"
+  },
+  {
+   "id": "LI-11",
+   "attendu": "Le curseur se place sur le champ qui a pris la place de l'élément retiré",
+   "conforme": true,
+   "observe": "_R_60v6lubsnqbtb_-el1"
+  },
+  {
+   "id": "LI-12",
+   "attendu": "Après actualisation, la liste est celle qui reste",
+   "conforme": true,
+   "observe": "[\"Particuliers\",\"Collectivités\"]"
+  },
+  {
+   "id": "LI-13",
+   "attendu": "Au clavier, « Retirer » se joint par Tab et s'actionne par Entrée",
+   "conforme": true,
+   "observe": "Retirer « Collectivités » → [\"Particuliers\"]"
+  },
+  {
+   "id": "LI-14",
+   "attendu": "Retirer le dernier élément vide le champ et efface la réponse",
+   "conforme": true,
+   "observe": "1 champ(s), base null"
+  },
+  {
+   "id": "LI-15",
+   "attendu": "À quatre éléments, plus de bouton d'ajout (limite affichée)",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "LI-16",
+   "attendu": "Après un retrait, le bouton d'ajout revient",
+   "conforme": true,
+   "observe": "[\"Catégorie A\",\"Catégorie B\",\"Catégorie D\"]"
+  },
+  {
+   "id": "LI-17",
+   "attendu": "Téléphone 360 px : boutons dans la carte, champs lisibles, pas de défilement horizontal",
+   "conforme": true,
+   "observe": "{\"droite\":336,\"boutonsDedans\":true,\"largeurMin\":220.78125,\"defile\":false}"
+  }
+ ]
+}

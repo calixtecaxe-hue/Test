@@ -1,0 +1,35 @@
+{
+ "le": "2026-10-29T13:31:42.305Z",
+ "resultats": [
+  {
+   "id": "B-01",
+   "attendu": "réponse tapée puis lien « Mes agents » cliqué sans quitter le champ : la réponse est enregistrée",
+   "conforme": true,
+   "observe": "{\"genre\":\"exact\",\"valeur\":31}"
+  },
+  {
+   "id": "B-02",
+   "attendu": "réponse tapée puis page actualisée sans quitter le champ : la réponse est enregistrée, ou le navigateur prévient avant de quitter",
+   "conforme": true,
+   "observe": "{\"genre\":\"exact\",\"valeur\":12}"
+  },
+  {
+   "id": "B-03",
+   "attendu": "retour arrière du navigateur depuis le compte rendu : la réponse 4 est affichée",
+   "conforme": true,
+   "observe": "4"
+  },
+  {
+   "id": "B-04",
+   "attendu": "réponse changée en 9, départ puis retour arrière : l'écran affiche 9 (pas l'ancienne valeur 4)",
+   "conforme": true,
+   "observe": "9"
+  },
+  {
+   "id": "B-05",
+   "attendu": "réponse tapée puis onglet fermé sans quitter le champ : la réponse est enregistrée",
+   "conforme": true,
+   "observe": "{\"genre\":\"exact\",\"valeur\":6}"
+  }
+ ]
+}

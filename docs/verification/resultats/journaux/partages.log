@@ -1,0 +1,38 @@
+conforme  P-01    capacité maximale de ventes (ACQ-21.03) donnée : les heures en plus acceptables (RH-07.01) restent demandées
+conforme  P-02    heures travaillées et facturées de l'équipe (ACQ-21.04) données : les heures réelles d'un salarié (RH-06.02) restent demandées
+conforme  P-03    … et les jours et heures du dirigeant (RH-05.01) aussi
+conforme  P-04    vraie jumelle : FIN-07.03 (heures travaillées et facturées) est « déjà renseignée » d'après ACQ-21.04
+conforme  P-05    vraie jumelle : la masse salariale (FIN-07.01) est « déjà renseignée » d'après RH-06.04
+conforme  P-06    nombre de demandes (ACQ-02.01) donné : les visites du site (COM-13.01) restent demandées
+conforme  P-07a   un seul des trois tableaux de l'Acquisition répondu : la répartition de la Comm (COM-12.01) est posée, avec la colonne connue reprise
+conforme  P-07b   la colonne reprise est remplie (60 et 40), les deux autres colonnes sont vides
+conforme  P-07c   les trois tableaux répondus : COM-12.01 est « déjà renseignée », composée des trois
+conforme  P-07d   la carte nomme les trois questions d'où vient la réponse
+conforme  P-08a   témoin : les visites du site (COM-13.01) sont posées et répondues chez la Comm
+conforme  P-08    visites du site (COM-13.01) données : le nombre de demandes de devis (ACQ-02.01) reste demandé
+conforme  P-09    vraie jumelle : les visites du site côté Acquisition (ACQ-06.07) sont « déjà renseignées »
+conforme  P-10    couverts par service (ACQ-11.07) donnés : les ventes par mois (FIN-06.02) restent demandées
+conforme  P-11    avis Google (COM-44.01) donnés : les avis de la plateforme principale (ACQ-06.08) restent demandés
+conforme  P-12    vraie jumelle : les avis Google côté Acquisition (ACQ-06.01) sont « déjà renseignés »
+conforme  P-13    dépense de contenu donnée à l'Acquisition : COM-32.01 est posée, ce montant repris
+conforme  P-13b   le champ « Création de contenu » est rempli (200), les deux autres sont vides
+conforme  P-13c   afficher la question ne l'enregistre pas : COM-32.01 n'a pas de réponse en base
+conforme  P-14    les trois dépenses données : COM-32.01 est « déjà renseignée »
+conforme  P-14b   la carte montre chaque champ avec son montant (200, 300, 50 €)
+conforme  P-15    « Modifier cette réponse » ouvre les trois questions de l'Acquisition sur la page de la Comm
+conforme  P-15b   le montant corrigé s'enregistre dans ACQ-07.03 (250)
+conforme  P-15c   après actualisation, COM-32.01 montre le nouveau montant
+conforme  P-13d   le dirigeant complète les deux champs vides : COM-32.01 s'enregistre avec les trois montants (200 repris, 300, 50)
+conforme  P-13e   après actualisation, la question a sa propre réponse (plus de valeurs reprises)
+conforme  P-16    COM-32.01 donnée : la dépense d'agence (ACQ-07.01) est « déjà renseignée »
+conforme  P-16b   la carte montre le montant du champ (300 €), pas le groupe entier
+conforme  P-17    FIN-34.02 et COM-43.01 répondues : le tableau ACQ-20.02 est posé (la ligne des chiffres commerciaux manque), leurs réponses reprises
+conforme  P-17b   les lignes « chiffres financiers » et « statistiques de communication » sont remplies, la ligne commerciale est vide
+conforme  P-18    réponse de la Finance effacée, tableau ACQ-20.02 répondu : FIN-34.02 est « déjà renseignée » d'après sa ligne
+conforme  P-18b   la carte montre le libellé du choix (« Chaque trimestre »), pas son identifiant
+conforme  P-19    reprises (FIN-10.01) et temps par reprise (FIN-10.03) donnés : RH-16.01 est « déjà renseignée »
+conforme  P-19b   la carte montre les deux champs (4 reprises, 2 heures)
+conforme  P-20    boutique en ligne : les visiteurs du site (ACQ-02.01) sont « déjà renseignés » d'après COM-13.01
+conforme  P-21    chiffre d'affaires mois par mois donné à la Finance : la RH ne le redemande pas (RH-11.01 « déjà renseignée »)
+
+36 contrôles, 36 conformes, 0 écart(s).

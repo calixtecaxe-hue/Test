@@ -1,0 +1,71 @@
+{
+ "le": "2026-10-29T18:43:44.644Z",
+ "resultats": [
+  {
+   "id": "R-01",
+   "attendu": "1 réponse et 1 « je ne sais pas » sur 5 questions : thème « À compléter », « 1 réponse sur 5 » (je ne sais pas = sans réponse)",
+   "conforme": true,
+   "observe": "{\"groupe\":\"À compléter\",\"texte\":\"Volume de contacts1 réponse sur 5\"}"
+  },
+  {
+   "id": "R-02",
+   "attendu": "3 réponses sur 5 (60 %) : thème analysé avec vos chiffres, « 3 réponses sur 5 »",
+   "conforme": true,
+   "observe": "{\"groupe\":\"Analysés avec vos chiffres\",\"texte\":\"Volume de contacts3 réponses sur 5\"}"
+  },
+  {
+   "id": "R-03",
+   "attendu": "« je ne suis pas cette donnée » à la place d'une réponse : 2 réponse(s) sur 5, thème « À compléter »",
+   "conforme": true,
+   "observe": "{\"groupe\":\"À compléter\",\"texte\":\"Volume de contacts2 réponses sur 5\"}"
+  },
+  {
+   "id": "R-04",
+   "attendu": "réponse rétablie : 3 réponses sur 5, thème de nouveau analysé",
+   "conforme": true,
+   "observe": "{\"groupe\":\"Analysés avec vos chiffres\",\"texte\":\"Volume de contacts3 réponses sur 5\"}"
+  },
+  {
+   "id": "R-05",
+   "attendu": "avancement : 4 questions traitées sur 69 affichées dans le questionnaire, soit 6 %",
+   "conforme": true,
+   "observe": "{\"traitees\":4,\"questions\":69,\"pourcent\":6}"
+  },
+  {
+   "id": "R-06",
+   "attendu": "appels manqués = 5 : la question qui en dépend (ACQ-08.03) est affichée et répondue ; avancement 6 sur 70",
+   "conforme": true,
+   "observe": "{\"traitees\":6,\"questions\":70,\"pourcent\":9}"
+  },
+  {
+   "id": "R-07",
+   "attendu": "appels manqués = 0 : ACQ-08.03 disparaît (70 → 69 questions) et sa réponse ne compte plus dans les traitées (6 → 5)",
+   "conforme": true,
+   "observe": "{\"apres\":{\"questions\":69,\"traitees\":5,\"pourcent\":7},\"affApres\":{\"traitees\":5,\"questions\":69,\"pourcent\":7}}"
+  },
+  {
+   "id": "R-08",
+   "attendu": "budget marketing de la Finance pré-rempli avec la somme du détail : 830 €, avec la mention « Rempli d'après vos réponses précédentes »",
+   "conforme": true,
+   "observe": "{\"valeur\":\"830\",\"mention\":true}"
+  },
+  {
+   "id": "R-09",
+   "attendu": "réseaux sociaux décochés dans l'Acquisition : le total pré-rempli passe à 680 € (le coût de ce canal ne compte plus)",
+   "conforme": true,
+   "observe": "{\"valeur\":\"680\",\"mention\":true}"
+  },
+  {
+   "id": "R-10",
+   "attendu": "montant corrigé à 900 € par le dirigeant : il reste 900 € quand le détail change ensuite, sans la mention de pré-remplissage",
+   "conforme": true,
+   "observe": "{\"valeur\":\"900\",\"mention\":false}"
+  },
+  {
+   "id": "R-11",
+   "attendu": "résultats sans repère de marché ni règle de notation : aucune couleur, aucun point d'étape déclaré, réalisme « pas encore calculé »",
+   "conforme": true,
+   "observe": "AUDIT Acquisition & Chiffre d'affaires Quels leviers comblent l'écart à votre objectif ? Objectif (terminé) : revenir à cette étape Niveau et contexte (terminé) : revenir à cette étape 3 Questionnaire : revenir à cette étape 4 Résultats ← Revenir à l'étape précédente Vos résultats, votre rapport et "
+  }
+ ]
+}

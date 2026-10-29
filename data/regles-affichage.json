@@ -1,0 +1,755 @@
+{
+  "source": "Lecture des conditions d'affichage et de masquage écrites dans le classeur « CAXE_Themes_Chiffres_4_agents » (colonnes « Condition » des données et « Masqué pour » des thèmes) et des réponses attendues de chaque déclencheur (feuille Déclencheurs). Fichier écrit à la main : le contrôle (npm run donnees:controle) échoue si une condition ou un masquage du classeur n'a pas de règle ici. Une règle « aPreciser » n'est pas décidable avec le classeur : la question reste affichée et le contrôle la signale. Mise à jour du 20 octobre (classeur n° 11) : déclencheurs dérivés D28 à D65 lus dans les réponses de la banque (clé « CODE » ou « CODE#champ »), D03, D17, D21, D22, D23, D24 et D26 deviennent des questions de la banque, FIN-05.02 reste « à préciser ». Vérification du 28 octobre : D13 et D27 deviennent la réponse aux questions RH-28.01 et RH-08.01, qui posaient la même chose (doublons du cadrage).",
+  "declencheurs": {
+    "D03": {
+      "type": "reponse_donnee",
+      "donnee": "ACQ-03.01"
+    },
+    "D04": {
+      "type": "oui_non"
+    },
+    "D05": {
+      "type": "oui_non"
+    },
+    "D06": {
+      "type": "oui_non"
+    },
+    "D07": {
+      "type": "oui_non"
+    },
+    "D08": {
+      "type": "oui_non_multiple",
+      "sousCles": [
+        {
+          "cle": "achats",
+          "libelle": "Achetez-vous des marchandises ou des matières ?"
+        },
+        {
+          "cle": "sous_traitance",
+          "libelle": "Sous-traitez-vous ?"
+        },
+        {
+          "cle": "fournisseurs",
+          "libelle": "Avez-vous des fournisseurs réguliers ?"
+        }
+      ]
+    },
+    "D09": {
+      "type": "oui_non"
+    },
+    "D10": {
+      "type": "oui_non"
+    },
+    "D11": {
+      "type": "oui_non"
+    },
+    "D12": {
+      "type": "oui_non_multiple",
+      "sousCles": [
+        {
+          "cle": "",
+          "libelle": "Avez-vous un investissement prévu, ou réalisé depuis 24 mois ?"
+        },
+        {
+          "cle": "en_service",
+          "libelle": "Est-il déjà en service ?",
+          "siCle": {
+            "cle": "",
+            "egal": "oui"
+          }
+        }
+      ]
+    },
+    "D13": {
+      "type": "reponse_donnee",
+      "donnee": "RH-28.01"
+    },
+    "D15": {
+      "type": "oui_non"
+    },
+    "D17": {
+      "type": "reponse_donnee",
+      "donnee": "ACQ-18.02"
+    },
+    "D18": {
+      "type": "oui_non"
+    },
+    "D19": {
+      "type": "oui_non"
+    },
+    "D20": {
+      "type": "reponse_donnee",
+      "donnee": "ACQ-22.01"
+    },
+    "D21": {
+      "type": "reponse_donnee",
+      "donnee": "COM-10.07"
+    },
+    "D22": {
+      "type": "reponse_donnee",
+      "donnee": "COM-10.08"
+    },
+    "D23": {
+      "type": "reponse_donnee",
+      "donnee": "COM-13.10"
+    },
+    "D24": {
+      "type": "reponse_donnee",
+      "donnee": "COM-15.12"
+    },
+    "D25": {
+      "type": "reponse_donnee",
+      "donnee": "COM-21.01"
+    },
+    "D26": {
+      "type": "reponse_donnee",
+      "donnee": "COM-39.07"
+    },
+    "D27": {
+      "type": "reponse_donnee",
+      "donnee": "RH-08.01"
+    }
+  },
+  "conditions": {
+    "D02 · si au moins un salarié": {
+      "cle": "D02",
+      "op": "different",
+      "valeur": "seul"
+    },
+    "D03 · si « fiche Google » est cochée": {
+      "cle": "D03",
+      "op": "contient",
+      "valeur": "fiche_google"
+    },
+    "D03 · si « partenaires » est coché": {
+      "cle": "D03",
+      "op": "contient",
+      "valeur": "partenaires"
+    },
+    "D03 · si « plateformes » est coché": {
+      "cle": "D03",
+      "op": "contient",
+      "valeur": "plateformes"
+    },
+    "D03 · si « prospection » est cochée": {
+      "cle": "D03",
+      "op": "contient",
+      "valeur": "prospection"
+    },
+    "D03 · si « site » est coché": {
+      "cle": "D03",
+      "op": "contient",
+      "valeur": "site_internet"
+    },
+    "D03 · si « Site internet » n'est pas coché": {
+      "cle": "D03",
+      "op": "ne_contient_pas",
+      "valeur": "site_internet"
+    },
+    "COM-63.01 · si vous faites de la publicité Google": {
+      "cle": "COM-63.01",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D03 · une ligne par canal coché": {
+      "cle": "D03",
+      "op": "non_vide"
+    },
+    "D04 · seulement les canaux payants cochés": {
+      "cle": "D04",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D04 · si publicité ou agence": {
+      "cle": "D04",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D05 · si activité sur rendez-vous": {
+      "cle": "D05",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D06 · si devis ou propositions": {
+      "cle": "D06",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D07 · si stock": {
+      "cle": "D07",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D08 · si achats": {
+      "cle": "D08.achats",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D08 · si fournisseurs réguliers": {
+      "cle": "D08.fournisseurs",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D08 · si sous-traitance": {
+      "cle": "D08.sous_traitance",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D09 · si paiement après facture": {
+      "cle": "D09",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D10 · si crédit ou leasing en cours": {
+      "cle": "D10",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D11 · si découvert sur la période": {
+      "cle": "D11",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D12 · si investissement déjà en service": {
+      "cle": "D12.en_service",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D12 · si investissement prévu ou récent": {
+      "cle": "D12",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D13 · si recrutement fait ou prévu": {
+      "cle": "D13",
+      "op": "dans",
+      "valeur": [
+        "j_ai_recrute",
+        "je_prevois_de_recruter",
+        "les_deux"
+      ]
+    },
+    "D13 · si recrutement sur la période": {
+      "cle": "D13",
+      "op": "dans",
+      "valeur": [
+        "j_ai_recrute",
+        "les_deux"
+      ]
+    },
+    "D15 · si clients professionnels réguliers": {
+      "cle": "D15",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D17 · si programme de parrainage": {
+      "cle": "D17",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D18 · si facturation au temps": {
+      "cle": "D18",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D19 · si travail planifié à l'avance": {
+      "cle": "D19",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D20 · s'il y a au moins un jour fermé": {
+      "cle": "D20",
+      "op": "moins_de",
+      "valeur": 7
+    },
+    "D21 · si vous ne publiez pas encore": {
+      "cle": "D21",
+      "op": "dans",
+      "valeur": [
+        "rarement_ou_plus_du_tout",
+        "non_jamais"
+      ]
+    },
+    "D21 · si vous publiez déjà": {
+      "cle": "D21",
+      "op": "egal",
+      "valeur": "oui_au_moins_une_fois_par_mois"
+    },
+    "D22 · une ligne par réseau utilisé": {
+      "cle": "D22",
+      "op": "non_vide"
+    },
+    "D23 · si outil de mesure du site": {
+      "cle": "COM-13.02",
+      "op": "different",
+      "valeur": "aucun"
+    },
+    "D23 · si site": {
+      "cle": "D23",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D24 · si fichier de contacts": {
+      "cle": "D24",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D25 · si offre d'appel": {
+      "cle": "D25",
+      "op": "different",
+      "valeur": "non_rien"
+    },
+    "D27 · si ce n'est pas vous (sinon RH-05)": {
+      "cle": "D27",
+      "op": "different",
+      "valeur": "vous"
+    },
+    "D37 · si vous manquez des appels": {
+      "cle": "ACQ-08.02",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D36 · si vous relancez vos devis": {
+      "cle": "ACQ-10.06",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D35 · si vous accordez des remises": {
+      "cle": "ACQ-14.01",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D32 · si vous proposez un produit ou un service en plus": {
+      "cle": "ACQ-15.01",
+      "op": "different",
+      "valeur": "jamais"
+    },
+    "D33 · si paiement en plusieurs fois proposé": {
+      "cle": "ACQ-15.09",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D34 · si offre haut de gamme": {
+      "cle": "ACQ-15.04",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D38 · si des clients résilient": {
+      "cle": "ACQ-17.13",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D39 · si contrat d'entretien proposé": {
+      "cle": "ACQ-17.29",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "Pas posée si les agents Acquisition et Comm sont faits : calculée": {
+      "toujours": true
+    },
+    "D31 · sauf micro-entreprise": {
+      "cle": "FIN-47.01",
+      "op": "different",
+      "valeur": "micro_entreprise"
+    },
+    "D31 · si micro-entreprise ou entreprise individuelle": {
+      "cle": "FIN-47.01",
+      "op": "dans",
+      "valeur": [
+        "micro_entreprise",
+        "entreprise_individuelle_au_reel"
+      ]
+    },
+    "D40 · si reprises, retours ou gestes": {
+      "un": [
+        {
+          "cle": "FIN-10.01#reprises_par_mois",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "FIN-10.01#retours_par_mois",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "FIN-10.01#gestes_commerciaux_par_mois",
+          "op": "plus_de",
+          "valeur": 0
+        }
+      ]
+    },
+    "D48 · si vous avez des reprises": {
+      "cle": "FIN-10.01#reprises_par_mois",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D41 · si vous avez des retours": {
+      "cle": "FIN-10.01#retours_par_mois",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D43 · si remise pour paiement rapide": {
+      "cle": "FIN-20.03",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D42 · si vous avez des ruptures": {
+      "cle": "FIN-41.01#ruptures_par_mois",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D44 · si vous avez confié des tâches": {
+      "cle": "RH-04.01",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D45 · si vous avez dû reprendre des tâches en main": {
+      "cle": "RH-04.02",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D46 · s'il y a des heures supplémentaires": {
+      "cle": "RH-06.05",
+      "op": "different",
+      "valeur": "aucune"
+    },
+    "D47 · si du matériel ralentit le travail": {
+      "cle": "RH-15.02",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D49 · si vous avez des reprises": {
+      "cle": "RH-16.01#reprises_par_mois",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D50 · si vous faites des réunions": {
+      "cle": "RH-19.01#reunions_par_mois",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D53 · si l'équipe a été formée": {
+      "cle": "RH-25.01#jours_de_formation",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D54 · s'il y a eu des départs": {
+      "un": [
+        {
+          "cle": "RH-32.01#demission.departs",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "RH-32.01#fin_de_periode_d_essai.departs",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "RH-32.01#rupture_conventionnelle.departs",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "RH-32.01#licenciement.departs",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "RH-32.01#fin_de_contrat.departs",
+          "op": "plus_de",
+          "valeur": 0
+        }
+      ]
+    },
+    "D55 · s'il y a eu des absences": {
+      "cle": "RH-34.01",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D57 · s'il y a une personne clé": {
+      "un": [
+        {
+          "cle": "RH-37.01#personne_1.poste",
+          "op": "non_vide"
+        },
+        {
+          "cle": "RH-37.01#personne_2.poste",
+          "op": "non_vide"
+        },
+        {
+          "cle": "RH-37.01#personne_3.poste",
+          "op": "non_vide"
+        }
+      ]
+    },
+    "D28 · si vous voulez être aidé": {
+      "cle": "RH-41.01",
+      "op": "dans",
+      "valeur": [
+        "oui_dans_les_6_prochains_mois",
+        "oui_dans_les_12_prochains_mois",
+        "oui_mais_plus_tard"
+      ]
+    },
+    "D29 · si l'expérience s'est mal passée": {
+      "cle": "RH-44.02",
+      "op": "egal",
+      "valeur": "oui_mais_ca_s_est_mal_passe"
+    },
+    "D51 · si des objectifs existent": {
+      "cle": "RH-48.01",
+      "op": "different",
+      "valeur": "pour_personne"
+    },
+    "D52 · s'il y a des responsables": {
+      "cle": "RH-49.01#responsables_vous_non_compris",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D56 · si garantie proposée": {
+      "cle": "COM-05.01",
+      "op": "different",
+      "valeur": "aucune"
+    },
+    "D58 · si vous écrivez à votre fichier": {
+      "cle": "COM-15.03#envois_sur_6_mois",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D03 · si « Réseaux sociaux » est coché": {
+      "cle": "D03",
+      "op": "contient",
+      "valeur": "reseaux_sociaux"
+    },
+    "D59 · si vous recevez des messages": {
+      "un": [
+        {
+          "cle": "COM-23.01#instagram.messages_par_mois",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "COM-23.01#facebook_et_messenger.messages_par_mois",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "COM-23.01#linkedin.messages_par_mois",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "COM-23.01#whatsapp.messages_par_mois",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "COM-23.01#tiktok.messages_par_mois",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "COM-23.01#chat_du_site.messages_par_mois",
+          "op": "plus_de",
+          "valeur": 0
+        }
+      ]
+    },
+    "D60 · si vous consacrez du temps à la communication": {
+      "un": [
+        {
+          "cle": "COM-31.01#trouver_les_idees_et_ecrire.heures_par_semaine",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "COM-31.01#photos_videos_et_montage.heures_par_semaine",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "COM-31.01#publier_et_programmer.heures_par_semaine",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "COM-31.01#repondre_aux_commentaires_messages_et_av.heures_par_semaine",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "COM-31.01#emails_et_site.heures_par_semaine",
+          "op": "plus_de",
+          "valeur": 0
+        },
+        {
+          "cle": "COM-31.01#regarder_les_statistiques.heures_par_semaine",
+          "op": "plus_de",
+          "valeur": 0
+        }
+      ]
+    },
+    "D26 · saisie si les statistiques ne sont pas connectées": {
+      "cle": "D26",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D26 + D63 · si accès aux statistiques et vidéos publiées": {
+      "tous": [
+        {
+          "cle": "D26",
+          "op": "egal",
+          "valeur": "oui"
+        },
+        {
+          "un": [
+            {
+              "cle": "COM-26.01#video_courte.publications",
+              "op": "plus_de",
+              "valeur": 0
+            },
+            {
+              "cle": "COM-26.01#video_longue.publications",
+              "op": "plus_de",
+              "valeur": 0
+            }
+          ]
+        }
+      ]
+    },
+    "D61 · si vous avez des avis": {
+      "cle": "COM-44.01#avis_au_total",
+      "op": "plus_de",
+      "valeur": 0
+    },
+    "D62 · si vous demandez des avis": {
+      "cle": "COM-45.01",
+      "op": "different",
+      "valeur": "jamais"
+    },
+    "D30 · avant la première création de contenu": {
+      "cle": "D30",
+      "op": "egal",
+      "valeur": "oui"
+    },
+    "D64 · si le profil mène vers une page": {
+      "cle": "COM-60.01",
+      "op": "different",
+      "valeur": "il_n_y_a_pas_de_lien_sur_mon_profil"
+    },
+    "D65 · si vous leur écrivez en message privé": {
+      "cle": "COM-61.01",
+      "op": "contient",
+      "valeur": "je_leur_ecris_en_message_prive"
+    }
+  },
+  "masquages": {
+    "Métiers sans rendez-vous": {
+      "cle": "D05",
+      "op": "egal",
+      "valeur": "non"
+    },
+    "Métiers sans devis": {
+      "cle": "D06",
+      "op": "egal",
+      "valeur": "non"
+    },
+    "Vente immédiate (commerce)": {
+      "aPreciser": "Le classeur ne dit pas à quelle réponse correspond « vente immédiate » : aucun déclencheur ne la porte."
+    },
+    "Commerce sans commande": {
+      "cle": "D19",
+      "op": "egal",
+      "valeur": "non"
+    },
+    "Seul": {
+      "cle": "D02",
+      "op": "egal",
+      "valeur": "seul"
+    },
+    "Sans achats (services purs)": {
+      "tous": [
+        {
+          "cle": "D08.achats",
+          "op": "egal",
+          "valeur": "non"
+        },
+        {
+          "cle": "D08.sous_traitance",
+          "op": "egal",
+          "valeur": "non"
+        },
+        {
+          "cle": "D08.fournisseurs",
+          "op": "egal",
+          "valeur": "non"
+        }
+      ]
+    },
+    "Encaissement immédiat (commerce)": {
+      "cle": "D09",
+      "op": "egal",
+      "valeur": "non"
+    },
+    "Sans travaux en cours": {
+      "aPreciser": "Le classeur ne dit pas quelle réponse correspond à « sans travaux en cours »."
+    },
+    "Sans emprunt": {
+      "cle": "D10",
+      "op": "egal",
+      "valeur": "non"
+    },
+    "Sans investissement prévu ni récent": {
+      "cle": "D12",
+      "op": "egal",
+      "valeur": "non"
+    },
+    "Sans investissement récent": {
+      "un": [
+        {
+          "cle": "D12",
+          "op": "egal",
+          "valeur": "non"
+        },
+        {
+          "cle": "D12.en_service",
+          "op": "egal",
+          "valeur": "non"
+        }
+      ]
+    },
+    "Sans stock": {
+      "cle": "D07",
+      "op": "egal",
+      "valeur": "non"
+    },
+    "Moins de 6 personnes": {
+      "cle": "D02",
+      "op": "dans",
+      "valeur": [
+        "seul",
+        "equipe_2_5"
+      ]
+    },
+    "Aucun recrutement en 12 mois ni prévu": {
+      "cle": "D13",
+      "op": "egal",
+      "valeur": "ni_l_un_ni_l_autre"
+    },
+    "Ne publie pas (parcours mise en place)": {
+      "cle": "D21",
+      "op": "dans",
+      "valeur": [
+        "rarement_ou_plus_du_tout",
+        "non_jamais"
+      ]
+    },
+    "Au moins un salarié": {
+      "cle": "D02",
+      "op": "different",
+      "valeur": "seul"
+    }
+  }
+}

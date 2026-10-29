@@ -1,0 +1,158 @@
+[
+  {
+    "id": "EFF-ACQ-01",
+    "theme": "ACQ-10",
+    "agent": "ACQUISITION_CA",
+    "action": "Relancer systématiquement les devis restés sans réponse",
+    "libelle": "Relancer systématiquement les devis restés sans réponse",
+    "definition": "Part des devis restés sans réponse qui sont finalement signés après une relance systématique, en pourcentage des devis relancés",
+    "unite": "pourcent",
+    "periode": "effet",
+    "sens": "plus_haut_mieux",
+    "sensIncertain": false,
+    "bornesVraisemblance": {
+      "min": 0,
+      "max": 100
+    },
+    "motsCles": [
+      "relance des devis",
+      "devis sans réponse relancés",
+      "taux de signature après relance"
+    ],
+    "croisements": [
+      "XA24"
+    ],
+    "nationalAutorise": false,
+    "statutRedaction": "brouillon"
+  },
+  {
+    "id": "EFF-ACQ-02",
+    "theme": "ACQ-15",
+    "agent": "ACQUISITION_CA",
+    "action": "Proposer un complément à chaque vente",
+    "libelle": "Proposer un complément à chaque vente",
+    "definition": "Part des clients qui acceptent le complément proposé, en pourcentage des clients à qui il est proposé",
+    "unite": "pourcent",
+    "periode": "effet",
+    "sens": "plus_haut_mieux",
+    "sensIncertain": false,
+    "bornesVraisemblance": {
+      "min": 0,
+      "max": 100
+    },
+    "motsCles": [
+      "vente complémentaire",
+      "taux d'acceptation d'un complément",
+      "vente additionnelle"
+    ],
+    "croisements": [
+      "XA19"
+    ],
+    "nationalAutorise": false,
+    "statutRedaction": "brouillon"
+  },
+  {
+    "id": "EFF-ACQ-03",
+    "theme": "ACQ-17",
+    "agent": "ACQUISITION_CA",
+    "action": "Relancer les anciens clients qui n'ont rien acheté depuis un an",
+    "libelle": "Relancer les anciens clients qui n'ont rien acheté depuis un an",
+    "definition": "Part des anciens clients inactifs qui achètent à nouveau après une relance, en pourcentage des clients relancés",
+    "unite": "pourcent",
+    "periode": "effet",
+    "sens": "plus_haut_mieux",
+    "sensIncertain": false,
+    "bornesVraisemblance": {
+      "min": 0,
+      "max": 100
+    },
+    "motsCles": [
+      "réactivation des clients inactifs",
+      "relance des anciens clients",
+      "taux de réactivation"
+    ],
+    "croisements": [
+      "XA17"
+    ],
+    "nationalAutorise": false,
+    "statutRedaction": "brouillon"
+  },
+  {
+    "id": "EFF-ACQ-04",
+    "theme": "ACQ-11",
+    "agent": "ACQUISITION_CA",
+    "action": "Relancer les paniers abandonnés par une relance automatique",
+    "libelle": "Relancer les paniers abandonnés par une relance automatique",
+    "definition": "Part des paniers abandonnés qui aboutissent à une commande après une relance automatique, en pourcentage des paniers relancés",
+    "unite": "pourcent",
+    "periode": "effet",
+    "sens": "plus_haut_mieux",
+    "sensIncertain": false,
+    "bornesVraisemblance": {
+      "min": 0,
+      "max": 100
+    },
+    "motsCles": [
+      "récupération de paniers abandonnés",
+      "relance de panier abandonné",
+      "taux de récupération"
+    ],
+    "croisements": [
+      "XA35"
+    ],
+    "nationalAutorise": false,
+    "statutRedaction": "brouillon"
+  },
+  {
+    "id": "EFF-COM-01",
+    "theme": "COM-10",
+    "agent": "COMM_CREATION",
+    "action": "Solliciter son réseau existant au démarrage d'une présence en ligne",
+    "libelle": "Solliciter son réseau existant au démarrage d'une présence en ligne",
+    "definition": "Part des contacts sollicités qui suivent le compte ou laissent un avis, en pourcentage des contacts sollicités",
+    "unite": "pourcent",
+    "periode": "effet",
+    "sens": "plus_haut_mieux",
+    "sensIncertain": false,
+    "bornesVraisemblance": {
+      "min": 0,
+      "max": 100
+    },
+    "motsCles": [
+      "taux de réponse d'une sollicitation de contacts",
+      "premiers abonnés",
+      "demande d'avis aux clients existants"
+    ],
+    "croisements": [
+      "XC33"
+    ],
+    "nationalAutorise": false,
+    "statutRedaction": "brouillon"
+  },
+  {
+    "id": "EFF-RH-01",
+    "theme": "RH-17",
+    "agent": "RH_ORGANISATION",
+    "action": "Automatiser les tâches répétitives",
+    "libelle": "Automatiser les tâches répétitives",
+    "definition": "Part du temps passé sur les tâches répétitives qui est effectivement récupérée après automatisation, en pourcentage du temps de ces tâches",
+    "unite": "pourcent",
+    "periode": "effet",
+    "sens": "plus_haut_mieux",
+    "sensIncertain": false,
+    "bornesVraisemblance": {
+      "min": 0,
+      "max": 100
+    },
+    "motsCles": [
+      "gain de temps de l'automatisation",
+      "automatisation des tâches administratives",
+      "temps récupéré par l'automatisation"
+    ],
+    "croisements": [
+      "XR15"
+    ],
+    "nationalAutorise": false,
+    "statutRedaction": "brouillon"
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "source": "Liste de départ, à compléter par le propriétaire du produit. Le niveau 1 (officiel) n'est jamais accordé sur la seule déclaration de l'agent de recherche : il faut que le domaine figure ici.",
+  "niveau1Domaines": [
+    "insee.fr",
+    "banque-france.fr",
+    "urssaf.fr",
+    "bpifrance.fr",
+    "artisanat.fr",
+    "cci.fr",
+    "service-public.fr",
+    "legifrance.gouv.fr",
+    "gouv.fr"
+  ],
+  "federationsEtObservatoiresValides": [],
+  "exclusDomaines": [
+    "reddit.com",
+    "quora.com",
+    "medium.com",
+    "facebook.com",
+    "x.com",
+    "twitter.com",
+    "tiktok.com",
+    "pinterest.com",
+    "slideshare.net",
+    "scribd.com"
+  ],
+  "domainesCaxe": []
+}
