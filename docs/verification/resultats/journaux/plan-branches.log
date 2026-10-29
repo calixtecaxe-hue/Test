@@ -1,0 +1,20 @@
+14 règles à plusieurs branches (6 « un », 2 « tous », 6 « parmi ») ; 57 cas.
+  D-030 D40 · si reprises, retours ou gestes [(FIN-10.01 [reprises_par_mois] > 0 OU FIN-10.01 [retours_par_mois] > 0 OU FIN-10.01 [gestes_commerciaux_par_mois] > 0)] : V2 V2 V2 F0
+  D-040 D31 · si micro-entreprise ou entreprise individuelle [FIN-47.01 parmi « Micro-entreprise », « Entreprise individuelle au réel »] : V1 V1 F0
+  D-049 D13 · si recrutement fait ou prévu [RH-28.01 (D13) parmi « J'ai recruté », « Je prévois de recruter », « Les deux »] : V9 V9 V9 F0
+  D-050 D13 · si recrutement sur la période [RH-28.01 (D13) parmi « J'ai recruté », « Les deux »] : V3 V3 F0
+  D-051 D54 · s'il y a eu des départs [(RH-32.01 [demission.departs] > 0 OU RH-32.01 [fin_de_periode_d_essai.departs] > 0 OU RH-32.01 [rupture_conventionnelle.departs] > 0 OU RH-32.01 [licenciement.departs] > 0 OU RH-32.01 [fin_de_contrat.departs] > 0)] : V2 V2 V2 V2 V2 F0
+  D-053 D57 · s'il y a une personne clé [(RH-37.01 [personne_1.poste] répondue OU RH-37.01 [personne_2.poste] répondue OU RH-37.01 [personne_3.poste] répondue)] : V3 V3 V3 F0
+  D-054 D28 · si vous voulez être aidé [RH-41.01 parmi « Oui, dans les 6 prochains mois », « Oui, dans les 12 prochains mois », « Oui, mais plus tard »] : V9 V9 V9 F0
+  D-060 D21 · si vous ne publiez pas encore [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : V7 V7 F0
+  D-069 D59 · si vous recevez des messages [(COM-23.01 [instagram.messages_par_mois] > 0 OU COM-23.01 [facebook_et_messenger.messages_par_mois] > 0 OU COM-23.01 [linkedin.messages_par_mois] > 0 OU COM-23.01 [whatsapp.messages_par_mois] > 0 OU COM-23.01 [tiktok.messages_par_mois] > 0 OU COM-23.01 [chat_du_site.messages_par_mois] > 0)] : V2 V2 V2 V2 V2 V2 F0
+  D-070 D60 · si vous consacrez du temps à la communication [(COM-31.01 [trouver_les_idees_et_ecrire.heures_par_semaine] > 0 OU COM-31.01 [photos_videos_et_montage.heures_par_semaine] > 0 OU COM-31.01 [publier_et_programmer.heures_par_semaine] > 0 OU COM-31.01 [repondre_aux_commentaires_messages_et_av.heures_par_semaine] > 0 OU COM-31.01 [emails_et_site.heures_par_semaine] > 0 OU COM-31.01 [regarder_les_statistiques.heures_par_semaine] > 0)] : V1 V1 V1 V1 V1 V1 F0
+  D-072 D26 + D63 · si accès aux statistiques et vidéos publiées [COM-39.07 (D26) = « oui » ET (COM-26.01 [video_courte.publications] > 0 OU COM-26.01 [video_longue.publications] > 0)] : V1 F0 F0
+  M-083 Sans achats (services purs) [D08.achats (cadrage) = « non » ET D08.sous_traitance (cadrage) = « non » ET D08.fournisseurs (cadrage) = « non »] : V0 F1 F1 F3
+  M-088 Sans investissement récent [(D12 (cadrage) = « non » OU D12.en_service (cadrage) = « non »)] : V0 F2
+     non jouable : branche 1 seule (D12 (cadrage) = « non ») : elle rend aussi vraie une autre branche
+  M-092 Ne publie pas (parcours mise en place) [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : V3 V3 F30
+(node:15489) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/user/Test/src/lib/audit/assemblage.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/user/Test/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

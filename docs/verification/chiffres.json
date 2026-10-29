@@ -1,5 +1,5 @@
 {
- "calculeLe": "2026-10-28T22:58:59.604Z",
+ "calculeLe": "2026-10-29T09:26:32.683Z",
  "questions": {
   "recensees": 566,
   "posables": 561,
@@ -28,7 +28,7 @@
    "COM-57.15 : condition sur D30 (« avant la première création de contenu ») : posée à la première création de contenu, jamais pendant l'audit",
    "COM-57.16 : condition sur D30 (« avant la première création de contenu ») : posée à la première création de contenu, jamais pendant l'audit"
   ],
-  "affichees_et_testees_navigateur": 475,
+  "affichees_et_testees_navigateur": 476,
   "dont_exercees_par_controle_boutons": 326
  },
  "dependances": {
@@ -91,6 +91,17 @@
    "controles": 32,
    "conformes": 32,
    "ecarts": []
+  },
+  "partages": {
+   "controles": 36,
+   "conformes": 36,
+   "ecarts": []
+  },
+  "branches": {
+   "controles": 94,
+   "conformes": 94,
+   "ecarts": [],
+   "bloques": []
   },
   "dependances": {
    "controles": 496,

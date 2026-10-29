@@ -16,7 +16,7 @@ Les chiffres de ce rapport sont recalculés par `node scripts/verification/chiff
 ## 1. Chiffres
 
 <!-- CHIFFRES : section écrite par node scripts/verification/chiffres.mjs -->
-Calculés le 2026-10-28 à 22:58 UTC.
+Calculés le 2026-10-29 à 09:26 UTC.
 
 | Mesure | Nombre | Écart expliqué |
 |---|---|---|
@@ -24,12 +24,12 @@ Calculés le 2026-10-28 à 22:58 UTC.
 | Questions relues | 566 | Toutes. 26 corrigées (texte, aide, choix ou règle), 2 à arbitrer (section 5). |
 | Contrôle automatique du texte (période, bornes, ton, choix) | 556 sans constat | 5 montants sans période écrite, vérifiés un par un (la base est dans la question). 0 constat ouvert. |
 | Questions atteignables par le vrai moteur d'assemblage | 546 sur 561 | 15 questions COM-57 : posées à la première création de contenu, jamais pendant l'audit, par conception. |
-| Questions affichées et manipulées dans le navigateur | 475 | Les autres questions atteignables sont vérifiées par le moteur d'assemblage sur des réponses simulées, pas à l'écran. Les contrôles navigateur utilisent un compte par règle ou par agent (électricien pour les boutons). |
+| Questions affichées et manipulées dans le navigateur | 476 | Les autres questions atteignables sont vérifiées par le moteur d'assemblage sur des réponses simulées, pas à l'écran. Les contrôles navigateur utilisent un compte par règle ou par agent (électricien pour les boutons). |
 | Liens de dépendance recensés | 1 101 | Dont 470 liens de calcul (croisements, scénarios), non exécutables tant que leurs formules sont en texte libre. Les autres liens portent sur l'affichage, les lignes, les données partagées et les pré-réponses. |
 | Règles d'affichage | 95 | 79 conditions et 16 masquages. Elles portent les 287 liens « condition » et les 94 liens « masquage ». |
 | Règles jouées dans le navigateur, dans les deux sens | 91 | 4 hors plan : « Pas posée si les agents Acquisition et Comm sont faits : calculée » (toujours posée, pas une dépendance) ; « D30 · avant la première création de contenu » (jamais pendant l'audit) ; « Vente immédiate (commerce) » (à préciser : aucune réponse ne la déclenche) ; « Sans travaux en cours » (à préciser : aucune réponse ne la déclenche). |
 | Règles entièrement conformes | 91 | Aucun écart. Aucune règle bloquée. |
-| Contrôles navigateur de la vérification (canaux, règles, résultats, séparation, départs de page, changements rapides, historique) | 586 | 586 conformes, 0 écart(s), 0 bloqué(s). |
+| Contrôles navigateur de la vérification (canaux, règles, résultats, séparation, départs de page, changements rapides, historique) | 716 | 716 conformes, 0 écart(s), 0 bloqué(s). |
 
 Contrôles navigateur de la vérification, par script :
 
@@ -41,6 +41,8 @@ Contrôles navigateur de la vérification, par script :
 | `retours` | 5 | 5 | aucun | aucun |
 | `rapides` | 7 | 7 | aucun | aucun |
 | `historique` | 32 | 32 | aucun | aucun |
+| `partages` | 36 | 36 | aucun | aucun |
+| `branches` | 94 | 94 | aucun | aucun |
 | `dependances` | 496 | 496 | aucun | aucun |
 
 Dernière exécution complète (`resultats/synthese.txt`), un contrôle par ligne :

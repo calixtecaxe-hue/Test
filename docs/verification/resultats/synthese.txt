@@ -1,30 +1,10 @@
-Vérification du questionnaire : contrôles lancés le 2026-10-28T21:20Z
+Vérification du questionnaire : contrôles lancés le 2026-10-29T09:26Z
 typescript                   code 0  
 lint                         code 0  
-tests-unitaires              code 0  # duration_ms 20583.054858
+tests-unitaires              code 0  # duration_ms 25065.232834
 controle-donnees             code 0  Contrôle réussi : aucune erreur.
 balayage-secteurs            code 0  POINTS D'ATTENTION : 0
 inventaire                   code 0    scénario (calcul) : 31
 plan-dependances             code 0    M-092 Ne publie pas (parcours mise en place) : des cibles restent affichées quand la règle est fausse (condition propre vraie, ou question qui décide du masquage) → COM-10.03, COM-10.04, COM-10.05
-canaux                       code 0  compte de test : verif.1793222610744.93475@example.com
-dependances                  code 0  91 règles jouées, 496 contrôles : 496 conformes, 0 écart(s), 0 bloqué(s).
-resultats                    code 0  11 contrôles, 11 conformes, 0 écart(s).
-separation                   code 0  9 contrôles, 9 conformes, 0 écart(s).
-retours                      code 0  5 contrôles, 5 conformes, 0 écart(s).
-rapides                      code 0  7 contrôles, 7 conformes, 0 écart(s).
-historique                   code 0  32 contrôles, 32 conformes, 0 écart(s).
-objectifs                    code 0  50 contrôles, 50 conformes, 0 écart(s).
-listes                       code 0  17 contrôles, 17 conformes, 0 écart(s).
-prereponse                   code 0  Tout est conforme.
-autre                        code 0  168 vérifications, 0 échec(s).
-compte                       code 0  Tout est conforme.
-audit-client                 code 1  38 contrôles, 37 conformes, 1 écart(s) : R-01.
-boutons-pages                code 0  157 vérifications, 0 échec(s).
-complementaire               code 0  Erreurs : 0 · points d'attention : 0
-captures                     code 0  7 captures écrites dans docs/verification/captures
-parcours-secteurs            code 0  Erreurs : 0 · points d'attention : 0
-boutons-acq                  code 0  670 vérifications, 0 échec(s).
-boutons-fin                  code 0  415 vérifications, 0 échec(s).
-boutons-rh                   code 0  716 vérifications, 0 échec(s).
-boutons-com                  code 0  756 vérifications, 0 échec(s).
-fin 22:58Z
+plan-branches                code 0    M-092 Ne publie pas (parcours mise en place) [COM-10.07 (D21) parmi « Rarement ou plus du tout », « Non, jamais »] : V3 V3 F30
+canaux                       code 0  compte de test : verif.1793266186977.18075@example.com
