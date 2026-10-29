@@ -373,6 +373,18 @@ choix de l'agent et objectif → questionnaire assemblé → moteur (constat, pr
   par le dirigeant depuis n'importe lequel des agents ouverts : mini-bloc « temps du dirigeant », nombre de ventes et jours
   d'ouverture, objectif de croissance du CA, masse salariale, budget marketing, abonnés, canaux. Même niveau (essentiel / approfondi)
   chez tous les agents qui les utilisent. Pas de double comptage.
+- **Ce qui est une donnée partagée (audit final du 29 octobre, `data/partages.json`).** La colonne « Données utilisées » du classeur
+  mêle la même question chez un autre agent et des données qui servent seulement à la calculer. Trois cas :
+  - **jumelles** : même texte, même réponse ; une réponse vaut pour toutes (une jumelle de ma jumelle est ma jumelle) ;
+  - **correspondances partie à partie** : un champ, une colonne ou une ligne de tableau d'une question est la réponse d'une autre
+    (COM-32.01 et ACQ-07.01, 07.03, 07.04 ; COM-12.01 et ACQ-03.02 à 03.04 ; FIN-34.02, COM-43.01 et ACQ-20.02 ; RH-16.01, FIN-10.01
+    et FIN-10.03). Entièrement connue ailleurs, la question n'est pas reposée ; connue en partie, elle s'affiche avec les valeurs
+    reprises, à vérifier et compléter, sans rien enregistrer à la place du dirigeant ;
+  - **pas des partages** : six liens où une donnée sert au calcul de l'autre (capacité et heures, couverts et ventes, demandes et
+    visites du site, avis Google et plateforme) ; les deux questions sont posées. Demandes (ACQ-02.01) et visites du site (COM-13.01)
+    restent la même donnée pour une boutique en ligne, où ACQ-02.01 se lit « visiteurs de votre site ».
+
+  Le contrôle des données refuse un lien du classeur entre deux questions différentes qui n'est pas décrit dans ce fichier.
 - **Jamais deux périodes mélangées dans un calcul.** CA au mois ; ventes dans l'unité du métier, ramenées au mois par le moteur avec
   les jours d'ouverture (par jour × jours ouverts par semaine × 4,3). Le nombre de ventes compte les achats, pas les articles.
 
@@ -775,6 +787,19 @@ la banque, du classeur ou des règles, relancer les contrôles (`docs/etat-techn
       XF03 et XF38) ;
     - 5 questions RH hors périmètre (droit du travail, rémunération, financement de la formation) ;
     - COM-24.01 redemande l'objectif de l'agent Comm ; D07 (stock) redemande ce que le compte connaît.
+15. **Audit final des questions (29 octobre)** (`docs/audit-final/rapport.md` ; anomalies dans `docs/audit-final/anomalies.json` ;
+    la banque n'a pas été modifiée) :
+    - A-05 : convention des montants, aucun ne dit HT ou TTC (recommandé : tout en HT, montants réellement payés pour une entreprise
+      sans TVA) ;
+    - A-06 : réserver « Je ne suis pas cette donnée » aux questions chiffrées (affiché aujourd'hui sur toutes) ;
+    - A-07 : RH-28.10 (meilleures recrues) posée seulement si un recrutement a eu lieu ;
+    - A-08 : dirigeant seul, deux blocs voisins (RH-28 à 31 et RH-41 à 44) : ne pas lui poser RH-28.01, ou alléger le bloc ;
+    - A-09 : COM-44.01 (avis Google) posée seulement si « Fiche Google » est cochée, comme ACQ-06.01 ;
+    - A-10 : textes « vous et votre équipe » au dirigeant seul (6 questions) : une forme selon la taille ;
+    - A-11 : tranches de RH-28.03 à rendre contiguës ;
+    - A-14 : écrire les calculs qui éviteraient une question (capacité depuis RH-07, heures depuis RH-06.02 ou RH-05.01, ventes d'un
+      restaurant depuis les couverts et les services), puis les proposer en réponse pré-remplie ;
+    - A-22 : faire lire au pré-remplissage de FIN-05.02 les dépenses connues par COM-32.01, ou garder la règle du 22 octobre.
 
 ### À valider (propositions déjà en place)
 

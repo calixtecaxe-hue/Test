@@ -27,6 +27,17 @@ const anomalies = lire(`${D}/anomalies.json`).anomalies;
 const auto = lire(`${D}/controles-auto.json`);
 const partages = lire("data/partages.json");
 const evolutions = JSON.stringify(lire("data/evolutions.json"));
+const donnees = new Map(fs.readdirSync("data").filter((f) => f.startsWith("donnees-")).flatMap((f) => lire(`data/${f}`)).map((d) => [d.code, d]));
+// Pourquoi une question de la banque n'a pas été manipulée dans le navigateur : le contrôle des boutons passe chaque question d'un
+// électricien (profil chantier), 4 personnes, niveau approfondi ; les autres contrôles ciblent des règles.
+function raisonNonManipulee(code) {
+  const d = donnees.get(code);
+  if (!d) return "donnée introuvable";
+  if (d.metiers) return "module métier (comptes de test : électricien)";
+  if ("tailles" in d) return d.tailles.equipe_2_5 ? "condition non remplie par les réponses des contrôles" : "taille absente des comptes de test (2 à 5 personnes)";
+  if (!d.profils.chantier) return "profil absent des comptes de test (électricien, profil chantier)";
+  return "condition non remplie par les réponses des contrôles";
+}
 
 // --- Révisions du 29 octobre -------------------------------------------------------------------------------------------
 const RECO = { conserver: "Conserver", preciser: "Préciser", conditionnelle: "Rendre conditionnelle", fusionner: "Fusionner", retirer: "Retirer", remplacer: "Remplacer" };
@@ -164,7 +175,7 @@ for (const e of evaluations) {
   else if (inv?.atteignable === "NON") verif.push(`non posée pendant l'audit : ${inv.raison_non_atteinte}`);
   const navigateur = vues.get(e.code) ?? (e.statut === "cadrage" && cadrageJoue.has(e.code) ? new Set(["règles d'affichage (réponse changée à l'écran)"]) : null);
   if (navigateur) verif.push(`affichée et manipulée dans l'application (${[...navigateur].join(", ")})`);
-  else if (e.statut === "banque" && inv?.atteignable === "oui (assemblage)") verif.push("non manipulée dans le navigateur");
+  else if (e.statut === "banque" && inv?.atteignable === "oui (assemblage)") verif.push(`non manipulée dans le navigateur : ${raisonNonManipulee(e.code)}`);
   for (const v of verdictsParCode.get(e.code) ?? []) verif.push(`contrôle automatique : ${v}`);
   for (const a of corrigees) verif.push(`${a.id} corrigée le 29 octobre (${a.controle.split(".")[0]})`);
 
@@ -207,12 +218,14 @@ const chiffres = {
   recensees: { total: lignes.length, banque: compte((l) => l.statutBanque === "banque"), cadrage: compte((l) => l.statutBanque === "cadrage"), enAttente: compte((l) => l.statutBanque === "en attente") },
   verifiees: {
     evaluees: lignes.length,
-    relues: compte((l) => /^relue|^reformulée|^corrigée|^conforme/.test(l.verification)),
+    relues: compte((l) => /^(relue|reformulée|corrigée|conforme|à arbitrer)/.test(l.verification)),
+    reluesAArbitrer: compte((l) => /^à arbitrer/.test(l.verification)),
     assemblees: compte((l) => /assemblée par le vrai code/.test(l.verification)),
     nonPoseesPendantLAudit: compte((l) => /non posée pendant l'audit/.test(l.verification)),
     manipuleesNavigateur: compte((l) => l.navigateur || (l.statutBanque === "cadrage" && cadrageJoue.has(l.identifiant))),
     banqueManipuleesNavigateur: compte((l) => l.statutBanque === "banque" && l.navigateur),
     banqueNonManipulees: lignes.filter((l) => l.statutBanque === "banque" && !l.navigateur).map((l) => l.identifiant),
+    nonManipuleesParRaison: lignes.filter((l) => /non manipulée dans le navigateur : /.test(l.verification)).reduce((acc, l) => { const r = l.verification.match(/non manipulée dans le navigateur : ([^|]+)/)[1].trim(); acc[r] = (acc[r] ?? 0) + 1; return acc; }, {}),
     cadrageManipulees: compte((l) => l.statutBanque === "cadrage" && cadrageJoue.has(l.identifiant)),
   },
   statuts: Object.fromEntries(STATUTS.map((s) => [s, compte((l) => l.statut === s)])),
@@ -254,10 +267,11 @@ const blocs = {
     `|---|---|`,
     `| Questions recensées | ${chiffres.recensees.total} (${chiffres.recensees.banque} de la banque, ${chiffres.recensees.cadrage} de cadrage, ${chiffres.recensees.enAttente} en attente) |`,
     `| Évaluées une à une (utilité, profils, conditions, usage) | ${chiffres.verifiees.evaluees} |`,
-    `| Relues (texte, aide, choix, unité, période) | ${chiffres.verifiees.relues} |`,
+    `| Relues (texte, aide, choix, unité, période) | ${chiffres.verifiees.relues} (dont ${chiffres.verifiees.reluesAArbitrer} à arbitrer) |`,
     `| Assemblées par le vrai code et contrôlées par le balayage | ${chiffres.verifiees.assemblees} |`,
     `| Affichées et manipulées dans l'application | ${chiffres.verifiees.manipuleesNavigateur} (${chiffres.verifiees.banqueManipuleesNavigateur} de la banque, ${chiffres.verifiees.cadrageManipulees} de cadrage) |`,
     `| Jamais posées pendant l'audit (brief de création de contenu) | ${chiffres.verifiees.nonPoseesPendantLAudit} |`,
+    ...Object.entries(chiffres.verifiees.nonManipuleesParRaison).map(([r, n]) => `| Assemblées mais non manipulées dans le navigateur : ${r} | ${n} |`),
     "",
     `| Statut (un seul par question) | Nombre | dont exploitation à développer |`,
     `|---|---|---|`,

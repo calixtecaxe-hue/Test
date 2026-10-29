@@ -52,6 +52,7 @@ Chiffres au 28 octobre 2026.
 | `objectifs-agents.json` | 54 objectifs RH (11) et Comm (43), textes à relire (`aValider`) ; parties de la Comm avec leur `parcours` (COM-10.07) | à la main |
 | `prereponses.json` | 1 règle (FIN-05.02) | à la main |
 | `implications.json` | 1 réponse déduite (COM-13.10) | à la main |
+| `partages.json` | Liens du classeur entre deux questions posées qui ne sont pas des jumelles exactes : 6 « pas un partage » (avec leur raison ; COM-13.01 et ACQ-02.01 partagés pour le seul profil e-commerce), 10 correspondances partie à partie | **à la main** (audit final du 29 octobre) |
 | `retraits.json` | Vide depuis le 27 octobre (mécanisme gardé) | à la main |
 | `seuils.json` | **Vide** (voir `seuils.README.md`) | — |
 | `catalogue-themes.json` | 189 fiches ; 36 indicateurs comparables pour les 22 thèmes Marché | `python3 scripts/ecrire-catalogue-themes.py` |
@@ -238,6 +239,26 @@ Chiffres au 28 octobre 2026.
   carte reprend une réponse changée ailleurs sur la page.
 - Brouillon : `BrouillonReponse`, `PUT /api/audit/brouillon`, supprimé dès la réponse complète.
 
+### Données partagées (29 octobre)
+
+- `src/lib/audit/partages.ts` : `equivalences(e, compte?)` (jumelles du compte : liens du classeur, moins les données
+  pré-remplies, les « pas un partage » et les correspondances ; un lien `partageSeulementPour` ne vaut que si le compte lit les deux
+  questions avec les mots de ces profils ; groupes de jumelles reliés entre eux), `lecturePartagee(e, reponses, equiv)`
+  (`reponse`, `sources`, `reprise`, `parties`), `composerParties` (fonction pure, utilisée aussi par l'écran), `questionsLiees`
+  (droits d'écriture, question « posée »).
+- Une clé de correspondance : `CODE`, `CODE#champ`, `CODE#ligne.colonne` ou `CODE#*.colonne`. Une estimation, un « je ne sais pas »
+  ou une case vide ne se placent pas dans un champ ; un « je ne sais pas » d'un groupe vaut pour une question entière qui en est une
+  partie.
+- Assemblage : `sourcesPartage`, `reprise` par question ; `equivalences` du compte dans l'assemblage, lues par le moteur
+  (`constaterAgent`) et les évolutions (`ContexteEvolution.partage`, `liees`). Droits d'écriture : `peutEcrireDonnee(…, formulation)`,
+  `formulationDuCompte` (`contexte-compte.ts`).
+- Écran : `CartePartagee` (plusieurs sources, valeur lue partie par partie, libellés des choix et unités, `[data-reponse-partagee]`) ;
+  « Modifier cette réponse » ouvre chaque question d'origine ; valeurs reprises dans le formulaire (`[data-reprise]`), rien
+  d'enregistré tant que le dirigeant ne répond pas.
+- Contrôle des données : tout lien du classeur entre deux questions de texte ou de réponse différents doit être décrit ; chaque
+  correspondance attend la même réponse des deux côtés (unité, choix, lignes).
+- Tests : `tests/partages.test.mts` ; navigateur : `node scripts/verification/partages.mjs` (36 contrôles).
+
 ### Réponses déduites, retraits, pré-réponse
 
 - Déduite : `data/implications.json`, fonction `reponsesDeduites`.
@@ -383,7 +404,7 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 
 | Commande | Ce qu'elle contrôle |
 |---|---|
-| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 376 tests unitaires, données |
+| `npx tsc --noEmit`, `npm run lint`, `npm test`, `npm run donnees:controle` | Code, 386 tests unitaires, données |
 | `node scripts/balayage-secteurs.mts` | Assemble et remplit le questionnaire de chaque métier, activité, taille, niveau et agent (229 scénarios, 7 704 questionnaires) : textes, lexique, tableaux, règles en attente, exclusions des professions réglementées, constat |
 | `node scripts/controle-parcours-secteurs.mjs`, `node scripts/controle-complementaire.mjs` | Parcours par secteur dans un navigateur |
 | `node scripts/controle-boutons.mjs [--agents ACQ,FIN,RH,COM] [--apercu <dossier>]` | Chaque question : chiffre exact, estimation, « je ne sais pas », « je ne suis pas cette donnée », « Effacer ma réponse », cases, choix, listes, tableaux, texte, mois, cartes partagées, mise à jour des questions suivantes, rechargement ; sur l'application ou l'aperçu |
@@ -395,6 +416,9 @@ Règles : `CLAUDE.md`, section 6 ; vérification du 28 octobre : `docs/verificat
 | `node scripts/controle-prereponse.mjs` | Total pré-rempli de FIN-05.02 |
 | `node scripts/audit-client.mjs [--sortie dossier]` | Parcours d'un dirigeant (inscription, recherche du métier, dossier, objectif, questionnaire, coupure réseau, reprise sur téléphone, droits, mobile 360 px, clavier, connexion, mot de passe oublié, page 404). Identifiants du rapport « Audit client de CAXE (27 octobre 2026) » (Claude Docs) ; « ÉCART » et code 1 tant qu'un défaut reste |
 | `node scripts/verification/historique.mjs [--sortie dossier]` | Historique et évolutions (32 contrôles H-01 à H-32) : périodes écrites, seuils d'ancienneté, entreprise jeune, baisse, hausse, stabilité, zéro, données partielles, périmètre, réponses de mois différents, changement du dossier, autre appareil |
+| `node scripts/verification/partages.mjs [--sortie dossier]` | Données partagées (36 contrôles P-01 à P-21) : les six liens qui ne sont pas des partages, jumelles, correspondances partie à partie dans les deux sens, valeurs reprises puis complétées, modification depuis l'autre agent, boutique en ligne, jumelles d'une même jumelle |
+| `node scripts/verification/plan-branches.mts`, puis `node scripts/verification/branches.mjs [--sortie dossier]` | Règles à plusieurs branches (14 règles, 94 contrôles) : chaque branche d'un « un » seule vraie, chaque condition d'un « tous » seule fausse, chaque valeur d'un « parmi » ; réponse d'une question ouverte gardée tant qu'une autre branche la garde ouverte, puis exclue et gardée en base |
+| `node scripts/verification/audit-final-controles.mts`, `node scripts/verification/audit-final-rapport.mjs`, `python3 scripts/verification/audit-final-xlsx.py` | Audit final des questions (29 octobre) : contrôles automatiques de clarté (`docs/audit-final/controles-auto.json`), inventaire d'une ligne par question (`inventaire.csv`, `inventaire.json`, `CAXE-inventaire-questions.xlsx`), chiffres et blocs de `docs/audit-final/rapport.md` ; anomalies et révisions écrites à la main (`anomalies.json`, `revisions.txt`) |
 | `node scripts/verification/utilite-extraire.mjs`, puis `node scripts/verification/utilite-rapport.mjs` | Audit d'utilité de la banque : tout ce qui lit chaque question (`docs/audit-utilite/usages.json`), évaluations écrites à la main (`docs/audit-utilite/evaluations/*.txt`), tableau complet (`questions.csv`) et blocs générés du rapport ; code 1 si une question n'a pas d'évaluation |
 | `scripts/verification/*` | Vérification du questionnaire (inventaire, dépendances, canaux, résultats, séparation, départs de page, changements rapides, captures) : voir `docs/verification/rapport.md`, section 7 |
 
@@ -408,6 +432,10 @@ sur COM-12.01 par un défaut de l'outil de test ; outil corrigé, relancé seul 
 `docs/verification/rapport.md`, section 1.
 
 ## 14. Historique utile
+
+- **Audit final des questions (29 octobre)** : `docs/audit-final/rapport.md`. Corrigés : données partagées (six liens qui n'en
+  étaient pas, regroupements composés partie par partie, jumelles d'une même jumelle, carte « déjà renseigné »). Ajoutés : contrôles
+  `partages.mjs` et `branches.mjs` dans `tout.sh`. Banque inchangée ; 23 anomalies, dont 19 à décider ou à construire.
 
 - **Banque** : 515 questions écrites le 21 octobre (page « Banque de questions », importée avec `--ecarter-inconnues`), chacune
   rattachée à une donnée « Demandée » ou « Partagée » du classeur ; 47 mises de côté faute de donnée dans le classeur 11 (thèmes ACQ-24

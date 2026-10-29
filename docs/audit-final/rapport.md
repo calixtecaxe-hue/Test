@@ -23,16 +23,20 @@ appelé hors navigateur) ou seulement **lu dans le code** est dit à chaque fois
 |---|---|
 | Questions recensées | 583 (561 de la banque, 17 de cadrage, 5 en attente) |
 | Évaluées une à une (utilité, profils, conditions, usage) | 583 |
-| Relues (texte, aide, choix, unité, période) | 581 |
+| Relues (texte, aide, choix, unité, période) | 583 (dont 2 à arbitrer) |
 | Assemblées par le vrai code et contrôlées par le balayage | 546 |
-| Affichées et manipulées dans l'application | 432 (424 de la banque, 8 de cadrage) |
+| Affichées et manipulées dans l'application | 397 (394 de la banque, 3 de cadrage) |
 | Jamais posées pendant l'audit (brief de création de contenu) | 15 |
+| Assemblées mais non manipulées dans le navigateur : profil absent des comptes de test (électricien, profil chantier) | 37 |
+| Assemblées mais non manipulées dans le navigateur : condition non remplie par les réponses des contrôles | 78 |
+| Assemblées mais non manipulées dans le navigateur : taille absente des comptes de test (2 à 5 personnes) | 21 |
+| Assemblées mais non manipulées dans le navigateur : module métier (comptes de test : électricien) | 16 |
 
 | Statut (un seul par question) | Nombre | dont exploitation à développer |
 |---|---|---|
-| Utile et bien définie | 432 | 33 |
-| Utile, exploitation à développer | 80 | 80 |
-| À clarifier ou à rendre conditionnelle | 41 | 21 |
+| Utile et bien définie | 429 | 33 |
+| Utile, exploitation à développer | 79 | 79 |
+| À clarifier ou à rendre conditionnelle | 45 | 22 |
 | Faible utilité : retrait, fusion ou remplacement proposé | 25 | 2 |
 | En attente (catégorie Fabrication) | 5 | 5 |
 | **Total** | **583** | **141** |
@@ -56,7 +60,8 @@ calcul. L'**utilité** (le statut) et l'**implémentation** (ce que le code fait
 
 **À décider par le propriétaire** (rien n'est changé sans accord) : convention hors taxes (A-05), « Je ne suis pas cette donnée »
 réservé aux chiffres (A-06), quatre conditions ou textes (A-07 à A-11), FIN-48.01 (A-12), les liens manquants des calculs (A-13),
-les calculs qui éviteraient une question (A-14), et les décisions déjà ouvertes reprises en section 10.
+les calculs qui éviteraient une question (A-14), le pré-remplissage du budget marketing (A-22), et les décisions déjà ouvertes
+reprises en section 10 (A-12 à A-20, A-23).
 
 ## 2. Ce qui est assez défini pour concevoir l'IA, et ce qui ne l'est pas encore
 
@@ -135,10 +140,10 @@ section 4.
 Vérifiées par le vrai code d'assemblage (simulé) et, pour les règles, dans l'application (exécuté : `dependances.mjs`,
 `branches.mjs`).
 
-- **Équipe et dirigeant seul.** 14 questions d'équipe sont posées au dirigeant seul. Huit sont justes : le bloc recrutement se
-  répond en estimation par qui prévoit de recruter, RH-41 à RH-44 sont écrites pour lui. Six parlent de « vous et votre équipe »
-  (A-10, texte à adapter). Deux défauts de condition : RH-28.10 porte sur des recrues passées (A-07) ; le dirigeant seul reçoit
-  deux blocs voisins sur le recrutement et l'aide (A-08).
+- **Équipe et dirigeant seul.** 14 questions d'équipe sont posées au dirigeant seul. Sept sont justes : cinq questions du bloc
+  recrutement se répondent en estimation par qui prévoit de recruter, RH-41.01 et RH-44.02 sont écrites pour lui. Six parlent de
+  « vous et votre équipe » (A-10, texte à adapter). RH-28.10 porte sur des recrues passées (A-07). Au-delà de ces questions, le
+  dirigeant seul reçoit deux blocs voisins sur le recrutement et l'aide (A-08).
 - **Relances sans problème.** Les relances de devis, d'appels manqués et de paiement ne sont posées que si le problème existe
   (devis, appels manqués, paiement après facture ; conditions jouées dans l'application). Trois pratiques restent posées sans
   problème constaté : rappel la veille d'un rendez-vous (ACQ-09.06), relance des paniers abandonnés (ACQ-11.16), relance des
@@ -196,7 +201,7 @@ Exécutés sur le serveur de test, avec des comptes fictifs (aucun paiement rée
 | historique | 32 | 0 |
 | partages | 36 | 0 |
 | branches | 94 | 0 |
-| dependances | 158 | 0 |
+| dependances | 66 | 0 |
 <!-- fin:scenarios -->
 
 (contrôle, nombre de contrôles, écarts). Série complète : `docs/verification/resultats/synthese.txt`.
@@ -234,10 +239,10 @@ sa réponse.
 <!-- debut:implementation -->
 | Implémentation \ utilité | Utile et bien définie | Utile, exploitation à développer | À clarifier ou à rendre conditionnelle | Faible utilité | En attente | Total |
 |---|---|---|---|---|---|---|
-| exécuté par le code | 115 | 10 | 13 | 1 | 0 | 139 |
-| prévu par le classeur, pas encore exécuté | 242 | 8 | 17 | 4 | 0 | 271 |
+| exécuté par le code | 114 | 10 | 14 | 1 | 0 | 139 |
+| prévu par le classeur, pas encore exécuté | 240 | 8 | 19 | 4 | 0 | 271 |
 | lu par l'IA du rapport (pas encore branchée) | 64 | 5 | 8 | 7 | 0 | 84 |
-| aucun usage écrit | 2 | 56 | 3 | 13 | 0 | 74 |
+| aucun usage écrit | 2 | 55 | 4 | 13 | 0 | 74 |
 | lu par l'IA du rapport, usage à écrire dans le classeur | 9 | 1 | 0 | 0 | 0 | 10 |
 | en attente | 0 | 0 | 0 | 0 | 5 | 5 |
 <!-- fin:implementation -->
@@ -279,6 +284,7 @@ calculs du classeur qui éviteraient une question ne sont pas écrits (A-14) ; C
 | A-20 | Questions qui redemandent une réponse connue | doublon | à décider | 2 |
 | A-21 | Brief de création de contenu (COM-57) non vérifiable dans l'application | limite | à construire | 15 |
 | A-22 | Budget marketing pré-rempli : seules les réponses directes comptent | règle | à décider | 2 |
+| A-23 | Questions à arbitrer depuis la vérification du 28 octobre | formulation | à décider | 4 |
 <!-- fin:anomalies -->
 
 <!-- debut:detail -->
@@ -558,6 +564,18 @@ calculs du classeur qui éviteraient une question ne sont pas écrits (A-14) ; C
 - **Conséquence** : Un compte Finance et Comm sans l'Acquisition n'a jamais le total proposé, même quand tout le détail est connu. Aucune valeur fausse.
 - **Correction (à décider)** : Faire lire au pré-remplissage les réponses partagées (lecture composée), ou garder la règle telle qu'écrite le 22 octobre. Voisin de la question déjà ouverte « FIN-05.02 sans l'agent Comm » (section 15, point 6).
 - **Contrôle** : Lecture du code (src/lib/audit/prereponse.ts) ; contrôle navigateur du total pré-rempli (controle-prereponse.mjs) inchangé.
+
+### A-23 · Questions à arbitrer depuis la vérification du 28 octobre
+
+- **Questions** : 
+  - ACQ-22.05 : « Sur une semaine habituelle, combien de créneaux de rendez-vous proposez-vous ? »
+  - FIN-17.02 : « Sur les 12 derniers mois, en combien de temps vos clients vous ont-ils payé en réalité ? »
+  - COM-13.10 : « Avez-vous un site internet ? »
+  - COM-22.04 : « Sur les 12 derniers mois, parmi les demandes qui vous sont venues des réseaux sociaux, quelle part est venue de chaque réseau ? »
+- **Problème** : ACQ-22.05 : le texte demande les créneaux proposés, l'aide laisse entendre les créneaux libres. FIN-17.02 : répartition des paiements par nombre de factures ou par montant. COM-13.10 : un « non » donné avant de cocher « Site internet » dans les canaux ne compte plus, le canal l'emporte. COM-22.04 : répartition entre réseaux mesurée sur les demandes ou sur autre chose.
+- **Conséquence** : Deux dirigeants peuvent répondre à deux questions différentes sous le même texte ; le calcul de capacité (ACQ-22.05) et celui de la trésorerie (FIN-17.02) n'ont pas une mesure unique.
+- **Correction (à décider)** : Décisions déjà listées (CLAUDE.md, section 15, point 6). Rien n'est modifié en attendant.
+- **Contrôle** : Inventaire de la vérification (colonne « relecture ») relu le 29 octobre : toujours « à arbitrer ».
 
 <!-- fin:detail -->
 

@@ -427,6 +427,25 @@
         "texte": "Faire lire au pré-remplissage les réponses partagées (lecture composée), ou garder la règle telle qu'écrite le 22 octobre. Voisin de la question déjà ouverte « FIN-05.02 sans l'agent Comm » (section 15, point 6)."
       },
       "controle": "Lecture du code (src/lib/audit/prereponse.ts) ; contrôle navigateur du total pré-rempli (controle-prereponse.mjs) inchangé."
+    },
+    {
+      "id": "A-23",
+      "titre": "Questions à arbitrer depuis la vérification du 28 octobre",
+      "type": "formulation",
+      "origine": "reprise",
+      "codes": [
+        "ACQ-22.05",
+        "FIN-17.02",
+        "COM-13.10",
+        "COM-22.04"
+      ],
+      "probleme": "ACQ-22.05 : le texte demande les créneaux proposés, l'aide laisse entendre les créneaux libres. FIN-17.02 : répartition des paiements par nombre de factures ou par montant. COM-13.10 : un « non » donné avant de cocher « Site internet » dans les canaux ne compte plus, le canal l'emporte. COM-22.04 : répartition entre réseaux mesurée sur les demandes ou sur autre chose.",
+      "consequence": "Deux dirigeants peuvent répondre à deux questions différentes sous le même texte ; le calcul de capacité (ACQ-22.05) et celui de la trésorerie (FIN-17.02) n'ont pas une mesure unique.",
+      "correction": {
+        "etat": "à décider",
+        "texte": "Décisions déjà listées (CLAUDE.md, section 15, point 6). Rien n'est modifié en attendant."
+      },
+      "controle": "Inventaire de la vérification (colonne « relecture ») relu le 29 octobre : toujours « à arbitrer »."
     }
   ]
 }
