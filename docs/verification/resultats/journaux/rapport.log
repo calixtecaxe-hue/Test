@@ -1,0 +1,31 @@
+conforme  RP-00   réponses fictives enregistrées (chiffre d'affaires, demandes, nouveaux clients, devis, temps du dirigeant)
+conforme  RP-01   Résultats : situation de départ 240 000 €, cible 264 000 €, écart à combler +24 000 €, échéance, avancement déclaré
+conforme  RP-02   Résultats : chaque chiffre avec son unité et ses mois (demandes « estimé », part des demandes devenues clientes 20 %, vos heures)
+conforme  RP-03   Résultats : aucune couleur de jugement, aucun score, aucun conseil, aucun identifiant technique
+conforme  RP-04   Résultats : « Données utilisées » retrouve la question d'origine, en mots
+conforme  RP-05   Résultats : sans repère vérifié, la comparaison au marché est dite indisponible ; ce qui manque est listé, sans valeur à zéro
+conforme  RP-06   objectif RH sans chiffre : ni cible ni écart, la réussite décrite par le dirigeant, aucun pourcentage
+conforme  RP-07   Rapport avant rédaction : explication et bouton « Rédiger mon rapport »
+conforme  RP-08   Plan d'action avant rédaction : il est rédigé avec le rapport (bouton « Rédiger mon rapport et mon plan »)
+conforme  RP-09   rédaction : état « en cours » affiché, puis échec (provoqué) avec un message clair et « Relancer la rédaction » ; rien d'autre n'est montré
+conforme  RP-10   relance : le rapport est prêt, enregistré (statut PRET) avec une ligne de suivi par action
+conforme  RP-11   rapport : bandeau « Simulation », synthèse, faits établis et « D'après », sans point d'exclamation ni identifiant technique
+conforme  RP-12   rapport : ce que le dirigeant a déjà essayé n'apparaît pas tant que la question est sans réponse
+conforme  RP-13   après actualisation, le rapport est repris, à jour (pas de bandeau de mise à jour)
+conforme  RP-14   plan : actions « À lancer maintenant » puis « Peut attendre », chacune avec résultat, pourquoi, étapes, échéance, point d'étape, indicateur, effet attendu
+conforme  RP-15   suivi : « En cours » s'enregistre (base et écran) ; le texte rappelle que l'avancement de l'objectif est distinct
+conforme  RP-16   après actualisation, l'état de l'action est repris ; cocher une action ne rend pas le rapport périmé
+conforme  RP-17   au clavier, la flèche change l'état d'une action, enregistré
+conforme  RP-18   une réponse modifiée après la rédaction : bandeau « ont changé depuis ce rapport » et onglet « à mettre à jour »
+conforme  RP-19   « Mettre à jour le rapport » : l'ancien n'est plus montré pendant la rédaction ; le nouveau le remplace, l'ancien reste en base
+conforme  RP-20   réponse « déjà essayé » modifiée : rapport signalé périmé ; le nouveau la cite sous « Ce que vous avez déjà essayé »
+conforme  RP-21   plan : une action qui reprend un essai dit ce qui change
+conforme  RP-22   quitter la page pendant la rédaction : elle continue côté serveur et le rapport à jour est là au retour
+conforme  RP-23   téléphone 360 px : les trois onglets sans défilement horizontal
+conforme  RP-24   nouvel objectif : aucun rapport affiché tant qu'il n'est pas rédigé pour lui
+conforme  RP-25   sans aucune réponse : le rapport n'est pas lancé (message clair, 409), jamais de conseil générique
+conforme  RP-26   données partielles : la situation de départ manque, avec la raison ; les chiffres donnés sont montrés
+conforme  RP-27   données partielles : le rapport se rédige avec ce qui existe et liste ce qui manque
+conforme  RP-28   droits : le rapport d'un autre compte est introuvable (404, lecture comme suivi), agent hors formule refusé (403), état d'action inconnu refusé (400)
+
+29 contrôles, 29 conformes, 0 écart(s).

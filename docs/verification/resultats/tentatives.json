@@ -1,0 +1,161 @@
+{
+ "le": "2026-10-29T18:47:09.426Z",
+ "resultats": [
+  {
+   "id": "T-01-ACQ",
+   "attendu": "ACQ : la question est juste sous l'objectif, avant les questions",
+   "conforme": true,
+   "observe": "objectif → deja → question"
+  },
+  {
+   "id": "T-02-ACQ",
+   "attendu": "ACQ : « Qu'avez-vous déjà essayé pour atteindre cet objectif ? », rien de coché ni d'écrit d'avance, aucune réponse en base",
+   "conforme": true,
+   "observe": "Qu'avez-vous déjà essayé pour atteindre cet objectif ? ; base null"
+  },
+  {
+   "id": "T-01-FIN",
+   "attendu": "FIN : la question est juste sous l'objectif, avant les questions",
+   "conforme": true,
+   "observe": "objectif → deja → question"
+  },
+  {
+   "id": "T-02-FIN",
+   "attendu": "FIN : « Qu'avez-vous déjà essayé pour atteindre cet objectif ? », rien de coché ni d'écrit d'avance, aucune réponse en base",
+   "conforme": true,
+   "observe": "Qu'avez-vous déjà essayé pour atteindre cet objectif ? ; base null"
+  },
+  {
+   "id": "T-01-RH",
+   "attendu": "RH : la question est juste sous l'objectif, avant les questions",
+   "conforme": true,
+   "observe": "objectif → deja → question"
+  },
+  {
+   "id": "T-02-RH",
+   "attendu": "RH : « Qu'avez-vous déjà essayé pour atteindre cet objectif ? », rien de coché ni d'écrit d'avance, aucune réponse en base",
+   "conforme": true,
+   "observe": "Qu'avez-vous déjà essayé pour atteindre cet objectif ? ; base null"
+  },
+  {
+   "id": "T-01-COM",
+   "attendu": "COM : la question est juste sous l'objectif, avant les questions",
+   "conforme": true,
+   "observe": "objectif → deja → question"
+  },
+  {
+   "id": "T-02-COM",
+   "attendu": "COM : « Qu'avez-vous déjà essayé pour atteindre cet objectif ? », rien de coché ni d'écrit d'avance, aucune réponse en base",
+   "conforme": true,
+   "observe": "Qu'avez-vous déjà essayé pour atteindre cet objectif ? ; base null"
+  },
+  {
+   "id": "T-03",
+   "attendu": "« Je n'ai encore rien essayé » s'enregistre tout de suite ({ etat: rien }), alors qu'une question sans réponse reste vide en base",
+   "conforme": true,
+   "observe": "{\"etat\":\"rien\"}"
+  },
+  {
+   "id": "T-04",
+   "attendu": "le texte s'enregistre quand le dirigeant s'arrête d'écrire, sans quitter le champ ; « rien essayé » se décoche",
+   "conforme": true,
+   "observe": "{\"etat\":\"essaye\",\"duree\":null,\"texte\":\"J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines.\",\"resultat\":null}"
+  },
+  {
+   "id": "T-05",
+   "attendu": "une modification part dès que le dirigeant quitte le champ",
+   "conforme": true,
+   "observe": "{\"etat\":\"essaye\",\"duree\":null,\"texte\":\"J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines. Le soir, je n'avais plus le temps.\",\"resultat\":null}"
+  },
+  {
+   "id": "T-06",
+   "attendu": "résultat et durée, facultatifs, s'enregistrent",
+   "conforme": true,
+   "observe": "{\"etat\":\"essaye\",\"duree\":\"moins_d_1_mois\",\"texte\":\"J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines. Le soir, je n'avais plus le temps.\",\"resultat\":\"arrete_avant\"}"
+  },
+  {
+   "id": "T-07",
+   "attendu": "après actualisation, texte et précisions sont repris tels quels",
+   "conforme": true,
+   "observe": "J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines. Le soir, je n'avais plus le temps."
+  },
+  {
+   "id": "T-08",
+   "attendu": "cocher « rien essayé » après avoir écrit garde le texte en base (sans qu'il compte) et masque les précisions",
+   "conforme": true,
+   "observe": "{\"etat\":\"rien\",\"texte\":\"J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines. Le soir, je n'avais plus le temps.\"}"
+  },
+  {
+   "id": "T-09",
+   "attendu": "sans réseau, la réponse attend avec un message, puis repart seule",
+   "conforme": true,
+   "observe": "message true ; {\"etat\":\"essaye\",\"duree\":\"moins_d_1_mois\",\"texte\":\"J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines. (hors connexion)\",\"resultat\":\"arrete_avant\"}"
+  },
+  {
+   "id": "T-10",
+   "attendu": "au clavier, Espace coche et décoche « rien essayé », enregistré à chaque fois",
+   "conforme": true,
+   "observe": "{\"etat\":\"essaye\",\"duree\":\"moins_d_1_mois\",\"texte\":\"J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines. (hors connexion)\",\"resultat\":\"arrete_avant\"}"
+  },
+  {
+   "id": "T-11",
+   "attendu": "téléphone 360 px : aucun défilement horizontal",
+   "conforme": true,
+   "observe": "0 px de trop"
+  },
+  {
+   "id": "T-12",
+   "attendu": "nouvel objectif : aucune réponse reprise en base ; l'ancienne est proposée sous le nouvel objectif ; l'ancien objectif la garde",
+   "conforme": true,
+   "observe": "nouvel objectif null ; proposition true"
+  },
+  {
+   "id": "T-13",
+   "attendu": "l'historique des objectifs montre ce qui avait été essayé pour l'ancien objectif",
+   "conforme": true,
+   "observe": "Déjà essayé : J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines. (hors connexion) (je l'ai arrêté avant de voir le résultat)"
+  },
+  {
+   "id": "T-14",
+   "attendu": "« Non, je réponds pour ce nouvel objectif » ferme la proposition sans rien enregistrer",
+   "conforme": true,
+   "observe": "null"
+  },
+  {
+   "id": "T-15",
+   "attendu": "« Reprendre pour ce nouvel objectif » copie la réponse avec son origine (reprisDe), à l'écran comme en base",
+   "conforme": true,
+   "observe": "{\"etat\":\"essaye\",\"duree\":\"moins_d_1_mois\",\"texte\":\"J'ai relancé mes devis par téléphone, mais je n'ai pas tenu plus de trois semaines. (hors connexion)\",\"reprisDe\":\"cmvtwab7300i67dfffs40r86e\",\"resultat\":\"arrete_avant\"}"
+  },
+  {
+   "id": "T-16",
+   "attendu": "refusés : objectif remplacé (409), état inconnu, texte de plus de 1 500 caractères, résultat inconnu, reprise depuis l'objectif d'un autre agent (400)",
+   "conforme": true,
+   "observe": "409 400 400 400 400"
+  },
+  {
+   "id": "T-17",
+   "attendu": "l'objectif d'un autre compte est introuvable (404) ; sans objectif, la question n'est pas affichée",
+   "conforme": true,
+   "observe": "404 ; 0 bloc(s)"
+  },
+  {
+   "id": "T-18",
+   "attendu": "un agent qui n'est plus dans la formule est refusé (403)",
+   "conforme": true,
+   "observe": "403"
+  },
+  {
+   "id": "T-19",
+   "attendu": "deux objectifs en cours : deux questions nommées, la réponse ne vaut que pour son objectif",
+   "conforme": true,
+   "observe": "2 question(s), 2 nommée(s) ; base {\"etat\": \"rien\"} ; null"
+  },
+  {
+   "id": "T-20",
+   "attendu": "« Effacer ma réponse » remet la question sans réponse (base et écran)",
+   "conforme": true,
+   "observe": "null"
+  }
+ ]
+}

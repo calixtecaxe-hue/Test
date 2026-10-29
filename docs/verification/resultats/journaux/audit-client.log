@@ -22,7 +22,7 @@ conforme  Q-02a Questionnaire · une coupure du réseau est signalée sur la que
 conforme  Q-02b Questionnaire · au retour du réseau, la réponse saisie part sans que le dirigeant la retape
 conforme  Q-04  Reprise · sur un autre appareil, la réponse est retrouvée et l'écran amène à la première question sans réponse
 conforme  A-01  Mobile · à 360 px, la page ne défile pas de côté
-ÉCART     R-01  Résultats · l'onglet Priorités classe au moins un thème — observé : « Aucun thème n'a encore de note » (repères de marché et règles de notation non écrits)
+ÉCART     R-01  Résultats · les leviers sont classés par le moteur selon leur effet sur l'objectif — observé : « classement des leviers … pas encore calculés » (repères de marché et règles de notation non écrits)
 conforme  S-01  Droits · une question d'un agent non souscrit (Comm) est refusée (403)
 conforme  S-02  Droits · sans session, l'écriture est refusée (401)
 conforme  A-02  Clavier · le premier choix de l'objectif s'atteint au clavier, focus visible

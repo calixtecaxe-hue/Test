@@ -1,0 +1,179 @@
+{
+ "le": "2026-10-29T18:48:05.023Z",
+ "resultats": [
+  {
+   "id": "RP-00",
+   "attendu": "réponses fictives enregistrées (chiffre d'affaires, demandes, nouveaux clients, devis, temps du dirigeant)",
+   "conforme": true,
+   "observe": "200 200 200 200 200 200"
+  },
+  {
+   "id": "RP-01",
+   "attendu": "Résultats : situation de départ 240 000 €, cible 264 000 €, écart à combler +24 000 €, échéance, avancement déclaré",
+   "conforme": true,
+   "observe": "VOTRE OBJECTIF  augmenter mon chiffre d'affaires de 10 % sur les 6 prochains mois  Échéance 29 avril 2027 · dans 6 mois Origine Objectif fixé par vous Situation de départ 240 000 € Cible 264 000 € Écart à combler +24 000 € Avancement déclaré Aucun point d'étape pour l'instant  Mesure suivie : chiffre d'affaires des 12 derniers mois, octobre 2025 à septembre 2026. Somme de vos chiffres d'affaires m"
+  },
+  {
+   "id": "RP-02",
+   "attendu": "Résultats : chaque chiffre avec son unité et ses mois (demandes « estimé », part des demandes devenues clientes 20 %, vos heures)",
+   "conforme": true,
+   "observe": "Les faits tirés de vos réponses, sans jugement. L'interprétation est dans l'onglet Rapport, les actions dans le Plan d'action. Ces résultats se mettent à jour à chaque réponse.  VOTRE OBJECTIF  augmenter mon chiffre d'affaires de 10 % sur les 6 prochains mois  Échéance 29 avril 2027 · dans 6 mois Origine Objectif fixé par vous Situation de départ 240 000 € Cible 264 000 € Écart à combler +24 000 €"
+  },
+  {
+   "id": "RP-03",
+   "attendu": "Résultats : aucune couleur de jugement, aucun score, aucun conseil, aucun identifiant technique",
+   "conforme": true,
+   "observe": "0 élément(s) coloré(s)"
+  },
+  {
+   "id": "RP-04",
+   "attendu": "Résultats : « Données utilisées » retrouve la question d'origine, en mots",
+   "conforme": true,
+   "observe": "Données utilisées\n« Quel a été votre chiffre d'affaires pour chacun des 12 derniers mois ? »"
+  },
+  {
+   "id": "RP-05",
+   "attendu": "Résultats : sans repère vérifié, la comparaison au marché est dite indisponible ; ce qui manque est listé, sans valeur à zéro",
+   "conforme": true,
+   "observe": "4 mesure(s) manquante(s)"
+  },
+  {
+   "id": "RP-06",
+   "attendu": "objectif RH sans chiffre : ni cible ni écart, la réussite décrite par le dirigeant, aucun pourcentage",
+   "conforme": true,
+   "observe": "VOTRE OBJECTIF  clarifier qui fait quoi, d'ici 3 mois  Échéance 29 janvier 2027 · dans 3 mois Origine Objectif proposé Ce que vous voulez constater chacun sait ce qu'il doit faire sans me solliciter Avancement déclaré Aucun point d'étape pour l'instant  Votre objectif n'a pas de chiffre : son avance"
+  },
+  {
+   "id": "RP-07",
+   "attendu": "Rapport avant rédaction : explication et bouton « Rédiger mon rapport »",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RP-08",
+   "attendu": "Plan d'action avant rédaction : il est rédigé avec le rapport (bouton « Rédiger mon rapport et mon plan »)",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RP-09",
+   "attendu": "rédaction : état « en cours » affiché, puis échec (provoqué) avec un message clair et « Relancer la rédaction » ; rien d'autre n'est montré",
+   "conforme": true,
+   "observe": "en cours true ; échec true ; base ECHEC"
+  },
+  {
+   "id": "RP-10",
+   "attendu": "relance : le rapport est prêt, enregistré (statut PRET) avec une ligne de suivi par action",
+   "conforme": true,
+   "observe": "base ECHEC,PRET ; 2 action(s) suivie(s) pour 2"
+  },
+  {
+   "id": "RP-11",
+   "attendu": "rapport : bandeau « Simulation », synthèse, faits établis et « D'après », sans point d'exclamation ni identifiant technique",
+   "conforme": true,
+   "observe": "Simulation. Ce texte a été produit sans IA, pour essayer l'écran : il ne contient aucune analyse. Le vrai rapport est rédigé par l'IA une fois la clé d'accès configurée.\n\nEn bref\n\nSimulation de test, rédigée sans IA à partir de votre dossier. Votre objectif : « augmenter mon chiffre d'affaires de 10"
+  },
+  {
+   "id": "RP-12",
+   "attendu": "rapport : ce que le dirigeant a déjà essayé n'apparaît pas tant que la question est sans réponse",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RP-13",
+   "attendu": "après actualisation, le rapport est repris, à jour (pas de bandeau de mise à jour)",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RP-14",
+   "attendu": "plan : actions « À lancer maintenant » puis « Peut attendre », chacune avec résultat, pourquoi, étapes, échéance, point d'étape, indicateur, effet attendu",
+   "conforme": true,
+   "observe": "1  Vérifier les chiffres de vos résultats  Résultat recherché : Des chiffres qui décrivent votre situation actuelle.  Pourquoi maintenant : Simulation : le rapport s'appuie sur vos réponses telles qu'elles sont enregistrées.  ÉTAPES  Relisez les chiffres de l'onglet Résultats. Corrigez une réponse qui ne correspond plus à votre situation. Temps nécessaire Simulation : à estimer par l'IA. Moyens Vo"
+  },
+  {
+   "id": "RP-15",
+   "attendu": "suivi : « En cours » s'enregistre (base et écran) ; le texte rappelle que l'avancement de l'objectif est distinct",
+   "conforme": true,
+   "observe": "EN_COURS"
+  },
+  {
+   "id": "RP-16",
+   "attendu": "après actualisation, l'état de l'action est repris ; cocher une action ne rend pas le rapport périmé",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RP-17",
+   "attendu": "au clavier, la flèche change l'état d'une action, enregistré",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RP-18",
+   "attendu": "une réponse modifiée après la rédaction : bandeau « ont changé depuis ce rapport » et onglet « à mettre à jour »",
+   "conforme": true,
+   "observe": "Rapport · à mettre à jour"
+  },
+  {
+   "id": "RP-19",
+   "attendu": "« Mettre à jour le rapport » : l'ancien n'est plus montré pendant la rédaction ; le nouveau le remplace, l'ancien reste en base",
+   "conforme": true,
+   "observe": "en cours true, ancien caché true ; base ECHEC,PRET,PRET"
+  },
+  {
+   "id": "RP-20",
+   "attendu": "réponse « déjà essayé » modifiée : rapport signalé périmé ; le nouveau la cite sous « Ce que vous avez déjà essayé »",
+   "conforme": true,
+   "observe": "Ce que vous avez déjà essayé\n\nVous avez indiqué : « J'ai relancé mes devis par téléphone pendant trois semaines. » (je l'ai arrêté avant de voir le résultat).\n\nSimulation : la suite à donner est rédig"
+  },
+  {
+   "id": "RP-21",
+   "attendu": "plan : une action qui reprend un essai dit ce qui change",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RP-22",
+   "attendu": "quitter la page pendant la rédaction : elle continue côté serveur et le rapport à jour est là au retour",
+   "conforme": true,
+   "observe": "ECHEC,PRET,PRET,PRET,PRET"
+  },
+  {
+   "id": "RP-23",
+   "attendu": "téléphone 360 px : les trois onglets sans défilement horizontal",
+   "conforme": true,
+   "observe": "0 0 0"
+  },
+  {
+   "id": "RP-24",
+   "attendu": "nouvel objectif : aucun rapport affiché tant qu'il n'est pas rédigé pour lui",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RP-25",
+   "attendu": "sans aucune réponse : le rapport n'est pas lancé (message clair, 409), jamais de conseil générique",
+   "conforme": true,
+   "observe": "409"
+  },
+  {
+   "id": "RP-26",
+   "attendu": "données partielles : la situation de départ manque, avec la raison ; les chiffres donnés sont montrés",
+   "conforme": true,
+   "observe": "VOTRE OBJECTIF  augmenter mon chiffre d'affaires de 10 % sur les 6 prochains mois  Échéance 29 avril 2027 · dans 6 mois Origine Objectif fixé par vous Avancement déclaré Aucun point d'étape pour l'instant  La situation de départ n'est pas encore connue. Il manque votre réponse à « Quel a été votre c"
+  },
+  {
+   "id": "RP-27",
+   "attendu": "données partielles : le rapport se rédige avec ce qui existe et liste ce qui manque",
+   "conforme": true,
+   "observe": ""
+  },
+  {
+   "id": "RP-28",
+   "attendu": "droits : le rapport d'un autre compte est introuvable (404, lecture comme suivi), agent hors formule refusé (403), état d'action inconnu refusé (400)",
+   "conforme": true,
+   "observe": "404 404 403 400"
+  }
+ ]
+}

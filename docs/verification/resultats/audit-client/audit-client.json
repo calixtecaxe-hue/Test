@@ -170,9 +170,9 @@
  {
   "id": "R-01",
   "parcours": "Résultats",
-  "attendu": "l'onglet Priorités classe au moins un thème",
+  "attendu": "les leviers sont classés par le moteur selon leur effet sur l'objectif",
   "conforme": false,
-  "observe": "« Aucun thème n'a encore de note » (repères de marché et règles de notation non écrits)"
+  "observe": "« classement des leviers … pas encore calculés » (repères de marché et règles de notation non écrits)"
  },
  {
   "id": "S-01",
@@ -214,7 +214,7 @@
   "parcours": "Mot de passe oublié",
   "attendu": "la demande est confirmée sans dire si l'adresse a un compte",
   "conforme": true,
-  "observe": "Mot de passe oublié\n\nIndiquez l'adresse email de votre compte. Nous vous envoyons un lien pour choisir un nouveau mot de passe.\n\nSi un compte existe pour audit.client.1793281041726@example.com, un email vient de lui être envoyé avec un lien pour choisir un nouveau mot de passe.\n\nLe lien est valable "
+  "observe": "Mot de passe oublié\n\nIndiquez l'adresse email de votre compte. Nous vous envoyons un lien pour choisir un nouveau mot de passe.\n\nSi un compte existe pour audit.client.1793299685651@example.com, un email vient de lui être envoyé avec un lien pour choisir un nouveau mot de passe.\n\nLe lien est valable "
  },
  {
   "id": "L-05",
